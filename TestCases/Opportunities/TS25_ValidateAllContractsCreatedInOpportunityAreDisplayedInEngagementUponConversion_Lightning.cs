@@ -104,7 +104,7 @@ namespace SF_Automation.TestCases.Opportunities
                 opportunityDetails.UpdateReqFieldsForCFConversionL(ERP);
                 extentReports.CreateLog("All required details are saved ");
                 opportunityDetails.ClickAddCFOppContact();
-                addContact.CreateContactL(ERP);
+                addContact.CreateContactCFL(ERP);
 
                 //Logout of Standard user and login as CAO user
                 usersLogin.DiffLightningLogout();

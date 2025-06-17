@@ -108,8 +108,8 @@ namespace SF_Automation.Pages
         By valTxnSizeL = By.XPath("//span[text()='Est. Transaction Size / Market Cap (MM)']/ancestor::div[2]/dd//lightning-formatted-text");
         By txtEstTransSize = By.XPath("//input[@name='Estimated_Transaction_Size_MM__c']");
         By valRetainer = By.CssSelector("div[id*='DwTdFj']");
-        By valRetainerL = By.XPath("//span[text()='Retainer']/ancestor::div[2]/dd//lightning-formatted-text");
-        By valMonthlyL = By.XPath("//span[text()='Progress/Monthly Fee']/ancestor::div[2]/dd//lightning-formatted-text");
+        By valRetainerL = By.XPath("//span[text()='Retainer']/ancestor::div[2]//lightning-formatted-text");
+        By valMonthlyL = By.XPath("//span[text()='Progress/Monthly Fee']/ancestor::div[2]//lightning-formatted-text");
         By valMonthlyFee = By.CssSelector("td[id*='00Ni000000FmBzij']>div[id*='FmBzij']");
         By valContingentFee = By.CssSelector("div[id*='GE9j']");
         By rowOppComments = By.CssSelector("div[id*='00Ni000000FnLT7_body']>table>tbody>tr");
@@ -241,17 +241,17 @@ namespace SF_Automation.Pages
         By txtContractNameL = By.XPath("//input[@name='Name']");
         By txtBillingContact = By.CssSelector("span>input[id*='CF00N5A00000M0ebh']");
         By txtBillingContactL = By.XPath("//input[@placeholder='Search Contacts...']");
-        By valAddedContractL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Name']//div//dd//span//lightning-formatted-text");
-        By valAddedContractIsMainL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Name']//div//dd//span//lightning-formatted-text[contains(text(),'Additional')]");
+        By valAddedContractL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Name']//div//span//lightning-formatted-text");
+        By valAddedContractIsMainL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Name']//div//span//lightning-formatted-text[contains(text(),'Additional')]");
         By lnkOpportunity = By.CssSelector("a[id*='A00000M0ed1']");
         By checkIsMain = By.CssSelector("div[id*='ed1_body']> table > tbody > tr.dataRow.even.last.first > td.dataCell.booleanColumn > img");
-        By checkIsMainL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Is_Main_Contract__c']//dd//label/span[1]");
+        By checkIsMainL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Is_Main_Contract__c']//label/span[1]");
         By lnkEditContract = By.CssSelector("div[id*='ed1_body'] > table > tbody > tr.dataRow.even.last.first > td.actionColumn > a:nth-child(1)");
         By titleEditContract = By.CssSelector("h1[class='pageType']");
         By checkSelectedIsMain = By.CssSelector("input[name*='ZS']");
         By checkSelectedIsMainL = By.XPath("//records-record-layout-row[9]//lightning-primitive-input-checkbox//input");
         By checkIsMainContract1 = By.CssSelector("div[id*='ed1_body']> table > tbody > tr.dataRow.even.first > td.dataCell.booleanColumn > img");
-        By checkIsMainContract1L = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Name']//div//dd//span//lightning-formatted-text[contains(text(),'Additional')]/ancestor::dl//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Is_Main_Contract__c']//dd//label/span[1]");
+        By checkIsMainContract1L = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Name']//div//span//lightning-formatted-text[contains(text(),'Additional')]/ancestor::/div[@data-target-selection-name='sfdc:RecordField.Contract__c.Is_Main_Contract__c']//label/span[1]");
         By checkIsMainContract2 = By.CssSelector("div[id*='ed1_body']> table > tbody > tr.dataRow.odd.last > td.dataCell.booleanColumn > img");
         By valContract1 = By.CssSelector("div[id*='ed1_body'] > table > tbody > tr:nth-child(2) > th > a");
         By valContract2 = By.CssSelector("div[id*='ed1_body'] > table > tbody > tr:nth-child(3) > th > a");
@@ -281,7 +281,7 @@ namespace SF_Automation.Pages
         By valDefaultClient = By.CssSelector("div[id*='DuhQp_body'] > table > tbody > tr:nth-child(2)>th>a");
         By txtClientSubject = By.CssSelector("span>input[id*='CF00Ni000000D9DcG']");
         By txtClientSubjectL = By.XPath("//input[@placeholder='Search Companies...']");
-        By lnkOppClientSubL = By.XPath("//span[text()='Opportunity']/ancestor::div/dd/div[1]//force-lookup//records-hoverable-link");
+        By lnkOppClientSubL = By.XPath("//span[text()='Opportunity']/ancestor::div//div[1]//force-lookup//records-hoverable-link");
         By valNewClient = By.CssSelector("div[id*='p_body'] > table > tbody > tr:nth-child(5)> th > a");
         By valNewClientL = By.XPath("//span[text()='Client/Subject']/ancestor::div[2]/dd//span//a//slot/span/slot");
         By valClientType = By.CssSelector("div[id*='uhQp_body'] > table > tbody > tr:nth-child(5)>td:nth-child(3)");
@@ -336,9 +336,9 @@ namespace SF_Automation.Pages
         By lnkShowMore = By.CssSelector("div[id*='DuhQp_body'] > div > a:nth-child(1)");
         By lnkShowMoreL = By.XPath("(//span[@class='view-all-label'])[1]/..");
         By valTotalDebtCurrency = By.XPath("//div[7]/table/tbody/tr[5]/td[2]");
-        By valTotalDebtCurrencyL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity__c.Total_Debt_Currency__c']//dd//lightning-formatted-text");
+        By valTotalDebtCurrencyL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity__c.Total_Debt_Currency__c']//lightning-formatted-text");
         By valTotalDebtMM = By.XPath("//div[3]/div[2]/div[7]/table/tbody/tr[4]/td[2]");
-        By valTotalDebtMML = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity__c.Total_Debt_MM__c']//dd//lightning-formatted-number");
+        By valTotalDebtMML = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity__c.Total_Debt_MM__c']//lightning-formatted-number");
         By txtDefaultTab = By.XPath("//lightning-tab-bar/ul/li[@title='Public Sensitivity']");
         By titleNBCAdmin = By.XPath("//table//tr/td[2]/p[1]");
 
@@ -415,12 +415,12 @@ namespace SF_Automation.Pages
         By btnRejectL = By.XPath("//div[@title='Reject']");
         By btnApproveOppL = By.XPath("//span[text()='Approve']");
         By txtCommentsL = By.XPath("//textarea[@class='inputTextArea cuf-messageTextArea textarea']");
-        By valStatusL = By.XPath("//section[2]/div/div[2]/div[1]/div[1]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/td[3]/span/span");
+        By valStatusL = By.XPath("//h1[text()='Approval History']/ancestor::div[6]/div[2]//tbody/tr[1]/td[3]//span/span");
         By tabInfo = By.XPath("//a[text()='Info']");
         By lnkMoreL = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button_icon-border-filled')])[1]");
         By tabDetails = By.XPath("//a[text()='Details']");
         By tabAdmin = By.XPath("//a[text()='Administration']");
-        By lnkEditOppName = By.XPath("//span[text()='Opportunity Name']/ancestor::div[2]/following::dd[1]/div/button[@title='Edit Opportunity Name']");
+        By lnkEditOppName = By.XPath("//span[text()='Opportunity Name']/ancestor::div[2]/following::div/button[@title='Edit Opportunity Name']");
         By valClientOwnershipBefore = By.XPath("//label[text()='Client Ownership']/ancestor::div/div[1]/lightning-base-combobox/div/div[1]/div/button/span");
         By btnClientOwnership = By.XPath("//label[text()='Client Ownership']/ancestor::div[2]//lightning-combobox//lightning-base-combobox//button");
         By valClientOwnershipAfter = By.XPath("//flexipage-tab2[1]//flexipage-component2[1]/slot/flexipage-field-section2//flexipage-field[3]//slot[1]/lightning-formatted-text");
@@ -441,11 +441,11 @@ namespace SF_Automation.Pages
         By valCurrencyAfter = By.XPath("//lightning-formatted-text[text()='CHF - Swiss Franc']");
         By btnCloseL = By.XPath("//records-record-edit-error-header/lightning-button-icon/button/lightning-primitive-icon");
         By msgEstTxnSize = By.XPath("//div[text()='The Est.Transaction Size/Market Cap (MM) cannot exceed $100,000 MM.']");
-        By valEstTxnSizeL = By.XPath("//flexipage-tab2[2]//flexipage-component2[3]//flexipage-column2[1]//flexipage-field[1]//dd//slot[1]/lightning-formatted-text");
-        By valEstTxnSizeOppL = By.XPath("//span[text()='Est. Transaction Size / Market Cap (MM)']/ancestor::div[2]//dd//lightning-formatted-text");
+        By valEstTxnSizeL = By.XPath("//flexipage-tab2[2]//flexipage-component2[3]//flexipage-column2[1]//flexipage-field[1]//slot[1]/lightning-formatted-text");
+        By valEstTxnSizeOppL = By.XPath("//span[text()='Est. Transaction Size / Market Cap (MM)']/ancestor::div[2]//lightning-formatted-text");
         // By valEstTxnSize = By.XPath("//div[contains(@id, 'P4j')]");
-        By btCurrencyFee = By.XPath("//span[text()='Currency']/ancestor::div[2]//dd[1]/div//button");
-        By lnkEditRetainer = By.XPath("//span[text()='Currency']/ancestor::div[2]/following::dd[1]/div/button[@title='Edit Retainer']");
+        By btCurrencyFee = By.XPath("//span[text()='Currency']/ancestor::div[2]//div//button");
+        By lnkEditRetainer = By.XPath("//span[text()='Currency']/ancestor::div[2]/following::div/button[@title='Edit Retainer']");
         By lnkEditProgressFee = By.XPath("//div[2]/div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
         By tabClientSubject = By.XPath("//a[text()='KYC/Client/Subject/Referral']");
         By tabClientSubjectL = By.XPath("//a[text()='Client/Subject & Referral']");
@@ -463,15 +463,15 @@ namespace SF_Automation.Pages
         By valCreator = By.XPath("//dt[text()='Created By:']/ancestor::dl/dd[2]//span");
         By msgComplianceL = By.XPath("//div[contains(text(),'Only')]");
         By tabOpportunityL = By.XPath("//div[1]/div/div[1]/div[2]//ul[2]/li[2]/a/span[2]");
-        By valRelatedOppL = By.XPath("//span[text()='Related Opportunity']/ancestor::dt/following::dd[1]//a//span[1]/slot/span");
+        By valRelatedOppL = By.XPath("//span[text()='Related Opportunity']/ancestor::div[2]/div[2]//a//slot//span//span");
         By valAddedCommentType = By.XPath("//dt[text()='Comment Type:']/ancestor::dl/dd[2]/lst-template-list-field/lst-formatted-text");
-        By lnkEngagementL = By.XPath("//span[text()='Engagement']/ancestor::dt/following::dd[1]//a//span//slot//slot/span");
+        By lnkEngagementL = By.XPath("//records-entity-label[text()='Engagement Comment']/ancestor::div[7]/div[2]//span[text()='Engagement']/ancestor::dt/following::dd[1]//a//span//slot//slot/span");
         //By valAddedComment = By.XPath("//dt[text()='Comment:']/ancestor::dl/dd[1]/lst-template-list-field/lightning-base-formatted-text");
         By txtUploadFiles = By.XPath("//span[text()='Upload Files']");
         By toastMsgPopup = By.XPath("//span[@title='UploadFile']");
         By txtClearOppName = By.XPath("//input[@name='Name']");
         By msgOppName = By.XPath("//div[text()='Complete this field.']");
-        By valOppNameL = By.XPath("//div/span[text()='Opportunity Name']/ancestor::div[2]/dd/div/span//lightning-formatted-text");
+        By valOppNameL = By.XPath("//div/span[text()='Opportunity Name']/ancestor::div[2]//div/span//lightning-formatted-text");
         By tabOppNameL = By.XPath("//section[1]/div/div/div/div/div/ul[2]/li[2]/a");
         By btnAddCFContact = By.XPath("//button[@name='Opportunity__c.Add_CF_Opportunity_Contact']");
         By btnAddFRContact = By.XPath("//button[@name='Opportunity__c.Add_FR_Opportunity_Contact']");
@@ -484,7 +484,7 @@ namespace SF_Automation.Pages
         By lnkEditRefType = By.XPath("//button[@title='Edit Referral Type']");
         By valRefTypeBefore = By.XPath("//button[@data-value='Accountant']");
         By btnRefType = By.XPath("//label[text()='Referral Type']/ancestor::lightning-combobox/div/div[1]/lightning-base-combobox/div/div[1]/div/button");
-        By valRefTypeAfter = By.XPath("//span[text()='Referral Type']/ancestor::div[1]/following::dd[1]//lightning-formatted-text");
+        By valRefTypeAfter = By.XPath("//span[text()='Referral Type']/ancestor::div[1]/following::lightning-formatted-text");
         By valConfAfter = By.XPath("//flexipage-field[@data-field-id='RecordConfidentiality_Agreement__cField']/slot//slot[1]/lightning-formatted-text");
 
         By valBenOwnerAfter = By.XPath("//flexipage-field[@data-field-id='RecordBeneficial_Owner_Control_Person_form__cField']/slot/record_flexipage-record-field//slot[1]/lightning-formatted-text");
@@ -580,7 +580,7 @@ namespace SF_Automation.Pages
         By frameInternalTeam = By.XPath("(//iframe[@title='HL_EngagementInternalTeamView'])");
         By btnEngModifyRoles = By.XPath("(//div[contains(@class,'Custom')]//table//a[text()='Modify Roles'])[1]");
         By checkCFSpeciality = By.CssSelector("input[name*='internalTeam:j_id64:6:j_id66']");
-        By txtOppNumberL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtOppNumberL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/ancestor::dt/following-sibling::lightning-formatted-text");//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/parent::div/following-sibling::div//lightning-formatted-text");
         By txtRequestMsgL = By.XPath("//div[contains(@id,'modalbody')][contains(@class,'OppRequestEngagement')]");
         By btnPopupOKL = By.XPath("//div[contains(@class,'RecordTypeFooter')]//button");
         By tabApprovalHistoryL = By.XPath("//button[@title='Close Approval History']");
@@ -650,7 +650,7 @@ namespace SF_Automation.Pages
         By tabOppActivity = By.XPath("//li[@title='Activity']//a[@id='flexipage_tab4__item']");
         By valClientL = By.XPath("//span[text()='Client']/ancestor::div[3]//records-hoverable-link//slot/span/slot");
         By valSubjectL = By.XPath("//span[text()='Subject']/ancestor::div[3]//records-hoverable-link//slot/span/slot");
-        By valOppNumNBCL = By.XPath("//span[text()='Opportunity Number']/ancestor::div[2]/dd//lightning-formatted-text");
+        By valOppNumNBCL = By.XPath("//span[text()='Opportunity Number']/ancestor::div[2]//lightning-formatted-text");
         By btnPortfolioVL = By.XPath("//span[text()='Portfolio Valuation']");
         By btnPortfolioVL2 = By.XPath("//button[text()='Portfolio Valuation']");
         By valJobTypeL = By.XPath("//span[text()='Job Type']/ancestor::div[2]//span//lightning-formatted-text");
@@ -667,7 +667,7 @@ namespace SF_Automation.Pages
         By headerText = By.XPath("//h1//div[text()='Engagement']");
         By labelESGLV = By.XPath("//flexipage-field[contains(@data-field-id,'ESG')]//label");
         By checkSpeciality1 = By.CssSelector("input[name*='internalTeam:j_id64:7:j_id66']");
-        By txtOppNameL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Opportunity Name']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//lightning-formatted-text");////span[contains(@class,'field-label')][normalize-space()='Opportunity Name']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtOppNameL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Opportunity Name']/ancestor::dt/following-sibling::lightning-formatted-text");//::dl//dd//lightning-formatted-text");////span[contains(@class,'field-label')][normalize-space()='Opportunity Name']/parent::div/following-sibling::div//lightning-formatted-text");
         By btnDNDOnOFF = By.XPath("//button[contains(@name,'Opportunity__c.DND_On_Off')]");
         By btnEditSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Edit']");
         By btnCancelSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Cancel']");
@@ -718,7 +718,7 @@ namespace SF_Automation.Pages
         By comboOutcomeL = By.XPath("//label[text()='Outcome']/parent::div//button");
         By dateOutcomeDateL = By.XPath("//label[text()='Outcome Date']/parent::div//input");
         By lblAssociatedAddL = By.XPath("//records-record-layout-item[@field-label='Associate Address']");//label[text()='Associated Address']");
-        By btnInlineEditCCOutComeL = By.XPath("//records-record-layout-item[@field-label='Outcome']//dd//button");
+        By btnInlineEditCCOutComeL = By.XPath("//records-record-layout-item[@field-label='Outcome']//button");
         By lblConflictsRunL = By.XPath("//flexipage-field[contains(@data-field-id,'Conflicts_Check')]//span[text()='Conflicts Run']");
         By lblIBL = By.XPath("//label[text()='Industry Banker']");
         By iconCloseConversionPopup = By.XPath("//button[@title='Cancel and close']");//Close this window
@@ -1981,7 +1981,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(5000);
             //driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@title='accessibility title']")));
             Thread.Sleep(7000);
-            WebDriverWaits.WaitUntilEleVisible(driver, txtDefaultTabCNBC, 140);
+            //WebDriverWaits.WaitUntilEleVisible(driver, txtDefaultTabCNBC, 140);
             string title = driver.FindElement(txtDefaultTabCNBC).Text;
             return title;
         }
@@ -2158,7 +2158,7 @@ namespace SF_Automation.Pages
             driver.FindElement(btnPortfolioVCAOL).Click();
             Thread.Sleep(4000);
             driver.SwitchTo().Frame(0);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnNewOppValPeriodL, 120);
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnNewOppValPeriodL, 120);
             driver.FindElement(btnNewOppValPeriodL).Click();
         }
 
@@ -2490,6 +2490,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, valRetainerL, 90);
             Thread.Sleep(2000);
             string retainer = driver.FindElement(valRetainerL).Text;
+            return retainer;
             return retainer;
         }
         //To get Monthly Fee
@@ -4811,7 +4812,7 @@ namespace SF_Automation.Pages
                 Thread.Sleep(5000);
                 //driver.FindElement(lnkShowMoreL).Click();
                 //Thread.Sleep(5000);
-                string value = driver.FindElement(By.XPath("//span[text()='Client/Subject Company']/ancestor::div/dd/div[1]//force-lookup//a/span//span/slot")).Text;
+                string value = driver.FindElement(By.XPath("//span[text()='Client/Subject Company']/ancestor::div//div[1]//force-lookup//a/span//span/slot")).Text;
                 return value;
             }
         }
@@ -4844,7 +4845,7 @@ namespace SF_Automation.Pages
                 Thread.Sleep(5000);
                 //driver.FindElement(lnkShowMoreL).Click();
                 //Thread.Sleep(5000);
-                string value = driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + recordType + "']/ancestor::records-record-layout-row/slot/records-record-layout-item[1]//dd//a//slot/span/slot")).Text;
+                string value = driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + recordType + "']/ancestor::records-record-layout-row/slot/records-record-layout-item[1]//a//slot/span/slot")).Text;
                 return value;
             }
         }
@@ -5863,7 +5864,7 @@ namespace SF_Automation.Pages
         //Update the value of Client Ownership
         public void UpdateClientSubjectOwnershipL()
         {
-            driver.FindElement(By.XPath("//span[text()='Client Ownership']/ancestor::div[2]/dd//button")).Click();
+            driver.FindElement(By.XPath("//span[text()='Client Ownership']/ancestor::div[2]//button")).Click();
             Thread.Sleep(4000);
             driver.FindElement(btnClientOwnership).Click();
             Thread.Sleep(7000);
@@ -7662,7 +7663,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
         }
-        By iconInlineEditNBCCheckBox = By.XPath("//records-record-layout-item[@field-label='NBC Approved']//dd//button");
+        By iconInlineEditNBCCheckBox = By.XPath("//records-record-layout-item[@field-label='NBC Approved']//button");
         By chkNBCApprovedL = By.XPath("//records-record-layout-item[@field-label='NBC Approved']//input");
 
         public void UpdateNBCApprovalLV()

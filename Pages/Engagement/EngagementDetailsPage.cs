@@ -60,7 +60,7 @@ namespace SF_Automation.Pages.Engagement
         By valTotalEstFeesFAS = By.CssSelector("div[id*='00Ni000000FmBzP']");
         By valYearMonth = By.CssSelector("div[id*='hsaB_body']>table>tbody>tr:nth-child(2)>th>a:nth-child(2)");
         By valYearMonthL = By.XPath("//tr[1]/th//span/a[2]");
-        By valTotalEstFeeL = By.XPath("//span[text()='Total Estimated Fee']/ancestor::div[2]/dd//lightning-formatted-text");
+        By valTotalEstFeeL = By.XPath("//span[text()='Total Estimated Fee']/ancestor::div[2]//lightning-formatted-text");
         By tabFees2ndEngL = By.XPath("//section[3]//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar//li[3]/a");
         By tabInfo2ndEngL = By.XPath("//section[3]//div[1]//flexipage-record-home-template-desktop2//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar//li[1]/a");
         By valTotalEstFee2ndEngL = By.XPath("//section[3]//flexipage-tab2[3]/slot/flexipage-component2[2]//flexipage-column2[1]//flexipage-field[3]//lightning-formatted-text");
@@ -115,13 +115,13 @@ namespace SF_Automation.Pages.Engagement
         By valERPProjectNumber = By.CssSelector("div[id*='eMj']");
         By valERPProjectName = By.CssSelector("div[id*='eLj']");
         By valLOB = By.CssSelector("div[id*='oEj']");
-        By valLOBL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Line_of_Business__c']//dd//lightning-formatted-text");
-        By valClientCompL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Client__c']//dd//records-hoverable-link//span//slot//slot");
-        By valLegalEntityL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Legal_Entity__c']//dd//records-hoverable-link//span//slot//slot");
+        By valLOBL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Line_of_Business__c']//lightning-formatted-text");
+        By valClientCompL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Client__c']//records-hoverable-link//span//slot//slot");
+        By valLegalEntityL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Legal_Entity__c']//records-hoverable-link//span//slot//slot");
         By lblLOBHeader = By.XPath("//p[text()='Line of Business']");
         By valLOBHeader = By.XPath("//p[text()='Line of Business']/ancestor::div[1]/p[2]//lightning-formatted-text");
-        By lblDiscStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.External_Disclosure_Status__c']//dt//span");
-        By valDiscStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.External_Disclosure_Status__c']//dd//slot/lightning-formatted-text");
+        By lblDiscStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.External_Disclosure_Status__c']//span");
+        By valDiscStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.External_Disclosure_Status__c']//slot/lightning-formatted-text");
         By lblSubjectHeader = By.XPath("//p[@title='Subject']");
         By valSubjectHeader= By.XPath("//p[@title='Subject']/ancestor::div[1]/p[2]//records-hoverable-link//a//slot//slot/span");
         By lblClientHeader = By.XPath("//p[@title='Client']");
@@ -540,8 +540,8 @@ namespace SF_Automation.Pages.Engagement
         By lnkEngReports = By.XPath("//span[text()='Engagement Reports']");
         By tblReports = By.XPath("//div[@class='pbBody']/div[3]/table/tbody/tr/td[1]/a");
         By btnReturnToEngLightning = By.XPath("//input[@value='Return to Engagement']");
-        By valRelatedOppL = By.XPath("//span[text()='Related Opportunity']/ancestor::div[2]//dd//a//span[1]//span//span");
-        By btnPortfolioValL = By.XPath("//section[2]/div/div[2]//div//runtime_platform_actions-actions-ribbon/ul/li/runtime_platform_actions-action-renderer//lightning-button/button[text()='Portfolio Valuation']");
+        By valRelatedOppL = By.XPath("//span[text()='Related Opportunity']/ancestor::div[2]//a//span[1]//span//span");
+        By btnPortfolioValL = By.XPath("//section[2]/div/div/div[1]//runtime_platform_actions-actions-ribbon/ul/li[9]//lightning-button/button");
         By btnNewOppValPeriodL = By.XPath("//input[@value='New Opportunity Valuation Period']");
         By btnNewEngValPeriodL = By.XPath("//input[@value='New Engagement Valuation Period']");
         By btnEngReportsL = By.XPath("//button[text()='Engagement Reports']");
@@ -753,7 +753,7 @@ namespace SF_Automation.Pages.Engagement
         By btnSaveL = By.XPath("//button[text()='Save']");
         By btnChangeRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//dd//button[@title='Change Record Type']");
         By headerChangeRT = By.XPath("//h1[contains(text(),'Change')]");
-        By valRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//dd//div[contains(@class,'recordTypeName')]/span");
+        By valRecordTypeL = By.XPath("//div[contains(@data-target-selection-name,'RecordType')]//div[contains(@class,'recordTypeName')]/span");
         By btnChangeRTNextL = By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button[2]");
         By valERPProductTypeL = By.XPath("//records-record-layout-item[@field-label='Product Type']//dd//lightning-formatted-text");
         By valERPProductTypCodeL = By.XPath("//records-record-layout-item[@field-label='ERP Product Type Code']//dd//lightning-formatted-text");
@@ -8448,7 +8448,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, valRelatedOppL, 190);
             driver.FindElement(valRelatedOppL).Click();
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioValL, 160);
+           // WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioValL, 160);
             driver.FindElement(btnPortfolioValL).Click();
             Thread.Sleep(6000);
 

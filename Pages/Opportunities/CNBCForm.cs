@@ -82,8 +82,8 @@ namespace SF_Automation.Pages.Opportunity
         By FeesTab = By.XPath("//lightning-tab-bar/ul/li[@title='Fees']");
         By lnkEditFeedback = By.XPath("//button[@title='Edit Feedback required before next call?']");
 
-        By lblCurrentStatus = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordTransaction_Overview_cField2']/slot[1]/following::span[1]");
-        By lblRiskFact = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordCompany_Description_cField2']/slot[1]/following::span[1]");
+        By lblCurrentStatus = By.XPath("//span[text()='Current Status']");
+        By lblRiskFact = By.XPath("span[text()='Risk Factors'");
         By lblExistingRel = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordExisting_or_Repeat_Client_cField1']/slot[1]/following::span[1]");
         By lblExisting = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordRisk_Factors_cField1']/slot[1]/following::span[1]");
         By lblAsiaAngle = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordExisting_Relationships_cField1']/slot[1]/following::span[1]");

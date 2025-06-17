@@ -1128,7 +1128,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnRecentlyViewed, 350);
             driver.FindElement(btnRecentlyViewed).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//div[1]/div/ul/li[8]")).Click();
+            driver.FindElement(By.XPath("//div[1]/div/ul/li//span[text()='Opportunities']")).Click();
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
             driver.FindElement(valRec1st).Click();

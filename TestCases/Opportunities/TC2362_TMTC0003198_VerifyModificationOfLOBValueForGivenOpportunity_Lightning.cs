@@ -98,10 +98,10 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Search for Opportunity
                 opportunityHome.SearchOpportunity(opportunityNumber);
-                opportunityDetails.UpdateOutcomeDetails(fileTC2362);
-                extentReports.CreateLog("Conflict Check fields are updated ");
                 string lob = opportunityDetails.UpdateRecordTypeAndLOB();
                 Assert.AreEqual("CF", lob);
+                opportunityDetails.UpdateOutcomeDetails(fileTC2362);
+                extentReports.CreateLog("Conflict Check fields are updated ");              
                 opportunityDetails.AddEstFeesWithAdmin(fileTC2362);
                 string jobType = opportunityDetails.GetJobType();
                 Assert.AreEqual("Negotiated Fairness", jobType);

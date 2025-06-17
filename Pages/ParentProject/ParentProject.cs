@@ -25,23 +25,23 @@ namespace SalesForce_Project.Pages
         By txtBillToContact = By.XPath("//input[@placeholder='Search Contacts...']");
         By btnInvoice = By.XPath("//button[@aria-label='Invoice Type']");
         
-        By valAddedProject = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.Name']//dd//span//lightning-formatted-text");
+        By valAddedProject = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.Name']//span//lightning-formatted-text");
         By btnEditParentProject = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[1]//flexipage-column2[2]/div/slot//div/button[@title='Edit Parent Project']");
         By txtParentProject = By.XPath("//input[@placeholder='Search Project Billings...']");
         By btnClearParentProject = By.XPath("//label[text()='Parent Project']/ancestor::lightning-grouped-combobox//button[@title='Clear Selection']");
-        By valParentProjectEng = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Parent_Project__c']//dd//records-hoverable-link//span//span/slot");
-        By lnkParentProjectEng = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Parent_Project__c']//dd//records-hoverable-link");
-        By tabParentProject = By.XPath("//div[2]/div/div[@role='tablist']/ul[@role='presentation']/li[2]/a/span[2]");
-        By valAssociatedEng = By.XPath("//table[@aria-label='Engagements']//tbody/tr[1]/th//a/span//span/slot");
-        By valProjectClient = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.Client__c']//dd//lightning-formatted-text");
-        By valProjectLOB = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.Line_of_Business__c']//dd//lightning-formatted-text");
-        By valProjectCurrency = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.CurrencyIsoCode']//dd//lightning-formatted-text");
-        By valLegalEntity = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.ERP_Legal_Entity__c']//dd//lightning-formatted-text");
+        By valParentProjectEng = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Parent_Project__c']//records-hoverable-link//span//span/slot");
+        By lnkParentProjectEng = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Parent_Project__c']//records-hoverable-link");
+        By tabParentProject = By.XPath("//div[2]/div/div/ul[2]/li[2]/a/span[1]");
+        By valAssociatedEng = By.XPath("//table[@aria-label='Engagements']//tbody/tr[1]/th//lst-output-lookup//a//slot//slot/span");
+        By valProjectClient = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.Client__c']//lightning-formatted-text");
+        By valProjectLOB = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.Line_of_Business__c']//lightning-formatted-text");
+        By valProjectCurrency = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.CurrencyIsoCode']//lightning-formatted-text");
+        By valLegalEntity = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.ERP_Legal_Entity__c']//lightning-formatted-text");
         By valParentProgContract = By.XPath("//th[@data-label='Contract Name']//records-hoverable-link//span//span/slot");
         By valContractNumber = By.XPath("//td[@data-label='Contract Number']//lst-formatted-text/span");
         By lnkContract = By.XPath("//th[@data-label='Contract Name']//records-hoverable-link");
-        By valTotalFee = By.XPath("//span[text()='Total Fee']/ancestor::div[2]/dd//lightning-formatted-text");
-        By valFundingAmount = By.XPath("//span[text()='Funding Amount']/ancestor::div[2]/dd//span");
+        By valTotalFee = By.XPath("//span[text()='Total Fee']/ancestor::div[2]//lightning-formatted-text");
+        By valFundingAmount = By.XPath("//span[text()='Funding Amount']/ancestor::div[2]/div[2]//lightning-formatted-number");
         By txtSearchProject = By.XPath("//input[@placeholder='Search this list...']");
         By btnRefresh = By.XPath("//button[@name='refreshButton']");
         By valSearchedProjectName = By.XPath("//table/tbody/tr[1]/th/span//a");
@@ -264,9 +264,9 @@ namespace SalesForce_Project.Pages
         {
 
             driver.FindElement(tabParentProject).Click();
-            driver.Navigate().Refresh();
-            Thread.Sleep(5000);            
-            WebDriverWaits.WaitUntilEleVisible(driver, valAssociatedEng);
+            //Sdriver.Navigate().Refresh();
+            Thread.Sleep(7000);            
+            //WebDriverWaits.WaitUntilEleVisible(driver, valAssociatedEng);
             string eng = driver.FindElement(valAssociatedEng).Text;
             return eng;
         }

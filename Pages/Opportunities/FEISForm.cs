@@ -54,11 +54,11 @@ namespace SF_Automation.Pages.Opportunity
         By btnReturntoOpp = By.CssSelector("input[value*='Return to Opportunity']");
         By lblDefaultTabL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Opportunity Overview']");
         By msgFEISFormL = By.XPath("//span[@title='Please check this box and press Save to ensure all required fields are completed.']");
-        By valOppNameL = By.XPath("//span[text()='Related Opportunity']/ancestor::dt/following::dd[1]//slot/span/slot");
-        By valJobTypeL = By.XPath("//span[text()='Job Type']/ancestor::div[2]/dd//records-formula-output/slot/lightning-formatted-text");
-        By valClientL = By.XPath("//span[text()='Client Company']/ancestor::div[2]/dd//records-formula-output/slot/lightning-formatted-text");
-        By valSubjectL = By.XPath("//span[text()='Subject Company']/ancestor::div[2]/dd//records-formula-output/slot/lightning-formatted-text");
-        By valRefTypeL = By.XPath("//span[text()='Referral Type']/ancestor::div[2]/dd//records-formula-output/slot/lightning-formatted-text");
+        By valOppNameL = By.XPath("//span[text()='Related Opportunity']/ancestor::div[2]/div[2]//records-hoverable-link//span//span//span");
+        By valJobTypeL = By.XPath("//span[text()='Job Type']/ancestor::div[2]/div[2]//span//lightning-formatted-text");
+        By valClientL = By.XPath("//span[text()='Client Company']/ancestor::div[2]/div[2]//span//lightning-formatted-text");
+        By valSubjectL = By.XPath("//span[text()='Subject Company']/ancestor::div[2]/div[2]//span//lightning-formatted-text");
+        By valRefTypeL = By.XPath("//span[text()='Referral Type']/ancestor::div[2]/div[2]//span//lightning-formatted-text");
         By lnkRelOppL = By.XPath("//button[@title='Edit Related Opportunity']");
         By btnSaveL = By.XPath("//button[@name='SaveEdit']");
         By btnCancelL = By.XPath("//button[@name='CancelEdit']");

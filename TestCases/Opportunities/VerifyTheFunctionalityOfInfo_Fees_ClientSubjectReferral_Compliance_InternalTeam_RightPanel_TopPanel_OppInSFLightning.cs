@@ -499,7 +499,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Add Opportunity CF Contact and validate the added contact
                 opportunityDetails.ClickAddCFOppContact();
-                addContact.CreateContactL(TMTT0017889);
+                addContact.CreateContactCFL(TMTT0017889);
                 string addedContact = addContact.ValidateAddedContact();               
                 Assert.AreEqual(name, addedContact);
                 extentReports.CreateLog("Added Opportunity Contact: " + addedContact + " is displayed after clicking Save button ");

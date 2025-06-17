@@ -297,11 +297,11 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Message : " + msgAddFin + " is displayed in red color ");
 
                 string msgCapMkt = form.GetMessageCapitalMarket();
-                Assert.AreEqual("Has the Capital Markets Group been Consulted regarding financing or capital structure?", msgCapMkt);
+                Assert.AreEqual("Has the Capital Solutions Group been Consulted regarding financing or capital structure?", msgCapMkt);
                 extentReports.CreateLog("Message : " + msgCapMkt + " is displayed ");
 
                 string txtCapMkt = form.GetLabelCapMktConsult();
-                Assert.AreEqual("Capital Markets Consulted", txtCapMkt);
+                Assert.AreEqual("Capital Solutions Consulted", txtCapMkt);
                 extentReports.CreateLog("Field with name: " + txtCapMkt + " is displayed ");
 
                 string txtFinNotes = form.GetLabelExistingFinNotes();

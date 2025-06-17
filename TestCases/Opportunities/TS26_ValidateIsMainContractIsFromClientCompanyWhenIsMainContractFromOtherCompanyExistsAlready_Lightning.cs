@@ -90,7 +90,7 @@ namespace SF_Automation.TestCases.Opportunities
                 string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
                 //counterparty.ClickViewCounterparties();               
                 opportunityDetails.ClickAddCFOppContact();
-                addContact.CreateContactL(ERP);
+                addContact.CreateContactCFL(ERP);
 
                 //Logout of Standard user
                 usersLogin.DiffLightningLogout();

@@ -192,8 +192,8 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("Record was deleted.", confirmDelete);
                 extentReports.CreateLog("Revenue record is deleted after clicking Ok button on Delete Confirmation pop up window ");
 
-                //10. 
-
+                //10. TMTI0114546 _Verify that the "Engagement Financial Check" field is required field. 
+                 
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();

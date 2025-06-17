@@ -54,27 +54,27 @@ namespace SF_Automation.Pages.Opportunity
         By btnAddFin = By.XPath("//button[@name= 'Opportunity_Approval__c.Add_Financials']");
         By titleAddFin = By.XPath("//h2[@class='slds-modal__title']");
         By btnSaveAddFin = By.XPath("//footer/button[2]");
-        By txtYear = By.XPath("//dl[3]/div[1]//li");
-        By txtType = By.XPath("//dl[2]/div[1]/div/div/ul/li");
-        By lblRelatedComp = By.XPath("//dl[1]/div/div/div/div/label/span[1]");
-        By lblType = By.XPath("//dl[2]/div[1]/div/div/div/span/span[1]");
-        By lblYear = By.XPath("//dl[3]/div[1]/div/div/div/span/span[1]");
-        By lblAsOfDate = By.XPath("//dl[4]/div[1]/div/div/div/label/span");
-        By lblRevenue = By.XPath("//dl[5]/div[1]/div/div/div/label/span");
-        By lblAnnualRec = By.XPath("//dl[6]/div[1]/div/div/div/label/span");
-        By lblEBIT = By.XPath("//dl[7]/div[1]/div/div/div/label/span");
-        By lblCurrency = By.XPath("//div[2]/div/div/div/span/span");
-        By lblFaceValue = By.XPath("//div[2]/div/div/div/label/span");
+        By txtYear = By.XPath("//span[text()='Year']/ancestor::div[2]/ul/li");
+        By txtType = By.XPath("//span[text()='Type']/ancestor::div[2]/ul/li");
+        By lblRelatedComp = By.XPath("//span[text()='Related Company']");
+        By lblType = By.XPath("//span[text()='Type']");
+        By lblYear = By.XPath("//span[text()='Year']");
+        By lblAsOfDate = By.XPath("//span[text()='As of Date']");
+        By lblRevenue = By.XPath("//span[text()='Revenue (MM)']");
+        By lblAnnualRec = By.XPath("//span[text()='Annual Recurring Revenue (MM)']");
+        By lblEBIT = By.XPath("//span[text()='EBIT (MM)']");
+        By lblCurrency = By.XPath("//span[text()='Currency']");
+        By lblFaceValue = By.XPath("//span[text()='Face Value (MM)']");
         By lblNetAsset = By.XPath("//span[text()='Net Asset Value (MM)']");
-        By lblNoOfComp = By.XPath("//dl[4]/div[2]/div/div/div/label/span");
-        By lblNoOfLoans = By.XPath("//dl[5]/div[2]/div/div/div/label/span");
-        By lblNoOfInterests = By.XPath("//dl[6]/div[2]/div/div/div/label/span");
-        By lblNoOfPolicies = By.XPath("//dl[7]/div[2]/div/div/div/label/span");
-        By lblEBITDA = By.XPath("//dl[8]/div[1]/div/div/div/label/span");
-        By lblInterest = By.XPath("//dl[9]/div[1]/div/div/div/label/span");
-        By lblPreTax = By.XPath("//dl[10]/div[1]/div/div/div/label/span");
-        By lblBookValue = By.XPath("//dl[11]/div[1]/div/div/div/label/span");
-        By lblAssetsUnder = By.XPath("//dl[12]/div[1]/div/div/div/label/span");
+        By lblNoOfComp = By.XPath("//span[text()='Number of Companies']");
+        By lblNoOfLoans = By.XPath("//span[text()='Number of Loans']");
+        By lblNoOfInterests = By.XPath("//span[text()='Number of Interests']");
+        By lblNoOfPolicies = By.XPath("//span[text()='Number of Policies']");
+        By lblEBITDA = By.XPath("//span[text()='EBITDA (MM)']");
+        By lblInterest = By.XPath("//span[text()='Interest and Fee Income (MM)']");
+        By lblPreTax = By.XPath("//span[text()='Pre-Tax Income (MM)']");
+        By lblBookValue = By.XPath("//span[text()='Book Value (MM)']");
+        By lblAssetsUnder = By.XPath("//span[text()='Assets Under Management (MM)']");
         By btnCancelAddFin = By.XPath("//div[2]/div/div/footer/button[1]/span");
 
         By lnkEditOppOverviewTab = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/button/span[1]");
@@ -132,7 +132,7 @@ namespace SF_Automation.Pages.Opportunity
         By comboInternational = By.XPath("//label[text()='International Angle?']/following::button[1]");
         By comboSanctions = By.XPath("(//lightning-base-combobox)[6]");
 
-        By btnCapMkt = By.XPath("//label[text()='Capital Markets Consulted']/following::button[2]");
+        By btnCapMkt = By.XPath("//label[text()='Capital Solutions Consulted']/following::button[2]");
         By txtExistingFin = By.XPath("//label[text()='Existing Financial Arrangement Notes']/following::textarea[1]");
         By btnFinSubject = By.XPath("(//lightning-base-combobox)[8]");
         By txtFinAuditNotes = By.XPath("//label[text()='Financials Audit Notes']/following::textarea[1]");
@@ -145,7 +145,7 @@ namespace SF_Automation.Pages.Opportunity
         By txtProgressFeeCred = By.XPath("//input[@name='Is_Progress_Fee_Creditable__c']");
         By txtMinFee = By.XPath("//input[@name='Estimated_Minimum_Fee__c']");
         By txtEstTxnVal = By.XPath("//input[@name='Transaction_Value_for_Fee_Calc__c']");
-        By valEstTxnVal = By.XPath("//span[text()='Estimated Transaction Value']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
+        By valEstTxnVal = By.XPath("//span[text()='Estimated Transaction Value']/ancestor::div[2]//slot[1]/lightning-formatted-text");
         By btnTxnFeeType = By.XPath("//label[text()='Transaction Fee Type']/following::lightning-base-combobox[1]/div//button");
         By btnTxnFeeType1 = By.XPath("//label[text()='Transaction Fee Type']/ancestor::div[1]/div//button");
         By valTxnFeeType = By.XPath("//label[text()='Transaction Fee Type']/ancestor::div[1]/div[1]//div[2]/lightning-base-combobox-item/span[2]/span");
@@ -159,13 +159,13 @@ namespace SF_Automation.Pages.Opportunity
         By txtMinFeeMM = By.XPath("//input[@name='Estimated_Minimum_Fee__c']");
         By txtEstTxnValueMM = By.XPath("//input[@name='Transaction_Value_for_Fee_Calc__c']");
         By txtReferralFeeOwnedMM = By.XPath("//input[@name='Referral_Fee__c']");
-        By valEstTotalFeeMM = By.XPath("//span[text()='Estimated Total Fee']/ancestor::div[2]//dd//lightning-formatted-text");
-        By lnkEditProgressFeeCred = By.XPath("//span[text()='Progress Fee Creditable ?']/ancestor::div[2]/dd[1]//button");
-        By valFlatFee = By.XPath("//span[text()='Flat Fee']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
-        By lnkEditCurrency = By.XPath("//span[text()='Currency']/ancestor::div[2]/dd[1]//button");
+        By valEstTotalFeeMM = By.XPath("//span[text()='Estimated Total Fee']/ancestor::div[2]//lightning-formatted-text");
+        By lnkEditProgressFeeCred = By.XPath("//span[text()='Progress Fee Creditable ?']/ancestor::div[2]/div[2]/button");
+        By valFlatFee = By.XPath("//span[text()='Flat Fee']/ancestor::div[2]//slot[1]/lightning-formatted-text");
+        By lnkEditCurrency = By.XPath("//span[text()='Currency']/ancestor::div[2]//button");
         By lnkEditCurrencyL = By.XPath("//span[text()='Progress Fee Creditable ?']/ancestor::slot[3]/flexipage-column2[2]//span[text()='Currency']/ancestor::div[2]//button");
         By txtFlatFee = By.XPath("//label[text()='Flat Fee']/following::div[1]/input");
-        By valMinFee = By.XPath("//span[text()='Engagement Letter Minimum Fee']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
+        By valMinFee = By.XPath("//span[text()='Engagement Letter Minimum Fee']/ancestor::div[2]//slot[1]/lightning-formatted-text");
         By btnWillThere = By.XPath("//label[text()='Will There Be a Pitch?']/following::button[1]");
         By txtHLComp = By.XPath("//label[text()='Houlihan Lokey Competition']/following::textarea[1]");
         By btnLockups = By.XPath("//label[text()='Lockups on Future M&A or Financing Work']/following::button[1]");
@@ -176,18 +176,18 @@ namespace SF_Automation.Pages.Opportunity
         By msgEstTransValue = By.XPath("//div[text()='Estimated Transaction Value should be greater than 0']");
 
         By txtBaseFee = By.XPath("//label[text()='Base Fee']/following::input[1]");
-        By valBaseFee = By.XPath("//span[text()='Base Fee']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
-        By lnkUpdBaseFee = By.XPath("//span[text()='Base Fee']/ancestor::div[2]/dd[1]//button");
+        By valBaseFee = By.XPath("//span[text()='Base Fee']/ancestor::div[2]//slot[1]/lightning-formatted-text");
+        By lnkUpdBaseFee = By.XPath("//span[text()='Base Fee']/ancestor::div[2]//button");
         By txt1stRatchetPer = By.XPath("//label[text()='First Ratchet Percent']/following::input[1]");
         By txt2ndRatchetPer = By.XPath("//label[text()='Second Ratchet Percent']/following::input[1]");
         By txt3rdRatchetPer = By.XPath("//label[text()='Third Ratchet Percent']/following::input[1]");
         By txt4thRatchetPer = By.XPath("//label[text()='Fourth Ratchet Percent']/following::input[1]");
         By txtFinalRatchetPer = By.XPath("//label[text()='Final Ratchet Percent']/following::input[1]");
-        By lnkUpd1stRatchet = By.XPath("//span[text()='First Ratchet Percent']/ancestor::div[2]/dd[1]//button");
-        By lnkUpd2ndRatchet = By.XPath("//span[text()='Second Ratchet Percent']/ancestor::div[2]/dd[1]//button");
-        By lnkUpd3rdRatchet = By.XPath("//span[text()='Third Ratchet Percent']/ancestor::div[2]/dd[1]//button");
-        By lnkUpd4thRatchet = By.XPath("//span[text()='Fourth Ratchet Percent']/ancestor::div[2]/dd[1]//button");
-        By lnkUpdFinalRatchet = By.XPath("//span[text()='Final Ratchet Percent']/ancestor::div[2]/dd[1]//button");
+        By lnkUpd1stRatchet = By.XPath("//span[text()='First Ratchet Percent']/ancestor::div[2]//button");
+        By lnkUpd2ndRatchet = By.XPath("//span[text()='Second Ratchet Percent']/ancestor::div[2]//button");
+        By lnkUpd3rdRatchet = By.XPath("//span[text()='Third Ratchet Percent']/ancestor::div[2]//button");
+        By lnkUpd4thRatchet = By.XPath("//span[text()='Fourth Ratchet Percent']/ancestor::div[2]//button");
+        By lnkUpdFinalRatchet = By.XPath("//span[text()='Final Ratchet Percent']/ancestor::div[2]//button");
         By msg1stRatchetFromAmount = By.XPath("//label[text()='First Ratchet From Amount']/ancestor::lightning-primitive-input-simple/div[2]");
         By msg1stRatchetToAmount = By.XPath("//label[text()='First Ratchet To Amount']/ancestor::lightning-primitive-input-simple/div[2]");
         By msg2ndRatchetFromAmount = By.XPath("//label[text()='Second Ratchet From Amount']/ancestor::lightning-primitive-input-simple/div[2]");
@@ -242,21 +242,21 @@ namespace SF_Automation.Pages.Opportunity
         By lblAsiaAngle = By.XPath("//span[text()='Asia Angle']");
         By lblSanctions = By.XPath("//span[text()='Sanctions Concerns/Issues?']");
 
-        By msgCapMarket = By.XPath("//span[@title='Has the Capital Markets Group been Consulted regarding financing or capital structure?']");
+        By msgCapMarket = By.XPath("//span[@title='Has the Capital Solutions Group been Consulted regarding financing or capital structure?']");
         By msgAddFin = By.XPath("//strong[contains(text(),'To add financials')]");
-        By lblCapMkt = By.XPath("//span[text()='Capital Markets Consulted']");
+        By lblCapMkt = By.XPath("//span[text()='Capital Solutions Consulted']");
         By lblExistFin = By.XPath("//span[text()='Existing Financial Arrangement Notes']");
         By msgAboveFin = By.XPath("//span[text()='Have the above financials been subject to an audit?']");
         By lblFinSub = By.XPath("//span[text()='Financials Subject to Audit']");
         By msgFinAvail = By.XPath("//span[@title='Financials Unavailable']");
-        By lblNoFin = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials__c']/div[1]/dt/div[1]/span");
-        By lblNoFinExp = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials_Explanation__c']/div[1]/dt/div[1]/span");
+        By lblNoFin = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials__c']/div[1]/div[1]/span");
+        By lblNoFinExp = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials_Explanation__c']/div[1]/div[1]/span");
 
         By lblRetainer = By.XPath("//span[text()='Retainer']");
         By lblProgressFee = By.XPath("//span[text()='Progress Fee']");
         By lblMinFee = By.XPath("//span[text()='Engagement Letter Minimum Fee']");
         By lblTxnFee = By.XPath("//label[text()='Engagement Letter Minimum Fee']");
-        By valTxnFee = By.XPath("//span[text()='Estimated Total Fee']/ancestor::div[2]/dd//span[1]//lightning-formatted-text");
+        By valTxnFee = By.XPath("//span[text()='Estimated Total Fee']/ancestor::div[2]//span[1]//lightning-formatted-text");
         By lblEstTxn = By.XPath("//span[text()='Estimated Transaction Value']");
         By lblEstTxnValueReport = By.XPath("//flexipage-component2[2]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[6]/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblProgFeeCredit = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[@data-field-id='RecordRetainer_Creditable_cField1']/slot[1]/following::span[1]");
@@ -282,33 +282,33 @@ namespace SF_Automation.Pages.Opportunity
         By lblRefSource = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordReferral_Type_cField1']/slot[1]/following::span[1]");
 
         By secIsPotential = By.XPath("//span[@title='Is there a potential Fairness Opinion component to this assignment?']");
-        By lblFairnessOpinion = By.XPath("//flexipage-field[@data-field-id='RecordFairness_Opinion_Provided_cField4']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
+        By lblFairnessOpinion = By.XPath("//flexipage-field[@data-field-id='RecordFairness_Opinion_Provided_cField4']/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
 
         By secRestricted = By.XPath("//slot/flexipage-tab2[2]/slot/flexipage-component2[1]/slot/flexipage-field-section2/div/div/div/h3/button/span");
         By lblRestictedList = By.XPath("//span[text()='Restricted List']");
         By secCCInfo = By.XPath("//span[@title='Conflicts Check Information - (the answers to each of these questions must be verified with each member of the deal team)']");
-        By lblCCStatus = By.XPath("//slot/flexipage-field[@data-field-id='RecordConflict_Check_Status_cField1']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
+        By lblCCStatus = By.XPath("//slot/flexipage-field[@data-field-id='RecordConflict_Check_Status_cField1']/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By secAreThereAnyPitch = By.XPath("//flexipage-component2[@data-component-id='flexipage_richText6']/slot/flexipage-aura-wrapper/div/div/div[1]/p/b");
-        By lbl1stYesNo = By.XPath("//slot/flexipage-field[@data-field-id='RecordConflicts_2a_Not_Listed_cField3']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
+        By lbl1stYesNo = By.XPath("//slot/flexipage-field[@data-field-id='RecordConflicts_2a_Not_Listed_cField3']/slot/record_flexipage-record-field/div/div//div[1]/span[1]");
         By secHaveAny1 = By.XPath("//flexipage-component2[@data-component-id='flexipage_richText15']/slot/flexipage-aura-wrapper/div/div/div[1]/p/b");
-        By lbl2ndYesNo = By.XPath("//slot/flexipage-field[@data-field-id='RecordConflicts_3a_Related_to_Transaction_cField1']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
+        By lbl2ndYesNo = By.XPath("//slot/flexipage-field[@data-field-id='RecordConflicts_3a_Related_to_Transaction_cField1']/slot/record_flexipage-record-field/div/div//div[1]/span[1]");
         By secHaveAny2 = By.XPath("//flexipage-component2[@data-component-id='flexipage_richText16']/slot/flexipage-aura-wrapper/div/div/div[1]/p/b");
-        By lbl3rdYesNo = By.XPath("//slot/flexipage-field[@data-field-id='RecordConflicts_35a_Related_to_Client_cField2']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
+        By lbl3rdYesNo = By.XPath("//slot/flexipage-field[@data-field-id='RecordConflicts_35a_Related_to_Client_cField2']/slot/record_flexipage-record-field/div/div//div[1]/span[1]");
         By secHaveAny3 = By.XPath("//flexipage-component2[9]/slot/flexipage-aura-wrapper/div/div/div[1]/p/b");
-        By lbl4thYesNo = By.XPath("//slot/flexipage-field[@data-field-id='RecordConflicts_4a_Conflict_of_Interest_cField3']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
+        By lbl4thYesNo = By.XPath("//slot/flexipage-field[@data-field-id='RecordConflicts_4a_Conflict_of_Interest_cField3']/slot/record_flexipage-record-field/div/div//div[1]/span[1]");
         By secHaveAny4 = By.XPath("//flexipage-component2[11]/slot/flexipage-aura-wrapper/div/div/div[1]/p/b");
-        By lbl5thYesNo = By.XPath("//slot/flexipage-field[@data-field-id='RecordConflicts_5a_Other_Conflicts_cField1']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
+        By lbl5thYesNo = By.XPath("//slot/flexipage-field[@data-field-id='RecordConflicts_5a_Other_Conflicts_cField1']/slot/record_flexipage-record-field/div/div//div[1]/span[1]");
 
         By secA = By.XPath("//flexipage-component2[@data-component-id='flexipage_richText']/slot/flexipage-aura-wrapper/div/div/div[1]/p/b");
-        By lblA = By.XPath("//flexipage-field[@data-field-id='RecordA_cField2']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
+        By lblA = By.XPath("//flexipage-field[@data-field-id='RecordA_cField2']/slot/record_flexipage-record-field/div/div//div[1]/span[1]");
         By secB = By.XPath("//flexipage-component2[@data-component-id='flexipage_richText2']/slot/flexipage-aura-wrapper/div/div/div[1]/p/b");
-        By lblB = By.XPath("//flexipage-field[@data-field-id='RecordB_cField2']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
+        By lblB = By.XPath("//flexipage-field[@data-field-id='RecordB_cField2']/slot/record_flexipage-record-field/div/div//div[1]/span[1]");
         By secC = By.XPath("//flexipage-component2[@data-component-id='flexipage_richText3']/slot/flexipage-aura-wrapper/div/div/div[1]/p/b");
-        By lblC = By.XPath("//flexipage-field[@data-field-id='RecordC_cField2']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
+        By lblC = By.XPath("//flexipage-field[@data-field-id='RecordC_cField2']/slot/record_flexipage-record-field/div/div//div[1]/span[1]");
         By secD = By.XPath("//flexipage-component2[@data-component-id='flexipage_richText4']/slot/flexipage-aura-wrapper/div/div/div[1]/p/b");
-        By lblD = By.XPath("//flexipage-field[@data-field-id='RecordD_cField2']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
+        By lblD = By.XPath("//flexipage-field[@data-field-id='RecordD_cField2']/slot/record_flexipage-record-field/div/div//div[1]/span[1]");
         By secPlsConfirm = By.XPath("//flexipage-component2[@data-component-id='flexipage_fieldSection15']/slot/flexipage-field-section2/div/div/div/h3/button/span");
-        By lblGroupHead = By.XPath("//flexipage-field[@data-field-id='RecordHead_Approval_cField1']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
+        By lblGroupHead = By.XPath("//flexipage-field[@data-field-id='RecordHead_Approval_cField1']/slot/record_flexipage-record-field/div/div//div[1]/span[1]");
 
         By lblStaff = By.XPath("//table//tr[3]/td[1]//label");
         By btnSaveITTeam = By.XPath("//div[1]//div[1]/table//tr/td[2]//input[1]");
@@ -316,20 +316,20 @@ namespace SF_Automation.Pages.Opportunity
         By btnRoleDef = By.XPath("//div[1]//div[1]/table//tr/td[2]//input[3]");
 
         By secToSubmit = By.XPath("//h3/button/span[text()='To Submit An NBC Form:']");
-        By lblNextSchCall = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Next_Scheduled_Call__c']/div[1]//dt/div[1]/span[1]");
-        By lblReqFeedback = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Req_feedback_prior_to_normal_sched_call__c']/div[1]//dt/div[1]/span");
-        By btnNextSchCall = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Next_Scheduled_Call__c']/div[1]//dt/lightning-helptext/div/lightning-button-icon");
+        By lblNextSchCall = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Next_Scheduled_Call__c']/div[1]//div[1]/span[1]");
+        By lblReqFeedback = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Req_feedback_prior_to_normal_sched_call__c']/div[1]//div[1]/span");
+        By btnNextSchCall = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Next_Scheduled_Call__c']/div[1]//lightning-helptext/div/lightning-button-icon");
         By btnFormCheck = By.XPath("//div[2]/slot//flexipage-component2[4]/slot//lightning-button-icon");
-        By btnInSuffFin = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials__c']/div/dt/lightning-helptext/div/lightning-button-icon");
-        By btnInSuffFinExp = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials_Explanation__c']/div/dt/lightning-helptext/div/lightning-button-icon");
-        By btnAsOfDate = By.XPath("//label/div/lightning-icon");
+        By btnInSuffFin = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials__c']/div/lightning-helptext/div/lightning-button-icon");
+        By btnInSuffFinExp = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials_Explanation__c']/div/lightning-helptext/div/lightning-button-icon");
+        By btnAsOfDate = By.XPath("//label//div//button");
 
         By msgNextSchCall = By.XPath("//lightning-primitive-bubble[@role='tooltip']//div[@class='slds-popover__body']");
         By lblRequiresFeedback = By.XPath("//span[text()='Requires Feedback Date&Time in GMT']");
         By lblReviewSub = By.XPath("//label/span[text()='Form Check (required to submit)']");
-        By lnkReqfeedback = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Req_feedback_prior_to_normal_sched_call__c']/div//dd/div[1]/button");
+        By lnkReqfeedback = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Req_feedback_prior_to_normal_sched_call__c']/div[1]/div[2]//button");
         By chkReqFeedback = By.XPath("(//span[@class='slds-checkbox slds-checkbox_standalone']/input)[4]");
-        By msgAsOfDate = By.XPath("//div/label/div/span");
+        By msgAsOfDate = By.XPath("//label//div//button/span[2]");
 
         By lblQuestion1 = By.XPath("//legend[text()='When is feedback needed by?']");
         By lblQuestion2 = By.XPath("//label[contains(text(),'Why can')]");
@@ -357,28 +357,28 @@ namespace SF_Automation.Pages.Opportunity
         By lblFairnessFee = By.XPath("//span[text()='Fairness Fee Inclusion']");
         By lblFairnessOpinionStaff = By.XPath("//span[text()='Fairness Opinion Staffing Notes']");
         By lblUnaffiliatedStockHolders = By.XPath("//flexipage-component2[@data-component-id='flexipage_fieldSection8']/slot/flexipage-field-section2/div/div/div/h3/button/span");
-        By lblCheck1 = By.XPath("//flexipage-field[@data-field-id='RecordFEIS_Opine_Option_1_cField2']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
+        By lblCheck1 = By.XPath("//flexipage-field[@data-field-id='RecordFEIS_Opine_Option_1_cField2']/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblCompInTrans = By.XPath("//flexipage-component2[@data-component-id='flexipage_fieldSection13']/slot/flexipage-field-section2/div/div/div/h3/button/span");
-        By lblCheck2 = By.XPath("//flexipage-field[@data-field-id='RecordFEIS_Opine_Option_2_cField1']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
+        By lblCheck2 = By.XPath("//flexipage-field[@data-field-id='RecordFEIS_Opine_Option_2_cField1']/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblCompInTrans2 = By.XPath("//flexipage-component2[@data-component-id='flexipage_fieldSection20']/slot/flexipage-field-section2/div/div/div/h3/button/span");
-        By lblCheck3 = By.XPath("//flexipage-field[@data-field-id='RecordFEIS_Opine_Option_3_cField2']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
+        By lblCheck3 = By.XPath("//flexipage-field[@data-field-id='RecordFEIS_Opine_Option_3_cField2']/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblExchangeRatio = By.XPath("//flexipage-component2[@data-component-id='flexipage_fieldSection21']/slot/flexipage-field-section2/div/div/div/h3/button/span");
-        By lblCheck4 = By.XPath("//flexipage-field[@data-field-id='RecordFEIS_Opine_Option_4_cField1']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
+        By lblCheck4 = By.XPath("//flexipage-field[@data-field-id='RecordFEIS_Opine_Option_4_cField1']/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblExchangeRatioUnaffil = By.XPath("//flexipage-component2[@data-component-id='flexipage_fieldSection22']/slot/flexipage-field-section2/div/div/div/h3/button/span");
-        By lblCheck5 = By.XPath("//flexipage-field[@data-field-id='RecordFEIS_Opine_Option_5_cField2']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
+        By lblCheck5 = By.XPath("//flexipage-field[@data-field-id='RecordFEIS_Opine_Option_5_cField2']/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblNotYet = By.XPath("//flexipage-component2[@data-component-id='flexipage_fieldSection23']/slot/flexipage-field-section2/div/div/div/h3/button/span");
-        By lblCheck6 = By.XPath("//flexipage-field[@data-field-id='RecordForm_of_Opinion_Not_Yet_Known_cField2']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
+        By lblCheck6 = By.XPath("//flexipage-field[@data-field-id='RecordForm_of_Opinion_Not_Yet_Known_cField2']/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblOthersSpecify = By.XPath("//flexipage-component2[@data-component-id='flexipage_fieldSection32']/slot/flexipage-field-section2/div/div/div/h3/button/span");
-        By lblCheck7 = By.XPath("//flexipage-field[@data-field-id='RecordFEIS_Opine_Option_6_cField2']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
-        By lblFormOfOpinion = By.XPath("//flexipage-field[@data-field-id='RecordForm_of_Opinion_Notes_cField1']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
+        By lblCheck7 = By.XPath("//flexipage-field[@data-field-id='RecordFEIS_Opine_Option_6_cField2']/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
+        By lblFormOfOpinion = By.XPath("//flexipage-field[@data-field-id='RecordForm_of_Opinion_Notes_cField1']/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
         By lblRelatedParty = By.XPath("//flexipage-component2[@data-component-id='flexipage_fieldSection33']/slot/flexipage-field-section2/div/div/div/h3/button/span");
-        By lblRelatedPartyTxn = By.XPath("//flexipage-field[@data-field-id='RecordRelated_Party_Transaction_cField2']/slot/record_flexipage-record-field/div/div//dt/div[1]/span[1]");
+        By lblRelatedPartyTxn = By.XPath("//flexipage-field[@data-field-id='RecordRelated_Party_Transaction_cField2']/slot/record_flexipage-record-field/div/div/div[1]/span[1]");
 
         By btnSubmitForReview = By.XPath("//lightning-button/button[text()='Submit for Review']");
         By tabReview = By.XPath("//lightning-tab-bar/ul/li[@title='Review']");
         By lnkEditGrade = By.XPath("//span[text()='Grade']/following::div[1]/button/span[1]");
         By btnGrade = By.XPath("//label[text()='Grade']/ancestor::div/div/lightning-base-combobox/div/div/div[1]/button");
-        By valGrade = By.XPath("//span[text()='Grade']/ancestor::div[2]//dd//lightning-formatted-text");
+        By valGrade = By.XPath("//span[text()='Grade']/ancestor::div[2]//lightning-formatted-text");
 
         By valOppNum = By.XPath("/html/body/p[8]/span");
         By btnSendEmail = By.XPath("//div[1]/table/tbody/tr/td[2]/input[1]");
@@ -441,13 +441,13 @@ namespace SF_Automation.Pages.Opportunity
         By btnAttachFile = By.CssSelector("button[type='button']");
         By btnAddFinancials = By.CssSelector("input[id*='newFinancials']");
 
-        By lnkEditRetainer = By.XPath("//span[text()='Retainer']/ancestor::div[2]/dd[1]//button");
-        By valRetainer = By.XPath("//span[text()='Retainer']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
-        By valProgressFee = By.XPath("//span[text()='Progress Fee']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
-        By valEstTotalFee = By.XPath("//span[text()='Estimated Total Fee']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
-        By valEstValuation = By.XPath("//span[text()='Estimated Transaction Value']/ancestor::div[2]/dd[1]//slot[1]/lightning-formatted-text");
+        By lnkEditRetainer = By.XPath("//span[text()='Retainer']/ancestor::div[2]//button");
+        By valRetainer = By.XPath("//span[text()='Retainer']/ancestor::div[2]//slot[1]/lightning-formatted-text");
+        By valProgressFee = By.XPath("//span[text()='Progress Fee']/ancestor::div[2]//slot[1]/lightning-formatted-text");
+        By valEstTotalFee = By.XPath("//span[text()='Estimated Total Fee']/ancestor::div[2]//slot[1]/lightning-formatted-text");
+        By valEstValuation = By.XPath("//span[text()='Estimated Transaction Value']/ancestor::div[2]//slot[1]/lightning-formatted-text");
         By lnkEditEstValuation = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[@data-field-id='RecordTotal_Debt_MM_cField2']/slot[1]/following::button[2]/span[1]");
-        By msgCCStatus = By.XPath("//span[text()='Conflict Check Status']/ancestor::div[2]/dd[1]//lightning-formatted-text");
+        By msgCCStatus = By.XPath("//span[text()='Conflict Check Status']/ancestor::div[2]//lightning-formatted-text");
 
         By msgCC1 = By.XPath("//flexipage-tab2[5]/slot//flexipage-tab2[2]/slot/flexipage-component2[4]//lightning-combobox/div/div[2]");
         //flexipage-tab2[2]/slot/flexipage-component2[4]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[2]
@@ -455,7 +455,7 @@ namespace SF_Automation.Pages.Opportunity
         By msgCC3 = By.XPath("//flexipage-tab2[5]/slot//flexipage-tab2[2]/slot/flexipage-component2[8]//lightning-combobox/div/div[2]");
         By msgCC4 = By.XPath("//flexipage-tab2[5]/slot//flexipage-tab2[2]/slot/flexipage-component2[10]//lightning-combobox/div/div[2]");
         By msgCC5 = By.XPath("//flexipage-tab2[5]/slot//flexipage-tab2[2]/slot/flexipage-component2[12]//lightning-combobox/div/div[2]");
-        By valDateSubmitted = By.XPath("//span[text()='Date Submitted']/ancestor::div[2]/dd//lightning-formatted-text");
+        By valDateSubmitted = By.XPath("//span[text()='Date Submitted']/ancestor::div[2]//lightning-formatted-text");
         By lblBaseFee = By.XPath("//span[text()='Base Fee']");
         By lbl1stRatchetPercent = By.XPath("//span[text()='First Ratchet Percent']");
         By lbl1stRatchetFromAmt = By.XPath("//span[text()='First Ratchet From Amount']");
@@ -1560,7 +1560,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(5000);
             driver.FindElement(btnCapMkt).Click();
             string name = ReadExcelData.ReadData(excelPath, "NBCForm", 7);
-            driver.FindElement(By.XPath("//label[text()='Capital Markets Consulted']/following::div[7]/lightning-base-combobox-item/span[2]/span[text()='" + name + "']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Capital Solutions Consulted']/following::div[7]/lightning-base-combobox-item/span[2]/span[text()='" + name + "']")).Click();
             driver.FindElement(txtExistingFin).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 3));
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,250)");
@@ -2640,9 +2640,9 @@ namespace SF_Automation.Pages.Opportunity
 
         public void UpdateTransactionFee()
         {
-            driver.FindElement(By.XPath("//flexipage-tab2[3]//flexipage-column2[1]//flexipage-field[3]//lightning-base-combobox//div[1]/button")).Click();
+            driver.FindElement(By.XPath("//label[text()='Transaction Fee Type']/ancestor::div[1]/div[1]//button")).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//flexipage-tab2[3]//flexipage-column2[1]//flexipage-field[3]//lightning-base-combobox//div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
+            driver.FindElement(By.XPath("//label[text()='Transaction Fee Type']/ancestor::div[1]//lightning-base-combobox/div[1]//lightning-base-combobox-item[3]//span[2]/span")).Click();
             driver.FindElement(btnSave).Click();
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnClose, 80);

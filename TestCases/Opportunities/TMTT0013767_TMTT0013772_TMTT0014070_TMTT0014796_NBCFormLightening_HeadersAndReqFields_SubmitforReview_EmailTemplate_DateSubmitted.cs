@@ -244,7 +244,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string actCapMktValidation = form.GetValidationOfCapMarketConsulted();
                 string expCapMktValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 43);
-                Assert.AreEqual("Capital Markets Consulted\r\nFinancing Checklist: Has the Capital Markets Group been consulted regarding financing or capital structure?", actCapMktValidation);
+                Assert.AreEqual("Capital Solutions Consulted\r\nFinancing Checklist: Has the Capital Markets Group been consulted regarding financing or capital structure?", actCapMktValidation);
                 extentReports.CreateLog("Validation: " + actCapMktValidation + " is displayed for Capital Markets Consulted field ");
 
                 string actExistingFinValidation = form.GetValidationOfExistingFin();
