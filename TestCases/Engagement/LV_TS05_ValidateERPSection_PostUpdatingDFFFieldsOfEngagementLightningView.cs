@@ -97,7 +97,7 @@ namespace SF_Automation.TestCases.Engagements
                 string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
 
                 addOpportunityContact.CickAddFROpportunityContact();
-                addOpportunityContact.CreateContactL2(fileERPTS05);
+                addOpportunityContact.CreateContactL2(fileERPTS05, valRecordType);
                 extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                 //Fetch values of Opportunity Name, Client, Subject and Job Type

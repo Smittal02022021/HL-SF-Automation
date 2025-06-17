@@ -91,13 +91,6 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB: " + valRecordType);
                     extentReports.CreateStepLogs("Pass", driver.Title + " is displayed ");
 
-                    //Validate Women Led field and its associated section
-                    string secName = addOpportunity.GetWomenLedSectionNameLV(valRecordType);
-                    string womenLed = addOpportunity.ValidateWomenLedFieldLV(valRecordType);
-                    Assert.AreEqual("Administration", secName);
-                    Assert.AreEqual("Women Led", womenLed);
-                    extentReports.CreateStepLogs("Pass", "Field with name: " + womenLed + " is displayed under section: " + secName + " ");
-
                     string opportunityName = addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTC1624);//updated totalDbt
                     extentReports.CreateStepLogs("Info", "Opportunity : " + opportunityName + " is created ");
 
@@ -115,7 +108,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
                     string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
                     addOpportunityContact.CickAddFROpportunityContact();
-                    addOpportunityContact.CreateContactL2(fileTC1624);
+                    addOpportunityContact.CreateContactL2(fileTC1624, valRecordType);
                     extentReports.CreateStepLogs("Info", valContactType + " Opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details

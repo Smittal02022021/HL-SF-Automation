@@ -102,7 +102,7 @@ namespace SF_Automation.TestCases.OpportunitiesDND
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
 
                     addOpportunityContact.CickAddOpportunityContactLV();
-                    addOpportunityContact.CreateContactL2(fileTMTT0036857);
+                    addOpportunityContact.CreateContactL2(fileTMTT0036857, valRecordType);
                     extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                     opportunityDetails.UpdateReqFieldsForFRConversionLV(fileTMTT0036857);

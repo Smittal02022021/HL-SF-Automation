@@ -126,7 +126,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
 
                 addOpportunityContact.CickAddCFOpportunityContact();
-                addOpportunityContact.CreateContactL2(fileTMTC0036135);
+                addOpportunityContact.CreateContactL2(fileTMTC0036135, valRecordType);
                 extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                 //Update required Opportunity fields for conversion and Internal team details
@@ -413,7 +413,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 //Search for created opportunity
                 opportunityHome.GlobalSearchOpportunityInLightningView(opportunityName);
                 randomPages.DetailPageFullViewLV();
-                opportunityDetails.UpdateCCOutcomeDetailsLV();
+                opportunityDetails.UpdateOutcomeNBCApproveDetailsLV(valJobType);
 
                 randomPages.CloseActiveTab(opportunityName);
                 homePageLV.LogoutFromSFLightningAsApprover();

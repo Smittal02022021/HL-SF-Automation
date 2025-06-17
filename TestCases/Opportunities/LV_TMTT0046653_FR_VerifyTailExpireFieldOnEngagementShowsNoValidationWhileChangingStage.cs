@@ -8,9 +8,9 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.OpportunitiesConversion
 {
-    class LV_TMTT0046653_VerifyTailExpireFieldOnFRFVAEngagementShowsNoValidationWhileChangingStage:BaseClass
+    class LV_TMTT0046653_VerifyTailExpireFieldOnFREngagementShowsNoValidationWhileChangingStage:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -25,8 +25,9 @@ namespace SalesForce_Project.TestCases.Opportunities
         HomeMainPage homePage = new HomeMainPage();
         RandomPages randomPages = new RandomPages();
 
-        public static string fileTMTT0046653 = "LV_TMTT0046653_VerifyTailExpireFieldOnFVAFREngagementNoValidationWhileChangingStage";
-       
+        public static string fileTMTT0046653 = "LV_TMTT0046653_VerifyTailExpireFieldOnFREngagementNoValidationWhileChangingStage";
+        private string userCAOExl;
+
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -38,11 +39,9 @@ namespace SalesForce_Project.TestCases.Opportunities
 
         //TMTI0114208 Verify that Tail Expire Field on FR Engagement is not seen and able to change Stage to Dead without Tail Expire Field validation check.
         //TMTI0114210 Verify that Tail Expire Field on FR Engagement is not seen and able to change Stage to Hold without Tail Expire Field validation check.
-        //TMTI0114212 Verify that Tail Expire Field on FVA Engagement is not seen and able to change Stage to Dead without Tail Expire Field validation check.
-        //TMTI0114214 Verify that Tail Expire Field on FVA Engagement is not seen and able to change Stage to Hold without Tail Expire Field validation check.
-        
+         
         [Test]
-        public void VerifyTailExpireFieldShowsNoValidationWhileChangingStageFRFVA()
+        public void VerifyTailExpireFieldShowsNoValidationWhileChangingStageFR()
         {
             try
             {
@@ -62,22 +61,8 @@ namespace SalesForce_Project.TestCases.Opportunities
                 int rowOpp = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
                 int user = ReadExcelData.GetRowCount(excelPath, "StandardUsers");
 
-                for (int rowUser = 2; rowUser <= user; rowUser++)
-                {
-                    string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "StandardUsers", rowUser,1);
-                    homePage.SearchUserByGlobalSearchN(valUser);
-                    extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
-                    //Login user
-                    usersLogin.LoginAsSelectedUser();
-                    login.SwitchToLightningExperience();
-                    string stdUser = login.ValidateUserLightningView();
-                    Assert.AreEqual(stdUser.Contains(valUser), true);
-                    extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
-                    string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                    homePageLV.SelectAppLV(appNameExl);
-                    string appName = homePageLV.GetAppName();
-                    Assert.AreEqual(appNameExl, appName);
-                    extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
+                //for (int rowUser = 2; rowUser <= user; rowUser++)                {
+                    
                     for (int row = 2; row <= rowOpp; row++)
                     {
                         for (int rowStg = 2; rowStg <= rowStage; rowStg++)
@@ -86,8 +71,22 @@ namespace SalesForce_Project.TestCases.Opportunities
                             string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
                             string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
                             extentReports.CreateStepLogs("Info", "Creating Opportunity for : " + valJobType + " ");
+                            
                             //Login as Standard User profile and validate the user
-
+                            string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "StandardUsers", row, 1);
+                            homePage.SearchUserByGlobalSearchN(valUser);
+                            extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
+                            //Login user
+                            usersLogin.LoginAsSelectedUser();
+                            login.SwitchToLightningExperience();
+                            string stdUser = login.ValidateUserLightningView();
+                            Assert.AreEqual(stdUser.Contains(valUser), true);
+                            extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
+                            string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
+                            homePageLV.SelectAppLV(appNameExl);
+                            string appName = homePageLV.GetAppName();
+                            Assert.AreEqual(appNameExl, appName);
+                            extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
 
                             string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                             homePageLV.SelectModule(moduleNameExl);
@@ -115,12 +114,27 @@ namespace SalesForce_Project.TestCases.Opportunities
                             string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);
                             string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
                             addOpportunityContact.CickAddOpportunityContactLV();
-                            addOpportunityContact.CreateContactL2(fileTMTT0046653);
+                            addOpportunityContact.CreateContactL2(fileTMTT0046653, valRecordType);
                             extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                             //Update required Opportunity fields for conversionfor CF/FR/FVA and Internal team details                            
-                            
-                            opportunityDetails.UpdateReqFieldsForConversionLV(fileTMTT0046653, valJobType,valRecordType);
+                            //if (valRecordType == "FR")
+                            //{
+                                opportunityDetails.UpdateReqFieldsForFRConversionLV(fileTMTT0046653);
+                                opportunityDetails.UpdateTotalDebtConfirmedLV();
+                                extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
+                                //PitchMandateAward details
+                                randomPages.ClickPitchMandteAwardTabLV();
+                                opportunityDetails.CreateNewPitchMandateAwardLV();
+                                extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
+                                string idPMA = opportunityDetails.GetPitchMandateAwardID();
+                                randomPages.CloseActiveTab(idPMA + " | Pitch/Mandate Award");
+                            //}
+                            //if (valRecordType == "FVA")
+                            //{
+                            //    opportunityDetails.UpdateReqFieldsForFVAConversionLV(fileTMTT0046653);
+                            //}
+                                //opportunityDetails.UpdateReqFieldsForConversionLV(fileTMTT0046653, valJobType, valRecordType);
                              
                             extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
                             opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTT0046653);
@@ -189,7 +203,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                             /////-------------------//////
 
                             //Login as CAO user to approve the Opportunity
-                            string userCAOExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUsers", rowUser, 1);
+                            userCAOExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUsers", row, 1);
                             homePage.SearchUserByGlobalSearchN(userCAOExl);
                             extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " details are displayed. ");
                             //Login user
@@ -229,32 +243,26 @@ namespace SalesForce_Project.TestCases.Opportunities
                             extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
                             engagementHome.GlobalSearchEngagementInLightningView(engagementName);
 
-                            //TMTI0113893	Verify that Tail Expire Field on CF Engagement having Job type as BuySide shows validation while changing Stage to Dead
+                            //TMTI0114208 Verify that Tail Expire Field on FR Engagement is not seen and able to change Stage to Dead without Tail Expire Field validation check.
+                            //TMTI0114210 Verify that Tail Expire Field on FR Engagement is not seen and able to change Stage to Hold without Tail Expire Field validation check.
 
                             string stage = engagementDetails.GetStageLV();
                             engagementDetails.EditEngagementStageLV(valStage);
+                            //string msgBubble = randomPages.GetPopUpMessagelV();
                             Assert.IsFalse(engagementDetails.IsValidationDisplayedLV(), "Verify the Required field's validation while changing the stage");
-                            extentReports.CreateStepLogs("Passed", "Required field's validation displayed while changing the stage");
-                            
-                            string actualListValidationErrors = engagementDetails.GetEngChangeStageFieldLevelValidationErrorsLV();
-                            string expectedListValidationErrors = ReadExcelData.ReadDataMultipleRows(excelPath, "ValidationList", rowStg, 1);
-                            Assert.AreEqual(expectedListValidationErrors, actualListValidationErrors, "Verify that validation appears when user try to change the stage to '" + rowStg + "'");
-                            extentReports.CreateStepLogs("Passed", "Validations appeared when user try to change the stage to Verbally Engaged");
-                            Assert.IsTrue(actualListValidationErrors.Contains("Tail Expires"), "Verify that Tail Expire Field on CF Engagement having Job type as " + valJobType + "shows validation while changing Stage to " + stage);
-                            extentReports.CreateStepLogs("Passed", "CF Engagement having Job type: " + valJobType + "Tail Expire Field's validation on shows while changing Stage to '" + rowStg + "'");
-                            //enter required fields as per stage
-                            engagementDetails.EntertStageChangeReqValuesLV(valStage);
-                            string msgBubble = randomPages.GetPopUpMessagelV();
-                            extentReports.CreateStepLogs("Info", "New Stage saved with Success Message: " + msgBubble);
+                            extentReports.CreateStepLogs("Passed", "Tail Expires Required field's validation Not displayed while changing the stage");
+                            //extentReports.CreateStepLogs("Info", "New Stage saved with Success Message: " + msgBubble);
                             stage = engagementDetails.GetStageLV();
                             Assert.AreEqual(valStage, stage, "Verify that Stage is updated to Dead after filling All required fields");
-                            extentReports.CreateStepLogs("Passed", "CF Engagement having Job type as " + valJobType + " Stage changed to " + stage + " after filling required including Tail Expire ");
+                            extentReports.CreateStepLogs("Passed", "FR Engagement having Job type as " + valJobType + " Stage changed to " + stage + " without Tail Expire field validation");
+                            randomPages.CloseActiveTab(engagementName);
+                            randomPages.ReloadPage();
                             randomPages.CloseActiveTab(engagementName);
                             homePageLV.LogoutFromSFLightningAsApprover();
                             extentReports.CreateStepLogs("Info", "CAO User: " + userCAOExl + " logged out ");
                         }
                     }
-                }
+                                    
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }

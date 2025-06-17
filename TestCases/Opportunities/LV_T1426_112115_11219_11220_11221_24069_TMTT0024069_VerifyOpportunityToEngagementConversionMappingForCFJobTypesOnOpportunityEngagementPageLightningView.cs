@@ -26,6 +26,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
         RandomPages randomPages = new RandomPages();
 
         public static string fileTMTI0055384 = "LV_T1426_OpportunityToEngagementConversionMappingForCF";
+        private string locationBenefit;
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -122,14 +123,15 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
 
                     addOpportunityContact.CickAddCFOpportunityContact();
-                    addOpportunityContact.CreateContactL2(fileTMTI0055384);
+                    addOpportunityContact.CreateContactL2(fileTMTI0055384, valRecordType);
                     extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                     //TMTI0113217 Verify that the "Tail Expires" field does not display on the CF page layout for different Job Types on creating new opportunities
                     //TMTI0113236 Verify that the "Tail Expires" field is removed as a required field on the Engagement conversion errors page while converting existing opportunities into engagement
-
+                    //TMTI0118698 Verify that the user is able to update the "Location where Benefit was Provided" field value and successfully request an engagement.
                     //Update required Opportunity fields for conversion and Internal team details
                     opportunityDetails.UpdateReqFieldsForCFConversionLV2(fileTMTI0055384, valJobType);//udated Move to element
+                    extentReports.CreateStepLogs("Info", "Location where Benefit was Provided value filled ");
                     extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
                     opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTI0055384);
                     extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are provided ");
@@ -176,7 +178,6 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
                     //Search for created opportunity
                     opportunityHome.GlobalSearchOpportunityInLightningView(opportunityName);
-                    //Requesting for engagement and validate the success message
                     opportunityDetails.ClickRequestToEngL();
 
                     //Submit Request To Engagement Conversion 
@@ -236,10 +237,9 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     Assert.IsTrue(engagementDetails.IsTailExpiresFieldPresentLV(), "Verify that the 'Tail Expires' field continues to display on the CF Engagement page under Important Dates");
                     extentReports.CreateStepLogs("Passed", "'Tail Expires' field continues to display on the CF Engagement page under Important Dates");
 
-
                     //TMTI0055391 Verify the Record Type conversion of Opportunity to Engagement
                     //Validate the value of Record Type in Engagement details page
-                    engagementDetails.ClickEngAdministrationTabLV();
+                    engagementDetails.ClickEngAdministrationTabLV();                   
                     string engRecordType = engagementDetails.GetRecordTypeLV();
                     string recordTypeExpected =ReadExcelData.ReadDataMultipleRows(excelPath, "Engagement", row, 2);
                     Assert.AreEqual(recordTypeExpected, engRecordType);

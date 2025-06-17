@@ -118,7 +118,7 @@ namespace SF_Automation.TestCases.Opportunities
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
 
                     addOpportunityContact.ClickAddOpportunityContactLV(valRecordType);
-                    addOpportunityContact.CreateContactL2(fileGCATracking);
+                    addOpportunityContact.CreateContactL2(fileGCATracking, valRecordType);
                     extentReports.CreateStepLogs("Info", "Contact " + valContact + " is added as " + valContactType + " for opportunity with LOB: " + valRecordType);
                                         
                     //Update required Opportunity fields for conversion and Internal team details

@@ -386,7 +386,6 @@ namespace SF_Automation.Pages.HomePage
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(5000);
-
             WebDriverWaits.WaitUntilEleVisible(driver, userImage, 120);
             driver.FindElement(userImage).Click();
             Thread.Sleep(5000);

@@ -222,7 +222,7 @@ namespace SF_Automation.Pages.Companies
         By tabContactL = By.XPath("//a[text()='Contacts']");
         By tabCoverageL = By.XPath("//a[text()='Coverage']");
         By tabFinancialsL = By.XPath("//a[text()='Financials']");
-        By txtsectionNameL = By.XPath("//h3//span[@class='slds-truncate']");
+        By txtsectionNameL = By.XPath("//h3//button/span"); //h3//span[@class='slds-truncate']");
         By btnInlineEditPhoneL = By.XPath("//button[@title='Edit Phone']");
         By inputPhoneL = By.XPath("//input[@name='Phone']");
         //By btnCancelDetailsL = By.XPath("//button[@name='CancelEdit']");

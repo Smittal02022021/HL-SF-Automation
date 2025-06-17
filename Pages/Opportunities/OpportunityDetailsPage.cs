@@ -3,6 +3,7 @@ using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using RazorEngine.Compilation.ImpromptuInterface.Optimization;
+using SF_Automation.Pages.Common;
 using SF_Automation.TestCases.Contact;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
@@ -19,6 +20,7 @@ namespace SF_Automation.Pages
 {
     class OpportunityDetailsPage : BaseClass
     {
+        RandomPages randomPages = new RandomPages();
         By btnMore = By.XPath("(//button[@title='More Tabs'])[3]");
         By btnDeleteActivity = By.XPath("//button[@title='Delete']");
 
@@ -408,7 +410,7 @@ namespace SF_Automation.Pages
         By btnRejectL = By.XPath("//div[@title='Reject']");
         By btnApproveOppL = By.XPath("//span[text()='Approve']");
         By txtCommentsL = By.XPath("//textarea[@class='inputTextArea cuf-messageTextArea textarea']");
-        By valStatusL = By.XPath("//section[2]/div/div[2]/div[1]/div[1]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/td[3]/span/span");
+        By valStatusL = By.XPath("//section[2]/div/div/div[1]/div[1]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/td[3]/span/span");//section[2]/div/div[2]/div[1]/div[1]/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/td[3]/span/span");
         By tabInfo = By.XPath("//a[text()='Info']");
         By lnkMoreL = By.XPath("(//lightning-button-menu//button[contains(@class,'slds-button_icon-border-filled')])[1]");
         By tabDetails = By.XPath("//a[text()='Details']");
@@ -570,7 +572,7 @@ namespace SF_Automation.Pages
         By frameInternalTeam = By.XPath("(//iframe[@title='HL_EngagementInternalTeamView'])");
         By btnEngModifyRoles = By.XPath("(//div[contains(@class,'Custom')]//table//a[text()='Modify Roles'])[1]");
         By checkCFSpeciality = By.CssSelector("input[name*='internalTeam:j_id64:6:j_id66']");
-        By txtOppNumberL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtOppNumberL = By.XPath("//span[text()='Opportunity Number']/../../..//lightning-formatted-text");//span[contains(@class,'field-label')][normalize-space()='Opportunity Number']/parent::div/following-sibling::div//lightning-formatted-text");
         By txtRequestMsgL = By.XPath("//div[contains(@id,'modalbody')][contains(@class,'OppRequestEngagement')]");
         By btnPopupOKL = By.XPath("//div[contains(@class,'RecordTypeFooter')]//button");
         By tabApprovalHistoryL = By.XPath("//button[@title='Close Approval History']");
@@ -656,7 +658,7 @@ namespace SF_Automation.Pages
         By headerText = By.XPath("//h1//div[text()='Engagement']");
         By labelESGLV = By.XPath("//flexipage-field[contains(@data-field-id,'ESG')]//label");
         By checkSpeciality1 = By.CssSelector("input[name*='internalTeam:j_id64:7:j_id66']");
-        By txtOppNameL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Opportunity Name']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//lightning-formatted-text");////span[contains(@class,'field-label')][normalize-space()='Opportunity Name']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtOppNameL = By.XPath("//span[text()='Opportunity Name']/../../..//lightning-formatted-text");//span[contains(@class,'field-label')][normalize-space()='Opportunity Name']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//lightning-formatted-text");////span[contains(@class,'field-label')][normalize-space()='Opportunity Name']/parent::div/following-sibling::div//lightning-formatted-text");
         By btnDNDOnOFF = By.XPath("//button[contains(@name,'Opportunity__c.DND_On_Off')]");
         By btnEditSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Edit']");
         By btnCancelSharingGroup = By.XPath("//div[contains(@class,'recordsRecordShare')]//button[text()='Cancel']");
@@ -764,6 +766,8 @@ namespace SF_Automation.Pages
         By optionCCOutcomeL = By.XPath("//button[@aria-label='Outcome']/../..//lightning-base-combobox-item//span[@title='Cleared']");
         By lblCreatedBy = By.XPath("//span[text()='Created By']");
         By chkNBCApproveL = By.XPath("//span[text()='NBC Approved']/../..//input");
+        By txtLocationBenefitL = By.XPath("//span[text()='Location where Benefit is to be Provided']/../../..//lightning-formatted-text");
+
         By _elmRecordType(string text)
         {
             return By.XPath($"//div[contains(@class,'changeRecordTypeRightColumn')]//label//div//span[@class='slds-form-element__label'][text()='{text}']");
@@ -776,8 +780,26 @@ namespace SF_Automation.Pages
         {
             return By.XPath($"//h2//span[text()='Opportunity Activity']//ancestor::article//lightning-primitive-cell-factory[@data-label='Subject']//lightning-base-formatted-text[text()='{activitySubject}']");
         }
-
-        
+       public string GetValueLocationBenefitLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabAdministationL, 5);
+            driver.FindElement(tabAdministationL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, txtLocationBenefitL, 10);
+            return driver.FindElement(txtLocationBenefitL).Text;
+        }
+        public void InlineUpdateLocationBenefitValueLV(string benefit)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabAdministationL, 5);
+            driver.FindElement(tabAdministationL).Click();
+            driver.FindElement(inlineEditLocationBenefitL).Click();
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnLocationBenefitL, 5);
+            driver.FindElement(btnLocationBenefitL).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(By.XPath($"//label[text()='Location where Benefit is to be Provided']/following::lightning-base-combobox-item//span[text()='{benefit}']")).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(10000);
+        }
         public void UpdateOutcomeDetailsLV(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -6777,6 +6799,7 @@ namespace SF_Automation.Pages
 
         public string GetOpportunityNumberL()
         {
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumberL, 20);
             return driver.FindElement(txtOppNumberL).Text;
         }
@@ -7029,6 +7052,7 @@ namespace SF_Automation.Pages
                 Thread.Sleep(2000);
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
                 driver.FindElement(btnEditL).Click();
+                Thread.Sleep(5000);
                 CustomFunctions.MoveToElement(driver, driver.FindElement(editLbloppDescL));
                 WebDriverWaits.WaitUntilEleVisible(driver, iconClearAssociatedOppL, 10);
                 jse.ExecuteScript("arguments[0].click();", driver.FindElement(iconClearAssociatedOppL));
@@ -7604,7 +7628,7 @@ namespace SF_Automation.Pages
         }
         By iconInlineEditNBCCheckBox = By.XPath("//records-record-layout-item[@field-label='NBC Approved']//dd//button");
         By chkNBCApprovedL = By.XPath("//records-record-layout-item[@field-label='NBC Approved']//input");
-
+        By inlineEditLocationBenefitL = By.XPath("//button[@title='Edit Location where Benefit is to be Provided']");
         public void UpdateNBCApprovalLV()
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
@@ -7617,7 +7641,137 @@ namespace SF_Automation.Pages
             Thread.Sleep(2000);
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(10000);
+        }        
+        public void UpdateLocationBenefitLV(string benefit)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(4000);
+            //Location where Benefit was Provided
+            WebDriverWaits.WaitUntilEleVisible(driver, txtDateEngL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtDateEngL));
+            WebDriverWaits.WaitUntilEleVisible(driver, btnLocationBenefitL, 10);
+            driver.FindElement(btnLocationBenefitL).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(By.XPath($"//label[text()='Location where Benefit is to be Provided']/following::lightning-base-combobox-item//span[text()='{benefit}']")).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(10000);
         }
+        public void UpdateReqFieldsForCFConversionWithoutLocationBenefitLV(string file, string valJobType)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            //string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
+            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboClientOwnershipL, 10);
+            string valClient = ReadExcelData.ReadData(excelPath, "AddOpportunity", 18);
+            driver.FindElement(comboClientOwnershipL).Click();// SendKeys(valClient);
+            Thread.Sleep(3000);
+            By eleClientOwnership = By.XPath($"//label[text()='Client Ownership']/following::lightning-base-combobox-item//span[@title='{valClient}']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleClientOwnership));
+            driver.FindElement(eleClientOwnership).Click();//flexipage-field[3]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valClient + "']")).Click();
+
+            string valSubject = ReadExcelData.ReadData(excelPath, "AddOpportunity", 19);
+            driver.FindElement(comboSubjectOwnershipL).SendKeys(valSubject);
+            Thread.Sleep(3000);
+            By eleSubjectOwnership = By.XPath($"//label[text()='Subject Ownership']/following::lightning-base-combobox-item//span[@title='{valSubject}']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleSubjectOwnership));
+            driver.FindElement(eleSubjectOwnership).Click();//div/slot/flexipage-field[4]/slot/record_flexipage-record-field/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valSubject + "']")).Click();
+
+            //Enter SIC
+            //string valSICCode = ReadExcelData.ReadData(excelPath, "AddOpportunity", 20);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
+            //driver.FindElement(txtSICL).SendKeys(valSICCode);
+            //Thread.Sleep(3000);
+            //By eleSICCode = By.XPath($"//label[text()='SIC Code']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valSICCode}']");
+            //WebDriverWaits.WaitUntilEleVisible(driver, eleSICCode, 10);
+            //driver.FindElement(eleSICCode).Click();
+
+            //Opp Desc
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppDescL2, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
+            driver.FindElement(txtOppDescL2).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
+
+            //Estimated Fees
+            string valRetainerL = ReadExcelData.ReadData(excelPath, "AddOpportunity", 15);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblFeeNotesDes));
+            driver.FindElement(txtRetainerL).SendKeys(valRetainerL);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(txtTailExpiresL));
+            //driver.FindElement(txtTailExpiresL).SendKeys("07/01/2023");
+            driver.FindElement(txtMonthlyL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            driver.FindElement(txtContigentL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+
+            //New required fields for CF conversion 
+            driver.FindElement(txtSharedServExpL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            driver.FindElement(txtEstimatedCapL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            driver.FindElement(txtLegalCapL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+
+            //Ref Contact
+            string valRef = ReadExcelData.ReadData(excelPath, "AddOpportunity", 22);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblAdditionalClient));
+            if (valJobType == "Lender Education")
+            {
+                driver.FindElement(txtRefContactL2).SendKeys(valRef);
+                Thread.Sleep(4000);
+                By refContactL = By.XPath($"//label[text()='Referral Contact']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valRef}']"); //flexipage-component2[9]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div[1]/input");
+                CustomFunctions.MoveToElement(driver, driver.FindElement(refContactL));
+                driver.FindElement(refContactL).Click();
+            }
+            else
+            {
+                driver.FindElement(txtRefContactL2).SendKeys(valRef);
+                Thread.Sleep(4000);
+                By refContactL = By.XPath($"//label[text()='Referral Contact']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valRef}']"); //flexipage-component2[9]/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[2]/div/slot/flexipage-field/slot/record_flexipage-record-field/div/span/slot/records-record-layout-lookup/lightning-lookup/lightning-lookup-desktop/lightning-grouped-combobox/div/div/lightning-base-combobox/div/div[1]/input");
+                CustomFunctions.MoveToElement(driver, driver.FindElement(refContactL));
+                driver.FindElement(refContactL).Click();
+            }
+            string valWomen = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
+            if (valJobType == "Sellside")
+            {
+                driver.FindElement(txtEBITDAL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+                Thread.Sleep(2000);
+            }
+            //Date Engaged
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnWomenLedL));
+            string engDate = DateTime.Today.AddDays(-2).ToString("dd/MM/yyyy");
+            driver.FindElement(txtDateEngL).SendKeys(engDate);
+            Thread.Sleep(4000);
+            //Funds & Financials
+            driver.FindElement(txtEstTxnSizeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            string closeDate = DateTime.Today.AddDays(2).ToString("dd/MM/yyyy");
+            driver.FindElement(txtEstCloseDateL).SendKeys(closeDate);
+            
+            //Select Fairness
+            Thread.Sleep(4000);
+            driver.FindElement(btnFairnessL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Fairness Opinion Component']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
+
+            //WomenLed
+            CustomFunctions.MoveToElement(driver, driver.FindElement(labelESGLV));//Available for James Craven
+            driver.FindElement(btnWomenLedL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Women Led']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
+
+            //Select Conf Agreement
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblConflictsRunL));
+            string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);
+            driver.FindElement(comboConfAggL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath($"//label[text()='Confidentiality Agreement']/following::lightning-base-combobox-item//span[@title='{valConf}']")).Click();
+
+            //New fields for for CF conversion
+            driver.FindElement(comboIndemLngL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath($"//label[text()='Indemnification Language']/following::lightning-base-combobox-item//span[@title='No']")).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(10000);
+        }
+
         public void UpdateReqFieldsForCFConversionLV2(string file, string valJobType)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -8345,26 +8499,30 @@ namespace SF_Automation.Pages
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            Thread.Sleep(10000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
-            driver.FindElement(btnEditL).Click();
-            Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, comboClientOwnershipL, 10);
-            string valClient = ReadExcelData.ReadData(excelPath, "AddOpportunity", 18);
-            driver.FindElement(comboClientOwnershipL).Click();
-            Thread.Sleep(3000);
-            By eleClientOwnership = By.XPath($"//label[text()='Client Ownership']/following::lightning-base-combobox-item//span[@title='{valClient}']");
-            CustomFunctions.MoveToElement(driver, driver.FindElement(eleClientOwnership));
-            driver.FindElement(eleClientOwnership).Click();
-            string valSubject = ReadExcelData.ReadData(excelPath, "AddOpportunity", 19);
-            driver.FindElement(comboSubjectOwnershipL).SendKeys(valSubject);
-            Thread.Sleep(3000);
-            By eleSubjectOwnership = By.XPath($"//label[text()='Subject Ownership']/following::lightning-base-combobox-item//span[@title='{valSubject}']");
-            CustomFunctions.MoveToElement(driver, driver.FindElement(eleSubjectOwnership));
-            driver.FindElement(eleSubjectOwnership).Click();
+            Thread.Sleep(10000);            
 
             if (valRecordType == "FR")
-            {  
+            {
+                this.UpdateTotalDebtConfirmedLV();
+                randomPages.ClickPitchMandteAwardTabLV();
+                this.CreateNewPitchMandateAwardLV();
+                randomPages.CloseActiveTab(this.GetPitchMandateAwardID() + " | Pitch/Mandate Award");
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+                driver.FindElement(btnEditL).Click();
+                Thread.Sleep(4000);
+                WebDriverWaits.WaitUntilEleVisible(driver, comboClientOwnershipL, 10);
+                string valClient = ReadExcelData.ReadData(excelPath, "AddOpportunity", 18);
+                driver.FindElement(comboClientOwnershipL).Click();
+                Thread.Sleep(3000);
+                By eleClientOwnership = By.XPath($"//label[text()='Client Ownership']/following::lightning-base-combobox-item//span[@title='{valClient}']");
+                CustomFunctions.MoveToElement(driver, driver.FindElement(eleClientOwnership));
+                driver.FindElement(eleClientOwnership).Click();
+                string valSubject = ReadExcelData.ReadData(excelPath, "AddOpportunity", 19);
+                driver.FindElement(comboSubjectOwnershipL).SendKeys(valSubject);
+                Thread.Sleep(3000);
+                By eleSubjectOwnership = By.XPath($"//label[text()='Subject Ownership']/following::lightning-base-combobox-item//span[@title='{valSubject}']");
+                CustomFunctions.MoveToElement(driver, driver.FindElement(eleSubjectOwnership));
+                driver.FindElement(eleSubjectOwnership).Click();
                 //Enter SIC
                 //string valSICCode = ReadExcelData.ReadData(excelPath, "AddOpportunity", 20);
                 //CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
@@ -8465,7 +8623,23 @@ namespace SF_Automation.Pages
                 
             }
             if (valRecordType == "FVA")
-            {  
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+                driver.FindElement(btnEditL).Click();
+                Thread.Sleep(4000);
+                WebDriverWaits.WaitUntilEleVisible(driver, comboClientOwnershipL, 10);
+                string valClient = ReadExcelData.ReadData(excelPath, "AddOpportunity", 18);
+                driver.FindElement(comboClientOwnershipL).Click();
+                Thread.Sleep(3000);
+                By eleClientOwnership = By.XPath($"//label[text()='Client Ownership']/following::lightning-base-combobox-item//span[@title='{valClient}']");
+                CustomFunctions.MoveToElement(driver, driver.FindElement(eleClientOwnership));
+                driver.FindElement(eleClientOwnership).Click();
+                string valSubject = ReadExcelData.ReadData(excelPath, "AddOpportunity", 19);
+                driver.FindElement(comboSubjectOwnershipL).SendKeys(valSubject);
+                Thread.Sleep(3000);
+                By eleSubjectOwnership = By.XPath($"//label[text()='Subject Ownership']/following::lightning-base-combobox-item//span[@title='{valSubject}']");
+                CustomFunctions.MoveToElement(driver, driver.FindElement(eleSubjectOwnership));
+                driver.FindElement(eleSubjectOwnership).Click();
                 //Enter SIC
                 //string valSICCode = ReadExcelData.ReadData(excelPath, "AddOpportunity", 20);
                 //CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
@@ -8536,6 +8710,22 @@ namespace SF_Automation.Pages
             }
             if (valRecordType == "CF")
             {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+                driver.FindElement(btnEditL).Click();
+                Thread.Sleep(4000);
+                WebDriverWaits.WaitUntilEleVisible(driver, comboClientOwnershipL, 10);
+                string valClient = ReadExcelData.ReadData(excelPath, "AddOpportunity", 18);
+                driver.FindElement(comboClientOwnershipL).Click();
+                Thread.Sleep(3000);
+                By eleClientOwnership = By.XPath($"//label[text()='Client Ownership']/following::lightning-base-combobox-item//span[@title='{valClient}']");
+                CustomFunctions.MoveToElement(driver, driver.FindElement(eleClientOwnership));
+                driver.FindElement(eleClientOwnership).Click();
+                string valSubject = ReadExcelData.ReadData(excelPath, "AddOpportunity", 19);
+                driver.FindElement(comboSubjectOwnershipL).SendKeys(valSubject);
+                Thread.Sleep(3000);
+                By eleSubjectOwnership = By.XPath($"//label[text()='Subject Ownership']/following::lightning-base-combobox-item//span[@title='{valSubject}']");
+                CustomFunctions.MoveToElement(driver, driver.FindElement(eleSubjectOwnership));
+                driver.FindElement(eleSubjectOwnership).Click();
                 //Enter SIC
                 //string valSICCode = ReadExcelData.ReadData(excelPath, "AddOpportunity", 20);
                 //CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
@@ -8633,6 +8823,132 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             Thread.Sleep(8000);
         }
+
+        public void UpdateReqFieldsForFRConversionWithoutLocationBenefitLV(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            Console.WriteLine("path:" + excelPath);
+            string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboClientOwnershipL, 10);
+            string valClient = ReadExcelData.ReadData(excelPath, "AddOpportunity", 18);
+            driver.FindElement(comboClientOwnershipL).Click();
+            Thread.Sleep(3000);
+            By eleClientOwnership = By.XPath($"//label[text()='Client Ownership']/following::lightning-base-combobox-item//span[@title='{valClient}']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleClientOwnership));
+            driver.FindElement(eleClientOwnership).Click();
+            string valSubject = ReadExcelData.ReadData(excelPath, "AddOpportunity", 19);
+            driver.FindElement(comboSubjectOwnershipL).SendKeys(valSubject);
+            Thread.Sleep(3000);
+            By eleSubjectOwnership = By.XPath($"//label[text()='Subject Ownership']/following::lightning-base-combobox-item//span[@title='{valSubject}']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleSubjectOwnership));
+            driver.FindElement(eleSubjectOwnership).Click();
+
+            //Enter SIC
+            //string valSICCode = ReadExcelData.ReadData(excelPath, "AddOpportunity", 20);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
+            //driver.FindElement(txtSICL).SendKeys(valSICCode);
+            //Thread.Sleep(3000);
+            //By eleSICCode = By.XPath($"//label[text()='SIC Code']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valSICCode}']");
+            //WebDriverWaits.WaitUntilEleVisible(driver, eleSICCode, 10);
+            //driver.FindElement(eleSICCode).Click();
+
+            //Opp Desc
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppDescL2, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
+            driver.FindElement(txtOppDescL2).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
+
+            //Estimated Fees
+            string valRetainerL = ReadExcelData.ReadData(excelPath, "AddOpportunity", 15);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblFeeNotesDes));
+            driver.FindElement(txtRetainerL).SendKeys(valRetainerL);
+            driver.FindElement(txtMonthlyL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            driver.FindElement(txtContigentL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtTotalDebtRepMML));
+            driver.FindElement(txtTotalDebtRepMML).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+            //WebDriverWaits.WaitUntilEleVisible(driver, chkTotalDebtConfMML, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtClientDescL));
+            //driver.FindElement(chkTotalDebtConfMML).Click();
+
+            //Clien Desc      
+            driver.FindElement(txtClientDescL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
+
+            //LegalAdvisor  
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblAdditionalClient));
+            string valRef = ReadExcelData.ReadData(excelPath, "AddOpportunity", 22);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboLegalAdvisorL, 10);
+            Thread.Sleep(3000);
+            string valLegalAdvisor = ReadExcelData.ReadData(excelPath, "AddOpportunity", 30);
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(comboLegalAdvisorL));
+            Thread.Sleep(3000);
+            By elevalLegalAdvisor = By.XPath($"//label[text()='Legal Advisor to Company']/following::lightning-base-combobox-item//span[@title='{valLegalAdvisor}']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(elevalLegalAdvisor));
+            driver.FindElement(elevalLegalAdvisor).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, comboLegalAdvisorHLL, 10);
+            string valcomboLegalAdvisorHL = ReadExcelData.ReadData(excelPath, "AddOpportunity", 31);
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(comboLegalAdvisorHLL));
+            Thread.Sleep(3000);
+            By elevalLegalAdvisorHL = By.XPath($"//label[text()='Legal Advisor to HL Client Group']/following::lightning-base-combobox-item//span[@title='{valcomboLegalAdvisorHL}']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(elevalLegalAdvisorHL));
+            driver.FindElement(elevalLegalAdvisorHL).Click();
+
+            //Ref Contact
+            //Select Referral Type //Need to move in UpdteReq function
+
+            string valRefType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 8);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(comboAddClientL));
+            driver.FindElement(comboRefTypeL).Click();
+            By eleReferralType = By.XPath($"//label[text()='Referral Type']/following::lightning-base-combobox-item//span[@title='{valRefType}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleReferralType, 80);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleReferralType));
+            driver.FindElement(eleReferralType).Click();
+            driver.FindElement(txtRefContactL2).SendKeys(valRef);
+            Thread.Sleep(4000);
+            By refContactL = By.XPath($"//label[text()='Referral Contact']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valRef}']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(refContactL));
+            driver.FindElement(refContactL).Click();
+            Thread.Sleep(5000);
+
+            //driver.FindElement(comboRefContactL).Click();
+            CustomFunctions.MoveToElement(driver, driver.FindElement(labelESGLV));
+            string valWomen = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
+
+            //Date Engaged &Estimated Closed Date
+            string engDate = DateTime.Today.AddDays(-2).ToString("dd/MM/yyyy");
+            driver.FindElement(txtDateEngL).SendKeys(engDate);
+
+            //driver.FindElement(txtDateEngL).SendKeys("10/12/2022");
+            Thread.Sleep(2000);
+            string closeDate = DateTime.Today.AddDays(2).ToString("dd/MM/yyyy");
+            driver.FindElement(txtEstCloseDateL).SendKeys(closeDate);
+            //driver.FindElement(txtEstCloseDateL).SendKeys("10/11/2023");
+            
+            //WomenLed
+            driver.FindElement(btnWomenLedL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Women Led']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
+
+            //EU Securities 
+            CustomFunctions.MoveToElement(driver, driver.FindElement(comboConfAggL));
+            driver.FindElement(cmboEUSecuritiesL).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(By.XPath("//label[contains(text(),'EU Securities')]/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
+
+            ///Select Conf Agreement   
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblCAComments));//for FR
+            string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);
+            driver.FindElement(comboConfAggL).Click();// SendKeys(valConf);
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath($"//label[text()='Confidentiality Agreement']/following::lightning-base-combobox-item//span[@title='{valConf}']")).Click();//lightning-combobox/div/lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valConf + "']")).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(5000);
+        }
         public void UpdateReqFieldsForFRConversionLV(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -8679,7 +8995,7 @@ namespace SF_Automation.Pages
             driver.FindElement(txtRetainerL).SendKeys(valRetainerL);
             driver.FindElement(txtMonthlyL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
             driver.FindElement(txtContigentL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
-            CustomFunctions.MoveToElement(driver, driver.FindElement(comboLegalAdvisorL));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtTotalDebtRepMML));
             driver.FindElement(txtTotalDebtRepMML).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
             //WebDriverWaits.WaitUntilEleVisible(driver, chkTotalDebtConfMML, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtClientDescL));
@@ -8762,6 +9078,7 @@ namespace SF_Automation.Pages
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            driver.FindElement(tabDetails).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, iconInlineEditTDConfirmed, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(iconInlineEditTDConfirmed));
             driver.FindElement(iconInlineEditTDConfirmed).Click();
@@ -8774,6 +9091,9 @@ namespace SF_Automation.Pages
             {
                 driver.FindElement(chkTDConfirmed1).Click();
             }
+            Thread.Sleep(2000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveDetailsL));
+            Thread.Sleep(2000);
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(5000);
         }
@@ -9213,6 +9533,101 @@ namespace SF_Automation.Pages
                 }
                 catch { return false; }
             }
+        }
+        public void UpdateReqFieldsForFVAConversionWithoutLocationBenefitLV(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
+            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboClientOwnershipL, 10);
+            string valClient = ReadExcelData.ReadData(excelPath, "AddOpportunity", 18);
+            driver.FindElement(comboClientOwnershipL).Click();
+            Thread.Sleep(3000);
+            By eleClientOwnership = By.XPath($"//label[text()='Client Ownership']/following::lightning-base-combobox-item//span[@title='{valClient}']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleClientOwnership));
+            driver.FindElement(eleClientOwnership).Click();
+
+            string valSubject = ReadExcelData.ReadData(excelPath, "AddOpportunity", 19);
+            driver.FindElement(comboSubjectOwnershipL).SendKeys(valSubject);
+            Thread.Sleep(3000);
+            By eleSubjectOwnership = By.XPath($"//label[text()='Subject Ownership']/following::lightning-base-combobox-item//span[@title='{valSubject}']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleSubjectOwnership));
+            driver.FindElement(eleSubjectOwnership).Click();
+
+            //Enter SIC
+            //string valSICCode = ReadExcelData.ReadData(excelPath, "AddOpportunity", 20);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
+            //driver.FindElement(txtSICL).SendKeys(valSICCode);
+            //Thread.Sleep(3000);
+            //By eleSICCode = By.XPath($"//label[text()='SIC Code']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valSICCode}']");
+            //WebDriverWaits.WaitUntilEleVisible(driver, eleSICCode, 10);
+            //driver.FindElement(eleSICCode).Click();
+
+            //Opp Desc
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppDescL2, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
+            driver.FindElement(txtOppDescL2).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 21));
+
+            //Tombstone Permission
+            string tombstonePermissionExl = ReadExcelData.ReadData(excelPath, "AddOpportunity", 29);
+            driver.FindElement(comboTombstonePermissionL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath($"//label[text()='Tombstone Permission']/following::lightning-base-combobox-item//span[text()='No Restrictions']")).Click();
+
+            //Valuation Date
+            WebDriverWaits.WaitUntilEleVisible(driver, txtvaluationDateL, 20);
+            string engDate = DateTime.Today.AddDays(-2).ToString("dd/MM/yyyy");
+            driver.FindElement(txtvaluationDateL).SendKeys(engDate);
+            //driver.FindElement(txtvaluationDateL).SendKeys("10/12/2022");
+
+            //Estimated Fees
+            string valRetainerL = ReadExcelData.ReadData(excelPath, "AddOpportunity", 15);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblFeeNotesDes));
+            driver.FindElement(txtRetainerL).SendKeys(valRetainerL);
+            string TotalAnticipatedRevenueExl = ReadExcelData.ReadData(excelPath, "AddOpportunity", 28);
+            driver.FindElement(txtTotalAnticipatedRevenueL).SendKeys(TotalAnticipatedRevenueExl);
+
+            //Ref Contact
+            string valRef = ReadExcelData.ReadData(excelPath, "AddOpportunity", 22);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblAdditionalClient));
+            driver.FindElement(txtRefContactL2).SendKeys(valRef);
+            Thread.Sleep(4000);
+            By refContactL = By.XPath($"//label[text()='Referral Contact']/following::ul//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{valRef}']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(refContactL));
+            driver.FindElement(refContactL).Click();
+
+            string valWomen = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
+            //Date Engaged
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnWomenLedL));
+            //string engDate = DateTime.Today.AddDays(-2).ToString("dd/MM/yyyy");
+            driver.FindElement(txtDateEngL).SendKeys(engDate);
+            //driver.FindElement(txtDateEngL).SendKeys("10/12/2022");
+            Thread.Sleep(2000);
+
+            //Funds & Financials
+            driver.FindElement(txtEstTxnSizeL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+
+            //WomenLed
+            CustomFunctions.MoveToElement(driver, driver.FindElement(labelESGLV));//Available for James Craven
+            driver.FindElement(btnWomenLedL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Women Led']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
+
+            ////Select Conf Agreement
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblCAComments));
+            string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);
+            driver.FindElement(comboConfAggL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath($"//label[text()='Confidentiality Agreement']/following::lightning-base-combobox-item//span[@title='{valConf}']")).Click();
+
+            driver.FindElement(btnSaveDetailsL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            Thread.Sleep(8000);
         }
         public void UpdateReqFieldsForFVAConversionLV(string file)
         {
@@ -10149,7 +10564,8 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnPartyL, 20);
             driver.FindElement(btnPartyL).Click();
             Thread.Sleep(3000);
-            driver.FindElement(By.XPath("//div[8]/div/ul/li/a[text()='" + party + "']")).Click();
+            //driver.FindElement(By.XPath("//div[8]/div/ul/li/a[text()='" + party + "']")).Click();
+            driver.FindElement(By.XPath($"//ul/li/a[text()='" + party + "']")).Click();
             driver.FindElement(btnSaveContactL).Click();
             Thread.Sleep(5000);
         }

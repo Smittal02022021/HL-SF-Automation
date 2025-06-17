@@ -38,7 +38,7 @@ namespace SF_Automation.Pages.Company
         By iframeCompanyForm = By.XPath("//iframe[contains(@name,'vfFrame')]");
         By txtNewCompanyName = By.XPath("//input[@name='Name']"); //By.CssSelector("input[name*='AccountName']");
         By btnSaveL = By.XPath("//button[@name='SaveEdit']");//By.XPath("//div[@class='pbBottomButtons']//input[@value='Save']");
-        By txtCompanyNameL = By.XPath("//span[text()='Company Name']/../../..//dd//lightning-formatted-text");
+        By txtCompanyNameL = By.XPath("//span[text()='Company Name']/../..//lightning-formatted-text"); //span[text()='Company Name']/../../..//dd//lightning-formatted-text");
         By popDuplicateL = By.XPath("//span[contains(@class,'toastMessage')]");
         private By _btnRadioRecordType(string type)
         {

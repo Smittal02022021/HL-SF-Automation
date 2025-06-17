@@ -25,8 +25,9 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
         EngagementHomePage engagementHome = new EngagementHomePage();
         RandomPages randomPages = new RandomPages();
 
-        public static string fileTC1624 = "LV_T1624_OpportunityToEngagementConversionMappingForFRJobTypes";
-        
+        private static string fileTC1624 = "LV_T1624_OpportunityToEngagementConversionMappingForFRJobTypes";
+        private string locationBenefit;
+
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -108,11 +109,12 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
                     string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
                     addOpportunityContact.CickAddFROpportunityContact();
-                    addOpportunityContact.CreateContactL2(fileTC1624);
+                    addOpportunityContact.CreateContactL2(fileTC1624, valRecordType);
                     extentReports.CreateStepLogs("Info", valContactType + " Opportunity contact is saved ");
-
+                    //TMTI0118698 Verify that the user is able to update the "Location where Benefit was Provided" field value and successfully request an engagement.
                     //Update required Opportunity fields for conversion and Internal team details
                     opportunityDetails.UpdateReqFieldsForFRConversionLV(fileTC1624);
+                    extentReports.CreateStepLogs("Info", "Location where Benefit was Provided value filled ");
                     opportunityDetails.UpdateTotalDebtConfirmedLV();
                     extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
                     opportunityDetails.UpdateInternalTeamDetailsLV(fileTC1624);
@@ -157,6 +159,11 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
 
                     //Search for created opportunity
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
+
+                    //Get Location where Benefit is to be Provided value to validate it on converted Engagement
+                    locationBenefit = opportunityDetails.GetValueLocationBenefitLV();
+                    extentReports.CreateStepLogs("Info", "Location where Benefit is Provided value is: " + locationBenefit);
+
                     //Requesting for engagement and validate the success message
                     opportunityDetails.ClickRequestToEngL();
                     //Submit Request To Engagement Conversion 
@@ -275,6 +282,10 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     //Search for created opportunity
                     engagementHome.GlobalSearchEngagementInLightningView(engagementName);
                     extentReports.CreateStepLogs("Passed", "Engagement: " + opportunityName + " found and selected ");
+
+                    // TMTI0118700	Verify that the "Location where Benefit was Provided" field value is mapped to an engagement upon conversion.
+                    Assert.AreEqual(locationBenefit, engagementDetails.GetValueLocationBenefitLV());
+                    extentReports.CreateStepLogs("Passed", "Location where Benefit is to be Provided field is mapped from opoortunity on converted Engagement");
 
                     //TMTI0071647 Verify the status is updated in the Oracle ERP Information section
                     //TMTI0084221 Verify the status is updated in Oracle ERP Information section

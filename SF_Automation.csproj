@@ -829,9 +829,13 @@
     <Compile Include="TestCases\Opportunities\LV_TMTT0041159-1_VerifiyTheFunctionalityOfVerballyEngagedEngagement.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0041159-2_VerifyPartialEngagementShouldBeMappedWithDetailsFieldsFromOpportunity.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0042958_VerifyCapitalMarketViewsOnOpportunityCounterpartyPage.cs" />
-    <Compile Include="TestCases\Opportunities\LV_TMTT0046653_VerifyTailExpireFieldOnCFEngagementwithJobTypeShowsValidationWhileChangingStage.cs" />
-    <Compile Include="TestCases\Opportunities\LV_TMTT0046653_VerifyTailExpireFieldOnCFVerballyEngagementValidationWhileChangingStage.cs" />
-    <Compile Include="TestCases\Opportunities\LV_TMTT0046653_VerifyTailExpireFieldOnFRFVAEngagementShowsNoValidationWhileChangingStage.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0046653_CF_VerifyTailExpireFieldOnEngagementwithJobTypeShowsValidationWhileChangingStage.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0046653_CF_VerifyTailExpireFieldOnVerballyEngagementValidationWhileChangingStage.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0046653_FR_VerifyTailExpireFieldOnEngagementShowsNoValidationWhileChangingStage.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0046653_FVA_VerifyTailExpireFieldOnEngagementShowsNoValidationWhileChangingStage.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0048213_CF_VerifyLocationWhereBenefitWasProvidedFieldValueIsMappedToEngagementUponConversion.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0048213_FR_VerifyLocationWhereBenefitWasProvidedFieldValueIsMappedToEngagementUponConversion.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0048213_FVA_VerifyLocationWhereBenefitWasProvidedFieldValueIsMappedToEngagementUponConversion.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS01_ValidateERPSection_PostCreationOfOpportunityLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS02_ValidateERPSectionPostUpdatingDFFFieldsOfOpportunityLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS03_ValidateERPSubmittedAndERPLastIntegrationResponsePostManualSyncOpportunityLightningView.cs" />

@@ -104,7 +104,7 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
                     addOpportunityContact.CickAddCFOpportunityContact();
-                    addOpportunityContact.CreateContactL2(TMTI0063910);
+                    addOpportunityContact.CreateContactL2(TMTI0063910, valRecordType);
                     extentReports.CreateStepLogs("Passed", valContactType + " is added as " + valContactType+"opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details

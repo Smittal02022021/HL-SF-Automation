@@ -123,7 +123,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
 
                 addOpportunityContact.CickAddOpportunityContactLV();
-                addOpportunityContact.CreateContactL2(fileTMTC0036135);
+                addOpportunityContact.CreateContactL2(fileTMTC0036135, valRecordType);
                 extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                 //Update required Opportunity fields for conversion and Internal team details
@@ -570,7 +570,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
                     Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser, commentTextOppExl));
-                    extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by User " + valUser + " On Requested Opportunity before approval for Engagement");
+                    extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by CF Financial User " + valUser + " On Requested Opportunity before approval for Engagement");
 
                 }
 
@@ -580,12 +580,12 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
                     Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO, commentTextOppExl));
-                    extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by User " + userCAO + " On Requested Opportunity before approval for Engagement");
+                    extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by CAO User " + userCAO + " On Requested Opportunity before approval for Engagement");
                 }
 
                 commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", 5, 1);
                 Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCompliance, commentTextOppExl));
-                extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by User " + userCompliance + " On Requested Opportunity before approval for Engagement");
+                extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by Compliance  User " + userCompliance + " On Requested Opportunity before approval for Engagement");
                 randomPages.CloseActiveTab("Opportunity Comments");
                 string status = opportunityDetails.ClickApproveButtonLV2();
                 Assert.AreEqual(status, "Approved");
@@ -601,7 +601,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
                     Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser, commentTextOppExl));
-                    extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by User " + valUser + " On Requested Opportunity After approval for Engagement");
+                    extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by CF Financial User " + valUser + " On Requested Opportunity After approval for Engagement");
 
                 }
 
@@ -611,12 +611,12 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
                     Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO, commentTextOppExl));
-                    extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by User " + userCAO + " On Requested Opportunity After approval for Engagement");
+                    extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by CAO User " + userCAO + " On Requested Opportunity After approval for Engagement");
                 }
 
                 commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", 5, 1);
                 Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCompliance, commentTextOppExl));
-                extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by User " + userCompliance + " On Requested Opportunity After approval for Engagement");
+                extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by Compliance User " + userCompliance + " On Requested Opportunity After approval for Engagement");
                 randomPages.CloseActiveTab("Opportunity Comments");
                 randomPages.CloseActiveTab(opportunityName);
                 homePageLV.LogoutFromSFLightningAsApprover();

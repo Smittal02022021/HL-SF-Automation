@@ -31,6 +31,8 @@ namespace SF_Automation.TestCases.Opportunities
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         //TMTI0113220 Verify that the "Tail Expires" field is removed as a required field on the Engagement conversion errors page
+        //TMTI0118691 Verify that the "Location where Benefit was Provided" field is required when user request an engagement.
+ 
         [Test]
         public void VerifyValidationsToBeCompletedBeforeOpportunityIsApprovedForCFLV()
         {
@@ -94,6 +96,8 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Pass", "Opportunity with number : " + opportunityNumber + " is created ");
 
                     //TMTI0113220 Verify that the "Tail Expires" field is removed as a required field on the Engagement conversion errors page
+                    //TMTI0118691 Verify that the "Location where Benefit was Provided" field is required when user request an engagement.
+                    // validation error list updated 
                     //Requesting for engagement and validate Error Messages //valRecordType, fileTC1624
                     opportunityDetails.ClickRequestToEngL();
                     string txtActualRequiredFieldsValidation = opportunityDetails.GetActualRequiredFieldsValidationForConversionLV();

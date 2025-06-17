@@ -120,7 +120,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
 
                     addOpportunityContact.CickAddCFOpportunityContact();
-                    addOpportunityContact.CreateContactL2(fileTMTI0055384);
+                    addOpportunityContact.CreateContactL2(fileTMTI0055384, valRecordType);
                     extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details
@@ -248,13 +248,13 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     //Login as CAO user to approve the Opportunity
                     string userCAOExl = ReadExcelData.ReadData(excelPath, "CAOUsers", 1);
                     homePage.SearchUserByGlobalSearchN(userCAOExl);
-                    extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " details are displayed. ");
+                    extentReports.CreateStepLogs("Info", "CAO User: " + userCAOExl + " details are displayed. ");
                     //Login user
                     usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     string userCAO = login.ValidateUserLightningView();
                     Assert.AreEqual(userCAO.Contains(userCAOExl), true);
-                    extentReports.CreateStepLogs("Passed", "User: " + userCAOExl + " logged in on Lightning View");
+                    extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOExl + " logged in on Lightning View");
                     //Go to Opportunity module in Lightning View 
                     homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();

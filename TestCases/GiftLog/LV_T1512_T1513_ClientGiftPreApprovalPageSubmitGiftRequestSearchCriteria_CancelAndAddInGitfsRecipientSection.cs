@@ -94,7 +94,7 @@ namespace SF_Automation.TestCases.GiftLog
                     //Verify company name Combo Box
                     actualRecipientCompanyName = giftRequest.GetAvailableRecipientCompanyLV();
                     Assert.IsTrue(actualRecipientCompanyName.Contains(nameCompanyExl));
-                    extentReports.CreateStepLogs("Passed", "Company Name: " + actualRecipientCompanyName + " is listed in Available Recipient(s) table for contains combo box in Cmmpany Name ");
+                    extentReports.CreateStepLogs("Passed", "Company Name: " + actualRecipientCompanyName + " is listed in Available Recipient(s) table for contains combo box in Company Name ");
 
                     giftRequest.ClearGiftRecipientsDetailsLV();
                     nameContactExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SearchCriteria", row + 4, 1);

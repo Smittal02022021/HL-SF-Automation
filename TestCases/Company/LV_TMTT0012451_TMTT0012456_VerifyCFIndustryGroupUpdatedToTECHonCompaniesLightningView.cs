@@ -89,7 +89,7 @@ namespace SF_Automation.TestCases.Companies
                 for (int record = 2; record <= countCompanyRecordTypeExl; record++)
                 {
                     string companyRecordTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyType", record, 1);
-                     companyName = createCompany.CreateCompanyLV(fileTMTT0012451,companyRecordTypeExl);
+                    companyName = createCompany.CreateCompanyLV(fileTMTT0012451,companyRecordTypeExl);
                     extentReports.CreateStepLogs("Info", "New Company:  " + companyName + " with Record Type :" + companyRecordTypeExl + " is created");
                     arrayCompany[index] = companyName;
                     index++;

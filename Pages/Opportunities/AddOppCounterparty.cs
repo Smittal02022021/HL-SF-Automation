@@ -1812,7 +1812,7 @@ namespace SF_Automation.Pages.Opportunity
         By inputCommentL = By.XPath("//label[text()='Comment']/..//textarea");
         By inputSearchEngCouterparty = By.XPath("//input[contains(@placeholder,'Search')]");
         By optionRelatedEngCPL = By.XPath("//input[contains(@placeholder,'Search')]/../../../..//ul//li[2]/lightning-base-combobox-item");
-        By txtCommentTypeL = By.XPath("//span[text()='Comment Type']/../../..//dd//lightning-formatted-text");
+        By txtCommentTypeL = By.XPath("//span[text()='Comment Type']/../..//lightning-formatted-text");//span[text()='Comment Type']/../../..//dd//lightning-formatted-text");
         public void ClickEngCPCommentsLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEngCPCommentsL, 20);

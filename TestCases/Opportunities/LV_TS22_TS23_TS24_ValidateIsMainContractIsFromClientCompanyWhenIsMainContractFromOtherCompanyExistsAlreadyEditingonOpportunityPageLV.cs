@@ -98,7 +98,7 @@ namespace SF_Automation.TestCases.OpportunitiesOracleERP
                 string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
 
                 addOpportunityContact.CickAddCFOpportunityContact();
-                addOpportunityContact.CreateContactL2(fileContract);
+                addOpportunityContact.CreateContactL2(fileContract, valRecordType);
                 extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                 randomPages.CloseActiveTab(opportunityName);

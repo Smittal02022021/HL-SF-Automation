@@ -126,6 +126,23 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 string actualListValidationErrors= opportunityDetails.GetOppVEValidationErrorsLV();                
                 Assert.AreEqual(expectedListValidationErrors, actualListValidationErrors, "Verify that validation appears when user try to change the stage as Verbally Engaged");
                 extentReports.CreateStepLogs("Passed", "Validations appeared when user try to change the stage to Verbally Engaged");
+
+                ///////*********************////////////////
+                ///TMTI0118719	Verify that the"Location where Benefit was Provided" field validation does not appears on converting an opportunity to Verbally engaged.
+                ///Verify the errorlist of required fields does not displays “Location where Benefit was Provided” field as required.
+                extentReports.CreateStepLogs("Info", "Verify the errorlist of required fields does not displays “Location where Benefit was Provided” field as required.");
+                string txtExpectedRequiredFieldsValidation = ReadExcelData.ReadDataMultipleRows(excelPath, "VEValidationList", 6, 1);
+                Assert.IsFalse(actualListValidationErrors.Contains(txtExpectedRequiredFieldsValidation));
+                extentReports.CreateStepLogs("Info", "The errorlist of required fields does not displays “Location where Benefit was Provided” field as required while change the stage of opportunity to Verbally Enaged");
+
+                string valBenefitExl = ReadExcelData.ReadDataMultipleRows(excelPath, "VEValidationList", 6, 2);
+                opportunityDetails.InlineUpdateLocationBenefitValueLV(valBenefitExl);
+                string locationBenefit = opportunityDetails.GetValueLocationBenefitLV();
+                extentReports.CreateStepLogs("Info", "Location where Benefit is Provided value is: " + locationBenefit);
+
+                //////////****************************/////////
+
+
                 homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "CF Financial User: " + userExl + " Logged out ");
 
@@ -186,6 +203,9 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 opportunityDetails.EnterVerballyEngagedRequiredFieldsLV(valJobType, fileTMTT0041159);
                 extentReports.CreateStepLogs("Info", "Entered All Field level Required values");
 
+
+
+
                 opportunityDetails.EditOpportunityStageLV(stageExl);
                 string updatedStage= opportunityDetails.GetStageLV();
                 Assert.AreEqual(updatedStage, stageExl);
@@ -215,6 +235,14 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 engagementHome.GlobalSearchEngagementInLightningView(opportunityName);
                 extentReports.CreateStepLogs("Info", " User is on "+ updatedStage+" Engagement page");
 
+                /////////////TMTI0118719 *****************//////////////
+                //10. Verify that the user is able to successfully update the opportunity stage to Verbally engaged.
+                extentReports.CreateStepLogs("Info", "Verify that the user is able to successfully update the opportunity stage to Verbally engaged.");
+                Assert.AreEqual(locationBenefit, engagementDetails.GetValueLocationBenefitLV());
+                extentReports.CreateStepLogs("Passed", "Location where Benefit is to be Provided field is mapped from opoortunity on Partial Engaged Engagement");
+                
+                /////////////*****************//////////////
+
                 ////**********Counterparties Actions********/////
                 ///1. Click on top on View Counterparty button and click Add New Counterparty.
                 //2.Try to add one counterparty from each available option like, Existing engagement, company list, Add Counterparty button.
@@ -222,7 +250,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 //4.Fill all the available fields for added counterparty including comment.
                 //5.Now open any one of the Counterparty detail page and add contacts and comments with all available option on this page like multiple contact search option and multiple comment type options.
                 ///*****************************************/////
-                
+
                 //TMTI0101388	Verify that once Partial Engagement is created, CF user have access to edit the Partial Engagement
                 //Adding Contact on Partial Engaged Egagement to CF user have access to edit the Partial Engagement
 
@@ -323,7 +351,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 string valCPContact = addCounterparty.GetContactNameFromListLV();
                 addCounterparty.SelectContactFromListLV();
                 addCounterparty.ClickAddContactLV();
-                extentReports.CreateStepLogs("Info", "New Engagement Counterparty Contact:"+ contactNameCPExl + " is added ");
+                extentReports.CreateStepLogs("Info", "New Engagement Counterparty Contact: "+ contactNameCPExl + " is added ");
                 addCounterparty.ClickBackButtonAndValidateViewCounterpartiesPageLV();                
                 string contactEngCP= addCounterparty.GetEngCounterpartyContactLV();
                 Assert.IsTrue(contactNameCPExl.Contains(contactEngCP));
@@ -347,6 +375,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 }
                 CustomFunctions.CloseWindow(driver, 1);
                 CustomFunctions.SwitchToWindow(driver, 0);
+                randomPages.CloseActiveTab(opportunityName);
                 //CustomFunctions.PageReload(driver);
                 homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Financial User logged out");
@@ -444,6 +473,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
 
                 //Enter Required fields for Request Full Engagement tail Expired removed from below function
                 //TMTI0113224 Verify that the "Tail Expires" is removed as a required field on converting CF Verbally Engaged Engagement to Full Engagement.
+                engagementDetails.ClickRequestFullEngagementLV();
                 engagementDetails.EnterRequestFullEngagementReqValuesLV();
                 extentReports.CreateStepLogs("Info", "Required Fields for Request Full Engagement are entered");
                 popupMessage = randomPages.GetLVMessagePopup();

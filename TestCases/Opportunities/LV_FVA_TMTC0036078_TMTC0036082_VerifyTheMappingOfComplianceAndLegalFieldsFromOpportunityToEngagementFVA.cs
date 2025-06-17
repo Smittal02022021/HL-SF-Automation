@@ -113,7 +113,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
                     addOpportunityContact.CickAddOpportunityContactLV();
-                    addOpportunityContact.CreateContactL2(fileTMTC0036078);
+                    addOpportunityContact.CreateContactL2(fileTMTC0036078, valRecordType);
                     extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details

@@ -123,7 +123,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
 
                 addOpportunityContact.CickAddOpportunityContactLV();
-                addOpportunityContact.CreateContactL2(fileTMTC0036135);
+                addOpportunityContact.CreateContactL2(fileTMTC0036135, valRecordType);
                 extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                 //Update required Opportunity fields for conversion and Internal team details

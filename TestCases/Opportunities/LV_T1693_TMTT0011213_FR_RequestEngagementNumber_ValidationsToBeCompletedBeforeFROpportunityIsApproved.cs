@@ -30,6 +30,7 @@ namespace SF_Automation.TestCases.Opportunities
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
+        //TMTI0118691	Verify that the "Location where Benefit was Provided" field is required when user request an engagement.
         [Test]
         public void VerifyValidationsToBeCompletedBeforeOpportunityIsApprovedForFRLV()
         {
@@ -99,7 +100,8 @@ namespace SF_Automation.TestCases.Opportunities
                     string opportunityNumber = opportunityDetails.GetOpportunityNumberL();
                     Assert.IsNotNull(opportunityDetails.GetOpportunityNumberL());
                     extentReports.CreateStepLogs("Pass", "Opportunity with number : " + opportunityNumber + " is created ");
-
+                    //TMTI0118691	Verify that the "Location where Benefit was Provided" field is required when user request an engagement.
+                    // Error list updated
                     //Requesting for engagement and validate Error Messages //valRecordType, fileTC1624
                     opportunityDetails.ClickRequestToEngL();
                     string txtActualRequiredFieldsValidation = opportunityDetails.GetActualRequiredFieldsValidationForConversionLV();

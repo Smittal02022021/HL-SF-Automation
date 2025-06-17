@@ -99,7 +99,7 @@ namespace SF_Automation.TestCases.OpportunitiesOracleERP
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
 
                     addOpportunityContact.ClickAddOpportunityContactLV(valRecordType);
-                    addOpportunityContact.CreateContactL2(ERPTS01);
+                    addOpportunityContact.CreateContactL2(ERPTS01, valRecordType);
                     extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                     //Fetch values of Opportunity Name, Client, Subject and Job Type
