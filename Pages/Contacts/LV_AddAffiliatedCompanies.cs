@@ -22,9 +22,9 @@ namespace SF_Automation.Pages.Contact
         By linkEditAffiliationCompany = By.CssSelector("div[id*='00Ni000000D735q_body'] > table  > tbody > tr:nth-child(2) > td[class='actionColumn'] > a:nth-child(1)");
         By btnSaveAndNew = By.CssSelector("td[id='topButtonRow'] > input[name='save_new']");
 
-        By valAffiliationCompanyName = By.XPath("(//span[text()='Company']/following::dd//slot//slot)[2]");
-        By valAffiliationCompanyStatus = By.XPath("((//span[text()='Status'])[4]/following::dd//slot/lightning-formatted-text)[1]");
-        By valAffiliationCompanyType = By.XPath("((//span[text()='Status'])[4]/following::dd//slot/lightning-formatted-text)[2]");
+        By valAffiliationCompanyName = By.XPath("(//span[text()='Company']/following::div//slot//slot)[2]/span");
+        By valAffiliationCompanyStatus = By.XPath("((//span[text()='Status'])[4]/following::div//slot/lightning-formatted-text)[1]");
+        By valAffiliationCompanyType = By.XPath("((//span[text()='Status'])[4]/following::div//slot/lightning-formatted-text)[2]");
         By linkDeleteAffiliationCompany = By.XPath("(//button[text()='Delete'])[2]");
         By buttonDelete = By.XPath("//button[@title='Delete']");
 

@@ -22,7 +22,7 @@ namespace SF_Automation.Pages.Contact
         By btnEditName = By.XPath("//button[@title='Edit Name']");
         By txtLastName = By.XPath("(//label[text()='Last Name']/following::div/input)[1]");
         By lblContactName = By.XPath("(//span[text()='Name']/following::lightning-formatted-name)[2]");
-        By lblCompanyName = By.XPath("((//span[text()='Company Name'])[3]/following::div//records-hoverable-link//a//slot)[2]/span");
+        By lblCompanyName = By.XPath("((//span[text()='Company Name'])[2]/following::div//records-hoverable-link//a//slot)[2]/span");
         By lblEmail = By.XPath("((//span[text()='Email'])[2]/following::dd//span/slot//a)[1]");
         By lblPhoneNo = By.XPath("((//span[text()='Phone'])[2]/following::dd//span/slot//a)[1]");
         By associatedEngagementsIcon = By.XPath("(//lightning-icon[@icon-name='utility:new_window'])[1]");
@@ -30,8 +30,8 @@ namespace SF_Automation.Pages.Contact
         By valContactMailingAddress = By.XPath("(//span[text()='Mailing Address']/following::dd//a)[1]");
         By valContactStatus = By.XPath("//lightning-formatted-text[text()='Active']");
         By valContactOffice = By.XPath("(//span[text()='Title']/following::dd//lightning-formatted-text)[2]");
-        By valContactTitle = By.XPath("(//span[text()='Title']/following::dd//lightning-formatted-text)[4]");
-        By valContactDepartment = By.XPath("(//span[text()='Title']/following::dd//lightning-formatted-text)[6]");
+        By valContactTitle = By.XPath("(//span[text()='Title']/following::div//lightning-formatted-text)[5]");
+        By valContactDepartment = By.XPath("((//span[text()='Department'])[1]/following::div//slot/lightning-formatted-text)[1]");
 
         //Assistant Information Section Elements
         By lblAssistant = By.XPath("(//span[text()='Assistant']/following::lightning-formatted-text)[1]");
@@ -451,9 +451,17 @@ namespace SF_Automation.Pages.Contact
 
         public string GetCompanyName()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, lblCompanyName, 60);
-            string companyName = driver.FindElement(lblCompanyName).Text;
-            return companyName;
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, lblCompanyName, 60);
+                string companyName = driver.FindElement(lblCompanyName).Text;
+                return companyName;
+            }
+            catch(NoSuchElementException)
+            {
+                return "Company Name not found";
+            }
+
         }
 
         public string GetFirstAndLastName()
@@ -470,9 +478,16 @@ namespace SF_Automation.Pages.Contact
             js.ExecuteScript("window.scrollTo(0,700)");
             Thread.Sleep(5000);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, valContactMailingAddress, 60);
-            string contactAddress = driver.FindElement(By.XPath("(//span[text()='Mailing Address']/following::dd//a/div)[1]")).Text + "\r\n"+ driver.FindElement(By.XPath("(//span[text()='Mailing Address']/following::dd//a/div)[2]")).Text;
-            return contactAddress;
+            //WebDriverWaits.WaitUntilEleVisible(driver, valContactMailingAddress, 60);
+            try
+            {
+                string contactAddress = driver.FindElement(By.XPath("(//span[text()='Mailing Address']/following::div//a/div)[1]")).Text + "\r\n" + driver.FindElement(By.XPath("(//span[text()='Mailing Address']/following::div//a/div)[2]")).Text;
+                return contactAddress;
+            }
+            catch (NoSuchElementException)
+            {
+                return "Contact Address not found";
+            }
         }
 
         public string GetContactStatus()
@@ -511,7 +526,7 @@ namespace SF_Automation.Pages.Contact
             string contactTitle="";
             if(ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", row, 1).Contains("Houlihan Employee"))
             {
-                contactTitle = driver.FindElement(By.XPath("(//span[text()='Title']/following::dd//lightning-formatted-text)[5]")).Text;
+                contactTitle = driver.FindElement(By.XPath("(//span[text()='Title']/following::div//lightning-formatted-text)[6]")).Text;
             }
             else
             {
@@ -533,7 +548,7 @@ namespace SF_Automation.Pages.Contact
             string contactDept = "";
             if(ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", row, 1).Contains("Houlihan Employee"))
             {
-                contactDept = driver.FindElement(By.XPath("(//span[text()='Title']/following::dd//lightning-formatted-text)[17]")).Text;
+                contactDept = driver.FindElement(By.XPath("((//span[text()='Department'])[1]/following::div//slot/lightning-formatted-text)[1]")).Text;
             }
             else
             {

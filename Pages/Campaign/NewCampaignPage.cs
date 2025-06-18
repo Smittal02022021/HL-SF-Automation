@@ -10,7 +10,7 @@ namespace SF_Automation.Pages
 {
     class NewCampaignPage : BaseClass
     {
-        By valCampRecordType = By.XPath("((//span[text()='Campaign Record Type'])[2]/following::dd//span)[2]");
+        By valCampRecordType = By.XPath("((//span[text()='Campaign Record Type'])[2]/following::div//span)[2]");
         By txtCampaignName = By.XPath("((//span[text()='Campaign Name']/..)[2]/following::input)[1]");
 
         By selectLOB = By.XPath("((//div[text()='Lines of Business']/following::div)[1]//ul)[1]/li");

@@ -143,7 +143,7 @@ namespace SF_Automation.TestCases.Contact
                     contactEdit.ClickSaveBtn();
 
                     string errMsg2 = contactEdit.TxtErrorMessageIndustryGroup();
-                    Assert.AreEqual("Industry Group must be selected when LOB is CF", errMsg2);
+                    Assert.AreEqual("Industry Group must be selected when LOB is CF and Product Specialty is not Capital Solutions.", errMsg2);
                     extentReports.CreateStepLogs("Passed", "Error message: " + errMsg2 + " is displaying when industry group must be selected when LOB is CF ");
 
                     contactEdit.ClickCancelBtn();
