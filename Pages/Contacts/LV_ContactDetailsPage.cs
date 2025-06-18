@@ -22,7 +22,7 @@ namespace SF_Automation.Pages.Contact
         By btnEditName = By.XPath("//button[@title='Edit Name']");
         By txtLastName = By.XPath("(//label[text()='Last Name']/following::div/input)[1]");
         By lblContactName = By.XPath("(//span[text()='Name']/following::lightning-formatted-name)[2]");
-        By lblCompanyName = By.XPath("//span[text()='Company Name']/following::dd//records-hoverable-link//slot//slot");
+        By lblCompanyName = By.XPath("((//span[text()='Company Name'])[3]/following::div//records-hoverable-link//a//slot)[2]/span");
         By lblEmail = By.XPath("((//span[text()='Email'])[2]/following::dd//span/slot//a)[1]");
         By lblPhoneNo = By.XPath("((//span[text()='Phone'])[2]/following::dd//span/slot//a)[1]");
         By associatedEngagementsIcon = By.XPath("(//lightning-icon[@icon-name='utility:new_window'])[1]");

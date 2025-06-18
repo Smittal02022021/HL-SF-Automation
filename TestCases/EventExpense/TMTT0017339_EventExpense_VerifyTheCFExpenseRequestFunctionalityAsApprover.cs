@@ -152,10 +152,12 @@ namespace SF_Automation.TestCases.EventExpense
                     login.LoginAsExpenseRequestApprover(fileTC17339);
 
                     //Switch to lightning view
+                    /*
                     if (driver.Title.Contains("Salesforce - Unlimited Edition"))
                     {
                         homePage.SwitchToLightningView();
                     }
+                    */
 
                     extentReports.CreateLog("Approver: " + user1 + " is able to login into lightning view. ");
 
