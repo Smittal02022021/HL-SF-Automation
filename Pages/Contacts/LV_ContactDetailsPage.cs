@@ -1923,6 +1923,10 @@ namespace SF_Automation.Pages.Contact
             string badgeCompany = ReadExcelData.ReadData(excelPath, "EventBadges", 3);
             string badgeFullName = badgeFirst + " " + badgeLast;
 
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
             //Cick on Edit button
             WebDriverWaits.WaitUntilClickable(driver, btnEdit, 120);
             driver.FindElement(btnEdit).Click();

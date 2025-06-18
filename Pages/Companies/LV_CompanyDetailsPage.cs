@@ -72,7 +72,7 @@ namespace SF_Automation.Pages.Companies
         By btnViewAllActivities = By.XPath("//h2//span[text()='Company Activity']//ancestor::article//div[@slot='footer']//button");
         By txtSearch = By.XPath("//h2//span[text()='Company Activity']//ancestor::article//input[@placeholder='Search...']");
 
-        By btnShowMoreActions = By.XPath("(//span[text()='Show more actions'])[1]/..");
+        By btnShowMoreActions = By.XPath("(//span[text()='Show more actions'])[2]/..");
 
         //Sahil Round Trip Elements
         By lblRoundTripSection = By.XPath("//span[text()='Round Trip']");

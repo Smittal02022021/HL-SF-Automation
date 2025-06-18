@@ -939,6 +939,7 @@ namespace SF_Automation.Pages.Activities
 
             //Enter Activity details
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
+            Thread.Sleep(2000);
             driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
             driver.FindElement(txtSubject).SendKeys(subject);
 
