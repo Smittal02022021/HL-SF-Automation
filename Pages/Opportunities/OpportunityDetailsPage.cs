@@ -392,7 +392,7 @@ namespace SF_Automation.Pages
         By chkAnalystL = By.XPath("//table/tbody/tr[3]/td[7]/input");
         By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
         By btnSaveTeamL = By.XPath("//div[1]/table/tbody/tr/td[2]/span/input[1]");
-        By btnPartyL = By.XPath("//div[4]//dl[4]/div[1]/div/div/div/div/div[1]/div/div/a");
+        By btnPartyL = By.XPath("//span[text()='Party']/../..//a"); //div[4]//dl[4]/div[1]/div/div/div/div/div[1]/div/div/a");
         By tabEngTeamL = By.XPath("//section/div[1]/div/div[1]/div[2]/div/div/ul[2]/li[2]/a/span[2]");
         By btnAddCFOppContactL = By.XPath("//button[@name='Opportunity__c.Add_CF_Opportunity_Contact']");
 
