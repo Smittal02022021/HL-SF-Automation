@@ -366,7 +366,7 @@ namespace SF_Automation.Pages.Opportunity
         By tabReview = By.XPath("//lightning-tab-bar/ul/li[@title='Review']");
         By lnkEditGrade = By.XPath("//span[text()='Grade']/following::div[1]/button/span[1]");
         By btnGrade = By.XPath("//label[text()='Grade']/ancestor::div/div/lightning-base-combobox/div/div/div[1]/button");
-        By valGrade = By.XPath("//span[text()='Grade']/ancestor::div[2]//dd//lightning-formatted-text");
+        By valGrade = By.XPath("//span[text()='Grade']/ancestor::div[2]lightning-formatted-text");
 
         By valOppNum = By.XPath("/html/body/p[8]/span");
         By btnSendEmail = By.XPath("//div[1]/table/tbody/tr/td[2]/input[1]");

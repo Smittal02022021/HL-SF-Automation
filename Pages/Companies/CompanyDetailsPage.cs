@@ -662,6 +662,7 @@ namespace SF_Automation.Pages.Companies
         }
         public string AddNewHLCompanyFinancialLV(string year, string source, string revenue, string EBITDA, string dataSource)
         {
+            Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, comboYearL, 10);
             driver.FindElement(comboYearL).Click();
             By elmYear = By.XPath($"//label[text()='Year']/..//lightning-base-combobox-item//span[text()='{year}']");
@@ -669,7 +670,7 @@ namespace SF_Automation.Pages.Companies
             WebDriverWaits.WaitUntilEleVisible(driver, elmYear, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(elmYear));            
             driver.FindElement(elmYear).Click();
-
+            Thread.Sleep(2000);
             driver.FindElement(comboSourceL).Click();
             By elmSource = By.XPath($"//label[text()='Source']/..//lightning-base-combobox-item//span[text()='{source}']");
             Thread.Sleep(2000);

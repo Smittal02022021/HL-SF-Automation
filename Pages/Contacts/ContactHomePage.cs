@@ -65,7 +65,7 @@ namespace SF_Automation.Pages
         By txtContactSearchL = By.XPath("//input[contains(@placeholder,'Search Contacts')]");
         By txtContactSearchL2 = By.XPath("//input[@placeholder='Search...']");
         By imgContact = By.XPath("(//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Contact'])[1]");
-        By valEmailL = By.XPath("//flexipage-field[@data-field-id='RecordEmailField']//dd//a");
+        By valEmailL = By.XPath("//flexipage-field[@data-field-id='RecordEmailField']//a");
 
         string dir = @"C:\Users\VKumar0427\source\repos\SF_Automation\TestData\";
 
@@ -690,78 +690,41 @@ namespace SF_Automation.Pages
         }
 
         public void SearchContactInLightning(string value)
-
         {
-
             Thread.Sleep(2000);
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnContactSearchL, 5);
-
             driver.FindElement(btnContactSearchL).Click();
-
             Thread.Sleep(2000);
-
             try
-
             {
-
                 WebDriverWaits.WaitUntilEleVisible(driver, txtContactSearchL, 5);
-
                 driver.FindElement(txtContactSearchL).SendKeys(value);
-
             }
-
             catch(Exception ex)
-
             {
-
                 try
-
                 {
-
                     WebDriverWaits.WaitUntilEleVisible(driver, txtContactSearchL2, 5);
-
                     driver.FindElement(txtContactSearchL2).SendKeys(value);
-
                 }
-
                 catch
-
                 {
-
                     WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL, 5);
-
-                    driver.FindElement(inputAdminGlobalSearchL).SendKeys(value);
-
+                    driver.FindElement(inputAdminGlobalSearchL).SendKeys(value);                    
                 }
-
             }
-
             WebDriverWaits.WaitUntilEleVisible(driver, imgContact);
-
             Thread.Sleep(4000);
-
             driver.FindElement(imgContact).Click();
-
             Thread.Sleep(6000);
-
         }
 
         public string GetEmailIDOfContactLV()
-
         {
-
             WebDriverWaits.WaitUntilEleVisible(driver, valEmailL, 10);
-
             CustomFunctions.MoveToElement(driver, driver.FindElement(valEmailL));
-
             string id = driver.FindElement(valEmailL).Text;
-
             return id;
-
         }
-
-
-
     }
 }
