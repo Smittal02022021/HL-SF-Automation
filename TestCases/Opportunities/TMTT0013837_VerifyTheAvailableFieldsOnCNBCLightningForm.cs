@@ -115,6 +115,11 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.AreEqual("Opportunity Overview", title);
                 extentReports.CreateLog("CNBC Form page is displayed with default tab : " + title + " ");
 
+                //Validate the type of form displayed
+                string formType = opportunityDetails.ValidateFormType();
+                Assert.AreEqual("To Submit An CNBC Form:", formType);
+                extentReports.CreateLog("CNBC Form page is displayed for Job type: " +valJobType + " ");
+
                 //Click on Add Financials                
                 string txtAddFin = form.ClickAddFinancialsButton();
                 Assert.AreEqual("Add Financials", txtAddFin);

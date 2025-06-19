@@ -64,7 +64,7 @@ namespace SF_Automation.Pages.Opportunity
         By txtRetainerFeeCred = By.XPath("//input[@name='Retainer_Creditable__c']");
         By txtProgressFee = By.XPath("//input[@name='Is_Progress_Fee_Creditable__c']");
         By txtMinFee = By.XPath("//input[@name='Estimated_Minimum_Fee__c']");
-        By txtEstimatedFee = By.XPath("//input[@name='Total_Otherfee__c']");
+        By txtEstimatedFee = By.XPath("//input[@name='Transaction_Value_for_Fee_Calc__c']");
         By btnLockUp = By.XPath("//button[@aria-label='Lockups on Future M&A or Financing Work']");
         By txtReferralFee = By.XPath("//label[text()='Referral Fee Owed']/following::div[1]/input");
 
@@ -83,7 +83,7 @@ namespace SF_Automation.Pages.Opportunity
         By lnkEditFeedback = By.XPath("//button[@title='Edit Feedback required before next call?']");
 
         By lblCurrentStatus = By.XPath("//span[text()='Current Status']");
-        By lblRiskFact = By.XPath("span[text()='Risk Factors'");
+        By lblRiskFact = By.XPath("//span[text()='Risk Factors']");
         By lblExistingRel = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordExisting_or_Repeat_Client_cField1']/slot[1]/following::span[1]");
         By lblExisting = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordRisk_Factors_cField1']/slot[1]/following::span[1]");
         By lblAsiaAngle = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordExisting_Relationships_cField1']/slot[1]/following::span[1]");
@@ -110,12 +110,12 @@ namespace SF_Automation.Pages.Opportunity
         By lblGroup = By.XPath("//div/span[text()='Group Head Approval']");
 
         By msgFinUnavailable = By.XPath("//span[@title='Financials Unavailable']");
-        By lblNoFin = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials__c']/div[1]//dt/div[1]/span");
-        By lblNoFinExp = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials_Explanation__c']/div[1]//dt/div[1]/span");
+        By lblNoFin = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials__c']/div[1]/div[1]/span");
+        By lblNoFinExp = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.No_Financials_Explanation__c']/div[1]/div[1]/span");
         By msgAboveFin = By.XPath("//span[text()='Have the above Financials been subject to an audit?']");
-        By lblFinSub = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Financials_Subject_to_Audit__c']/div[1]//dt/div[1]/span");
+        By lblFinSub = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Financials_Subject_to_Audit__c']/div[1]/div[1]/span");
         By msgCapital = By.XPath("//span[@title='Capital Raise (MM) (Best estimate of capital to be raised expressed as a currency value in millions)']");
-        By lblCapRaise = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Capital_Raise__c']/div[1]//dt/div[1]/span");
+        By lblCapRaise = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Opportunity_Approval__c.Capital_Raise__c']/div[1]/div[1]/span");
 
         By lblRetainer = By.XPath("//span[text()='Retainer']");
         By lblFeeStructure = By.XPath("//flexipage-column2[1]/div/slot/flexipage-field[@data-field-id='RecordTotal_Otherfee_cField2']/slot[1]/following::span[1]");
@@ -479,12 +479,12 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtRetainerFeeCred).SendKeys(fee);
             driver.FindElement(txtProgressFee).SendKeys(fee);
             js.ExecuteScript("window.scrollTo(0,350)");
-            //driver.FindElement(txtMinFee).SendKeys(fee);
-            //driver.FindElement(txtEstimatedFee).SendKeys(fee);
+            driver.FindElement(txtMinFee).SendKeys(fee);
+           
             js.ExecuteScript("window.scrollTo(0,350)");
             Thread.Sleep(4000);
             driver.FindElement(btnLockUp).Click();
-            //driver.FindElement(btnLockUp).Click();
+            driver.FindElement(btnLockUp).Click();
             Thread.Sleep(7000);
             driver.FindElement(By.XPath("//label[text()='Lockups on Future M&A or Financing Work']/following::lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[2]/span[2]/span")).Click();
             js.ExecuteScript("window.scrollTo(0,350)");
@@ -556,7 +556,9 @@ namespace SF_Automation.Pages.Opportunity
             js.ExecuteScript("window.scrollTo(0,450)");
             WebDriverWaits.WaitUntilEleVisible(driver, txtReferralFee, 200);
             driver.FindElement(txtReferralFee).SendKeys("10");
+            driver.FindElement(txtEstimatedFee).SendKeys("15");
             Thread.Sleep(3000);
+
             driver.FindElement(btnSave).Click();
             //WebDriverWaits.WaitUntilEleVisible(driver, btnClose, 80);
             //driver.FindElement(btnClose).Click();

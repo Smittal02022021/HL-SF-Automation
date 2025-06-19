@@ -63,7 +63,7 @@ namespace SF_Automation.Pages.Engagement
         By lblPostTransKeyContacts = By.XPath("//span[text()='Post-Transaction Key External Contact']/ancestor::div[1]/div[1]/table/thead/tr/th/span");
 
 
-        By valOtherL = By.XPath("//table/tbody/tr/td[1]/div");
+        By valOtherL = By.XPath("//table/tbody/tr[1]/td[1]/div");
         By btnAddEquityHolderL = By.XPath("//button[text()='Add Equity Holder']");
         By msgDupClientL = By.XPath("//div[contains(text(),'Company Name')]");
         By msgMandatoryKeyCredL = By.XPath("//label[text()='Client/Subject']/ancestor::lightning-grouped-combobox/div[2]");
@@ -108,8 +108,8 @@ namespace SF_Automation.Pages.Engagement
 
         By lblClientSubL = By.XPath("//label[text()='Client/Subject']");
         By lblPercentOwnershipL = By.XPath("//label[text()='Percent Ownership']");
-        By msgFinType = By.XPath("//label[text()='Financing Type']/ancestor::div[1]/div[text()='Complete this field.']");
-        By msgSecType = By.XPath("//label[text()='Security Type']/ancestor::div[1]/div[text()='Complete this field.']");
+        By msgFinType = By.XPath("//label[text()='Financing Type']/ancestor::div[1]//div[text()='Complete this field.']");
+        By msgSecType = By.XPath("//label[text()='Security Type']/ancestor::div[1]//div[text()='Complete this field.']");
         By lblContacts = By.XPath("//label[text()='Contact (External)']");
         By lblMaturityDate = By.XPath("//lightning-datepicker/div/label");
         By lblSecurityTypeL = By.XPath("//label[text()='Security Type']");
@@ -175,7 +175,7 @@ namespace SF_Automation.Pages.Engagement
         By txtBreakUPFeeL = By.XPath("//input[@name='Break_Up_Fee__c']");
         By rowAddDistressedL = By.XPath("//table[@class='slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols']/tbody/tr");
         By rowAddHLFinL = By.XPath("//c-engagement-fr-summary-hl-financing/div[1]/div/div/div/table/tbody/tr");
-        By btnEditDistressed = By.XPath("//button[@title='Edit']");
+        By btnEditDistressed = By.XPath("//tr[1]//button[@title='Edit']");
         By btnEditDebtL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[1]/td[12]/span/div/lightning-button-icon/button");
         By btnEdit2ndDebtL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]/td[12]/span/div/lightning-button-icon/button");
         By btnEditDebtLPost = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[3]/div/div/table/tbody/tr[1]/td[12]/span/div/lightning-button-icon/button");
@@ -3371,13 +3371,13 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnFinTypeL, 120);
             driver.FindElement(btnFinTypeL).Click();
             Thread.Sleep(4000);
-            var element = driver.FindElement((By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[1]/span[2]/span")));
+            var element = driver.FindElement((By.XPath("//button[@name='Financing_Type__c']/ancestor::div[2]//lightning-base-combobox-item[1]/span[2]/span")));
             Actions action = new Actions(driver);
             action.MoveToElement(element);
             action.Perform();
-            driver.FindElement((By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[1]/span[2]/span"))).Click();
+            driver.FindElement((By.XPath("//button[@name='Financing_Type__c']/ancestor::div[2]//lightning-base-combobox-item[1]/span[2]/span"))).Click();
             driver.FindElement(btnSecTypeL).Click();
-            driver.FindElement(By.XPath("//div[3]/lightning-input-field/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[1]/span[2]/span")).Click();
+            driver.FindElement(By.XPath("//button[@name='Security_Type__c']/ancestor::div[2]//lightning-base-combobox-item[1]/span[2]/span")).Click();
 
             driver.FindElement(btnSaveAddHL).Click();
             Thread.Sleep(4000);

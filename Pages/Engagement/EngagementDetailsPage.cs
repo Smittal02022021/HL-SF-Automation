@@ -39,11 +39,11 @@ namespace SF_Automation.Pages.Engagement
         By tabPostTransL = By.XPath("//li/a[text()='Post-Transaction Info']");
         By tabHLPostTransL = By.XPath("//li/a[text()='HL Post-Transaction Opportunities']");
         By tabClientL = By.XPath("//a[text()='Client/Subject & Referral']");
-        By valTxnType = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Transaction_Type__c']/div//dd/div[1]/span/slot/lightning-formatted-text");
-        By valPostTxnStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Post_Transaction_Status__c']/div[1]//dd/div/span/slot/lightning-formatted-text");
-        By valCompDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.FR_Client__c']/div//dd/div[1]/span/slot/lightning-formatted-text");
-        By valBusDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Business_Description__c']/div//dd/div[1]/span/slot/lightning-formatted-text");
-        By valReDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Restructuring_Description__c']/div//dd/div[1]/span/slot/lightning-formatted-text"); 
+        By valTxnType = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Transaction_Type__c']//div[2]/span/slot/lightning-formatted-text");
+        By valPostTxnStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Post_Transaction_Status__c']//div[2]/span/slot/lightning-formatted-text");
+        By valCompDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.FR_Client__c']//div[2]/span/slot/lightning-formatted-text");
+        By valBusDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Business_Description__c']//div[2]/span/slot/lightning-formatted-text");
+        By valReDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Restructuring_Description__c']//div[2]/span/slot/lightning-formatted-text"); 
         By titleFREngSum = By.CssSelector("h2[class='pageDescription']");
         By lblTransType = By.CssSelector("div[id*='id37'] > div[class='pbBody'] > table > tbody > tr:nth-child(1) > td:nth-child(1) > label");
         By valRevAccural = By.CssSelector("div[id*='saB_body']>table>tbody>tr:nth-child(2)>th>a:nth-child(2)");
@@ -144,12 +144,12 @@ namespace SF_Automation.Pages.Engagement
         By msgNoValL = By.XPath("//div[text()='Currently there are no valuation periods for this Engagement. To proceed, please create a new valuation period.']");
         By btnBackToEngL = By.XPath("//input[@value='Back To Engagement']");
         By tabDetails = By.XPath("//a[text()='Details']");
-        By lnkStageL = By.XPath("//flexipage-tabset2//flexipage-column2[2]//flexipage-field[5]//dt/div/span/ancestor::div[2]/dd//button");
+        By lnkStageL = By.XPath("//button[@title='Edit Stage']");
         By btnStageL = By.XPath("//flexipage-field[5]//div[2]/slot//button/span");
         By valStageL = By.XPath("//flexipage-tab2[1]//flexipage-tab2[1]//flexipage-column2[2]/div/slot/flexipage-field[5]//lightning-combobox//lightning-base-combobox-item/span[2]/span[text()='Bill/File']");
         By tabOpportunityL = By.XPath("//div[2]/div/div/ul[2]/li[2]/a");
         By valImportedValPeriod = By.XPath("//tr[1]/td[2]/a");
-        By valSavedStageL = By.XPath("//flexipage-tabset2//flexipage-column2[2]//flexipage-field[5]//dt/div/span/ancestor::div[2]/dd//slot[1]/lightning-formatted-text");
+        By valSavedStageL = By.XPath("//flexipage-tabset2//flexipage-column2[2]//flexipage-field[5]//div/span/ancestor::div[2]//slot[1]/lightning-formatted-text");
 
         By valImportedPositionL = By.XPath("//span/table/tbody/tr[1]/td[2]/a[1]");
 
@@ -188,9 +188,9 @@ namespace SF_Automation.Pages.Engagement
         By valContract2 = By.CssSelector("div[id*='ecq_body'] > table > tbody > tr:nth-child(3) > th > a");
         By valContract2L = By.XPath("//span[text()='Test Contract']");
         By lnk2ndContractL = By.XPath("//table[@aria-label='Contract']/tbody/tr[1]/th//records-hoverable-link");
-        By checkIsMainL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Is_Main_Contract__c']//dd//label/span[1]");
+        By checkIsMainL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Is_Main_Contract__c']//label/span[1]");
         By tabOppNameL = By.XPath("//section[1]/div/div/div/div/div/ul[2]/li[2]/a");
-        By lnkOppL = By.XPath("//flexipage-component2[1]//dl/slot/records-record-layout-row[6]//records-hoverable-link");
+        By lnkOppL = By.XPath("//flexipage-component2[1]//slot/records-record-layout-row[6]//records-hoverable-link");
         By btnCloseOppL = By.XPath("//span[@title='Engagement  c']/ancestor::li[1]//button[contains(@title,'Close')]");
         //By btnCloseReqEngFVAL = By.XPath("//button[@title='Close this window']");
         
@@ -541,7 +541,7 @@ namespace SF_Automation.Pages.Engagement
         By tblReports = By.XPath("//div[@class='pbBody']/div[3]/table/tbody/tr/td[1]/a");
         By btnReturnToEngLightning = By.XPath("//input[@value='Return to Engagement']");
         By valRelatedOppL = By.XPath("//span[text()='Related Opportunity']/ancestor::div[2]//a//span[1]//span//span");
-        By btnPortfolioValL = By.XPath("//section[2]/div/div/div[1]//runtime_platform_actions-actions-ribbon/ul/li[9]//lightning-button/button");
+        By btnPortfolioValL = By.XPath("//section[2]/div/div/div[1]//runtime_platform_actions-actions-ribbon/ul/li[7]//lightning-button/button");
         By btnNewOppValPeriodL = By.XPath("//input[@value='New Opportunity Valuation Period']");
         By btnNewEngValPeriodL = By.XPath("//input[@value='New Engagement Valuation Period']");
         By btnEngReportsL = By.XPath("//button[text()='Engagement Reports']");
@@ -4130,10 +4130,12 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabInfo2ndL, 130);
             driver.FindElement(tabInfo2ndL).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, tabImpDates, 120);
+            Thread.Sleep(7000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, tabImpDates, 120);
             driver.FindElement(tabImpDates).Click();
+            Console.WriteLine("Clicked Imp Dates");
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valFinalReportL, 140);
+            //WebDriverWaits.WaitUntilEleVisible(driver, valFinalReportL, 140);
             string value = driver.FindElement(valFinalReportL).Text;
             return value;
         }

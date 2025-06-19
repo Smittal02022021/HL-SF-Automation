@@ -251,7 +251,7 @@ namespace SF_Automation.Pages
         By checkSelectedIsMain = By.CssSelector("input[name*='ZS']");
         By checkSelectedIsMainL = By.XPath("//records-record-layout-row[9]//lightning-primitive-input-checkbox//input");
         By checkIsMainContract1 = By.CssSelector("div[id*='ed1_body']> table > tbody > tr.dataRow.even.first > td.dataCell.booleanColumn > img");
-        By checkIsMainContract1L = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Name']//div//span//lightning-formatted-text[contains(text(),'Additional')]/ancestor::/div[@data-target-selection-name='sfdc:RecordField.Contract__c.Is_Main_Contract__c']//label/span[1]");
+        By checkIsMainContract1L = By.XPath("//section[3]//flexipage-component2[1]//records-record-layout-row[11]//lightning-primitive-input-checkbox/div[1]//label/span[1]");
         By checkIsMainContract2 = By.CssSelector("div[id*='ed1_body']> table > tbody > tr.dataRow.odd.last > td.dataCell.booleanColumn > img");
         By valContract1 = By.CssSelector("div[id*='ed1_body'] > table > tbody > tr:nth-child(2) > th > a");
         By valContract2 = By.CssSelector("div[id*='ed1_body'] > table > tbody > tr:nth-child(3) > th > a");
@@ -343,6 +343,7 @@ namespace SF_Automation.Pages
         By titleNBCAdmin = By.XPath("//table//tr/td[2]/p[1]");
 
         By txtDefaultTabCNBC = By.XPath("//lightning-tab-bar/ul/li[@class='slds-tabs_default__item slds-is-active']/a[text()='Opportunity Overview']");
+        By lblFormType = By.XPath("//span[@title='To Submit An CNBC Form:']");
         By chkNBCApproved = By.CssSelector("img[id*='FmBzhj_id0_j_id55_chkbox']");
         By titlePopUpNBC = By.XPath("//div[@class='custPopup']/p");
         By btnReturnToOppL = By.XPath("//div[1]/table/tbody/tr/td[2]/span/input[2]");
@@ -1960,6 +1961,13 @@ namespace SF_Automation.Pages
             Thread.Sleep(10000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtDefaultTabCNBC, 140);
             string title = driver.FindElement(txtDefaultTabCNBC).Text;
+            return title;
+        }
+
+        public string ValidateFormType()
+        {
+            Thread.Sleep(4000);
+            string title = driver.FindElement(lblFormType).Text;
             return title;
         }
 
