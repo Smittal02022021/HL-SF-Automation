@@ -781,11 +781,19 @@ namespace SF_Automation.Pages.Common
                 closeTabIcon.Click();
                 Thread.Sleep(2000);
             }
-            catch 
-            { 
-                //tab already closed
-             }
-            
+            catch
+            {
+                try
+                {
+                    IWebElement closeTabIcon = driver.FindElement(_TabEle("'Close Tab'"));
+                    closeTabIcon.Click();
+                    Thread.Sleep(2000);
+                }
+                catch
+                {
+                    //tab already closed
+                }
+            }            
         }
         public bool IsPageHeaderDisplayedLV(string item)
         {

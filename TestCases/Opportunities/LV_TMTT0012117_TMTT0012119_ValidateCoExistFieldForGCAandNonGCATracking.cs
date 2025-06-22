@@ -114,7 +114,7 @@ namespace SF_Automation.TestCases.Opportunities
                     addOpportunityContact.ClickAddOpportunityContactLV(valRecordType);
                     addOpportunityContact.CreateContactL2(fileGCATracking, valRecordType);
                     extentReports.CreateStepLogs("Info", "Contact " + valContact + " is added as " + valContactType + " for opportunity with LOB: " + valRecordType);
-
+                                      
                     //Update required Opportunity fields for conversion and Internal team details
                     if (valRecordType == "CF")
                     {
@@ -127,6 +127,13 @@ namespace SF_Automation.TestCases.Opportunities
                     }
                     else
                     {
+                        //PitchMandateAward details
+                        randomPages.ClickPitchMandteAwardTabLV();
+                        opportunityDetails.CreateNewPitchMandateAwardLV();
+                        extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
+                        string idPMA = opportunityDetails.GetPitchMandateAwardID();
+                        randomPages.CloseActiveTab(idPMA + " | Pitch/Mandate Award");
+                        opportunityDetails.ClickTabInfoLV();
                         opportunityDetails.UpdateReqFieldsForFRConversionLV(fileGCATracking);
                         opportunityDetails.UpdateTotalDebtConfirmedLV();
                     }
@@ -175,9 +182,10 @@ namespace SF_Automation.TestCases.Opportunities
                     string memberRole = ReadExcelData.ReadDataMultipleRows(excelPath, "OppDealTeamMembers", 2, 2);
                     opportunityDetails.AddOppMultipleDealTeamMembersLV(valRecordType, memberRole, fileGCATracking);
                     extentReports.CreateStepLogs("Info", "More member(GCA and Non-GCA) added " + adminUserExl + " logged out");
-                    opportunityDetails.ClickReturnToOpportunityLV();
+                    //opportunityDetails.ClickReturnToOpportunityLV();
                     randomPages.CloseActiveTab("Internal Team");
-                    //opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
+                    randomPages.CloseActiveTab("Internal Team");
+                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
                     //extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
 
                     //randomPages.DetailPageFullViewLV();

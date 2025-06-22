@@ -318,7 +318,9 @@ namespace SF_Automation.TestCases.Companies
 
                 }
                 driver.Quit();
+                extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
         }
+        
     }
 }

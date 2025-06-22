@@ -298,7 +298,7 @@ namespace SF_Automation.Pages.Opportunity
         By comboViewOptions = By.XPath("//button[@name='view']//parent::div//following-sibling::div[@role='listbox']//lightning-base-combobox-item//span[@class='slds-media__body']//span");
 
         By btnDeleteCounterparty = By.XPath("//div[contains(@class,'button-group')]//slot//button[text()='Delete']");
-        By chkboxSelectAll = By.XPath("//lightning-layout-item//table//span[contains(@class,'checkbox')]//input[contains(@class,'select-all')]/..//label/span[1]"); //input[contains(@class,'select-all')]//following::label//span[contains(@class,'checkbox')]");
+        By chkboxSelectAll = By.XPath("//lightning-layout-item//table//span[contains(@class,'checkbox')]//input[contains(@class,'select-all')]/..//label");///span[1]"); //input[contains(@class,'select-all')]//following::label//span[contains(@class,'checkbox')]");
         By tableCompanyList = By.XPath("//table[contains(@aria-describedby,'Company-list')]");
         By btnOKCompanyList = By.XPath("//footer//button[@title='OK']");
         By txtSearchCountryparty = By.XPath("//lightning-input[contains(@class,'searchField')]//input");
@@ -1161,7 +1161,7 @@ namespace SF_Automation.Pages.Opportunity
             var actualValue = valTypes.Select(x => x.Text).ToArray();
             for (int row = 0; row < actualValue.Length; row++)
             {
-                if (jobType == "Debt Capital Markets" || jobType == "Equity Capital Markets")
+                if (jobType == "Debt Financing" || jobType == "Equity Placements")
                 {
                     expectedJobType = "CM Stages";// "Capital Markets";
                 }

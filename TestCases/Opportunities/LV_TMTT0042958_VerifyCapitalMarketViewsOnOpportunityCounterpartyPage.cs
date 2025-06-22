@@ -7,7 +7,7 @@ using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
 
-namespace SF_Automation.TestCases.Opportunities
+namespace SF_Automation.TestCases.OpportunitiesCounterparty
 {
     class LV_TMTT0042958_VerifyCapitalMarketViewsOnOpportunityCounterpartyPage : BaseClass
     {

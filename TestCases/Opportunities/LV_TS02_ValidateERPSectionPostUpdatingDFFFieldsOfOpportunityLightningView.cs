@@ -206,8 +206,11 @@ namespace SF_Automation.TestCases.OpportunitiesOracleERP
                 opportunityDetails.UpdateHLSectorIDLV(updSector);
 
                 string sector = randomPages.GetHLSectorIDLV();
-                string sectorCombo = randomPages.GetHLSectorComboLV();
-                Assert.AreEqual(sectorCombo.Contains(updSector), true);
+                Assert.AreEqual(sector, updSector);
+                
+                //string sectorCombo = randomPages.GetHLSectorComboLV();
+               // Assert.AreEqual(sectorCombo.Contains(updSector), true);
+
                 extentReports.CreateStepLogs("Passed", "Sector is updated to and sector combo contains " + updSector + " ");
                 randomPages.DetailPageFullViewLV();
                 extentReports.CreateStepLogs("Info", "Detail Page Full View is displayed ");

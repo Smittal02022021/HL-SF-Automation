@@ -76,6 +76,7 @@ namespace SF_Automation.Pages.Company
 
         public string AddNewCoverageTeamLV(string officerName, string tier, string level, string type)
         {
+            Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, inputOfficeL, 10);
             driver.FindElement(inputOfficeL).SendKeys(officerName);
             By elmOfficer = By.XPath($"//label[text()='Officer']/..//lightning-base-combobox-item//lightning-base-combobox-formatted-text[@title='{officerName}']");
@@ -85,18 +86,21 @@ namespace SF_Automation.Pages.Company
 
             driver.FindElement(comboCovegareTierL).Click();
             By elmCovTier= By.XPath($"//label[text()='Tier']/..//lightning-base-combobox-item//span[@title='{tier}']");
+            Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, elmCovTier, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(elmCovTier));
             driver.FindElement(elmCovTier).Click();
 
             driver.FindElement(comboCoverageLevelL).Click();
             By elmCovlevel = By.XPath($"//label[text()='Coverage Level']/..//lightning-base-combobox-item//span[@title='{level}']");
+            Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, elmCovlevel, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(elmCovlevel));
             driver.FindElement(elmCovlevel).Click();
 
             driver.FindElement(comboCovegareTypeL).Click();
             By elmCovType = By.XPath($"//label[text()='Type']/..//lightning-base-combobox-item//span[@title='{type}']");
+            Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, elmCovType, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(elmCovType));
             driver.FindElement(elmCovType).Click();

@@ -27,6 +27,7 @@ namespace SF_Automation.TestCases.Engagements
         RandomPages randomPages = new RandomPages();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         EngagementHomePage engagementHome = new EngagementHomePage();
+        HomeMainPage homePage = new HomeMainPage();
 
         public static string ERPTS04 = "LV_TS04AndTS07_ValidateERPSection";
 
@@ -116,6 +117,12 @@ namespace SF_Automation.TestCases.Engagements
                     {
                        opportunityDetails.UpdateReqFieldsForFRConversionLV(ERPTS04);
                         opportunityDetails.UpdateTotalDebtConfirmedLV();
+                        //PitchMandateAward details
+                        randomPages.ClickPitchMandteAwardTabLV();
+                        opportunityDetails.CreateNewPitchMandateAwardLV();
+                        extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
+                        string idPMA = opportunityDetails.GetPitchMandateAwardID();
+                        randomPages.CloseActiveTab(idPMA + " | Pitch/Mandate Award");
                     }
                     if (valRecordType == "FVA")
                     {
@@ -129,10 +136,13 @@ namespace SF_Automation.TestCases.Engagements
 
                     //------Only System Admin can see the ERP Section on Opportunity Detail page//
                     string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 3);
-                    usersLogin.SearchUserAndLogin(adminUserExl);
+                    homePage.SearchUserByGlobalSearchN(adminUserExl);
+                    extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     string userName = login.ValidateUserLightningView();
-                    Assert.AreEqual(userName.Contains(adminUserExl), true);
+                    Assert.AreEqual(userName.Contains(adminUserExl), true); 
                     extentReports.CreateLog("System Administrator User: " + adminUserExl + " logged in on Lightning View");
                     homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
@@ -143,25 +153,13 @@ namespace SF_Automation.TestCases.Engagements
                     opportunityHome.SearchOpportunitiesInLightningView(oppName);
                     extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
                     randomPages.DetailPageFullViewLV();
-                    opportunityDetails.UpdateCCOutcomeDetailsLV();
-                    extentReports.CreateStepLogs("Info", "Conflict Check Details Provided ");
-                    if (jobType == "Debt Capital Markets" || jobType == "Buyside" || jobType == "Sellside")
-                    {
-                        opportunityDetails.UpdateNBCApprovalLV();
-                        extentReports.CreateStepLogs("Info", "NBC Approved Chekbox is Checked ");
-                    }
+                    opportunityDetails.UpdateOutcomeNBCApproveDetailsLV(valJobType);
+                    extentReports.CreateStepLogs("Info", "Conflict Check and NBC Details Provided ");                    
                     opportunityDetails.UpdateInternalTeamDetailsLV(ERPTS04);
                     extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are provided ");
                     opportunityDetails.ClickReturnToOpportunityL();
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
-                    randomPages.CloseActiveTab("Internal Team");
-
-                    //PitchMandateAward details
-                    randomPages.ClickPitchMandteAwardTabLV();
-                    opportunityDetails.CreateNewPitchMandateAwardLV();
-                    extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
-                    string idPMA = opportunityDetails.GetPitchMandateAwardID();
-                    randomPages.CloseActiveTab(idPMA + " | Pitch/Mandate Award");
+                    randomPages.CloseActiveTab("Internal Team");                    
 
                     randomPages.CloseActiveTab(oppName);
                     extentReports.CreateStepLogs("Info", "Opportunity tab is closed");
@@ -241,14 +239,14 @@ namespace SF_Automation.TestCases.Engagements
                     string LOB = randomPages.GetLOBLV();
                     //Validate HL Entity
                     //Click Info>>Admintrator tab
-                    engagementDetails.ClickEngInfoTabLV();
-                    engagementDetails.ClickEngAdministrationTabLV();
-                    string entity = engagementDetails.GetLegalEntityLV();
+                    //engagementDetails.ClickEngInfoTabLV();
+                    //engagementDetails.ClickEngAdministrationTabLV();
 
                     //Full View
-                    //randomPages.DetailPageFullViewLV();
-                    randomPages.ClickTabOracleERPLV();
-                    extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
+                    randomPages.DetailPageFullViewLV();
+                    string entity = engagementDetails.GetLegalEntityLV();                    
+                    //randomPages.ClickTabOracleERPLV();
+                    //extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
 
                     //Validate ERP section details------
                     //Validate ERP Submitted To Sync                 
@@ -341,10 +339,11 @@ namespace SF_Automation.TestCases.Engagements
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
                     engagementHome.SearchEngagementInLightningView(engName);
                     extentReports.CreateStepLogs("Passed", "Engagement: " + engName + " found and selected ");
+                    
                     //Full View
-                    //randomPages.DetailPageFullViewLV();
-                    randomPages.ClickTabOracleERPLV();
-                    extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
+                    randomPages.DetailPageFullViewLV();
+                    //randomPages.ClickTabOracleERPLV();
+                    //extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
 
                     string productLine = randomPages.GetERPProductTypeLV();
                     Assert.AreEqual(prodLine, productLine);
@@ -390,9 +389,9 @@ namespace SF_Automation.TestCases.Engagements
                     engagementHome.SearchEngagementInLightningView(engName);
                     extentReports.CreateStepLogs("Passed", "Engagement: " + engName + " found and selected ");
                     //Full View
-                    //randomPages.DetailPageFullViewLV();
-                    randomPages.ClickTabOracleERPLV();
-                    extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
+                    randomPages.DetailPageFullViewLV();
+                    //randomPages.ClickTabOracleERPLV();
+                    //extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
                     //Validate ERP Template                
                     string ERPTemplate = randomPages.GetERPTemplateLV();
                     Assert.AreEqual(templateNum, ERPTemplate);

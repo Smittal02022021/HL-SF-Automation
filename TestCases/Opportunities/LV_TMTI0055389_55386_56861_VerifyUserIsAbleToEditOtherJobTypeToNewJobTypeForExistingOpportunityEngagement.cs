@@ -140,7 +140,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //update CC and NBC checkboxes 
                     opportunityDetails.UpdateOutcomeDetails(fileTMTI0055389);
-                    if (valJobType.Equals("Buyside") || valJobType.Equals("Sellside"))
+                    if (valJobType.Equals("Buyside") || valJobType.Equals("Sellside") || valJobType.Equals("Liability Management"))
                     {
                         opportunityDetails.UpdateNBCApproval();
                         extentReports.CreateLog("Conflict Check and NBC fields are updated ");

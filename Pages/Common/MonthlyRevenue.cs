@@ -23,29 +23,34 @@ namespace SF_Automation.Pages.Common
         By lblLagacyPAFee = By.XPath("//records-record-layout-item[@field-label='Legacy Period Accrued Fees']");
 
         By lnkIsCurrentColumn = By.XPath("//th[@aria-label='Is Current']//a");
-        By chkIsCurrent = By.XPath("//table//tbody//tr[1]//td[5]//img");//(//td[@data-label='Is Current'])[1]//input"); .GetAttribute("alt");
+        By chkIsCurrent = By.XPath("//table//tbody//tr[1]//td[5]/span//input");//..//span[contains(@class,'slds-checkbox')]");////table//tbody//tr[1]//td[5]//img");//(//td[@data-label='Is Current'])[1]//input"); .GetAttribute("alt");
         By linkCurrentMonthRev = By.XPath("//table//tbody//tr[1]/th//a");// (//td[@data-label='Is Current'])[1]//ancestor::tr//th//a");
         By linkViewAllRevAccu = By.XPath("//article[@aria-label='Revenue Accruals']//a[contains(@class,'footer')]");
         By listRevAccu = By.XPath("(//table[@aria-label='Revenue Accruals'])[2]//tbody//tr");
         By valRVAccuNum = By.XPath("//records-record-layout-item[@field-label='Revenue Accrual #']//lightning-formatted-text");
 
         public void SelectCurrentMonthRevenuePageLV()
-        {
+        {            
+            bool IsCurrentFound = false;
         IsCurrentStatus:
-            string chckboxStatus = driver.FindElement(chkIsCurrent).GetAttribute("alt");
-            if(chckboxStatus == "True")
+            while(IsCurrentFound==false)
             {
-                driver.FindElement(linkCurrentMonthRev).Click();
-                Thread.Sleep(5000);
-            }
-            else
-            {
-                driver.FindElement(lnkIsCurrentColumn).Click();
-                Thread.Sleep(2000);
-                goto IsCurrentStatus;
-            }
+                //string chckboxStatus = driver.FindElement(chkIsCurrent).IsSelected; // GetAttribute("alt");
+                bool chckboxStatus = driver.FindElement(chkIsCurrent).Selected;
+                if (chckboxStatus)
+                {
+                    driver.FindElement(linkCurrentMonthRev).Click();
+                    Thread.Sleep(5000);
+                    IsCurrentFound = true;
+                }
+                else
+                {
+                    driver.FindElement(lnkIsCurrentColumn).Click();
+                    Thread.Sleep(2000);
+                    goto IsCurrentStatus;
+                }
+            }            
         }
-
 
         public string SelectRevenueAccrualLV(string lob)
         {

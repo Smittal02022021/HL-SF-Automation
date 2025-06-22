@@ -3449,7 +3449,7 @@ namespace SF_Automation.Pages
                 Thread.Sleep(2000);
             }
             driver.FindElement(optionCCOutcomeL).Click();
-            if (valJobType.Equals("Buyside") || valJobType.Equals("Sellside")|| valJobType.Equals("Debt Capital Markets"))
+            if (valJobType.Equals("Buyside") || valJobType.Equals("Sellside")|| valJobType.Equals("Debt Financing") || valJobType.Equals("Liability Management"))
             {
                 CustomFunctions.MoveToElement(driver, driver.FindElement(lblCreatedBy));
                 Thread.Sleep(2000);
@@ -8954,13 +8954,12 @@ namespace SF_Automation.Pages
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
-            string excelPath = dir + file;
-            Console.WriteLine("path:" + excelPath);
-            string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
+            string excelPath = dir + file;            
+            string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);          
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             Thread.Sleep(10000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
-            driver.FindElement(btnEditL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditOppL, 20);
+            driver.FindElement(btnEditOppL).Click();
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, comboClientOwnershipL, 10);
             string valClient = ReadExcelData.ReadData(excelPath, "AddOpportunity", 18);
@@ -9074,11 +9073,18 @@ namespace SF_Automation.Pages
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(5000);
         }
-
+        public void ClickTabInfoLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo, 10);
+            driver.FindElement(tabInfo).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, tabDetails, 10);
+            driver.FindElement(tabDetails).Click();
+            Thread.Sleep(5000);
+        }
         public void UpdateTotalDebtConfirmedLV()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditOppL, 20);
             driver.FindElement(tabDetails).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, iconInlineEditTDConfirmed, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(iconInlineEditTDConfirmed));
