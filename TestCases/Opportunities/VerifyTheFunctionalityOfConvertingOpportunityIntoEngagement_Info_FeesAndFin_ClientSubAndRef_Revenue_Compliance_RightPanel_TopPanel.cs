@@ -99,7 +99,7 @@ namespace SF_Automation.TestCases.Opportunities
                 opportunityDetails.UpdateInternalTeamDetailsL(TMTT0017889);
                 extentReports.CreateLog("Internal Team members details are saved ");
                 opportunityDetails.ClickAddCFOppContact();
-                addContact.CreateContactL(TMTT0017889);
+                addContact.CreateContactCFL(TMTT0017889);
 
                 //Update CC and NBC
                 usersLogin.LightningLogout();

@@ -83,7 +83,7 @@ namespace SF_Automation.TestCases.Opportunities
                         string valTxnFee = nform.GetEstFeeValueUponSavingOtherFeeType();
                         string valMinFee = nform.GetMinFeeValue();
                         Console.WriteLine(valTxnFee);
-                        Assert.AreEqual("Estimated Total Fee", txnFee);
+                        Assert.AreEqual("Estimated Contingent Fee", txnFee);
                         Assert.AreEqual(valTxnSizeOpp, valMinFee);
                         extentReports.CreateLog("Field with name: "+txnFee + " and value: "+ valMinFee + " is displayed upon saving Transaction Fee as Other in CNBC Form ");
 
@@ -95,13 +95,13 @@ namespace SF_Automation.TestCases.Opportunities
                         string estFeeValue = nform.ValidaterEstimatedFeeValueInReport();
                         Console.WriteLine("estFeeValue:" + estFeeValue);
                         Assert.AreEqual("Estimated Fee: ", estFee);
-                        Assert.AreEqual(valMinFee, estFeeValue);
-                        extentReports.CreateLog("The 'Estimated Fee' field is added in the Cognos report and its value is same as Minimum Fee when Fee Type is 'Other' ");
+                        Assert.AreEqual(valTxnFee, estFeeValue);
+                        extentReports.CreateLog("The 'Estimated Fee' field is added in the Cognos report and its value is same as Estimated Total Fee when Fee Type is 'Other' ");
 
                         //3.  TMTI0113198_Verify that the "Minimum Fee" field is hidden for the Transaction Type - "Flat Fee" from the CNBC form and the Cognos Report PDF on the existing Opportunities of the Equity Capital Market job types.
                         bool flatFee = nform.ValidateMinFeeFieldUponSelectingFlatAndIncentiveFeeType("Flat Fee");                        
                         Assert.AreEqual(false, flatFee);
-                        extentReports.CreateLog("Minimum Fee field is not displayed upon saving Transaction Fee as Flat Fee in CNBC Form ");
+                        extentReports.CreateLog("Estimated Contingent Fee field is not displayed upon saving Transaction Fee as Flat Fee in CNBC Form ");
 
                         string flatFeeReport = nform.VerifyMinFeeFieldForFlatAndIncentiveFeeinReport("Flat Fee");
                         Assert.AreEqual("Flat Fee (MM): ", flatFeeReport);

@@ -45,6 +45,12 @@ namespace SalesForce_Project.Pages
         By txtSearchProject = By.XPath("//input[@placeholder='Search this list...']");
         By btnRefresh = By.XPath("//button[@name='refreshButton']");
         By valSearchedProjectName = By.XPath("//table/tbody/tr[1]/th/span//a");
+        By lnkEng1 = By.XPath("//span[@title='Engagement Name']/ancestor::table//tbody/tr[1]/th[1]//records-hoverable-link");
+        By lnkEng2 = By.XPath("//span[@title='Engagement Name']/ancestor::table//tbody/tr[2]/th[1]//records-hoverable-link");
+        By tabFees = By.XPath("//a[text()='Fees & Financials']");
+        By valExpEng1 = By.XPath("//span[text()='Expense Cap']/ancestor::div[2]/div[2]//lightning-formatted-text");
+        By btnCloseEng1 = By.XPath("//button[contains(@title,'Close O')]");
+       
         By tabRelated = By.XPath("//a[text()='Related']");
         By lblRelatedSections = By.XPath("//h2[@class='header-title-container']/span");
         By lblBillingRequest = By.XPath("//span[@title='Billing Requests']");
@@ -67,7 +73,7 @@ namespace SalesForce_Project.Pages
         By btnPreference2 = By.XPath("//button[@aria-label='Client Fees Charges Preference']");
         By txtAccounting = By.XPath("//input[@placeholder='Search Contacts...']");
         By chkInvoice = By.XPath("//input[@name='Accounting_Send_Final_Invoice__c']");
-        By msgPrincipal = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Billing_Request__c.Principal_Manager__c']//lightning-grouped-combobox/div[2]");
+        By msgPrincipal = By.XPath("//li[text()='Please select either \"Accounting Send Final Invoice\" or \"Principal/Manager\".']");
         By valBillingRequest = By.XPath("//records-entity-label[text()='Billing Request']/ancestor::h1/slot/lightning-formatted-text");
         By lblHeaderRow = By.XPath("//slot[@class='slds-grid slds-page-header__detail-row']//p[1]");
         By secBillingReq = By.XPath("//span[@title='Approval History']/ancestor::div[5]//flexipage-component2//article//h2/a/span[1]");
@@ -75,15 +81,15 @@ namespace SalesForce_Project.Pages
         By txtEditBRComments = By.XPath("//label[text()='Comments']/ancestor::lightning-textarea//textarea");
         By btnEditBillingEvent = By.XPath("//records-entity-label[text()='ERP Revenue Billing Event']/ancestor::records-highlights2//div[@class='slds-grid primaryFieldRow']/div[3]//button[text()='Edit']");
         By txtComments = By.XPath("//textarea");
-        By valComments = By.XPath("//span[text()='Comments']/ancestor::div[2]/dd//span/slot/lightning-formatted-text");
-        By valStatusBillingReq = By.XPath("//span[text()='Status']/ancestor::div[2]/dd//span/slot/lightning-formatted-text");
+        By valComments = By.XPath("//span[text()='Comments']/ancestor::div[2]//span/slot/lightning-formatted-text");
+        By valStatusBillingReq = By.XPath("//span[text()='Status']/ancestor::div[2]//span/slot/lightning-formatted-text");
         By subtabParentProj = By.XPath("//div[@class='tabBarContainer']//span[@title='Parent Project  c']");
         By btnNewFile = By.XPath("//section[4]//flexipage-component2[4]//div[3]//li//button");
         By txtEngagement = By.XPath("//input[@placeholder='Search Engagements...']");
         By btnFeeType = By.XPath("//button[@aria-label='Fee Type']");
         By txtFeeDescription = By.XPath("//textarea");
         By txtFeeAmount = By.XPath("//input[@name='Fee_Amount__c']");
-        By valFeeType = By.XPath("//span[text()='Fee Type']/ancestor::div[2]/dd//lightning-formatted-text");
+        By valFeeType = By.XPath("//span[text()='Fee Type']/ancestor::div[2]//lightning-formatted-text");
         By subTabBillingReq = By.XPath("//li[5]//span[@title='Billing Request  c']");
         By subTabFeeToBill = By.XPath("//li[6]//span[@title='Fee To Bill  c']");
         By valFeeTypeBillingReq = By.XPath("//span[@title='Fees To Bill']/ancestor::article//table/tbody//td[6]//span//span");
@@ -103,7 +109,7 @@ namespace SalesForce_Project.Pages
         By btnSelectPV = By.XPath("//button[@aria-label='Select PV']");
         By lnkExpName = By.XPath("//table[@aria-label='Expenses To Bill']/tbody/tr[1]/th//records-hoverable-link");
         By lnkPVPositionName = By.XPath("//table[@aria-label='PV Positions To Bill']/tbody/tr[1]/th//records-hoverable-link");
-        By tabParentProjAdmin = By.XPath("//a[text()='Parent Projects']");
+        By tabParentProjAdmin = By.XPath("//a[text()='Project Billings']");
         By lnkParentProjAdmin = By.XPath("//a[text()='Combo O’Connor Global']");
         By lnkBillingReqAdmin = By.XPath("//h3[text()='Billing Requests']//ancestor::div[2]//tr[2]/th/a");
         By lnkDelExpToBillAdmin = By.XPath("//h3[text()='Expenses To Bill']//ancestor::div[2]//tr[2]/td/a[contains(@title,'Delete - Record 1 ')]");
@@ -122,12 +128,15 @@ namespace SalesForce_Project.Pages
         By valTotalFeeToBill = By.XPath("//p[text()='Total Fees To Bill']/ancestor::div[1]/p[2]//lightning-formatted-text");
         By tabAccounting = By.XPath("//a[text()='Accounting']");
         By tabDetails = By.XPath("//a[text()='Accounting']/ancestor::ul/li[1]/a");
-        By secERPRevenue = By.XPath("//span[text()='ERP Revenue Billing Events']");
+        By btnMoreBillingEvent = By.XPath("//span[text()='ERP Revenue Billing Events']/ancestor::lst-common-list-internal//a[@role='button']");
+        By valExpCap = By.XPath("//p[text()='Expense Cap']/ancestor::div[1]/p[2]//lightning-formatted-text");
+        
+        By secERPRevenue = By.XPath("//a/span[text()='ERP Revenue Billing Events']");
         By btnPVPositions = By.XPath("//records-entity-label[text()='PV Positions To Bill']/ancestor::div[@class='slds-grid primaryFieldRow']//button");
         By btnSubmitToBiller = By.XPath("//button[@name='Billing_Request__c.Submit_to_Biller']");
         By btnSubmit = By.XPath("//button[text()='Submit']");
-        By valSubmitterEmail = By.XPath("//span[text()='Submitter Email']/ancestor::div[1]/following::dd[1]//lightning-formatted-email/a");
-        By valAccDistriList = By.XPath("//span[text()='Accounting Distribution List']/ancestor::div[2]/dd[1]//records-hoverable-link//a/span//span/slot");
+        By valSubmitterEmail = By.XPath("//span[text()='Submitter Email']/ancestor::div[1]/following::lightning-formatted-email/a");
+        By valAccDistriList = By.XPath("//span[text()='Accounting Distribution List']/ancestor::div[2]//records-hoverable-link//a/span//span/slot/span");
         By btnSharing = By.XPath("//button[text()='Sharing']");
         By txtSearchUser = By.XPath("//input[@title='Search User']");
         By btnAccessLevel = By.XPath("//button[@data-value='Read Only']");
@@ -345,6 +354,39 @@ namespace SalesForce_Project.Pages
             return project;
         }
 
+        public string GetExpenseCapOfEngagement1()
+        {
+            Thread.Sleep(4000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,650)");
+            Thread.Sleep(6000);
+            driver.FindElement(lnkEng1).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(tabFees).Click();
+            Thread.Sleep(4000);
+            string project = driver.FindElement(valExpEng1).Text;
+            driver.FindElement(btnCloseEng1).Click();
+            return project;
+        }
+
+        public string GetExpenseCapOfEngagement2()
+        {
+            Thread.Sleep(4000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,650)");
+            driver.FindElement(lnkEng2).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(tabFees).Click();
+            Thread.Sleep(4000);
+            string project = driver.FindElement(valExpEng1).Text;
+            driver.FindElement(btnCloseEng1).Click();
+            Thread.Sleep(4000);
+            js.ExecuteScript("window.scrollTo(0,-850)");
+            Thread.Sleep(4000);
+            return project; 
+        }
+
+
         //Validate Related tabs section
         public bool VerifyRelatedTabSections()
         {
@@ -522,10 +564,10 @@ namespace SalesForce_Project.Pages
             driver.FindElement(By.XPath("//input[@placeholder='Search Contacts...']/ancestor::div[4]/div[2]//li[1]")).Click();
             driver.FindElement(chkInvoice).Click();
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(4000);           
+            string message = driver.FindElement(msgPrincipal).Text;
             driver.FindElement(btnClose).Click();
             Thread.Sleep(6000);
-            string message = driver.FindElement(msgPrincipal).Text;
             return message;
         }
 
@@ -533,7 +575,7 @@ namespace SalesForce_Project.Pages
         {
             driver.FindElement(chkInvoice).Click();
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(7000);
             string request = driver.FindElement(valBillingRequest).Text;
             return request;
         }
@@ -691,7 +733,7 @@ namespace SalesForce_Project.Pages
             driver.FindElement(txtFeeDescription).SendKeys("Testing Fee");
             driver.FindElement(txtFeeAmount).SendKeys("10");
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             string request = driver.FindElement(valFeeType).Text;
             return request;
         }
@@ -927,11 +969,17 @@ namespace SalesForce_Project.Pages
             return request.Replace(",","");            
         }
 
+        public string ValidateExpenseCapFee()
+        {
+            string request = driver.FindElement(valExpCap).Text;
+            return request.Substring(4,2);
+        }
         public string ValidateBillingEventAccessInAccountingTab()
         {            
             driver.FindElement(tabAccounting).Click();
             try
-            {                
+            {
+                Thread.Sleep(5000);
                 string value = driver.FindElement(secERPRevenue).Text;
                 return value;
             }

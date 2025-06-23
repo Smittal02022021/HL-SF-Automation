@@ -105,7 +105,7 @@ namespace SF_Automation.Pages
         By valPitchDate = By.CssSelector("div[id*='PDj']");
         By valWinProb = By.CssSelector("div[id*='OKj']");
         By valTxnSize = By.CssSelector("div[id*='80P4j']");
-        By valTxnSizeL = By.XPath("//span[text()='Est. Transaction Size / Market Cap (MM)']/ancestor::div[2]/dd//lightning-formatted-text");
+        By valTxnSizeL = By.XPath("//span[text()='Est. Transaction Size / Market Cap (MM)']/ancestor::div[2]//lightning-formatted-text");
         By txtEstTransSize = By.XPath("//input[@name='Estimated_Transaction_Size_MM__c']");
         By valRetainer = By.CssSelector("div[id*='DwTdFj']");
         By valRetainerL = By.XPath("//span[text()='Retainer']/ancestor::div[2]//lightning-formatted-text");

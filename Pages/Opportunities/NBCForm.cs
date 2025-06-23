@@ -476,6 +476,7 @@ namespace SF_Automation.Pages.Opportunity
         By txtEstimatedFee = By.XPath("//label[text()='Estimated Fee']/following::input[1]");
         By txtEngLetterMinFee = By.XPath("//label[text()='Engagement Letter Minimum Fee']/ancestor::div[1]//input");
         By lblEstTransTotalFee = By.XPath("//span[text()='Estimated Total Fee']");
+        By lblContingentFee = By.XPath("//span[text()='Estimated Contingent Fee']");
 
         //Validate Opp Name
         public string ValidateOppName()
@@ -4024,7 +4025,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtEngLetterMinFee).SendKeys("60");
             driver.FindElement(btnSave).Click();
             Thread.Sleep(7000);
-            string txnFee = driver.FindElement(lblEstTransTotalFee).Text;
+            string txnFee = driver.FindElement(lblContingentFee).Text;
             return txnFee;
         }
 
@@ -4082,14 +4083,14 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(10000);
             driver.FindElement(By.XPath("//a[text()='Page down']")).Click();
             Thread.Sleep(5000);
-            string estFee = driver.FindElement(By.XPath("//tr[2]//tr[2]//span[1]")).Text;
+            string estFee = driver.FindElement(By.XPath("//tr[2]/td/div/div/table/tbody/tr[2]/td/span[1]")).Text;
             return estFee;
 
         }
 
         public string ValidaterEstimatedFeeValueInReport()
         {            
-            string estFee = driver.FindElement(By.XPath("//tr[2]//tr[2]//span[3]")).Text;
+            string estFee = driver.FindElement(By.XPath("//tr[2]/td/div/div/table/tbody/tr[2]/td/span[3]")).Text;
             return estFee;
         }
 

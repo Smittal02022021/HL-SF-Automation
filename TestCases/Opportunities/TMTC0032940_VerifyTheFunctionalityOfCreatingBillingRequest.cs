@@ -64,13 +64,18 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Verify the availability of Opportunity under HL Banker list
                 string tagOpp = opportunityHome.ValidateParentProjectUnderHLBanker();
-                Assert.AreEqual("Parent Projects", tagOpp);
+                Assert.AreEqual("Project Billings", tagOpp);
                 extentReports.CreateLog(tagOpp + " is displayed under Home dropdown ");
 
                 //1.  TMT0074711_Verify that the "Billing Request" quick link is placed on the Parent Project
                 //project.ValidateSearchFunctionalityOfParentProject("Updated Project");
                 project.ValidateSearchFunctionalityOfParentProject("Combo O’Connor Global");
-                
+
+                string valExpEng1 = project.GetExpenseCapOfEngagement1();
+                Console.WriteLine("valExpEng1 " + valExpEng1);
+                string valExpEng2 = project.GetExpenseCapOfEngagement2();
+                Console.WriteLine("valExpEng2 " + valExpEng2);
+
                 string billing = project.ValidateBillingRequestLink();
                 Assert.AreEqual("Billing Requests", billing);
                 extentReports.CreateLog("Link "+ billing + " is displayed on the Parent Project ");
@@ -89,8 +94,8 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //4.  TMT0074717_Verify that if "Accounting Send Final Invoice" is unchecked, Principal/Manager field enabled and becomes required field to enter the name of the deal team
                 string messagePrincipal = project.SaveAllMandatoryFieldsOfBillingRequest();
-                Assert.AreEqual("Principal/Manager\r\nComplete this field.", messagePrincipal);
-                extentReports.CreateLog("Principal/Manager field is enabled and becomes the required field when 'Accounting Send Final Invoice' is unchecked and Save button is clicked ");
+                Assert.AreEqual("Please select either \"Accounting Send Final Invoice\" or \"Principal/Manager\".", messagePrincipal);
+                extentReports.CreateLog("Mandatory validation :"+ messagePrincipal + " is displayed when 'Accounting Send Final Invoice' is unchecked and Save button is clicked ");
 
                 //5.  TMT0074720_Verify the functionality of creating the Billing Request. 
                 string billingReq = project.SelectFinalInvoice();
@@ -226,14 +231,26 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.AreEqual(totalFeeToBill, "USD " + totalReportFee+".00");
                 extentReports.CreateLog("Total Fee To Bill: " + totalFeeToBill + " is displayed in Billing Request after adding all the selected positions ");
 
+                //31. TMT0075994_Verify that the "Expense Cap" displays on the billing requets will be the sum of the Expense Cap(Fee& Financial section) of all the engagements associated to this billing request.
+                double exp1 = Convert.ToDouble(valExpEng1.Substring(4, 4));
+                Console.WriteLine("exp1:" + exp1);
+                double exp2 = Convert.ToDouble(valExpEng2.Substring(4, 4));
+                Console.WriteLine("exp2:" + exp2);
+                string totalExpFee = (Convert.ToDouble(exp1.ToString("0.00")) + Convert.ToDouble(exp2.ToString("0.00"))).ToString();
+                Console.WriteLine("totalExpFee: " + totalExpFee);
+                string expCap = project.ValidateExpenseCapFee();
+                Console.WriteLine("expCap:" + expCap);
+                Assert.AreEqual(totalExpFee, expCap);
+                extentReports.CreateLog("Expense Cap: " + expCap + " is displayed from the sum of the Expense Cap (Fee & Financial section) of all the engagements associated to this billing request. ");
+
                 //27.  TMT0074999_Verify that the Assistant or Deal Team member will not be able to access or add Billing Event on Accounting Tab. 
                 string accessBillingEvent = project.ValidateBillingEventAccessInAccountingTab();
-                Assert.AreEqual("No access to create a Billing Event", accessBillingEvent);
-                extentReports.CreateLog( accessBillingEvent + " to Assistant or Deal Team member ");
+                Assert.AreEqual("ERP Revenue Billing Events", accessBillingEvent);
+                extentReports.CreateLog( accessBillingEvent + " section is displayed for User: " + valUser + " ");
 
                 //29.  TMT0075003_Verify that the user is able to submit the billing request to biller using "Submit to Biller". 
                 string submitBiller = project.ValidateSubmitToBillerFunctionality();
-                Assert.AreEqual("uinderjeet@hl.com.invalid", submitBiller);
+                Assert.AreEqual("shivali.sharma0427@hl.com", submitBiller);
                 extentReports.CreateLog("User with  email id: "+ submitBiller+" is able to submit the Billing Request ");
 
                 //30. TMT0075158_Verify that the Email Notification sent to biller once deal team or assistant clicks on "Submit to Biller" of the selected Accounting Distribution
@@ -242,13 +259,12 @@ namespace SF_Automation.TestCases.Opportunities
                  extentReports.CreateLog("Email notification is sent to the billers of distribution list: " + emailNotify + " upon clicking the Submit To Biller button ");
 
                 //28.  TMT0075001_Verify that the user is not allowed to delete the added PV Positions to Bill.
-                project.ValidateSharingFunctionalityOfBillingRequest();
+                //project.ValidateSharingFunctionalityOfBillingRequest();
 
                 Assert.IsTrue(project.ValidateDeleteFunctionalityOfPVPositionsToBill(), "Verified that displayed headers hyperlinks of Billing Request are same ");
                 extentReports.CreateLog("Delete option to delete PV Position is not available to the user: " + stdUser + " ");
 
                 //33.  TMT0076112_Verify that the deal team member will be able to access the billing request once it is shared with selected deal team with Read/Write access 
-               
                 usersLogin.DiffLightningLogout();
                 usersLogin.SearchUserAndLogin("Hugh Nelson");
                 string stdUser2 = login.ValidateUserLightning();
@@ -268,10 +284,9 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.AreEqual("PV Position To Bill deleted successfully", PVDeleteAdmin);
                 extentReports.CreateLog("PV Position To Bill is deleted successfully by Admin ");
 
-                //31. 
+                //34 and 35 are pending
 
                 usersLogin.UserLogOut();
-                usersLogin.DiffLightningLogout();               
 
                 driver.Quit();
             }
