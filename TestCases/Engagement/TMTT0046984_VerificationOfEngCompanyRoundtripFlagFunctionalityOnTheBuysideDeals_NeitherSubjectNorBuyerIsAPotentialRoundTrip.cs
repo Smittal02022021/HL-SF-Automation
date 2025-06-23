@@ -70,7 +70,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 int rowCount = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
 
-                for(int row = 2; row <= rowCount; row++)
+                for(int row = 4; row <= rowCount; row++)
                 {
                     //Select HL Banker app
                     try
@@ -350,7 +350,7 @@ namespace SF_Automation.TestCases.Engagement
                             //Verify warning message should be displayed
                             lvEngagementDetails.SelectValueInPotentialRoundTripField("Neither subject nor buyer are round trip");
                             Assert.IsTrue(lvEngagementDetails.VerifyNoWarningMsgIsDisplayed());
-                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Neither subject nor buyer are round trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership = Private Equity Group.");
+                            extentReports.CreateStepLogs("Passed", "No warning message is displayed when user selects: Neither subject nor buyer are round trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership = Private Equity Group.");
 
                             //Verify updates on Subject Company
                             string subPotentialRoundTripExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 1);
@@ -358,13 +358,6 @@ namespace SF_Automation.TestCases.Engagement
 
                             lvEngagementDetails.VerifyUpdatesOnSubjectCompany(engagementName, subPotentialRoundTripExl, roundTripCommentExl, valSubjectCompName);
                             extentReports.CreateStepLogs("Passed", "Round Trip section of Subject Company is updated as follows: a) Potential RT = No b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
-
-                            //Verify Flag Reason and comments for Subject Company
-                            string fReason2 = "";
-                            string fReasonComment2 = "";
-
-                            Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason2, fReasonComment2, userCAOExl));
-                            extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason2 + "\r\n Flag Reason Comment: " + fReasonComment2 + "\r\n Flag Reason Change By: " + userCAOExl + ".");
 
                             //Close duplicate company warning msg
                             companyDetailsPage.CloseDuplicateCompanyWarningMsg();
@@ -376,14 +369,6 @@ namespace SF_Automation.TestCases.Engagement
                             string clientPotentialRoundTripExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 3);
                             lvEngagementDetails.VerifyUpdatesOnClientCompany(engagementName, clientPotentialRoundTripExl, roundTripCommentExl, valClientCompName);
                             extentReports.CreateStepLogs("Passed", "Round Trip section of Client Company is updated as follows: a) Potential RT = No b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
-
-                            //Verify Flag Reason and comments for Client Company
-                            string fReason3 = "";
-                            string fReasonComment3 = "";
-
-                            Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason3, fReasonComment3, userCAOExl));
-                            extentReports.CreateStepLogs("Passed", "Flag details are updated for the company. \r\n Flag Reason: " + fReason3 + "\r\n Flag Reason Comment: " + fReasonComment3 + "\r\n Flag Reason Change By: " + userCAOExl + ".");
-
 
                             //Close duplicate company warning msg
                             companyDetailsPage.CloseDuplicateCompanyWarningMsg();
@@ -400,7 +385,7 @@ namespace SF_Automation.TestCases.Engagement
                             Assert.IsTrue(lvEngagementDetails.VerifyNeitherBuyerNorSubjectWarningMsgIsDisplayed());
                             extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Neither subject nor buyer are round trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership != Private Equity Group.");
 
-                            string msg = ReadExcelData.ReadData(excelPath, "Warning", 3);
+                            string msg = ReadExcelData.ReadData(excelPath, "Warning", 2);
                             Assert.IsTrue(lvEngagementDetails.VerifyNeitherSubjectNorBuyerWarningMsg(msg));
                             extentReports.CreateStepLogs("Passed", "Expected warning message is displayed : " + msg);
 

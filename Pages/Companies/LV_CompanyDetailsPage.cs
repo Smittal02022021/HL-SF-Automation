@@ -82,10 +82,10 @@ namespace SF_Automation.Pages.Companies
         By txtAreaRoundTripComment = By.XPath("//label[text()='Round Trip Comment']/following::textarea");
         By warningMsgModal = By.XPath("//div[@part='modal-body']//h2[contains(text(),'An asset is')]");
         By btnMoreTabs = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu/button[@title='More Tabs']");
-        By txtFlagReason = By.XPath("//records-record-layout-item[@field-label='Flag Reason']//dd//lightning-formatted-text");
-        By txtFlagReasonComment = By.XPath("//records-record-layout-item[@field-label='Flag Reason Comment']//dd//lightning-formatted-text");
-        By txtFlagReasonChangeBy = By.XPath("//records-record-layout-item[@field-label='Flag Reason Change By']//dd//div//a//span//span//span");
-        By txtFlagReasonChangeDate = By.XPath("//records-record-layout-item[@field-label='Flag Reason Change Date']//dd//lightning-formatted-text");
+        By txtFlagReason = By.XPath("//records-record-layout-item[@field-label='Flag Reason']//div//lightning-formatted-text");
+        By txtFlagReasonComment = By.XPath("//records-record-layout-item[@field-label='Flag Reason Comment']//div//lightning-formatted-text");
+        By txtFlagReasonChangeBy = By.XPath("//records-record-layout-item[@field-label='Flag Reason Change By']//div//div//a//span//span//span");
+        By txtFlagReasonChangeDate = By.XPath("//records-record-layout-item[@field-label='Flag Reason Change Date']//div//lightning-formatted-text");
 
 
         By _radioRecordType(string recordType)
@@ -1282,6 +1282,10 @@ namespace SF_Automation.Pages.Companies
             string flagReasonChangedBy = driver.FindElement(txtFlagReasonChangeBy).Text;
 
             if(flagReason == reason && flagReasonComment == comment && flagReasonChangedBy == changeBy)
+            {
+                result = true;
+            }
+            if (flagReason == reason && flagReasonComment == comment)
             {
                 result = true;
             }

@@ -14,8 +14,8 @@ namespace SF_Automation.Pages.Companies
         By txtEngagementName = By.XPath("//h1/slot/lightning-formatted-text");
         By btnCancelEditFormL = By.XPath("//button[@name='CancelEdit']");
         By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
-        By txtEngNumberL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Engagement Number']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//lightning-formatted-text");//span[contains(@class,'field-label')][normalize-space()='Engagement Number']/parent::div/following-sibling::div//lightning-formatted-text");
-        By txtEngNameL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Engagement Name']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//lightning-formatted-text");//span[@class='test-id__field-label'][normalize-space()='Engagement Name']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtEngNumberL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Engagement Number']/following::div[2]//lightning-formatted-text");//::dl//dd//lightning-formatted-text");//span[contains(@class,'field-label')][normalize-space()='Engagement Number']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtEngNameL = By.XPath("(//span[contains(@class,'field-label')][normalize-space()='Engagement Name']/following::div/span//lightning-formatted-text)[1]");//::dl//dd//lightning-formatted-text");//span[@class='test-id__field-label'][normalize-space()='Engagement Name']/parent::div/following-sibling::div//lightning-formatted-text");
 
         //Tabs
         By linkEngagementContacts = By.XPath("//a[@data-label='Eng Contacts']");
@@ -38,8 +38,8 @@ namespace SF_Automation.Pages.Companies
 
         By lblPotentialRoundTrip = By.XPath("//span[text()='Edit Potential Round Trip']/../..//lightning-formatted-text");
         By lblRoundTripEngagement = By.XPath("(//span[text()='Edit Round Trip Engagement']/../../span//records-hoverable-link//a//span)[3]");
-        By lblPotentialRoundTripModifiedDate = By.XPath("(//span[text()='Potential Round Trip Last Modified Date']/following::dd)[1]//slot/lightning-formatted-text");
-        By lblRoundTripComment = By.XPath("(//span[text()='Round Trip Comment']/following::dd)[1]//slot/lightning-formatted-text");
+        By lblPotentialRoundTripModifiedDate = By.XPath("(//span[text()='Potential Round Trip Last Modified Date']/following::div)[1]//slot/lightning-formatted-text");
+        By lblRoundTripComment = By.XPath("(//span[text()='Round Trip Comment']/following::div)[1]//slot/lightning-formatted-text");
 
         //*********************************************************************************************************
 
@@ -395,7 +395,7 @@ namespace SF_Automation.Pages.Companies
         public string GetEngagementStage()
         {
             Thread.Sleep(2000);
-            string stageName = driver.FindElement(By.XPath("((//span[text()='Stage'][@class='test-id__field-label'])[1]/following::dd//lightning-formatted-text)[1]")).Text;
+            string stageName = driver.FindElement(By.XPath("((//span[text()='Stage'][@class='test-id__field-label'])[1]/following::div//lightning-formatted-text)[1]")).Text;
             return stageName;
         }
 
@@ -538,7 +538,7 @@ namespace SF_Automation.Pages.Companies
             }
             Thread.Sleep(8000);
 
-            string companyType = driver.FindElement(By.XPath("((//span[text()='Company Type'])[1]/following::dd//span)[2]")).Text;
+            string companyType = driver.FindElement(By.XPath("((//span[text()='Company Type'])[1]/following::div//span)[3]//div/div/span")).Text;
 
             //Close the warning message if any
             try
@@ -575,7 +575,7 @@ namespace SF_Automation.Pages.Companies
             }
             Thread.Sleep(8000);
 
-            string clientOwnership = driver.FindElement(By.XPath("((//span[text()='Ownership'])[1]/following::dd//lightning-formatted-text)[1]")).Text;
+            string clientOwnership = driver.FindElement(By.XPath("((//span[text()='Ownership'])[1]/following::div//lightning-formatted-text)[1]")).Text;
 
             //Close the warning message if any
             try
@@ -608,7 +608,7 @@ namespace SF_Automation.Pages.Companies
 
             //Navigate to company detail page
             js.ExecuteScript("arguments[0].click();", driver.FindElement(By.XPath("(//p[text()='Subject']/following::p//a)[3]")));
-            Thread.Sleep(5000);
+            Thread.Sleep(10000);
 
             js.ExecuteScript("window.scrollTo(0,1000)");
             Thread.Sleep(5000);
@@ -654,7 +654,7 @@ namespace SF_Automation.Pages.Companies
 
             //Navigate to company detail page
             js.ExecuteScript("arguments[0].click();", driver.FindElement(By.XPath("(//p[text()='Client']/following::p//a)[3]")));
-            Thread.Sleep(5000);
+            Thread.Sleep(10000);
 
             js.ExecuteScript("window.scrollTo(0,1000)");
             Thread.Sleep(5000);

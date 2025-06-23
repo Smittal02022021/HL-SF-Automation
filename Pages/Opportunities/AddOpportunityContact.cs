@@ -11,14 +11,14 @@ namespace SF_Automation.Pages.Opportunity
         By btnAddOppContact = By.CssSelector("input[name='new_external_team']");
         By btnSave = By.CssSelector("input[name='save']");
         By txtContact = By.XPath("//span[@class='lookupInput']/input[@name='CF00Ni000000D7Ns3']");
-        By comboRole = By.CssSelector("select[name*='D7OOx']");
+        By comboRole = By.XPath("(//span[text()='Role']/following::div//a)[1]");
         By comboPartyL = By.XPath("//div[8]/div/ul/li/a");
         By comboType = By.CssSelector("select[name*='D7OAq']");
         By checkPrimaryContact = By.CssSelector("input[name*='D7Nro']");
         By comboParty = By.CssSelector("select[name*='M0eMp']");
         By checkAckBillingContact = By.CssSelector("input[name*='M0jSN']");
         By checkBillingContact = By.CssSelector("input[name*='Gz3dL']");
-        By btnPartyL = By.XPath("//dl[4]/div[1]//div/a");
+        By btnPartyL = By.XPath("(//span[text()='Party']/following::div//a)[1]");
 
         By chkAckBillingContactL = By.XPath("//span[text()='Acknowledge Billing Contact']/following::input[1]");
         By chkPrimaryContactL = By.XPath("//span[text()='Primary Contact']/following::input[1]");
@@ -196,7 +196,7 @@ namespace SF_Automation.Pages.Opportunity
                 driver.FindElement(btnPartyL).Click();
                 Thread.Sleep(3000);
                 string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);//in prm
-                driver.FindElement(By.XPath("//div[8]/div/ul/li/a[text()='" + party + "']")).Click();
+                driver.FindElement(By.XPath("(//span[text()='Party']/following::div//a[text()='" + party + "'])[1]")).Click();
             }
             catch (Exception ex)
             {
