@@ -243,33 +243,18 @@ namespace SF_Automation.TestCases.Engagement
                     Assert.IsTrue(lvEngagementDetails.VerifyHoverIconDescriptionForEngagementIsAPotentialRoundTripField(iconDesc));
                     extentReports.CreateStepLogs("Passed", "Hover icon displays the expected description for the Engagement is a Potential Round Trip field: " + iconDesc);
 
-                    string compType = lvEngagementDetails.GetSubjectCompanyType(valSubjectCompName);
-                    string clientOwnership = lvEngagementDetails.GetClientOwnership(valClientCompName);
-                    
-                    //Check Subject Company Type 
-                    if(compType == "Operating Company")
-                    {
-                        //Check Client Ownership
-                        if (clientOwnership == "Private Equity Group" || clientOwnership == "Family Office" || clientOwnership == "Hedge Fund" || clientOwnership == "Institutional Debt Holder")
-                        {
-                            
-                        }
-                        else
-                        {
-                            
-                        }
-                    }
-                    else
-                    {
-                        if(clientOwnership == "Private Equity Group" || clientOwnership == "Family Office" || clientOwnership == "Hedge Fund" || clientOwnership == "Institutional Debt Holder")
-                        {
-                            
-                        }
-                        else
-                        {
-                            
-                        }
-                    }
+                    //TMTI0115214 - Verify that the a validation appears if 'COMPANIES CLOSED WITH' is missing and they attempt to select a value for either "Engagement is a Potential Round Trip"
+                    Assert.IsTrue(lvEngagementDetails.VerifyIfCompaniesClosedWithIsMissing());
+                    extentReports.CreateStepLogs("Passed", "Companies Closed With is missing for the engagement.");
+
+                    //Verify warning message should be displayed when user selects a value in round trip
+                    lvEngagementDetails.SelectValueInPotentialRoundTripField("Subject is a potential round trip");
+                    Assert.IsTrue(lvEngagementDetails.VerifyWarningMsgIsDisplayedUponMissingCompaniesClosedWith());
+                    extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects a value under Engagement is a Potential Round Trip field when 'COMPANIES CLOSED WITH' is missing.");
+
+                    string msg = ReadExcelData.ReadData(excelPath, "Warning", 1);
+                    Assert.IsTrue(lvEngagementDetails.VerifyWarningMsgUponMissingCompaniesClosedWith(msg));
+                    extentReports.CreateStepLogs("Passed", "Expected warning message is displayed : " + msg);
 
                     //TC - End
                     lvHomePage.LogoutFromSFLightningAsApprover();

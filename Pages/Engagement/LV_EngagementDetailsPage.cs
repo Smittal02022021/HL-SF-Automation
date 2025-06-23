@@ -35,6 +35,7 @@ namespace SF_Automation.Pages.Companies
         By warningMsgModal = By.XPath("(//div[@part='modal-body']//h2[contains(text(),'A Subject is')])[2]");
         By warningMsgModal1 = By.XPath("(//div[@part='modal-body']//h2[contains(text(),'A Buyer is')])[1]");
         By warningMsgModal2 = By.XPath("(//div[@part='modal-body']//h2)[1]");
+        By warningMsgModal3 = By.XPath("(//div[@part='modal-body']//h2[contains(text(),'Companies')])[2]");
 
         By lblPotentialRoundTrip = By.XPath("//span[text()='Edit Potential Round Trip']/../..//lightning-formatted-text");
         By lblRoundTripEngagement = By.XPath("(//span[text()='Edit Round Trip Engagement']/../../span//records-hoverable-link//a//span)[3]");
@@ -333,6 +334,23 @@ namespace SF_Automation.Pages.Companies
             return result;
         }
 
+        public bool VerifyIfCompaniesClosedWithIsMissing()
+        {
+            bool result = false;
+
+            //Navigate to Closing Info tab
+            driver.FindElement(By.XPath("//a[@data-label='Closing Info']")).Click();
+            Thread.Sleep(5000);
+
+            //Verify if count is 0
+            if(driver.FindElement(By.XPath("(//span[@title='Counterparties Closed With']/../span)[2]")).Text == "(0)")
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
         public void ChangeEngagementStageToClosed()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
@@ -451,6 +469,18 @@ namespace SF_Automation.Pages.Companies
             return result;
         }
 
+        public bool VerifyWarningMsgIsDisplayedUponMissingCompaniesClosedWith()
+        {
+            bool result = false;
+
+            Thread.Sleep(5000);
+            if (CustomFunctions.IsElementPresent(driver, warningMsgModal3) == true)
+            {
+                result = true;
+            }
+            return result;
+        }
+
         public bool VerifyNeitherBuyerNorSubjectWarningMsgIsDisplayed()
         {
             bool result = false;
@@ -486,6 +516,20 @@ namespace SF_Automation.Pages.Companies
         {
             bool result = false;
             if (driver.FindElement(warningMsgModal).Text == message)
+            {
+                result = true;
+            }
+
+            CustomFunctions.PageReload(driver);
+            Thread.Sleep(10000);
+
+            return result;
+        }
+
+        public bool VerifyWarningMsgUponMissingCompaniesClosedWith(string message)
+        {
+            bool result = false;
+            if (driver.FindElement(warningMsgModal3).Text == message)
             {
                 result = true;
             }
