@@ -274,6 +274,8 @@ namespace SF_Automation.TestCases.Companies
                     companyDetail.DeleteCompanyLV();
                     //randomPages.CloseActiveTab(companyName);
                 }
+                driver.Quit();
+                extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
             catch (Exception e)
             {
@@ -316,9 +318,7 @@ namespace SF_Automation.TestCases.Companies
 
                    // randomPages.CloseActiveTab(companyNameExl);
 
-                }
-                driver.Quit();
-                extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
+                }                
             }
         }
         

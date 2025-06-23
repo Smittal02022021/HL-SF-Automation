@@ -260,11 +260,11 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddContact", 1), engContactName);
                     extentReports.CreateStepLogs("Pass", "Opportunity Contact: " + engContactName + " is mapped on Engagement detail page after conversion ");
                     homePageLV.UserLogoutFromSFLightningView();
-                    extentReports.CreateStepLogs("Pass", userExl + " logged out ");
+                    extentReports.CreateStepLogs("Pass", "CF User: "+userExl + " logged out ");
                     //---------------------------------------------------------//
                     //Login Via System Admin to verify Last Integration the ERP Status
                     //Login as System Admin user 
-                    string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUser", 4, 1);
+                    string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUser", 2, 1);
                     homePage.SearchUserByGlobalSearchN(adminUserExl);
                     extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
                     //Login user

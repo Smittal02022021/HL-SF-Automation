@@ -307,11 +307,11 @@ namespace SF_Automation.Pages.Engagement
         By tabInfo = By.XPath("//a[@aria-controls='tab-1']");
         By tabInformationL = By.XPath("//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[1]/a");
         By tabInfoL = By.XPath("//section[2]/div//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[1]");
-        By subTabDetails = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[1]/a[text()='Details']");
-        By subTabImpDates = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[2]/a[text()='Important Dates']");
-        By subTabAdmin = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[4]/a");
+        By subTabDetails = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul//li//a[text()='Details']");
+        By subTabImpDates = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul//li//a[text()='Important Dates']");
+        By subTabAdmin = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li//a[text()='Administration']");
         By subTabAdminEngL = By.XPath("//section[3]//flexipage-component2//flexipage-tab2[1]/slot//ul/li[3]/a");
-        By subTabClosingInfo = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[4]/a");
+        By subTabClosingInfo = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li//a[text()='Closing Info']");
         By subTabComments = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[4]/a");
         By subTabBilling = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2//lightning-tab-bar/ul/li[5]/a");
         By lnkEditEngName = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2[1]//slot/flexipage-column2[1]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div//button");
