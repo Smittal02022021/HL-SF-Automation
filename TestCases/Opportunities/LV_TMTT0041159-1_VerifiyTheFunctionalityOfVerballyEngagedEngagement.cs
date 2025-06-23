@@ -7,6 +7,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
+using AventStack.ExtentReports.Gherkin.Model;
 
 namespace SF_Automation.TestCases.OpportunitiesConversion
 {
@@ -55,6 +56,11 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         //TMTI0113224 Verify that the "Tail Expires" is removed as a required field on converting CF Verbally Engaged Engagement to Full Engagement.
+        //TMTI0118719 Verify that the"Location where Benefit was Provided" field validation does not appears on converting an opportunity to Verbally engaged.
+        //TMTI0118721 Verify that the "Location where Benefit was Provided" field value is mapped to the partial engagement
+        //TMTI0118723 Verify that the"Location where Benefit was Provided" field value is mapped from partial engegement to full engagement.
+        
+
         [Test]
         public void VerifiyTheFunctionalityOfVerballyEngagedEngagementLV()
         {
@@ -128,20 +134,20 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 extentReports.CreateStepLogs("Passed", "Validations appeared when user try to change the stage to Verbally Engaged");
 
                 ///////*********************////////////////
-                ///TMTI0118719	Verify that the"Location where Benefit was Provided" field validation does not appears on converting an opportunity to Verbally engaged.
+                ///TMTI0118719	Verify that the "Location where Benefit was Provided" field validation does not appears on converting an opportunity to Verbally engaged.
                 ///Verify the errorlist of required fields does not displays “Location where Benefit was Provided” field as required.
                 extentReports.CreateStepLogs("Info", "Verify the errorlist of required fields does not displays “Location where Benefit was Provided” field as required.");
                 string txtExpectedRequiredFieldsValidation = ReadExcelData.ReadDataMultipleRows(excelPath, "VEValidationList", 6, 1);
                 Assert.IsFalse(actualListValidationErrors.Contains(txtExpectedRequiredFieldsValidation));
-                extentReports.CreateStepLogs("Info", "The errorlist of required fields does not displays “Location where Benefit was Provided” field as required while change the stage of opportunity to Verbally Enaged");
+                extentReports.CreateStepLogs("Info", "The error list of required fields does not displays “Location where Benefit was Provided” field as required while change the stage of opportunity to Verbally Enaged");
 
+                //Updating the "Location where Benefit was Provided" field
                 string valBenefitExl = ReadExcelData.ReadDataMultipleRows(excelPath, "VEValidationList", 6, 2);
                 opportunityDetails.InlineUpdateLocationBenefitValueLV(valBenefitExl);
                 string locationBenefit = opportunityDetails.GetValueLocationBenefitLV();
                 extentReports.CreateStepLogs("Info", "Location where Benefit is Provided value is: " + locationBenefit);
 
                 //////////****************************/////////
-
 
                 homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "CF Financial User: " + userExl + " Logged out ");
@@ -203,9 +209,6 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 opportunityDetails.EnterVerballyEngagedRequiredFieldsLV(valJobType, fileTMTT0041159);
                 extentReports.CreateStepLogs("Info", "Entered All Field level Required values");
 
-
-
-
                 opportunityDetails.EditOpportunityStageLV(stageExl);
                 string updatedStage= opportunityDetails.GetStageLV();
                 Assert.AreEqual(updatedStage, stageExl);
@@ -235,9 +238,9 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 engagementHome.GlobalSearchEngagementInLightningView(opportunityName);
                 extentReports.CreateStepLogs("Info", " User is on "+ updatedStage+" Engagement page");
 
-                /////////////TMTI0118719 *****************//////////////
-                //10. Verify that the user is able to successfully update the opportunity stage to Verbally engaged.
-                extentReports.CreateStepLogs("Info", "Verify that the user is able to successfully update the opportunity stage to Verbally engaged.");
+                //TMTI0118721	Verify that the "Location where Benefit was Provided" field value is mapped to the partial engagement
+                
+                extentReports.CreateStepLogs("Info", "Verify that the 'Location where Benefit was Provided' field value is mapped to the partial engagement");
                 Assert.AreEqual(locationBenefit, engagementDetails.GetValueLocationBenefitLV());
                 extentReports.CreateStepLogs("Passed", "Location where Benefit is to be Provided field is mapped from opoortunity on Partial Engaged Engagement");
                 
@@ -537,6 +540,13 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 Assert.IsFalse(randomPages.GetVerballyEngCheckboxStatusLV(), "Verify Verbally Engaged checkbox is un-checked after Partial Engagement is Approved for Full Engagement");
                 extentReports.CreateStepLogs("Passed", "Verbally Engaged checkbox is un-checked after Partial Engagement is Approved for Full Engagement");
 
+                //TMTI0118723	Verify that the"Location where Benefit was Provided" field value is mapped from partial engegement to full engagement.
+                extentReports.CreateStepLogs("Info", "Verify that the 'Location where Benefit was Provided' field value is mapped from partial engegement to full engagement.");
+                Assert.AreEqual(locationBenefit, engagementDetails.GetValueLocationBenefitLV());
+                extentReports.CreateStepLogs("Passed", "'Location where Benefit was Provided' field value is mapped from partial engegement to full engagement.");
+
+
+
                 //TMTI0101398	Verify all the details filled in psudo/Partial engagement is correctly mapped with Full engagement.
 
                 //Validate the Engagement name in Engagement details page
@@ -544,7 +554,13 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 string engagementName = engagementDetails.GetEngagementNameL();
                 Assert.AreEqual(opportunityName, engagementName);
                 extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engagementName + " is Same as Opportunity name ");
-                
+
+                //TMTI0118721	Verify that the "Location where Benefit was Provided" field value is mapped to the partial engagement
+                extentReports.CreateStepLogs("Info", "Verify that the user is able to successfully update the opportunity stage to Verbally engaged.");
+                Assert.AreEqual(locationBenefit, engagementDetails.GetValueLocationBenefitLV());
+                extentReports.CreateStepLogs("Passed", "Location where Benefit is to be Provided field is mapped from opoortunity on Partial Engaged Engagement");
+
+
                 //Engagement Comments
                 engagementDetails.ClickEngCommentsTabLV();                
                 typeRowCount = ReadExcelData.GetRowCount(excelPath, "EngComments");
