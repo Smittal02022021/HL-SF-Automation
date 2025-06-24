@@ -262,8 +262,8 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     addCounterparty.ButtonConfirmDeleteCounterparty();//need to change locator on delte popup 
                     popupMessage = addCounterparty.GetLVMessagePopup();
                     Assert.AreEqual(popupMessage, "Records deleted successfully", "Verify the Success Message if Counterparty is Deleted ");
-                    extentReports.CreateStepLogs("Passed", popupMessage + " : Message Displayed and counterparties is deleted from list ");              
-
+                    extentReports.CreateStepLogs("Passed", popupMessage + " : Message Displayed and counterparties is deleted from list ");
+                    randomPages.CloseActiveTab(nameOpportunityExl);
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateStepLogs("Info", valUser + " logged out ");
                 }

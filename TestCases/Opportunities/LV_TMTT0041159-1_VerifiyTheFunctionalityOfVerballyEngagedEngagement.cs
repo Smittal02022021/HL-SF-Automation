@@ -239,7 +239,6 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 extentReports.CreateStepLogs("Info", " User is on "+ updatedStage+" Engagement page");
 
                 //TMTI0118721	Verify that the "Location where Benefit was Provided" field value is mapped to the partial engagement
-                
                 extentReports.CreateStepLogs("Info", "Verify that the 'Location where Benefit was Provided' field value is mapped to the partial engagement");
                 Assert.AreEqual(locationBenefit, engagementDetails.GetValueLocationBenefitLV());
                 extentReports.CreateStepLogs("Passed", "Location where Benefit is to be Provided field is mapped from opoortunity on Partial Engaged Engagement");
@@ -540,25 +539,18 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 Assert.IsFalse(randomPages.GetVerballyEngCheckboxStatusLV(), "Verify Verbally Engaged checkbox is un-checked after Partial Engagement is Approved for Full Engagement");
                 extentReports.CreateStepLogs("Passed", "Verbally Engaged checkbox is un-checked after Partial Engagement is Approved for Full Engagement");
 
-                //TMTI0118723	Verify that the"Location where Benefit was Provided" field value is mapped from partial engegement to full engagement.
-                extentReports.CreateStepLogs("Info", "Verify that the 'Location where Benefit was Provided' field value is mapped from partial engegement to full engagement.");
-                Assert.AreEqual(locationBenefit, engagementDetails.GetValueLocationBenefitLV());
-                extentReports.CreateStepLogs("Passed", "'Location where Benefit was Provided' field value is mapped from partial engegement to full engagement.");
-
-
-
                 //TMTI0101398	Verify all the details filled in psudo/Partial engagement is correctly mapped with Full engagement.
-
                 //Validate the Engagement name in Engagement details page
+                engagementDetails.ClickEngInfoTabLV();
                 string engagementNumber = engagementDetails.GetEngagementNumberL();
                 string engagementName = engagementDetails.GetEngagementNameL();
                 Assert.AreEqual(opportunityName, engagementName);
                 extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
-                //TMTI0118721	Verify that the "Location where Benefit was Provided" field value is mapped to the partial engagement
-                extentReports.CreateStepLogs("Info", "Verify that the user is able to successfully update the opportunity stage to Verbally engaged.");
+                //TMTI0118723	Verify that the"Location where Benefit was Provided" field value is mapped from partial engegement to full engagement.
+                extentReports.CreateStepLogs("Info", "Verify that Location where Benefit is to be Provided field is mapped from opoortunity on Fully Engaged Engagement");
                 Assert.AreEqual(locationBenefit, engagementDetails.GetValueLocationBenefitLV());
-                extentReports.CreateStepLogs("Passed", "Location where Benefit is to be Provided field is mapped from opoortunity on Partial Engaged Engagement");
+                extentReports.CreateStepLogs("Passed", "Location where Benefit is to be Provided field is mapped from opoortunity on Fully Engaged Engagement");
 
 
                 //Engagement Comments

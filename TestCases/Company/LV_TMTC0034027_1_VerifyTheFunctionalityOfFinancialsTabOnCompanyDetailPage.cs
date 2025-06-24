@@ -105,7 +105,6 @@ namespace SF_Automation.TestCases.Companies
                     Assert.IsTrue(companyDetail.IsCompanyFiancialRecordsFoundLV(), "Verify that the 'Financials' tab lists all the company financials added from the different data sources.");
                     extentReports.CreateStepLogs("Passed", "'Financials' tab lists all the company financials added from the different data sources on the Company detail page");
                     randomPages.CloseActiveTab(companyNameExl);
-
                 }
                 homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
@@ -136,7 +135,6 @@ namespace SF_Automation.TestCases.Companies
                     tabNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "TabName", 2, 1);
                     Assert.IsTrue(companyDetail.IsCompanyDetailPageTabPresentLV(tabNameExl), "Verify the availability of the '" + tabNameExl + "' tab on the Company detail page");
                     extentReports.CreateStepLogs("Passed", tabNameExl + " tab available on the Company detail page");
-
                     companyDetail.ClickCompanyDetailPageTabLV(tabNameExl);
                     
                     //TMT0076493 Verify that the "New" button is available on the Financials tab to add new HL Company Financials for System Admin.
@@ -170,9 +168,7 @@ namespace SF_Automation.TestCases.Companies
                     msgSuccess= companyDetail.DeleteHLFinancialRecordLV(tabNameExl,companyHLFinancialName);
                     extentReports.CreateStepLogs("Passed", msgSuccess);
                     randomPages.CloseActiveTab(companyNameExl);
-
                 }
-
                 homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "System Admin: " + appNameExl + " logged out");
                 driver.Quit();
@@ -183,23 +179,18 @@ namespace SF_Automation.TestCases.Companies
             {
                 extentReports.CreateExceptionLog(e.Message);
                 homePageLV.LogoutFromSFLightningAsApprover();
-                //valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
                 usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 user = login.ValidateUserLightningView();
                 Assert.AreEqual(user.Contains(valAdminUser), true);
                 extentReports.CreateStepLogs("Passed", "System Admin User: " + valAdminUser + " logged in on Lightning View");
-
-                //appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                 homePageLV.SelectAppLV(appNameExl);
                 appName = homePageLV.GetAppName();
                 Assert.AreEqual(appNameExl, appName);
                 extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
-
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-
                 for (int row = 2; row <= rowCompanyName; row++)
                 {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 1);
@@ -217,9 +208,7 @@ namespace SF_Automation.TestCases.Companies
                     {
 
                     }
-
                     randomPages.CloseActiveTab(companyNameExl);
-
                 }
                 driver.Quit();
             }

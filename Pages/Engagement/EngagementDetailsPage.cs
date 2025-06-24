@@ -948,7 +948,9 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, tabAdministationL1, 10);
             driver.FindElement(tabAdministationL1).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtLocationBenefitL, 10);
-            return driver.FindElement(txtLocationBenefitL).Text;
+            driver.FindElement(tabDetails).Click();
+            string val= driver.FindElement(txtLocationBenefitL).Text;
+            return val;
         }
         public void EditEngagementStageLV(string stage)
         {
@@ -8504,6 +8506,7 @@ namespace SF_Automation.Pages.Engagement
         By txtSSExpenseL = By.XPath("//span[contains(text(),'Shared Services Expense')]/../../..//lightning-formatted-text");
         By txtExpenseCapL = By.XPath("//span[contains(text(),'Expense Cap')]/../../..//lightning-formatted-text");
         By txtLegalCapL = By.XPath("//span[contains(text(),'Shared Services Expense')]/../../..//lightning-formatted-text");
+
 
         public string GetValEstTansacttionMarketCapLV()
         {

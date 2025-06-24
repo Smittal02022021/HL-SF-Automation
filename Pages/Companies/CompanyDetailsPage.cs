@@ -664,9 +664,19 @@ namespace SF_Automation.Pages.Companies
         {
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, comboYearL, 5);
-            driver.FindElement(comboYearL).Click();
-            By elmYear = By.XPath($"//label[text()='Year']/..//lightning-base-combobox-item//span[text()='{year}']");
+            driver.FindElement(comboYearL).Click();            
             Thread.Sleep(2000);
+            By elmYear = By.XPath($"//label[text()='Year']/..//lightning-base-combobox-item//span[text()='{year}']");
+            try
+            {                
+                WebDriverWaits.WaitUntilEleVisible(driver, elmYear, 5);                
+            }
+            catch
+            {
+                driver.FindElement(comboYearL).Click();
+                elmYear = By.XPath($"//label[text()='Year']/..//lightning-base-combobox-item//span[text()='{year}']");
+                WebDriverWaits.WaitUntilEleVisible(driver, elmYear, 5);
+            }
             WebDriverWaits.WaitUntilEleVisible(driver, elmYear, 5);
             CustomFunctions.MoveToElement(driver, driver.FindElement(elmYear));            
             driver.FindElement(elmYear).Click();
@@ -674,7 +684,16 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(comboSourceL).Click();
             By elmSource = By.XPath($"//label[text()='Source']/..//lightning-base-combobox-item//span[text()='{source}']");
             Thread.Sleep(2000);
-            WebDriverWaits.WaitUntilEleVisible(driver, elmSource, 5);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, elmSource, 5);
+            }
+            catch
+            {
+                driver.FindElement(comboSourceL).Click();
+                elmSource = By.XPath($"//label[text()='Source']/..//lightning-base-combobox-item//span[text()='{source}']");
+                WebDriverWaits.WaitUntilEleVisible(driver, elmSource, 5);
+            }
             CustomFunctions.MoveToElement(driver, driver.FindElement(elmSource));
             driver.FindElement(elmSource).Click();
 

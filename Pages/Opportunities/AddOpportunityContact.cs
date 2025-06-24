@@ -43,7 +43,7 @@ namespace SF_Automation.Pages.Opportunity
 
         By valContactNum = By.XPath("//flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[2]/slot/lst-dynamic-related-list/article/laf-progressive-container/slot/lst-dynamic-related-list-with-user-prefs/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[1]/div/div/h2/a/span[2]");
 
-        By dropdownContactType = By.XPath("//div[4]//dl[3]/div[1]/div/div/div/div/div[1]/div/div/a");
+        By dropdownContactType = By.XPath("//span[text()='Type']/../..//a");
         By btnAddCFContactL = By.XPath("//button[contains(@name,'Add_CF_Opportunity_Contact')]");
         By btnAddFRContactL = By.XPath("//button[contains(@name,'Add_FR_Opportunity_Contact')]");//can be modified with above 
         By btnAddFVAContactL = By.XPath("//button[contains(@name,'Add_FVA_Opportunity_Contact')]");
@@ -270,10 +270,10 @@ namespace SF_Automation.Pages.Opportunity
                 WebDriverWaits.WaitUntilEleVisible(driver, txtContact, 20);
                 driver.FindElement(txtContact).Click();
             }
-            WebDriverWaits.WaitUntilEleVisible(driver, dropdownContactType, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, dropdownContactType, 5);
             driver.FindElement(dropdownContactType).Click();
             Thread.Sleep(3000);
-            driver.FindElement(By.XPath($"//div[8]/div/ul/li/a[text()='{typeContact}']")).Click();//prm
+            driver.FindElement(By.XPath($"//ul/li/a[text()='{typeContact}']")).Click();//prm
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnPartyL, 20);
             driver.FindElement(btnPartyL).Click();
