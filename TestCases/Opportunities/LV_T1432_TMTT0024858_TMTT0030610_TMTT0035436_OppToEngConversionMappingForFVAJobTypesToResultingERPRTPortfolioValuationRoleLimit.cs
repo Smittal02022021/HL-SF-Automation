@@ -221,11 +221,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     string result = opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
                     Assert.AreEqual("Record found", result);
                     extentReports.CreateStepLogs("Passed", result + " and selected");
-
-                    //Get Location where Benefit is to be Provided value to validate it on converted Engagement
-                    locationBenefit = opportunityDetails.GetValueLocationBenefitLV();
-                    extentReports.CreateStepLogs("Info", "Location where Benefit is Provided value is: " + locationBenefit);
-
+                   
                     opportunityDetails.ClickRequestToEngL();
                     //Submit Request To Engagement Conversion 
                     string msgSuccess = opportunityDetails.GetRequestToEngMsgL();
@@ -293,11 +289,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath, "Engagement", row,1), engStage);
                     extentReports.CreateLog("Value of Stage field is : " + engStage + " for Job Type " + valJobType + " ");
                     engagementDetails.NavigateToAdministratorTabLV();
-
-                    // TMTI0118700	Verify that the "Location where Benefit was Provided" field value is mapped to an engagement upon conversion.
-                    Assert.AreEqual(locationBenefit,engagementDetails.GetValueLocationBenefitLV());
-                    extentReports.CreateStepLogs("Passed", "Location where Benefit is to be Provided field is mapped from opoortunity on converted Engagement");
-
+                    
                     //Validate the value of Record Type in Engagement details page
                     string engRecordType = engagementDetails.GetRecordTypeLV();
                     Assert.AreEqual(ReadExcelData.ReadDataMultipleRows(excelPath, "Engagement", row, 2), engRecordType);

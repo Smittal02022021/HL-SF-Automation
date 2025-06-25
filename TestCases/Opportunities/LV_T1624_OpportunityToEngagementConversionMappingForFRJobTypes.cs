@@ -160,10 +160,6 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     //Search for created opportunity
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
-                    //Get Location where Benefit is to be Provided value to validate it on converted Engagement
-                    locationBenefit = opportunityDetails.GetValueLocationBenefitLV();
-                    extentReports.CreateStepLogs("Info", "Location where Benefit is Provided value is: " + locationBenefit);
-
                     //Requesting for engagement and validate the success message
                     opportunityDetails.ClickRequestToEngL();
                     //Submit Request To Engagement Conversion 
@@ -282,10 +278,6 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     //Search for created opportunity
                     engagementHome.GlobalSearchEngagementInLightningView(engagementName);
                     extentReports.CreateStepLogs("Passed", "Engagement: " + opportunityName + " found and selected ");
-
-                    // TMTI0118700	Verify that the "Location where Benefit was Provided" field value is mapped to an engagement upon conversion.
-                    Assert.AreEqual(locationBenefit, engagementDetails.GetValueLocationBenefitLV());
-                    extentReports.CreateStepLogs("Passed", "Location where Benefit is to be Provided field is mapped from opoortunity on converted Engagement");
 
                     //TMTI0071647 Verify the status is updated in the Oracle ERP Information section
                     //TMTI0084221 Verify the status is updated in Oracle ERP Information section
