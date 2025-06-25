@@ -108,8 +108,8 @@ namespace SF_Automation.Pages
         By valWinProb = By.CssSelector("div[id*='OKj']");
         By valTxnSize = By.CssSelector("div[id*='80P4j']");
         By valRetainer = By.CssSelector("div[id*='DwTdFj']");
-        By valRetainerL = By.XPath("//span[text()='Retainer']/ancestor::div[2]/dd//lightning-formatted-text");
-        By valMonthlyL = By.XPath("//span[text()='Progress/Monthly Fee']/ancestor::div[2]/dd//lightning-formatted-text");
+        By valRetainerL = By.XPath("//span[text()='Retainer']/ancestor::div[2]//lightning-formatted-text");
+        By valMonthlyL = By.XPath("//span[text()='Progress/Monthly Fee']/ancestor::div[2]//lightning-formatted-text");
         By valMonthlyFee = By.CssSelector("td[id*='00Ni000000FmBzij']>div[id*='FmBzij']");
         By valContingentFee = By.CssSelector("div[id*='GE9j']");
         By rowOppComments = By.CssSelector("div[id*='00Ni000000FnLT7_body']>table>tbody>tr");
@@ -241,8 +241,8 @@ namespace SF_Automation.Pages
         By txtContractNameL = By.XPath("//input[@name='Name']");
         By txtBillingContact = By.CssSelector("span>input[id*='CF00N5A00000M0ebh']");
         By txtBillingContactL = By.XPath("//input[@placeholder='Search Contacts...']");
-        By valAddedContractL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Name']//div//dd//span//lightning-formatted-text");
-        By valAddedContractIsMainL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Name']//div//dd//span//lightning-formatted-text[contains(text(),'Additional')]");
+        By valAddedContractL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Name']//div//span//lightning-formatted-text");
+        By valAddedContractIsMainL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Name']//div//span//lightning-formatted-text[contains(text(),'Additional')]");
         By lnkOpportunity = By.CssSelector("a[id*='A00000M0ed1']");
         By checkIsMain = By.CssSelector("div[id*='ed1_body']> table > tbody > tr.dataRow.even.last.first > td.dataCell.booleanColumn > img");
         By checkIsMainL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Is_Main_Contract__c']//dd//label/span[1]");
@@ -251,7 +251,7 @@ namespace SF_Automation.Pages
         By checkSelectedIsMain = By.CssSelector("input[name*='ZS']");
         By checkSelectedIsMainL = By.XPath("//records-record-layout-row[9]//lightning-primitive-input-checkbox//input");
         By checkIsMainContract1 = By.CssSelector("div[id*='ed1_body']> table > tbody > tr.dataRow.even.first > td.dataCell.booleanColumn > img");
-        By checkIsMainContract1L = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Name']//div//dd//span//lightning-formatted-text[contains(text(),'Additional')]/ancestor::dl//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Is_Main_Contract__c']//dd//label/span[1]");
+        By checkIsMainContract1L = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Name']//div//span//lightning-formatted-text[contains(text(),'Additional')]/ancestor::dl//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Is_Main_Contract__c']//dd//label/span[1]");
         By checkIsMainContract2 = By.CssSelector("div[id*='ed1_body']> table > tbody > tr.dataRow.odd.last > td.dataCell.booleanColumn > img");
         By valContract1 = By.CssSelector("div[id*='ed1_body'] > table > tbody > tr:nth-child(2) > th > a");
         By valContract2 = By.CssSelector("div[id*='ed1_body'] > table > tbody > tr:nth-child(3) > th > a");
@@ -754,7 +754,7 @@ namespace SF_Automation.Pages
         By btnMassEditRecordsL = By.XPath("//button[text()='Mass Edit Records']");
         By titleMassEditPageL = By.XPath("//header/div[2]/h2/span");
         By linkEng = By.XPath("//article[@aria-label='Engagements']//article//h3//a/../..");
-        By txtCommentTypeL = By.XPath("//span[text()='Comment Type']/../../..//ddlightning-formatted-text");
+        By txtCommentTypeL = By.XPath("//span[text()='Comment Type']/../../..//lightning-formatted-text");
         By lnkViewAllCommentsL = By.XPath("//article[@aria-label='Comments']//span[text()='View All']");
         By comboRolePitchL = By.XPath("//label[text()='Role Pitched']/..//button");
         By comboPitchOutcomeL = By.XPath("//label[text()='Pitch Outcome']/..//button");
