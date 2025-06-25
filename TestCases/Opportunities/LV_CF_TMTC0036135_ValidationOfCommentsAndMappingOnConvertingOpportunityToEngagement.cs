@@ -7,9 +7,6 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using AventStack.ExtentReports.Gherkin.Model;
-using Microsoft.Office.Interop.Excel;
-using AventStack.ExtentReports;
 
 namespace SalesForce_Project.TestCases.Opportunities
 {
@@ -409,10 +406,10 @@ namespace SalesForce_Project.TestCases.Opportunities
                 Assert.AreEqual(appNameExl, appName);
                 extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
                 homePageLV.SelectModule(moduleNameExl);
-                extentReports.CreateStepLogs("Info", "Compliance User is on " + moduleNameExl + " Page ");
+                extentReports.CreateStepLogs("Info", "Admin User is on " + moduleNameExl + " Page ");
                 //Search for created opportunity
                 opportunityHome.GlobalSearchOpportunityInLightningView(opportunityName);
-                randomPages.DetailPageFullViewLV();
+                //randomPages.DetailPageFullViewLV();
                 opportunityDetails.UpdateOutcomeNBCApproveDetailsLV(valJobType);
 
                 randomPages.CloseActiveTab(opportunityName);
@@ -568,7 +565,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
                     Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, valUser, commentTextOppExl));
-                    extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by User " + valUser + " On Requested Opportunity before approval for Engagement");
+                    extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by CF Financial User " + valUser + " On Requested Opportunity before approval for Engagement");
 
                 }
 
@@ -578,12 +575,12 @@ namespace SalesForce_Project.TestCases.Opportunities
                     commentTextOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", typeRow, 2);
 
                     Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCAO, commentTextOppExl));
-                    extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by User " + userCAO + " On Requested Opportunity before approval for Engagement");
+                    extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by CAO User " + userCAO + " On Requested Opportunity before approval for Engagement");
                 }
 
                 commentTypeOppExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Comments", 5, 1);
                 Assert.IsTrue(opportunityDetails.IsUserCommentFoundLV(commentTypeOppExl, userCompliance, commentTextOppExl));
-                extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by User " + userCompliance + " On Requested Opportunity before approval for Engagement");
+                extentReports.CreateStepLogs("Passed", "CAO user can see '" + commentTypeOppExl + "' on added by Compliance User " + userCompliance + " On Requested Opportunity before approval for Engagement");
                 randomPages.CloseActiveTab("Opportunity Comments");
                 string status = opportunityDetails.ClickApproveButtonLV2();
                 Assert.AreEqual(status, "Approved");

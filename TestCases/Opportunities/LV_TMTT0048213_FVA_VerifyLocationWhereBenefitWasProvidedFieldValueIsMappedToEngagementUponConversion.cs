@@ -8,28 +8,27 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.OpportunitiesConversion
 {
-    class LV_TMTT0048213_FVA_VerifyLocationWhereBenefitWasProvidedFieldValueIsMappedToEngagementUponConversion:BaseClass
-    {
+class LV_TMTT0048213_FVA_VerifyLocationWhereBenefitWasProvidedFieldValueIsMappedToEngagementUponConversion:BaseClass
+{
+    ExtentReport extentReports = new ExtentReport();
+    LoginPage login = new LoginPage();
+    OpportunityHomePage opportunityHome = new OpportunityHomePage();
+    AddOpportunityPage addOpportunity = new AddOpportunityPage();
+    UsersLogin usersLogin = new UsersLogin();
+    OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
+    AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
+    EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
+    EngagementHomePage engagementHome = new EngagementHomePage();
+    LVHomePage homePageLV = new LVHomePage();
+    HomeMainPage homePage = new HomeMainPage();
+    RandomPages randomPages = new RandomPages();
 
-ExtentReport extentReports = new ExtentReport();
-LoginPage login = new LoginPage();
-OpportunityHomePage opportunityHome = new OpportunityHomePage();
-AddOpportunityPage addOpportunity = new AddOpportunityPage();
-UsersLogin usersLogin = new UsersLogin();
-OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
-AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
-EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
-EngagementHomePage engagementHome = new EngagementHomePage();
-LVHomePage homePageLV = new LVHomePage();
-HomeMainPage homePage = new HomeMainPage();
-RandomPages randomPages = new RandomPages();
-
-public static string fileTMTT0048213 = "LV_TMTT0048213_VerifyLocationWhereBenefitWasProvidedFieldValueIsMappedToEngagementUponConversionFVA";
-private string userCAOExl;
-private string locationBenefit;
-private string valBenefitExl;
+    public static string fileTMTT0048213 = "LV_TMTT0048213_VerifyLocationWhereBenefitWasProvidedFieldValueIsMappedToEngagementUponConversionFVA";
+    private string userCAOExl;
+    private string locationBenefit;
+    private string valBenefitExl;
 
 [OneTimeSetUp]
 public void OneTimeSetUp()

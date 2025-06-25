@@ -8,7 +8,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.OpportunitiesConversion
 {
     class LV_TMTT0048213_FR_VerifyLocationWhereBenefitWasProvidedFieldValueIsMappedToEngagementUponConversion:BaseClass
     {

@@ -157,7 +157,7 @@ namespace SF_Automation.TestCases.Engagements
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
                 opportunityHome.SearchOpportunitiesInLightningView(oppName);
                 extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
-                randomPages.DetailPageFullViewLV();
+                //randomPages.DetailPageFullViewLV();
                 opportunityDetails.UpdateOutcomeNBCApproveDetailsLV(valJobType);
                 opportunityDetails.ClickTabInfoLV();
                 opportunityDetails.UpdateTotalDebtConfirmedLV();

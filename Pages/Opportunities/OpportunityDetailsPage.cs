@@ -8921,12 +8921,12 @@ namespace SF_Automation.Pages
             string valWomen = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
 
             //Date Engaged &Estimated Closed Date
-            string engDate = DateTime.Today.AddDays(-2).ToString("dd/MM/yyyy");
+            string engDate = DateTime.Today.AddDays(-2).ToString("MM/dd/yyyy");//"dd/MM/yyyy"
             driver.FindElement(txtDateEngL).SendKeys(engDate);
 
             //driver.FindElement(txtDateEngL).SendKeys("10/12/2022");
             Thread.Sleep(2000);
-            string closeDate = DateTime.Today.AddDays(2).ToString("dd/MM/yyyy");
+            string closeDate = DateTime.Today.AddDays(2).ToString("MM/dd/yyyy");//"dd/MM/yyyy"
             driver.FindElement(txtEstCloseDateL).SendKeys(closeDate);
             //driver.FindElement(txtEstCloseDateL).SendKeys("10/11/2023");
             
@@ -9588,7 +9588,7 @@ namespace SF_Automation.Pages
 
             //Valuation Date
             WebDriverWaits.WaitUntilEleVisible(driver, txtvaluationDateL, 20);
-            string engDate = DateTime.Today.AddDays(-2).ToString("dd/MM/yyyy");
+            string engDate = DateTime.Today.AddDays(-2).ToString("MM/dd/yyyy");//"dd/MM/yyyy"
             driver.FindElement(txtvaluationDateL).SendKeys(engDate);
             //driver.FindElement(txtvaluationDateL).SendKeys("10/12/2022");
 

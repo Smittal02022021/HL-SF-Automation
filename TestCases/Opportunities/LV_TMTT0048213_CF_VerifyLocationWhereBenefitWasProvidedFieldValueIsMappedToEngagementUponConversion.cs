@@ -10,7 +10,7 @@ using System;
 using AventStack.ExtentReports.Gherkin.Model;
 using System.Collections.Generic;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.OpportunitiesConversion
 {
     class LV_TMTT0048213_CF_VerifyLocationWhereBenefitWasProvidedFieldValueIsMappedToEngagementUponConversion:BaseClass
     {

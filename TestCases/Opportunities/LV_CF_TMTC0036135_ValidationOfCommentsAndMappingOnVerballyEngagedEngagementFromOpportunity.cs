@@ -252,7 +252,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 Assert.AreEqual(appNameExl, appName);
                 extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
                 homePageLV.SelectModule(moduleNameExl);
-                extentReports.CreateStepLogs("Info", "Compliance User is on " + moduleNameExl + " Page ");
+                extentReports.CreateStepLogs("Info", "Admin User is on " + moduleNameExl + " Page ");
                 //Search for created opportunity
                 opportunityHome.GlobalSearchOpportunityInLightningView(opportunityName);
                 opportunityDetails.UpdateOutcomeNBCApproveDetailsLV(valJobType);
