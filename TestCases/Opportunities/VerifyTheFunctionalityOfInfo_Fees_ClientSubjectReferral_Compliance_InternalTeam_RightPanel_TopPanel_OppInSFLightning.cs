@@ -369,10 +369,10 @@ namespace SF_Automation.TestCases.Opportunities
                 
                 //Validate Modify Roles button and save functionality  
                 string addedStaff = opportunityDetails.ValidateModifyRolesButton();
-                Assert.AreEqual("Rob Oudman", addedStaff);
+                Assert.AreEqual("James Craven", addedStaff);
                 extentReports.CreateLog("Team member with name: " + addedStaff + " is displayed upon saving it ");
 
-                ////Validate Return to Opportunity button and its functionality  
+                ////Validate Return to pportunity button and its functionality  
                 //string btnReturnToOpp1 = opportunityDetails.ValidateReturnToOpp();
                 //Assert.AreEqual("Details", btnReturnToOpp1);
                 //extentReports.CreateLog("Opportunity details page is displayed after clicking Return To Opportunity button ");

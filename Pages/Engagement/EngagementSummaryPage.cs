@@ -3328,14 +3328,14 @@ namespace SF_Automation.Pages.Engagement
         //Validate validation for Other field
         public string ValidateErrorMessageOfOtherFieldWhileEdit()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDistressed, 120);
+            Thread.Sleep(5000);
             driver.FindElement(btnEditDistressed).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtOtherL, 180);
             driver.FindElement(txtOtherL).SendKeys("Testing");
             driver.FindElement(btnSaveAddHL).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
             string message = driver.FindElement(msgOtherL).Text;
-            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 130);
             driver.FindElement(btnCancel).Click();
             return message;
         }
@@ -3366,9 +3366,9 @@ namespace SF_Automation.Pages.Engagement
         //Validate mandatory field validation for Financing Type
         public string ValidateMandatoryFieldValidationForFinType()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDistressed, 120);
+            Thread.Sleep(5000);
             driver.FindElement(btnEditDistressed).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnFinTypeL, 120);
+            Thread.Sleep(4000);
             driver.FindElement(btnFinTypeL).Click();
             Thread.Sleep(4000);
             var element = driver.FindElement((By.XPath("//button[@name='Financing_Type__c']/ancestor::div[2]//lightning-base-combobox-item[1]/span[2]/span")));
@@ -3380,7 +3380,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(By.XPath("//button[@name='Security_Type__c']/ancestor::div[2]//lightning-base-combobox-item[1]/span[2]/span")).Click();
 
             driver.FindElement(btnSaveAddHL).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             string value = driver.FindElement(msgFinType).Text;
             return value;
         }

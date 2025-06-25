@@ -92,7 +92,7 @@ namespace SalesForce_Project.Pages
         By valFeeType = By.XPath("//span[text()='Fee Type']/ancestor::div[2]//lightning-formatted-text");
         By subTabBillingReq = By.XPath("//li[5]//span[@title='Billing Request  c']");
         By subTabFeeToBill = By.XPath("//li[6]//span[@title='Fee To Bill  c']");
-        By valFeeTypeBillingReq = By.XPath("//span[@title='Fees To Bill']/ancestor::article//table/tbody//td[6]//span//span");
+        By valFeeTypeBillingReq = By.XPath("//span[@title='Fees To Bill']/ancestor::article//table/tbody/tr[2]/td[6]//span//span");
         By valFeeAmtBillingReq = By.XPath("//span[@title='Fees To Bill']/ancestor::article//table/tbody//td[8]//span//span");
         // By lnkViewAll = By.XPath("//span[@title='Fees To Bill']/ancestor::article//table/tbody//td[6]//span//span/ancestor::lst-related-list-view-manager/a");
         //By btnAction = By.XPath("//table//td[10]//lightning-button-menu/button");
@@ -719,17 +719,17 @@ namespace SalesForce_Project.Pages
             return isSame;
         }
 
-        public string SaveFeeToBill()
+        public string SaveFeeToBill(string eng, string feeType)
         {
             driver.FindElement(txtEngagement).Click();
             Thread.Sleep(4000);
             driver.FindElement(txtEngagement).SendKeys("O'Connor - PV");
             Thread.Sleep(6000);
-            driver.FindElement(By.XPath("//lightning-base-combobox-formatted-text[@title='100328']")).Click();
+            driver.FindElement(By.XPath("//lightning-base-combobox-formatted-text[@title='"+eng+"']")).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnFeeType, 100);
             driver.FindElement(btnFeeType).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//span[@title='Admin Fee']")).Click();
+            driver.FindElement(By.XPath("//span[@title='"+feeType+"']")).Click();
             driver.FindElement(txtFeeDescription).SendKeys("Testing Fee");
             driver.FindElement(txtFeeAmount).SendKeys("10");
             driver.FindElement(btnSave).Click();

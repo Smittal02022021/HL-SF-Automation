@@ -5705,7 +5705,8 @@ namespace SF_Automation.Pages
             return name;
         }
         //Update Internal Team members details
-        public void UpdateInternalTeamDetailsL(string file)
+        public void 
+            UpdateInternalTeamDetailsL(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
@@ -6185,9 +6186,9 @@ namespace SF_Automation.Pages
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div[1]/div[1]/div/div/article/div[2]/div/iframe")));
             WebDriverWaits.WaitUntilEleVisible(driver, txtStaffL, 120);
-            driver.FindElement(txtStaffL).SendKeys("Rob Oudman");
+            driver.FindElement(txtStaffL).SendKeys("James Craven");
             Thread.Sleep(5000);
-            CustomFunctions.SelectValueWithoutSelect(driver, listStaff, "Rob Oudman");
+            CustomFunctions.SelectValueWithoutSelect(driver, listStaff, "James Craven");
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
             driver.FindElement(checkInitiator).Click();

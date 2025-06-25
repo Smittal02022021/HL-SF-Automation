@@ -177,7 +177,7 @@ namespace SF_Automation.Pages.Opportunity
 
         By txtBaseFee = By.XPath("//label[text()='Base Fee']/following::input[1]");
         By valBaseFee = By.XPath("//span[text()='Base Fee']/ancestor::div[2]//slot[1]/lightning-formatted-text");
-        By lnkUpdBaseFee = By.XPath("//span[text()='Base Fee']/ancestor::div[2]//button");
+        By lnkUpdBaseFee = By.XPath("//span[text()='Base Fee']/ancestor::div[2]//button[@title='Edit Base Fee']");
         By txt1stRatchetPer = By.XPath("//label[text()='First Ratchet Percent']/following::input[1]");
         By txt2ndRatchetPer = By.XPath("//label[text()='Second Ratchet Percent']/following::input[1]");
         By txt3rdRatchetPer = By.XPath("//label[text()='Third Ratchet Percent']/following::input[1]");

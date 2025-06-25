@@ -134,14 +134,15 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Displayed mandatory validations of New Fees To Bill are correct ");
 
                 //12.	TMT0074757_Verify that user is able to add Fees to Bill with the required information
-                string saveFee = project.SaveFeeToBill();
-                Assert.AreEqual("Admin Fee", saveFee);
+                string saveFee = project.SaveFeeToBill("100328", "Progress Fee");
+                Assert.AreEqual("Progress Fee", saveFee);
                 extentReports.CreateLog("Fee with Type: " + saveFee + " is displayed on Fee To Bill page ");
 
                 //13.	TMT0074759_Verify that once user Add Fees to Bill, Admin Fee will be created automatically. (Based on the percentage fixed in backend)
                 string feeBillingReq =project.ValidateAddedFeeInBillingRequest();
                 Assert.AreEqual("Admin Fee", feeBillingReq);
                 extentReports.CreateLog("Fee with Type: " + feeBillingReq    + " is displayed on Billing Request page as well after adding Fee on Fee To Bill page ");
+
 
                 //15.	TMT0074763_Verify that user is not allowed to delete the added Fees to Bill
                 string feeDelete = project.ValidateDeleteFunctionalityOfAddedFeeInBillingRequest();

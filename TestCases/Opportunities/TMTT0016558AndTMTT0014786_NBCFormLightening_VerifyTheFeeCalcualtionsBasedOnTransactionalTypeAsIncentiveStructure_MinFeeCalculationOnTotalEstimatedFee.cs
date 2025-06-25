@@ -455,9 +455,11 @@ namespace SF_Automation.TestCases.Opportunities
                 double final2ndRatchetEst = (((actualToFee-100) * actualFromFee) / 100);
                 double final3rdRatchetEst = (((actualToFee - 100) * actualFromFee) / 100);
                 double final4thRatchetEst = (((actualToFee - 100) * actualFromFee) / 100);
-                Assert.AreEqual(((Convert.ToDouble(finalRetainer + finalProgress+ final1stRatchet+ final2ndRatchetEst + final3rdRatchetEst+final4thRatchetEst+ finalFinalRatchet))+(Convert.ToDouble((valBaseFee).Substring(4, 5)))).ToString("0.00"), updEstAllRatchets.Replace(",", ""));
+                //IF(  Transaction_Value_for_Fee_Calc__c  > Last_Entered_Ratchet_To_Amount__c, (Transaction_Value_for_Fee_Calc__c - Last_Entered_Ratchet_To_Amount__c) *  Final_Ratchet_Percent__c , 0),
+                double finalFinalRatchetEst = (((actualToFee - 100) * actualFromFee) / 100);
+                Assert.AreEqual(((Convert.ToDouble(finalRetainer + finalProgress+ final1stRatchet+ final2ndRatchetEst + final3rdRatchetEst+final4thRatchetEst+ finalFinalRatchetEst))+(Convert.ToDouble((valBaseFee).Substring(4, 5)))).ToString("0.00"), updEstAllRatchets.Replace(",", ""));
                 extentReports.CreateLog("Estimated Total Fee with value : " + updEstAllRatchets + " is displayed when all Ratchet amounts are entered along with Retainer and Progress fields ");
-                              
+                             
 
                 form.SwitchFrame(); 
                 usersLogin.DiffLightningLogout();
