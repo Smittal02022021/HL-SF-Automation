@@ -82,6 +82,7 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     OppNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "OpportunityWithJobType", OppRowCount, 1);
                     OppJobTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "OpportunityWithJobType", OppRowCount, 2);
                     opportunityHome.SearchOpportunitiesInLightningView(OppNameExl);
+                    extentReports.CreateStepLogs("Passed", "Opportunity: "+OppNameExl + " found and selected");
 
                     string jobTypeOppDetailPage = opportunityDetails.GetOpportunityJobTypeL();
                     Assert.AreEqual(jobTypeOppDetailPage, OppJobTypeExl);
