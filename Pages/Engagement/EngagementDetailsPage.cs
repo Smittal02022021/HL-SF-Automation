@@ -319,8 +319,8 @@ namespace SF_Automation.Pages.Engagement
         By checkBillingContact = By.CssSelector("input[name*='Gz3dK']");
         By comboType = By.CssSelector("select[name*='D9Dbh']");
         By checkPrimaryContact = By.CssSelector("input[name*='D7OP7']");
-        By valClientL = By.XPath("//span[text()='Engagement Name']/ancestor::div[4]/slot//following::flexipage-field[@data-field-id=\"RecordClient_cField1\"]//div[contains(@data-target-selection-name,\".Client__c\")]//dd//records-hoverable-link//a/span/slot/span/slot");
-        By valSubjectL = By.XPath("//span[text()='Engagement Name']/ancestor::div[4]/slot//following::flexipage-field[@data-field-id=\"RecordSubject_cField1\"]//div[contains(@data-target-selection-name,\".Subject__c\")]//dd//records-hoverable-link//a/span/slot/span/slot");
+        By valClientL = By.XPath("//span[text()='Engagement Name']/ancestor::div[4]/slot//following::flexipage-field[@data-field-id='RecordClient_cField1']//div[1]//records-hoverable-link//span/slot//slot/span");
+        By valSubjectL = By.XPath("//span[text()='Engagement Name']/ancestor::div[4]/slot//following::flexipage-field[@data-field-id='RecordSubject_cField1']//div[1]//records-hoverable-link//span/slot//slot/span");
         By tabInfo = By.XPath("//a[text()='Info']");
         By tabInformationL = By.XPath("//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[1]/a");
         By tabInfoL = By.XPath("//section[2]/div//div[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[1]");
@@ -343,16 +343,16 @@ namespace SF_Automation.Pages.Engagement
         By btnClientOwnership = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/div/lightning-base-combobox//button");
         By valClientOwnershipAfter = By.XPath("//flexipage-component2//flexipage-tab2[1]/slot/flexipage-component2[1]//flexipage-column2[2]/div/slot/flexipage-field[3]//slot[1]/lightning-formatted-text");
         By lnkImpDates = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[2]/a");
-        By lnkEditDateEngL = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2//flexipage-column2[1]//flexipage-field[1]/slot//dd/div[1]/button");
+        By lnkEditDateEngL = By.XPath("//flexipage-tab2[2]/slot/flexipage-component2//flexipage-column2[1]//flexipage-field[1]/slot//div//div[2]/button");
         By txtEstMktDate = By.XPath("//input[@name='Expected_In_Market_Date__c']");
         By valEstMktDate = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Expected_In_Market_Date__c']//lightning-formatted-text");
         By lnkAdmin = By.XPath("//flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[3]/a");
         By lnkEditAccStatus = By.XPath("//flexipage-tab2[3]//flexipage-component2[1]//flexipage-column2[2]//flexipage-field[2]//button/span[1]");
         By txtDealCloudID = By.XPath("//input[@name='Legacy_SLX_ID__c']");
-        By valDealCloudIDPostUpdate = By.XPath("//span[text()='DealCloud ID']/ancestor::div[2]/dd//lightning-formatted-text");
+        By valDealCloudIDPostUpdate = By.XPath("//span[text()='DealCloud ID']/ancestor::div[2]//lightning-formatted-text");
         By lnkEditIntDeal = By.XPath("//button[@title='Edit Internal Deal Announcement']");
-        By btnIntDeal = By.XPath("//label[text()='Internal Deal Announcement']/ancestor::div[1]/div//button");
-        By valIntDeal = By.XPath("//label[text()='Internal Deal Announcement']/ancestor::div[1]//lightning-base-combobox-item[3]/span[2]/span");
+        By btnIntDeal = By.XPath("//label[text()='Internal Deal Announcement']/ancestor::div[1]//button");
+        By valIntDeal = By.XPath("//labl[text()='Internal Deal Announcement']/ancestor::div[1]//lightning-base-combobox-item[3]/span[2]/span");
         By valIntDealPostUpdate = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Internal_Announcement__c']//slot[1]/lightning-formatted-text");
         By lnkEditCST = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[2]/button");
         By btnCST = By.XPath("//button[@aria-label='CST Questionnaire, --None--']");
@@ -5114,7 +5114,7 @@ namespace SF_Automation.Pages.Engagement
             //WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 160);
             //driver.FindElement(iconExpandMoreButonL).Click();
             //Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnViewCounterparties, 150);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnViewCounterparties, 180);
             driver.FindElement(btnViewCounterparties).Click();
         }
         public void ClickViewCounterpartiesButtonL()

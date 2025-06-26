@@ -5705,8 +5705,7 @@ namespace SF_Automation.Pages
             return name;
         }
         //Update Internal Team members details
-        public void 
-            UpdateInternalTeamDetailsL(string file)
+        public void UpdateInternalTeamDetailsL(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
@@ -5727,7 +5726,7 @@ namespace SF_Automation.Pages
             CustomFunctions.SelectValueWithoutSelect(driver, listStaff, name);
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, chkInitiatorL, 240);
-            driver.FindElement(chkInitiatorL).Click();
+            //driver.FindElement(chkInitiatorL).Click();
             driver.FindElement(chkSellerL).Click();
             driver.FindElement(chkPrincipalL).Click();
             driver.FindElement(chkManagerL).Click();
