@@ -145,7 +145,7 @@ namespace SF_Automation.TestCases.EventExpense
 
                     //Click submit for approval button
                     expRequestDetailPage.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
-                    string requestStatus = expRequestDetailPage.GetExpenseRequestStatusLWC(1);
+                    string requestStatus = expRequestDetailPage.GetExpenseRequestStatusLWC(0);//1
                     Assert.AreEqual("Waiting for Approval", requestStatus);
                     extentReports.CreateStepLogs("Passed", "Event Expense Request:: " + expensePreAppNumber + "  is submitted for approval and status is " + requestStatus);
 
