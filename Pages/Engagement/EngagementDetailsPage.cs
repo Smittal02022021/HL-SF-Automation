@@ -352,7 +352,7 @@ namespace SF_Automation.Pages.Engagement
         By valDealCloudIDPostUpdate = By.XPath("//span[text()='DealCloud ID']/ancestor::div[2]//lightning-formatted-text");
         By lnkEditIntDeal = By.XPath("//button[@title='Edit Internal Deal Announcement']");
         By btnIntDeal = By.XPath("//label[text()='Internal Deal Announcement']/ancestor::div[1]//button");
-        By valIntDeal = By.XPath("//labl[text()='Internal Deal Announcement']/ancestor::div[1]//lightning-base-combobox-item[3]/span[2]/span");
+        By valIntDeal = By.XPath("//label[text()='Internal Deal Announcement']/ancestor::div[1]//lightning-base-combobox-item[3]/span[2]/span");
         By valIntDealPostUpdate = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Internal_Announcement__c']//slot[1]/lightning-formatted-text");
         By lnkEditCST = By.XPath("//flexipage-tab2[5]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2/div/slot/flexipage-field/slot/record_flexipage-record-field/div/div/div[2]/button");
         By btnCST = By.XPath("//button[@aria-label='CST Questionnaire, --None--']");

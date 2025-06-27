@@ -117,7 +117,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Validate the type of form displayed
                 string formType = opportunityDetails.ValidateFormType();
-                Assert.AreEqual("To Submit An CNBC Form:", formType);
+                Assert.AreEqual("To Submit A CNBC Form:", formType);
                 extentReports.CreateLog("CNBC Form page is displayed for Job type: " +valJobType + " ");
 
                 //Click on Add Financials                
@@ -489,7 +489,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //TMTI0078901_Validate Submit For Review's available fields
                 string txtToSubmit = cnbc.ValidateSectionSubmitCNBC();
-                Assert.AreEqual("To Submit An CNBC Form:", txtToSubmit);
+                Assert.AreEqual("To Submit A CNBC Form:", txtToSubmit);
                 extentReports.CreateLog("Section with name: " + txtToSubmit + " is displayed ");
 
                 //TMTI0078903---

@@ -128,7 +128,7 @@ namespace SF_Automation.Pages.Opportunity
         By lblRestrictedList = By.XPath("//span[text()='Restricted List']");
         By msgCCInfo = By.XPath("//span[@title='Conflicts Check Information']");
         By lblCCStatus = By.XPath("//span[text()='Conflict Check Status']");
-        By secToSubmit = By.XPath("//h3/button/span[text()='To Submit An CNBC Form:']");
+        By secToSubmit = By.XPath("//h3/button/span[text()='To Submit A CNBC Form:']");
         By lnkAttachments = By.XPath("//a[@data-label='Attachment']");
 
         By valOppNum = By.XPath("//body[@id='j_id0:j_id29:pbSendEmail:j_id47:Body_rta_body']/p[8]/span");

@@ -138,7 +138,7 @@ namespace SF_Automation.Pages
             string excelPath = dir + file;
 
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valUser, 360);
+            WebDriverWaits.WaitUntilEleVisible(driver, valUser, 260);
             IWebElement loggedUserName = driver.FindElement(valUser);
             if(loggedUserName.Text.Contains(ReadExcelData.ReadDataMultipleRows(excelPath, "Users", userRow, 1)))
             {

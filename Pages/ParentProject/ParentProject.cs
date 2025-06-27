@@ -94,7 +94,9 @@ namespace SalesForce_Project.Pages
         By subTabBillingReq = By.XPath("//li[5]//span[@title='Billing Request  c']");
         By subTabFeeToBill = By.XPath("//li[6]//span[@title='Fee To Bill  c']");
         By valFeeTypeBillingReq = By.XPath("//span[@title='Fees To Bill']/ancestor::article//table/tbody/tr[2]/td[6]//span//span");
-        By valFeeAmtBillingReq = By.XPath("//span[@title='Fees To Bill']/ancestor::article//table/tbody//tr[1]/td[8]//span//span");
+        By valFeeTypeBillingReq2ndEng = By.XPath("//span[@title='Fees To Bill']/ancestor::article//table/tbody/tr[6]/td[6]//span//span");
+
+        By valFeeAmtBillingReq = By.XPath("//span[@title='Fees To Bill']/ancestor::article//table/tbody//tr[7]/td[8]//span//span");
         // By lnkViewAll = By.XPath("//span[@title='Fees To Bill']/ancestor::article//table/tbody//td[6]//span//span/ancestor::lst-related-list-view-manager/a");
         //By btnAction = By.XPath("//table//td[10]//lightning-button-menu/button");
         By btnEditFee = By.XPath("//records-entity-label[text()='Fee To Bill']/ancestor::div[@class='slds-grid primaryFieldRow']//button");
@@ -687,6 +689,15 @@ namespace SalesForce_Project.Pages
             return value;
         }
 
+        public void clickNewFeeesButton()
+        {
+            Thread.Sleep(5000);
+            driver.FindElement(subTabBillingReq).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnNewFile).Click();
+            Thread.Sleep(4000);
+        }
+
         //Validate New Fees To Bill validations
         public bool ValidateNewFeesToBillValidations()
         {
@@ -730,13 +741,24 @@ namespace SalesForce_Project.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnFeeType, 100);
             driver.FindElement(btnFeeType).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//span[@title='"+feeType+"']")).Click();
+            driver.FindElement(By.XPath("//flexipage-column2[1]//lightning-picklist/lightning-combobox//span[@title='"+feeType+"']")).Click();
+            //driver.FindElement(By.XPath("//span[@title='"+feeType+"']")).Click();
             driver.FindElement(txtFeeDescription).SendKeys("Testing Fee");
             driver.FindElement(txtFeeAmount).SendKeys(amount);
             driver.FindElement(btnSave).Click();
             Thread.Sleep(6000);
-            string request = driver.FindElement(valFeeType).Text;
-            return request;
+            string request = driver.FindElement(By.XPath("//span[text()='Fee Type']/ancestor::div[2]//tr/td[6]//lst-formatted-text/span[text()='"+feeType+"']")).Text;
+            if (feeType.Equals("Retainer Fee") ||feeType.Equals("Contingent Fee") || feeType.Equals("Monthly Fee"))
+            {
+
+                driver.FindElement(By.XPath("//span[@title='Fee To Bill  c']/ancestor::li[1]/div[2]//button")).Click();
+                return request;
+            }
+            else
+            {
+                return request;
+            }
+                
         }
         public string GetAddedFeevalue(string feeType)
         {
@@ -750,6 +772,12 @@ namespace SalesForce_Project.Pages
             return request;
         }
 
+        public string GetGenerated2ndAdminFeevalue(string feeType)
+        {
+            string request = driver.FindElement(By.XPath("//span[text()='Fee Type']/ancestor::div[2]//tr[6]/td[7]")).Text;
+            return request;
+        }
+
         public string ValidateAddedFeeInBillingRequest()
         {
             driver.FindElement(subTabBillingReq).Click();
@@ -758,17 +786,26 @@ namespace SalesForce_Project.Pages
             return request;
         }
 
-
+        public string ValidateAddedFeeInBillingRequest2ndEng()
+        {
+            driver.FindElement(subTabBillingReq).Click();
+            Thread.Sleep(5000);
+            string request = driver.FindElement(valFeeTypeBillingReq2ndEng).Text;
+            return request;
+        }
         public string ValidateDeleteFunctionalityOfAddedFeeInBillingRequest()
         {
             driver.FindElement(subTabFeeToBill).Click();
             Thread.Sleep(5000);
             string delete = driver.FindElement(btnEditFee).GetAttribute("name");
+            driver.FindElement(By.XPath("//span[@title='Fee To Bill  c']/ancestor::li[1]/div[2]//button")).Click();
             return delete;
 
         }
         public string ValidateEditFunctionalityOfAddedFeeInBillingRequest()
         {
+            driver.FindElement(subTabFeeToBill).Click();
+            Thread.Sleep(5000);
             driver.FindElement(btnEditFee).Click();
             Thread.Sleep(5000);
             driver.FindElement(txtFeeAmount).Clear();
@@ -784,6 +821,8 @@ namespace SalesForce_Project.Pages
 
         public string ValidateDeleteFunctionalityOfBillingRequest()
         {
+            
+            driver.FindElement(subTabFeeToBill).Click();
             Thread.Sleep(5000);
             string delete = driver.FindElement(btnEditFee).GetAttribute("name");
             return delete;

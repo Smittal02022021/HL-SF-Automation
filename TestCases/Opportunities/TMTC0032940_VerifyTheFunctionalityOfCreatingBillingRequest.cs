@@ -135,21 +135,23 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Displayed mandatory validations of New Fees To Bill are correct ");
 
                 //12.	TMT0074757_Verify that user is able to add Fees to Bill with the required information
-                string saveProgFee = project.SaveFeeToBill("100328", "Progress Fee","10");
+                string saveProgFee = project.SaveFeeToBill("100328", "Progress Fee","100000");
                 string progAmount = project.GetAddedFeevalue("Progress Fee");
+                Console.WriteLine(progAmount.Substring(4, 7).Replace(",", ""));
                 Assert.AreEqual("Progress Fee", saveProgFee);
-                Assert.AreEqual("USD 10.00", progAmount);
+                Assert.AreEqual("USD 100,000.00", progAmount);
                 extentReports.CreateLog("Fee with Type: " + saveProgFee + " and amount: " + progAmount + " is displayed on Fee To Bill page ");
 
                 //13.	TMT0074759_Verify that once user Add Fees to Bill, Admin Fee will be created automatically. (Based on the percentage fixed in backend)
                 string feeBillingReq =project.ValidateAddedFeeInBillingRequest();
                 string adminprogressAmount = project.GetGeneratedAdminFeevalue("Admin Fee");
-                double actualProgressFee = Convert.ToDouble(progAmount.Substring(4,4));
-                Console.WriteLine("actualProgressFee", +actualProgressFee);
-                Console.WriteLine(((actualProgressFee * 5.5) / 100).ToString());
+                double actualProgressFee = Convert.ToDouble(progAmount.Substring(4,7));                            
                 Assert.AreEqual("Admin Fee", feeBillingReq);
-                Assert.AreEqual(((actualProgressFee*5.5)/100).ToString(), adminprogressAmount.Substring(4,4));
-                extentReports.CreateLog("Fee with Type: " + feeBillingReq    + " and amount : "+ adminprogressAmount+" is displayed on Billing Request page as well after adding Fee on Fee To Bill page ");
+                double finalProgressFee= ((actualProgressFee * 5.5) / 100);
+                Console.WriteLine("finalProgressFee: " + finalProgressFee.ToString());
+                
+                Assert.AreEqual(finalProgressFee.ToString(), adminprogressAmount.Substring(4,5).Replace(",", ""));
+                extentReports.CreateLog("Fee with Type: " + feeBillingReq    + " and amount : "+ adminprogressAmount+" is displayed on Billing Request page after adding Progress Fee on Fee To Bill page ");
 
                 //15.	TMT0074763_Verify that user is not allowed to delete the added Fees to Bill
                 string feeDelete = project.ValidateDeleteFunctionalityOfAddedFeeInBillingRequest();
@@ -158,36 +160,76 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //34 and 35. Verify the calculation of the Admin Fee if the aggregate of the Historical Fee is "NULL." It will be calculated based on the associated engagements' current fees. 
                 //--- After adding Retainer Fee
-                project.ValidateNewFeesToBillValidations();
+                project.clickNewFeeesButton();
                 string saveRetainFee = project.SaveFeeToBill("100328", "Retainer Fee","300000");
                 string retainAmount = project.GetAddedFeevalue("Retainer Fee");
                 Assert.AreEqual("Retainer Fee", saveRetainFee);
-                Assert.AreEqual("USD 300000.00", retainAmount);
+                Assert.AreEqual("USD 300,000.00", retainAmount);
                 extentReports.CreateLog("Fee with Type: " + saveRetainFee + " and amount: " + retainAmount + " is displayed on Fee To Bill page ");
 
                 string feeBillingReq2 = project.ValidateAddedFeeInBillingRequest();
                 string adminRetainAmount = project.GetGeneratedAdminFeevalue("Admin Fee");
-                double actualRetainFee = Convert.ToDouble(retainAmount.Substring(4, 8));
-                Console.WriteLine("actualRetainFee", +actualProgressFee);
+                double actualRetainFee = Convert.ToDouble(retainAmount.Substring(4, 7));                
                 Console.WriteLine(((actualRetainFee * 4.5) / 100).ToString());
-                Assert.AreEqual("Admin Fee", feeBillingReq);
-                Assert.AreEqual(((actualRetainFee * 4.5) / 100).ToString() + ((actualProgressFee * 5.5) / 100), adminRetainAmount.Substring(4, 4));
-                extentReports.CreateLog("Fee with Type: " + feeBillingReq + " and amount : " + adminRetainAmount + " is displayed on Billing Request page as well after adding Fee on Fee To Bill page ");
+                Assert.AreEqual("Admin Fee", feeBillingReq2);
+                double finalRetainerFee = ((actualProgressFee + actualRetainFee )* 4.5) / 100;
+                Console.WriteLine("finalRetainerFee: " + finalRetainerFee.ToString());
+
+                Assert.AreEqual(finalRetainerFee.ToString(), (adminRetainAmount.Substring(4, 6)).Replace(",",""));
+                extentReports.CreateLog("Fee with Type: " + feeBillingReq2 + " and amount : " + adminRetainAmount + " is displayed on Billing Request page as well after adding Retainer Fee on Fee To Bill page ");
 
                 //--- After adding Contingent Fee
-                project.ValidateNewFeesToBillValidations();
-                string saveConFee = project.SaveFeeToBill("100328", "Contingent Fee", "600000");
+                project.clickNewFeeesButton();
+                string saveConFee = project.SaveFeeToBill("100328", "Contingent Fee", "300000");
                 string conAmount = project.GetAddedFeevalue("Contingent Fee");
                 Assert.AreEqual("Contingent Fee", saveConFee);
-                Assert.AreEqual("USD 600000.00", conAmount);
+                Assert.AreEqual("USD 300,000.00", conAmount);
                 extentReports.CreateLog("Fee with Type: " + saveConFee + " and amount: " + conAmount + " is displayed on Fee To Bill page ");
 
                 string feeBillingReq3 = project.ValidateAddedFeeInBillingRequest();
                 string adminConAmount = project.GetGeneratedAdminFeevalue("Admin Fee");
-                double actualConAmountFee = Convert.ToDouble(conAmount.Substring(4, 8));
-                Assert.AreEqual("Admin Fee", feeBillingReq);
-                Assert.AreEqual(((actualConAmountFee * 3.5) / 100).ToString() + ((actualProgressFee * 5.5) / 100)* ((actualRetainFee * 4.5) / 100), adminConAmount.Substring(4, 4));
-                extentReports.CreateLog("Fee with Type: " + feeBillingReq + " and amount : " + adminConAmount + " is displayed on Billing Request page as well after adding Fee on Fee To Bill page ");
+                double actualConAmountFee = Convert.ToDouble(conAmount.Substring(4, 7));
+                Assert.AreEqual("Admin Fee", feeBillingReq3);
+                Assert.AreEqual((((actualProgressFee+actualRetainFee+actualConAmountFee) * 3.5) / 100).ToString(), (adminConAmount.Substring(4, 6)).Replace(",", ""));
+                extentReports.CreateLog("Fee with Type: " + feeBillingReq3 + " and amount : " + adminConAmount + " is displayed on Billing Request page as well after adding Contingent Fee on Fee To Bill page ");
+
+                //---Adding monthly fee to 2nd Engagement 
+                project.clickNewFeeesButton();
+                string saveMonthlyFee = project.SaveFeeToBill("132357", "Monthly Fee", "100000");
+                string monthlyAmount = project.GetAddedFeevalue("Monthly Fee");
+                Console.WriteLine(monthlyAmount.Substring(4, 7).Replace(",", ""));
+                Assert.AreEqual("Monthly Fee", saveMonthlyFee);
+                Assert.AreEqual("USD 100,000.00", monthlyAmount);
+                extentReports.CreateLog("Fee with Type: " + saveMonthlyFee + " and amount: " + monthlyAmount + " is displayed on Fee To Bill page ");
+
+                string feeBillingReq4 = project.ValidateAddedFeeInBillingRequest2ndEng();
+                string adminMonthlyAmount = project.GetGenerated2ndAdminFeevalue("Admin Fee");
+                double actualMonthlyFee = Convert.ToDouble(monthlyAmount.Substring(4, 7));
+                Assert.AreEqual("Admin Fee", feeBillingReq4);
+                double finalMonthlyFee = ((actualMonthlyFee * 2.5) / 100); //2.5  is applicable as all total fees from all engagements is considered to choose % slab, although fee calculation will be only on 2nd enagagement's fee
+                Console.WriteLine("finalMonthlyFee: " + finalMonthlyFee.ToString());
+
+                Assert.AreEqual(finalMonthlyFee.ToString(), adminMonthlyAmount.Substring(4, 5).Replace(",", ""));
+                extentReports.CreateLog("Separate row for " + feeBillingReq4 + " and amount : " + adminMonthlyAmount + " is displayed on Billing Request page after adding Monthly Fee to 2nd associated engagement on Fee To Bill section ");
+
+                //---Adding Service Fee to 2nd Engagement 
+                project.clickNewFeeesButton();
+                string saveServiceFee = project.SaveFeeToBill("132357", "Service Fee", "300000");
+                string serviceAmount = project.GetAddedFeevalue("Service Fee");
+                Console.WriteLine(serviceAmount.Substring(4, 7).Replace(",", ""));
+                Assert.AreEqual("Service Fee", saveServiceFee);
+                Assert.AreEqual("USD 300,000.00", serviceAmount);
+                extentReports.CreateLog("Fee with Type: " + saveServiceFee + " and amount: " + serviceAmount + " is displayed on Fee To Bill page after adding to 2nd associated engagement ");
+
+                string feeBillingReq5 = project.ValidateAddedFeeInBillingRequest2ndEng();
+                string adminServiceAmount = project.GetGenerated2ndAdminFeevalue("Admin Fee");
+                double actualServiceFee = Convert.ToDouble(serviceAmount.Substring(4, 7));
+                Assert.AreEqual("Admin Fee", feeBillingReq5);
+                double finalServiceFee = (((actualMonthlyFee+ actualServiceFee) * 1) / 100);
+                Console.WriteLine("finalServiceFee: " + finalServiceFee.ToString());
+
+                Assert.AreEqual(finalServiceFee.ToString(), adminServiceAmount.Substring(4, 5).Replace(",", ""));
+                extentReports.CreateLog("Fee with Type: " + feeBillingReq5 + " and amount : " + adminServiceAmount + " is displayed on Billing Request page as well after adding Service Fee on Fee To Bill page ");
 
                 //14.	TMT0074761_ Verify that user is able to Edit the added fees to bill and update the calculated Admin Fee into Fee Amount field manually
                 string feeAmtBillingReq = project.ValidateEditFunctionalityOfAddedFeeInBillingRequest();

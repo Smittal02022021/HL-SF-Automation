@@ -343,7 +343,7 @@ namespace SF_Automation.Pages
         By titleNBCAdmin = By.XPath("//table//tr/td[2]/p[1]");
 
         By txtDefaultTabCNBC = By.XPath("//lightning-tab-bar/ul/li[@class='slds-tabs_default__item slds-is-active']/a[text()='Opportunity Overview']");
-        By lblFormType = By.XPath("//span[@title='To Submit An CNBC Form:']");
+        By lblFormType = By.XPath("//span[@title='To Submit A CNBC Form:']");
         By chkNBCApproved = By.CssSelector("img[id*='FmBzhj_id0_j_id55_chkbox']");
         By titlePopUpNBC = By.XPath("//div[@class='custPopup']/p");
         By btnReturnToOppL = By.XPath("//div[1]/table/tbody/tr/td[2]/span/input[2]");
