@@ -101,12 +101,14 @@ namespace SalesForce_Project.Pages
         //By btnAction = By.XPath("//table//td[10]//lightning-button-menu/button");
         By btnEditFee = By.XPath("//records-entity-label[text()='Fee To Bill']/ancestor::div[@class='slds-grid primaryFieldRow']//button");
         By valExpenseType = By.XPath("//span[@title='Expenses To Bill']/ancestor::article//table/tbody//tr[1]/td[5]//span//span");
+        By btn1stBillingReq = By.XPath("//span[@title='Billing Request  c']");
         By valTotalExpense = By.XPath("//p[text()='Total Expense Amount']/ancestor::div[1]/p[2]//lightning-formatted-text");
         By checkSelectExp = By.XPath("//table[@aria-label='Expenses To Bill']/tbody/tr/td[2]//span/label/span[1]");
         By btnUpdateToBill = By.XPath("//button[text()='Update To Bill']");
         By checkToBill = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Expenses_To_Bill__c.To_Bill__c']//input");
         By btnSaveUpdateToBill = By.XPath("//footer/button[2]");
         By btnClose2ndBillingReq = By.XPath("//ul[2]/li[3]/div[2]/button");
+        By btnClose1stBillingReq = By.XPath("//ul[2]/li[4]/div[2]/button");
         By btnAddExpToBill = By.XPath("//button[@name='Billing_Request__c.Add_Expenses_To_Bill']");
         By btnSelectEng = By.XPath("//button[@aria-label='Select Engagement']");
         By btnSelectPV = By.XPath("//button[@aria-label='Select PV']");
@@ -831,7 +833,7 @@ namespace SalesForce_Project.Pages
         public string GetExpenseTypeOfBillingRequest()
         {
             Thread.Sleep(5000);
-            driver.FindElement(btnCloseBillingReq).Click();
+            driver.FindElement(btnClose1stBillingReq).Click();
             Thread.Sleep(3000);
             string value = driver.FindElement(valExpenseType).Text;
             return value;
@@ -840,8 +842,8 @@ namespace SalesForce_Project.Pages
         public string GetTotalExpenseOfBillingRequest()
         {
             Thread.Sleep(5000);
-            driver.FindElement(btnClose2ndBillingReq).Click();
-            Thread.Sleep(3000);
+            driver.FindElement(btn1stBillingReq).Click();
+            Thread.Sleep(4000);
             string value = driver.FindElement(valTotalExpense).Text;
             return value;
 
@@ -850,7 +852,7 @@ namespace SalesForce_Project.Pages
         public string ValidateExcludeExpenseFunctionalityOfBillingRequest()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-            js.ExecuteScript("window.scrollTo(0,550)");
+            js.ExecuteScript("window.scrollTo(0,950)");
             Thread.Sleep(6000);
             driver.FindElement(checkSelectExp).Click();
             Thread.Sleep(3000);
@@ -922,7 +924,7 @@ namespace SalesForce_Project.Pages
 
         public string ValidateAddExpenseToBillFunctionality()
         {
-            driver.FindElement(By.XPath("//table[@aria-label='Billing Requests']/tbody/tr[2]/th[1]//records-hoverable-link")).Click();
+            driver.FindElement(By.XPath("//table[@aria-label='Billing Requests']/tbody/tr[1]/th[1]//records-hoverable-link")).Click();
             Thread.Sleep(6000);
             driver.FindElement(btnAddExpToBill).Click();
             Thread.Sleep(4000);

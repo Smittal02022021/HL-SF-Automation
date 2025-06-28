@@ -367,8 +367,6 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.AreEqual("PV Position To Bill deleted successfully", PVDeleteAdmin);
                 extentReports.CreateLog("PV Position To Bill is deleted successfully by Admin ");
 
-                //34 and 35 are pending
-
                 usersLogin.UserLogOut();
 
                 driver.Quit();
