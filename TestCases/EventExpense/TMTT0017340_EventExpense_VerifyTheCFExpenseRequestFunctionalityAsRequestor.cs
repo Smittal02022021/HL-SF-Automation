@@ -41,8 +41,8 @@ namespace SF_Automation.TestCases.EventExpense
             try
             {
                 //Get path of Test data file
-                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData", fileTC17340 + ".xlsx");
-                excelPath = Path.GetFullPath(excelPath);
+                string excelPath = Path.Combine(Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..")),"TestData", fileTC17340);
+
                 Console.WriteLine(excelPath);
 
                 //Validating Title of Login Page
