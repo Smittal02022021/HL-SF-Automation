@@ -1163,7 +1163,7 @@ namespace SF_Automation.Pages.Opportunity
             {
                 if (jobType == "Debt Financing" || jobType == "Equity Placements")
                 {
-                    expectedJobType = "CM Stages";// "Capital Markets";
+                    expectedJobType = "CS Stages";// "Capital Markets"; CM
                 }
                 if (actualValue[row].Contains(expectedJobType))
                 {
