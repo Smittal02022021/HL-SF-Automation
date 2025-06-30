@@ -41,7 +41,7 @@ namespace SF_Automation.TestCases.EventExpense
             try
             {
                 //Get path of Test data file
-                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData", fileTC17340 + ".xlsx");
+                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\TestData", fileTC17340 + ".xlsx");
                 excelPath = Path.GetFullPath(excelPath);
                 Console.WriteLine(excelPath);
 
