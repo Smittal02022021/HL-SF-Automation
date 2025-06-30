@@ -351,6 +351,23 @@ namespace SF_Automation.Pages.Companies
             return result;
         }
 
+        public bool VerifyIfCompaniesClosedWithIsPresent()
+        {
+            bool result = false;
+
+            //Navigate to Closing Info tab
+            driver.FindElement(By.XPath("//a[@data-label='Closing Info']")).Click();
+            Thread.Sleep(5000);
+
+            //Verify if count is 0
+            if (driver.FindElement(By.XPath("(//span[@title='Counterparties Closed With']/../span)[2]")).Text == "(1)")
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
         public void ChangeEngagementStageToClosed()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
@@ -731,6 +748,30 @@ namespace SF_Automation.Pages.Companies
                 result = true;
             }
 
+            return result;
+        }
+
+        public void ClickViewCounterpartiesButton()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(3000);
+
+            //Click View Counterparties button
+            driver.FindElement(By.XPath("//button[@name='Engagement__c.ViewCounterparties']")).Click();
+            Thread.Sleep(5000);
+        }
+
+        public bool VerifyViewCounterpartiesPageIsDisplayed()
+        {
+            bool result = false;
+            Thread.Sleep(5000);
+
+            //Check if the page title is displayed
+            if(driver.Title.Contains("Counterparty Editor | Salesforce"))
+            {
+                result = true;
+            }
             return result;
         }
     }

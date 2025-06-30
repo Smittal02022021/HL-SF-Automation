@@ -9,12 +9,10 @@ using System.Linq;
 using System.Security.Permissions;
 using System.Threading;
 
-
 namespace SF_Automation.Pages.Engagement
 {
     class AddCounterparty : BaseClass
     {
-
         By btnAddCounterparties = By.CssSelector(".pbButton >table>tbody>tr>td> input[value='Add Counterparties']");
         By btnDel = By.Id("sf_filter_remove_btn_1");
         By btnAddRow = By.Id("sf_filter_add_btn_and");
@@ -123,10 +121,6 @@ namespace SF_Automation.Pages.Engagement
         By btnAddCounterpartiesL = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[3]/button");
         By lnkExistingCompanies = By.XPath("//span[text()='Get Companies from existing Company List']");
 
-
-
-
-
         By btnEmailCounterparty = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[7]/button");
         By btnViewAllCounterparty = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[8]/button");
         By titleCounterparty = By.XPath("//h1[@class='slds-page-header__title listViewTitle slds-truncate']");
@@ -228,7 +222,6 @@ namespace SF_Automation.Pages.Engagement
         By val1stMarkUpRec = By.XPath("//tr[1]/td[9]/lightning-primitive-cell-factory/span/div/lightning-formatted-date-time");
         By val2ndMarkUpRec = By.XPath("//tr[2]/td[9]/lightning-primitive-cell-factory/span/div/lightning-formatted-date-time");
 
-
         By valTier1 = By.XPath("//tr[1]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[1]/button/span");
         By chk1stRow = By.XPath("//tr[2]/td[1]/div/div[1]/lightning-input/div/span/label/span[1]");
         By valTier2 = By.XPath("//tr[2]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[1]/button/span");
@@ -240,7 +233,11 @@ namespace SF_Automation.Pages.Engagement
         By val3rdKPINo = By.XPath("//c-s-l-counterparty-data-table/div/div[2]/div/div/article/div/c-s-l-counterparty-total-tabs/div/lightning-layout/slot/lightning-layout-item[3]/slot/div/div[1]");
         By val3rdKPIText = By.XPath("//c-s-l-counterparty-data-table/div/div[2]/div/div/article/div/c-s-l-counterparty-total-tabs/div/lightning-layout/slot/lightning-layout-item[3]/slot/div/div[2]");
 
-
+        By searchCompany = By.XPath("//input[@placeholder='Search Companies...']");
+        By comboResultCompany = By.XPath("(//ul[@role='group']//li)[1]");
+        By comboTypeCounterparty = By.XPath("(//lightning-base-combobox//button[contains(@aria-label,'Type')])[1]");
+        By buttonSaveL = By.XPath("//button[@name='SaveEdit']");
+        By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
 
         //To Click Counterparties button
         public string ClickAddCounterpartiesbutton()
@@ -252,6 +249,77 @@ namespace SF_Automation.Pages.Engagement
             return title;
         }
 
+        public void ClickAddCounterpartiesBtn()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterparty, 60);
+            driver.FindElement(btnAddCounterparty).Click();
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCounterpartyL, 60);
+        }
+
+        public bool VerifyAddCounterpartiesPageIsDisplayed()
+        {
+            bool result = false;
+            if(driver.FindElement(btnAddCounterpartyL).Displayed)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        private By _comboTypeCounterpartyOptionEle(string value)
+        {
+            return By.XPath($"//span[@title='{value}']");
+        }
+
+        public void AddNewCounterparty(string companyName, string value)
+        {
+            driver.FindElement(btnAddCounterpartyL).Click();
+            Thread.Sleep(5000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, searchCompany, 30);
+            IWebElement companySearch = driver.FindElement(searchCompany);
+            companySearch.Click();
+            companySearch.SendKeys(companyName);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboResultCompany, 10);
+            driver.FindElement(comboResultCompany).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(comboTypeCounterparty).Click();
+            //Thread.Sleep(2000);
+            driver.FindElement(_comboTypeCounterpartyOptionEle(value)).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(buttonSaveL).Click();
+            Thread.Sleep(5000);
+        }
+
+        public string GetLVMessagePopup()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 30);
+            return driver.FindElement(msgLVPopup).Text;
+        }
+
+        public void CloseTab(string tabName)
+        {
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath($"//button[contains(@title,'Close {tabName}')]")).Click();
+            Thread.Sleep(5000);
+        }
+
+        public void ClickEditBidsButtonAndNavigateToBidRoundsPage(string value)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditBids, 30);
+            driver.FindElement(btnEditBids).Click();
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewBidRound, 150);
+            driver.FindElement(btnNewBidRound).Click();
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSelectNewRound, 200);
+            driver.FindElement(btnSelectNewRound).Click();
+            Thread.Sleep(3000);
+
+            driver.FindElement(By.XPath($"//lightning-base-combobox-item[@data-value='{value}']")).Click();
+            Thread.Sleep(3000);
+        }
 
         //To validate Counterparties button
         public string AddCounterparties()

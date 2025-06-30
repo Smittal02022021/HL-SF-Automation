@@ -1,12 +1,14 @@
-﻿using SF_Automation.Pages.Common;
-using SF_Automation.Pages.HomePage;
+﻿using NUnit.Framework;
 using SF_Automation.Pages;
+using SF_Automation.Pages.Common;
+using SF_Automation.Pages.Companies;
+using SF_Automation.Pages.Engagement;
+using SF_Automation.Pages.HomePage;
+using SF_Automation.Pages.Opportunity;
+using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using NUnit.Framework;
-using SF_Automation.TestData;
-using SF_Automation.Pages.Companies;
-using SF_Automation.Pages.Opportunity;
+using System.Threading;
 
 namespace SF_Automation.TestCases.Engagement
 {
@@ -24,7 +26,7 @@ namespace SF_Automation.TestCases.Engagement
         LV_EngagementDetailsPage lvEngagementDetails = new LV_EngagementDetailsPage();
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         LV_CompanyDetailsPage companyDetailsPage = new LV_CompanyDetailsPage();
-
+        AddCounterparty addCounterparty = new AddCounterparty();
 
         public static string fileTMTT0046981 = "TMTT0046981_VerificationOfEngCompanyRoundtripFlagFunctionalityOnTheSellsideDeals_SubjectIsAPotentialRoundTrip";
 
@@ -255,6 +257,72 @@ namespace SF_Automation.TestCases.Engagement
                     string msg = ReadExcelData.ReadData(excelPath, "Warning", 1);
                     Assert.IsTrue(lvEngagementDetails.VerifyWarningMsgUponMissingCompaniesClosedWith(msg));
                     extentReports.CreateStepLogs("Passed", "Expected warning message is displayed : " + msg);
+
+                    //******************Start - Add Company Closed with****************************************
+
+                    //Click on View Counterparties button & navigate to View Counterparties page
+                    lvEngagementDetails.ClickViewCounterpartiesButton();
+                    Assert.IsTrue(lvEngagementDetails.VerifyViewCounterpartiesPageIsDisplayed());
+                    extentReports.CreateStepLogs("Passed", "View Counterparties page is displayed. ");
+
+                    //Click Add Counterparties and validate the page
+                    addCounterparty.ClickAddCounterpartiesBtn();
+                    Assert.IsTrue(addCounterparty.VerifyAddCounterpartiesPageIsDisplayed());
+                    extentReports.CreateLog("Add Counterparties page is displayed. ");
+
+                    //Add Counterparty record and validate the success message
+                    string counterpartyCompanyNameExl = ReadExcelData.ReadData(excelPath, "AddCounterparty", 1);
+                    string counterpartyTypeExl = ReadExcelData.ReadData(excelPath, "AddCounterparty", 2);
+                    addCounterparty.AddNewCounterparty(counterpartyCompanyNameExl, counterpartyTypeExl);
+
+                    string popupMessage = addCounterparty.GetLVMessagePopup();
+                    Assert.IsTrue(popupMessage.Contains(counterpartyCompanyNameExl), "Verify the Added Counterparty name is displayed in Popup message ");
+                    extentReports.CreateLog(popupMessage + " message Displayed and company " + counterpartyCompanyNameExl + " is added in counterparty list ");
+
+                    addCounterparty.CloseTab("EC - ");
+                    addCounterparty.CloseTab("Counterparty Editor");
+
+                    //Click on View Counterparties button & navigate to View Counterparties page
+                    lvEngagementDetails.ClickViewCounterpartiesButton();
+                    Assert.IsTrue(lvEngagementDetails.VerifyViewCounterpartiesPageIsDisplayed());
+                    extentReports.CreateStepLogs("Passed", "View Counterparties page is displayed. ");
+
+                    //Click Edit Bids and validate the page
+                    string roundName = ReadExcelData.ReadData(excelPath, "Bid", 1);
+                    addCounterparty.ClickEditBidsButtonAndNavigateToBidRoundsPage(roundName);
+
+                    //Add all bid details and validate it
+                    string value = ReadExcelData.ReadData(excelPath, "Bid", 2);
+                    string minBid = addCounterparty.SaveBidValues(value);
+                    Assert.AreEqual(value, minBid);
+                    extentReports.CreateLog("Bid with Min Bid: " + minBid + " is displayed upon saving bid details ");
+
+                    //Validate value of Max bid value
+                    string maxBid = addCounterparty.GetMaxBid();
+                    Assert.AreEqual(value, maxBid);
+                    extentReports.CreateLog("Bid with Max Bid: " + maxBid + " is displayed upon saving bid details ");
+
+                    addCounterparty.CloseTab("Edit Bids");
+                    addCounterparty.CloseTab("Counterparty Editor");
+
+                    CustomFunctions.PageReload(driver);
+                    Thread.Sleep(10000);
+
+                    //Verify if Companies Closed With is added Successfully
+                    Assert.IsTrue(lvEngagementDetails.VerifyIfCompaniesClosedWithIsPresent());
+                    extentReports.CreateStepLogs("Passed", "Companies Closed With is present for the engagement.");
+
+                    //******************End  - Add Company Closed with****************************************
+
+                    //Get Subject Company Type
+                    string compType = lvEngagementDetails.GetSubjectCompanyType(valSubjectCompName);
+                    //string counterpartyCompOwnership = lvEngagementDetails.GetCounterpartyCompanyOwnership(valSubjectCompName);
+
+                    //Check Subject Company Type 
+                    if (compType == "Operating Company")
+                    {
+                        
+                    }
 
                     //TC - End
                     lvHomePage.LogoutFromSFLightningAsApprover();
