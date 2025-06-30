@@ -8,8 +8,7 @@ namespace SF_Automation.TestData
 {
     class ReadJSONData
     {
-        //public static string dir = TestContext.CurrentContext.TestDirectory + @"\TestData\";
-        public static string dir = AppDomain.CurrentDomain.BaseDirectory + @"\TestData\";
+        public static string dir = TestContext.CurrentContext.TestDirectory + @"\TestData\";
 
         public static string file = null;
         public static Data data { get; set; }

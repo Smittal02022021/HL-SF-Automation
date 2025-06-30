@@ -8,6 +8,7 @@ using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.IO;
 using System.Threading;
 
 namespace SF_Automation.TestCases.EventExpense
@@ -40,7 +41,7 @@ namespace SF_Automation.TestCases.EventExpense
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTC17340;
+                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData", fileTC17340);
                 Console.WriteLine(excelPath);
 
                 //Validating Title of Login Page
