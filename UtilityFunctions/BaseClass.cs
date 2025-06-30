@@ -67,8 +67,6 @@ namespace SF_Automation.UtilityFunctions
 
                 string reportPath = Path.Combine(path, $"ExtentReport_{timestamp}.html");
 
-                Directory.CreateDirectory(reportPath);
-
                 // Initialize Extent Reports
                 extent = new ExtentReports();
                 var htmlReporter = new ExtentHtmlReporter(reportPath);

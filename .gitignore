@@ -362,7 +362,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-Reports/
 Defects_Screenshots/
 TestData/Default/
 TestData/GrShaderCache/
