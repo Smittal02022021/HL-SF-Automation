@@ -42,7 +42,7 @@ namespace SF_Automation.TestCases.Contact
             try
             {
                 //Get path of Test data file
-                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData", fileTC1063 + ".xlsx");
+                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData", fileTC1103 + ".xlsx");
                 excelPath = Path.GetFullPath(excelPath);
 
                 //Validating Title of Login Page
