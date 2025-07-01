@@ -7,6 +7,7 @@ using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.IO;
 
 namespace SF_Automation.TestCases.Contact
 {
@@ -28,7 +29,6 @@ namespace SF_Automation.TestCases.Contact
         LV_ContactsCreatePage lvCreateContact = new LV_ContactsCreatePage();
         CampaignMemberEditPage camMemEdit = new CampaignMemberEditPage();
 
-
         public static string fileTC1135_TC1136 = "T1135_T1136_Contacts_CampaignHistory_AddToCampaign_SaveCancelEditUpdate";
 
         [OneTimeSetUp]
@@ -46,7 +46,9 @@ namespace SF_Automation.TestCases.Contact
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTC1135_TC1136;
+                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData", fileTC1135_TC1136 + ".xlsx");
+                excelPath = Path.GetFullPath(excelPath);
+
                 string extContactFullName = ReadExcelData.ReadData(excelPath, "Contact", 6);
                 string relatedCompany = ReadExcelData.ReadData(excelPath, "Contact", 1);
                 string campRecordType = ReadExcelData.ReadData(excelPath, "Campaign", 1);

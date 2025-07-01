@@ -6,6 +6,7 @@ using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.IO;
 
 namespace SF_Automation.TestCases.Contact
 {
@@ -40,8 +41,8 @@ namespace SF_Automation.TestCases.Contact
             try
             {
                 //Get path of Test data file
-                var excelPath = ReadJSONData.data.filePaths.testData + fileTMTC0019612;
-                Console.WriteLine(excelPath);
+                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData", fileTMTC0019612 + ".xlsx");
+                excelPath = Path.GetFullPath(excelPath);
 
                 var user = ReadExcelData.ReadData(excelPath, "Users", 1);
 
