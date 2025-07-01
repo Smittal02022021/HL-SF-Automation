@@ -659,6 +659,44 @@ namespace SF_Automation.Pages.Companies
             return clientOwnership;
         }
 
+        public string GetCounterpartyCompanyOwnership(string compName)
+        {
+            Thread.Sleep(3000);
+            try
+            {
+                IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+                jse.ExecuteScript("arguments[0].click();", driver.FindElement(By.XPath($"//lightning-primitive-cell-factory[@data-label='Company']//a[@title='{compName}']")));
+            }
+            catch (Exception)
+            {
+
+            }
+            Thread.Sleep(8000);
+
+            string ownership = driver.FindElement(By.XPath("((//span[text()='Ownership'])[1]/following::div//lightning-formatted-text)[1]")).Text;
+
+            //Close the warning message if any
+            try
+            {
+                Thread.Sleep(2000);
+                driver.FindElement(By.XPath("//button[contains(@class,'toastClose')]")).Click();
+                Thread.Sleep(2000);
+
+                //Close the tab
+                driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
+                Thread.Sleep(2000);
+            }
+            catch (Exception)
+            {
+                //Close the tab
+                driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
+                Thread.Sleep(2000);
+            }
+
+            return ownership;
+        }
+
+
         public bool VerifyUpdatesOnSubjectCompany(string engName, string roundTrip, string comment, string compName)
         {
             bool result = false;

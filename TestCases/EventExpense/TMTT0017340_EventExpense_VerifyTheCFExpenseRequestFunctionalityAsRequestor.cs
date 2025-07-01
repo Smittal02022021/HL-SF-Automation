@@ -64,6 +64,11 @@ namespace SF_Automation.TestCases.EventExpense
                 Assert.AreEqual(driver.Url.Contains("lightning"), true);
                 extentReports.CreateLog("User is able to login into SF");
 
+                Console.WriteLine("Checking file: " + excelPath);
+                Console.WriteLine("File exists? " + File.Exists(excelPath));
+                FileInfo fileInfo = new FileInfo(excelPath);
+                Console.WriteLine("Is ReadOnly: " + fileInfo.IsReadOnly);
+
                 int userCount = ReadExcelData.GetRowCount(excelPath, "Users");
                 for (int row = 2; row <= userCount; row++)
                 {

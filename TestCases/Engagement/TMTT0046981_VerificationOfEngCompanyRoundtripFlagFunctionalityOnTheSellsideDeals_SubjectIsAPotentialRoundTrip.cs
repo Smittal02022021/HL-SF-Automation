@@ -315,8 +315,8 @@ namespace SF_Automation.TestCases.Engagement
                     //******************End  - Add Company Closed with****************************************
 
                     //Get Subject Company Type
+                    string counterpartyCompOwnership = lvEngagementDetails.GetCounterpartyCompanyOwnership(valSubjectCompName);
                     string compType = lvEngagementDetails.GetSubjectCompanyType(valSubjectCompName);
-                    //string counterpartyCompOwnership = lvEngagementDetails.GetCounterpartyCompanyOwnership(valSubjectCompName);
 
                     //Check Subject Company Type 
                     if (compType == "Operating Company")
