@@ -69,6 +69,20 @@ namespace SF_Automation.TestCases.EventExpense
                 FileInfo fileInfo = new FileInfo(excelPath);
                 Console.WriteLine("Is ReadOnly: " + fileInfo.IsReadOnly);
 
+                try
+                {
+                    using (FileStream fs = new FileStream(excelPath, FileMode.Open, FileAccess.Read, FileShare.None))
+                    {
+                        Console.WriteLine("File is NOT locked. Proceeding...");
+                    }
+                }
+                catch (IOException ex)
+                {
+                    Console.WriteLine("File is locked or in use by another process.");
+                    Console.WriteLine(ex.Message);
+                    throw; // Optional: fail fast
+                }
+
                 int userCount = ReadExcelData.GetRowCount(excelPath, "Users");
                 for (int row = 2; row <= userCount; row++)
                 {
