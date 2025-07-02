@@ -38,6 +38,7 @@ namespace SF_Automation.Pages.Common
         By valJobTypes = By.XPath("//tbody/tr/th[1]//a//span");
         By valJobTypesAll = By.XPath("//tbody/tr/th[1]//a//span");
         By valProdLines = By.XPath("//tbody/tr/td[4]//span//span");
+        By valProdLinesAll = By.XPath("//tbody/tr/td[4]//span//span");
         By valBlank = By.CssSelector("div[id*='wN2_00Ni000000G8Xmo']");
 
         By txtPageCountString = By.XPath("//div[@class='paginator']//td[2]//span//i");
@@ -485,7 +486,7 @@ namespace SF_Automation.Pages.Common
             int row_num = 1;
             foreach (IWebElement element in type)
             {
-                //Console.WriteLine(element.Text);
+                Console.WriteLine(element.Text);
                 row_num++;
             }
         }
@@ -493,18 +494,15 @@ namespace SF_Automation.Pages.Common
         //To get Product Line 
         public void GetProductLines()
         {
-            Thread.Sleep(3000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,550)");
-            Thread.Sleep(5000);
+            Thread.Sleep(3000);           
             IReadOnlyCollection<IWebElement> type = driver.FindElements(valProdLines);
-            Console.WriteLine("NUMBER OF ROWS IN THIS TABLE = " + type.Count);
+            Console.WriteLine("NUMBER OF ROWS IN TABLE = " + type.Count);
 
             int row_num = 1;
 
             foreach (IWebElement element in type)
             {
-                Console.WriteLine("row# " + row_num + element.Text);
+                Console.WriteLine(element.Text);
                 row_num++;
             }
         }
@@ -571,27 +569,28 @@ namespace SF_Automation.Pages.Common
 
         //To Validate Job Types 
         public bool ValidateProductLines()
-        {
-            //driver.Navigate().Refresh();
-            //WebDriverWaits.WaitUntilEleVisible(driver, btnAllList, 90);
-            //driver.FindElement(btnAllList).Click();
-            //driver.FindElement(linkJobTypes).Click();
-            //WebDriverWaits.WaitUntilEleVisible(driver, btnGo, 100);
-            //driver.FindElement(btnGo).Click();
+        {           
 
-                       Thread.Sleep(3000);
-            IReadOnlyCollection<IWebElement> prodLines = driver.FindElements(valProdLines);
+            Thread.Sleep(3000);
+            IReadOnlyCollection<IWebElement> prodLines = driver.FindElements(valProdLinesAll);
             Console.WriteLine("NUMBER OF ROWS IN THIS TABLE = " + prodLines.Count);
             var actualValue = prodLines.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Advisory","Transaction Opinions", "Buyside", "Capital Markets", "Other", "Portfolio Valuation & Advisory", "Other", "Advisory", "Financial Restructuring - Creditor / Debtor", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "Capital Solutions", "Capital Markets", "Capital Solutions", "Financial Restructuring - Creditor / Debtor", "Capital Solutions", "Advisory", "Financial Restructuring - Other", "Financial Restructuring - Other", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Financial Restructuring - Other", "Capital Markets", "Capital Solutions", "CVAS - Corporate Valuation Advisory Services", "Other", "Portfolio Valuation & Advisory", "Transaction Opinions", "Other", "Advisory", "Transaction Opinions", "Other",  "Fund Opinions", "Fund Opinions", "Fund Opinions", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Transaction Opinions", " ", "Capital Solutions", "Capital Markets", "Other", "Transaction Opinions", "Advisory", "Sellside", "Capital Solutions", "Capital Solutions", "Capital Solutions", "Advisory", "Other", "Other", "Capital Solutions", "Capital Solutions", "Financial Restructuring - Other", "Dispute", "Capital Solutions", "Sellside", "Advisory", "Capital Markets", "Financial Restructuring - Other", " ", "Advisory", "Capital Solutions", "Capital Solutions", "Private Funds Advisory", "Private Funds Advisory", "Private Funds Advisory", "Private Funds Advisory", "Private Funds Advisory", "Capital Solutions", "Advisory", "Financial Restructuring - Other", "Other", "Sellside", "Transaction Opinions", "", "Advisory", "Advisory", "Buyside", "Sellside", "Advisory", "Strategic Consulting", "Advisory", "Capital Markets", "Tech+IP Advisory", "Tech+IP Advisory", "Advisory", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "Advisory", "Tech+IP Advisory", "Advisory", "Tech+IP Advisory", "Advisory", "Tech+IP Advisory", "Advisory" };
+            ///string[] expectedValue = { "Transaction Opinions", "Buyside", "Capital Markets", "Other", "Portfolio Valuation & Advisory", "Other", "Advisory", "Financial Restructuring - Creditor / Debtor", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "Capital Solutions", "Capital Markets", "Capital Solutions", "Financial Restructuring - Creditor / Debtor", "Capital Solutions", "Advisory", "Financial Restructuring - Other", "Financial Restructuring - Other", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Financial Restructuring - Other", "Capital Markets", "Capital Solutions", "CVAS - Corporate Valuation Advisory Services", "Other", "Portfolio Valuation & Advisory", "Transaction Opinions", "Other", "Advisory", "Transaction Opinions", "Other",  "Fund Opinions", "Fund Opinions", "Fund Opinions", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Transaction Opinions", " ", "Capital Solutions", "Capital Markets", "Other", "Transaction Opinions", "Advisory", "Sellside", "Capital Solutions", "Capital Solutions", "Capital Solutions", "Advisory", "Other", "Other", "Capital Solutions", "Capital Solutions", "Financial Restructuring - Other", "Dispute", "Capital Solutions", "Sellside", "Advisory", "Capital Markets", "Financial Restructuring - Other", " ", "Advisory", "Capital Solutions", "Capital Solutions", "Private Funds Advisory", "Private Funds Advisory", "Private Funds Advisory", "Private Funds Advisory", "Private Funds Advisory", "Capital Solutions", "Advisory", "Financial Restructuring - Other", "Other", "Sellside", "Transaction Opinions", "", "Advisory", "Advisory", "Buyside", "Sellside", "Advisory", "Strategic Consulting", "Advisory", "Capital Markets", "Tech+IP Advisory", "Tech+IP Advisory", "Advisory", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "Advisory", "Tech+IP Advisory", "Advisory", "Tech+IP Advisory", "Advisory", "Tech+IP Advisory", "Advisory" };
 
+            string[] expectedValue = {"Advisory", "Transaction Opinions", "Buyside", "Capital Markets", "Other", "Portfolio Valuation & Advisory", "Other", "Advisory", "Financial Restructuring - Creditor / Debtor", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "Capital Solutions", "Capital Markets", "Capital Solutions", "Financial Restructuring - Creditor / Debtor", "Capital Solutions", "Advisory", "Financial Restructuring - Other", "Financial Restructuring - Other", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Financial Restructuring - Other", "Capital Markets", "Capital Solutions", "CVAS - Corporate Valuation Advisory Services", "Other", "Portfolio Valuation & Advisory", "Transaction Opinions", "Other", "Advisory", "Transaction Opinions", "Other", "Fund Opinions", "Fund Opinions", "Fund Opinions", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Transaction Opinions", "", "Capital Solutions", "Capital Markets", "Other", "Transaction Opinions", "Advisory", "Sellside", "Capital Solutions", "Capital Solutions", "Capital Solutions", "Advisory", "Other", "Other", "Capital Solutions", "Capital Solutions", "Financial Restructuring - Other", "Dispute", "Capital Solutions", "Sellside", "Advisory", "Capital Markets", "Financial Restructuring - Other", "", "Advisory", "Capital Solutions", "Capital Solutions", "Private Funds Advisory", "Private Funds Advisory", "Private Funds Advisory", "Private Funds Advisory", "Private Funds Advisory", "Capital Solutions", "Advisory", "Financial Restructuring - Other", "Other", "Sellside", "Transaction Opinions", "", "Advisory", "Advisory", "Buyside", "Sellside", "Advisory", "Strategic Consulting", "Advisory", "Capital Markets", "Tech+IP Advisory", "Tech+IP Advisory", "Advisory", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "Advisory", "Tech+IP Advisory", "Advisory", "Tech+IP Advisory", "Advisory", "Tech+IP Advisory", "Advisory" };
+
+            Console.WriteLine("1st:" + actualValue[1]);
+            Console.WriteLine("1st:" + actualValue[2]);
+            Console.WriteLine("1st:" + actualValue[3]);
+            Console.WriteLine("1st:" + actualValue[4]);
+            Console.WriteLine("1st:" + actualValue[5]);
             bool isSame = true;
             int row_num = 1;
-            List<string> difference = actualValue.Except(expectedValue).ToList();
-            //int row_num = 1;
+            
+            List<string> difference = actualValue.Except(expectedValue).ToList();           
             foreach (var value in difference)
             {
-                Console.WriteLine("value:" +row_num);
+                Console.WriteLine("value:" + value);
             }
 
             if (expectedValue.Length != actualValue.Length)
@@ -1278,55 +1277,31 @@ namespace SF_Automation.Pages.Common
         public bool ValidateJobTypesLV()
 
         {
-
             Thread.Sleep(6000);
-
             IReadOnlyCollection<IWebElement> jobTypes = driver.FindElements(valJobTypesAll);
-
             var actualValue = jobTypes.Select(x => x.Text).ToArray();
-
             string[] expectedValue = { "Activism Advisory", "Board Advisory Services (BAS)", "Buyside", "Buyside & Financing Advisory", "Collateral Valuation", "Compensation/Formula Analysis", "Consulting", "Corporate Alliances", "Creditor Advisors", "CVAS - Complex Securities", "CVAS - Forensic Services", "CVAS - FV Opinion", "CVAS - Goodwill or Asset Impairment", "CVAS - IP Valuation", "CVAS - Modeling", "CVAS - Pre-Acq Val'n Cons", "CVAS - Purchase Price Allocation", "CVAS - SFAS 123R/409A Stock, Option Valuation", "CVAS - Sovereign Advisory", "CVAS - Tangible Asset Valuation", "CVAS - Tax Valuation", "CVAS - Transfer Pricing", "Debt Advisory", "Debt Capital Markets", "Debt Financing", "Debtor Advisors", "Directs", "Discretionary Advisory", "DM&A Buyside", "DM&A Sellside", "DRC - Ad Valorem Services", "DRC - Appointed Arbitrator/Mediator", "DRC - Contract Compliance", "DRC - Dispute", "DRC - ESOP", "DRC - Estate & Gift", "DRC - Exp Cons-Arbitrat'n", "DRC - Exp Cons-Bankruptcy", "DRC - Exp Cons-Litigation", "DRC - Exp Cons-Mediation", "DRC - Exp Cons-Pre-Complt", "DRC - Exp Wit-Arbitration", "DRC - Exp Wit-Bankruptcy", "DRC - Exp Wit-Litigation", "DRC - Exp Wit-Mediation", "DRC - Exp Wit-Pre-Complnt", "DRC - Post Transaction Dispute", "Equity Advisors", "Equity Capital Markets", "Equity Placements", "ESOP Advisory - CVAS", "ESOP Advisory - Other", "ESOP Advisory - PV", "ESOP Advisory - TO", "ESOP Capital Partnership", "ESOP Corporate Finance", "ESOP Fairness", "ESOP Update", "FA - Fund Opinions-Fairness", "FA - Fund Opinions-Non-Fairness", "FA - Fund Opinions-Valuation", "FA - Portfolio - SPAC", "FA - Portfolio LIBOR Advisory", "FA - Portfolio-Advis/Consulting", "FA - Portfolio-Auto Loans", "FA - Portfolio-Auto Struct Prd", "FA - Portfolio-Auto Struct Prd/Consulting", "FA - Portfolio-BDC/Direct Lending", "FA - Portfolio-Deriv/Risk Mgmt", "FA - Portfolio-Diligence/Assets", "FA - Portfolio-Funds Transfer", "FA - Portfolio-GP interest", "FA - Portfolio-Outsourcing", "FA - Portfolio-Real Estate", "FA - Portfolio-Valuation", "Fairness", "FAS - Administrative", "Financial Asset Sale", "Financing", "FMV Non-Transaction Based Opinion", "FMV Transaction Based Opinion", "General Financial Advisory", "Going Private", "GP Advisory", "GP Stake Sale", "GP-Led Secondaries", "Illiquid Financial Assets", "Income Deposit Securities", "InSource", "Lender Education", "Liability Management", "Liability Mgmt", "Litigation", "LP-Led Secondaries", "Merger", "Negotiated Fairness", "Partners", "PBAS", "Portfolio Acquisition", "Post Merger Integration", "Primary Capital Advisory", "Private Fundraising", "Private Funds: Direct", "Private Funds: GP Advisory", "Private Funds: GP Stake Sale", "Private Funds: Primary Advisory", "Private Funds: Secondary Advisory", "Public Underwriting", "Real Estate Brokerage", "Regulator/Other", "Securities Design", "Sellside", "Solvency", "Sovereign Restructuring", "Special Committee Advisory", "Special Situations", "Special Situations Buyside", "Special Situations Sellside", "Strategic Alternatives Study", "Strategic Consulting", "Strategy", "Syndicated Finance", "T+IP - Damages", "T+IP - Expert Report", "Take Over Defense", "TAS - Accounting and Financial Reporting Advisory", "TAS - Due Diligence-Buyside", "TAS - Due Diligence-Buyside Add-On", "TAS - Due Diligence-Sellside", "TAS - DVC Business Analytics", "TAS - DVC Decision Modeling", "TAS - ESG Due Diligence & Analytics", "TAS - Lender Services", "TAS - Tax", "TAS - Tech & Cyber", "Tech+IP - Buyside", "Tech+IP - Patent Acquisition Support", "Tech+IP - Patent Sales", "Tech+IP - Strategic Advisory", "Tech+IP - Tech+IP Sales", "Tech+IP - Valuation", "Valuation Advisory" };
-
-            Console.WriteLine("Clicked Job types");
-
+                Console.WriteLine("Clicked Job types");
             bool isSame = true;
-
             List<string> difference = actualValue.Except(expectedValue).ToList();
-
             foreach(var value in difference)
-
             {
                 Console.WriteLine(value);
-
             }
 
             if(expectedValue.Length != actualValue.Length)
-
             {
-
-                return !isSame;
-
+                                return !isSame;
             }
-
             for(int rec = 0; rec < expectedValue.Length; rec++)
-
             {
-
                 if(!expectedValue[rec].Equals(actualValue[rec]))
-
                 {
-
                     isSame = false;
-
                     break;
-
                 }
-
             }
-
             return isSame;
-
         }
-
     }
 }

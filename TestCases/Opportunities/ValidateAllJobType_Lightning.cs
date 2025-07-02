@@ -68,8 +68,7 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.IsTrue(pages.ValidateJobTypesLV(), "Verified that displayed Job Types are same");
                 extentReports.CreateLog("Displayed Job Types are as expected ");
 
-                //Validate all Product Lines 
-                //string blank = pages.GetBlankValue();
+                //Validate all Product Lines                
                 
                 pages.GetProductLines();                        
                 Assert.IsTrue(pages.ValidateProductLines(), "Verified that displayed Product Lines are same");

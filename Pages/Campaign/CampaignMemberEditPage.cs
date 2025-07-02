@@ -49,7 +49,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(txtResponseComments).Clear();
                 driver.FindElement(txtResponseComments).SendKeys(ReadExcelData.ReadData(excelPath, "CampaignMember", 3));
             }
-            catch (Exception ex) { }
+            catch (Exception e) { }
 
             driver.FindElement(btnSave).Click();
             Thread.Sleep(8000);
