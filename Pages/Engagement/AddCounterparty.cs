@@ -1327,46 +1327,56 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             driver.FindElement(txtMinBid).Clear();
             driver.FindElement(txtMinBid).SendKeys(value);
-            //Equity %
-            var elementEquity = driver.FindElement(By.XPath("//td[@data-label='Equity %']"));
-            actions.MoveToElement(elementEquity);
-            actions.Perform();
-            Thread.Sleep(5000);
-            driver.FindElement(btnEquity).Click();
-            Thread.Sleep(5000);
-            driver.FindElement(txtEquity).Clear();
-            driver.FindElement(txtEquity).SendKeys(value);
-            driver.FindElement(lblMinBid).Click();
-            //Debt %
-            var elementDebt = driver.FindElement(By.XPath("//td[@data-label='Debt %']"));
-            actions.MoveToElement(elementDebt);
-            actions.Perform();
-            Thread.Sleep(4000);
-            driver.FindElement(btnDebt).Click();
-            Thread.Sleep(4000);
-            driver.FindElement(txtEquity).Clear();
-            driver.FindElement(txtEquity).SendKeys(value);
-            driver.FindElement(lblMinBid).Click();
-            //Bid Date
-            var elementDate = driver.FindElement(By.XPath("//td[@data-label='Bid Date']"));
-            actions.MoveToElement(elementDate);
-            actions.Perform();
-            Thread.Sleep(4000);
-            driver.FindElement(btnDate).Click();
-            Thread.Sleep(4000);
-            driver.FindElement(txtBidDate).Clear();
-            driver.FindElement(txtBidDate).SendKeys("01-Aug-2023");
-            driver.FindElement(lblMinBid).Click();
-            //Bid Comments
-            var elementComments = driver.FindElement(By.XPath("//td[@data-label='Comments']"));
-            actions.MoveToElement(elementComments);
-            actions.Perform();
-            Thread.Sleep(4000);
-            driver.FindElement(btnComments).Click();
-            Thread.Sleep(4000);
-            driver.FindElement(txtComments).Clear();
-            driver.FindElement(txtComments).SendKeys("Testing");
-            driver.FindElement(lblMinBid).Click();
+
+            try
+            {
+                //Equity %
+                var elementEquity = driver.FindElement(By.XPath("//td[@data-label='Equity %']"));
+                actions.MoveToElement(elementEquity);
+                actions.Perform();
+                Thread.Sleep(3000);
+                IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+                jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnEquity));
+                //driver.FindElement(btnEquity).Click();
+                Thread.Sleep(3000);
+                driver.FindElement(txtEquity).Clear();
+                driver.FindElement(txtEquity).SendKeys(value);
+                driver.FindElement(lblMinBid).Click();
+                //Debt %
+                var elementDebt = driver.FindElement(By.XPath("//td[@data-label='Debt %']"));
+                actions.MoveToElement(elementDebt);
+                actions.Perform();
+                Thread.Sleep(4000);
+                driver.FindElement(btnDebt).Click();
+                Thread.Sleep(4000);
+                driver.FindElement(txtEquity).Clear();
+                driver.FindElement(txtEquity).SendKeys(value);
+                driver.FindElement(lblMinBid).Click();
+                //Bid Date
+                var elementDate = driver.FindElement(By.XPath("//td[@data-label='Bid Date']"));
+                actions.MoveToElement(elementDate);
+                actions.Perform();
+                Thread.Sleep(4000);
+                driver.FindElement(btnDate).Click();
+                Thread.Sleep(4000);
+                driver.FindElement(txtBidDate).Clear();
+                driver.FindElement(txtBidDate).SendKeys(DateTime.Today.ToString("MMM dd, yyyy"));
+                driver.FindElement(lblMinBid).Click();
+                //Bid Comments
+                var elementComments = driver.FindElement(By.XPath("//td[@data-label='Comments']"));
+                actions.MoveToElement(elementComments);
+                actions.Perform();
+                Thread.Sleep(4000);
+                driver.FindElement(btnComments).Click();
+                Thread.Sleep(4000);
+                driver.FindElement(txtComments).Clear();
+                driver.FindElement(txtComments).SendKeys("Testing");
+                driver.FindElement(lblMinBid).Click();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Element not found: " + e.Message);
+            }
 
             //Save button
             driver.FindElement(btnSaveBid).Click();

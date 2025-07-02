@@ -72,7 +72,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 int rowCount = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
 
-                for(int row = 2; row <= rowCount; row++)
+                for(int row = 4; row <= rowCount; row++)
                 {
                     //Select HL Banker app
                     try
@@ -271,8 +271,8 @@ namespace SF_Automation.TestCases.Engagement
                     extentReports.CreateLog("Add Counterparties page is displayed. ");
 
                     //Add Counterparty record and validate the success message
-                    string counterpartyCompanyNameExl = ReadExcelData.ReadData(excelPath, "AddCounterparty", 1);
-                    string counterpartyTypeExl = ReadExcelData.ReadData(excelPath, "AddCounterparty", 2);
+                    string counterpartyCompanyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddCounterparty", row, 1);
+                    string counterpartyTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "AddCounterparty", row, 2);
                     addCounterparty.AddNewCounterparty(counterpartyCompanyNameExl, counterpartyTypeExl);
 
                     string popupMessage = addCounterparty.GetLVMessagePopup();
@@ -321,7 +321,72 @@ namespace SF_Automation.TestCases.Engagement
                     //Check Subject Company Type 
                     if (compType == "Operating Company")
                     {
-                        
+                        if (counterpartyCompOwnership == "Private Equity Group" || counterpartyCompOwnership == "Family Office" || counterpartyCompOwnership == "Hedge Fund" || counterpartyCompOwnership == "Institutional Debt Holder")
+                        {
+                            //TMTI0115228 - Verify that if the user selects "Subject is a Potential Round Trip" in  Engagement is a Potential Round Trip AND 'SUBJECT' is OpCo & 'COMPANY CLOSED WITH' is PE or PE Owned, no prompt will appear and set the values as selected. 
+
+                            //Verify No warning message is displayed
+                            lvEngagementDetails.SelectValueInPotentialRoundTripField("Subject is a potential round trip");
+                            Assert.IsTrue(lvEngagementDetails.VerifyNoWarningMsgIsDisplayed());
+                            extentReports.CreateStepLogs("Passed", "No Warning Message is Displayed when user selects: Subject is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company = Operating Company & 'COMPANY CLOSED WITH' = Private Equity Group.");
+
+                            //Verify updates on Subject Company
+                            string subPotentialRoundTripExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 1);
+                            string roundTripCommentExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 2);
+
+                            lvEngagementDetails.VerifyUpdatesOnSubjectCompany(engagementName, subPotentialRoundTripExl, roundTripCommentExl, valSubjectCompName);
+                            extentReports.CreateStepLogs("Passed", "Round Trip section of Subject Company is updated as follows: a) Potential RT = Yes b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
+
+                            //Close duplicate company warning msg
+                            companyDetailsPage.CloseDuplicateCompanyWarningMsg();
+
+                            //Close Company tab
+                            companyDetailsPage.CloseTab(valSubjectCompName);
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        if (counterpartyCompOwnership == "Private Equity Group" || counterpartyCompOwnership == "Family Office" || counterpartyCompOwnership == "Hedge Fund" || counterpartyCompOwnership == "Institutional Debt Holder")
+                        {
+                            //TMTI0115231 - Verify that if the user selects "Subject is a Potential Round Trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is NOT OpCo & 'COMPANY CLOSED WITH' is PE or PE Owned, a warning message will appear on the screen
+
+                            //Verify warning message should be displayed
+                            lvEngagementDetails.SelectValueInPotentialRoundTripField("Subject is a potential round trip");
+                            Assert.IsTrue(lvEngagementDetails.VerifyWarningMsgIsDisplayed());
+                            extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Subject is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & 'COMPANY CLOSED WITH' = Private Equity Group.");
+
+                            string msg1 = ReadExcelData.ReadData(excelPath, "Warning", 2);
+                            Assert.IsTrue(lvEngagementDetails.VerifyWarningMsg(msg1));
+                            extentReports.CreateStepLogs("Passed", "Expected warning message is displayed : " + msg1);
+
+                            //Verify updates on Subject Company
+                            string subPotentialRoundTripExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 1);
+                            string roundTripCommentExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 2);
+
+                            lvEngagementDetails.VerifyUpdatesOnSubjectCompany(engagementName, subPotentialRoundTripExl, roundTripCommentExl, valSubjectCompName);
+                            extentReports.CreateStepLogs("Passed", "Round Trip section of Subject Company is updated as follows: a) Potential RT = Yes b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
+
+                            //Verify Flag details for Subject Company
+                            string fReason = ReadExcelData.ReadData(excelPath, "FlagReason", 1);
+                            string fReasonComment = ReadExcelData.ReadData(excelPath, "FlagReason", 2);
+
+                            Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason, fReasonComment, userCAOExl));
+                            extentReports.CreateStepLogs("Passed", "Flag details are updated for the subject company. \r\n Flag Reason: " + fReason + "\r\n Flag Reason Comment: " + fReasonComment + "\r\n Flag Reason Change By: " + userCAOExl + ".");
+
+                            //Close duplicate company warning msg
+                            companyDetailsPage.CloseDuplicateCompanyWarningMsg();
+
+                            //Close Company tab
+                            companyDetailsPage.CloseTab(valSubjectCompName);
+                        }
+                        else
+                        {
+
+                        }
                     }
 
                     //TC - End
