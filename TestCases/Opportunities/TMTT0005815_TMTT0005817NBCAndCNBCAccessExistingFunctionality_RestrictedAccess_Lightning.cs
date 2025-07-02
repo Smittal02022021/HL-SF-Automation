@@ -58,8 +58,8 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Records matching to mentioned search criteria are displayed ");
 
                 string title = opportunityDetails.ValidateNBCFormAdmin();
-                Assert.AreEqual("NEW BUSINESS COMMITTEE REVIEW FORM", title);
-                extentReports.CreateLog("Button with name: " + title + " is displayed on Opportunity details with Job Type : " + valJobType + " for Admin user " );
+                Assert.AreEqual("Public Sensitivity", title);
+                extentReports.CreateLog("Tab with name: " + title + " is displayed on Opportunity details with Job Type : " + valJobType + " for Admin user " );
 
                 int rowJobType = ReadExcelData.GetRowCount(excelPath, "Users");
                 Console.WriteLine("rowCount " + rowJobType);

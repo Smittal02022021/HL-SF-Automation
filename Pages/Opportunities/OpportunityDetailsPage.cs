@@ -466,7 +466,7 @@ namespace SF_Automation.Pages
         By tabOpportunityL = By.XPath("//div[1]/div/div[1]/div[2]//ul[2]/li[2]/a/span[2]");
         By valRelatedOppL = By.XPath("//span[text()='Related Opportunity']/ancestor::div[2]/div[2]//a//slot//span//span");
         By valAddedCommentType = By.XPath("//dt[text()='Comment Type:']/ancestor::dl/dd[2]/lst-template-list-field/lst-formatted-text");
-        By lnkEngagementL = By.XPath("//records-entity-label[text()='Engagement Comment']/ancestor::div[7]/div[2]//span[text()='Engagement']/ancestor::dt/following::dd[1]//a//span//slot//slot/span");
+        By lnkEngagementL = By.XPath("//records-entity-label[text()='Engagement Comment']/ancestor::div[7]/div[2]//span[text()='Engagement']/ancestor::div[2]//a//span//slot//slot/span");
         //By valAddedComment = By.XPath("//dt[text()='Comment:']/ancestor::dl/dd[1]/lst-template-list-field/lightning-base-formatted-text");
         By txtUploadFiles = By.XPath("//span[text()='Upload Files']");
         By toastMsgPopup = By.XPath("//span[@title='UploadFile']");
@@ -1906,15 +1906,11 @@ namespace SF_Automation.Pages
                 //string title = driver.FindElement(btnNBCFormL).GetAttribute("title");
                 driver.FindElement(btnNBCFormL).Click();
                 driver.SwitchTo().Window(driver.WindowHandles.Last());
-                Thread.Sleep(5000);
-                driver.SwitchTo().Frame(0);
-                Thread.Sleep(5000);
-                WebDriverWaits.WaitUntilEleVisible(driver, titleNBCAdmin, 140);
-                string title = driver.FindElement(titleNBCAdmin).Text;
-                driver.SwitchTo().DefaultContent();
+                Thread.Sleep(8000);                
+                string title = driver.FindElement(txtDefaultTab).Text;
+                //driver.SwitchTo().DefaultContent();
                 driver.SwitchTo().Window(driver.WindowHandles.First());
-                return title;
-                //return title;
+                return title;               
             }
             catch (Exception)
             {

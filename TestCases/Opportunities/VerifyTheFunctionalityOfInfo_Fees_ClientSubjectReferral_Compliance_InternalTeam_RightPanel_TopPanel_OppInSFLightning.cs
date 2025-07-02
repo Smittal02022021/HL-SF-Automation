@@ -83,8 +83,8 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Search Opportunities functionality is available ");
 
                 //Verify Search Functionality of Opportunities
-                string searchedOpp = opportunityHome.ValidateSearchFunctionalityOfOpportunities("Adapa");
-                Assert.AreEqual("123393", searchedOpp);
+                string searchedOpp = opportunityHome.ValidateSearchFunctionalityOfOpportunities("Adeka Corporation");
+                Assert.AreEqual("121576", searchedOpp);
                 extentReports.CreateLog("Opportunity is displayed as per entered search criteria ");
 
                 //Verify that choose LOB is displayed after clicking New button

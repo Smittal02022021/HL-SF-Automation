@@ -16,7 +16,7 @@ namespace SF_Automation.TestCases.Opportunities
         RandomPages pages = new RandomPages();
 
 
-        public static string fileTC1197 = "TC1197andTC1198AddOpportunityInOpportunityHome.xlsx";
+        public static string fileTC1197 = "LV_TC1197andTC1198AddOpportunityInOpportunityHome.xlsx";
 
        [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -56,8 +56,15 @@ namespace SF_Automation.TestCases.Opportunities
                 string jobTypes = pages.SelectJobType();
                 Assert.AreEqual("Job Types", jobTypes);
                 extentReports.CreateLog(jobTypes + " is displayed under HL Banker dropdown ");
-                
-                pages.GetJobTypes();
+                                
+                pages.SelectListViewLV("All");
+                //pages.GetJobTypes("CVAS - Tangible Asset Valuation");
+                pages.GetJobTypes("Debt Advisory");
+                pages.GetJobTypes("DRC - Exp Wit-Litigation");
+                pages.GetJobTypes("FA - Portfolio-Auto Loans");
+                pages.GetJobTypes("Lender Education");
+                pages.GetJobTypes("Post Merger Integration");
+                pages.GetJobTypes("Strategic Consulting");
                 Assert.IsTrue(pages.ValidateJobTypesLV(), "Verified that displayed Job Types are same");
                 extentReports.CreateLog("Displayed Job Types are as expected ");
 
@@ -76,7 +83,7 @@ namespace SF_Automation.TestCases.Opportunities
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

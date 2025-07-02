@@ -95,7 +95,7 @@ namespace SF_Automation.Pages.Engagement
         By errorMessageL = By.XPath("//a[@class='errorsListLink']");
         By tabEngagement = By.CssSelector("a[title*='Engagements Tab - Selected']");
         By tabEngagementL = By.XPath("//div[2]/section//ul[2]/li[2]/a/span[2]");
-        By tabEngRevProj = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Revenue_Projection__c.Engagement__c']/div/dd//span//records-hoverable-link");
+        By tabEngRevProj = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Revenue_Projection__c.Engagement__c']/div//span//records-hoverable-link");
         By comboClientOwnership = By.CssSelector("select[id*='d2R']");
         By txtDebt = By.CssSelector("input[id*='LfH']");
         By valClientOwnership = By.CssSelector("div[id*='d2Rj_id0_j_id4_ileinner']");
@@ -417,7 +417,7 @@ namespace SF_Automation.Pages.Engagement
         By txtPeriodAccural = By.XPath("//input[@name='Period_Accrued_Fees__c']");
         By valPeriodAccural = By.XPath("//table/tbody/tr/td[3]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text/span");
         By tabRevProj = By.XPath("//a[text()='Revenue Projection']");
-        By titleRevProj = By.XPath("//span[text()='Revenue Projections']");
+        By titleRevProj = By.XPath("//h2/a/span[text()='Revenue Projections']");
         By btnEditRevProj = By.XPath("//button[text()='New Revenue Projection']");
         By txtProjMonFee = By.XPath("//tr[1]/td[3]/lightning-input/lightning-primitive-input-simple/div/div/input");
         By btnSaveRevproj = By.XPath("//button[@title='Save']");
@@ -426,7 +426,7 @@ namespace SF_Automation.Pages.Engagement
         By msgNoRec = By.XPath("//p[text()='No Records To Display']");
         By btnStartingMonth = By.XPath("//button[@aria-label='Month']");
         By valStartingMonth = By.XPath("//label[text()='Month']/ancestor::div[1]/div[1]//div[2]/lightning-base-combobox-item[5]//span[2]/span");
-        By valStartingMonthDisplayed = By.XPath("//records-entity-label[text()='Revenue Projection']/ancestor::div[7]/div[2]//span[text()='Month']/ancestor::div[2]/dd//lightning-formatted-text");
+        By valStartingMonthDisplayed = By.XPath("//records-entity-label[text()='Revenue Projection']/ancestor::div[7]//span[text()='Month']/ancestor::div[2]/div[2]//lightning-formatted-text");
         By btnSubmitRevProj = By.XPath("//button[text()='submit']");
         By btnReturnToEng = By.XPath("//button[text()='Return to Engagement']");
         By lnkEditBeneficial = By.XPath("//button[@title='Edit Beneficial Owner & Control Person form?']");
@@ -436,13 +436,13 @@ namespace SF_Automation.Pages.Engagement
         By valComplianceDate = By.XPath("//flexipage-tab2[6]/slot/flexipage-component2/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[1]/slot/flexipage-component2/slot/flexipage-field-section2/div/div/div/laf-progressive-container/slot/div/slot/flexipage-column2[1]/div/slot/flexipage-field[2]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
         By lnkEditConfAgree = By.XPath("//button[@title='Edit Confidentiality Agreement']");
         By txtDateSigned = By.XPath("//input[@name='Date_CA_Signed__c']");
-        By valDateSigned = By.XPath("//flexipage-tab2[2]//flexipage-column2[2]//flexipage-field[1]//record_flexipage-record-field//dd//lightning-formatted-text");
+        By valDateSigned = By.XPath("//flexipage-tab2[2]//flexipage-column2[2]//flexipage-field[1]//record_flexipage-record-field//lightning-formatted-text");
         By tabComments = By.XPath("//records-entity-label[text()='Engagement']/ancestor::flexipage-record-home-template-desktop2//a[text()='Comments']");
         By tabFinancials = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[2]/a");
         By tabEngContacts = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[3]/a");
         
         By tabCST = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[4]/a");
-        By btnView = By.XPath("//ul/li[1]/div//a");
+        By btnView = By.XPath("//lst-template-list-field//lightning-formatted-rich-text//a");
         By btnViewDel = By.XPath("//force-aura-action-wrapper/div/ul/li/div/div/div/div/a");
         By lnkEditComments = By.XPath("//a[@title='Edit']");
         By btnEditEngComment = By.XPath("//table/tbody/tr/td[8]/span/div/a");
@@ -456,7 +456,7 @@ namespace SF_Automation.Pages.Engagement
         By txtCommentNotes = By.XPath("//textarea");
         By btnSaveComments = By.XPath("//c-engagement-comments/lightning-card/article/div[2]/slot/lightning-layout/slot/lightning-layout-item/slot/lightning-record-edit-form/lightning-record-edit-form-create/form/slot/slot/div/div[4]/div/lightning-button/button");
         By valAddedCommentType = By.XPath("//dt[text()='Comment Type:']/ancestor::dl/dd[2]/lst-template-list-field/lst-formatted-text");
-        By valAddedComment = By.XPath("//dt[text()='Comment:']/ancestor::dl/dd[1]//lightning-base-formatted-text");
+        By valAddedComment = By.XPath("//dt[text()='Comment:']/ancestor::dl//lightning-base-formatted-text");
         //By tabFinancials = By.XPath("//section[2]/div/div/section/div/div[2]/div[1]/div[1]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-engagement_-record_-page_-h-l-banker_-c-f___-engagement__c___-v-i-e-w/forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[2]/a");
         By btnFinancials = By.XPath("//lst-dynamic-related-list-with-user-prefs/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[3]/div/runtime_platform_actions-actions-ribbon/ul/li/lightning-button-menu/button");
         By lnkAddFinancials = By.XPath("//span[text()='New Financials']");
@@ -464,7 +464,7 @@ namespace SF_Automation.Pages.Engagement
         By valRelatedEng = By.XPath("//lightning-grouped-combobox/div[1]/div/lightning-base-combobox/div/div/div[2]/ul[1]/li[2]");
         By valFinancials = By.XPath("//records-entity-label[text()='Engagement Financials']/ancestor::h1/slot[1]/lightning-formatted-text");
         By tabEngagementNumL = By.XPath("//section[1]/div/div/div/div/div/ul[2]/li[2]/a/span[2]");
-        By lnkEngName = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Revenue_Accrual__c.Engagement__c']/div/dd//span//records-hoverable-link");
+        By lnkEngName = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Revenue_Accrual__c.Engagement__c']/div//span//records-hoverable-link");
 
         //By tabFinancials = By.XPath("//section[2]/div/div/section/div/div[2]/div[1]/div[1]/div/div/div/one-record-home-flexipage2/forcegenerated-adg-rollup_component___force-generated__flexipage_-record-page___-engagement_-record_-page_-h-l-banker_-c-f___-engagement__c___-v-i-e-w/forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[2]/a");
         By btnEngContact = By.XPath("//article/lst-related-list-view-manager/lst-common-list-internal//lst-template-list-field/lst-list-view-row-level-action/lightning-button-menu/button");
