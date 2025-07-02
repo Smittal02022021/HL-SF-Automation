@@ -4,6 +4,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Globalization;
+using System.Net.PeerToPeer;
 using System.Threading;
 
 namespace SF_Automation.Pages.Companies
@@ -788,6 +789,57 @@ namespace SF_Automation.Pages.Companies
 
             return result;
         }
+
+        public bool VerifyUpdatesOnCompanyClosedWithBuyerCompany(string engName, string roundTrip, string comment, string compName)
+        {
+            bool result = false;
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(3000);
+
+            //Navigate to Closing Info tab
+            driver.FindElement(By.XPath("//a[@data-label='Closing Info']")).Click();
+            Thread.Sleep(5000);
+
+            //Navigate to company detail page
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(By.XPath($"//lightning-primitive-cell-factory[@data-label='Company']//a[@title='{compName}']")));
+            Thread.Sleep(10000);
+
+            js.ExecuteScript("window.scrollTo(0,1000)");
+            Thread.Sleep(5000);
+
+            string potentialRoundTripValue = driver.FindElement(lblPotentialRoundTrip).Text;
+            string roundTripEngagementValue = driver.FindElement(lblRoundTripEngagement).Text;
+            string roundTripModifiedDateValue = driver.FindElement(lblPotentialRoundTripModifiedDate).Text;
+            string roundTripCommentValue = driver.FindElement(lblRoundTripComment).Text;
+
+            string currentDate = DateTime.Now.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture).Replace('-', '/');
+
+            try
+            {
+                DateTime parsedDate = DateTime.ParseExact(currentDate, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+
+                // Convert it to M/d/yyyy (removes leading zeros)
+                string newFormat = parsedDate.ToString("M/d/yyyy").Replace('-', '/');
+                if (potentialRoundTripValue == roundTrip && roundTripEngagementValue == engName && roundTripCommentValue == comment && roundTripModifiedDateValue.Contains(newFormat))
+                {
+                    result = true;
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
+            if (potentialRoundTripValue == roundTrip && roundTripEngagementValue == engName && roundTripCommentValue == comment && roundTripModifiedDateValue.Contains(currentDate))
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
 
         public void ClickViewCounterpartiesButton()
         {
