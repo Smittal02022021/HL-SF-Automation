@@ -665,6 +665,7 @@
     <Compile Include="TestCases\Engagement\TMTT0031540_VerifyTheFieldsAndFunctionalityOfPreTransactionTab.cs" />
     <Compile Include="TestCases\Engagement\TMTT0032083_VerifyTheFieldsAndFunctionalityOfPostTransactionTab.cs" />
     <Compile Include="TestCases\Engagement\TMTT0032310_VerifyTheFieldsAndFunctionalityOfHLPostTransactionOpportunitiesTab.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0046981_VerificationOfEngCompanyRoundtripFlagFunctionalityOnTheSellsideDeals_BuyerIsAPotentialRoundTrip.cs" />
     <Compile Include="TestCases\Engagement\TMTT0046984_VerificationOfEngCompanyRoundtripFlagFunctionalityOnTheBuysideDeals_NeitherSubjectNorBuyerIsAPotentialRoundTrip.cs" />
     <Compile Include="TestCases\Engagement\TMTT0046984_VerificationOfEngCompanyRoundtripFlagFunctionalityOnTheBuysideDeals_BuyerIsAPotentialRoundTrip.cs" />
     <Compile Include="TestCases\Engagement\TMTT0046981_VerificationOfEngCompanyRoundtripFlagFunctionalityOnTheSellsideDeals_SubjectIsAPotentialRoundTrip.cs" />
