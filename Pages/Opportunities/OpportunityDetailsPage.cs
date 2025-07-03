@@ -3449,7 +3449,7 @@ namespace SF_Automation.Pages
                 Thread.Sleep(2000);
             }
             driver.FindElement(optionCCOutcomeL).Click();
-            if (valJobType.Equals("Buyside") || valJobType.Equals("Sellside")|| valJobType.Equals("Debt Financing") || valJobType.Equals("Liability Management"))
+            if (valJobType.Equals("Buyside") || valJobType.Equals("Sellside")|| valJobType.Equals("Debt Financing") || valJobType.Equals("Liability Management") || valJobType.Equals("Primary Capital Advisory") || valJobType.Equals("Directs"))
             {
                 CustomFunctions.MoveToElement(driver, driver.FindElement(lblCreatedBy));
                 Thread.Sleep(2000);
