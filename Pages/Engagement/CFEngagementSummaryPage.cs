@@ -186,9 +186,9 @@ namespace SF_Automation.Pages.Engagement
         By iconSeller = By.XPath("//h2/span[text()='Seller']/ancestor::h2/c-hl-universal-pop-over/div/lightning-icon//lightning-primitive-icon");
         By lblSellerBackgroundSection = By.XPath("//span[text()='Seller Background']/ancestor::div[1]//lightning-output-field/span");
         By lnkClientCompany = By.XPath("//span[text()='Client']/ancestor::div[4]/div[1]/div[1]/div[1]//lightning-formatted-lookup");
-        By valIGCompany = By.XPath("//span[text()='Ticker Symbol']/ancestor::flexipage-column2//span[text()='Industry Group']/ancestor::div[2]/dd//lightning-formatted-text");
-        By valSectorCompany = By.XPath("//span[text()='Ticker Symbol']/ancestor::flexipage-column2//span[text()='Sector']/ancestor::div[2]/dd//lightning-formatted-text");
-        By valDesc = By.XPath("//span[text()='Description']/ancestor::div[2]/dd//lightning-formatted-text");
+        By valIGCompany = By.XPath("//span[text()='Ticker Symbol']/ancestor::flexipage-column2//span[text()='Industry Group']/ancestor::div[2]//lightning-formatted-text");
+        By valSectorCompany = By.XPath("//span[text()='Ticker Symbol']/ancestor::flexipage-column2//span[text()='Sector']/ancestor::div[2]//lightning-formatted-text");
+        By valDesc = By.XPath("//span[text()='Description']/ancestor::div[2]//lightning-formatted-text");
         By valIGSummary = By.XPath("//span[text()='Seller Background']/ancestor::div[1]//span[text()='Industry Group']/ancestor::lightning-output-field//lightning-formatted-text");
         By valSectorSummary = By.XPath("//span[text()='Seller Background']/ancestor::div[1]//span[text()='Sector']/ancestor::lightning-output-field//lightning-formatted-text");
         By valDescSummary = By.XPath("//span[text()='Seller Background']/ancestor::div[1]//span[text()='Description']/ancestor::lightning-output-field//lightning-formatted-text");
@@ -219,11 +219,14 @@ namespace SF_Automation.Pages.Engagement
         By btnRefreshFin = By.XPath("//span[text()='Seller Financials']/ancestor::h3//button[@title='Refresh Table']");
         By btnMoreFin = By.XPath("//tr[1]/td[6]//lightning-button-menu/button");
         By lnkEditRecord = By.XPath("//span[text()='Edit']");
+        By chkEngFinCheck = By.XPath("//input[@name='Engagement_Financials_Check__c']");
         By lnkDeleteRecord = By.XPath("//span[text()='Delete']");
         By btnWinCancel = By.XPath("//button[text()='Cancel']");
         By btnWinOk = By.XPath("//button[text()='Ok']");
         By msgDelete = By.XPath("//h2[text()='Record was deleted.']");
-
+        By iconSellerFin = By.XPath("//span[text()='Seller Financials']/ancestor::h3//lightning-icon[@title='Click to keep open']//lightning-primitive-icon");
+        By msgSellerFin = By.XPath("//li[1]/span[text()='Engagement Financials Check']");
+        By iconEngFinCheck = By.XPath("//span[text()='Seller Financials']/ancestor::div[1]/div//lightning-output-field//button/span[2]");
 
         public void ClickEngagementDynamicsSection()
         {
@@ -1701,20 +1704,29 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
-        public string ValidateSaveFunctionalityOfAddRecord(String amount, string currency)
+        public string ValidateSaveFunctionalityOfAddRecord(string amount,  string type)
         {
+            Thread.Sleep(5000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,1050)");
             Thread.Sleep(5000);
             driver.FindElement(txtRevMM).SendKeys(amount);
             driver.FindElement(txtEBITDA).SendKeys(amount);
-            driver.FindElement(btnCurrency).Click();
-            Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Currency']/ancestor::div[1]//lightning-base-combobox-item//span[2]/span[text()='"+currency+"']")).Click();
+            driver.FindElement(btnType).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//button[@name='Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span/span[text()='" + type + "']")).Click();
             driver.FindElement(btnSave).Click();
             Thread.Sleep(4000);
-            //driver.FindElement(btnRefreshFin).Click();
-            //Thread.Sleep(4000);
-            string value = driver.FindElement(By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//tr[1]/td[2]//lightning-formatted-number")).Text;
-            return value;
+            if (type.Equals("Closing"))
+            {
+                string value = driver.FindElement(By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//tr[1]/td[2]//lightning-formatted-number")).Text;
+                return value;
+            }
+            else
+            {
+                string value = driver.FindElement(By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//tr[1]/td[2]//lightning-formatted-number")).Text;
+                return value;
+            }
         }
 
         public bool ValidateAddedRecordsInEngDetails()
@@ -1730,7 +1742,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(6000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(valAddedRevs);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "CAD 10.00 (GBP 5.65)", "GBP 20.00" };
+            string[] expectedValue = {  "GBP 10.00", "GBP 20.00" };
             Console.WriteLine(actualValue[0]);
             Console.WriteLine(actualValue[1]);
 
@@ -1760,6 +1772,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//input[@placeholder='Search Engagements...']/ancestor::div[4]/div[2]//li[2]/lightning-base-combobox-item/span[1]")).Click();
             driver.FindElement(txtRevMM).SendKeys("25");
+            driver.FindElement(txtEBITDA).SendKeys("10");
             driver.FindElement(btnSaveFin).Click();
             Thread.Sleep(7000);
             string value = driver.FindElement(valAddedFin).Text;
@@ -1770,10 +1783,31 @@ namespace SF_Automation.Pages.Engagement
         {
             driver.FindElement(btnRefreshFin).Click();
             Thread.Sleep(4000);
-            string value = driver.FindElement(By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//tr[2]/td[2]//lightning-formatted-number")).Text;
+            string value = driver.FindElement(By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//tr[1]/td[2]//lightning-formatted-number")).Text;
             return value;
         }
 
+
+        public string ValidateEngFinCheckbox()
+        {
+                if (driver.FindElement(chkEngFinCheck).Displayed)
+                {
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(chkEngFinCheck));
+                    if (driver.FindElement(chkEngFinCheck).Selected)
+                    {
+                        return "Engagement Financials Check checkbox is displayed and checked";
+                    }
+                    else
+                    {
+                        return "Engagement Financials Check checkbox is displayed and not-checked";
+                    }
+                }
+                else
+                {
+                    return "Engagement Financials check checkbox is not displayed";
+                }
+            }
+        
         public string ValidateAddFinancialsInCFEngSummary()
         {
             driver.FindElement(tabEngsummary).Click();
@@ -1785,7 +1819,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             driver.FindElement(btnRefreshFin).Click();
             Thread.Sleep(4000);            
-            string value = driver.FindElement(By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//tr[3]/td[2]//lightning-formatted-number")).Text;
+            string value = driver.FindElement(By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//tr[1]/td[2]//lightning-formatted-number")).Text;
             return value;
         }
 
@@ -1845,6 +1879,26 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnRefreshFin).Click();
             Thread.Sleep(4000);
             string value = driver.FindElement(msgDelete).Text;
+            return value;
+        }
+        public string ValidateSellerFinIcon()
+        {
+            Thread.Sleep(8000);
+            string value = driver.FindElement(iconSellerFin).GetAttribute("variant");
+            return value;
+        }
+        public string ValidateMandatoryMessageOfSellerFin()
+        {
+            Actions actions = new Actions(driver);
+            actions.MoveToElement(driver.FindElement(iconSellerFin)).Perform();
+            Thread.Sleep(3000);
+            string value = driver.FindElement(msgSellerFin).Text;
+            return value;
+        }
+        public string ValidateEngFinCheckIcon()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, iconEngFinCheck);
+            string value = driver.FindElement(iconEngFinCheck).Text;
             return value;
         }
     }

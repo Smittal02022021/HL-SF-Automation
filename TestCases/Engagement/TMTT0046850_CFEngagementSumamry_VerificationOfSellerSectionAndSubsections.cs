@@ -148,16 +148,21 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Message: " +messageType + " is displayed on Type icon ");
 
                 //7.  TMTI0114552_Verify the add record functionality for "Seller Financials".
-                string Revenue1st = summaryPage.ValidateSaveFunctionalityOfAddRecord("10","CAD - Canadian Dollar");
+                string Revenue1st = summaryPage.ValidateSaveFunctionalityOfAddRecord("10","Final");
                 Console.WriteLine("Revenue1st:" + Revenue1st);
-                Assert.AreEqual("CAD 10.00", Revenue1st);
+                Assert.AreEqual("GBP 10.00", Revenue1st);
                 extentReports.CreateLog("Revenue: " + Revenue1st + " is displayed after saving Add Record details ");
 
                 summaryPage.ValidateAddRecordIcon();
-                summaryPage.ValidateSaveFunctionalityOfAddRecord("20", "GBP - British Pound");
+                summaryPage.ValidateSaveFunctionalityOfAddRecord("20", "Closing");
                 string Revenue2nd = summaryPage.GetAdded2ndRevenueInSellerFinanials();
                 Assert.AreEqual("GBP 20.00", Revenue2nd);
                 extentReports.CreateLog("Revenue: " + Revenue2nd + " is displayed after saving Add Record details ");
+
+                //11. TMTI0114553_Verify that the Engagement Financials Check field is unchecked by default and gets checked only when the First, Final, and Closing financials are present
+                string checkboxEngFin = summaryPage.ValidateEngFinCheckbox();
+                Assert.AreEqual("Engagement Financials Check checkbox is displayed and not-checked", checkboxEngFin);
+                extentReports.CreateLog("Engagement Financials Check checkbox is not checked ");
 
                 Assert.IsTrue(summaryPage.ValidateAddedRecordsInEngDetails(), "Verify that added Revenue records are on Add Record section are same");
                 extentReports.CreateStepLogs("Passed", "Added Revenue records in Seller Financials are displayed as expected ");
@@ -170,15 +175,20 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual(addedFin, Revenue3rd);
                 extentReports.CreateLog("Financal record added in Engagement is displayed under Seller Financials section of CF Engagement Summary ");
 
+                //11 -- after entering Final Type
+                string checkboxEngFinFinal = summaryPage.ValidateEngFinCheckbox();
+                Assert.AreEqual("Engagement Financials Check checkbox is displayed and checked", checkboxEngFinFinal);
+                extentReports.CreateLog("Engagement Financials Check checkbox is checked when Engagement Financials are entered for First, Final and Closing Type with Revenue LTM (MM) and EBITDA LTM (MM) ");
+
                 //8. TMTI0114544_Verify the "Edit" functionality on the Seller Financials record. 
                 //Cancel Functionality----
-                string cancelRev = summaryPage.ValidateCancelFunctionalityOfAddRecord("25");
-                Assert.AreEqual(Revenue1st, cancelRev);
+                string cancelRev = summaryPage.ValidateCancelFunctionalityOfAddRecord("35");
+                Assert.AreEqual(Revenue3rd, cancelRev);
                 extentReports.CreateLog("Revenue value is not updated after clicking cancel button post updating Revenue value in Edit Record window ");
 
                 //Save Functionality----
-                string editRev = summaryPage.ValidateEditFunctionalityOfAddRecord("25");
-                Assert.AreNotEqual(Revenue1st, editRev);
+                string editRev = summaryPage.ValidateEditFunctionalityOfAddRecord("35");
+                Assert.AreNotEqual(Revenue3rd, editRev);
                 extentReports.CreateLog("Revenue value : "+editRev+ " is updated after clicking save button post updating Revenue value in Edit Record window ");
 
                 //9. TMTI0114543_Verify the "Delete" functionality on the Seller Financials Delete Record
@@ -192,8 +202,24 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("Record was deleted.", confirmDelete);
                 extentReports.CreateLog("Revenue record is deleted after clicking Ok button on Delete Confirmation pop up window ");
 
+                //To delete the 2nd record (for script workflow)
+                summaryPage.ValidateConfirmDeleteFunctionalityOfAddRecord();
+                summaryPage.ValidateConfirmDeleteFunctionalityOfAddRecord();
+
                 //10. TMTI0114546 _Verify that the "Engagement Financial Check" field is required field. 
-                 
+                string iconSellerFin = summaryPage.ValidateSellerFinIcon();
+                string messageSellerFin = summaryPage.ValidateMandatoryMessageOfSellerFin();
+                Assert.AreEqual("error", iconSellerFin);
+                Assert.AreEqual("Engagement Financials Check",messageSellerFin);
+                extentReports.CreateLog("Red asterisk is displayed on Seller financial section along with message: " +messageSellerFin +" upon hovering it ");
+
+                string iconEngFinCheck = summaryPage.ValidateEngFinCheckIcon();
+                Assert.AreEqual("Indicates if required Engagement Financials are present (First, Final, & Closing with Revenue LTM (MM) and EBITDA LTM (MM). For FIG, First, Final, & Closing with Book Value (Current), Total Assets, Net Income (LTM), or EBITDA (LTM))", iconEngFinCheck);
+                extentReports.CreateLog("Message: " + iconEngFinCheck + " is displayed upon hovering Engagement Financials Check checkbox ");
+
+                //12.	TMTI0114545_Verify that the "Seller Contacts" are displayed under the subsection of the Seller Financials 
+
+
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
