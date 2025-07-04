@@ -218,6 +218,27 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Message: " + iconEngFinCheck + " is displayed upon hovering Engagement Financials Check checkbox ");
 
                 //12.	TMTI0114545_Verify that the "Seller Contacts" are displayed under the subsection of the Seller Financials 
+                string iconAddRecordContact = summaryPage.ValidateAddRecordContactIcon();
+                Assert.AreEqual("Add Record", iconAddRecordContact);
+                extentReports.CreateLog("Icon " + iconAddRecordContact + " is displayed in Seller Contacts section ");
+
+                Assert.IsTrue(summaryPage.VerifyAddRecordFieldsOfAddContact(), "Verify that displayed fields on Add Record section of Seller Contacts are same");
+                extentReports.CreateStepLogs("Passed", "Displayed fields on Add Record section of Seller Contacts are as expected ");
+
+                Assert.IsTrue(summaryPage.ValidateTypeValuesOfSellerContacts(), "Verify that displayed Values of Type dropdown are same");
+                extentReports.CreateStepLogs("Passed", "Displayed Values of Type dropdown are as expected ");
+
+                Assert.IsTrue(summaryPage.ValidateRoleValuesOfSellerContacts(), "Verify that displayed Values of Role dropdown are same");
+                extentReports.CreateStepLogs("Passed", "Displayed Values of Role dropdown are as expected ");
+
+                string messageContact = summaryPage.ValidateMandatoryMessageOfContact();
+                Assert.AreEqual("Contact\r\nComplete this field.", messageContact);
+                extentReports.CreateLog("Message: " + messageContact + " is displayed on Contact field when save button is clickd without entering it ");
+
+                //13.  TMTI0114542_ Verify that the "Seller Contact" lookup search functionality
+                string addedContact = summaryPage.ValidateSaveContactFunctionality("Sonika Goyal");
+                Assert.AreEqual("Mr. Sonika Goyal", addedContact);
+                extentReports.CreateLog("Contact: " + addedContact + " is displayed under Seller Contacts section upon saving contact ");
 
 
 

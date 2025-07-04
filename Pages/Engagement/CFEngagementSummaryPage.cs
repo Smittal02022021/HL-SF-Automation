@@ -201,10 +201,16 @@ namespace SF_Automation.Pages.Engagement
         By valTxnRationale = By.XPath("//button[@name='Transaction_Rationale__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
         By valTxnRationaleBeforeUpdate = By.XPath("//button[@title='Edit: Transaction_Rationale__c']/ancestor::div[1]/lightning-formatted-text");
         By iconAddRecord = By.XPath("//span[text()='Seller Financials']/ancestor::h3//button[@title='Add Record']");
+        By iconAddRecordContact = By.XPath("//span[text()='Seller Contacts']/ancestor::h3//button[@title='Add Record']");
         By lblAddRecordSection = By.XPath("//span[text()='Add/Edit Record']/ancestor::article[1]/div[2]//label");
+        By lblAddContactSection = By.XPath("//span[text()='Add/Edit Record']/ancestor::article[1]/div[2]//label");
         By btnType = By.XPath("//button[@name='Type__c']");
         By valType = By.XPath("//button[@name='Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
+        By btnRole = By.XPath("//button[@name='Role__c']");
+        By valRole = By.XPath("//button[@name='Role__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
+
         By msgType = By.XPath("//label[text()='Type']/ancestor::div[1]/lightning-helptext//span[2]");
+        By msgContact = By.XPath("//label[text()='Contact']/ancestor::div[1]//div[text()='Complete this field.']");
         By txtRevMM = By.XPath("//input[@name='Revenue_LTM_MM__c']");
         By txtEBITDA = By.XPath("//input[@name='EBITDA_LTM_MM__c']");
         By valRevMM = By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//td[2]//lightning-formatted-number");
@@ -227,6 +233,10 @@ namespace SF_Automation.Pages.Engagement
         By iconSellerFin = By.XPath("//span[text()='Seller Financials']/ancestor::h3//lightning-icon[@title='Click to keep open']//lightning-primitive-icon");
         By msgSellerFin = By.XPath("//li[1]/span[text()='Engagement Financials Check']");
         By iconEngFinCheck = By.XPath("//span[text()='Seller Financials']/ancestor::div[1]/div//lightning-output-field//button/span[2]");
+        By txtContact = By.XPath("//input[@placeholder='Search Contacts...']");
+        By valAddedContact = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr/th//span//a");
+
+
 
         public void ClickEngagementDynamicsSection()
         {
@@ -1642,7 +1652,15 @@ namespace SF_Automation.Pages.Engagement
             string value = driver.FindElement(iconAddRecord).GetAttribute("title");
             return value;
         }
-
+        public string ValidateAddRecordContactIcon()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,650)");
+            WebDriverWaits.WaitUntilEleVisible(driver, iconAddRecordContact);
+            driver.FindElement(iconAddRecordContact).Click();
+            string value = driver.FindElement(iconAddRecordContact).GetAttribute("title");
+            return value;
+        }
         public bool VerifyAddRecordFields()
         {            
             Thread.Sleep(6000);
@@ -1669,6 +1687,31 @@ namespace SF_Automation.Pages.Engagement
             return isSame;
         }
 
+        public bool VerifyAddRecordFieldsOfAddContact()
+        {
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblAddContactSection);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = {  "*Contact", "Type", "Role", "Description" };
+            Console.WriteLine(expectedValue[1]);
+            Console.WriteLine(expectedValue[2]);
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
 
         public bool ValidateTypeValues()
         {
@@ -1696,11 +1739,71 @@ namespace SF_Automation.Pages.Engagement
             }
             return isSame;
         }
+        public bool ValidateTypeValuesOfSellerContacts()
+        {
+            driver.FindElement(btnType).Click();
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(valType);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "--None--", "Client", "External" };
+            Console.WriteLine(expectedValue[1]);
+            Console.WriteLine(expectedValue[2]);
 
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        public bool ValidateRoleValuesOfSellerContacts()
+        {
+            driver.FindElement(btnRole).Click();
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(valRole);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "--None--", "Attorney", "Board of Directors", "Company Contact", "Equity Sponsor", "External Financial Advisor" };
+            Console.WriteLine(expectedValue[1]);
+            Console.WriteLine(expectedValue[2]);
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
         public string ValidateTypeMessage()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, msgType);
             string value = driver.FindElement(msgType).Text;
+            return value;
+        }
+
+        public string ValidateMandatoryMessageOfContact()
+        {
+            driver.FindElement(btnSave).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, msgContact);
+            string value = driver.FindElement(msgContact).Text;
             return value;
         }
 
@@ -1901,7 +2004,20 @@ namespace SF_Automation.Pages.Engagement
             string value = driver.FindElement(iconEngFinCheck).Text;
             return value;
         }
+
+        public string ValidateSaveContactFunctionality(string name)
+        {
+            driver.FindElement(txtContact).Click();
+            driver.FindElement(txtContact).SendKeys(name);
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath("//input[@placeholder='Search Contacts...']/ancestor::div[@role='list']//li[1]//span[2]/span[1]")).Click();
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(valAddedContact).Text;
+            return value;
+        }
     }
+    
 }
 
 
