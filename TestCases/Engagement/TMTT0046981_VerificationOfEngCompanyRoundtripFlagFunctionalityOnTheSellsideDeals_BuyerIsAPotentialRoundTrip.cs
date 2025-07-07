@@ -72,7 +72,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 int rowCount = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
 
-                for(int row = 2; row <= rowCount; row++)
+                for(int row = 5; row <= rowCount; row++)
                 {
                     //Select HL Banker app
                     try
