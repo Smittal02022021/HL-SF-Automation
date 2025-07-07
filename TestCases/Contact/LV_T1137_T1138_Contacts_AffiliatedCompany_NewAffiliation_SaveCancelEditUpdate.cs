@@ -130,14 +130,13 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
 
                 driver.Quit();
-        }
+            }
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-}
-            
+        }
     }
 }
