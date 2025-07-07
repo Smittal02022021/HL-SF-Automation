@@ -1,4 +1,4 @@
-﻿using AventStack.ExtentReports.Utils;
+﻿using AventStack.ExtentReports.MarkupUtils;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
@@ -1798,7 +1798,7 @@ namespace SF_Automation.Pages.Engagement
                     for (int col = 2; col <= formFieldsCountExl; col++)
                     {
                         string sectionValue = ReadExcelData.ReadDataMultipleRows(excelPath, "MeetingTypes", row, col);
-                        if (sectionValue.IsNullOrEmpty())
+                        if (sectionValue=="")
                             break;
                         sectionsDisplayed = driver.FindElement(_button(sectionValue)).Displayed;
                     }
@@ -2480,7 +2480,7 @@ namespace SF_Automation.Pages.Engagement
                     {
                         index = col - 2;
                         string fieldsvalueExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CSTFormRequiredFields", row, col);
-                        if (fieldsvalueExl.IsNullOrEmpty())
+                        if (fieldsvalueExl == "")
                             break;
                         expectedValueM1[index] = fieldsvalueExl;
                     }
@@ -2492,7 +2492,7 @@ namespace SF_Automation.Pages.Engagement
                     {
                         index = col - 2;
                         string fieldsvalueExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CSTFormRequiredFields", row, col);
-                        if (fieldsvalueExl.IsNullOrEmpty())
+                        if (fieldsvalueExl == "")
                             break;
                         expectedValueM2[index] = fieldsvalueExl;
                     }
@@ -2504,7 +2504,7 @@ namespace SF_Automation.Pages.Engagement
                     {
                         index = col - 2;
                         string fieldsvalueExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CSTFormRequiredFields", row, col);
-                        if (fieldsvalueExl.IsNullOrEmpty())
+                        if (fieldsvalueExl == "")
                             break;
                         expectedValueM3[index] = fieldsvalueExl;
                     }
@@ -2516,7 +2516,7 @@ namespace SF_Automation.Pages.Engagement
                     {
                         index = col - 2;
                         string fieldsvalueExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CSTFormRequiredFields", row, col);
-                        if (fieldsvalueExl.IsNullOrEmpty())
+                        if (fieldsvalueExl == "")
                             break;
                         expectedValueM4[index] = fieldsvalueExl;
                     }

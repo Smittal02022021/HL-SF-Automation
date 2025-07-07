@@ -1,16 +1,10 @@
-﻿
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+﻿using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
-using AventStack.ExtentReports.Reporter.Configuration;
-using System.Linq.Expressions;
-using Microsoft.AspNetCore.Builder;
-using System.Security.Policy;
 
 namespace SF_Automation.Pages.Opportunity
 {

@@ -1,4 +1,4 @@
-﻿using AventStack.ExtentReports.Utils;
+﻿using AventStack.ExtentReports;
 using Microsoft.Office.Interop.Excel;
 using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
@@ -244,7 +244,7 @@ namespace SF_Automation.Pages.Companies
             CustomFunctions.MoveToElement(driver, driver.FindElement(chckPrimarySelection));
             for (int recordIndex = 1; recordIndex <= recordCount; recordIndex++)
             {
-                if(driver.FindElement(By.XPath($"(//lightning-input[@data-class='primaryCheck'])[{recordIndex}]//label//span[@part='indicator']")).Text.IsNullOrEmpty())
+                if(driver.FindElement(By.XPath($"(//lightning-input[@data-class='primaryCheck'])[{recordIndex}]//label//span[@part='indicator']")).Text == "")
                 {
                     contactName = driver.FindElement(By.XPath($"(//lightning-input[@data-class='primaryCheck'])[{recordIndex}]//ancestor::header//h2//span")).Text;
                     break;
