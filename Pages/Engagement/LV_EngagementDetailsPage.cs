@@ -558,7 +558,7 @@ namespace SF_Automation.Pages.Companies
             return result;
         }
 
-        public bool VerifBuyeryWarningMsg(string message)
+        public bool VerifBuyerWarningMsg(string message)
         {
             bool result = false;
             if (driver.FindElement(warningMsgModal1).Text == message)

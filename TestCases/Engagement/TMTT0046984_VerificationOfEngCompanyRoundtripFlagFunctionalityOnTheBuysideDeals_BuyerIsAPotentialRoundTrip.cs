@@ -281,7 +281,7 @@ namespace SF_Automation.TestCases.Engagement
                             extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Buyer is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company = Operating Company & Client Ownership != Private Equity Group.");
 
                             string msg = ReadExcelData.ReadData(excelPath, "Warning", 2);
-                            Assert.IsTrue(lvEngagementDetails.VerifBuyeryWarningMsg(msg));
+                            Assert.IsTrue(lvEngagementDetails.VerifBuyerWarningMsg(msg));
                             extentReports.CreateStepLogs("Passed", "Expected warning message is displayed : " + msg);
 
                             //Verify updates on Subject Company
@@ -327,7 +327,7 @@ namespace SF_Automation.TestCases.Engagement
                             extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Buyer is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership = Private Equity Group.");
 
                             string msg = ReadExcelData.ReadData(excelPath, "Warning", 1);
-                            Assert.IsTrue(lvEngagementDetails.VerifBuyeryWarningMsg(msg));
+                            Assert.IsTrue(lvEngagementDetails.VerifBuyerWarningMsg(msg));
                             extentReports.CreateStepLogs("Passed", "Expected warning message is displayed : " + msg);
 
                             //Verify updates on Subject Company
@@ -370,7 +370,7 @@ namespace SF_Automation.TestCases.Engagement
                             extentReports.CreateStepLogs("Passed", "Warning Message is Displayed when user selects: Buyer is a Potential Round Trip under Engagement is a Potential Round Trip field when Subject Company != Operating Company & Client Ownership != Private Equity Group.");
 
                             string msg = ReadExcelData.ReadData(excelPath, "Warning", 3);
-                            Assert.IsTrue(lvEngagementDetails.VerifBuyeryWarningMsg(msg));
+                            Assert.IsTrue(lvEngagementDetails.VerifBuyerWarningMsg(msg));
                             extentReports.CreateStepLogs("Passed", "Expected warning message is displayed : " + msg);
 
                             //Verify updates on Subject Company

@@ -235,7 +235,7 @@ namespace SF_Automation.Pages.Engagement
 
         By searchCompany = By.XPath("//input[@placeholder='Search Companies...']");
         By comboResultCompany = By.XPath("(//ul[@role='group']//li)[1]");
-        By comboTypeCounterparty = By.XPath("(//lightning-base-combobox//button[contains(@aria-label,'Type')])[1]");
+        By comboTypeCounterparty = By.XPath("(//lightning-base-combobox//button[contains(@aria-label,'Type')])[2]");
         By buttonSaveL = By.XPath("//button[@name='SaveEdit']");
         By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
 
@@ -283,11 +283,22 @@ namespace SF_Automation.Pages.Engagement
             companySearch.SendKeys(companyName);
             WebDriverWaits.WaitUntilEleVisible(driver, comboResultCompany, 10);
             driver.FindElement(comboResultCompany).Click();
-            Thread.Sleep(2000);
-            driver.FindElement(comboTypeCounterparty).Click();
-            //Thread.Sleep(2000);
-            driver.FindElement(_comboTypeCounterpartyOptionEle(value)).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
+            try
+            {
+                IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+                jse.ExecuteScript("arguments[0].click();", driver.FindElement(comboTypeCounterparty));
+
+                //driver.FindElement(comboTypeCounterparty).Click();
+                //Thread.Sleep(2000);
+                driver.FindElement(_comboTypeCounterpartyOptionEle(value)).Click();
+                Thread.Sleep(2000);
+            }
+            catch(Exception)
+            {
+
+            }
+            
             driver.FindElement(buttonSaveL).Click();
             Thread.Sleep(5000);
         }
