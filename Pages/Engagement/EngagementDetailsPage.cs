@@ -95,6 +95,8 @@ namespace SF_Automation.Pages.Engagement
         By errorMessageL = By.XPath("//a[@class='errorsListLink']");
         By tabEngagement = By.CssSelector("a[title*='Engagements Tab - Selected']");
         By tabEngagementL = By.XPath("//div[2]/section//ul[2]/li[2]/a/span[2]");
+        By tabContacts = By.XPath("//a[text()='Contacts']");
+
         By tabEngRevProj = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Revenue_Projection__c.Engagement__c']/div//span//records-hoverable-link");
         By comboClientOwnership = By.CssSelector("select[id*='d2R']");
         By txtDebt = By.CssSelector("input[id*='LfH']");
@@ -545,6 +547,8 @@ namespace SF_Automation.Pages.Engagement
         By btnNewOppValPeriodL = By.XPath("//input[@value='New Opportunity Valuation Period']");
         By btnNewEngValPeriodL = By.XPath("//input[@value='New Engagement Valuation Period']");
         By btnEngReportsL = By.XPath("//button[text()='Engagement Reports']");
+        By btnAddCFContact = By.XPath("//button[@name='Engagement__c.Add_CF_Engagement_Contact']");
+        By titleAddCFOppContact = By.XPath("//h2[contains(text(),'Add ')]");
 
         By txtEngStageL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Stage__c']/div//dd/div/span/slot/lightning-formatted-text");//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Stage__c']/div/div/span/slot/lightning-formatted-text");
         By txtEngRecordTypeL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.RecordTypeId']//div[contains(@class,'recordType')]/div/span");
@@ -801,6 +805,9 @@ namespace SF_Automation.Pages.Engagement
         By lnkContacts = By.XPath("//c-s-l-company-link-column/lightning-layout/slot/lightning-layout-item[2]/slot/div/p");
         By btnPartyL = By.XPath("//div[4]//dl[4]/div[1]/div/div/div/div/div[1]/div/div/a");
         By txtContactL = By.XPath("//input[@title='Search Contacts']");
+        By btnPartyCFL = By.XPath("//span[text()='Party']/ancestor::div[2]//a");
+        By btnRoleL = By.XPath("//h2[text()='Add CF Engagement Contact']/ancestor::div[1]//span[text()='Role']/ancestor::div[2]//a");
+
         By btnSaveContactL = By.XPath("//footer//button/span[text()='Save']");
         By comboCommentTypeL = By.XPath("//button[@aria-label='Comment Type']");
         By tabCommentsL = By.XPath("//div[contains(@class,'sidebar-right')]//li[@title='Comments']");
@@ -8485,6 +8492,57 @@ namespace SF_Automation.Pages.Engagement
                     return "New Opportunity Valuation Period button is not displayed";
                 }
             }
+        }
+        //Click Add CF Opprotunity Contact 
+        public string ClickAddCFOppContact()
+        {
+            Console.WriteLine("Entered into contact");
+            Thread.Sleep(5000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,-450)");
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddCFContact, 180);
+            driver.FindElement(btnAddCFContact).Click();
+            Thread.Sleep(6000);
+            WebDriverWaits.WaitUntilEleVisible(driver, titleAddCFOppContact, 150);
+            string title = driver.FindElement(titleAddCFOppContact).Text;
+            return title;
+        }
+        public string CreateContactCFL(string name, string role)
+        {           
+            driver.FindElement(txtContactL).SendKeys(name);
+            Thread.Sleep(4000);
+            driver.FindElement(txtContactL).Clear();
+            Thread.Sleep(5000);
+            driver.FindElement(txtContactL).SendKeys(name);
+            Thread.Sleep(6000);
+            driver.FindElement(By.XPath("//div[@title='" + name + "']")).Click();
+            driver.FindElement(btnRoleL).Click();
+            Thread.Sleep(3000);           
+            driver.FindElement(By.XPath("//ul/li/a[text()='" + role + "']")).Click();
+            driver.FindElement(btnPartyCFL).Click();
+            Thread.Sleep(3000);
+            driver.FindElement(By.XPath("//ul/li/a[text()='Seller']")).Click();
+            driver.FindElement(btnSaveConfirmSubmit).Click();
+            string value = driver.FindElement(By.XPath("//a[text()='Shivali Sharma']")).Text;
+            return value;
+        }
+
+        public string ValidateContactDisplayedInEng()
+        {
+            driver.FindElement(tabEngagementL).Click();
+            Thread.Sleep(4000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,-550)");
+            driver.FindElement(tabContacts).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(By.XPath("//a[text()='Sonika Goyal']")).Text;
+            return value;
+        }
+
+        public string GetRoleOfContactInEng(string name)
+        {
+            string value = driver.FindElement(By.XPath("//a[text()='" + name + "']/ancestor::tr/td[4]//span//span")).Text;
+            return value;
         }
     }
 }

@@ -236,11 +236,27 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Message: " + messageContact + " is displayed on Contact field when save button is clickd without entering it ");
 
                 //13.  TMTI0114542_ Verify that the "Seller Contact" lookup search functionality
-                string addedContact = summaryPage.ValidateSaveContactFunctionality("Sonika Goyal");
+                string addedContact = summaryPage.ValidateSaveContactFunctionality("Sonika Goyal", "Attorney");
                 Assert.AreEqual("Mr. Sonika Goyal", addedContact);
                 extentReports.CreateLog("Contact: " + addedContact + " is displayed under Seller Contacts section upon saving contact ");
 
+                //14.  TMTI0114539_Verify that the Add Contact functionality is on the Seller Contact.
+                string contactEng = engagementDetails.ValidateContactDisplayedInEng();
+                Assert.AreEqual(addedContact,"Mr. "+contactEng);
+                string roleEng = engagementDetails.GetRoleOfContactInEng("Sonika Goyal");
+                Assert.AreEqual("Attorney", roleEng);
+                extentReports.CreateLog("Contact: " + addedContact + " with role: " +roleEng+" is displayed under Engagement Contacts after adding in Seller Contacts ");
 
+                //----Add Contact in Engagement and validate the same in Engagement summary 
+                engagementDetails.ClickAddCFOppContact();
+                string contactAddedInEng =engagementDetails.CreateContactCFL("Shivali Sharma","Board of Directors");
+                string roleContactAddedinEng = engagementDetails.GetRoleOfContactInEng("Shivali Sharma");
+
+                //----Get added Contact and role of Seller Contact section
+                string contactSummary = summaryPage.ValidateAddedContactInEng();
+                string  roleSummary =summaryPage.GetRoleOfContactAddedInEng("Shivali Sharma");
+                Assert.AreEqual(contactAddedInEng, contactSummary);
+                Assert.AreEqual(roleContactAddedinEng, roleSummary);
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();

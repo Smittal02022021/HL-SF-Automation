@@ -216,6 +216,8 @@ namespace SF_Automation.Pages.Engagement
         By valRevMM = By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//td[2]//lightning-formatted-number");
         By btnCurrency = By.XPath("//label[text()='Currency']/ancestor::div[1]/div//button");
         By tabEngagementL = By.XPath("//div[2]/section//ul[2]/li[2]/a/span[2]");
+        By tabSummary = By.XPath("//div[2]/section//ul[2]/li[3]/a/span[text()='Engagement Summary']");
+        By tabContacts = By.XPath("//a[text()='Contacts']");
         By tabFees = By.XPath("//a[@data-label='Fees & Financials']");
         By valAddedRevs = By.XPath("//span[@title='Financials']/ancestor::article//tr/td[2]//span//lst-formatted-text/span");
         By btnAddFinancial = By.XPath("//button[text()='New Financials']");
@@ -234,8 +236,9 @@ namespace SF_Automation.Pages.Engagement
         By msgSellerFin = By.XPath("//li[1]/span[text()='Engagement Financials Check']");
         By iconEngFinCheck = By.XPath("//span[text()='Seller Financials']/ancestor::div[1]/div//lightning-output-field//button/span[2]");
         By txtContact = By.XPath("//input[@placeholder='Search Contacts...']");
-        By valAddedContact = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr/th//span//a");
-
+        By valAddedContact = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr[1]/th//span//a");
+        //By btnRole = By.XPath("//label[text()='Role']/ancestor::div[1]//button");
+        By valRoleOfAddedContact = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr[1]/td[3]//lightning-base-formatted-text");
 
 
         public void ClickEngagementDynamicsSection()
@@ -1994,7 +1997,7 @@ namespace SF_Automation.Pages.Engagement
         {
             Actions actions = new Actions(driver);
             actions.MoveToElement(driver.FindElement(iconSellerFin)).Perform();
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             string value = driver.FindElement(msgSellerFin).Text;
             return value;
         }
@@ -2005,15 +2008,32 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
-        public string ValidateSaveContactFunctionality(string name)
+        public string ValidateSaveContactFunctionality(string name, string role)
         {
             driver.FindElement(txtContact).Click();
             driver.FindElement(txtContact).SendKeys(name);
             Thread.Sleep(5000);
             driver.FindElement(By.XPath("//input[@placeholder='Search Contacts...']/ancestor::div[@role='list']//li[1]//span[2]/span[1]")).Click();
+            driver.FindElement(btnRole).Click();
+            driver.FindElement(By.XPath("//button[@name='Role__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span[text()='"+role+"']")).Click();
             driver.FindElement(btnSave).Click();
             Thread.Sleep(4000);
             string value = driver.FindElement(valAddedContact).Text;
+            return value;
+        }
+
+
+        public string ValidateAddedContactInEng()
+        {
+            driver.FindElement(tabSummary).Click();
+            Thread.Sleep(4000);            
+            string value = driver.FindElement(valAddedContact).Text;
+            return value;
+        }
+
+        public string GetRoleOfContactAddedInEng(string name)
+        {
+            string value = driver.FindElement(valRoleOfAddedContact).Text;
             return value;
         }
     }
