@@ -69,7 +69,7 @@ namespace SF_Automation.UtilityFunctions
 
                 // Initialize Extent Reports
                 extent = new ExtentReports();
-                var htmlReporter = new ExtentHtmlReporter(reportPath);
+                var htmlReporter = new ExtentSparkReporter(reportPath);
 
                 //var htmlReporter = new ExtentHtmlReporter(@"C:\Users\SMittal0207\source\repos\SF_Automation\Reports\ExtentReport.html");
                 htmlReporter.Config.DocumentTitle="Test Execution Report";

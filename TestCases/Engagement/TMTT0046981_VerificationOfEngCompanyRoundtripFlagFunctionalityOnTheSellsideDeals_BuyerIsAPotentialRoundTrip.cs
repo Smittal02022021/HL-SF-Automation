@@ -339,7 +339,7 @@ namespace SF_Automation.TestCases.Engagement
 
                             //Verify Flag details for Subject Company
                             string fReason2 = "";
-                            string fReasonComment2 = ""; 
+                            string fReasonComment2 = "Updated, Datamatics Reviewed"; 
 
                             Assert.IsTrue(companyDetailsPage.VerifyFlagDetailsAreUpdatedForTheCompany(fReason2, fReasonComment2, userCAOExl));
                             extentReports.CreateStepLogs("Passed", "Flag details are updated for the subject company. \r\n Flag Reason: " + fReason2 + "\r\n Flag Reason Comment: " + fReasonComment2 + "\r\n Flag Reason Change By: " + userCAOExl + ".");
