@@ -1458,8 +1458,8 @@
     <Error Condition="!Exists('packages\Microsoft.Testing.Extensions.Telemetry.1.5.3\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Testing.Extensions.Telemetry.1.5.3\build\netstandard2.0\Microsoft.Testing.Extensions.Telemetry.props'))" />
     <Error Condition="!Exists('packages\NUnit3TestAdapter.5.0.0\build\net462\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NUnit3TestAdapter.5.0.0\build\net462\NUnit3TestAdapter.props'))" />
     <Error Condition="!Exists('packages\NUnit3TestAdapter.5.0.0\build\net462\NUnit3TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NUnit3TestAdapter.5.0.0\build\net462\NUnit3TestAdapter.targets'))" />
-    <Error Condition="!Exists('packages\Selenium.WebDriver.4.34.0\build\Selenium.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.4.34.0\build\Selenium.WebDriver.targets'))" />
     <Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.138.0.7204.9200\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.138.0.7204.9200\build\Selenium.WebDriver.ChromeDriver.targets'))" />
+    <Error Condition="!Exists('packages\Selenium.WebDriver.4.34.0\build\Selenium.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.4.34.0\build\Selenium.WebDriver.targets'))" />
   </Target>
   <Import Project="packages\Microsoft.CodeAnalysis.Analyzers.3.0.0\build\Microsoft.CodeAnalysis.Analyzers.targets" Condition="Exists('packages\Microsoft.CodeAnalysis.Analyzers.3.0.0\build\Microsoft.CodeAnalysis.Analyzers.targets')" />
   <Import Project="packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets" Condition="Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets')" />
@@ -1471,6 +1471,6 @@
   <Import Project="packages\Microsoft.Extensions.Configuration.UserSecrets.2.2.0\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.targets" Condition="Exists('packages\Microsoft.Extensions.Configuration.UserSecrets.2.2.0\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.targets')" />
   <Import Project="packages\Microsoft.Testing.Platform.MSBuild.1.5.3\build\Microsoft.Testing.Platform.MSBuild.targets" Condition="Exists('packages\Microsoft.Testing.Platform.MSBuild.1.5.3\build\Microsoft.Testing.Platform.MSBuild.targets')" />
   <Import Project="packages\NUnit3TestAdapter.5.0.0\build\net462\NUnit3TestAdapter.targets" Condition="Exists('packages\NUnit3TestAdapter.5.0.0\build\net462\NUnit3TestAdapter.targets')" />
-  <Import Project="packages\Selenium.WebDriver.4.34.0\build\Selenium.WebDriver.targets" Condition="Exists('packages\Selenium.WebDriver.4.34.0\build\Selenium.WebDriver.targets')" />
   <Import Project="packages\Selenium.WebDriver.ChromeDriver.138.0.7204.9200\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.138.0.7204.9200\build\Selenium.WebDriver.ChromeDriver.targets')" />
+  <Import Project="packages\Selenium.WebDriver.4.34.0\build\Selenium.WebDriver.targets" Condition="Exists('packages\Selenium.WebDriver.4.34.0\build\Selenium.WebDriver.targets')" />
 </Project>
