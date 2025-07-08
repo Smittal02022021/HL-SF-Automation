@@ -219,6 +219,46 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(5000);
         }
 
+        public void CreateContactL2(string file, string recordType)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+            string name = ReadExcelData.ReadData(excelPath, "AddContact", 1);//prm
+            WebDriverWaits.WaitUntilEleVisible(driver, txtContactL, 20);
+            driver.FindElement(txtContactL).SendKeys(name);
+            Thread.Sleep(3000);
+            try
+            {
+                By listContactOption = By.XPath($"//div[@role='listbox']//ul//li//a//div[2]//div[1][@title='{name}']");
+                WebDriverWaits.WaitUntilEleVisible(driver, listContactOption, 5);
+                driver.FindElement(listContactOption).Click();
+
+            }
+            catch (Exception ex)
+            {
+                By iconContactSearchItem = By.XPath("//div[contains(@class,'searchButton')]");
+                WebDriverWaits.WaitUntilEleVisible(driver, iconContactSearchItem, 5);
+                driver.FindElement(iconContactSearchItem).Click();
+                By txtContact = By.XPath("//div[contains(@class,'gridInScroller')]//table//tbody//tr[1]//td[1]//a");
+                WebDriverWaits.WaitUntilEleVisible(driver, txtContact, 20);
+                driver.FindElement(txtContact).Click();
+            }
+            if (recordType == "CF")
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnPartyL, 20);
+                driver.FindElement(btnPartyL).Click();
+                Thread.Sleep(3000);
+                string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);//in prm
+                driver.FindElement(By.XPath($"//ul//li//a[@title='{party}']")).Click(); //div[8]/div/ul/li/a[text()='" + party + "']")).Click();
+            }
+            driver.FindElement(chkBillingContactL).Click();
+            driver.FindElement(chkAckBillingContactL).Click();
+            driver.FindElement(chkPrimaryContactL).Click();
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(5000);
+        }
+
         public void CreateContactL(string file)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -261,6 +301,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(By.XPath("//div[8]/div/ul/li/a[text()='" + party + "']")).Click();
             driver.FindElement(btnCancelContact).Click();
         }
+
         public void CreateClientContactLV(string nameContact, string partyContact, string typeContact)
         {
             ReadJSONData.Generate("Admin_Data.json");
