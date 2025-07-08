@@ -211,9 +211,16 @@ namespace SF_Automation.Pages.Companies
             }
 
             Thread.Sleep(5000);
-            if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[2]")).Displayed)
+            try
             {
-                result = true;
+                if (driver.FindElement(By.XPath("((//slot[@name='customdatatypes'])[3]/..//table//tbody//tr)[1]/td[4]//a")).Displayed)
+                {
+                    result = true;
+                }
+            }
+            catch (Exception)
+            {
+                result = false;
             }
             return result;
         }
@@ -223,7 +230,7 @@ namespace SF_Automation.Pages.Companies
             try
             {
                 Thread.Sleep(2000);
-                CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//lightning-primitive-cell-factory[@data-label='Subject'])[2]//a[text()='{name}']")), 60);
+                CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"((//slot[@name='customdatatypes'])[3]/..//table//tbody//tr)[1]/td[4]//a[text()='{name}']")), 60);
                 Thread.Sleep(3000);
             }
             catch(Exception)

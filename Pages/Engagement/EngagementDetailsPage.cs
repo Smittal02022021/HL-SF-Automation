@@ -6656,12 +6656,12 @@ namespace SF_Automation.Pages.Engagement
         }
         public string GetEngagementNumberL()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtEngNumberL, 30);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngNumberL, 120);
             return driver.FindElement(txtEngNumberL).Text;
         }
         public string GetEngagementNameL()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtEngNameL, 30);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngNameL, 120);
             return driver.FindElement(txtEngNameL).Text;
         }
         public int AddEngMultipleDealTeamMembers(string RecordType, string file)

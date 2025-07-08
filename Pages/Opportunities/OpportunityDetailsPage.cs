@@ -7634,7 +7634,7 @@ namespace SF_Automation.Pages
             driver.FindElement(By.XPath($"//label[text()='Confidentiality Agreement']/following::lightning-base-combobox-item//span[@title='{valConf}']")).Click();
 
             //New fields for for CF conversion
-            CustomFunctions.MoveToElement(driver, driver.FindElement(lblConflictsRunL));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//flexipage-field[contains(@data-field-id,'Conflicts_Check')]//label[text()='Conflicts Run']")));
             driver.FindElement(comboIndemLngL).Click();
             Thread.Sleep(4000);
             driver.FindElement(By.XPath($"//label[text()='Indemnification Language']/following::lightning-base-combobox-item//span[@title='No']")).Click();

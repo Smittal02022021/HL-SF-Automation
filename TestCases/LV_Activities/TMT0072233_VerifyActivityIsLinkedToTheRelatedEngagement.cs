@@ -131,24 +131,6 @@ namespace SF_Automation.TestCases.LV_Activities
                 opportunityDetails.ClickReturnToOpportunityLV();
                 extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
 
-                //TC - End
-                lvHomePage.UserLogoutFromSFLightningView();
-                extentReports.CreateStepLogs("Info", "CF Financial User Logged Out from SF Lightning View. ");
-
-                //Select HL Banker app
-                try
-                {
-                    lvHomePage.SelectAppLV("HL Banker");
-                }
-                catch (Exception)
-                {
-                    lvHomePage.SelectAppLV1("HL Banker");
-                }
-
-                //Search for created opportunity
-                lvHomePage.SearchOpportunityFromMainSearch(opportunityName);
-                extentReports.CreateStepLogs("Info", "Admin User Search for Created Opportunity");
-
                 //update CC and NBC checkboxes in LV
                 opportunityDetails.UpdateOutcomeNBCApproveDetailsLV(valJobType);
                 extentReports.CreateStepLogs("Info", "CC and NBC checkboxes updated by Admin user. ");
