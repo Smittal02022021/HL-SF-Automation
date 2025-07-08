@@ -9924,17 +9924,16 @@ namespace SF_Automation.Pages
                 Thread.Sleep(5000);
             }
 
-            if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[2]")).Displayed)
+            try
             {
-                result = true;
+                if(driver.FindElement(By.XPath("((//slot[@name='customdatatypes'])[3]/..//table//tbody//tr)[1]/td[4]//a")).Displayed)
+                {
+                    result = true;
+                }
             }
-            else if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[3]")).Displayed)
+            catch(Exception)
             {
-                result = true;
-            }
-            else if(driver.FindElement(By.XPath($"(//a[text()='{sub}'])[4]")).Displayed)
-            {
-                result = true;
+                result = false;
             }
             return result;
         }
