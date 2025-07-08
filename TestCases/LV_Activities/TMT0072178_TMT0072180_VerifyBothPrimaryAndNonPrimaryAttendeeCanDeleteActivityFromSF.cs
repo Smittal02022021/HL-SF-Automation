@@ -1,12 +1,13 @@
-﻿using SF_Automation.Pages.Common;
-using SF_Automation.Pages.HomePage;
+﻿using NUnit.Framework;
 using SF_Automation.Pages;
+using SF_Automation.Pages.Activities;
+using SF_Automation.Pages.Common;
+using SF_Automation.Pages.Contact;
+using SF_Automation.Pages.HomePage;
+using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using NUnit.Framework;
-using SF_Automation.TestData;
-using SF_Automation.Pages.Activities;
-using SF_Automation.Pages.Contact;
+using System.IO;
 
 namespace SF_Automation.TestCases.LV_Activities
 {
@@ -42,7 +43,9 @@ namespace SF_Automation.TestCases.LV_Activities
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTC0032668;
+                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData", fileTMTC0032668 + ".xlsx");
+                excelPath = Path.GetFullPath(excelPath);
+
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 string extContactName = ReadExcelData.ReadData(excelPath, "Contact", 1);
                 string relatedCompany = ReadExcelData.ReadData(excelPath, "Contact", 2);
