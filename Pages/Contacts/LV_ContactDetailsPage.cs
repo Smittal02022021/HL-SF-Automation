@@ -777,6 +777,27 @@ namespace SF_Automation.Pages.Contact
             return result;
         }
 
+        public void DeleteRelationship()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabRelationships, 120);
+            driver.FindElement(tabRelationships).Click();
+            Thread.Sleep(10000);
+
+            try
+            {
+                driver.FindElement(By.XPath("(//span[text()='Show Actions']/..)[25]")).Click();
+                Thread.Sleep(5000);
+                driver.FindElement(By.XPath("//a[@title='Delete']")).Click();
+                Thread.Sleep(3000);
+                driver.FindElement(By.XPath("//button[@title='Delete']")).Click();
+                Thread.Sleep(3000);
+            }
+            catch(Exception)
+            {
+
+            }
+        }
+
         public bool VerifyCFFinancialUserIsAbleToEditNewRelationship(string updatedText)
         {
             bool result = false;

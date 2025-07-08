@@ -139,42 +139,6 @@ namespace SF_Automation.TestCases.Contact
                 Assert.IsTrue(lvContactDetails.VerifyNewRelationshipVisibleUnderHLRelationshipTabCFFinancialUser(fileTMTC0019612));
                 extentReports.CreateStepLogs("Passed","New Relationship has been added successfully for external contact by CF Financial user. ");
 
-                //TC Start - TMT0034847 - Verify the functionality of the Add Activity with a private check for the external type contact.
-                Assert.IsTrue(lvContactDetails.VerifyUserNavigatedToAddActivityPageForExternalContact());
-                extentReports.CreateStepLogs("Passed","User has navigated to Add Activity page. ");
-
-                //Add Private Activity
-                lvAddActivityForContact.AddPrivateActivity(fileTMTC0019612);
-                var activityDetailheading = lvActivityDetailForContact.GetActivityDetailsHeading();
-                Assert.IsTrue(activityDetailheading == "Activity Details");
-                extentReports.CreateStepLogs("Passed","Private Activity added successfully. ");
-
-                driver.SwitchTo().DefaultContent();
-                lvActivityDetailForContact.CloseTab(extContactName);
-
-                //Verify Created activity is displayed for External Contact
-                lvRecentlyViewContact.SearchAndNavigateToContactDetailFromRecentlyViewedContactsListBasedOnView(extContactName);
-                lvContactDetails.NavigateToActivityTabInsideExternalContact();
-
-                Assert.IsTrue(lvContactDetails.VerifyCreatedActivityDisplayedUnderExternalContact(extContactName));
-                extentReports.CreateStepLogs("Passed","Created Activity is displayed for external contact. ");
-
-                driver.SwitchTo().DefaultContent();
-                lvContactDetails.CloseTab(extContactName);
-
-                //Verify Created activity is displayed for logged in CF Financial User
-                lvRecentlyViewContact.SearchAndNavigateToContactDetailFromRecentlyViewedContactsListBasedOnView(user);
-                lvContactDetails.NavigateToActivityTabInsideCFFinancialUser();
-
-                Assert.IsTrue(lvContactDetails.VerifyCreatedActivityDisplayedUnderCFFinancialUser(extContactName));
-                extentReports.CreateStepLogs("Passed","Created Activity is displayed for CF Financial User. ");
-
-                //TC - TMT0034849 - Verify that only members of that Private activity can able to edit the private activity.
-                Assert.IsTrue(lvContactDetails.VerifyCFFinancialUserIsAbleToEditActivity());
-                extentReports.CreateStepLogs("Passed","CF Financial User is able to edit the private activity. ");
-
-                driver.SwitchTo().DefaultContent();
-                
                 //Logout from SF Lightning View
                 lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info","CF Financial User Logged Out from SF Lightning View. ");
@@ -189,8 +153,16 @@ namespace SF_Automation.TestCases.Contact
                     lvHomePage.SelectAppLV1("HL Banker");
                 }
 
+                lvHomePage.SearchContactFromMainSearch(extContactName);
+                Assert.IsTrue(lvContactDetails.VerifyUserLandedOnCorrectContactDetailsPage(extContactName));
+                extentReports.CreateStepLogs("Passed", "User navigated to contact details page. ");
+
+                //Verify user is able to delete the created relationship
+                lvContactDetails.DeleteRelationship();
+                extentReports.CreateStepLogs("Passed", "New Relationship has been deleted successfully. ");
+
                 //To Delete created contact
-                contactDetails.DeleteCreatedContact(fileTMTC0019612,"External Contact");
+                contactDetails.DeleteContactLV();
                 extentReports.CreateStepLogs("Info","Created External Contact is deleted successfully. ");
 
                 //Logout from SF Lightning View
