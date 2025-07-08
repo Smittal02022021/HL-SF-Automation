@@ -56,6 +56,7 @@ namespace SF_Automation.Pages
         By btnNewCompanyL = By.XPath("//ul//li//a[@title='New']");
         By btnNextL = By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button/span[text()='Next']");
 
+        
         private By _btnRadioRecordType(string type)
         {
             return By.XPath($"//h2[text()='New Company']/..//label//span[text()='{type}']");
