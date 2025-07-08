@@ -9941,7 +9941,7 @@ namespace SF_Automation.Pages
         public void ViewActivityFromList(string name)
         {
             Thread.Sleep(2000);
-            CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"(//a[text()='{name}'])[3]")), 60);
+            CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath($"((//slot[@name='customdatatypes'])[3]/..//table//tbody//tr)[1]/td[4]//a[text()='{name}']")), 60);
             Thread.Sleep(3000);
         }
 

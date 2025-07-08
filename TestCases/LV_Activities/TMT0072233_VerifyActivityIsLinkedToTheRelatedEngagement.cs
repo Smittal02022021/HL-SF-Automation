@@ -98,7 +98,7 @@ namespace SF_Automation.TestCases.LV_Activities
 
                 //Validating Title of New Opportunity Page
                 string pageTitle = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);
-                Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB ");
+                Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity page for selected LOB ");
                 extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
 
                 //Create New Opportunity
@@ -116,10 +116,9 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Passed", "Opportunity with number : " + opportunityNumber + " is created ");
 
                 //Create External Primary Contact
-                string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
-                string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
                 addOpportunityContact.CickAddCFOpportunityContact();
                 addOpportunityContact.CreateContactL2(fileTMTC0032668);
+                string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
                 extentReports.CreateStepLogs("Info", valContactType + " Opportunity contact is saved ");
 
                 //Update required Opportunity fields for conversion and Internal team details
@@ -132,9 +131,27 @@ namespace SF_Automation.TestCases.LV_Activities
                 opportunityDetails.ClickReturnToOpportunityLV();
                 extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
 
+                //TC - End
+                lvHomePage.UserLogoutFromSFLightningView();
+                extentReports.CreateStepLogs("Info", "CF Financial User Logged Out from SF Lightning View. ");
+
+                //Select HL Banker app
+                try
+                {
+                    lvHomePage.SelectAppLV("HL Banker");
+                }
+                catch (Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
+                }
+
+                //Search for created opportunity
+                lvHomePage.SearchOpportunityFromMainSearch(opportunityName);
+                extentReports.CreateStepLogs("Info", "Admin User Search for Created Opportunity");
+
                 //update CC and NBC checkboxes in LV
                 opportunityDetails.UpdateOutcomeNBCApproveDetailsLV(valJobType);
-                extentReports.CreateStepLogs("Info", "CC and NBC checkboxes updated. ");
+                extentReports.CreateStepLogs("Info", "CC and NBC checkboxes updated by Admin user. ");
 
                 //Requesting for engagement and validate the success message
                 opportunityDetails.ClickRequestToEngL();
@@ -153,9 +170,9 @@ namespace SF_Automation.TestCases.LV_Activities
 
                 //Login as CAO user
                 lvHomePage.UserLogin();
-                
+
                 //Switch to lightning view
-                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                if (driver.Title.Contains("Salesforce - Unlimited Edition"))
                 {
                     homePage.SwitchToLightningView();
                     extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOExl + " is able to login into lightning view. ");
@@ -170,7 +187,7 @@ namespace SF_Automation.TestCases.LV_Activities
 
                 //Search for created opportunity
                 extentReports.CreateStepLogs("Info", " CAO User Search for Created Opportunity");
-                opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
+                lvHomePage.SearchOpportunityFromMainSearch(opportunityName);
 
                 //Approve the Opportunity 
                 string status = opportunityDetails.ClickApproveButtonLV2();
