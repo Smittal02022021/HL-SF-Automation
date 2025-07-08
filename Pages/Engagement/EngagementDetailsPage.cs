@@ -657,8 +657,8 @@ namespace SF_Automation.Pages.Engagement
         By venueLocation = By.XPath("//flexipage-field[contains(@data-field-id,'Location')]//lightning-formatted-text");
         By Phone = By.XPath("//flexipage-field[contains(@data-field-id,'Phone')]//lightning-formatted-text");
         By Website = By.XPath("//flexipage-field[contains(@data-field-id,'Website')]//a");
-        By txtEngNumberL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Engagement Number']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//lightning-formatted-text");//span[contains(@class,'field-label')][normalize-space()='Engagement Number']/parent::div/following-sibling::div//lightning-formatted-text");
-        By txtEngNameL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Engagement Name']/ancestor::dt/following-sibling::dd//lightning-formatted-text");//::dl//dd//lightning-formatted-text");//span[@class='test-id__field-label'][normalize-space()='Engagement Name']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtEngNumberL = By.XPath("//span[contains(@class,'field-label')][normalize-space()='Engagement Number']/following::div[2]//lightning-formatted-text");//::dl//dd//lightning-formatted-text");//span[contains(@class,'field-label')][normalize-space()='Engagement Number']/parent::div/following-sibling::div//lightning-formatted-text");
+        By txtEngNameL = By.XPath("(//span[contains(@class,'field-label')][normalize-space()='Engagement Name']/following::div/span//lightning-formatted-text)[1]");//::dl//dd//lightning-formatted-text");//span[@class='test-id__field-label'][normalize-space()='Engagement Name']/parent::div/following-sibling::div//lightning-formatted-text");
         By listStaff = By.XPath("/html/body/ul");
         By txtStaff = By.CssSelector("input[placeholder*='Begin Typing Name']");
         By tabEngInternalTeamL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Internal Team'])[2]");
