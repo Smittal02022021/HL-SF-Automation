@@ -669,7 +669,6 @@
     <Compile Include="TestCases\Contact\LV_TMTC0019257_VerifyContactsValidationRulesAndWorkFlows.cs" />
     <Compile Include="TestCases\Contact\LV_TMTC0019251_VerifyBasicUIOfContactsOnSFLightning.cs" />
     <Compile Include="TestCases\Contact\LV_TMTC0019612_VerifyExternalContactFeaturesOnSFLightning.cs" />
-    <Compile Include="TestCases\Contact\TMTT0033378_VerifyTheFunctionalityOfRelationshipTreemapAddedToExternalContactDetailPage.cs" />
     <Compile Include="TestCases\Engagement\LV_TS04AndTS07_ValidateERPSectionAndDefaultContractPostConversionFromOpportunityToEngagementLightningView.cs" />
     <Compile Include="TestCases\Engagement\LV_TS05_ValidateERPSection_PostUpdatingDFFFieldsOfEngagementLightningView.cs" />
     <Compile Include="TestCases\Engagement\LV_TS06_ValidateERPSubmittedAndERPLastIntegrationResponsePostManualSyncEngagementLightningView.cs" />
