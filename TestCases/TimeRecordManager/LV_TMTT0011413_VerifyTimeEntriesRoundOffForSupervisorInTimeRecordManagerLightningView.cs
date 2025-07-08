@@ -1,11 +1,12 @@
-﻿using SF_Automation.Pages.Common;
+﻿using NUnit.Framework;
+using SF_Automation.Pages;
+using SF_Automation.Pages.Common;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.Pages.TimeRecordManager;
-using SF_Automation.Pages;
+using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using NUnit.Framework;
-using SF_Automation.TestData;
+using System.IO;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
@@ -39,7 +40,8 @@ namespace SF_Automation.TestCases.TimeRecordManager
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTT0011413;
+                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData", fileTMTT0011413 + ".xlsx");
+                excelPath = Path.GetFullPath(excelPath);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
