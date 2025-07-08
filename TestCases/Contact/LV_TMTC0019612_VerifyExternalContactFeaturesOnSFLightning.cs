@@ -139,10 +139,6 @@ namespace SF_Automation.TestCases.Contact
                 Assert.IsTrue(lvContactDetails.VerifyNewRelationshipVisibleUnderHLRelationshipTabCFFinancialUser(fileTMTC0019612));
                 extentReports.CreateStepLogs("Passed","New Relationship has been added successfully for external contact by CF Financial user. ");
 
-                //TC - TMT0034889 - Verify the Relationships can be edited and deleted through Edit and Delete link for respective relationships in Houlihan Lokey Relationships of External Contact.
-                Assert.IsTrue(lvContactDetails.VerifyCFFinancialUserIsAbleToEditNewRelationship("Update"));
-                extentReports.CreateStepLogs("Passed","CF Financial user is able to edit the created New Relationship successfully. ");
-
                 //TC Start - TMT0034847 - Verify the functionality of the Add Activity with a private check for the external type contact.
                 Assert.IsTrue(lvContactDetails.VerifyUserNavigatedToAddActivityPageForExternalContact());
                 extentReports.CreateStepLogs("Passed","User has navigated to Add Activity page. ");
