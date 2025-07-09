@@ -16,7 +16,6 @@ namespace SF_Automation.TestCases.Engagement
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
-        UsersLogin usersLogin = new UsersLogin();
         HomeMainPage homePage = new HomeMainPage();
         LVHomePage lvHomePage = new LVHomePage();
 
@@ -72,7 +71,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 int rowCount = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
 
-                for(int row = 5; row <= rowCount; row++)
+                for(int row = 2; row <= rowCount; row++)
                 {
                     //Select HL Banker app
                     try
@@ -440,7 +439,7 @@ namespace SF_Automation.TestCases.Engagement
                             string roundTripCommentExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 2);
 
                             lvEngagementDetails.VerifyUpdatesOnSubjectCompany(engagementName, subPotentialRoundTripExl, roundTripCommentExl, valSubjectCompName);
-                            extentReports.CreateStepLogs("Passed", "Round Trip section of Subject Company is updated as follows: a) Potential RT = Yes b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
+                            extentReports.CreateStepLogs("Passed", "Round Trip section of Subject Company is updated as follows: a) Potential RT = No b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
 
                             //Verify Flag details for Subject Company
                             string fReason4 = ReadExcelData.ReadData(excelPath, "FlagReason", 1);
@@ -458,7 +457,7 @@ namespace SF_Automation.TestCases.Engagement
                             //Verify updates on Company Closed With Buyer Company
                             string clientPotentialRoundTripExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyUpdates", row, 3);
                             lvEngagementDetails.VerifyUpdatesOnCompanyClosedWithBuyerCompany(engagementName, clientPotentialRoundTripExl, roundTripCommentExl, counterpartyCompanyNameExl);
-                            extentReports.CreateStepLogs("Passed", "Round Trip section of Company Closed With Buyer Company is updated as follows: a) Potential RT = No b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
+                            extentReports.CreateStepLogs("Passed", "Round Trip section of Company Closed With Buyer Company is updated as follows: a) Potential RT = Yes b) RT Comment = Source – Engagement c) RT Engagement = " + engagementName + " d) RT Modified Date = " + DateTime.Now.ToString("MM/dd/yyyy").Replace('-', '/'));
 
                             //Verify Flag details for Company Closed With Buyer Company
                             string fReason5 = ReadExcelData.ReadData(excelPath, "FlagReason", 1);
