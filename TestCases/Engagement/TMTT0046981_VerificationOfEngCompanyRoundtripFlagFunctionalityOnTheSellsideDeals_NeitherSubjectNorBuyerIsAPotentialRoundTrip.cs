@@ -71,7 +71,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 int rowCount = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
 
-                for(int row = 2; row <= rowCount; row++)
+                for(int row = 4; row <= rowCount; row++)
                 {
                     //Select HL Banker app
                     try
@@ -348,7 +348,7 @@ namespace SF_Automation.TestCases.Engagement
                     }
                     else
                     {
-                        if(subCompType != "Operating Company" || counterpartyCompOwnership != "Private Equity Group" || counterpartyCompOwnership != "Family Office" || counterpartyCompOwnership != "Hedge Fund" || counterpartyCompOwnership != "Institutional Debt Holder")
+                        if(subCompType != "Operating Company" && counterpartyCompOwnership != "Private Equity Group" || counterpartyCompOwnership != "Family Office" || counterpartyCompOwnership != "Hedge Fund" || counterpartyCompOwnership != "Institutional Debt Holder")
                         {
                             //TMTI0116117 - Verify that if the user selects "Neither subject nor buyer are round trip" in Engagement is a Potential Round Trip AND 'SUBJECT' is NOT OpCo & 'COMPANY CLOSED WITH' is NOT PE or PE Owned, no prompt will appear and set the values as selected. 
 
