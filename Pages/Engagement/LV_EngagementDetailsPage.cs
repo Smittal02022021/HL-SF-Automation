@@ -704,6 +704,44 @@ namespace SF_Automation.Pages.Companies
             return ownership;
         }
 
+        public string GetCounterpartyCompanyType(string compName)
+        {
+            Thread.Sleep(3000);
+            try
+            {
+                IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+                jse.ExecuteScript("arguments[0].click();", driver.FindElement(By.XPath($"//lightning-primitive-cell-factory[@data-label='Company']//a[@title='{compName}']")));
+            }
+            catch (Exception)
+            {
+
+            }
+            Thread.Sleep(8000);
+
+            string compType = driver.FindElement(By.XPath("((//span[text()='Company Type'])[1]/following::div//span)[3]//div/div/span")).Text;
+
+            //Close the warning message if any
+            try
+            {
+                Thread.Sleep(2000);
+                driver.FindElement(By.XPath("//button[contains(@class,'toastClose')]")).Click();
+                Thread.Sleep(2000);
+
+                //Close the tab
+                driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
+                Thread.Sleep(2000);
+            }
+            catch (Exception)
+            {
+                //Close the tab
+                driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
+                Thread.Sleep(2000);
+            }
+
+            return compType;
+        }
+
+
 
         public bool VerifyUpdatesOnSubjectCompany(string engName, string roundTrip, string comment, string compName)
         {
