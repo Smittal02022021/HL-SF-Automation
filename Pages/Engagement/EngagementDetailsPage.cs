@@ -8523,6 +8523,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(3000);
             driver.FindElement(By.XPath("//ul/li/a[text()='Seller']")).Click();
             driver.FindElement(btnSaveConfirmSubmit).Click();
+            Thread.Sleep(6000);
             string value = driver.FindElement(By.XPath("//a[text()='Shivali Sharma']")).Text;
             return value;
         }

@@ -1298,9 +1298,8 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             driver.FindElement(btnComments).Click();
             driver.FindElement(btnComments).Click();
-            driver.FindElement(btnComments).Click();
-            Thread.Sleep(4000);
-            driver.FindElement(txtComments).Clear();
+            //driver.FindElement(btnComments).Click();
+            Thread.Sleep(5000);           
             driver.FindElement(txtComments).SendKeys("Testing");
             driver.FindElement(lblMinBid).Click();
 

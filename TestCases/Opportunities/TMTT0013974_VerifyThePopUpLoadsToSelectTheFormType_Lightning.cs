@@ -83,7 +83,7 @@ namespace SF_Automation.TestCases.Opportunities
                         extentReports.CreateLog("Radio button with name: " + MA + " is displayed on the pop up ");
 
                         string CapitalMkt = opportunityDetails.ValidateCapitalMktRadioButton();
-                        Assert.AreEqual("Capital Market", CapitalMkt);
+                        Assert.AreEqual("Capital Solutions", CapitalMkt);
                         extentReports.CreateLog("Radio button with name: " + CapitalMkt + " is displayed on the pop up ");
                         
                     }

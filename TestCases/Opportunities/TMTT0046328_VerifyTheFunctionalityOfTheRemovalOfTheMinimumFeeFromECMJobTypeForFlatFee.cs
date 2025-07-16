@@ -76,7 +76,7 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityDetails.ValidateFeesAndFinancialsTabL();
                     string valTxnSizeOpp = opportunityDetails.GetTransactionSizeL();
 
-                      //1.  TMTI0113194_Verify that the "Estimated Fee" field is added in the CNBC form on the existing Opportunities
+                        //1.  TMTI0113194_Verify that the "Estimated Fee" field is added in the CNBC form on the existing Opportunities
                         string title = opportunityDetails.ClickNBCFormLCNBC();
                         nform.ClickFeesTab();
                         string txnFee = nform.ValidateEstFeeFieldUponSelectingOtherFeeType();

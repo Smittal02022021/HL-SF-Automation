@@ -97,7 +97,7 @@ namespace SF_Automation.Pages.Common
         //To logout from a user
         public void UserLogOut()
         {
-            Thread.Sleep(7000);
+            Thread.Sleep(8000);
             //WebDriverWaits.WaitUntilEleVisible(driver, loggedUser, 140);
             driver.FindElement(loggedUser).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, linkLogOut, 160);

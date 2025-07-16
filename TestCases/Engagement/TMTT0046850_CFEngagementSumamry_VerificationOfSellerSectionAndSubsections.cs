@@ -258,6 +258,11 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual(contactAddedInEng, contactSummary);
                 Assert.AreEqual(roleContactAddedinEng, roleSummary);
 
+                //15.  TMTI0114549_Verify the "Edit" functionality of the Seller Contact on the Seller Contacts.
+                 
+
+
+
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();
@@ -266,7 +271,7 @@ namespace SF_Automation.TestCases.Engagement
             catch (Exception e)
             {
                 extentReports.CreateLog(e.Message);
-                usersLogin.UserLogOut();
+                usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

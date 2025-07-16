@@ -476,6 +476,7 @@ namespace SF_Automation.Pages.Engagement
         By lnkKeyCred = By.XPath("//div[3]/div/div/table/tbody/tr/td/div/a");
         By tabEngDetailsL = By.XPath("//ul[@class='tabBarItems slds-tabs--default__nav']/li[2]/a/span[2]");
         By tabClosingInfo = By.XPath("//a[text()='Closing Info']");
+        By tabInfo = By.XPath("//a[text()='Info']");
         By valSendBTPEmail = By.XPath("//span[text()='Sent BTP Email (User)']/ancestor::div[2]/div[2]/span/slot/lightning-formatted-text");
         By tabClientSubL = By.XPath("//a[text()='Client/Subject & Referral']");
         By rowAddedEquityInAdd = By.XPath("//lst-formatted-text/span[@title='Equity Holder']/ancestor::td/ancestor::tr/th[1]//a");
@@ -3633,15 +3634,20 @@ namespace SF_Automation.Pages.Engagement
         //Validate message on clicking Send BTP Email
         public string ValidateMessageAfterClickingSendBTPEmail()
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSendBTPEmail, 190);
             driver.FindElement(btnSendBTPEmail).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(4000);
             driver.FindElement(tabEngDetailsL).Click();
             Thread.Sleep(3000);
+            driver.FindElement(tabInfo).Click();
+            Thread.Sleep(4000);
             driver.FindElement(tabClosingInfo).Click();
+            Thread.Sleep(3000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,500)");
+            Thread.Sleep(4000);
             string value = driver.FindElement(valSendBTPEmail).Text;
-
             return value;
         }
 

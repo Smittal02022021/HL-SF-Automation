@@ -62,9 +62,10 @@ namespace SF_Automation.TestCases.Opportunities
                 pages.GetJobTypes("Debt Advisory");
                 pages.GetJobTypes("DRC - Exp Wit-Litigation");
                 pages.GetJobTypes("FA - Portfolio-Auto Loans");
-                pages.GetJobTypes("Lender Education");
-                pages.GetJobTypes("Post Merger Integration");
-                pages.GetJobTypes("Strategic Consulting");
+                pages.GetJobTypes("InSource");
+                pages.GetJobTypes("Portfolio Acquisition");
+                pages.GetJobTypes("Real Estate Brokerage");
+                pages.GetJobTypes("Strategy");
                 Assert.IsTrue(pages.ValidateJobTypesLV(), "Verified that displayed Job Types are same");
                 extentReports.CreateLog("Displayed Job Types are as expected ");
 

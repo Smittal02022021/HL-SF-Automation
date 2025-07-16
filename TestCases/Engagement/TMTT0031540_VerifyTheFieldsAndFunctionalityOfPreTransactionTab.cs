@@ -360,7 +360,7 @@ namespace SF_Automation.TestCases.Engagement
             catch (Exception e)
             {
                 extentReports.CreateLog(e.Message);
-                usersLogin.UserLogOut();
+                usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

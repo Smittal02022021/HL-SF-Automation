@@ -225,6 +225,7 @@ namespace SF_Automation.Pages.Engagement
         By btnSaveFin = By.XPath("//button[@name='SaveEdit']");
         By valAddedFin = By.XPath("//records-entity-label[text()='Engagement Financials']/ancestor::div[@class='slds-grid slds-wrap simpleRecordHomeTemplate']//span[text()='Revenue LTM (MM)']/ancestor::div[2]//span//lightning-formatted-text");
         By btnRefreshFin = By.XPath("//span[text()='Seller Financials']/ancestor::h3//button[@title='Refresh Table']");
+        By btnRefreshContact = By.XPath("//span[text()='Seller Contacts']/ancestor::h3//button[@title='Refresh Table']");
         By btnMoreFin = By.XPath("//tr[1]/td[6]//lightning-button-menu/button");
         By lnkEditRecord = By.XPath("//span[text()='Edit']");
         By chkEngFinCheck = By.XPath("//input[@name='Engagement_Financials_Check__c']");
@@ -1996,6 +1997,8 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateMandatoryMessageOfSellerFin()
         {
             Actions actions = new Actions(driver);
+            driver.FindElement(btnRefreshFin).Click();
+            Thread.Sleep(5000);
             actions.MoveToElement(driver.FindElement(iconSellerFin)).Perform();
             Thread.Sleep(5000);
             string value = driver.FindElement(msgSellerFin).Text;
@@ -2026,7 +2029,16 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateAddedContactInEng()
         {
             driver.FindElement(tabSummary).Click();
-            Thread.Sleep(4000);            
+            Thread.Sleep(4000);
+            driver.FindElement(secParties).Click();
+            Thread.Sleep(6000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnRefreshContact));
+            Thread.Sleep(6000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,1400)");
+            Thread.Sleep(5000);
+            driver.FindElement(btnRefreshContact).Click();
+            Thread.Sleep(5000);
             string value = driver.FindElement(valAddedContact).Text;
             return value;
         }

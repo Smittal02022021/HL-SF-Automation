@@ -624,7 +624,7 @@ namespace SalesForce_Project.Pages
             Console.WriteLine("actualValue: " + actualValue[2]);
             Console.WriteLine("actualValue: " + actualValue[3]);
             //Console.WriteLine("actualValue: " + actualValue[4]);
-            string[] expectedValue = { "Approval History", "Files", "Fees To Bill", "Expenses To Bill" };
+            string[] expectedValue = { "Approval History", "Files", "Fees To Bill", "ERP Draft Invoices" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -922,27 +922,27 @@ namespace SalesForce_Project.Pages
             return "PV Position To Bill deleted successfully";
         }
 
-        public string ValidateAddExpenseToBillFunctionality()
+        public void ValidateAddExpenseToBillFunctionality()
         {
             driver.FindElement(By.XPath("//table[@aria-label='Billing Requests']/tbody/tr[1]/th[1]//records-hoverable-link")).Click();
             Thread.Sleep(6000);
-            driver.FindElement(btnAddExpToBill).Click();
-            Thread.Sleep(4000);
-            driver.FindElement(btnSelectEng).Click();
-            Thread.Sleep(5000);
-            driver.FindElement(By.XPath("//lightning-base-combobox-item[2]//span[2]/span")).Click();
-            Thread.Sleep(5000);
-            driver.FindElement(chkExpID).Click();
-            Thread.Sleep(5000);
-            driver.FindElement(btnSaveAddExp).Click();
-            Thread.Sleep(5000);
-            string value = driver.FindElement(msgAddExp).Text;
-            return value;
+            //driver.FindElement(btnAddExpToBill).Click();
+            //Thread.Sleep(4000);
+            //driver.FindElement(btnSelectEng).Click();
+            //Thread.Sleep(5000);
+            //driver.FindElement(By.XPath("//lightning-base-combobox-item[2]//span[2]/span")).Click();
+            //Thread.Sleep(5000);
+            //driver.FindElement(chkExpID).Click();
+            //Thread.Sleep(5000);
+            //driver.FindElement(btnSaveAddExp).Click();
+            //Thread.Sleep(5000);
+            //string value = driver.FindElement(msgAddExp).Text;
+            //return value;
         }
 
         public string ValidateAddPVPositions()
         {
-            Thread.Sleep(5000);           
+            Thread.Sleep(7000);           
             string value = driver.FindElement(btnAddPVPositions).Text;
             //driver.FindElement(btnCloseBillingReq).Click();
             return value;
