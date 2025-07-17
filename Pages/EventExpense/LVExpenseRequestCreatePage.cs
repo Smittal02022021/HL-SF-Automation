@@ -154,6 +154,24 @@ namespace SF_Automation.Pages.EventExpense
             string message = driver.FindElement(msgLOBLWC).Text.Replace("\r\n", " ");
             return message;
         }
+        public bool IsLOBPresentLV(string valueLOB)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, comboLOBLWC, 5);
+            driver.FindElement(comboLOBLWC).Click();
+            
+            try
+            {
+                By elmComboLOB = By.XPath($"//label[text()='LOB']//lightning-base-combobox-item//span[@title='{valueLOB}']");
+                WebDriverWaits.WaitUntilEleVisible(driver, elmComboLOB, 5);
+                bool isFound = driver.FindElement(elmComboLOB).Displayed;
+                driver.FindElement(comboLOBLWC).Click();
+                return isFound;
+            }
+            catch 
+            { 
+                //driver.FindElement(comboLOBLWC).Click(); 
+                return false; }
+            }
 
         //To validate LOB validation
         public string ValidateEventTypeMessageLWC(string value)
