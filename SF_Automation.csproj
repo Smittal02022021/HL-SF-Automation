@@ -733,6 +733,9 @@
     <Compile Include="TestCases\EventExpense\LV_T2276_T2277_EventExpenseEmailNotificationsRejectApproveRequestAsFirstLevelApprover.cs" />
     <Compile Include="TestCases\EventExpense\LV_T2278_TMTT0016300_EventExpenseEmailNotificationRequestMoreInformationApproveAsFirstLevelApproverSet1.cs" />
     <Compile Include="TestCases\EventExpense\LV_T2279_TMTT0016300_EventExpense_ApproveEventExpenseFormAsSecondLevelApproverSet1.cs" />
+    <Compile Include="TestCases\EventExpense\LV_TMTC0036647_2_VerifyNewFVAExpenseRequestCreationCloneDeleteSubmissionApproveFunctionalityAsStandardUser.cs" />
+    <Compile Include="TestCases\EventExpense\LV_TMTC0036647_3_VerifyNewCFExpenseRequestCreationCloneDeleteSubmissionApproveFunctionalityAsCAOUser.cs" />
+    <Compile Include="TestCases\EventExpense\LV_TMTC0036647_1_VerifyTheFRAndSCLOBPicklistOptionsAreRemovedFromExpenseRequestLWC.cs" />
     <Compile Include="TestCases\EventExpense\LV_TMTT0032247_TMTT0032249_EventExpenseEmailNotificationRequestMoreInformationApproveAsFirstLevelApproverSet2.cs" />
     <Compile Include="TestCases\EventExpense\LV_TMTT0032247_TMTT0032249_EventExpense_ApproveEventExpenseFormAsSecondLevelApproverSet2.cs" />
     <Compile Include="TestCases\EventExpense\TMTT0017339_EventExpense_VerifyTheCFExpenseRequestFunctionalityAsApprover.cs" />

@@ -219,6 +219,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                         moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
                         homePageLV.SelectModule(moduleNameExl);
                         extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
+                        
                         engagementHome.GlobalSearchEngagementInLightningView(engagementName);
 
                         //TMTI0113893 Verify that Tail Expire Field on CF Engagement having Job type as BuySide shows validation while changing Stage to Dead
@@ -243,7 +244,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                         string msgBubble = randomPages.GetPopUpMessagelV();
                         extentReports.CreateStepLogs("Info", "New Stage saved with Success Message: " + msgBubble);
                         stage = engagementDetails.GetStageLV();
-                        Assert.AreEqual(valStage, stage, "Verify that Stage is updated to Dead after filling All required fields");
+                        Assert.AreEqual(valStage, stage, "Verify that Stage is updated to "+ valStage+" after filling All required fields");
                         extentReports.CreateStepLogs("Passed", "CF Engagement having Job type as " + valJobType + " Stage changed to " + stage+ " after filling required including Tail Expire ");
                         randomPages.CloseActiveTab(engagementName);
                         homePageLV.LogoutFromSFLightningAsApprover();
