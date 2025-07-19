@@ -254,6 +254,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //----Get added Contact and role of Seller Contact section
                 string contactSummary = summaryPage.ValidateAddedContactInEng();
+                Console.WriteLine("contactSummary" + contactSummary);
                 string  roleSummary =summaryPage.GetRoleOfContactAddedInEng("Shivali Sharma");
                 Assert.AreEqual(contactAddedInEng, contactSummary);
                 Assert.AreEqual(roleContactAddedinEng, roleSummary);

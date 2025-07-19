@@ -225,7 +225,8 @@ namespace SF_Automation.Pages.Engagement
         By btnSaveFin = By.XPath("//button[@name='SaveEdit']");
         By valAddedFin = By.XPath("//records-entity-label[text()='Engagement Financials']/ancestor::div[@class='slds-grid slds-wrap simpleRecordHomeTemplate']//span[text()='Revenue LTM (MM)']/ancestor::div[2]//span//lightning-formatted-text");
         By btnRefreshFin = By.XPath("//span[text()='Seller Financials']/ancestor::h3//button[@title='Refresh Table']");
-        By btnRefreshContact = By.XPath("//span[text()='Seller Contacts']/ancestor::h3//button[@title='Refresh Table']");
+        By btnClose = By.XPath("//button[@title='Close']");
+        By btnRefreshContact = By.XPath("//span[text()='Seller Contacts']/ancestor::h3//button[@title='Add Record']/ancestor::div[1]//button[@title='Refresh Table']");
         By btnMoreFin = By.XPath("//tr[1]/td[6]//lightning-button-menu/button");
         By lnkEditRecord = By.XPath("//span[text()='Edit']");
         By chkEngFinCheck = By.XPath("//input[@name='Engagement_Financials_Check__c']");
@@ -234,13 +235,13 @@ namespace SF_Automation.Pages.Engagement
         By btnWinOk = By.XPath("//button[text()='Ok']");
         By msgDelete = By.XPath("//h2[text()='Record was deleted.']");
         By iconSellerFin = By.XPath("//span[text()='Seller Financials']/ancestor::h3//lightning-icon[@title='Click to keep open']//lightning-primitive-icon");
-        By msgSellerFin = By.XPath("//li[1]/span[text()='Engagement Financials Check']");
+        By msgSellerFin = By.XPath("//section[@role='dialog']//li[1]/span[text()='Engagement Financials Check']");
         By iconEngFinCheck = By.XPath("//span[text()='Seller Financials']/ancestor::div[1]/div//lightning-output-field//button/span[2]");
         By txtContact = By.XPath("//input[@placeholder='Search Contacts...']");
         By valAddedContact = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr[1]/th//span//a");
         //By btnRole = By.XPath("//label[text()='Role']/ancestor::div[1]//button");
         By valRoleOfAddedContact = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr[1]/td[3]//lightning-base-formatted-text");
-
+        By secSellerContacts = By.XPath("//span[text()='Seller Contacts']");
 
         public void ClickEngagementDynamicsSection()
         {
@@ -1989,18 +1990,19 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
         public string ValidateSellerFinIcon()
-        {
-            Thread.Sleep(8000);
+        {          
+            Thread.Sleep(6000);
             string value = driver.FindElement(iconSellerFin).GetAttribute("variant");
             return value;
         }
         public string ValidateMandatoryMessageOfSellerFin()
         {
             Actions actions = new Actions(driver);
-            driver.FindElement(btnRefreshFin).Click();
-            Thread.Sleep(5000);
+            driver.FindElement(btnClose).Click();
+            Thread.Sleep(6000);
             actions.MoveToElement(driver.FindElement(iconSellerFin)).Perform();
-            Thread.Sleep(5000);
+            //driver.FindElement(iconSellerFin).Click();
+            Thread.Sleep(9000);
             string value = driver.FindElement(msgSellerFin).Text;
             return value;
         }
@@ -2029,16 +2031,15 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateAddedContactInEng()
         {
             driver.FindElement(tabSummary).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
             driver.FindElement(secParties).Click();
-            Thread.Sleep(6000);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(btnRefreshContact));
-            Thread.Sleep(6000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,1400)");
-            Thread.Sleep(5000);
+            Thread.Sleep(8000);
+            Actions actions = new Actions(driver);
+            actions.MoveToElement(driver.FindElement(iconAddRecordContact)).Perform();
+            Thread.Sleep(10000);
             driver.FindElement(btnRefreshContact).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(6000);
+          
             string value = driver.FindElement(valAddedContact).Text;
             return value;
         }
