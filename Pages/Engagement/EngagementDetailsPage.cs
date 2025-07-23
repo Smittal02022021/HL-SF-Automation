@@ -38,7 +38,7 @@ namespace SF_Automation.Pages.Engagement
         By tabPreTransL = By.XPath("//li/a[text()='Pre-Transaction Info']");
         By tabPostTransL = By.XPath("//li/a[text()='Post-Transaction Info']");
         By tabHLPostTransL = By.XPath("//li/a[text()='HL Post-Transaction Opportunities']");
-        By tabClientL = By.XPath("//a[text()='Client/Subject & Referral']");
+        By tabClientL = By.XPath("//a[text()='KYC/Client/Subject/Referral']");
         By valTxnType = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Transaction_Type__c']//div[2]/span/slot/lightning-formatted-text");
         By valPostTxnStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Post_Transaction_Status__c']//div[2]/span/slot/lightning-formatted-text");
         By valCompDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.FR_Client__c']//div[2]/span/slot/lightning-formatted-text");
@@ -8523,8 +8523,8 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(3000);
             driver.FindElement(By.XPath("//ul/li/a[text()='Seller']")).Click();
             driver.FindElement(btnSaveConfirmSubmit).Click();
-            Thread.Sleep(6000);
-            string value = driver.FindElement(By.XPath("//a[text()='Shivali Sharma']")).Text;
+            Thread.Sleep(8000);
+            string value = driver.FindElement(By.XPath("//a[text()='Vijay Kumar']")).Text;
             return value;
         }
 

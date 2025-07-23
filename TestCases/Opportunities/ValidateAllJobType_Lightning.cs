@@ -65,7 +65,7 @@ namespace SF_Automation.TestCases.Opportunities
                 pages.GetJobTypes("InSource");
                 pages.GetJobTypes("Portfolio Acquisition");
                 pages.GetJobTypes("Real Estate Brokerage");
-                pages.GetJobTypes("Strategy");
+                pages.GetJobTypes("Strategic Consulting");
                 Assert.IsTrue(pages.ValidateJobTypesLV(), "Verified that displayed Job Types are same");
                 extentReports.CreateLog("Displayed Job Types are as expected ");
 

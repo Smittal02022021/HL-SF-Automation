@@ -478,7 +478,7 @@ namespace SF_Automation.Pages.Engagement
         By tabClosingInfo = By.XPath("//a[text()='Closing Info']");
         By tabInfo = By.XPath("//a[text()='Info']");
         By valSendBTPEmail = By.XPath("//span[text()='Sent BTP Email (User)']/ancestor::div[2]/div[2]/span/slot/lightning-formatted-text");
-        By tabClientSubL = By.XPath("//a[text()='Client/Subject & Referral']");
+        By tabClientSubL = By.XPath("//a[text()='KYC/Client/Subject/Referral']");
         By rowAddedEquityInAdd = By.XPath("//lst-formatted-text/span[@title='Equity Holder']/ancestor::td/ancestor::tr/th[1]//a");
         By valAddedEquityType = By.XPath("//lst-formatted-text/span[@title='Equity Holder']");
         By valAddedEquityRole = By.XPath("//lst-formatted-text/span[@title='Equity Holder']/ancestor::td/ancestor::tr/td[7]//span");

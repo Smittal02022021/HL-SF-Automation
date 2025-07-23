@@ -1,6 +1,5 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
-using SF_Automation.TestCases.GiftLog;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -226,6 +225,7 @@ namespace SF_Automation.Pages.Engagement
         By valAddedFin = By.XPath("//records-entity-label[text()='Engagement Financials']/ancestor::div[@class='slds-grid slds-wrap simpleRecordHomeTemplate']//span[text()='Revenue LTM (MM)']/ancestor::div[2]//span//lightning-formatted-text");
         By btnRefreshFin = By.XPath("//span[text()='Seller Financials']/ancestor::h3//button[@title='Refresh Table']");
         By btnClose = By.XPath("//button[@title='Close']");
+        By lblSellerContacts = By.XPath("//span[text()='Seller Contacts']");
         By btnRefreshContact = By.XPath("//span[text()='Seller Contacts']/ancestor::h3//button[@title='Add Record']/ancestor::div[1]//button[@title='Refresh Table']");
         By btnMoreFin = By.XPath("//tr[1]/td[6]//lightning-button-menu/button");
         By lnkEditRecord = By.XPath("//span[text()='Edit']");
@@ -239,9 +239,10 @@ namespace SF_Automation.Pages.Engagement
         By iconEngFinCheck = By.XPath("//span[text()='Seller Financials']/ancestor::div[1]/div//lightning-output-field//button/span[2]");
         By txtContact = By.XPath("//input[@placeholder='Search Contacts...']");
         By valAddedContact = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr[1]/th//span//a");
-        //By btnRole = By.XPath("//label[text()='Role']/ancestor::div[1]//button");
-        By valRoleOfAddedContact = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr[1]/td[3]//lightning-base-formatted-text");
-        By secSellerContacts = By.XPath("//span[text()='Seller Contacts']");
+        By valAdded2ndContact = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr[2]/th//span//a");
+        By btnShowMoreContact = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr[1]/td[5]//button");
+        By lnkEdit = By.XPath("//span[text()='Edit']");
+
 
         public void ClickEngagementDynamicsSection()
         {
@@ -1824,7 +1825,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(3000);
             driver.FindElement(By.XPath("//button[@name='Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span/span[text()='" + type + "']")).Click();
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             if (type.Equals("Closing"))
             {
                 string value = driver.FindElement(By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//tr[1]/td[2]//lightning-formatted-number")).Text;
@@ -2001,8 +2002,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnClose).Click();
             Thread.Sleep(6000);
             actions.MoveToElement(driver.FindElement(iconSellerFin)).Perform();
-            //driver.FindElement(iconSellerFin).Click();
-            Thread.Sleep(9000);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSellerFin,180);
             string value = driver.FindElement(msgSellerFin).Text;
             return value;
         }
@@ -2022,7 +2022,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnRole).Click();
             driver.FindElement(By.XPath("//button[@name='Role__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span[text()='"+role+"']")).Click();
             driver.FindElement(btnSave).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             string value = driver.FindElement(valAddedContact).Text;
             return value;
         }
@@ -2030,23 +2030,74 @@ namespace SF_Automation.Pages.Engagement
 
         public string ValidateAddedContactInEng()
         {
-            driver.FindElement(tabSummary).Click();
-            Thread.Sleep(5000);
-            driver.FindElement(secParties).Click();
-            Thread.Sleep(8000);
-            Actions actions = new Actions(driver);
-            actions.MoveToElement(driver.FindElement(iconAddRecordContact)).Perform();
-            Thread.Sleep(10000);
-            driver.FindElement(btnRefreshContact).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(tabSummary).Click();           
+            Thread.Sleep(10000);                   
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,1000)");
             Thread.Sleep(6000);
-          
-            string value = driver.FindElement(valAddedContact).Text;
+            driver.FindElement(btnRefreshContact).Click();
+            Thread.Sleep(7000);          
+            string value = driver.FindElement(valAdded2ndContact).Text;
             return value;
         }
 
         public string GetRoleOfContactAddedInEng(string name)
         {
-            string value = driver.FindElement(valRoleOfAddedContact).Text;
+            string value = driver.FindElement(By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr/th//a[text()='"+name+"']/ancestor::tr[1]/td[3]//lightning-base-formatted-text")).Text;
+            return value;
+        }
+
+        public string ValidateCancelContactFunctionality(string name,string role)
+        {
+            driver.FindElement(btnShowMoreContact).Click();
+            driver.FindElement(lnkEdit).Click();
+            Thread.Sleep(5000);           
+            driver.FindElement(btnRole).Click();
+            driver.FindElement(By.XPath("//button[@name='Role__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + role + "']")).Click();
+            driver.FindElement(btnCancel).Click();
+            Thread.Sleep(6000);
+            string value = driver.FindElement(By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr/th//a[text()='" + name + "']/ancestor::tr[1]/td[3]//lightning-base-formatted-text")).Text;
+            return value;
+        }
+
+        public string ValidateEditContactFunctionality(string name, string role)
+        {
+            driver.FindElement(btnShowMoreContact).Click();
+            driver.FindElement(lnkEdit).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(btnRole).Click();
+            driver.FindElement(By.XPath("//button[@name='Role__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + role + "']")).Click();
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(6000);
+            string value = driver.FindElement(By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr/th//a[text()='" + name + "']/ancestor::tr[1]/td[3]//lightning-base-formatted-text")).Text;
+            return value;
+        }
+
+        public string ValidateCancelDeleteFunctionalityOfSellerContact()
+        {
+            driver.FindElement(btnShowMoreContact).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(lnkDeleteRecord).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnWinCancel).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnRefreshContact).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(valAddedContact).Text;
+            return value;
+        }
+        public string ValidateConfirmDeleteFunctionalityOfSellerContact()
+        {
+            driver.FindElement(btnShowMoreContact).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(lnkDeleteRecord).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnWinOk).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnRefreshContact).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(valAddedContact).Text;
             return value;
         }
     }

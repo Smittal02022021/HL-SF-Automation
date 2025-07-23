@@ -249,20 +249,39 @@ namespace SF_Automation.TestCases.Engagement
 
                 //----Add Contact in Engagement and validate the same in Engagement summary 
                 engagementDetails.ClickAddCFOppContact();
-                string contactAddedInEng =engagementDetails.CreateContactCFL("Shivali Sharma","Board of Directors");
-                string roleContactAddedinEng = engagementDetails.GetRoleOfContactInEng("Shivali Sharma");
+                string contactAddedInEng =engagementDetails.CreateContactCFL("Vijay Kumar","Board of Directors");
+                string roleContactAddedinEng = engagementDetails.GetRoleOfContactInEng("Vijay Kumar");
 
                 //----Get added Contact and role of Seller Contact section
                 string contactSummary = summaryPage.ValidateAddedContactInEng();
                 Console.WriteLine("contactSummary" + contactSummary);
-                string  roleSummary =summaryPage.GetRoleOfContactAddedInEng("Shivali Sharma");
+                string  roleSummary =summaryPage.GetRoleOfContactAddedInEng("Vijay Kumar");
                 Assert.AreEqual(contactAddedInEng, contactSummary);
                 Assert.AreEqual(roleContactAddedinEng, roleSummary);
+                extentReports.CreateLog("Contact: " + contactSummary + " with role: " + roleSummary + " is displayed under Engagement Contacts after adding in Engagement Contacts ");
 
                 //15.  TMTI0114549_Verify the "Edit" functionality of the Seller Contact on the Seller Contacts.
-                 
+                //--Validate Cancel functionality
+                string cancelContact = summaryPage.ValidateCancelContactFunctionality("Mr. Sonika Goyal", "Board of Directors");
+                Assert.AreEqual(roleEng, cancelContact);
+                extentReports.CreateLog("Contact details are not updated under Seller Contacts section after clicking Cancel button ");
 
+                string editContact = summaryPage.ValidateEditContactFunctionality("Mr. Sonika Goyal", "Board of Directors");
+                Assert.AreNotEqual(roleEng, editContact);
+                extentReports.CreateLog("Contact details with Role: " + editContact + " is updated under Seller Contacts section after clicking Save button ");
 
+                //16. TMTI0114558_Verify the "Delete" functionality on the Seller Contacts
+                //Cancel Delete Functionality----
+                string cancelDeleteContact = summaryPage.ValidateCancelDeleteFunctionalityOfSellerContact();
+                Assert.AreEqual(addedContact, cancelDeleteContact);
+                extentReports.CreateLog("Contact is not deleted after clicking Cancel button on Delete Confirmation pop up window ");
+
+                //Confirm Delete Functionality----
+                string confirmDeleteContact = summaryPage.ValidateConfirmDeleteFunctionalityOfSellerContact();
+                Assert.AreNotEqual(addedContact, confirmDeleteContact);
+                extentReports.CreateLog("Contact:" + addedContact  + " is deleted after clicking Ok button on Delete Confirmation pop up window ");
+
+                //17.  TMTI0114541_Verify that the fields "Engagement Contacts Check" and "Engagement Contact No Attorney" fields are displayed on the Seller Contacts
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
