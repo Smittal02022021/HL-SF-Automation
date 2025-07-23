@@ -242,6 +242,8 @@ namespace SF_Automation.Pages.Engagement
         By valAdded2ndContact = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr[2]/th//span//a");
         By btnShowMoreContact = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr[1]/td[5]//button");
         By lnkEdit = By.XPath("//span[text()='Edit']");
+        By iconEngContactCheck = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]/div//span[text()='Engagement Contacts Seller Check']/ancestor::lightning-output-field//button/span[2]");
+        By iconEngContactAttorneyCheck = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]/div//span[text()='Engagement Contact Seller No Attorney']/ancestor::lightning-output-field//button/span[2]");
 
 
         public void ClickEngagementDynamicsSection()
@@ -2098,6 +2100,19 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnRefreshContact).Click();
             Thread.Sleep(4000);
             string value = driver.FindElement(valAddedContact).Text;
+            return value;
+        }
+        public string ValidateEngContactCheckIcon()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, iconEngContactCheck);
+            string value = driver.FindElement(iconEngContactCheck).Text;
+            return value;
+        }
+
+        public string ValidateEngContactAtorneyCheckIcon()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, iconEngContactAttorneyCheck);
+            string value = driver.FindElement(iconEngContactAttorneyCheck).Text;
             return value;
         }
     }

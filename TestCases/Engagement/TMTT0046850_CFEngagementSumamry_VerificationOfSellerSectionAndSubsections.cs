@@ -282,7 +282,17 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Contact:" + addedContact  + " is deleted after clicking Ok button on Delete Confirmation pop up window ");
 
                 //17.  TMTI0114541_Verify that the fields "Engagement Contacts Check" and "Engagement Contact No Attorney" fields are displayed on the Seller Contacts
+                string iconEngContactCheck = summaryPage.ValidateEngContactCheckIcon();
+                Assert.AreEqual("Indicates if required Engagement Contacts for Seller are present (an Attorney contact along with Company Contact and/or Board of Directors contacts are required)", iconEngContactCheck);
+                extentReports.CreateLog("Message: " + iconEngContactCheck + " is displayed upon hovering Engagement Contacts Seller Check ");
 
+                string iconEngContactNoCheck = summaryPage.ValidateEngContactAtorneyCheckIcon();
+                Assert.AreEqual("Please \"check\" if a Seller Attorney was not required for this Engagement", iconEngContactNoCheck);
+                extentReports.CreateLog("Message: " + iconEngContactNoCheck + " is displayed upon hovering Engagement Contact Seller No Attorney checkbox ");
+
+                //18.  TMTI0114548_Verify that the fields "Engagement Contacts Check" and "Engagement Contact No Attorney" default to being unchecked and get checked if and only if the contacts with role Attorney and Company Contact / Board of Directors are present on the Seller Contacts
+                   
+                
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();
