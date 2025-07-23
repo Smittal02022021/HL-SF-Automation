@@ -1614,8 +1614,9 @@ namespace SF_Automation.Pages
             driver.FindElement(btnJobTypeL).Click();
             Thread.Sleep(3000);
             By eleJobType = By.XPath($"//label[text()='Job Type']/following::lightning-base-combobox-item//span[@title='{type}']");
-            WebDriverWaits.WaitUntilEleVisible(driver, eleJobType, 20);
+            Thread.Sleep(2000);
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
+            WebDriverWaits.WaitUntilEleVisible(driver, eleJobType, 20);            
             driver.FindElement(eleJobType).Click();
 
             ////////////////////////////
@@ -1718,6 +1719,30 @@ namespace SF_Automation.Pages
             Thread.Sleep(5000);
             return valOpportunity;
 
+        }
+        public bool IsJobTypePresentLV(string type)
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL2));
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnJobTypeL, 20);
+                driver.FindElement(btnJobTypeL).Click();
+                Thread.Sleep(3000);
+                By eleJobType = By.XPath($"//label[text()='Job Type']/following::lightning-base-combobox-item//span[@title='{type}']");
+                Thread.Sleep(2000);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(eleJobType));
+                WebDriverWaits.WaitUntilEleVisible(driver, eleJobType, 5);                
+                bool isPresent = driver.FindElement(eleJobType).Displayed;
+                jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnCancelL));
+                //driver.FindElement(btnCancelL).Click();
+                return isPresent;
+            }
+            catch (NoSuchElementException)
+            {
+                jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnCancelL));
+                return false;
+            }
         }
     }
 }

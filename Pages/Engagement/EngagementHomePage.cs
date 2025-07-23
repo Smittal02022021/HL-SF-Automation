@@ -69,10 +69,12 @@ namespace SF_Automation.Pages
         By inputAdminGlobalSearchL = By.XPath("//input[contains(@placeholder,'and more...')]");
         By inputGlobalSearchL = By.XPath("//button[@aria-label='Search']");
         By btnEngNumL = By.XPath("//button[@aria-label='Search']");
+        By inputEngNumL = By.XPath("//button[contains(@aria-label,'Search')]");
         By txtEngNumLCAO = By.XPath("//input[@placeholder='Search...']");
         By imgEngL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Engagement']");
         By txtEngL = By.XPath("//input[@placeholder='Search...']");
-        
+        By columnJobTypeL = By.XPath("//div[contains(@aria-label,'Engagements')]//table//tbody/tr[1]//td[4]/span/span");
+        By searchOppBox = By.XPath("//lightning-input[@class='slds-form-element']");
         private By _lnkSearchedEngL(string name)
         {
             return By.XPath($"//div[@aria-label='Engagements||List View']//table//tbody//th[1]//a[@title='{name}']");
@@ -690,7 +692,7 @@ namespace SF_Automation.Pages
             }
             catch { return "No record found"; }
         }
-        public string UpdateEngAndSearchLV(string oppName)
+        public string UpdateEngAndSearchLV(string engName)
         {
             try
             {
@@ -702,7 +704,7 @@ namespace SF_Automation.Pages
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEngNumL, 20);
                 driver.FindElement(txtEngNumLCAO).Clear();
-                driver.FindElement(txtEngNumLCAO).SendKeys(oppName);
+                driver.FindElement(txtEngNumLCAO).SendKeys(engName);
                 Thread.Sleep(6000);
             }
             catch
@@ -710,7 +712,7 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL, 5);
                 driver.FindElement(inputAdminGlobalSearchL).Click();
                 driver.FindElement(inputAdminGlobalSearchL).Clear();
-                driver.FindElement(inputAdminGlobalSearchL).SendKeys(oppName);
+                driver.FindElement(inputAdminGlobalSearchL).SendKeys(engName);
                 Thread.Sleep(6000);
             }
             try
@@ -721,6 +723,50 @@ namespace SF_Automation.Pages
                 return "Record found";
             }
             catch { return "No record found"; }
+        }
+        public bool IsEngagementWithJobTypeFoundLV(string engName, string jobType)
+        {
+            Thread.Sleep(6000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, inputEngNumL, 5);
+                driver.FindElement(inputEngNumL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, iconClearSearch, 5);
+                driver.FindElement(iconClearSearch).Click();
+            }
+            catch { }
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtEngNumLCAO, 5);
+                //driver.FindElement(inputEngNumL).Click();
+                //driver.FindElement(inputEngNumL).Clear();
+                driver.FindElement(txtEngNumLCAO).SendKeys(engName);
+                driver.FindElement(txtEngNumLCAO).SendKeys(Keys.Enter);
+            }
+            catch
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL, 5);
+                driver.FindElement(inputAdminGlobalSearchL).Click();
+                driver.FindElement(inputAdminGlobalSearchL).Clear();
+                driver.FindElement(inputAdminGlobalSearchL).SendKeys(engName);
+                driver.FindElement(txtEngNumLCAO).SendKeys(Keys.Enter);
+            }            
+            Thread.Sleep(6000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, columnJobTypeL, 10);
+                string txtJobType = driver.FindElement(columnJobTypeL).Text;
+                if (txtJobType == jobType)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch { return false; }
         }
     }
 }

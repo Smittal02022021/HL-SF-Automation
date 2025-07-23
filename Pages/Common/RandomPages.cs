@@ -885,16 +885,17 @@ namespace SF_Automation.Pages.Common
             catch
             {
                 this.SelectListViewLV("All");
+                int x = 0;
             ReTry: try
                 {
-                    
+                    x = x + 500;
                     WebDriverWaits.WaitUntilEleVisible(driver, _eleJobType(name), 10);
                     CustomFunctions.MoveToElement(driver, driver.FindElement(_eleJobType(name)));
                 }
                 catch
                 {
-                    js.ExecuteScript("window.scrollTo(0,500)");
-                    Thread.Sleep(2000);
+                    js.ExecuteScript($"window.scrollTo({x},0)");
+                    Thread.Sleep(2000);                    
                     goto ReTry;
                 }
             }
@@ -915,6 +916,7 @@ namespace SF_Automation.Pages.Common
             }
             catch
             {
+                int x = 100;
             ReTry: try
                 {
                     this.SelectListViewLV("All Legal Entities");
@@ -924,7 +926,7 @@ namespace SF_Automation.Pages.Common
                 }
                 catch
                 {
-                    js.ExecuteScript("window.scrollTo(0,800)");
+                    js.ExecuteScript($"window.scrollTo({x},800)");
                     Thread.Sleep(2000);
                     goto ReTry;
                 }
@@ -1249,6 +1251,7 @@ namespace SF_Automation.Pages.Common
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, chkVerballyEngL, 20);
             Thread.Sleep(2000);
             return driver.FindElement(chkVerballyEngL).Selected;

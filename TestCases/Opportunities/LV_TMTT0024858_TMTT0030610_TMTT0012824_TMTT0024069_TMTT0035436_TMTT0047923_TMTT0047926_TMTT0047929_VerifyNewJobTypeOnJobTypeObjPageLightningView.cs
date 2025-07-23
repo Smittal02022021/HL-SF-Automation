@@ -8,7 +8,7 @@ using System;
 
 namespace SF_Automation.TestCases.Opportunities
 {
-    class LV_TMTT0024858_TMTT0030610_TMTT0012824_TMTT0024069_TMTT0035436_VerifyNewJobTypeOnJobTypeObjPageLightningView: BaseClass
+    class LV_TMTT0024858_TMTT0030610_TMTT0012824_TMTT0024069_TMTT0035436_TMTT0047923_TMTT0047926_TMTT0047929_VerifyNewJobTypeOnJobTypeObjPageLightningView: BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -23,6 +23,10 @@ namespace SF_Automation.TestCases.Opportunities
         //TMTI0028200 Verify New / updated Job type and Job code under Job type Object/tab
         //TMTI0055398 Verify New/updated Job type and code under Job type Object/tab
         //TMTI0084213 Verify New/updated Job type and code under Job type Object/tab
+        //TMTI0117813 Verify that the new/ updated Job type "DRC - Dispute" and its code is listed under Job type Object/ tab. 
+        //TMTI0117854 Verify that the new/ updated Job type "DRC - ESOP " and its code is listed under Job type Object/ tab. 
+        //TMTI0117859 Verify that the new/ updated Job type "DRC - Estate & Gift" and its code is listed under Job type Object/ tab. 
+
 
         public static string fileTMTT0024858 = "LV_TMTT0024858_VerifyNewJobTypeOnJobTypeObjPageLightningView";
 

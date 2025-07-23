@@ -73,6 +73,8 @@ namespace SF_Automation.Pages
         By txtTitle = By.XPath("//div[@class='forceChangeRecordType']//h2");
         By resultTable = By.XPath("//table/tbody//tr//th//a");
         By iconClearSearch = By.XPath("//button[@data-element-id='searchClear']");
+        By columnJobTypeL = By.XPath("//div[contains(@aria-label,'Opportunities')]//table//tbody/tr[1]//td[4]/span/span");
+
         private By _lnkSearchedOppL(string name)
         {
             return By.XPath($"//div[@aria-label='Opportunities||List View']//table//tbody//th[1]//a[@title='{name}']");
@@ -876,5 +878,50 @@ namespace SF_Automation.Pages
             }
             catch { return "No record found"; }
         }
+
+       
+        public bool IsOpportunityWithJobTypeFoundLV(string oppName, string jobType)
+        {
+            Thread.Sleep(6000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconClearSearch, 5);
+                driver.FindElement(iconClearSearch).Click();
+            }
+            catch { }
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 10);
+            driver.FindElement(btnOppNumL).Click();
+            Thread.Sleep(4000);
+
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtOppNumLCAO, 10);
+                driver.FindElement(txtOppNumLCAO).SendKeys(oppName);
+                driver.FindElement(txtOppNumLCAO).SendKeys(Keys.Enter);
+            }
+            catch
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL, 10);
+                driver.FindElement(inputAdminGlobalSearchL).SendKeys(oppName);
+                driver.FindElement(txtOppNumLCAO).SendKeys(Keys.Enter);
+            }
+            Thread.Sleep(6000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, columnJobTypeL, 10);
+                string txtJobType= driver.FindElement(columnJobTypeL).Text;
+                if(txtJobType == jobType)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch { return false; }
+        }
+
     }
 }

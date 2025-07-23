@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.EventExpense
 {
-    internal class LV_T2274_T2275_EventExpenseCommonFeatures_VerifyValidationRulesOnEventExpenseSet : BaseClass
+    class LV_T2274_T2275_EventExpenseCommonFeatures_VerifyValidationRulesOnEventExpenseSet : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

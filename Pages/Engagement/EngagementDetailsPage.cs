@@ -379,7 +379,7 @@ namespace SF_Automation.Pages.Engagement
         By valUpdatedType = By.XPath("//tbody/tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
         By btnCloseMsg = By.XPath("//button[@title='Close error dialog']");
         By tabRevenue = By.XPath("//li[7]/a[@data-label='Revenue']");
-        By tabRevenueL = By.XPath("//a[@aria-controls='tab-13']");
+        //By tabRevenueL = By.XPath("//a[@aria-controls='tab-13']");
         By subtabContracts = By.XPath("//a[@data-label='Contracts']");
         By valContractNumberL = By.XPath("//flexipage-tab2[7]//flexipage-tab2[4]//tr[1]/td[1]//span//span");
         By valContractNameL = By.XPath("//flexipage-tab2[7]//flexipage-tab2[4]//tr[2]/th[1]//span//records-hoverable-link//a//span//span/slot");
@@ -853,6 +853,29 @@ namespace SF_Automation.Pages.Engagement
         By txtLocationBenefitL = By.XPath("//span[text()='Location where Benefit is to be Provided']/../../..//lightning-formatted-text");
         By inlineEditLocationBenefitL = By.XPath("//button[@title='Edit Location where Benefit is to be Provided']");
         By btnLocationBenefitL = By.XPath("//button[contains(@aria-label,'Location where Benefit is to be Provided')]");
+        By btnConflictsCheckL = By.XPath("//button[text()='Conflicts Check']");
+        By valCCJobTypeL = By.XPath("//table//td[contains(text(),'Job Type')]/../td/span[contains(@id,'Type')]");
+        By btnOppReportsL = By.XPath("//button[contains(text(),'Opportunity Reports')]");
+        By btnMoreOppReportsL = By.XPath("//span[contains(text(),'Opportunity Reports')]");
+        By headerOppReportPageL = By.XPath("//label[contains(text(),'Opportunity Reports')]");
+        By linkOppPIFReportL = By.XPath("//label[contains(text(),'Opportunity Reports')]/../..//table//a[text()='PIF (Opportunity)']");
+        By popHitaSang = By.XPath("//div[@aria-label='We hit a snag.']");
+        By txtFieldLevelError = By.XPath("//div[@class='fieldLevelErrors']//li");
+        By txtFieldLevelErrorsList = By.XPath("//div[contains(@class,'fieldLevelErrors')]//li/a");
+        By txtPageLevelAccessWarningL = By.XPath("//div[@class='pageLevelErrors']//li");
+        By btnCloseErrorDialogL = By.XPath("//button[@title='Close error dialog']");
+        By lblSystemInfoL = By.XPath("//span[@title='System Information']");
+        By comboWentToMarketL = By.XPath("//label[text()='Went To Market?']/parent::div//button");
+        By comboOutcomeL = By.XPath("//label[text()='Outcome']/parent::div//button");
+        By comboPreparationEffortL = By.XPath("//label[text()='Preparation Effort']/parent::div//button");
+        By inputStageCommentsL = By.XPath("//label[text()='Dead/Hold Comments']/..//textarea");
+        By frameEmail = By.XPath("//iframe[contains(@title,'Rich Text Editor')]");
+        By btnCanelBillingRequestEmailL = By.XPath("//table//input[@value='Cancel']");
+        By tabRevenueL = By.XPath("(//a[text()='Revenue'])[1]");
+        By subtabRevenueL = By.XPath("(//a[text()='Revenue'])[2]");
+        By btnAddRevAccuL = By.XPath("//button[text()='Add Revenue Accrual']");
+        By txtRevAccuJobTypeL = By.XPath("//div[contains(@data-target-selection-name,'Revenue_Accrual__c.Job_Type')]//lightning-formatted-text");
+        By txtRevAccuNumberL = By.XPath("//records-entity-label[text()='Revenue Accrual']//ancestor::h1//lightning-formatted-text");
 
         private By _quickLink(string linkText)
         {
@@ -990,11 +1013,7 @@ namespace SF_Automation.Pages.Engagement
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveL));
             driver.FindElement(btnSaveL).Click();
         }
-        By popHitaSang = By.XPath("//div[@aria-label='We hit a snag.']");
-        By txtFieldLevelError = By.XPath("//div[@class='fieldLevelErrors']//li");
-        By txtFieldLevelErrorsList = By.XPath("//div[contains(@class,'fieldLevelErrors')]//li/a");
-        By txtPageLevelAccessWarningL = By.XPath("//div[@class='pageLevelErrors']//li");
-
+        
         public string GetPageLevelAccessWarningLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, popHitaSang, 10);
@@ -1033,13 +1052,7 @@ namespace SF_Automation.Pages.Engagement
             string finalErroList = formatedpageLevelError + formatedFieldLevelErrors;
             driver.FindElement(btnCancelEditFormL).Click();
             return finalErroList;
-        }
-        By btnCloseErrorDialogL = By.XPath("//button[@title='Close error dialog']");
-        By lblSystemInfoL = By.XPath("//span[@title='System Information']");
-        By comboWentToMarketL = By.XPath("//label[text()='Went To Market?']/parent::div//button");
-        By comboOutcomeL = By.XPath("//label[text()='Outcome']/parent::div//button");
-        By comboPreparationEffortL = By.XPath("//label[text()='Preparation Effort']/parent::div//button");
-        By inputStageCommentsL = By.XPath("//label[text()='Dead/Hold Comments']/..//textarea");
+        }        
 
         public void EnterCommentsForStageChangeLV(string stage)
         {
@@ -4000,7 +4013,7 @@ namespace SF_Automation.Pages.Engagement
         //Get Job Type
         public string GetJobTypeL()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, valJobTypeL, 190);
+            WebDriverWaits.WaitUntilEleVisible(driver, valJobTypeL, 10);
             string jobType = driver.FindElement(valJobTypeL).Text;
             return jobType;
         }
@@ -8627,6 +8640,116 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtVerifiedDateL, 20);
             return driver.FindElement(txtVerifiedDateL).Text;
+        }
+        
+        public void ClickConflicksCheckLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnConflictsCheckL, 10);
+            driver.FindElement(btnConflictsCheckL).Click();
+        }
+
+        public string GetConflictTypeJobTypeLV()
+        {
+            CustomFunctions.SwitchToWindow(driver, 1);
+            WebDriverWaits.WaitUntilEleVisible(driver, valCCJobTypeL, 10);
+            string value = driver.FindElement(valCCJobTypeL).Text;
+            CustomFunctions.SwitchToWindow(driver, 1);
+            driver.Close();
+            CustomFunctions.SwitchToWindow(driver, 0);
+            return value;
+        }
+
+        public void ClickOpportunityReportsLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
+            try
+            {
+                js.ExecuteScript("window.scrollTo(0,0)");
+                WebDriverWaits.WaitUntilEleVisible(driver, btnOppReportsL, 10);
+                driver.FindElement(btnOppReportsL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, headerOppReportPageL, 30);
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 10);
+                driver.FindElement(iconExpandMoreButonL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, btnMoreOppReportsL, 10);
+                driver.FindElement(btnMoreOppReportsL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, headerOppReportPageL, 30);
+            }
+        }
+        public void ClickPIFOpportunityLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, linkOppPIFReportL, 10);
+            driver.FindElement(linkOppPIFReportL).Click();
+        }
+
+        By txtAreaEmailBodyL = By.XPath("//strong[text()='Job Type: ']/..");
+        public void ClickBillingRequestButtonLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnBillingRequestL, 10);
+            driver.FindElement(btnBillingRequestL).Click();
+            Thread.Sleep(5000);
+        }
+
+        public string GetBillingEmailBodyJobTypeLV()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCanelBillingRequestEmailL, 20);            
+            WebDriverWaits.WaitUntilEleVisible(driver, frameEmail, 20);
+            driver.SwitchTo().Frame(driver.FindElement(frameEmail));
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtAreaEmailBodyL, 20);
+            string jobType= driver.FindElement(txtAreaEmailBodyL).Text.Split(':')[1].Trim();
+            driver.SwitchTo().DefaultContent();
+            return jobType;
+        }        
+        public void CancelBillingRequestEmailLV()
+        {
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCanelBillingRequestEmailL, 10);
+            driver.FindElement(btnCanelBillingRequestEmailL).Click();
+            driver.SwitchTo().DefaultContent();
+        }
+        public void ClickRevenueTabLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabRevenueL, 10);
+            driver.FindElement(tabRevenueL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, subtabRevenueL, 10);
+            driver.FindElement(subtabRevenueL).Click();
+            Thread.Sleep(8000);
+        }
+        public void AddNewRevenueAccuralsLV()
+        {
+            Thread.Sleep(5000);
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            jse.ExecuteScript("window.scrollTo(0,1000)");
+            //jse.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(btnAddRevAccuL));
+            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddRevAccuL, 10);
+            driver.FindElement(btnAddRevAccuL).Click();
+            Thread.Sleep(5000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, txtPeriodAccuredFeesL, 10);
+            //driver.FindElement(txtPeriodAccuredFees).SendKeys("10");
+            //driver.FindElement(btnSave).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, valPeriodAccrual, 100);
+            //string value = driver.FindElement(valPeriodAccrual).Text;
+            //return value;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 10);
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(5000);
+        }
+        public string GetRevAccuralJobTypeLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtRevAccuJobTypeL, 10);
+            return driver.FindElement(txtRevAccuJobTypeL).Text;
+        }
+        public string GetRevenueAccrualNumberLV()
+        {            
+            WebDriverWaits.WaitUntilEleVisible(driver, txtRevAccuNumberL, 10);
+            return driver.FindElement(txtRevAccuNumberL).Text;
         }
     }
 }
