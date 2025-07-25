@@ -2103,8 +2103,8 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 80);
                 driver.FindElement(lnkMoreL).Click();
                 Thread.Sleep(5000);
-                WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL, 140);
-                string valImage = driver.FindElement(btnPortfolioVL).Text;
+                WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVL2, 140);
+                string valImage = driver.FindElement(btnPortfolioVL2).Text;
             return valImage;
 
             }
@@ -5802,8 +5802,8 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 80);
             driver.FindElement(lnkMoreL).Click();
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReqEngL, 320);
-            driver.FindElement(btnReqEngL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReqEng1L, 320);
+            driver.FindElement(btnReqEng1L).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, msgReqEngFVAL, 320);
             string validations = driver.FindElement(msgReqEngFVAL).Text;
             driver.FindElement(btnCloseReqEngFVAL).Click();
@@ -8154,12 +8154,12 @@ namespace SF_Automation.Pages
             Thread.Sleep(4000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,-500)");
-            Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkReqEngL, 350);
-            driver.FindElement(lnkReqEngL).Click();
+            Thread.Sleep(8000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReqEng1L, 350);
+            driver.FindElement(btnReqEng1L).Click();
             Thread.Sleep(6000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngL, 360);
-            driver.FindElement(btnConvertToEngL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngPVL, 360);
+            driver.FindElement(btnConvertToEngPVL).Click();
             Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblEngagement, 370);
             string value = driver.FindElement(lblEngagement).Text;

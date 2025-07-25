@@ -538,7 +538,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 80);
             driver.FindElement(lnkMoreL).Click();
             Thread.Sleep(5000);
-            By btnPortfolioVCAOL = By.XPath("//span[text()='Portfolio Valuation']");
+            By btnPortfolioVCAOL = By.XPath("//button[text()='Portfolio Valuation']");
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVCAOL, 120);
             driver.FindElement(btnPortfolioVCAOL).Click();

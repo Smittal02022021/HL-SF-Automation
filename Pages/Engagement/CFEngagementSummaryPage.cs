@@ -230,6 +230,8 @@ namespace SF_Automation.Pages.Engagement
         By btnMoreFin = By.XPath("//tr[1]/td[6]//lightning-button-menu/button");
         By lnkEditRecord = By.XPath("//span[text()='Edit']");
         By chkEngFinCheck = By.XPath("//input[@name='Engagement_Financials_Check__c']");
+        By chkEngContactCheck = By.XPath("//input[@name='Engagement_Contacts_Seller_Check__c']");
+        By chkEngContactNoAttorneyCheck = By.XPath("//input[@name='Engagement_Contact_Seller_No_Attorney__c']");
         By lnkDeleteRecord = By.XPath("//span[text()='Delete']");
         By btnWinCancel = By.XPath("//button[text()='Cancel']");
         By btnWinOk = By.XPath("//button[text()='Ok']");
@@ -244,6 +246,8 @@ namespace SF_Automation.Pages.Engagement
         By lnkEdit = By.XPath("//span[text()='Edit']");
         By iconEngContactCheck = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]/div//span[text()='Engagement Contacts Seller Check']/ancestor::lightning-output-field//button/span[2]");
         By iconEngContactAttorneyCheck = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]/div//span[text()='Engagement Contact Seller No Attorney']/ancestor::lightning-output-field//button/span[2]");
+        By btnEditCheckbox = By.XPath("//button[@title='Edit: Engagement_Contact_Seller_No_Attorney__c']");
+        By chkNoAttorney = By.XPath("//input[@name='Engagement_Contact_Seller_No_Attorney__c']");
 
 
         public void ClickEngagementDynamicsSection()
@@ -2004,7 +2008,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnClose).Click();
             Thread.Sleep(6000);
             actions.MoveToElement(driver.FindElement(iconSellerFin)).Perform();
-            WebDriverWaits.WaitUntilEleVisible(driver, msgSellerFin,180);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSellerFin,250);
             string value = driver.FindElement(msgSellerFin).Text;
             return value;
         }
@@ -2099,8 +2103,15 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             driver.FindElement(btnRefreshContact).Click();
             Thread.Sleep(4000);
-            string value = driver.FindElement(valAddedContact).Text;
-            return value;
+            try
+            {
+                string value = driver.FindElement(valAddedContact).Text;
+                return value;
+            }
+            catch
+            {
+                return "No contact exists";
+            }
         }
         public string ValidateEngContactCheckIcon()
         {
@@ -2115,6 +2126,97 @@ namespace SF_Automation.Pages.Engagement
             string value = driver.FindElement(iconEngContactAttorneyCheck).Text;
             return value;
         }
+
+        public string ValidateEngContactSellerCheckbox()
+        {
+            if (driver.FindElement(chkEngContactCheck).Displayed)
+            {
+                CustomFunctions.MoveToElement(driver, driver.FindElement(chkEngContactCheck));
+                if (driver.FindElement(chkEngContactCheck).Selected)
+                {
+                    return "Engagement Contacts Seller Check checkbox is displayed and checked";
+                }
+                else
+                {
+                    return "Engagement Contacts Seller Check checkbox is displayed and not-checked";
+                }
+            }
+            else
+            {
+                return "Engagement Contacts Seller Check checkbox is not displayed";
+            }
+        }
+
+        public string ValidateEngContactSellerNoAttorneyCheckbox()
+        {
+            if (driver.FindElement(chkEngContactNoAttorneyCheck).Displayed)
+            {
+                CustomFunctions.MoveToElement(driver, driver.FindElement(chkEngContactNoAttorneyCheck));
+                if (driver.FindElement(chkEngContactNoAttorneyCheck).Selected)
+                {
+                    return "Engagement Contact Seller No Attorney checkbox is displayed and checked";
+                }
+                else
+                {
+                    return "Engagement Contact Seller No Attorney checkbox is displayed and not-checked";
+                }
+            }
+            else
+            {
+                return "Engagement Contact Seller No Attorney checkbox is not displayed";
+            }
+        }
+        public string ValidateEngContactSellerCheckboxAfterCheckingNoAttorney()
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(btnEditCheckbox).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(chkNoAttorney).Click();
+            driver.FindElement(btnSave).Click();
+
+            if (driver.FindElement(chkEngContactCheck).Displayed)
+            {
+                CustomFunctions.MoveToElement(driver, driver.FindElement(chkEngContactCheck));
+                if (driver.FindElement(chkEngContactCheck).Selected)
+                {
+                    return "Engagement Contacts Seller Check checkbox is displayed and checked";
+                }
+                else
+                {
+                    return "Engagement Contacts Seller Check checkbox is displayed and not-checked";
+                }
+            }
+            else
+            {
+                return "Engagement Contacts Seller Check checkbox is not displayed";
+            }
+        }
+        public string ValidateEngContactSellerCheckboxAfterAttorneyByPass()
+        {
+            Thread.Sleep(4000);           
+
+            if (driver.FindElement(chkEngContactCheck).Displayed)
+            {
+                CustomFunctions.MoveToElement(driver, driver.FindElement(chkEngContactCheck));
+                if (driver.FindElement(chkEngContactCheck).Selected)
+                {
+                    driver.FindElement(btnEditCheckbox).Click();
+                    Thread.Sleep(5000);
+                    driver.FindElement(chkNoAttorney).Click();
+                    driver.FindElement(btnSave).Click();
+                    return "Engagement Contacts Seller Check checkbox is displayed and checked";
+                }
+                else
+                {
+                    return "Engagement Contacts Seller Check checkbox is displayed and not-checked";
+                }
+            }
+            else
+            {
+                return "Engagement Contacts Seller Check checkbox is not displayed";
+            }
+        }
+
     }
     
 }
