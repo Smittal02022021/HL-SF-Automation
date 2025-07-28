@@ -248,8 +248,9 @@ namespace SF_Automation.Pages.Engagement
         By iconEngContactAttorneyCheck = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]/div//span[text()='Engagement Contact Seller No Attorney']/ancestor::lightning-output-field//button/span[2]");
         By btnEditCheckbox = By.XPath("//button[@title='Edit: Engagement_Contact_Seller_No_Attorney__c']");
         By chkNoAttorney = By.XPath("//input[@name='Engagement_Contact_Seller_No_Attorney__c']");
-
-
+        By secCapitalization = By.XPath("//span[text()='Capitalization Details']");
+        By subSecCapitalization = By.XPath("//span[text()='Capitalization Details']/ancestor::section[1]/div[2]//h2/span");
+        By lblSourceOfFundsFields = By.XPath("//span[text()='Capitalization Details']/ancestor::section[1]/div[2]//div[1]/div[contains(@class,'sourcefunds')]//form//div[1]//lightning-output-field/span");
         public void ClickEngagementDynamicsSection()
         {
             Thread.Sleep(5000);
@@ -2217,6 +2218,65 @@ namespace SF_Automation.Pages.Engagement
             }
         }
 
+        public string ValidateCapitalizationSection()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, secCapitalization);
+            string value = driver.FindElement(secCapitalization).Text;
+            return value;
+        }
+
+        public bool VerifySubSectionsOfCapitalization()
+        {
+            driver.FindElement(secCapitalization).Click();
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> valSections = driver.FindElements(subSecCapitalization);
+            var actualValue = valSections.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Source of Funds", "Use of Funds" };
+            Console.WriteLine(expectedValue[1]);
+           
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+        public bool VerifyFieldsOfSourceFunds()
+        {            
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> valSections = driver.FindElements(lblSourceOfFundsFields);
+            var actualValue = valSections.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Revolving Credit Facility", "Source Revolving Credit Facility Percent", "Term Loan A", "Source Term Loan A Percent", "Term Loan B", "Source Term Loan B Percent", "Term Loan C", "Source Term Loan C Percent", "Delayed Draw Term Loan", "Source Delayed Draw Term Loan Percent", "Senior Subordinated Debt", "Source Senior Subordinated Debt Percent", "Junior Subordinated Debt", "Source Junior Subordinated Debt Percent", "Unitranche Debt", "Source Unitranche Debt Percent", "Preferred Equity", "Source Preferred Equity Percent", "Common Equity", "Source Common Equity Percent", "Seller Notes", "Source Seller Notes Percent", "Company Cash / AR", "Source Company Cash / AR Percent", "Total Sources"};
+            Console.WriteLine(expectedValue[1]);
+
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
     }
     
 }
