@@ -65,6 +65,10 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("Project Moon", message);
                 extentReports.CreateLog("Records matching with selected Job Type are displayed ");
 
+                engagementDetails.ValidateFeesTab();
+                string valCurrency = engagementDetails.GetCurrencyL();
+                string finalCurrency = valCurrency.Substring(0, 3);
+
                 //1. TMTI0114561_Verify the availability of Capitalization Details subsections on the CF Engagement Summary
                 engagementDetails.ClickCFEngsummaryButtonL();
                 string secParties = summaryPage.ValidateCapitalizationSection();           
@@ -72,10 +76,21 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.IsTrue(summaryPage.VerifySubSectionsOfCapitalization(), "Verify that displayed sub sections under Capitalization section are same");
                 extentReports.CreateStepLogs("Passed", "Displayed sub sections under Capitalization section are as expected ");
 
-
                 //2. TMTI0114560_Verify the fields and values added on the Capitalization Details – Source of Funds subsection
                 Assert.IsTrue(summaryPage.VerifyFieldsOfSourceFunds(), "Verify that displayed fields of Source Of funds section are same");
                 extentReports.CreateStepLogs("Passed", "Displayed fields of source Of funds section are as expected ");
+
+                //---Validate Cancel Functionality
+                string cancelValue = summaryPage.ValidateCancelFunctionalityOfSourceOfFunds("12");
+                Assert.AreEqual(finalCurrency + " 0", cancelValue);
+                extentReports.CreateLog("Entered value for Revolving Credit Facility field is not saved after clicking Cancel button ");
+
+                //---Validate Save Functionality
+                string editValue = summaryPage.ValidateEditFunctionalityOfSourceOfFunds("12");
+                Console.WriteLine("EditValue: " + editValue);
+                Assert.AreEqual(finalCurrency+" 12", editValue);
+                extentReports.CreateLog("Entered value for Revolving Credit Facility: "+editValue+ " is saved after clicking Save button with the same currency as of Engagement ");
+                summaryPage.ValidateEditFunctionalityOfSourceOfFunds("0");
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();

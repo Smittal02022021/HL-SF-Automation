@@ -251,6 +251,11 @@ namespace SF_Automation.Pages.Engagement
         By secCapitalization = By.XPath("//span[text()='Capitalization Details']");
         By subSecCapitalization = By.XPath("//span[text()='Capitalization Details']/ancestor::section[1]/div[2]//h2/span");
         By lblSourceOfFundsFields = By.XPath("//span[text()='Capitalization Details']/ancestor::section[1]/div[2]//div[1]/div[contains(@class,'sourcefunds')]//form//div[1]//lightning-output-field/span");
+        By btnEditCreditFacility = By.XPath("//button[@title='Edit: Source_Revolving_Credit_Facility__c']");
+        By txtCreditFacility = By.XPath("//input[@name='Source_Revolving_Credit_Facility__c']");
+        By valCreditFacility = By.XPath("//span[text()='Revolving Credit Facility']/ancestor::div[1]//div[1]/lightning-formatted-text");
+        
+        
         public void ClickEngagementDynamicsSection()
         {
             Thread.Sleep(5000);
@@ -2276,6 +2281,33 @@ namespace SF_Automation.Pages.Engagement
                 }
             }
             return isSame;
+        }
+
+        public string ValidateCancelFunctionalityOfSourceOfFunds(string number)
+        {
+            driver.FindElement(btnEditCreditFacility).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(txtCreditFacility).SendKeys(number);
+            driver.FindElement(btnCancel).Click();
+            string value = driver.FindElement(valCreditFacility).Text;
+            return value.Substring(0, 5); 
+        }
+
+        public string ValidateEditFunctionalityOfSourceOfFunds(string number)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,-150)");
+            Thread.Sleep(5000);
+            driver.FindElement(btnEditCreditFacility).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(txtCreditFacility).Clear();
+            driver.FindElement(txtCreditFacility).SendKeys(number);
+            Thread.Sleep(5000);
+            driver.FindElement(btnSave).Click();            
+            js.ExecuteScript("window.scrollTo(0,-150)");
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valCreditFacility).Text;
+            return value.Substring(0,6);
         }
     }
     

@@ -760,6 +760,7 @@ namespace SF_Automation.Pages
         By comboSubGrpL = By.XPath("//label[text()='Sub Group']/..//button");
         By optionSubGrpL = By.XPath("//label[text()='Sub Group']/..//lightning-base-combobox-item//span[text()='Capital Alliance']");
         By btnPortfolioVCAOL = By.XPath("//span[text()='Portfolio Valuation']");
+        By btnPorttfolioV = By.XPath("//button[text()='Portfolio Valuation']");
         By btnMassEditRecordsL = By.XPath("//button[text()='Mass Edit Records']");
         By titleMassEditPageL = By.XPath("//header/div[2]/h2/span");
         By linkEng = By.XPath("//article[@aria-label='Engagements']//article//h3//a/../..");
@@ -2133,8 +2134,8 @@ namespace SF_Automation.Pages
         //Click Portfolio valuation button and get title of page
         public string ClickPortfolioValuationL()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnPortfolioVCAOL, 120);
-            driver.FindElement(btnPortfolioVCAOL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnPorttfolioV, 120);
+            driver.FindElement(btnPorttfolioV).Click();
             Thread.Sleep(5000);//button[text()='Portfolio Valuation']
             driver.SwitchTo().Frame(0);
             //driver.SwitchTo().Frame(driver.FindElement(By.XPath("//div/force-aloha-page/div/iframe")));
@@ -8066,7 +8067,7 @@ namespace SF_Automation.Pages
         //Click Opp Name tab
         public void ClickOppName()
         {
-            Thread.Sleep(7000);
+            Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabOppNameL, 150);
             driver.FindElement(tabOppNameL).Click();
         }
@@ -8151,19 +8152,34 @@ namespace SF_Automation.Pages
 
         public string ClickReqToEngagementPV()
         {
-            Thread.Sleep(4000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,-500)");
-            Thread.Sleep(8000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReqEng1L, 350);
-            driver.FindElement(btnReqEng1L).Click();
-            Thread.Sleep(6000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngPVL, 360);
-            driver.FindElement(btnConvertToEngPVL).Click();
-            Thread.Sleep(7000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lblEngagement, 370);
-            string value = driver.FindElement(lblEngagement).Text;
-            return value;
+            //driver.FindElement(btnCloseReqEngFVAL).Click();
+            try
+            {
+                Thread.Sleep(8000);
+                IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+                js.ExecuteScript("window.scrollTo(0,-500)");
+                Thread.Sleep(8000);               
+                WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngPVL, 360);
+                driver.FindElement(btnConvertToEngPVL).Click();
+                Thread.Sleep(7000);
+                WebDriverWaits.WaitUntilEleVisible(driver, lblEngagement, 370);
+                string value = driver.FindElement(lblEngagement).Text;
+                return value;
+            }
+            catch
+            {
+                driver.FindElement(btnCloseReqEngFVAL).Click();
+                Thread.Sleep(5000);
+                IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+                js.ExecuteScript("window.scrollTo(0,-500)");
+                Thread.Sleep(8000);                
+                WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngPVL, 360);
+                driver.FindElement(btnConvertToEngPVL).Click();
+                Thread.Sleep(7000);
+                WebDriverWaits.WaitUntilEleVisible(driver, lblEngagement, 370);
+                string value = driver.FindElement(lblEngagement).Text;
+                return value;
+            }
         }
 
         public string ClickReqToEngagementFR()
