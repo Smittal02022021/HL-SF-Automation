@@ -481,7 +481,7 @@ namespace SF_Automation.Pages
         By btnAddFVAContact = By.XPath("//button[@name='Opportunity__c.Add_FVA_Opportunity_Contact']");
         By btnLocationBenefitL = By.XPath("//button[contains(@aria-label,'Location where Benefit is to be Provided')]");
         By secReferralInfo = By.XPath("//span[text()='Referral Info']");
-        By secAdditionalClient = By.XPath("//h2//span[text()='Clients/Subjects']");
+        By secAdditionalClient = By.XPath("//span[text()='Client/Subjects']");
         By lnkEditRefType = By.XPath("//button[@title='Edit Referral Type']");
         By valRefTypeBefore = By.XPath("//button[@data-value='Accountant']");
         By btnRefType = By.XPath("//label[text()='Referral Type']/ancestor::lightning-combobox/div/div[1]/lightning-base-combobox/div/div[1]/div/button");
