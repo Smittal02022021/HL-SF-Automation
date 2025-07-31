@@ -7904,7 +7904,8 @@ namespace SF_Automation.Pages.Engagement
         public void ClickEngInfoTabLV()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(tabInformationL));
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabInformationL, 10);
             driver.FindElement(tabInformationL).Click();
 

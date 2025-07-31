@@ -1253,7 +1253,7 @@ namespace SF_Automation.Pages.Common
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, chkVerballyEngL, 20);
             Thread.Sleep(2000);
             return driver.FindElement(chkVerballyEngL).Selected;
