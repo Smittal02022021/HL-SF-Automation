@@ -254,8 +254,12 @@ namespace SF_Automation.Pages.Engagement
         By btnEditCreditFacility = By.XPath("//button[@title='Edit: Source_Revolving_Credit_Facility__c']");
         By txtCreditFacility = By.XPath("//input[@name='Source_Revolving_Credit_Facility__c']");
         By valCreditFacility = By.XPath("//span[text()='Revolving Credit Facility']/ancestor::div[1]//div[1]/lightning-formatted-text");
-        
-        
+        By lblUseOfFundsFields = By.XPath("//span[text()='Capitalization Details']/ancestor::section[1]/div[2]//div[1]/div[contains(@class,'usefunds')]//form//div[1]//lightning-output-field/span");
+        By btnEditPurchasePrice = By.XPath("//button[@title='Edit: Use_Purchase_Price__c']");
+        By txtPurchasePrice = By.XPath("//input[@name='Use_Purchase_Price__c']");
+        By valPurchasePrice = By.XPath("//span[text()='Purchase Price']/ancestor::div[1]//div[1]/lightning-formatted-text");
+
+
         public void ClickEngagementDynamicsSection()
         {
             Thread.Sleep(5000);
@@ -2289,6 +2293,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             driver.FindElement(txtCreditFacility).SendKeys(number);
             driver.FindElement(btnCancel).Click();
+            Thread.Sleep(4000);
             string value = driver.FindElement(valCreditFacility).Text;
             return value.Substring(0, 5); 
         }
@@ -2308,6 +2313,59 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             string value = driver.FindElement(valCreditFacility).Text;
             return value.Substring(0,6);
+        }
+
+        public bool VerifyFieldsOfUseOfFunds()
+        {
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> valSections = driver.FindElements(lblUseOfFundsFields);
+            var actualValue = valSections.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Purchase Price", "Use Purchase Price Percent", "Fees & Expenses", "Use Fees & Expenses Percent", "Closing Cash Balance", "Use Closing Cash Balance Percent", "Proceeds to Shareholders", "Use Proceeds To Shareholders Percent", "Debt Paid at Closing", "Use Debt Paid at Closing Percent", "Assumption Of Debt", "Use Assumption of Debt Percent", "Deal Bonuses", "Use Deal Bonuses Percent", "Other", "Use Other Percent", "Total Uses" };
+            Console.WriteLine(expectedValue[1]);
+
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        public string ValidateCancelFunctionalityOfUseOfFunds(string number)
+        {
+            driver.FindElement(btnEditPurchasePrice).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(txtPurchasePrice).SendKeys(number);
+            driver.FindElement(btnCancel).Click();
+            string value = driver.FindElement(valPurchasePrice).Text;
+            return value.Substring(0, 5);
+        }
+
+        public string ValidateEditFunctionalityOfUseOfFunds(string number)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,-150)");
+            Thread.Sleep(5000);
+            driver.FindElement(btnEditPurchasePrice).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(txtPurchasePrice).Clear();
+            driver.FindElement(txtPurchasePrice).SendKeys(number);
+            Thread.Sleep(5000);
+            driver.FindElement(btnSave).Click();
+            js.ExecuteScript("window.scrollTo(0,-150)");
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valPurchasePrice).Text;
+            return value.Substring(0, 6);
         }
     }
     

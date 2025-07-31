@@ -12,7 +12,7 @@ using System.Reflection;
 
 namespace SF_Automation.TestCases.Engagement
 {
-    class TMTT0046851_CFEngagementSumamry_VerificationOfCapitalizationDetailsSectionAndSubsections : BaseClass
+    class TMTT0046852_CFEngagementSumamry_VerificationOfTimelineSectionAndSubsections : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
