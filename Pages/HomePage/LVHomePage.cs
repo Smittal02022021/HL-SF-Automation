@@ -383,6 +383,7 @@ namespace SF_Automation.Pages.HomePage
 
         public void LogoutFromSFLightningAsApprover()
         {
+            driver.SwitchTo().DefaultContent();
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(5000);

@@ -7,8 +7,6 @@ using SF_Automation.UtilityFunctions;
 using SF_Automation.TestData;
 using NUnit.Framework;
 using System;
-using Microsoft.Office.Interop.Excel;
-using static MongoDB.Bson.Serialization.Serializers.SerializerHelper;
 
 
 namespace SalesForce_Project.TestCases.Opportunities
@@ -28,7 +26,8 @@ namespace SalesForce_Project.TestCases.Opportunities
         RandomPages randomPages = new RandomPages();
         HomeMainPage homePage = new HomeMainPage();
         public static string fileT47926 = "LV_TMTT0047923_TMTT0047926_TMTT0047929_1_VerifyJobTypeDisplayedInJobTypeDropDownWhileAddingNewOpportunity";
-        
+        private string nameRevAccu;
+
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -198,7 +197,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     Assert.AreEqual("Success", ERPStatus, "Verify the Engagement ERP Last Integration Status as Success ");
                     extentReports.CreateStepLogs("Passed", "Engagement ERP Last Integration Status updated: " + ERPStatus+ " for the opportunity having Job type as "+valJobType);
 
-                    /*Only works on VM only 
+                    //Only works on VM only 
                     //TMTI0117819	Verify that the new Job type "DRC -Dispute" gets displayed in Opportunities -> Conflict check page. 
                     //TMTI0117842	Verify that the new Job type "DRC -ESOP" gets displayed in Engagement -> Conflict check page. 
                     //TMTI0117839	Verify that the new Job type "DRC -ESOP" gets displayed in Opportunities -> Conflict check page. 
@@ -207,7 +206,8 @@ namespace SalesForce_Project.TestCases.Opportunities
                     string jobTypeCC= opportunityDetails.GetConflictTypeJobTypeLV();
                     Assert.AreEqual(jobTypeCC, valJobType);
                     extentReports.CreateStepLogs("Passed", "Job Type: " + jobTypeCC+ " updatd on Opportunity Conflicts Check form ");
-
+                    
+                    /*
                     //TMTI0117823	Verify the Job code  in the Opportunity Report - PIF (Opportunity) page for the Job type "DRC – Dispute".
                     opportunityDetails.ClickOpportunityReportsLV();
                     opportunityDetails.ClickPIFOpportunityLV();
@@ -320,26 +320,45 @@ namespace SalesForce_Project.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "Billing Request Email page closed");
 
                     //TMTI0119041	Verify that the new Job type "DRC -Dispute" gets displayed in Revenue Accrual page.
+                    //TMTI0117838	Verify that the new Job type "DRC -ESOP" gets displayed in Revenue Accrual page.
+                    //TMTI0117869	Verify that the new Job type "DRC -Estate & Gift" gets displayed in Revenue Accrual page.
 
-                    engagementDetails.ClickRevenueTabLV();
-                    engagementDetails.AddNewRevenueAccuralsLV();
-                    string nameRevAccu=engagementDetails.GetRevenueAccrualNumberLV();
-                    extentReports.CreateStepLogs("Passed", "New Revenue Accrual: " + nameRevAccu + " Added");
+                    if (valJobType == "DRC - Estate & Gift")
+                    {
+                        string engStageExl= ReadExcelData.ReadData(excelPath, "EngStage", 1);
+                        engagementDetails.UpdateStageLV(engStageExl);
+                        engagementDetails.ClickRevenueTabLV();
+                        engagementDetails.SelectRevenueAccrualLV();
+                        nameRevAccu = engagementDetails.GetRevenueAccrualNumberLV();
+                        extentReports.CreateStepLogs("Passed", "New Revenue Accrual: " + nameRevAccu + " Added");
+
+                    }
+
+                    else
+                    {
+                        engagementDetails.ClickRevenueTabLV();
+                        engagementDetails.AddNewRevenueAccuralsLV();
+                        nameRevAccu = engagementDetails.GetRevenueAccrualNumberLV();
+                        extentReports.CreateStepLogs("Passed", "New Revenue Accrual: " + nameRevAccu + " Added");
+
+                    }
 
                     string revAccuJobType = engagementDetails.GetRevAccuralJobTypeLV();
                     Assert.AreEqual(valJobType, revAccuJobType, "Verify that the new Job type: "+valJobType+" gets displayed in Revenue Accrual page");
                     extentReports.CreateStepLogs("Passed", "New Job type: " + valJobType + " gets displayed in Revenue Accrual page");
 
                     randomPages.CloseActiveTab(nameRevAccu);
-                    /*
+                    
                     //TMTI0117810	Verify that the new Job type "DRC -Dispute" gets displayed in Engagement -> Conflict check page. 
                     //Only works on VM only 
                     engagementDetails.ClickConflicksCheckLV();
-                    string jobTypeCC = engagementDetails.GetConflictTypeJobTypeLV();
+                    jobTypeCC = engagementDetails.GetConflictTypeJobTypeLV();
                     Assert.AreEqual(jobTypeCC, valJobType);
                     extentReports.CreateStepLogs("Passed", "Job Type: " + jobTypeCC + " updatd on Engagement Conflicts Check form ");
-
+                    
+                    /*
                     //TMTI0117821	Verify the Job code  in the Engagement Report - PIF page for the Job type "DRC – Dispute". 
+                    
                     engagementDetails.ClickOpportunityReportsLV();
                     engagementDetails.ClickPIFOpportunityLV();
 

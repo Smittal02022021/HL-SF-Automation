@@ -969,6 +969,7 @@ namespace SF_Automation.Pages.Engagement
         public string GetValueLocationBenefitLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabAdministationL1, 10);
+            Thread.Sleep(2000);
             driver.FindElement(tabAdministationL1).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtLocationBenefitL, 10);
             driver.FindElement(tabDetails).Click();
@@ -7902,12 +7903,16 @@ namespace SF_Automation.Pages.Engagement
         }
         public void ClickEngInfoTabLV()
         {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(tabInformationL));
             WebDriverWaits.WaitUntilEleVisible(driver, tabInformationL, 10);
             driver.FindElement(tabInformationL).Click();
 
         }
         public void ClickEngAdministrationTabLV()
         {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(tabInformationL));
             WebDriverWaits.WaitUntilEleVisible(Driver, subTabAdmin, 10);
             driver.FindElement(subTabAdmin).Click();
 
@@ -8751,5 +8756,33 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, txtRevAccuNumberL, 10);
             return driver.FindElement(txtRevAccuNumberL).Text;
         }
+
+        public void UpdateStageLV(string valStage)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 60);
+            driver.FindElement(btnEditL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, ComboStagePriorityL, 20);
+            driver.FindElement(ComboStagePriorityL).Click();
+
+            By eleStage = By.XPath($"//label[text()='Stage']/following::lightning-base-combobox-item//span[@title='{valStage}']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleStage));
+            driver.FindElement(eleStage).Click();
+            Thread.Sleep(2000);
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(5000);
+            driver.Navigate().Refresh();
+            Thread.Sleep(10000);
+        }
+        By lnkRevAccuL = By.XPath("//table[@aria-label='Revenue Accruals']//tbody//tr[1]/th//a[2]");
+        public void SelectRevenueAccrualLV()
+        {
+            Thread.Sleep(5000);
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            jse.ExecuteScript("window.scrollTo(0,1000)");
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkRevAccuL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lnkRevAccuL));
+            driver.FindElement(lnkRevAccuL).Click();
+        }
+
     }
 }

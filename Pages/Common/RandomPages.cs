@@ -1,8 +1,10 @@
-﻿using Microsoft.Office.Interop.Excel;
+﻿using AventStack.ExtentReports.Gherkin.Model;
+using Microsoft.Office.Interop.Excel;
 using OpenQA.Selenium;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
@@ -1355,6 +1357,91 @@ namespace SF_Automation.Pages.Common
 
             return isSame;
 
+        }
+        By btnNewReportL = By.XPath("//div[@role='banner']//ul//a[@title='New Report']");
+        By frameCreateReportPage = By.XPath("//iframe[@title='Report Builder']");
+        By inputSearchReportTypeL = By.XPath("//input[@placeholder='Search Report Types...']");
+        By btnStartReportL = By.XPath("//button[text()='Start Report']");
+        By subTabFilterL = By.XPath("//ul[@role='tablist']//li//h2[text()='Filters']//ancestor::a");
+        By inputAddFilterL = By.XPath("//input[@placeholder='Add filter...']");
+        By inputSearchFilterItemL = By.XPath("//h2[text()='Filter By']/../..//label[text()='Search for item']/..//input");
+        By btnCancelFilterBySection = By.XPath("//button[text()='Cancel']");
+        By resultTable = By.XPath("//table//td//p");
+        private By _optionReportsL(string reportName)
+        {
+            return By.XPath($"//table//td//p[text()='{reportName}']/..");
+        }
+        private By _optionFilterL(string filterName)
+        {
+            return By.XPath($"//div[@role='listbox']//li//span[@title='{filterName}']");
+        }
+        private By _optionFilterValueL(string filterValue)
+        {
+            return By.XPath($"//div[@role='option']//div[@class='option-label'][text()='{filterValue}']");
+        }
+        public void CreateNewReportLV(string reportName)
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewReportL, 20);
+            driver.FindElement(btnNewReportL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, frameCreateReportPage, 20);
+            driver.SwitchTo().Frame(driver.FindElement(frameCreateReportPage));            
+            WebDriverWaits.WaitUntilEleVisible(driver, inputSearchReportTypeL, 20);
+            Thread.Sleep(10000);
+            driver.FindElement(inputSearchReportTypeL).SendKeys(reportName);
+            Thread.Sleep(2000);
+            IWebElement optionReport = driver.FindElement(_optionReportsL(reportName));
+            WebDriverWaits.WaitUntilEleVisible(driver, _optionReportsL(reportName), 20);
+            jse.ExecuteScript("arguments[0].scrollIntoView(true);", optionReport);
+            WebDriverWaits.WaitUntilEleVisible(driver, resultTable, 20);
+            IReadOnlyCollection < IWebElement > tableRow= driver.FindElements(resultTable);
+            foreach(IWebElement element in tableRow)
+            {
+               string value= element.Text;
+                if (value == reportName)
+                {
+                    element.Click();
+                    break;
+                }
+            }           
+            WebDriverWaits.WaitUntilEleVisible(driver, btnStartReportL, 20);
+            driver.FindElement(btnStartReportL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, subTabFilterL, 20);            
+        }
+        public void AddReportFilterLV(string filter)
+        {   
+            WebDriverWaits.WaitUntilEleVisible(driver, subTabFilterL, 20);
+            driver.FindElement(subTabFilterL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, inputAddFilterL, 20);
+            driver.FindElement(inputAddFilterL).SendKeys(filter);
+            WebDriverWaits.WaitUntilEleVisible(driver, _optionFilterL(filter), 10);
+            driver.FindElement(_optionFilterL(filter)).Click();            
+            WebDriverWaits.WaitUntilEleVisible(driver, inputSearchFilterItemL, 20);
+        }
+        public bool IsFilterValueDisplayedLV(string filterValue)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, inputSearchFilterItemL, 20);
+            try
+            {
+                driver.FindElement(inputSearchFilterItemL).Clear();
+                driver.FindElement(inputSearchFilterItemL).SendKeys(filterValue);
+                WebDriverWaits.WaitUntilEleVisible(driver, _optionFilterValueL(filterValue), 20);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(_optionFilterValueL(filterValue)));
+                //Thread.Sleep(2000);
+                bool isValueFound= driver.FindElement(_optionFilterValueL(filterValue)).Displayed;                
+                return isValueFound;
+            }
+            catch
+            {
+                driver.FindElement(btnCancelFilterBySection).Click();
+                return false; 
+            }  
+
+        }
+        public void CancelFilterBySectionLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancelFilterBySection, 20);
+            driver.FindElement(btnCancelFilterBySection).Click();
         }
 
     }

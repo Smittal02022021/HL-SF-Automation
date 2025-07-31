@@ -90,12 +90,13 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(displayedTab, "Info");
                     extentReports.CreateStepLogs("Pass", "User is on Opportunity detail " + displayedTab + " tab ");
 
-                    //opportunityDetails
-                    opportunityDetails.NavigaterToClientSubjectTabLV();
-                    extentReports.CreateStepLogs("Info", "Navigate To Client Subject Tab ");
-
                     //*****////
                     extentReports.CreateStepLogs("Pass", "****UI Changes No Main checkbox**** Primary checkbox is checked for added Client and Subject company*********");
+
+                    //opportunityDetails
+                    //opportunityDetails.NavigaterToClientSubjectTabLV();
+                    //extentReports.CreateStepLogs("Info", "Navigate To Client Subject Tab ");
+
                     ////Validate if Primary checkbox is checked for added Client and Subject company
                     //string valueClient = opportunityDetails.GetPrimaryCheckboxOfClientCompanyLV();
                     //Assert.AreEqual("Checked", valueClient);
