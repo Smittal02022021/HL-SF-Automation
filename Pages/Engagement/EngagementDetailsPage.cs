@@ -8649,6 +8649,9 @@ namespace SF_Automation.Pages.Engagement
         
         public void ClickConflicksCheckLV()
         {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(10000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnConflictsCheckL, 10);
             driver.FindElement(btnConflictsCheckL).Click();
         }
