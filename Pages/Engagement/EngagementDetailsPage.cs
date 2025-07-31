@@ -8652,15 +8652,16 @@ namespace SF_Automation.Pages.Engagement
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,0)");
-            Thread.Sleep(10000);
+            Thread.Sleep(1000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnConflictsCheckL, 10);
             driver.FindElement(btnConflictsCheckL).Click();
         }
 
         public string GetConflictTypeJobTypeLV()
         {
+            Thread.Sleep(10000);
             CustomFunctions.SwitchToWindow(driver, 1);
-            WebDriverWaits.WaitUntilEleVisible(driver, valCCJobTypeL, 10);
+            WebDriverWaits.WaitUntilEleVisible(driver, valCCJobTypeL, 30);
             string value = driver.FindElement(valCCJobTypeL).Text;
             CustomFunctions.SwitchToWindow(driver, 1);
             driver.Close();
