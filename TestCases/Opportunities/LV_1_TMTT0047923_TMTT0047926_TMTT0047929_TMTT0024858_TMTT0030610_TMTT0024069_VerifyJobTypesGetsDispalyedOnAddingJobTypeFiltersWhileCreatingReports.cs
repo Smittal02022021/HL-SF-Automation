@@ -33,7 +33,11 @@ namespace SalesForce_Project.TestCases.Opportunities
         //TMTI0117815 Verify that the Job type "DRC -Dispute" gets dispalyed on adding Job type column in Filters while creating the reports.
         //TMTI0117852 Verify that the Job type "DRC -ESOP" gets displayed on adding Job type column in Filters while creating the reports.
         //TMTI0117864 Verify that the Job type "DRC - Estate & Gift" gets displayed on adding Job type column in Filters while creating the reports.
-        
+        //TMTI0071646 Verify the New Job Types are updated while creating the relevant reports from the Reports tab.
+        //TMTI0056871 Verify the New Job Types are updated while creating the relevant reports from Reports tab
+        //TMTI0055400 Verify the New Job Types are updated while creating the relevant reports from Reports tab
+
+
         [Test]
         public void VerifyJobTypesGetsDispalyedOnAddingJobTypeFiltersWhileCreatingReports()
         {

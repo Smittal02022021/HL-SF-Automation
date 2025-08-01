@@ -348,7 +348,9 @@ namespace SalesForce_Project.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "New Job type: " + valJobType + " gets displayed in Revenue Accrual page");
 
                     randomPages.CloseActiveTab(nameRevAccu);
-                    
+
+                    //********Need to close new rev window************
+                    randomPages.CloseActiveTab("New Revenue Accrual");
                     //TMTI0117810	Verify that the new Job type "DRC -Dispute" gets displayed in Engagement -> Conflict check page. 
                     //Only works on VM only 
                     engagementDetails.ClickConflicksCheckLV();
@@ -356,13 +358,6 @@ namespace SalesForce_Project.TestCases.Opportunities
                     Assert.AreEqual(jobTypeCC, valJobType);
                     extentReports.CreateStepLogs("Passed", "Job Type: " + jobTypeCC + " updatd on Engagement Conflicts Check form ");
                     
-                    /*
-                    //TMTI0117821	Verify the Job code  in the Engagement Report - PIF page for the Job type "DRC – Dispute". 
-                    
-                    engagementDetails.ClickOpportunityReportsLV();
-                    engagementDetails.ClickPIFOpportunityLV();
-
-                    */
                     randomPages.CloseActiveTab(opportunityName);
 
                     //TMTI0117818   Verify that the Job Type "DRC – Dispute" gets displayed in the search results on searching with the Engagement number in Global search
