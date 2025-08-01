@@ -69,45 +69,36 @@ namespace SF_Automation.TestCases.Engagement
                 string valCurrency = engagementDetails.GetCurrencyL();
                 string finalCurrency = valCurrency.Substring(0, 3);
 
-                //1. TMTI0114561_Verify the availability of Capitalization Details subsections on the CF Engagement Summary
+                //1.  TMTI0114562_Verify the sub-sections "Bidding, Signing and Closing" present under the "Engagement Timeline" section
                 engagementDetails.ClickCFEngsummaryButtonL();
-                string secParties = summaryPage.ValidateCapitalizationSection();           
+                string secParties = summaryPage.ValidateEngTimelineSection();           
                 
-                Assert.IsTrue(summaryPage.VerifySubSectionsOfCapitalization(), "Verify that displayed sub sections under Capitalization section are same");
-                extentReports.CreateStepLogs("Passed", "Displayed sub sections under Capitalization section are as expected ");
+                Assert.IsTrue(summaryPage.VerifySubSectionsOfTimeline(), "Verify that displayed sub sections under Engagement Timeline section are same");
+                extentReports.CreateStepLogs("Passed", "Displayed sub sections under Engagement Timeline section are as expected ");
 
-                //2. TMTI0114560_Verify the fields and values added on the Capitalization Details – Source of Funds subsection
-                Assert.IsTrue(summaryPage.VerifyFieldsOfSourceFunds(), "Verify that displayed fields of Source Of funds section are same");
-                extentReports.CreateStepLogs("Passed", "Displayed fields of source Of funds section are as expected ");
+                //--Verify the fields of Bidding section
+                Assert.IsTrue(summaryPage.VerifyFieldsOfBidding(), "Verify that displayed fields of Bidding section are same");
+                extentReports.CreateStepLogs("Passed", "Displayed fields of Bidding section are as expected ");
 
-                //---Validate Cancel Functionality
-                string cancelValue = summaryPage.ValidateCancelFunctionalityOfSourceOfFunds("12");
-                Assert.AreEqual(finalCurrency + " 0", cancelValue);
-                extentReports.CreateLog("Entered value for Revolving Credit Facility field is not saved after clicking Cancel button ");
+                string dateEngagedMessage = summaryPage.ValidateDateEngagedMessageOnHeader();                
+                Assert.AreEqual("Date on Engagement Letter", dateEngagedMessage);
+                extentReports.CreateLog("Tool tip Message " + dateEngagedMessage + " is displayed on Date Engaged field in Bidding section ");
 
-                //---Validate Save Functionality
-                string editValue = summaryPage.ValidateEditFunctionalityOfSourceOfFunds("12");
+                //---Validate Edit Functionality
+                string editValue = summaryPage.ValidateEditFunctionalityOfBidding("27-Jun-2023");
                 Console.WriteLine("EditValue: " + editValue);
-                Assert.AreEqual(finalCurrency+" 12", editValue);
-                extentReports.CreateLog("Entered value for Revolving Credit Facility: "+editValue+ " is saved after clicking Save button with the same currency as of Engagement ");
-                summaryPage.ValidateEditFunctionalityOfSourceOfFunds("0");
+                Assert.AreEqual("27/06/2023", editValue);
+                extentReports.CreateLog("Entered value for Pitch Book Date: "+editValue+ " is saved after clicking Save button ");
 
-                //3.	TMTI0114559_ Verify the fields and values added on the Capitalization Details – Use of Funds subsection
-                Assert.IsTrue(summaryPage.VerifyFieldsOfUseOfFunds(), "Verify that displayed fields of Use Of funds section are same");
-                extentReports.CreateStepLogs("Passed", "Displayed fields of Use Of funds section are as expected ");
-
-                //---Validate Cancel Functionality
-                string cancelValueUse = summaryPage.ValidateCancelFunctionalityOfUseOfFunds("12");
-                Assert.AreEqual(finalCurrency + " 0", cancelValueUse);
-                extentReports.CreateLog("Entered value for Purchase Price field is not saved after clicking Cancel button ");
-
-                //---Validate Save Functionality
-                string editValueUse = summaryPage.ValidateEditFunctionalityOfUseOfFunds("12");
-                Console.WriteLine("EditValue: " + editValueUse);
-                Assert.AreEqual(finalCurrency + " 12", editValueUse);
-                extentReports.CreateLog("Entered value for Purchase Price " + editValueUse + " is saved after clicking Save button with the same currency as of Engagement ");
-                summaryPage.ValidateEditFunctionalityOfUseOfFunds("0");
-
+                //--Verify the fields of Signing section
+                Assert.IsTrue(summaryPage.VerifyFieldsOfBidding(), "Verify that displayed fields of Bidding section are same");
+                extentReports.CreateStepLogs("Passed", "Displayed fields of Bidding section are as expected ");
+                               
+                //---Validate Edit Functionality
+                string editValueSigning = summaryPage.ValidateEditFunctionalityOfBidding("27-Jun-2023");
+                Console.WriteLine("EditValue: " + editValue);
+                Assert.AreEqual("27/06/2023", editValue);
+                extentReports.CreateLog("Entered value for Pitch Book Date: " + editValue + " is saved after clicking Save button ");
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();

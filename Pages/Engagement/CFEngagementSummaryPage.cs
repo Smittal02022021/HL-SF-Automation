@@ -250,6 +250,7 @@ namespace SF_Automation.Pages.Engagement
         By chkNoAttorney = By.XPath("//input[@name='Engagement_Contact_Seller_No_Attorney__c']");
         By secCapitalization = By.XPath("//span[text()='Capitalization Details']");
         By subSecCapitalization = By.XPath("//span[text()='Capitalization Details']/ancestor::section[1]/div[2]//h2/span");
+        By subSecTimeline = By.XPath("//span[text()='Engagement Timeline']/ancestor::section[1]/div[2]//h3//span");
         By lblSourceOfFundsFields = By.XPath("//span[text()='Capitalization Details']/ancestor::section[1]/div[2]//div[1]/div[contains(@class,'sourcefunds')]//form//div[1]//lightning-output-field/span");
         By btnEditCreditFacility = By.XPath("//button[@title='Edit: Source_Revolving_Credit_Facility__c']");
         By txtCreditFacility = By.XPath("//input[@name='Source_Revolving_Credit_Facility__c']");
@@ -258,7 +259,13 @@ namespace SF_Automation.Pages.Engagement
         By btnEditPurchasePrice = By.XPath("//button[@title='Edit: Use_Purchase_Price__c']");
         By txtPurchasePrice = By.XPath("//input[@name='Use_Purchase_Price__c']");
         By valPurchasePrice = By.XPath("//span[text()='Purchase Price']/ancestor::div[1]//div[1]/lightning-formatted-text");
-
+        By secEngTimeline = By.XPath("//span[text()='Engagement Timeline']");
+        By lblBiddingFields = By.XPath("//span[text()='Engagement Timeline']/ancestor::section[1]/div[2]//div[1]/div[contains(@class,'medium')]/div//lightning-output-field/span");
+        By btnEditPitchBookDate = By.XPath("//button[@title='Edit: Pitch_Book_Date__c']");
+        By txtPitchBookDate = By.XPath("//input[@name='Pitch_Book_Date__c']");
+        By valPitchBookDate = By.XPath("//span[text()='Pitch Book Date']/ancestor::div[1]//div[1]/lightning-formatted-text");
+        By msgDateEngaged = By.XPath("//span[text()='Date Engaged']/ancestor::div[1]//lightning-helptext//span[2]");
+        By lblSigningFields = By.XPath("//span[text()='Engagement Timeline']/ancestor::section[1]/div[2]//div[1]/div[contains(@class,'medium')]/div//lightning-output-field/span");
 
         public void ClickEngagementDynamicsSection()
         {
@@ -2315,6 +2322,24 @@ namespace SF_Automation.Pages.Engagement
             return value.Substring(0,6);
         }
 
+
+        public string ValidateEditFunctionalityOfBidding(string number)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,-150)");
+            Thread.Sleep(5000);
+            driver.FindElement(btnEditPitchBookDate).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(txtPitchBookDate).Clear();
+            driver.FindElement(txtPitchBookDate).SendKeys(number);
+            Thread.Sleep(5000);
+            driver.FindElement(btnSave).Click();
+            js.ExecuteScript("window.scrollTo(0,-150)");
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valPitchBookDate).Text;
+            return value;
+        }
+
         public bool VerifyFieldsOfUseOfFunds()
         {
             Thread.Sleep(6000);
@@ -2367,8 +2392,97 @@ namespace SF_Automation.Pages.Engagement
             string value = driver.FindElement(valPurchasePrice).Text;
             return value.Substring(0, 6);
         }
+
+        public string ValidateEngTimelineSection()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, secEngTimeline);
+            string value = driver.FindElement(secEngTimeline).Text;
+            return value;
+        }
+
+        public bool VerifySubSectionsOfTimeline()
+        {
+            driver.FindElement(secEngTimeline).Click();
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> valSections = driver.FindElements(subSecTimeline);
+            var actualValue = valSections.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Bidding", "Signing","Closing" };
+            Console.WriteLine(expectedValue[1]);
+
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+        public bool VerifyFieldsOfBidding()
+        {
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> valSections = driver.FindElements(lblBiddingFields);
+            var actualValue = valSections.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Pitch Book Date", "Expected In Market Date", "Date Engaged", "First Bid Due Date" , "Second Bid Due Date", "Final Bid Due Date" };
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+        public string ValidateDateEngagedMessageOnHeader()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, msgDateEngaged);
+            string value = driver.FindElement(msgDateEngaged).Text;
+            return value;
+        }
+
+        public bool VerifyFieldsOfSigning()
+        {
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> valSections = driver.FindElements(lblBiddingFields);
+            var actualValue = valSections.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Pitch Book Date", "Expected In Market Date", "Date Engaged", "First Bid Due Date", "Second Bid Due Date", "Final Bid Due Date" };
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
     }
-    
+
 }
 
 
