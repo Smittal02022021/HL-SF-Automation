@@ -8,10 +8,9 @@ using SF_Automation.TestData;
 using NUnit.Framework;
 using System;
 
-
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunities
 {
-    class LV_2_TMTT0047923_TMTT0047926_TMTT0047929_VerifyJobTypeDisplayedInJobTypeDropDownWhileAddingNewOpportunity:BaseClass
+    class LV_2_TMTT0047923_TMTT0047926_TMTT0047929_VerifyJobTypeOnOpportunityEngagementDetailPage:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -27,6 +26,7 @@ namespace SalesForce_Project.TestCases.Opportunities
         HomeMainPage homePage = new HomeMainPage();
         public static string fileT47926 = "LV_TMTT0047923_TMTT0047926_TMTT0047929_1_VerifyJobTypeDisplayedInJobTypeDropDownWhileAddingNewOpportunity";
         private string nameRevAccu;
+        private string jobTypeCC;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -36,6 +36,55 @@ namespace SalesForce_Project.TestCases.Opportunities
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
+        //TMTI0117825 Verify that the Job type "DRC - Dispute" is displayed in the Job type drop down while adding a new opportunity. 
+        //TMTI0117814 Verify that the user is able to create a new Opportunity with Job Type "DRC - Dispute".
+        //TMTI0117820 Verify that the Job Type "DRC – Dispute" is displayed under Job type in search result on searching with the Opportunity number upon global search.
+        //TMTI0117818 Verify that the Job Type "DRC – Dispute" gets displayed in the search results on searching with the Engagement number in Global search
+        //TMTI0117817 Verify that the Job type is displayed as "DRC - Dispute"  upon conversion of an opportunity to an engagement.
+        //TMTI0117810 Verify that the new Job type "DRC -Dispute" gets displayed in Engagement -> Conflict check page.
+        //TMTI0117827 Verify the Job code and the Record type on Engagement details page for the Job type "DRC - Dispute".
+        //TMTI0117832 Verify the Product code and the ERP Integration status in Oracle ERP Information section in Opportunity details page for the opportunity having Job type as "DRC - Dispute".
+        //TMTI0117813 Verify that the new/ updated Job type "DRC - Dispute" and its code is listed under Job type Object/ tab.
+        //TMTI0117824 Verify the Product code and the ERP Integration status in Oracle ERP Information section in Engagement details page having Job type as "DRC - Dispute".
+        //TMTI0117819 Verify that the new Job type "DRC -Dispute" gets displayed in Opportunities -> Conflict check page.
+        //TMTI0117826 Verify that the Job type "DRC – Dispute" is displayed in the Job type drop down in Opportunity edit page.
+        //TMTI0117822 Verify that the user is able to edit/update other Job type to "DRC - Dispute" for an existing opportunity.
+        //TMTI0117815 Verify that the Job type "DRC -Dispute" gets dispalyed on adding Job type column in Filters while creating the reports.
+        //TMTI0117831 Verify that the new Job type "DRC -Dispute" gets displayed in Billing Request page.
+        //TMTI0119041 Verify that the new Job type "DRC -Dispute" gets displayed in Revenue Accrual page.
+        //TMTI0117835 Verify that the Job type "DRC - ESOP" is displayed in the Job type drop down while adding a new opportunity.
+        //TMTI0117848 Verify that the user is able to create a new Opportunity with Job Type "DRC - ESOP".
+        //TMTI0117841 Verify that the Job Type "DRC – ESOP" is displayed under Job type in search result on searching with the Opportunity number upon global search.
+        //TMTI0117853 Verify that the Job Type "DRC – ESOP" gets displayed in the search results on searching with the Engagement number in Global search
+        //TMTI0117833 Verify that the Job type is displayed as "DRC - ESOP"  upon conversion of an opportunity to an engagement.
+        //TMTI0117842 Verify that the new Job type "DRC -ESOP" gets displayed in Engagement -> Conflict check page.
+        //TMTI0117847 Verify the Job code and the Record type on Engagement details page for the Job type "DRC - ESOP".
+        //TMTI0117844 Verify the Product code and the ERP Integration status in Oracle ERP Information section in Opportunity details page for the opportunity having Job type as "DRC - ESOP".
+        //TMTI0117854 Verify that the new/ updated Job type "DRC - ESOP " and its code is listed under Job type Object/ tab.
+        //TMTI0117851 Verify the Product code and the ERP Integration status in Oracle ERP Information section in Engagement details page having Job type as "DRC - ESOP".
+        //TMTI0117839 Verify that the new Job type "DRC -ESOP" gets displayed in Opportunities -> Conflict check page.
+        //TMTI0117850 Verify that the Job type "DRC – ESOP" is displayed in the Job type drop down in Opportunity edit page.
+        //TMTI0117837 Verify that the user is able to edit/update other Job type to "DRC - ESOP" for an existing opportunity.
+        //TMTI0117852 Verify that the Job type "DRC -ESOP" gets displayed on adding Job type column in Filters while creating the reports.
+        //TMTI0117840 Verify that the new Job type "DRC -ESOP" gets displayed in Billing Request page.
+        //TMTI0117838 Verify that the new Job type "DRC -ESOP" gets displayed in Revenue Accrual page.
+        //TMTI0117863 Verify that the Job type "DRC - Estate & Gift" is displayed in the Job type drop down while adding a new opportunity.
+        //TMTI0117877 Verify that the user is able to create a new Opportunity with Job Type "DRC - Estate & Gift".
+        //TMTI0117873 Verify that the Job Type "DRC – Estate & Gift" is displayed under Job type in search result on searching with the Opportunity number upon global search.
+        //TMTI0117857 Verify that the Job Type "DRC – Estate & Gift" gets displayed in the search results on searching with the Engagement number in Global search
+        //TMTI0117858 Verify that the Job type is displayed as "DRC - Estate & Gift"  upon conversion of an opportunity to an engagement.
+        //TMTI0117879 Verify that the new Job type "DRC -Estate & Gift" gets displayed in Engagement -> Conflict check page.
+        //TMTI0117878 Verify the Job code and the Record type on Engagement details page for the Job type "DRC - Estate & Gift".
+        //TMTI0117868 Verify the Product code and the ERP Integration status in Oracle ERP Information section in Opportunity details page for the opportunity having Job type as "DRC - Estate & Gift".
+        //TMTI0117859 Verify that the new/ updated Job type "DRC - Estate & Gift" and its code is listed under Job type Object/ tab.
+        //TMTI0117860 Verify the Product code and the ERP Integration status in Oracle ERP Information section in Engagement details page having Job type as "DRC - Estate & Gift".
+        //TMTI0117872 Verify that the new Job type "DRC -Estate & Gift" gets displayed in Opportunities -> Conflict check page.
+        //TMTI0117875 Verify that the Job type "DRC – Estate & Gift" is displayed in the Job type drop down in Opportunity edit page.
+        //TMTI0117864 Verify that the Job type "DRC - Estate & Gift" gets displayed on adding Job type column in Filters while creating the reports.
+        //TMTI0117862 Verify that the user is able to edit/update other Job type to "DRC - Estate & Gift" for an existing opportunity.
+        //TMTI0117871 Verify that the new Job type "DRC -Estate & Gift" gets displayed in Billing Request page.
+        //TMTI0117869 Verify that the new Job type "DRC -Estate & Gift" gets displayed in Revenue Accrual page.
+
         [Test]
         public void VerifyJobTypeDisplayedInJobTypeDropDownWhileAddingNewOpportunity()
         {
@@ -91,6 +140,7 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                     Assert.IsTrue(addOpportunity.IsJobTypePresentLV(valJobType), "Verify that the Job type "+ valJobType+" is displayed in the Job type drop down while adding a new opportunity");
                     extentReports.CreateStepLogs("Passed", "Job Type " + valJobType + " is displayed in the Job type drop down while adding a new opportunity");
+                    
                     pageTitle = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);
                     Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB ");
                     extentReports.CreateStepLogs("Passed", "Creating Opportunity for Job Type: " + valJobType);
@@ -199,21 +249,15 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                     //Only works on VM only 
                     //TMTI0117819	Verify that the new Job type "DRC -Dispute" gets displayed in Opportunities -> Conflict check page. 
-                    //TMTI0117842	Verify that the new Job type "DRC -ESOP" gets displayed in Engagement -> Conflict check page. 
+                    //TMTI0117872	Verify that the new Job type "DRC -Estate & Gift" gets displayed in Opportunities -> Conflict check page. 
                     //TMTI0117839	Verify that the new Job type "DRC -ESOP" gets displayed in Opportunities -> Conflict check page. 
 
                     opportunityDetails.ClickConflicksCheckLV();
-                    string jobTypeCC= opportunityDetails.GetConflictTypeJobTypeLV();
+                    jobTypeCC= opportunityDetails.GetConflictTypeJobTypeLV();
                     Assert.AreEqual(jobTypeCC, valJobType);
-                    extentReports.CreateStepLogs("Passed", "Job Type: " + jobTypeCC+ " updatd on Opportunity Conflicts Check form ");
+                    extentReports.CreateStepLogs("Passed", "Job Type: " + jobTypeCC+ " updated on Opportunity Conflicts Check form ");
                     
-                    /*
-                    //TMTI0117823	Verify the Job code  in the Opportunity Report - PIF (Opportunity) page for the Job type "DRC – Dispute".
-                    opportunityDetails.ClickOpportunityReportsLV();
-                    opportunityDetails.ClickPIFOpportunityLV();
-                    */
-
-                    ////Submit Request To Engagement Conversion  
+                    //Submit Request To Engagement Conversion  
                     opportunityDetails.ClickRequestToEngL();                    
                     string msgSuccess = opportunityDetails.GetRequestToEngMsgL();
                     Assert.AreEqual(msgSuccess, "Opportunity has been submitted for Approval.");
@@ -310,7 +354,9 @@ namespace SalesForce_Project.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "Engagement ERP Last Integration Status: " + ERPStatus + " in ERP section for Job Type: " + valJobType);
 
 
-                    //TMTI0117831	Verify that the new Job type "DRC -Dispute" gets displayed in Billing Request page.
+                    //TMTI0117831 Verify that the new Job type "DRC -Dispute" gets displayed in Billing Request page.
+                    //TMTI0117840 Verify that the new Job type "DRC -ESOP" gets displayed in Billing Request page.
+                    //TMTI0117871 Verify that the new Job type "DRC -Estate & Gift" gets displayed in Billing Request page.
 
                     engagementDetails.ClickBillingRequestButtonLV();
                     string billingReqJobType= engagementDetails.GetBillingEmailBodyJobTypeLV();
@@ -331,38 +377,37 @@ namespace SalesForce_Project.TestCases.Opportunities
                         engagementDetails.SelectRevenueAccrualLV();
                         nameRevAccu = engagementDetails.GetRevenueAccrualNumberLV();
                         extentReports.CreateStepLogs("Passed", "New Revenue Accrual: " + nameRevAccu + " Added");
-
                     }
-
                     else
                     {
                         engagementDetails.ClickRevenueTabLV();
                         engagementDetails.AddNewRevenueAccuralsLV();
                         nameRevAccu = engagementDetails.GetRevenueAccrualNumberLV();
                         extentReports.CreateStepLogs("Passed", "New Revenue Accrual: " + nameRevAccu + " Added");
-
                     }
-
                     string revAccuJobType = engagementDetails.GetRevAccuralJobTypeLV();
                     Assert.AreEqual(valJobType, revAccuJobType, "Verify that the new Job type: "+valJobType+" gets displayed in Revenue Accrual page");
                     extentReports.CreateStepLogs("Passed", "New Job type: " + valJobType + " gets displayed in Revenue Accrual page");
 
                     randomPages.CloseActiveTab(nameRevAccu);
-
-                    //********Need to close new rev window************
+                    //********Need to close new rev window for Job type: "DRC -Estate & Gift"************
                     randomPages.CloseActiveTab("New Revenue Accrual");
-                    //TMTI0117810	Verify that the new Job type "DRC -Dispute" gets displayed in Engagement -> Conflict check page. 
-                    //Only works on VM only 
+
+                    //Only works on VM only
+                    //TMTI0117810 Verify that the new Job type "DRC -Dispute" gets displayed in Engagement -> Conflict check page. 
+                    //TMTI0117842 Verify that the new Job type "DRC -ESOP" gets displayed in Engagement->Conflict check page. 
+                    //TMTI0117879 Verify that the new Job type "DRC -Estate & Gift" gets displayed in Engagement->Conflict check page.     
+
                     engagementDetails.ClickConflicksCheckLV();
                     jobTypeCC = engagementDetails.GetConflictTypeJobTypeLV();
                     Assert.AreEqual(jobTypeCC, valJobType);
-                    extentReports.CreateStepLogs("Passed", "Job Type: " + jobTypeCC + " updatd on Engagement Conflicts Check form ");
-                    
+                    extentReports.CreateStepLogs("Passed", "Job Type: " + jobTypeCC + " updatd on Engagement Conflicts Check form ");                    
                     randomPages.CloseActiveTab(opportunityName);
 
-                    //TMTI0117818   Verify that the Job Type "DRC – Dispute" gets displayed in the search results on searching with the Engagement number in Global search
-                    //TMTI0117853	Verify that the Job Type "DRC – ESOP" gets displayed in the search results on searching with the Engagement number in Global search
-                    //TMTI0117857	Verify that the Job Type "DRC – Estate & Gift" gets displayed in the search results on searching with the Engagement number in Global search
+                    //TMTI0117818 Verify that the Job Type "DRC – Dispute" gets displayed in the search results on searching with the Engagement number in Global search
+                    //TMTI0117853 Verify that the Job Type "DRC – ESOP" gets displayed in the search results on searching with the Engagement number in Global search
+                    //TMTI0117857 Verify that the Job Type "DRC – Estate & Gift" gets displayed in the search results on searching with the Engagement number in Global search
+                    
                     Assert.IsTrue(engagementHome.IsEngagementWithJobTypeFoundLV(engName, valJobType), "Verify that the Job Type: "+valJobType+ " gets displayed in the search results on searching with the Engagement Name in Global search");
                     extentReports.CreateStepLogs("Passed", "Engagement: " + engName + " with the Job Type: " + valJobType + " gets displayed in the search results on searching with the Engagement Name in Global search");
 

@@ -266,9 +266,8 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
                     extentReports.CreateLog("Line Message: " + txtLineErrorMessage + " is Displayed on header of Engagement Internal Team Member page ");
                     randomPages.CloseActiveTab("Internal Team");
                     randomPages.CloseActiveTab(engagementName);
-                    login.SwitchToClassicView();
-                    usersLogin.UserLogOut();
-                    extentReports.CreateLog("User: " + caoUser + " logged out ");
+                    homePageLV.LogoutFromSFLightningAsApprover();
+                    extentReports.CreateLog("CAO User: " + caoUser + " logged out ");
                 }
                 usersLogin.UserLogOut();
                 driver.Quit();

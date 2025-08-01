@@ -234,9 +234,10 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
                         txtLineErrorMessage = opportunityDetails.GetLineErrorMessageLV();
                         Assert.IsTrue(txtLineErrorMessage.Contains(maxMemberLimit));
                         extentReports.CreateLog("Line Message: " + txtLineErrorMessage + " is Displayed on header of Engagement Internal Team Member page ");
-
-                        homePageLV.UserLogoutFromSFLightningView();
-                        extentReports.CreateLog("User: " + userCAO + " logged out ");
+                        randomPages.CloseActiveTab("Internal Team");
+                        randomPages.CloseActiveTab(engagementName);
+                        homePageLV.LogoutFromSFLightningAsApprover();
+                        extentReports.CreateLog("CAO User: " + userCAO + " logged out ");
                     }
                     usersLogin.UserLogOut();
                     driver.Quit();

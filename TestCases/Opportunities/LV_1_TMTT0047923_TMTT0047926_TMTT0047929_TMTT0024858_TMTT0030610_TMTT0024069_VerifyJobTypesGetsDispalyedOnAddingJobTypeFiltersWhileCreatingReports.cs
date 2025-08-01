@@ -9,7 +9,7 @@ using NUnit.Framework;
 using System;
 using Microsoft.Office.Interop.Excel;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunities
 {
     class LV_1_TMTT0047923_TMTT0047926_TMTT0047929_TMTT0024858_TMTT0030610_TMTT0024069_VerifyJobTypesGetsDispalyedOnAddingJobTypeFiltersWhileCreatingReports : BaseClass
     {

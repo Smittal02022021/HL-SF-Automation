@@ -839,7 +839,7 @@
     <Compile Include="TestCases\Opportunities\LV_TMTT0046653_CF_VerifyTailExpireFieldOnVerballyEngagementValidationWhileChangingStage.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0046653_FR_VerifyTailExpireFieldOnEngagementShowsNoValidationWhileChangingStage.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0046653_FVA_VerifyTailExpireFieldOnEngagementShowsNoValidationWhileChangingStage.cs" />
-    <Compile Include="TestCases\Opportunities\LV_2_TMTT0047923_TMTT0047926_TMTT0047929_VerifyJobTypeDisplayedInJobTypeDropDownWhileAddingNewOpportunity.cs" />
+    <Compile Include="TestCases\Opportunities\LV_2_TMTT0047923_TMTT0047926_TMTT0047929_VerifyJobTypeOnOpportunityEngagementDetailPage.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0048213_CF_VerifyLocationWhereBenefitWasProvidedFieldValueIsMappedToEngagementUponConversion.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0048213_FR_VerifyLocationWhereBenefitWasProvidedFieldValueIsMappedToEngagementUponConversion.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0048213_FVA_VerifyLocationWhereBenefitWasProvidedFieldValueIsMappedToEngagementUponConversion.cs" />
