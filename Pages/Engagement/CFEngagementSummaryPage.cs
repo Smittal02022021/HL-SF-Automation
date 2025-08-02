@@ -265,7 +265,11 @@ namespace SF_Automation.Pages.Engagement
         By txtPitchBookDate = By.XPath("//input[@name='Pitch_Book_Date__c']");
         By valPitchBookDate = By.XPath("//span[text()='Pitch Book Date']/ancestor::div[1]//div[1]/lightning-formatted-text");
         By msgDateEngaged = By.XPath("//span[text()='Date Engaged']/ancestor::div[1]//lightning-helptext//span[2]");
-        By lblSigningFields = By.XPath("//span[text()='Engagement Timeline']/ancestor::section[1]/div[2]//div[1]/div[contains(@class,'medium')]/div//lightning-output-field/span");
+        By lblSigningFields = By.XPath("//span[text()='Engagement Timeline']/ancestor::section[1]/div[2]//div[1]/div[contains(@class,'secondaryRecord')]/div//lightning-output-field/span");
+        By btnSigningDate = By.XPath("//button[@title='Edit: Closing_Bid_Due_Date__c']");
+        By txtSigningDate = By.XPath("//input[@name='Closing_Bid_Due_Date__c']");
+        By valSigningDate = By.XPath("//span[text()='Signing Date']/ancestor::div[1]//div[1]/lightning-formatted-text");
+        By lblClosingFields = By.XPath("//span[text()='Engagement Timeline']/ancestor::section[1]/div[2]//div[1]/div[contains(@class,'tertiaryRecord')]/div//lightning-output-field/span");
 
         public void ClickEngagementDynamicsSection()
         {
@@ -2461,9 +2465,51 @@ namespace SF_Automation.Pages.Engagement
         public bool VerifyFieldsOfSigning()
         {
             Thread.Sleep(6000);
-            IReadOnlyCollection<IWebElement> valSections = driver.FindElements(lblBiddingFields);
+            IReadOnlyCollection<IWebElement> valSections = driver.FindElements(lblSigningFields);
             var actualValue = valSections.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Pitch Book Date", "Expected In Market Date", "Date Engaged", "First Bid Due Date", "Second Bid Due Date", "Final Bid Due Date" };
+            string[] expectedValue = { "Signing Date", "Signing Date - Weeks From Date Engaged" };
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+
+        public string ValidateEditFunctionalityOfSigning(string number)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,-150)");
+            Thread.Sleep(5000);
+            driver.FindElement(btnSigningDate).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(txtSigningDate).Clear();
+            driver.FindElement(txtSigningDate).SendKeys(number);
+            Thread.Sleep(5000);
+            driver.FindElement(btnSave).Click();
+            js.ExecuteScript("window.scrollTo(0,-150)");
+            Thread.Sleep(5000);
+            string value = driver.FindElement(valSigningDate).Text;
+            return value;
+        }
+
+        public bool VerifyFieldsOfClosing()
+        {
+            Thread.Sleep(6000);
+            IReadOnlyCollection<IWebElement> valSections = driver.FindElements(lblClosingFields);
+            var actualValue = valSections.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Close Date", "Closed - Weeks From Date Engaged" };
 
             bool isSame = true;
 

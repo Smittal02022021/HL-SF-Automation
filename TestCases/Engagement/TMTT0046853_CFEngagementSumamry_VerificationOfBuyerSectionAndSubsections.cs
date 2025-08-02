@@ -12,7 +12,7 @@ using System.Reflection;
 
 namespace SF_Automation.TestCases.Engagement
 {
-    class TMTT0046852_CFEngagementSumamry_VerificationOfTimelineSectionAndSubsections : BaseClass
+    class TMTT0046853_CFEngagementSumamry_VerificationOfBuyerSectionAndSubsections : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -32,7 +32,7 @@ namespace SF_Automation.TestCases.Engagement
         }
 
         [Test]
-        public void VerifyTheInformationUnderEngagementInformationTab()
+        public void VerificationOfBuyerSectionAndSubsections()
         {
             try
             {
@@ -69,7 +69,7 @@ namespace SF_Automation.TestCases.Engagement
                 string valCurrency = engagementDetails.GetCurrencyL();
                 string finalCurrency = valCurrency.Substring(0, 3);
 
-                //1.  TMTI0114562_Verify the sub-sections "Bidding, Signing and Closing" present under the "Engagement Timeline" section
+                //1.  TMTI0114566_ Verify that the Buyer's basic information is displayed under the Parties Buyer section
                 engagementDetails.ClickCFEngsummaryButtonL();
                 string secParties = summaryPage.ValidateEngTimelineSection();           
                 
