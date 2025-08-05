@@ -71,6 +71,7 @@ namespace SF_Automation.Pages.HomePage
         By linkContactsInSearchAllDropDown = By.XPath("//lightning-base-combobox-item[@data-value='FILTER:Contact:Contacts']");
         By linkCompaniesInSearchAllDropDown = By.XPath("//lightning-base-combobox-item[@data-value='FILTER:Account:Companies']");
         By linkOpportunitiesInSearchAllDropDown = By.XPath("//lightning-base-combobox-item[@data-value='FILTER:Opportunity__c:Opportunities']");
+        By linkEngagementInSearchAllDropdown = By.XPath("//lightning-base-combobox-item[@data-value='FILTER:Engagement__c:Engagements']");
         By linkPeople = By.XPath("//lightning-base-combobox-item[@data-value='FILTER:User:People']");
         By linkUserDetail = By.XPath("//a[@title='User Detail']");
         By btnLogin = By.CssSelector("input[title ='Login']");
@@ -335,6 +336,27 @@ namespace SF_Automation.Pages.HomePage
             driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
             Thread.Sleep(5000);
 
+            By ele = By.XPath($"(//a[@title='{name}'])[1]");
+            WebDriverWaits.WaitUntilEleVisible(driver, ele, 60);
+
+            driver.FindElement(By.XPath($"(//a[@title='{name}'])[1]")).Click();
+            Thread.Sleep(5000);
+        }
+
+        public void SearchEngFromMainSearch(string name)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnMainSearch, 120);
+            driver.FindElement(btnMainSearch).Click();
+            Thread.Sleep(5000);
+
+            driver.FindElement(dropdownSearchAll).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, linkEngagementInSearchAllDropdown, 120);
+            driver.FindElement(linkEngagementInSearchAllDropdown).Click();
+            Thread.Sleep(5000);
+
+            driver.FindElement(txtMainSearch).SendKeys(name);
+            driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
+            Thread.Sleep(5000);
 
             By ele = By.XPath($"(//a[@title='{name}'])[1]");
             WebDriverWaits.WaitUntilEleVisible(driver, ele, 60);
@@ -342,6 +364,7 @@ namespace SF_Automation.Pages.HomePage
             driver.FindElement(By.XPath($"(//a[@title='{name}'])[1]")).Click();
             Thread.Sleep(5000);
         }
+
 
         public void ClickExpenseRequestMenuButton()
         {
