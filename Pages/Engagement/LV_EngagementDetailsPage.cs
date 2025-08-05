@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using OpenQA.Selenium;
+using OpenQA.Selenium.DevTools.V136.DOM;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Globalization;
 using System.Net.PeerToPeer;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 
 namespace SF_Automation.Pages.Companies
@@ -357,6 +359,129 @@ namespace SF_Automation.Pages.Companies
             }
 
             return result;
+        }
+
+        public void NavigateToClosingInfoTab()
+        {
+            //Navigate to Closing Info tab
+            Thread.Sleep(5000);
+
+            driver.FindElement(By.XPath("//a[@data-label='Closing Info']")).Click();
+            Thread.Sleep(5000);
+        }
+
+        public bool VerifyConclusionDateFieldIsNotDisplayed()
+        {
+            bool result = false;
+
+            if(CustomFunctions.IsElementPresent(driver, By.XPath("//span[text()='Conclusion Date']")) == false)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        public bool NavigateToEngagementSummaryReportPage()
+        {
+            bool result = false;
+
+            //Click on More Tabs
+            driver.FindElement(By.XPath("//span[text()='Show more actions']/..")).Click();
+            Thread.Sleep(2000);
+
+            driver.FindElement(By.XPath("//span[text()='Engagement Summary (CF)']/..")).Click();
+            Thread.Sleep(10000);
+
+            if (CustomFunctions.IsElementPresent(driver, By.XPath("//button[@title='Summary Report']")) == true)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        public bool VerifyCloseDateIsDisplayed()
+        {
+            bool result = false;
+
+            if (CustomFunctions.IsElementPresent(driver, By.XPath("//div[@title='Close Date']")) == true)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        public string GetCloseDateValue()
+        {
+            string closeDate = string.Empty;
+            if (CustomFunctions.IsElementPresent(driver, By.XPath("(//div[@title='Close Date']/following::div)[1]")) == true)
+            {
+                closeDate = driver.FindElement(By.XPath("(//div[@title='Close Date']/following::div)[1]")).Text;
+            }
+            return closeDate;
+        }
+
+        public bool VerifyCloseDateIsSameUnderEngagementTimelinesSection(string engCloseDate)
+        {
+            bool result = false;
+
+            driver.FindElement(By.XPath("//span[text()='Engagement Timeline']/..")).Click();
+            Thread.Sleep(5000);
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,2000)");
+            Thread.Sleep(5000);
+
+            //Get the Close Date under Engagement Timelines section
+            string closeDateUnderEngagementTimelines = driver.FindElement(By.XPath("(//span[text()='Close Date'])[4]/following::div/lightning-formatted-text")).Text;
+            if (engCloseDate == closeDateUnderEngagementTimelines)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public string GetClosedWeeksFromDateEngagedValue()
+        {
+            string closedWeek = string.Empty;
+            if (CustomFunctions.IsElementPresent(driver, By.XPath("(//span[text()='Closed - Weeks From Date Engaged']/following::lightning-formatted-number)[1]")) == true)
+            {
+                closedWeek = driver.FindElement(By.XPath("(//span[text()='Closed - Weeks From Date Engaged']/following::lightning-formatted-number)[1]")).Text;
+            }
+            return closedWeek;
+        }
+
+        public bool VerifyClosedWeeksFromDateEngagedValueIsAsPerFormula(string closedWeeks, string closeD, string dateEngaged)
+        {
+            bool result = false;
+
+            DateTime closedDate = DateTime.Parse(closeD);
+            DateTime dateEng = DateTime.Parse(dateEngaged);
+
+            //Applying the conversion formula
+            TimeSpan diff = closedDate - dateEng;
+            int weeks = (int)(diff.TotalDays / 7);
+
+            //Converting closed weeks string into integer
+            int number = Convert.ToInt32(Convert.ToDouble(closedWeeks));
+
+            if (weeks.Equals(number))
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public string GetDateEngagedValue()
+        {
+            string dateEngaged = string.Empty;
+            if (CustomFunctions.IsElementPresent(driver, By.XPath("(//span[text()='Date Engaged']/following::lightning-formatted-text[@class='slds-border_bottom slds-form-element__static'])[3]")) == true)
+            {
+                dateEngaged = driver.FindElement(By.XPath("(//span[text()='Date Engaged']/following::lightning-formatted-text[@class='slds-border_bottom slds-form-element__static'])[3]")).Text;
+            }
+            return dateEngaged;
         }
 
         public bool VerifyIfCompaniesClosedWithIsPresent()

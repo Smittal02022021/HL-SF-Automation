@@ -9,6 +9,8 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Threading;
+using static SF_Automation.TestData.ReadJSONData;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace SF_Automation.TestCases.Engagement
 {
@@ -73,6 +75,7 @@ namespace SF_Automation.TestCases.Engagement
 
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 1);
                     string engName = ReadExcelData.ReadDataMultipleRows(excelPath, "Engagements", row, 1);
+                    string engLOB = ReadExcelData.ReadDataMultipleRows(excelPath, "Engagements", row, 2);
 
                     //Search Deal Team member user by global search
                     lvHomePage.SearchUserFromMainSearch(valUser);
@@ -97,7 +100,46 @@ namespace SF_Automation.TestCases.Engagement
 
                     //Search the Engagement by global search
                     lvHomePage.SearchEngFromMainSearch(engName);
-                    extentReports.CreateStepLogs("Info", "User navigated to Engagement detail page - " + engName);
+                    extentReports.CreateStepLogs("Info", "User navigated to " + engLOB + " Engagement detail page - " + engName);
+
+                    //Navigate to Closing Info Tab
+                    lvEngagementDetails.NavigateToClosingInfoTab();
+                    extentReports.CreateStepLogs("Info", "User navigated to Closing Info Tab.");
+
+                    //TC - TMTI0112743, TMTI0112745, TMTI0112747 - Verify that the Conclusion date no longer appears on the CF, FR & FVA LOB Engagements.
+
+                    //Verify Conclusion Date field is not displayed on the existing CFLOB Engagements
+                    Assert.IsTrue(lvEngagementDetails.VerifyConclusionDateFieldIsNotDisplayed());
+                    extentReports.CreateStepLogs("Passed", "Conclusion Date field is not displayed on the existing " + engLOB + " Engagements.");
+
+                    if(engLOB=="CF")
+                    {
+                        //TC - TMTI0112749 - Verify that the Conclusion Date is removed from the CF Engagement Summary report.
+
+                        //Navigate to Engagement Summary Report page
+                        Assert.IsTrue(lvEngagementDetails.NavigateToEngagementSummaryReportPage());
+                        extentReports.CreateStepLogs("Passed", "User navigated to CF Engagement Summary Report page.");
+
+                        //Verify Close Date is displayed and get the close date value
+                        Assert.IsTrue(lvEngagementDetails.VerifyCloseDateIsDisplayed());
+                        extentReports.CreateStepLogs("Passed", "Close Date is displayed on CF Engagement Summary Report page.");
+
+                        string closeDate = lvEngagementDetails.GetCloseDateValue();
+                        extentReports.CreateStepLogs("Info", "Close Date displayed is = " + closeDate);
+
+                        Assert.IsTrue(lvEngagementDetails.VerifyCloseDateIsSameUnderEngagementTimelinesSection(closeDate));
+                        extentReports.CreateStepLogs("Passed", "Close Date is same under Engagement Timelines section on CF Engagement Summary Report page.");
+
+                        //TC - TMTI0112752 - Verify the field called "Conclusion Weeks from Date Engaged" on the CF Summary report will be changed to "Closed-Weeks from Date Engaged" and show the value based on the below formula=(Close Date - Date Engaged)/7
+                        string dateEngaged = lvEngagementDetails.GetDateEngagedValue();
+                        extentReports.CreateStepLogs("Info", "Date Engaged displayed is = " + dateEngaged);
+
+                        string closedWeeksFromDateEngaged = lvEngagementDetails.GetClosedWeeksFromDateEngagedValue();
+                        extentReports.CreateStepLogs("Info", "Closed Weeks From Date Engaged displayed is = " + closedWeeksFromDateEngaged);
+
+                        Assert.IsTrue(lvEngagementDetails.VerifyClosedWeeksFromDateEngagedValueIsAsPerFormula(closedWeeksFromDateEngaged, closeDate, dateEngaged));
+                        extentReports.CreateStepLogs("Passed", "Closed-Weeks from Date Engaged is displayed and the value is based on the below formula = (Close Date - Date Engaged)/7");
+                    }
 
                     //TC - End
                     lvHomePage.UserLogoutFromSFLightningView();
