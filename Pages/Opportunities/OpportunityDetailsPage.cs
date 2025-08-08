@@ -10816,7 +10816,7 @@ namespace SF_Automation.Pages
                 return false;
             }
         }
-        
+
         public void ClickConflicksCheckLV()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -10859,11 +10859,25 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, headerOppReportPageL, 30);
             }
         }
-        public void ClickPIFOpportunityLV()
+        public void ClickEditOpportunityLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, linkOppPIFReportL, 10);
-            driver.FindElement(linkOppPIFReportL).Click();
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnEditL));
+            driver.FindElement(btnEditL).Click();
+        }        
+
+        public void ClickTabOppFeeAndFincnciaLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabFees, 5);
+            driver.FindElement(tabFees).Click();
+            Thread.Sleep(5000);
         }
+        
     }
 }
 

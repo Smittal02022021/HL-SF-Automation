@@ -214,8 +214,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 ///
                 extentReports.CreateStepLogs("Info", "*****Opportunities Counterparty detail page chagned no way to add/check Opportunity Counterparty Contact,Comments******* ");
                 //Add & Get Counterparty Contact
-                /*
-                
+                                
                 addCounterparty.ClickCounterpartyCompanyLink(counterpartyCompanyNameExl);
                 CustomFunctions.SwitchToWindow(driver, 1);
                 extentReports.CreateStepLogs("Info", "User Switched to new tab ");
@@ -231,13 +230,16 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 extentReports.CreateStepLogs("Info", "New Opportunity Contact:" + contactNameCPExl + " is added ");
                 addCounterparty.ClickBackButtonAndValidateViewCounterpartiesPageLV();
                 CustomFunctions.PageReload(driver);
+
+                /*
                 string contactOppCP = addCounterparty.GetOppCounterpartyContactLV();
                 Assert.IsTrue(contactNameCPExl.Contains(contactOppCP));
                 extentReports.CreateStepLogs("Passed", "Contact: " + valCPContact + " is available on Opportunity Counterparty Contact(s) Right Panel");
                 randomPages.CloseActiveTab("Tab");
+                */
 
                 //Add & Get Counterparty Comments
-                addCounterparty.ClickOppCPCommentsLV();// remove text from comopany
+                addCounterparty.ClickAddOppCPCommentsLV();// remove text from comopany
                 string commentTypeCPExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyComments", 3, 1);
                 string commentTextCPExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyComments", 3, 2);
                 addCounterparty.AddNewOpportunityCounterpartyCommentLV(commentTypeCPExl, commentTextCPExl, counterpartyCompanyNameExl);
@@ -251,7 +253,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 CustomFunctions.SwitchToWindow(driver, 0);
                 CustomFunctions.PageReload(driver);
                 randomPages.CloseActiveTab("Counterparty Editor");
-                */
+                
                 randomPages.CloseActiveTab(opportunityName);
                 homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + userExl + " logged out");
@@ -346,7 +348,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 engagementDetails.ClickEngInfoCommentsTabLV();
                 string commentsEng= engagementDetails.GetEngCommentPresentLV(commentOppType);
                 Assert.AreEqual(commentTextOppExl, commentsEng, "Verify Comments added on Opportunity page is available on VE Engagement Comments page");
-                /*
+                
                 // Validate Counterparties
                 engagementDetails.ClickViewCounterpartiesButton();
                 Assert.IsTrue(addCounterparty.IsCompanyInCounterpartyList(counterpartyCompanyNameExl), "Verify added Company: " + counterpartyCompanyNameExl + " is under Counterparties List from Opportunity Page is available on VE Engagement Counterparty ");
@@ -357,7 +359,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 extentReports.CreateStepLogs("Info", "User Switched to Counterparty detail tab ");
                 // Get Counterparty Contact
                 string contactEngCP = addCounterparty.GetEngCounterpartyContactLV();
-                Assert.AreEqual(contactEngCP, contactOppCP);
+                Assert.IsTrue(contactNameCPExl.Contains(contactEngCP));//, contactNameCPExl); // contactOppCP);
                 extentReports.CreateStepLogs("Passed", "Counter Contact: " + valCPContact + " sdded on Opportunity page is available on VE Engagement Counterparty Contact(s) Right Panel");
                 // Validate Counterparties Comments
                 addCounterparty.ClickViewAllEngCPCommentsLV();
@@ -368,7 +370,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 CustomFunctions.CloseWindow(driver, 1);
                 CustomFunctions.SwitchToWindow(driver, 0);
                 randomPages.CloseActiveTab("Counterparty Editor");
-                */
+                
                 randomPages.CloseActiveTab(opportunityName);
                 homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + userExl + " logged out");

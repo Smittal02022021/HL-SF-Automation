@@ -8,6 +8,7 @@ using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
 using OpenQA.Selenium;
+using Microsoft.Office.Interop.Excel;
 
 namespace SF_Automation.TestCases.OpportunitiesCounterparty
 {
@@ -187,17 +188,34 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     extentReports.CreateStepLogs("Passed", counterpartyCompanyNameExl + " Company is added and displayed into Counterparties List ");
 
                     //TMTI0063910 Verify that the user is able to edit and save the multiple entries with Comments                    
-                    string commentsExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", row, 3);
+                    string commentsExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", row, 6);
                     addCounterparty.EditCoutnerpartyDetailsLV(commentsExl);
                     addCounterparty.SaveCounterpartyChanges();
                     popupMessage = addCounterparty.GetLVMessagePopup();
                     Assert.AreEqual(popupMessage, "Records Updated Successfully!");
                     extentReports.CreateStepLogs("Passed", "Added Counterparty details are updated ");
+                    CustomFunctions.PageReload(driver);
                     //randomPages.CloseActiveTab("OCC");
                     addCounterparty.ClickCounterpartyCompanyLink(counterpartyCompanyNameExl);
                     //CustomFunctions.PageReload(driver);
                     CustomFunctions.SwitchToWindow(driver, 1);
                     extentReports.CreateStepLogs("Info", "User Switched to new tab ");
+                    
+
+
+
+                    
+                    /*
+
+                    //TMTI0063918 Verify that the counterparty's comments are visible on the counterparty's details page and mapped correctly after conversion into the engagement 
+                    addCounterparty.AreMassCommentsDisplayedOnCounterpartyDetailPageLV(commentsExl);
+                    Assert.IsTrue(addCounterparty.AreMassCommentsDisplayedOnCounterpartyDetailPageLV(commentsExl), "Verify comments added through Mass Edit from Counterparty list page are saved and available on related counterparty detail page");
+                    extentReports.CreateStepLogs("Passed", "Comments added through Mass Edit from Counterparty list page are saved and available on related counterparty detail page");
+
+                    */
+
+                    
+
 
                     //TMTI0063912 Verify the functionality of adding new Counterparty Contact in Opportunity Counter party Detail Page
                     //Adding Contact with email id in added Counterparty
@@ -206,20 +224,31 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
 
                     //addCounterparty.ClickCounterpartyCompanyLink(counterpartyCompanyNameExl);//updated
                     //CustomFunctions.SwitchToWindow(driver, 1);
-                    //extentReports.CreateStepLogs("Info", "User Switched to new tab ");                    
+                    //extentReports.CreateStepLogs("Info", "User Switched to new tab ");
 
-                    // Add CP Comments on detail page
+                    //Add CP Comments on detail page
                     //Add & Get Counterparty Comments
-                    //addCounterparty.ClickOppCPCommentsLV();// remove text from comopany
-                    //string commentTypeCPExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", 3, 2);
-                    //string commentTextCPExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", 2, 3);
-                    //addCounterparty.AddNewOpportunityCounterpartyCommentLV(commentTypeCPExl, commentTextCPExl, counterpartyCompanyNameExl);
-                    //popupMessage = randomPages.GetLVMessagePopup();
-                    //Assert.IsTrue(popupMessage.Contains("Opportunity Counterparty Comment"), "Verify the Opportunity Counterparty Comments is displayed in Popup message ");
-                    //extentReports.CreateStepLogs("Passed", "Comments added for counterparty with Type:  " + commentTypeCPExl);
-                    //string commentTypeCP = addCounterparty.GetCommentTypeLV();
-                    //Assert.AreEqual(commentTypeCP, commentTypeCPExl, "Verify Comments added with Type:  " + commentTypeCPExl);
-                    //randomPages.CloseActiveTab("OCC");
+                    //addCounterparty.ClickAddOppCPCommentsLV();// remove text from comopany
+
+
+
+
+                    //TMTI0063918 Verify that the counterparty's comments are visible on the counterparty's details page and mapped correctly after conversion into the engagement 
+                    //Adding Opportunity Counterparty Comments from updated View(Footer section on detail page) 
+                    addCounterparty.ClickAddOppCPCommentsLV();
+                    string commentTypeCPExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", 3, 2);
+                    string commentTextCPExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", 2, 3);
+                    addCounterparty.AddNewOpportunityCounterpartyCommentLV(commentTypeCPExl, commentTextCPExl, counterpartyCompanyNameExl);
+                    popupMessage = randomPages.GetLVMessagePopup();
+                    Assert.IsTrue(popupMessage.Contains("Opportunity Counterparty Comment"), "Verify the Opportunity Counterparty Comments is displayed in Popup message ");
+                    extentReports.CreateStepLogs("Passed", "Comments added for counterparty with Type:  " + commentTypeCPExl);
+                    string commentTypeCP = addCounterparty.GetCommentTypeLV();
+                    Assert.AreEqual(commentTypeCP, commentTypeCPExl, "Verify Comments added with Type:  " + commentTypeCPExl);
+                    randomPages.CloseActiveTab("OCC");
+                    ///////**********************
+                    ///
+
+
 
                     //Verify the ways of add contact and Adding Contacts
                     addCounterparty.ButtonClick("New Opportunity Counterparty Contact");
@@ -239,6 +268,7 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     CustomFunctions.SwitchToWindow(driver, 0);
                     //CustomFunctions.PageReload(driver);
 
+                    //****UI Changes not QuickLink to view added contact
                     //addCounterparty.ClickCounterparyQuickLink("Contacts");
                     //Assert.IsTrue(addCounterparty.IsContactDisplayedInQuickLinkList(valCPContact));
                     // extentReports.CreateStepLogs("Passed", "Contact: " + valCPContact + " is available under Counterparty Contact(s) Quicklink");
@@ -260,6 +290,9 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     // Assert.IsTrue(addCounterparty.IsAddedCounterpartyCompanyDisplayedOnEmailTemplate(counterpartyCompanyNameExl), "Verify Company Counterparty name is present on Email Template ");
                     // extentReports.CreateStepLogs("Passed", "Company Counterparty name:" + counterpartyCompanyNameExl + " is present on Email Template ");
 
+                    
+                    
+                    
                     //TMTI0070811	Verification of Export Data feature available on View Counterparty screen
                     addCounterparty.ClickOpportunityCounterpartyExportDataButton();
                     string locationExportedFile = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", row, 4);

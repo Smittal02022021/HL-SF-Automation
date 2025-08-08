@@ -733,6 +733,7 @@ namespace SF_Automation.Pages
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
+            jse.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(5000);
             string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
             //--------------------------Enter Opportunity details-----------------------------
@@ -1743,6 +1744,6 @@ namespace SF_Automation.Pages
                 jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnCancelL));
                 return false;
             }
-        }
+        }        
     }
 }

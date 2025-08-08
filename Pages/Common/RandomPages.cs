@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Timers;
 
@@ -1443,6 +1444,84 @@ namespace SF_Automation.Pages.Common
             WebDriverWaits.WaitUntilEleVisible(driver, btnCancelFilterBySection, 20);
             driver.FindElement(btnCancelFilterBySection).Click();
         }
+        By chkWaiveRFOFieldL = By.XPath("//h3//span[@title='Estimated Fees']/../../..//Input[contains(@name,'Waive_RFO')]");
+        By editWaiveRFOFieldL = By.XPath("//input[@name='Waive_RFO__c']/../span");
+        By checkboxWaiveRFOFieldL= By.XPath("//input[@name='Waive_RFO__c']");
+        By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
+        By iconInlineEditWaiveRFOL = By.XPath("//button[@title='Edit Waive RFO']");
+        //By iconInlineEditWaiveRFOL = By.XPath("//button[@title='Edit Waive RFO']");
+        public bool IsWaiveRFOFieldDisplayedLV()
+        {
+            try
+            {
+                CustomFunctions.MoveToElement(driver, driver.FindElement(checkboxWaiveRFOFieldL));
+                return driver.FindElement(checkboxWaiveRFOFieldL).Displayed;
+            }
+            catch { return false; }
+            
+        }
+        
+        public bool IsWaveRFPInlineEditableLV()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconInlineEditWaiveRFOL, 30);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(iconInlineEditWaiveRFOL));
+                return driver.FindElement(iconInlineEditWaiveRFOL).Displayed;
+            }
+            catch { return false; }
+        }
+        public void UpdateWaiveRFOLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, iconInlineEditWaiveRFOL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(iconInlineEditWaiveRFOL));
+            driver.FindElement(iconInlineEditWaiveRFOL).Click();
+            Thread.Sleep(2000);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(checkboxWaiveRFOFieldL));
+            driver.FindElement(checkboxWaiveRFOFieldL).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(5000);
 
+        }
+        public bool IsWaiveRFOFieldPresentLV()
+        {
+            try
+            {
+                CustomFunctions.MoveToElement(driver, driver.FindElement(chkWaiveRFOFieldL));
+                WebDriverWaits.WaitUntilEleVisible(driver, chkWaiveRFOFieldL, 10);
+                return driver.FindElement(chkWaiveRFOFieldL).Displayed;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
+
+        public bool IsWaiveRFOFieldEditableLV()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, editWaiveRFOFieldL, 30);
+                CustomFunctions.MoveToElement(driver, driver.FindElement(editWaiveRFOFieldL));
+                return driver.FindElement(editWaiveRFOFieldL).Displayed;
+            }
+            catch { return false; }
+        }
+        public bool GetWaiveRFOStatusLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, chkWaiveRFOFieldL, 30);
+            try
+            {
+                return driver.FindElement(chkWaiveRFOFieldL).Selected;
+              }
+
+            catch { return false; }           
+        }
+        By btnCancelL = By.XPath("//button[@name='CancelEdit']");
+        public void CancelEditFormLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancelL, 20);
+            driver.FindElement(btnCancelL).Click(); 
+        }
     }
 }

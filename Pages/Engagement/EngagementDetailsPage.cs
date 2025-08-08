@@ -43,7 +43,7 @@ namespace SF_Automation.Pages.Engagement
         By valPostTxnStatus = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Post_Transaction_Status__c']/div[1]//dd/div/span/slot/lightning-formatted-text");
         By valCompDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.FR_Client__c']/div//dd/div[1]/span/slot/lightning-formatted-text");
         By valBusDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Business_Description__c']/div//dd/div[1]/span/slot/lightning-formatted-text");
-        By valReDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Restructuring_Description__c']/div//dd/div[1]/span/slot/lightning-formatted-text"); 
+        By valReDesc = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Restructuring_Description__c']/div//dd/div[1]/span/slot/lightning-formatted-text");
         By titleFREngSum = By.CssSelector("h2[class='pageDescription']");
         By lblTransType = By.CssSelector("div[id*='id37'] > div[class='pbBody'] > table > tbody > tr:nth-child(1) > td:nth-child(1) > label");
         By valRevAccural = By.CssSelector("div[id*='saB_body']>table>tbody>tr:nth-child(2)>th>a:nth-child(2)");
@@ -80,8 +80,8 @@ namespace SF_Automation.Pages.Engagement
         By titleBillingForm = By.CssSelector("h2[class='mainTitle']");
 
         By txtParty = By.CssSelector("select[name*='M0eMS']");
-        By valContact = By.CssSelector("div[id*='QcI_body']> table > tbody > tr.dataRow.even.last.first > th>a:nth-child(2)");       
-        
+        By valContact = By.CssSelector("div[id*='QcI_body']> table > tbody > tr.dataRow.even.last.first > th>a:nth-child(2)");
+
         By comboStage = By.CssSelector("select[id = '00Ni000000D7NlW']");
         By chkExpApplication = By.CssSelector("img[id*='jj_id0_j_id4_chkbox']");
         By valAccountingStatus = By.CssSelector("div[id*='7XFj_id0_j_id4_ileinner']");
@@ -180,7 +180,7 @@ namespace SF_Automation.Pages.Engagement
         By lnkOppL = By.XPath("//flexipage-component2[1]//dl/slot/records-record-layout-row[6]//records-hoverable-link");
         By btnCloseOppL = By.XPath("//span[@title='Engagement  c']/ancestor::li[1]//button[contains(@title,'Close')]");
         //By btnCloseReqEngFVAL = By.XPath("//button[@title='Close this window']");
-        
+
         By lnkOpp = By.CssSelector("div[id*='zAzj']>a");
         By btnCancel = By.CssSelector("input[value='Cancel']");
         //By valNewSubject = By.CssSelector("div[id*='aho5_00Ni000000D9DbX_body'] > table > tbody > tr:nth-child(4)>th>a");
@@ -318,9 +318,9 @@ namespace SF_Automation.Pages.Engagement
         By tabImpDates = By.XPath("//a[text()='Important Dates']");
         By tabInfo2ndL = By.XPath("//a[text()='Info']");
         By valFinalReportL = By.XPath("//flexipage-tab2[2]//flexipage-column2[1]/div/slot/flexipage-field[4]//lightning-formatted-text");
-                
+
         By subTabCST = By.XPath("//ul/li[@title='CST Questionnaire Details']/a[@data-tab-value='flexipage_tab20']");
-        
+
         By btnCancelL = By.XPath("//button[@name='CancelEdit']");
         By valClientOwnershipBefore = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/div/lightning-base-combobox/div/div[1]/div/button/span");
         By btnClientOwnership = By.XPath("//label[text()='Client Ownership']/ancestor::lightning-combobox/div[1]/div/lightning-base-combobox//button");
@@ -423,7 +423,7 @@ namespace SF_Automation.Pages.Engagement
         By tabComments = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[1]/a");
         By tabFinancials = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[2]/a");
         By tabEngContacts = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[3]/a");
-        
+
         By tabCST = By.XPath("//forcegenerated-flexipage_engagement_record_page_hlbanker_cf_engagement__c__view_js/record_flexipage-desktop-record-page-decorator/div[1]/records-record-layout-event-broker/slot/slot/flexipage-record-home-template-desktop2/div/div[2]/div[2]/slot/flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/lightning-tab-bar/ul/li[4]/a");
         By btnView = By.XPath("//lst-list-view-row-level-action/lightning-button-menu/button");
         By btnViewDel = By.XPath("//force-aura-action-wrapper/div/ul/li/div/div/div/div/a");
@@ -477,7 +477,7 @@ namespace SF_Automation.Pages.Engagement
         By btnPartyContact = By.XPath("//div[4]/div[1]/div/div/div/div/div[1]/div/div/a");
         By valAddedContact = By.XPath("//lst-template-list-item-factory[1]/lst-related-preview-card/article/div/div[1]/h3/lst-template-list-field/formula-output-formula-html/lightning-formatted-rich-text/span/a[2]");
 
-        
+
         By valAddedContactNum = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[1]/div/div/h2/a/span[2]");
         By btnBillingRequestL = By.XPath("//button[text()='Billing Request']");
         By secAdditionalCC = By.XPath("//div[1]/div/div/div/div[2]/div[2]/div[1]/h3");
@@ -528,7 +528,7 @@ namespace SF_Automation.Pages.Engagement
         By btnEngReportsL = By.XPath("//button[text()='Engagement Reports']");
 
         By txtEngStageL = By.XPath("//span[text()='Stage']/../..//lightning-formatted-text");
-                                    //div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Stage__c']/div//dd/div/span/slot/lightning-formatted-text");//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Stage__c']/div/div/span/slot/lightning-formatted-text");
+        //div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Stage__c']/div//dd/div/span/slot/lightning-formatted-text");//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Stage__c']/div/div/span/slot/lightning-formatted-text");
         By txtEngRecordTypeL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.RecordTypeId']//div[contains(@class,'recordType')]/div/span");
         By tabEngAdministratorL = By.XPath("//h1/div[contains(@class,'entityNameTitle')]//records-entity-label[text()='Engagement']//ancestor::flexipage-record-home-template-desktop2//following::flexipage-component2//li[@title='Administration']/a");//div[text()='Engagement']/ancestor::div/following::flexipage-component2//li[@title='Administration']/a");// (//li/a[@data-label='Administration'])[2]");
         By txtEngLegalEntityL = By.XPath("//div[contains(@data-target-selection-name,'Engagement__c.Legal_Entity')]//a//span/slot/span/slot");//div[contains(@data-target-selection-name,'Engagement__c.Legal_Entity')]//a//span");
@@ -751,7 +751,7 @@ namespace SF_Automation.Pages.Engagement
         By lblSICL = By.XPath("//label[text()='SIC Code']");
         By comboPrimaryOfficeL = By.XPath("//label[text()='Primary Office']/parent::div//button");
         By btnJobTypeL = By.XPath("//label[text()='Job Type']/parent::div//button");
-        By btnLOBL = By.XPath("//label[text()='Line of Business']/parent::div//button");        
+        By btnLOBL = By.XPath("//label[text()='Line of Business']/parent::div//button");
         By optionsJobTypeL = By.XPath("//div[@aria-label='Job Type']//lightning-base-combobox-item//span/span");//div[@aria-label='Job Type']//lightning-base-combobox-item//span[@class='slds-truncate']");
         By lblEngDesc = By.XPath("//div//label[text()='Engagement Description']");
         By tabAdministationL1 = By.XPath("//lightning-tab-bar/ul/li/a[text()='Administration']");
@@ -829,7 +829,7 @@ namespace SF_Automation.Pages.Engagement
         By textEngCommentsL = By.XPath("//article[@aria-label='Comments']//lightning-base-formatted-text"); //h2[text()='Tabs']/..//table//lightning-base-formatted-text");
         By tabcommentsL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Comments'])[1]");
         By counterpartyNameL = By.XPath("//table//th[@data-label='Company']");
-        By tabContactsL2 = By.XPath("//lightning-tab-bar/ul/li/a[text()='Contacts']");        
+        By tabContactsL2 = By.XPath("//lightning-tab-bar/ul/li/a[text()='Contacts']");
         By lnkContactL = By.XPath("//table/tbody/tr//span/a[2]");
         By btnEditContactL = By.XPath("//button[@name='Contact.Add_Relationship_QuickAction']/ancestor::ul/li[1]//button");
         By txtFirstNameL = By.XPath("//input[@name='firstName']");
@@ -839,8 +839,8 @@ namespace SF_Automation.Pages.Engagement
         By txtSecWomenLedLV = By.XPath("//span[text()='Women Led']/ancestor::div/../../../h3//button/span");
 
         //By btnCloseReqEngFVAL = By.XPath("//button[@title='Close this window']");
-        By btnCloseReqEngFVAL = By.XPath("//button[@title ='Cancel and close']"); 
-        By subTabEng = By.XPath("//section[2]//ul[2]/li[2]/a/span[2]");        
+        By btnCloseReqEngFVAL = By.XPath("//button[@title ='Cancel and close']");
+        By subTabEng = By.XPath("//section[2]//ul[2]/li[2]/a/span[2]");
         By btnStartingYear = By.XPath("//button[@aria-label='Year']");
         By valStartingYear = By.XPath("//label[text()='Year']/ancestor::div[1]/div[1]//div[2]/lightning-base-combobox-item[5]//span[2]/span");
         By btnViewCounterparty = By.XPath("//li[contains(@data-target-selection-name,'QuickAction.Engagement')]//button[contains(text(),'View Counterparties')]");
@@ -941,13 +941,13 @@ namespace SF_Automation.Pages.Engagement
         {
             return By.XPath($"//button[contains(@name,'Add_{lob}_Engagement_Contact')]");
         }
-       
+
         public bool IsInlineEditLocationBenefitButtonPresentLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabAdministationL1, 5);
             driver.FindElement(tabAdministationL1).Click();
             try
-            {                
+            {
                 WebDriverWaits.WaitUntilEleVisible(driver, inlineEditLocationBenefitL, 5);
                 return driver.FindElement(inlineEditLocationBenefitL).Displayed;
             }
@@ -973,7 +973,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(tabAdministationL1).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtLocationBenefitL, 10);
             driver.FindElement(tabDetails).Click();
-            string val= driver.FindElement(txtLocationBenefitL).Text;
+            string val = driver.FindElement(txtLocationBenefitL).Text;
             return val;
         }
         public void EditEngagementStageLV(string stage)
@@ -1014,12 +1014,12 @@ namespace SF_Automation.Pages.Engagement
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnSaveL));
             driver.FindElement(btnSaveL).Click();
         }
-        
+
         public string GetPageLevelAccessWarningLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, popHitaSang, 10);
             Thread.Sleep(2000);
-            string msg= driver.FindElement(txtPageLevelAccessWarningL).Text.Trim();
+            string msg = driver.FindElement(txtPageLevelAccessWarningL).Text.Trim();
             driver.FindElement(btnCancelEditFormL).Click();
             return msg;
         }
@@ -1040,7 +1040,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(2000);
             //string pageLevelError = driver.FindElement(txtFieldLevelError).Text;
             //string formatedpageLevelError = Regex.Replace(pageLevelError, @"\t|\n|\r", "");
-            string formatedpageLevelError="";
+            string formatedpageLevelError = "";
             IList<IWebElement> fieldLevelErrors = driver.FindElements(txtFieldLevelErrorsList);
             string formatedFieldLevelErrors = "";
             foreach (IWebElement txtFieldLevelError in fieldLevelErrors)
@@ -1053,16 +1053,17 @@ namespace SF_Automation.Pages.Engagement
             string finalErroList = formatedpageLevelError + formatedFieldLevelErrors;
             driver.FindElement(btnCancelEditFormL).Click();
             return finalErroList;
-        }        
+        }
 
         public void EnterCommentsForStageChangeLV(string stage)
         {
             this.EditEngagementStageLV(stage);
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;            
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             jse.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(inputStageCommentsL));
             Thread.Sleep(1000);
-            driver.FindElement(inputStageCommentsL).SendKeys("Test Hold Comments");                       
-            driver.FindElement(btnSaveL).Click();            
+            driver.FindElement(inputStageCommentsL).SendKeys("Test Hold Comments");
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(5000);
         }
 
         public void EntertStageChangeReqValuesLV(string stage)
@@ -1118,7 +1119,7 @@ namespace SF_Automation.Pages.Engagement
                 try
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, elePrepEffOption, 5);
-                    CustomFunctions.MoveToElement(driver, driver.FindElement(elePrepEffOption));                    
+                    CustomFunctions.MoveToElement(driver, driver.FindElement(elePrepEffOption));
                 }
                 catch
                 {
@@ -1136,7 +1137,7 @@ namespace SF_Automation.Pages.Engagement
                 driver.FindElement(inputStageCommentsL).SendKeys("Test Hold Comments");
             }
 
-                //////////
+            //////////
             jse.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(inputTailExpL));
             Thread.Sleep(1000);
             string dateTailExp = DateTime.Today.ToString("dd/MM/yyyy");
@@ -1165,8 +1166,8 @@ namespace SF_Automation.Pages.Engagement
             {
                 return false;
             }
-            
-            
+
+
         }
 
         public string GetRecordTypeL()
@@ -1299,9 +1300,9 @@ namespace SF_Automation.Pages.Engagement
                 driver.FindElement(btnEngInfoSaveL).Click();
                 Thread.Sleep(5000);
             }
-            catch { 
+            catch {
                 //nothing to click
-                  }
+            }
         }
         public void ClickRequestFullEngagementLV()
         {
@@ -1341,7 +1342,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(2000);
             return formatedReqFieldLabels;
         }
-        
+
         public string ValidateIfCoExistFieldIsPresentAndCheckedOrNotLV()
         {
             try
@@ -3093,7 +3094,7 @@ namespace SF_Automation.Pages.Engagement
             }
         }
 
-        
+
         public string GetEngDealTeamMember()
         {
 
@@ -3606,7 +3607,7 @@ namespace SF_Automation.Pages.Engagement
             //Enter results frame
             WebDriverWaits.WaitUntilEleVisible(driver, By.Id("resultsFrame"));
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//*[@id='resultsFrame']")));
-            Thread.Sleep(2000);           
+            Thread.Sleep(2000);
 
             //Enter filter values
             driver.FindElement(inputCoverageType).SendKeys(ReadExcelData.ReadData(excelPath, "CoverageSectorDependency", 1));
@@ -3692,7 +3693,7 @@ namespace SF_Automation.Pages.Engagement
             js.ExecuteScript("window.scrollTo(0,-750)");
             return id;
         }
-         
+
 
         //Create new Revenue Accrual record
         public string AddRevenueAccrualL()
@@ -3753,8 +3754,8 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabEngagementL, 80);
             driver.FindElement(tabEngagementL).Click();
-        }      
-        
+        }
+
 
         //Update Client Ownership and Total Debt
         public string UpdateClientOwnershipAndDebtL(string Ownership, string Debt)
@@ -4447,7 +4448,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, valContract1L, 180);
             string name = driver.FindElement(valContract1L).Text;
             return name;
-        } 
+        }
 
         //Get 2nd contract name
         public string Get2ndContractNameL()
@@ -4474,11 +4475,11 @@ namespace SF_Automation.Pages.Engagement
             string name = driver.FindElement(titleEngPage).Text;
             return name;
         }
-        
+
         public string GetSectionNameOfWomenLedFieldLV(string JobType)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtSecWomenLedLV, 10);
-            return driver.FindElement(txtSecWomenLedLV).Text; 
+            return driver.FindElement(txtSecWomenLedLV).Text;
         }
         //Get section name of Women Led in Engagement details page
         public string GetSectionNameOfWomenLedField(string JobType)
@@ -4943,7 +4944,7 @@ namespace SF_Automation.Pages.Engagement
         }
 
         //Validate all displayed Type dropdown values
-        
+
         public bool VerifyTypes()
         {
             Thread.Sleep(4000);
@@ -6022,7 +6023,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(Driver, subTabImpDates, 10);
             driver.FindElement(subTabImpDates).Click();
         }
-        By lblTailExpires= By.XPath("//span[text()='Tail Expires']");
+        By lblTailExpires = By.XPath("//span[text()='Tail Expires']");
         public bool IsTailExpiresFieldPresentLV()
         {
             try
@@ -6030,7 +6031,7 @@ namespace SF_Automation.Pages.Engagement
                 WebDriverWaits.WaitUntilEleVisible(Driver, lblTailExpires, 10);
                 return driver.FindElement(lblTailExpires).Displayed;
             }
-            catch{ return false; }
+            catch { return false; }
 
         }
 
@@ -7072,7 +7073,7 @@ namespace SF_Automation.Pages.Engagement
                     try
                     {
                         WebDriverWaits.WaitUntilEleVisible(driver, txtMsgOverlimit, 5);
-                        js.ExecuteScript("window.scrollTo(000,000)");                         
+                        js.ExecuteScript("window.scrollTo(000,000)");
                         break;
                     }
                     catch
@@ -7086,7 +7087,7 @@ namespace SF_Automation.Pages.Engagement
                     Thread.Sleep(1000);
                     return row - 2;
                 }
-                
+
             }
             driver.SwitchTo().DefaultContent();
             return totalDealTeamMemberadded;
@@ -7732,7 +7733,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngRecordTypeL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtEngRecordTypeL));
             return driver.FindElement(txtEngRecordTypeL).Text;
-        }       
+        }
 
         public string ValidateWomenLedFieldLV()
         {
@@ -7774,7 +7775,7 @@ namespace SF_Automation.Pages.Engagement
                 WebDriverWaits.WaitUntilEleVisible(driver, tabContactsL2, 5);
                 driver.FindElement(tabContactsL2).Click();
             }
-            
+
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtContactNameL, 20);
             return driver.FindElement(txtContactNameL).Text;
@@ -7916,7 +7917,7 @@ namespace SF_Automation.Pages.Engagement
             js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(tabInformationL));
             WebDriverWaits.WaitUntilEleVisible(Driver, subTabAdmin, 10);
             driver.FindElement(subTabAdmin).Click();
-
+            Thread.Sleep(5000);
         }
         public string GetLegalEntityLV()
         {
@@ -8037,7 +8038,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(60000);
             WebDriverWaits.WaitUntilEleVisible(Driver, subTabAdmin, 10);
             driver.FindElement(subTabAdmin).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnChangeRecordTypeL, 20);            
+            WebDriverWaits.WaitUntilEleVisible(driver, btnChangeRecordTypeL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnChangeRecordTypeL));
             driver.FindElement(btnChangeRecordTypeL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, headerChangeRT, 20);
@@ -8108,7 +8109,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
             return isFound;
         }
-        
+
 
         public void ClickQuickLink(string linkName)
         {
@@ -8306,7 +8307,7 @@ namespace SF_Automation.Pages.Engagement
             string name = driver.FindElement(lnkContacts).Text;
             return name;
         }
-              
+
         public string GetEngagementCommentsID()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtEngCommentsIDL, 20);
@@ -8314,7 +8315,7 @@ namespace SF_Automation.Pages.Engagement
         }
         public void AddEngementCommentsLV(string commentType, string txtComments)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;            
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             WebDriverWaits.WaitUntilEleVisible(driver, tabCommentsL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(tabCommentsL));
             driver.FindElement(tabCommentsL).Click();
@@ -8341,7 +8342,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(_btnAddContactL(RecordType)).Click();
         }
         public void CreateContactLV(string name, string party)
-        {            
+        {
             WebDriverWaits.WaitUntilEleVisible(driver, txtContactL, 20);
             driver.FindElement(txtContactL).SendKeys(name);
             Thread.Sleep(3000);
@@ -8418,7 +8419,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, txtFSEngIDL, 10);
             return driver.FindElement(txtFSEngIDL).Text;
         }
-        
+
         public string GetFSEngSponsorCompanyLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valSponsorCmpnyL, 10);
@@ -8430,7 +8431,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(tabEngContactsL).Click();
             Thread.Sleep(5000);
         }
-        
+
         public void ClickEngInfoCommentsTabLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabInfo2ndL, 10);
@@ -8440,7 +8441,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
         }
         public string GetEngCommentPresentLV(string commentType)
-        {            
+        {
             //By txtComments = By.XPath($"//article[@aria-label='{commentType}']//table//td[@data-label='Comment']//lightning-base-formatted-text");
             By txtComments = By.XPath($"//dt[text()='Comment:']/..//lightning-base-formatted-text");
             WebDriverWaits.WaitUntilEleVisible(driver, txtComments, 10);
@@ -8449,9 +8450,9 @@ namespace SF_Automation.Pages.Engagement
         }
         public bool IsEngContactPresentLV(string contactNamePE)
         {
-            bool result = false;            
+            bool result = false;
             IList<IWebElement> engContacts = driver.FindElements(By.XPath("//table[@aria-label='Engagement Contacts']//tr//th//lightning-primitive-cell-factory//a[2]"));
-            foreach(IWebElement engContact in engContacts)
+            foreach (IWebElement engContact in engContacts)
             {
                 result = false;
                 if (engContact.Text == contactNamePE)
@@ -8459,14 +8460,14 @@ namespace SF_Automation.Pages.Engagement
                     result = true;
                     break;
                 }
-            }            
+            }
             return result;
         }
-        
+
         public void ClickEngCommentsTabLV()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,0)");            
+            js.ExecuteScript("window.scrollTo(0,0)");
             WebDriverWaits.WaitUntilEleVisible(driver, tabcommentsL, 20);
             driver.FindElement(tabcommentsL).Click();
             Thread.Sleep(5000);
@@ -8476,20 +8477,20 @@ namespace SF_Automation.Pages.Engagement
             bool isCommentFund = false;
             WebDriverWaits.WaitUntilEleVisible(driver, textEngCommentsL, 10);
             IList<IWebElement> engComments = driver.FindElements(textEngCommentsL);
-            foreach(IWebElement engComment in engComments)
+            foreach (IWebElement engComment in engComments)
             {
-                isCommentFund = false;             
+                isCommentFund = false;
                 if (engComment.Text == txtPEComments)
                 {
                     isCommentFund = true;
                     break;
-                }                
+                }
             }
             return isCommentFund;
-        }        
+        }
         public bool IsEngCounterparyCompaniesPresentLV(string addedCounterpartyCompany)
         {
-            bool iscounterpartyfound = false;            
+            bool iscounterpartyfound = false;
             IList<IWebElement> counterpartyName = driver.FindElements(counterpartyNameL);
             WebDriverWaits.WaitUntilEleVisible(driver, counterpartyNameL, 20);
             foreach (IWebElement counterparty in counterpartyName)
@@ -8498,9 +8499,9 @@ namespace SF_Automation.Pages.Engagement
                 string availablecounterparty = counterparty.GetAttribute("data-cell-value");
                 if (availablecounterparty == addedCounterpartyCompany)
                 {
-                   iscounterpartyfound = true;
-                   break;
-                }                
+                    iscounterpartyfound = true;
+                    break;
+                }
             }
             return iscounterpartyfound;
         }
@@ -8509,11 +8510,16 @@ namespace SF_Automation.Pages.Engagement
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,0)");
-            Thread.Sleep(1000);           
+            Thread.Sleep(1000);
             js.ExecuteScript("window.scrollTo(0,0)");
             WebDriverWaits.WaitUntilEleVisible(driver, tabEngFeeAndFinanciaL, 5);
             driver.FindElement(tabEngFeeAndFinanciaL).Click();
             Thread.Sleep(5000);
+        }
+        public void ClickTabInfoLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInfo2ndL, 10);
+            driver.FindElement(tabInfo2ndL).Click();
         }
 
         By txtEstTransMCapL = By.XPath("//span[contains(text(),'Transaction Size')]/../../..//lightning-formatted-text");
@@ -8647,7 +8653,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, txtVerifiedDateL, 20);
             return driver.FindElement(txtVerifiedDateL).Text;
         }
-        
+
         public void ClickConflicksCheckLV()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -8707,15 +8713,15 @@ namespace SF_Automation.Pages.Engagement
         public string GetBillingEmailBodyJobTypeLV()
         {
             driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
-            WebDriverWaits.WaitUntilEleVisible(driver, btnCanelBillingRequestEmailL, 20);            
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCanelBillingRequestEmailL, 20);
             WebDriverWaits.WaitUntilEleVisible(driver, frameEmail, 20);
             driver.SwitchTo().Frame(driver.FindElement(frameEmail));
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtAreaEmailBodyL, 20);
-            string jobType= driver.FindElement(txtAreaEmailBodyL).Text.Split(':')[1].Trim();
+            string jobType = driver.FindElement(txtAreaEmailBodyL).Text.Split(':')[1].Trim();
             driver.SwitchTo().DefaultContent();
             return jobType;
-        }        
+        }
         public void CancelBillingRequestEmailLV()
         {
             driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
@@ -8757,7 +8763,7 @@ namespace SF_Automation.Pages.Engagement
             return driver.FindElement(txtRevAccuJobTypeL).Text;
         }
         public string GetRevenueAccrualNumberLV()
-        {            
+        {
             WebDriverWaits.WaitUntilEleVisible(driver, txtRevAccuNumberL, 10);
             return driver.FindElement(txtRevAccuNumberL).Text;
         }
@@ -8788,6 +8794,17 @@ namespace SF_Automation.Pages.Engagement
             CustomFunctions.MoveToElement(driver, driver.FindElement(lnkRevAccuL));
             driver.FindElement(lnkRevAccuL).Click();
         }
+        public void ClickEditEngagementLV()
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            jse.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 20);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(4000);
+        }
 
+        
+        
     }
 }
