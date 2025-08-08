@@ -452,7 +452,7 @@ namespace SF_Automation.Pages
         By tabClientSubjectL = By.XPath("//a[text()='Client/Subject & Referral']");
         By tabIT = By.XPath("//a[text()='Internal Team']");
         By tabComments = By.XPath("//a[text()='Comments']");
-        By lnkComments = By.XPath("//slot/lst-dynamic-related-list-with-user-prefs//ul/li/lightning-button-menu/button");
+        By lnkComments = By.XPath("//lst-related-list-view-manager//ul/li[1]/lightning-button-menu/button");
         By lnkNewComment = By.XPath("//span[text()='New']");
         By btnComments = By.XPath("//button[@data-value='Internal']");
         //By btnComments = By.XPath("//label[text()='Comment Type']/parent::div//button");//button[@aria-label='Comment Type, Internal']");

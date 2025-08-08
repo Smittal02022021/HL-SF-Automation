@@ -495,8 +495,15 @@ namespace SF_Automation.Pages.Engagement
         By txtContacts = By.XPath("//input[@placeholder='Search Contacts...']");
         By btnPartyContact = By.XPath("//div[4]/div[1]/div/div/div/div/div[1]/div/div/a");
         By valAddedContact = By.XPath("//lst-template-list-item-factory[1]/lst-related-preview-card/article/div/div[1]/h3/lst-template-list-field/formula-output-formula-html/lightning-formatted-rich-text/span/a[2]");
+        By lnkCounterparty = By.XPath("//span[text()='EC - Anthem']/ancestor::records-hoverable-link");
+        By valCompanyCounterparty = By.XPath("//span[text()='Company']/ancestor::div[2]/div[2]//a//slot//span//span");
+        By valTypeCounterparty = By.XPath("//span[text()='Type']/ancestor::div[2]//div[2]//lightning-formatted-text");
+        By lnkCompany = By.XPath("//td//span[text()='Anthem']/ancestor::a");
+        By valIGCompany = By.XPath("//span[text()='Account Information']/ancestor::div[1]//span[text()='Industry Group']/ancestor::div[2]//div[2]//lightning-formatted-text");
+        By valOwnershipCompany = By.XPath("//span[text()='Account Information']/ancestor::div[1]//span[text()='Ownership']/ancestor::div[2]//div[2]//lightning-formatted-text");
 
         
+
         By valAddedContactNum = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[1]/div/div/h2/a/span[2]");
         By btnBillingRequestL = By.XPath("//span[text()='Billing Request']");
         By btnCFEngSummary = By.XPath("//span[text()='Engagement Summary (CF)']");
@@ -3463,7 +3470,25 @@ namespace SF_Automation.Pages.Engagement
             js.ExecuteScript("window.scrollTo(0,-750)");
             return id;
         }
-         
+        public void ClickEngTab()
+        {
+            driver.FindElement(tabEngagementNumL).Click();            
+        }
+        public string GetIGvalueFromCompany()
+        {
+            driver.FindElement(tabEngagementNumL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(lnkCompany).Click();
+            Thread.Sleep(4000);
+            string value= driver.FindElement(valIGCompany).Text;
+            return value;
+        }
+
+        public string GetOwnershipFromCompany()
+        {            
+            string value = driver.FindElement(valOwnershipCompany).Text;
+            return value;
+        }
 
         //Create new Revenue Accrual record
         public string AddRevenueAccrualL()
@@ -5587,6 +5612,8 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
+      
+
         //Get CST Questionnaire Sub tab
         public string ValidateCSTQuestionnaireDetailsSubTab()
         {
@@ -5904,6 +5931,23 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(Driver, subTabClosingInfo, 150);
             driver.FindElement(subTabClosingInfo).Click();
         }
+
+        //Click Closing Info tab
+        public string GetCompanyOfCounterparty()
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(lnkCounterparty).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(valCompanyCounterparty).Text;
+            return value;
+        }
+
+        public string GetTypeOfCounterparty()
+        {           
+            string value = driver.FindElement(valTypeCounterparty).Text;
+            return value;
+        }
+
 
         //Click CST Questionnaire Details tab
         public void ClickCSTQuesTab()

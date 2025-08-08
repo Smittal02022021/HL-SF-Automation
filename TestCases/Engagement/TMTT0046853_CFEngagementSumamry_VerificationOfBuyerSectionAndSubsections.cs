@@ -1,7 +1,4 @@
-﻿using AventStack.ExtentReports.Gherkin.Model;
-using iTextSharp.text.pdf.security;
-using Microsoft.Office.Interop.Excel;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Engagement;
@@ -63,47 +60,51 @@ namespace SF_Automation.TestCases.Engagement
                 string valJobType = ReadExcelData.ReadData(excelPath, "Engagement", 1);
                 string message = engHome.SearchEngagementWithNumberOnLightning(ReadExcelData.ReadData(excelPath, "Engagement", 2), valJobType);
                 Assert.AreEqual("Project Moon", message);
-                extentReports.CreateLog("Records matching with selected Job Type are displayed ");
+                extentReports.CreateLog("Records matching with selected Job Type are displayed ");                
 
-                engagementDetails.ValidateFeesTab();
-                string valCurrency = engagementDetails.GetCurrencyL();
-                string finalCurrency = valCurrency.Substring(0, 3);
+                //Fetch the Company and Type from Counterparty of Closing Info tab
+                engagementDetails.ClickClosingInfo();
+                string company = engagementDetails.GetCompanyOfCounterparty();
+                string type = engagementDetails.GetTypeOfCounterparty();
+
+                //Fetch the IG and Client Ownership from Company of Closing Info tab                
+                string IG = engagementDetails.GetIGvalueFromCompany();
+                string Ownership = engagementDetails.GetOwnershipFromCompany();
 
                 //1.  TMTI0114566_ Verify that the Buyer's basic information is displayed under the Parties Buyer section
+                engagementDetails.ClickEngTab();
                 engagementDetails.ClickCFEngsummaryButtonL();
-                string secParties = summaryPage.ValidateEngTimelineSection();           
+                string secParties = summaryPage.ValidatePartiesSection();
+                string secSeller = summaryPage.ValidateSellerSection();
+                string secBuyer = summaryPage.ValidateBuyerSection();
+                Assert.AreEqual("Buyer", secBuyer);
+                extentReports.CreateLog("Section with name: " +secBuyer +" is displayed after clicking Buyer section ");
+
+                string companyBuyside = summaryPage.ValidateCompanyOfBuyer();
+                Console.WriteLine("companyBuyside" + companyBuyside);
+                string typeBuyside = summaryPage.ValidateTypeOfBuyer();
+                Console.WriteLine("typeBuyside" + typeBuyside);
+                Assert.AreEqual(company, companyBuyside);
+                Assert.AreEqual(type, typeBuyside);
+                extentReports.CreateLog("Company: " + companyBuyside + " and Type: " + typeBuyside + " are mapped to Company and Type of Winning Counterparty if the deal is of Sellside ");
+
+                string IGBuyside = summaryPage.ValidateIGOfBuyer();
+                string OwnershipBuyside = summaryPage.ValidateOwnershipOfBuyer();
+                Assert.AreEqual(IG, IGBuyside);
+                Assert.AreEqual(Ownership, OwnershipBuyside);               
+                extentReports.CreateLog("Industry Group: " + IGBuyside + " and Ownership: " + OwnershipBuyside + " are mapped to IG and Ownership of Winning Counterparty's Company ");
+
+                string reqField = summaryPage.ValidateMandatoryValidationOfBuyerCompany();
+                Assert.AreEqual("Company", reqField);
+                extentReports.CreateLog("Mandatory Field " + reqField + " is displayed upon mover hover on Buyer ");
+
+                //2.	TMTI0114575_ Verify that the "Buyer's Background" information is displayed under the subsection Buyer Background
                 
-                Assert.IsTrue(summaryPage.VerifySubSectionsOfTimeline(), "Verify that displayed sub sections under Engagement Timeline section are same");
-                extentReports.CreateStepLogs("Passed", "Displayed sub sections under Engagement Timeline section are as expected ");
-
-                //--Verify the fields of Bidding section
-                Assert.IsTrue(summaryPage.VerifyFieldsOfBidding(), "Verify that displayed fields of Bidding section are same");
-                extentReports.CreateStepLogs("Passed", "Displayed fields of Bidding section are as expected ");
-
-                string dateEngagedMessage = summaryPage.ValidateDateEngagedMessageOnHeader();                
-                Assert.AreEqual("Date on Engagement Letter", dateEngagedMessage);
-                extentReports.CreateLog("Tool tip Message " + dateEngagedMessage + " is displayed on Date Engaged field in Bidding section ");
-
-                //---Validate Edit Functionality
-                string editValue = summaryPage.ValidateEditFunctionalityOfBidding("27-Jun-2023");
-                Console.WriteLine("EditValue: " + editValue);
-                Assert.AreEqual("27/06/2023", editValue);
-                extentReports.CreateLog("Entered value for Pitch Book Date: "+editValue+ " is saved after clicking Save button ");
-
-                //--Verify the fields of Signing section
-                Assert.IsTrue(summaryPage.VerifyFieldsOfSigning(), "Verify that displayed fields of Signing section are same");
-                extentReports.CreateStepLogs("Passed", "Displayed fields of Signing section are as expected ");
-
-                //---Validate Edit Functionality
-                string editValueSigning = summaryPage.ValidateEditFunctionalityOfSigning("27-Jun-2023");
-                Console.WriteLine("EditValue: " + editValueSigning);
-                Assert.AreEqual("27/06/2023", editValueSigning);
-                extentReports.CreateLog("Entered value for Signing Date: " + editValueSigning + " is saved after clicking Save button ");
-
-                //--Verify the fields of Closing section
-                Assert.IsTrue(summaryPage.VerifyFieldsOfSigning(), "Verify that displayed fields of Closing section are same");
-                extentReports.CreateStepLogs("Passed", "Displayed fields of Closing section are as expected ");
-
+                
+                
+                
+                
+                
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();            

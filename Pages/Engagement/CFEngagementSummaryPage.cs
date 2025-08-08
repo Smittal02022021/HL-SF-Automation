@@ -178,11 +178,21 @@ namespace SF_Automation.Pages.Engagement
         By lblJoType = By.XPath("//li//span[text()='Job Type']/ancestor::li//div[1]/span");
         By valJobType = By.XPath("//li//span[text()='Job Type']/ancestor::li//div[2]");
         By secParties = By.XPath("//span[text()='Parties']");
+        By valTypeBuyside = By.XPath("//span[text()='Company']/ancestor::div[2]//div[2]//lightning-formatted-text");
+        By valCompanyBuyside = By.XPath("//span[text()='Company']/ancestor::lightning-output-field//div[1]//a");
+        By valIGBuysdie = By.XPath("//span[text()='Buyer']/ancestor::article[1]//span[text()='Industry Group']/ancestor::div[1]//div/lightning-formatted-text");
+        By valOwnershipBuyside = By.XPath("//span[text()='Buyer']/ancestor::article[1]//span[text()='Ownership']/ancestor::div[1]//div/lightning-formatted-text");
+
         By btnParties = By.XPath("//span[text()='Parties']/ancestor::button");
         By secSeller = By.XPath("//h2/span[text()='Seller']");
         By secBuyer = By.XPath("//h2/span[text()='Buyer']");
+        By btnEditCompanyBuyer = By.XPath("//button[@title='Edit: Company__c']");
+        By btnClearCompanyBuyer = By.XPath("//button[@title='Clear Selection']");
+        
         By lblSellerSection = By.XPath("//lightning-output-field/span[text()='Client']/ancestor::div[4]//lightning-output-field/span");
         By iconSeller = By.XPath("//h2/span[text()='Seller']/ancestor::h2/c-hl-universal-pop-over/div/lightning-icon//lightning-primitive-icon");
+        By iconBuyer = By.XPath("//h2/span[text()='Buyer']/ancestor::h2/c-hl-universal-pop-over/div/lightning-icon//lightning-primitive-icon");
+        By valCompany = By.XPath("//h2/span[text()='Buyer']/ancestor::h2/c-hl-universal-pop-over/div/section//footer//li[1]//span//span");
         By lblSellerBackgroundSection = By.XPath("//span[text()='Seller Background']/ancestor::div[1]//lightning-output-field/span");
         By lnkClientCompany = By.XPath("//span[text()='Client']/ancestor::div[4]/div[1]/div[1]/div[1]//lightning-formatted-lookup");
         By valIGCompany = By.XPath("//span[text()='Ticker Symbol']/ancestor::flexipage-column2//span[text()='Industry Group']/ancestor::div[2]//lightning-formatted-text");
@@ -1472,6 +1482,38 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
+        public string ValidateTypeOfBuyer()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valTypeBuyside);
+            string value = driver.FindElement(valTypeBuyside).Text;
+            return value;
+        }
+
+        public string ValidateCompanyOfBuyer()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valCompanyBuyside);
+            string value = driver.FindElement(valCompanyBuyside).Text;
+            return value;
+        }
+        public string ValidateIGOfBuyer()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valIGBuysdie);
+            string value = driver.FindElement(valIGBuysdie).Text;
+            return value;
+        }
+
+
+        public string ValidateOwnershipOfBuyer()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver,valOwnershipBuyside);
+            string value = driver.FindElement(valOwnershipBuyside).Text;
+            return value;
+        }
+
         public string ValidateSellerSection()
         {
             driver.FindElement(btnParties).Click();
@@ -1489,6 +1531,15 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
+        public string ValidateMandatoryValidationOfBuyerCompany()
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(iconBuyer).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(valCompany).Text;
+            return value;
+
+        }
         public bool VerifyFieldsUnderSellerSection()
         {
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblSellerSection);

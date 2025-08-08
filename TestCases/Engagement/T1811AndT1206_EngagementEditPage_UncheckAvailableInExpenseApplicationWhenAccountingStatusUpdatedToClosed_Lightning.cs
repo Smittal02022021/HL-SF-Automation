@@ -91,8 +91,7 @@ namespace SF_Automation.TestCases.Engagement
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                usersLogin.DiffLightningLogout();
-                usersLogin.UserLogOut();
+               
                 driver.Quit();
             }
         }

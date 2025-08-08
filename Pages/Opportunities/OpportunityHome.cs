@@ -149,7 +149,7 @@ namespace SF_Automation.Pages
 
         public string SearchOpportunity(string oppName)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkOpportunities, 170);
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkOpportunities, 190);
             Thread.Sleep(3000);
             driver.FindElement(lnkOpportunities).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, linkAdvancedSearch);
