@@ -182,7 +182,10 @@ namespace SF_Automation.Pages.Engagement
         By valCompanyBuyside = By.XPath("//span[text()='Company']/ancestor::lightning-output-field//div[1]//a");
         By valIGBuysdie = By.XPath("//span[text()='Buyer']/ancestor::article[1]//span[text()='Industry Group']/ancestor::div[1]//div/lightning-formatted-text");
         By valOwnershipBuyside = By.XPath("//span[text()='Buyer']/ancestor::article[1]//span[text()='Ownership']/ancestor::div[1]//div/lightning-formatted-text");
+        By valSectorBuyside = By.XPath("//span[text()='Buyer']/ancestor::article[1]//span[text()='Sector']/ancestor::div[1]//div/lightning-formatted-text");
 
+        By secBuyerStrategy = By.XPath("//span[text()='Buyer Strategy']");
+        By lblBuyerStrategy = By.XPath("//span[text()='Buyer Strategy']/ancestor::div[1]/div//form//div[1]//div[1]/div/lightning-output-field/span");
         By btnParties = By.XPath("//span[text()='Parties']/ancestor::button");
         By secSeller = By.XPath("//h2/span[text()='Seller']");
         By secBuyer = By.XPath("//h2/span[text()='Buyer']");
@@ -1512,6 +1515,44 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver,valOwnershipBuyside);
             string value = driver.FindElement(valOwnershipBuyside).Text;
             return value;
+        }
+
+        public string ValidateSectorOfBuyer()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valSectorBuyside);
+            string value = driver.FindElement(valSectorBuyside).Text;
+            return value;
+        }
+
+        public string ValidateStrategySectionOfBuyer()
+        {
+            Thread.Sleep(4000);
+            WebDriverWaits.WaitUntilEleVisible(driver,secBuyerStrategy);
+            string value = driver.FindElement(secBuyerStrategy).Text;
+            return value;
+        }
+
+        public bool VerifyFieldsUnderBuyerStrategySection()
+        {
+            IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblBuyerStrategy);
+            var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "Buyer Process Type", "Buyer Platform Type" };
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
         }
 
         public string ValidateSellerSection()

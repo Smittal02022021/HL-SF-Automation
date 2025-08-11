@@ -67,9 +67,11 @@ namespace SF_Automation.TestCases.Engagement
                 string company = engagementDetails.GetCompanyOfCounterparty();
                 string type = engagementDetails.GetTypeOfCounterparty();
 
-                //Fetch the IG and Client Ownership from Company of Closing Info tab                
+                //Fetch the IG, sector and Client Ownership from Company of Closing Info tab                
                 string IG = engagementDetails.GetIGvalueFromCompany();
                 string Ownership = engagementDetails.GetOwnershipFromCompany();
+                string sector = engagementDetails.GetSectorFromCompany();
+                string compType = engagementDetails.GetCompanyTypeFromCompany();
 
                 //1.  TMTI0114566_ Verify that the Buyer's basic information is displayed under the Parties Buyer section
                 engagementDetails.ClickEngTab();
@@ -80,31 +82,41 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("Buyer", secBuyer);
                 extentReports.CreateLog("Section with name: " +secBuyer +" is displayed after clicking Buyer section ");
 
-                string companyBuyside = summaryPage.ValidateCompanyOfBuyer();
-                Console.WriteLine("companyBuyside" + companyBuyside);
-                string typeBuyside = summaryPage.ValidateTypeOfBuyer();
-                Console.WriteLine("typeBuyside" + typeBuyside);
-                Assert.AreEqual(company, companyBuyside);
-                Assert.AreEqual(type, typeBuyside);
-                extentReports.CreateLog("Company: " + companyBuyside + " and Type: " + typeBuyside + " are mapped to Company and Type of Winning Counterparty if the deal is of Sellside ");
+                string companyBuyer = summaryPage.ValidateCompanyOfBuyer();
+                Console.WriteLine("companyBuyside" + companyBuyer);
+                string typeBuyer = summaryPage.ValidateTypeOfBuyer();
+                Console.WriteLine("typeBuyside" + typeBuyer);
+                Assert.AreEqual(company, companyBuyer);
+                Assert.AreEqual(type, typeBuyer);
+                extentReports.CreateLog("Company: " + companyBuyer + " and Type: " + typeBuyer + " are mapped to Company and Type of Winning Counterparty if the deal is of Sellside ");
 
-                string IGBuyside = summaryPage.ValidateIGOfBuyer();
-                string OwnershipBuyside = summaryPage.ValidateOwnershipOfBuyer();
-                Assert.AreEqual(IG, IGBuyside);
-                Assert.AreEqual(Ownership, OwnershipBuyside);               
-                extentReports.CreateLog("Industry Group: " + IGBuyside + " and Ownership: " + OwnershipBuyside + " are mapped to IG and Ownership of Winning Counterparty's Company ");
+                string IGBuyer = summaryPage.ValidateIGOfBuyer();
+                string OwnershipBuyer = summaryPage.ValidateOwnershipOfBuyer();
+                Assert.AreEqual(IG, IGBuyer);
+                Assert.AreEqual(Ownership, OwnershipBuyer);               
+                extentReports.CreateLog("Industry Group: " + IGBuyer + " and Ownership: " + OwnershipBuyer + " are mapped to IG and Ownership of Winning Counterparty's Company ");
 
                 string reqField = summaryPage.ValidateMandatoryValidationOfBuyerCompany();
                 Assert.AreEqual("Company", reqField);
                 extentReports.CreateLog("Mandatory Field " + reqField + " is displayed upon mover hover on Buyer ");
 
                 //2.	TMTI0114575_ Verify that the "Buyer's Background" information is displayed under the subsection Buyer Background
-                
-                
-                
-                
-                
-                
+                string sectorBuyside = summaryPage.ValidateSectorOfBuyer();
+                Assert.AreEqual(sector, sectorBuyside);
+                extentReports.CreateLog("Sector: " + sectorBuyside + " is mapped to Sector of Winning Counterparty's Company ");
+
+                Assert.AreEqual("Operating Company", compType);
+                extentReports.CreateLog("For Company Type: " + compType + " Buyer Type: " + typeBuyer + "is displayed under Buyer Section on CF Engagement Summary page ");
+
+                //3.  TMTI0114573_Verify that the "Buyer's Strategy" information is displayed under the subsection of the Buyer section
+                string secBuyerStrategy = summaryPage.ValidateStrategySectionOfBuyer();
+                Assert.AreEqual("Buyer Strategy", secBuyerStrategy);
+
+                Assert.IsTrue(summaryPage.VerifyFieldsUnderBuyerStrategySection(), "Verify that displayed fields under Buyer Strategy section are same");
+                extentReports.CreateStepLogs("Passed", "Displayed fields under Buyer Strategy section are as expected ");
+
+
+
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();            

@@ -501,8 +501,9 @@ namespace SF_Automation.Pages.Engagement
         By lnkCompany = By.XPath("//td//span[text()='Anthem']/ancestor::a");
         By valIGCompany = By.XPath("//span[text()='Account Information']/ancestor::div[1]//span[text()='Industry Group']/ancestor::div[2]//div[2]//lightning-formatted-text");
         By valOwnershipCompany = By.XPath("//span[text()='Account Information']/ancestor::div[1]//span[text()='Ownership']/ancestor::div[2]//div[2]//lightning-formatted-text");
+        By valSectorCompany = By.XPath("//span[text()='Account Information']/ancestor::div[1]//span[text()='Sector']/ancestor::div[2]//div[2]//lightning-formatted-text");
+        By valCompanyType = By.XPath("//span[text()='Account Information']/ancestor::div[1]//span[text()='Company Type']/ancestor::div[2]//records-record-type/div[1]/div[1]/span");
 
-        
 
         By valAddedContactNum = By.XPath("//flexipage-tab2[3]/slot/flexipage-component2/slot/lst-related-list-single-container/laf-progressive-container/slot/lst-related-list-single-app-builder-mapper/article/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[1]/div/div/h2/a/span[2]");
         By btnBillingRequestL = By.XPath("//span[text()='Billing Request']");
@@ -3490,6 +3491,18 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
+        public string GetSectorFromCompany()
+        {
+            string value = driver.FindElement(valSectorCompany).Text;
+            return value;
+        }
+
+        public string GetCompanyTypeFromCompany()
+        {
+            string value = driver.FindElement(valCompanyType).Text;
+            return value;
+        }
+        
         //Create new Revenue Accrual record
         public string AddRevenueAccrualL()
         {
