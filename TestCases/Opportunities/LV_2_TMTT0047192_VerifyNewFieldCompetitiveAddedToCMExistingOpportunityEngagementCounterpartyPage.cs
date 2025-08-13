@@ -43,7 +43,7 @@ namespace SF_Automation.TestCases.Opportunities
         //TMTI0115619 Verify that new checkbox "Competitive" field is seen in Engagement Counterparty on accessing from Counterparty dashboard for an existing Engagement having counterparties added.
 
         [Test]
-        public void VerifyNewFieldCompetitiveAddedToCMNewOpportunityEngagementCounterpartyPageLV()
+        public void VerifyNewFieldCompetitiveAddedToCMExistingOpportunityEngagementCounterpartyPageLV()
         {
             try
             {

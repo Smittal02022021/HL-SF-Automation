@@ -317,7 +317,6 @@ namespace SF_Automation.TestCases.Opportunities
 
                 }
 
-
                 int rowOppExist = ReadExcelData.GetRowCount(excelPath, "ExistingNonCFOpp");
                 for (int row = 2; row <= rowOppExist; row++)
                 {
@@ -352,11 +351,7 @@ namespace SF_Automation.TestCases.Opportunities
                     randomPages.CloseActiveTab(opportunityName);
                     homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "Standard user:" + stdUser + " logged out ");
-
                 }
-
-
-
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }

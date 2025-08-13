@@ -110,9 +110,8 @@ namespace SF_Automation.TestCases.Opportunities
                 randomPages.CloseActiveTab(opportunityName);
 
                 homePageLV.LogoutFromSFLightningAsApprover();
-                extentReports.CreateStepLogs("Passed", "CF Financial User: " + stdUserExl + "Loggout ");
-                
-
+                extentReports.CreateStepLogs("Passed", "CF Financial User: " + stdUserExl + " Loggout ");
+                extentReports.CreateStepLogs("Info", "Browser Closed SuccessFully");
             }
             catch (Exception e)
             {
