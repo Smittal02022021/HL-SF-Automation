@@ -8,7 +8,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunities
 {
     class LV_1_TMTT0048664_VerifyWaiveRFOFieldInOpportunityEngagementConversion:BaseClass
     {
@@ -243,7 +243,8 @@ namespace SalesForce_Project.TestCases.Opportunities
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
 
-                //TMTI0119901	Verify that CAO can edit the "Waive RFO" field in "Fees and Financials" tab-> "Estimated Fees" section in newly converted opportunity to  Engagement
+                //TMTI0119901	Verify that CAO can edit the "Waive RFOAngeles$2025
+                //" field in "Fees and Financials" tab-> "Estimated Fees" section in newly converted opportunity to  Engagement
                 engagementHome.GlobalSearchEngagementInLightningView(engagementName);
 
                 //CAO verifying WaiveRFO status mapping from opportunity 

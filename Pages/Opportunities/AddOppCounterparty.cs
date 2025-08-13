@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Xml.Linq;
 using OpenQA.Selenium.Interactions;
+using MongoDB.Driver;
 
 namespace SF_Automation.Pages.Opportunity
 {
@@ -2048,7 +2049,79 @@ namespace SF_Automation.Pages.Opportunity
             string name = driver.FindElement(lnkCompCounterparty).Text;
             return name;
         }
+        By chkCompetitiveL = By.XPath("//input[@name='Competitive__c']/../span");
+        By chkboxCompetitiveL = By.XPath("//input[@name='Competitive__c']");
+        By chkCompetitiveDetailPageL = By.XPath("//input[@name='Competitive__c']/..");
+        By chkPVCompetitiveL = By.XPath("//td[text()='Competitive']");
+        By chkPVCompetitiveStatusL= By.XPath("//td[text()='Competitive']/parent::tr/td/img");
+        public bool IsCompetitiveCheckboxDisplayedLV()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, chkCompetitiveDetailPageL, 10);
+                return driver.FindElement(chkCompetitiveDetailPageL).Displayed;
+            }
+            catch { return false; }            
+        }
+        public bool IsCPDetailpageCompetitiveCheckboxDisplayedLV()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, chkCompetitiveDetailPageL, 10);
+                return driver.FindElement(chkCompetitiveDetailPageL).Displayed;
+            }
+            catch { return false; }
+        }
+        public void UpdateCompetitiveCheckboxLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, chkCompetitiveL, 10);
+            driver.FindElement(chkboxCompetitiveL).Click();
+        }
+
+        public string GetCompetitiveCheckboxStatusLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, chkCompetitiveL, 10);
+            try
+            {
+
+                if (driver.FindElement(chkboxCompetitiveL).Selected)
+                 { 
+                    return "Checked"; 
+                }
+                else{
+                    return "Not Checked";
+                }
+            }
+
+            catch { return "Not Checked"; }
+        }
+        public bool IsPVCompetitiveCheckBoxDisplayedLV()
+        {
+            CustomFunctions.SwitchToWindow(driver, 1);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, chkPVCompetitiveL, 10);
+                return driver.FindElement(chkPVCompetitiveL).Displayed;
+            }
+            catch { return false; }
+        }
+        public string GetPVCompetitiveCheckBoxStatusLV()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, chkPVCompetitiveStatusL);
+                string staus= driver.FindElement(chkPVCompetitiveStatusL).GetAttribute("title");
+                //driver.Close();
+                //CustomFunctions.SwitchToWindow(driver, 0);
+                return staus;
+            }
+            catch {
+                //driver.Close();
+                //CustomFunctions.SwitchToWindow(driver, 0);
+                return "false"; }
+        }
     }
+
 }
 
 

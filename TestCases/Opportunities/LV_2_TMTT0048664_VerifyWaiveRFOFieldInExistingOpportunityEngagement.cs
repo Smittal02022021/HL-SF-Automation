@@ -7,25 +7,16 @@ using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AventStack.ExtentReports.Gherkin.Model;
-using Microsoft.Office.Interop.Excel;
-using static System.Collections.Specialized.BitVector32;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunities
 {
     class LV_2_TMTT0048664_VerifyWaiveRFOFieldInExistingOpportunityEngagement:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
-        AddOpportunityPage addOpportunity = new AddOpportunityPage();
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
-        AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         EngagementHomePage engagementHome = new EngagementHomePage();
         LVHomePage homePageLV = new LVHomePage();
@@ -43,6 +34,14 @@ namespace SalesForce_Project.TestCases.Opportunities
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
+        //TMTI0119861	Verify that "Waive RFO" field is added in "Fees and Financials" tab-> "Estimated Fees" section in an existing Opportunity page. 
+        //TMTI0119883 Verify that Financial user cannot edit the "Waive RFO" field in "Fees and Financials" tab-> "Estimated Fees" section in an existing Opportunity page.
+        //TMTI0119871 Verify that CAO can edit the "Waive RFO" field in "Fees and Financials" tab-> "Estimated Fees" section in an existing Opportunity page. 
+        //TMTI0119878 Verify that System Admin can edit the "Waive RFO" field in "Fees and Financials" tab-> "Estimated Fees" section in an existing Opportunity page
+        //TMTI0119899 Verify that Financial user cannot edit the "Waive RFO" field in "Fees and Financials" tab-> "Estimated Fees" section in an existing  Engagement
+        //TMTI0119894 Verify that CAO can edit the "Waive RFO" field in "Fees and Financials" tab-> "Estimated Fees" section in existing Engagement. 
+        //TMTI0119897 Verify that System Admin can edit the "Waive RFO" field in "Fees and Financials" tab-> "Estimated Fees" section in an existing  Engagement
+        //TMTI0119909 Verify that the "Waive RFO" field value is not added in "Fees and Financials"section for FR and FVA LoBs
         
 
         [Test]
@@ -319,6 +318,42 @@ namespace SalesForce_Project.TestCases.Opportunities
                 }
 
 
+                int rowOppExist = ReadExcelData.GetRowCount(excelPath, "ExistingNonCFOpp");
+                for (int row = 2; row <= rowOppExist; row++)
+                {
+                    string stdUser = ReadExcelData.ReadDataMultipleRows(excelPath, "NonCFUser", row, 1);
+                    homePage.SearchUserByGlobalSearchN(stdUser);
+                    extentReports.CreateStepLogs("Info", "User: " + stdUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
+                    login.SwitchToLightningExperience();
+                    string user = login.ValidateUserLightningView();
+                    Assert.AreEqual(user.Contains(stdUser), true);
+                    extentReports.CreateStepLogs("Passed", "User: " + stdUser + " logged in on Lightning View");
+                    string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
+                    homePageLV.SelectAppLV(appNameExl);
+                    string appName = homePageLV.GetAppName();
+                    Assert.AreEqual(appNameExl, appName);
+                    extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
+                    string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
+                    homePageLV.SelectModule(moduleNameExl);
+                    extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
+                    string opportunityName = ReadExcelData.ReadDataMultipleRows(excelPath, "ExistingNonCFOpp", row, 2);
+                    string oppLOB = ReadExcelData.ReadDataMultipleRows(excelPath, "ExistingNonCFOpp", row, 3);
+                    opportunityHome.GlobalSearchOpportunityInLightningView(opportunityName);
+                    extentReports.CreateStepLogs("Info", "Opportunity Name: " + opportunityName + " found and selected");
+
+                    //TMTI0119909	Verify that the "Waive RFO" field value is not added in "Fees and Financials"section for FR and FVA LoBs
+
+                    opportunityDetails.ClickTabOppFeeAndFincnciaLV();
+                    bool isWaivRFODisplayed = randomPages.IsWaiveRFOFieldDisplayedLV();
+                    Assert.IsFalse(isWaivRFODisplayed, "Verify that the 'Waive RFO' field value is not added in 'Fees and Financials' section for LOB: "+ oppLOB);
+                    extentReports.CreateStepLogs("Passed", "'Waive RFO' field value is not added in 'Fees and Financials' section for LOB: " + oppLOB);
+                    randomPages.CloseActiveTab(opportunityName);
+                    homePageLV.LogoutFromSFLightningAsApprover();
+                    extentReports.CreateStepLogs("Info", "Standard user:" + stdUser + " logged out ");
+
+                }
 
 
 

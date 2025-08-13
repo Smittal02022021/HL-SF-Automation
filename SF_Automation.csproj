@@ -783,6 +783,7 @@
     <Compile Include="TestCases\Opportunities\LV_1_TMTT0024069_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage.cs" />
     <Compile Include="TestCases\Opportunities\LV_2_TMTT0024069_VerifyUserIsAbleToEditOtherJobTypeToNewJobTypeForExistingOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\LV_1_TMTT0047923_TMTT0047926_TMTT0047929_TMTT0024858_TMTT0030610_TMTT0024069_VerifyJobTypesGetsDispalyedOnAddingJobTypeFiltersWhileCreatingReports.cs" />
+    <Compile Include="TestCases\Opportunities\LV_2_TMTT0047192_VerifyNewFieldCompetitiveAddedToCMExistingOpportunityEngagementCounterpartyPage.cs" />
     <Compile Include="TestCases\Opportunities\LV_2_TMTT0048664_VerifyWaiveRFOFieldInExistingOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\LV_3_TMTT0047923_TMTT0047926_TMTT0047929_VerifyUserIsAbleTo EditUpdateOtherJobTypeToNewJobTypeForExistingOpportunity.cs" />
     <Compile Include="TestCases\Opportunities\LV_CF_TMTC0036135_ValidationOfCommentsAndMappingOnVerballyEngagedEngagementFromOpportunity.cs" />
@@ -841,6 +842,7 @@
     <Compile Include="TestCases\Opportunities\LV_TMTT0046653_FR_VerifyTailExpireFieldOnEngagementShowsNoValidationWhileChangingStage.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0046653_FVA_VerifyTailExpireFieldOnEngagementShowsNoValidationWhileChangingStage.cs" />
     <Compile Include="TestCases\Opportunities\LV_2_TMTT0047923_TMTT0047926_TMTT0047929_VerifyJobTypeOnOpportunityEngagementDetailPage.cs" />
+    <Compile Include="TestCases\Opportunities\LV_1_TMTT0047192_VerifyNewFieldCompetitiveAddedToCMNewOpportunityEngagementCounterpartyPage.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0048213_CF_VerifyLocationWhereBenefitWasProvidedFieldValueIsMappedToEngagementUponConversion.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0048213_FR_VerifyLocationWhereBenefitWasProvidedFieldValueIsMappedToEngagementUponConversion.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0048213_FVA_VerifyLocationWhereBenefitWasProvidedFieldValueIsMappedToEngagementUponConversion.cs" />

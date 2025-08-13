@@ -876,6 +876,23 @@ namespace SF_Automation.Pages.Engagement
         By btnAddRevAccuL = By.XPath("//button[text()='Add Revenue Accrual']");
         By txtRevAccuJobTypeL = By.XPath("//div[contains(@data-target-selection-name,'Revenue_Accrual__c.Job_Type')]//lightning-formatted-text");
         By txtRevAccuNumberL = By.XPath("//records-entity-label[text()='Revenue Accrual']//ancestor::h1//lightning-formatted-text");
+        By txtEstTransMCapL = By.XPath("//span[contains(text(),'Transaction Size')]/../../..//lightning-formatted-text");
+        By txtEbitdaL = By.XPath("//span[contains(text(),'EBITDA')]/../../..//lightning-formatted-text");
+        By txtRetainerL = By.XPath("//span[contains(text(),'Retainer')]/../../..//lightning-formatted-text");
+        By txtProgressMonthlyFeeL = By.XPath("//span[contains(text(),'Progress/Monthly Fee')]/../../..//lightning-formatted-text");
+        By txtContingentFeeL = By.XPath("//span[contains(text(),'Contingent Fee')]/../../..//lightning-formatted-text");
+        By txtTotalFeeL = By.XPath("//span[contains(text(),'Total Fee')]/../../..//lightning-formatted-text");
+        By txtSSExpenseL = By.XPath("//span[contains(text(),'Shared Services Expense')]/../../..//lightning-formatted-text");
+        By txtExpenseCapL = By.XPath("//span[contains(text(),'Expense Cap')]/../../..//lightning-formatted-text");
+        By txtLegalCapL = By.XPath("//span[contains(text(),'Shared Services Expense')]/../../..//lightning-formatted-text");
+        By tabLegalMatterlsL = By.XPath("//a[text()='Legal Matters']");
+        By tabComplianceLegalL = By.XPath("//a[text()='Compliance & Legal']");
+        By txtReceivedDateL = By.XPath("//span[text()='Received by Compliance Date']/../../..//lightning-formatted-text");
+        By txtVerifiedDateL = By.XPath("//span[text()='Verified by Compliance Date']/../../..//lightning-formatted-text");
+        By txtLegalHoldNotesL = By.XPath("//span[text()='Legal Hold Notes']/../../..//lightning-formatted-text");
+        By lnkRevAccuL = By.XPath("//table[@aria-label='Revenue Accruals']//tbody//tr[1]/th//a[2]");
+        By tabCPDashoardL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Counterparty Dashboard']");
+        By tabMoreCPDashoardL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='Counterparty Dashboard']");
 
         private By _quickLink(string linkText)
         {
@@ -8522,16 +8539,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(tabInfo2ndL).Click();
         }
 
-        By txtEstTransMCapL = By.XPath("//span[contains(text(),'Transaction Size')]/../../..//lightning-formatted-text");
-        By txtEbitdaL = By.XPath("//span[contains(text(),'EBITDA')]/../../..//lightning-formatted-text");
-        By txtRetainerL = By.XPath("//span[contains(text(),'Retainer')]/../../..//lightning-formatted-text");
-        By txtProgressMonthlyFeeL = By.XPath("//span[contains(text(),'Progress/Monthly Fee')]/../../..//lightning-formatted-text");
-        By txtContingentFeeL = By.XPath("//span[contains(text(),'Contingent Fee')]/../../..//lightning-formatted-text");
-        By txtTotalFeeL = By.XPath("//span[contains(text(),'Total Fee')]/../../..//lightning-formatted-text");
-        By txtSSExpenseL = By.XPath("//span[contains(text(),'Shared Services Expense')]/../../..//lightning-formatted-text");
-        By txtExpenseCapL = By.XPath("//span[contains(text(),'Expense Cap')]/../../..//lightning-formatted-text");
-        By txtLegalCapL = By.XPath("//span[contains(text(),'Shared Services Expense')]/../../..//lightning-formatted-text");
-
+       
 
         public string GetValEstTansacttionMarketCapLV()
         {
@@ -8620,11 +8628,7 @@ namespace SF_Automation.Pages.Engagement
                 }
             }
         }
-        By tabLegalMatterlsL = By.XPath("//a[text()='Legal Matters']");
-        By tabComplianceLegalL = By.XPath("//a[text()='Compliance & Legal']");
-        By txtReceivedDateL = By.XPath("//span[text()='Received by Compliance Date']/../../..//lightning-formatted-text");
-        By txtVerifiedDateL = By.XPath("//span[text()='Verified by Compliance Date']/../../..//lightning-formatted-text");
-        By txtLegalHoldNotesL = By.XPath("//span[text()='Legal Hold Notes']/../../..//lightning-formatted-text");
+       
         public void CLickTabLegalMattersLV()
         {
             Thread.Sleep(5000);
@@ -8783,8 +8787,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             driver.Navigate().Refresh();
             Thread.Sleep(10000);
-        }
-        By lnkRevAccuL = By.XPath("//table[@aria-label='Revenue Accruals']//tbody//tr[1]/th//a[2]");
+        }        
         public void SelectRevenueAccrualLV()
         {
             Thread.Sleep(5000);
@@ -8804,7 +8807,41 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
         }
 
+        public void ClickCounterpartyDashboardLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
+            try
+            {                
+                WebDriverWaits.WaitUntilEleVisible(driver, tabCPDashoardL, 5);
+                driver.FindElement(tabCPDashoardL).Click();
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconHeaderMoreTabsL, 10);
+                driver.FindElement(iconHeaderMoreTabsL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, tabMoreCPDashoardL, 10);
+                driver.FindElement(tabMoreCPDashoardL).Click();
+            }            
+            Thread.Sleep(10000);
+        }
+        By lnkOpenRepordL = By.XPath("//a//span[text()='Open Record']//ancestor::a");
+        public void ClickCPDashboardCounterpartyLV(string counterparty)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            //js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
+            By lnkCPDashboardCounterpartyNameL = By.XPath($"(//table//tr//td//div//button[contains(text(),'{counterparty}')])[1]");
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkCPDashboardCounterpartyNameL, 10);
+            driver.FindElement(lnkCPDashboardCounterpartyNameL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkOpenRepordL, 10);
+            driver.FindElement(lnkOpenRepordL).Click();
+            CustomFunctions.SwitchToWindow(driver, 1);
+            Thread.Sleep(5000);
+        }
         
-        
+
+
     }
 }

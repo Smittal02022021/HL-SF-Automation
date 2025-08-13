@@ -8,7 +8,6 @@ using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
 using OpenQA.Selenium;
-using Microsoft.Office.Interop.Excel;
 
 namespace SF_Automation.TestCases.OpportunitiesCounterparty
 {
