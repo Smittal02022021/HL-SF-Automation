@@ -6,6 +6,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading;
 
 namespace SF_Automation.Pages.Activities
@@ -50,11 +51,61 @@ namespace SF_Automation.Pages.Activities
         By txtCompanyName = By.XPath("//label[text()='Company Name']/following::div//input[@name='Name']");
         By txtCompanyCountry = By.XPath("//input[@name='country']/../..");
 
+        By errorCompanyCountry = By.XPath("((//lightning-icon[@icon-name='utility:error'])[1]/following::h2)[1]");
+
         public void ClickAddActivityBtn()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddActivity);
             driver.FindElement(btnAddActivity).Click();
             Thread.Sleep(5000);
+        }
+
+        public void ClickAddNewCompanyBtn()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,500)");
+            Thread.Sleep(3000);
+
+            //Click Create New Company button
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCreateNewCompany, 60);
+            driver.FindElement(btnCreateNewCompany).Click();
+            Thread.Sleep(5000);
+        }
+        
+        public string GetCountryErrorMessage(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            string companyType = ReadExcelData.ReadData(excelPath, "Company", 1);
+            string companyName = ReadExcelData.ReadData(excelPath, "Company", 2);
+            string companyCountry = ReadExcelData.ReadData(excelPath, "Company", 3);
+
+            //Enter Company Type
+            WebDriverWaits.WaitUntilEleVisible(driver, dropdownCompanyType, 60);
+            driver.FindElement(dropdownCompanyType).Click();
+            Thread.Sleep(1000);
+            driver.FindElement(dropdownCompanyType).SendKeys(companyType);
+            driver.FindElement(dropdownCompanyType).SendKeys(Keys.Enter);
+            Thread.Sleep(3000);
+
+            //Entr Company Name
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyName, 60);
+            driver.FindElement(txtCompanyName).SendKeys(companyName);
+            Thread.Sleep(2000);
+
+            //Click Save on company page
+            driver.FindElement(By.XPath("(//button[text()='Save'])[2]")).Click();
+            Thread.Sleep(2000);
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, errorCompanyCountry, 20);
+            string countryErrorMsg = driver.FindElement(errorCompanyCountry).Text;
+            return countryErrorMsg;
         }
 
         public void ClickSaveActivityBtn()
