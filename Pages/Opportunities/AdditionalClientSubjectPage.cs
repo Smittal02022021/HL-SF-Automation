@@ -37,14 +37,14 @@ namespace SF_Automation.Pages
         By btnReturnToOppor = By.CssSelector("input[value='Return To Opportunity']");
         By linkCompanyName = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[2]/th/a");
         //By lnkCompanyNameL = By.XPath("//span[@title='Client']/ancestor::tr/th//records-hoverable-link//slot[1]/span/slot");
-        By lnkCompanyNameL = By.XPath("//lightning-formatted-text[text()='Client']/ancestor::tr/td[2]//lightning-formatted-text");
+        By lnkCompanyNameL = By.XPath("//span[text()='Client']/ancestor::tr[1]/th[1]//a");
 
 
         By linkSubjectName = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[3]/th/a");
         By txtCompanyType = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[2]/td[2]");
         //By valClientTypeL = By.XPath("//span[@title='Client']/ancestor::tr/td[3]");
-        By valClientTypeL = By.XPath("//lightning-formatted-text[text()='Client']");
-        By valSubjectTypeL = By.XPath("//span[@title='Subject']/ancestor::tr/td[3]");
+        By valClientTypeL = By.XPath("//span[text()='Client']/ancestor::tr[1]/td[3]//div[1]//span[1]");
+        By valSubjectTypeL = By.XPath("//span[@title='Subject']/ancestor::tr/td[3]//span//span");
         By txtCompanyRecType = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[2]/td[3]");
         By txtCompanyRecTypeL = By.XPath("//span[@title='Client']/ancestor::tr/td[4]//a");
         By txtSubjectType = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[4]/td[2]");
@@ -52,7 +52,7 @@ namespace SF_Automation.Pages
         By txtSubjectRecTypeL = By.XPath("//span[@title='Subject']/ancestor::tr/td[4]//a");
 
         By txtComSubjectName = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[4]/th/a");
-        By txtComSubjectNameL = By.XPath("//span[@title='Subject']/ancestor::tr/th//records-hoverable-link//slot[1]/span/slot");
+        By txtComSubjectNameL = By.XPath("//span[@title='Subject']/ancestor::tr[1]//th[1]//a");
         By btnAdditionalClientSubject = By.CssSelector("input[value*='New Opportunity Client/Subject']");
         By btnMassEditRecords = By.CssSelector("input[value*='Mass Edit Records']");
         By titleMassEditPage = By.XPath("//span[@class='slds-text-heading_small slds-truncate']");
@@ -96,7 +96,7 @@ namespace SF_Automation.Pages
         By btnSaveClientSubject = By.CssSelector("input[value=' Save ']");
         By valType = By.XPath("//button[contains(@id,'button-17')]");
         By valSelectedType = By.XPath("//lightning-combobox/div/div/lightning-base-combobox/div/div/div[1]/button/span");
-        By colTableColumns = By.XPath("//table/thead/tr/td/div");
+        By colTableColumns = By.XPath("//table/thead/tr/td/div/div");
         By val2ndClient = By.XPath("//tr[2]/td[2]/div//lightning-formatted-text");
         By valOtherCred = By.XPath("//table/tbody[2]/tr[1]/td[1]/div/span");
         By val2ndType = By.XPath("//table/tbody[1]/tr[2]/td[4]/div/lightning-formatted-text");
@@ -822,7 +822,7 @@ namespace SF_Automation.Pages
             Console.WriteLine(driver.FindElement(By.XPath("//table/thead/tr/td[9]/div")).Text + "col1");
             Console.WriteLine(driver.FindElement(By.XPath("//table/thead/tr/td[10]/div")).Text + "col1");
             Console.WriteLine(driver.FindElement(By.XPath("//table/thead/tr/td[11]/div")).Text + "col1");
-            string[] expectedValue = { "Client/Subject Company ", "Primary?  ", "Type  ", "Role", "Client Holdings (MM) - USD   ", "Client Holdings %  ", "Debt Holdings (MM) - USD   ", "Debt Holdings % Total Debt  ", "Key Creditor Importance  ", "Key Creditor Weighting %  ", "Revenue Allocation %  " };
+            string[] expectedValue = {  "Primary?  ", "Type  ", "Client Holdings (MM) - USD   ", "Client Holdings %  ", "Debt Holdings (MM) - USD   ", "Debt Holdings % Total Debt  ", "Key Creditor Importance  ", "Key Creditor Weighting %  ", "Revenue Allocation %  " };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -847,7 +847,7 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, colTableColumns, 100);
                 IReadOnlyCollection<IWebElement> valColumns = driver.FindElements(colTableColumns);
                 var actualValue = valColumns.Select(x => x.Text).ToArray();
-                string[] expectedValue = { "Client/Subject  ", "Primary?  ", "Type  ", "Role", "Client Holdings (MM) - USD   ", "Client Holdings %  ", "Debt Holdings (MM) - USD   ", "Debt Holdings % Total Debt  ", "Key Creditor Importance  ", "Key Creditor Weighting %  ", "Revenue Allocation %  " };
+                string[] expectedValue = {  "Primary?  ", "Type  ",  "Client Holdings (MM) - USD   ", "Client Holdings %  ", "Debt Holdings (MM) - USD   ", "Debt Holdings % Total Debt  ", "Key Creditor Importance  ", "Key Creditor Weighting %  ", "Revenue Allocation %  " };
                 bool isSame = true;
 
                 if (expectedValue.Length != actualValue.Length)

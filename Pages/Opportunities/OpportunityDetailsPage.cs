@@ -281,7 +281,7 @@ namespace SF_Automation.Pages
         By valDefaultClient = By.CssSelector("div[id*='DuhQp_body'] > table > tbody > tr:nth-child(2)>th>a");
         By txtClientSubject = By.CssSelector("span>input[id*='CF00Ni000000D9DcG']");
         By txtClientSubjectL = By.XPath("//input[@placeholder='Search Companies...']");
-        By lnkOppClientSubL = By.XPath("//span[text()='Opportunity']/ancestor::div//div[1]//force-lookup//records-hoverable-link");
+        By lnkOppClientSubL = By.XPath("//span[text()='Opportunity']/ancestor::div[2]//div[2]//a//slot//span//span");
         By valNewClient = By.CssSelector("div[id*='p_body'] > table > tbody > tr:nth-child(5)> th > a");
         By valNewClientL = By.XPath("//span[text()='Client/Subject']/ancestor::div[2]/dd//span//a//slot/span/slot");
         By valClientType = By.CssSelector("div[id*='uhQp_body'] > table > tbody > tr:nth-child(5)>td:nth-child(3)");
@@ -304,7 +304,7 @@ namespace SF_Automation.Pages
         By valPrimarySubject = By.CssSelector("div[id*='DuhQp_body']>table > tbody > tr.dataRow.odd.last > td.dataCell.booleanColumn > img");
         By valCompFeeAttrParty = By.CssSelector("div[id*='DuhQp_body']>table > tbody >tr:nth-child(6)>th>a");
         By valCompKeyCreditor = By.CssSelector("div[id*='DuhQp_body']>table > tbody >tr:nth-child(3)>th>a");
-        By valCompKeyCreditorL = By.XPath("//span[@title='Key Creditor']/ancestor::tr/th//records-hoverable-link//slot[1]/span/slot");
+        By valCompKeyCreditorL = By.XPath("//span[@title='Key Creditor']/ancestor::tr[1]//th[1]//a");
         By valTypeFeeAttrParty = By.CssSelector("div[id*='DuhQp_body']>table > tbody >tr:nth-child(6)>td:nth-child(3)");
         By valTypeKeyCreditor = By.CssSelector("div[id*='DuhQp_body']>table > tbody >tr:nth-child(3)>td:nth-child(3)");
         By valTypeKeyCreditorL = By.XPath("//span[@title='Key Creditor']");
@@ -1197,7 +1197,7 @@ namespace SF_Automation.Pages
             else if (jobType.Equals("Debtor Advisors") && value.Equals("Client"))
             {
                 Thread.Sleep(5000);
-                string type = driver.FindElement(By.XPath("//span[text()='" + name + "']/ancestor::tr/td[3]//lst-formatted-text/span")).Text;
+                string type = driver.FindElement(By.XPath("//a[text()='" + name + "']/ancestor::tr/td[3]//lst-formatted-text/span")).Text;
                 return type;
             }
             else
@@ -4803,8 +4803,8 @@ namespace SF_Automation.Pages
                 Thread.Sleep(6000);
                 driver.FindElement(tabOppNameL).Click();
                 Thread.Sleep(7000);
-                //string value = driver.FindElement(By.XPath("//tr[4]/th/lightning-primitive-cell-factory//records-hoverable-link/div/a/span/slot/span/slot")).Text;
-                string value = driver.FindElement(By.XPath("//span[text()='Private Equity']/ancestor::tr/td//span[text()='Client']/ancestor::tr/th/lightning-primitive-cell-factory//records-hoverable-link/div/a/span/slot/span/slot")).Text;
+                string value = driver.FindElement(By.XPath("//a[text()='Accupac']/ancestor::tr[1]/td//span[text()='Client']/ancestor::tr[1]//th[1]//a")).Text;
+                //string value = driver.FindElement(By.XPath("//span[text()='Private Equity']/ancestor::tr/td//span[text()='Client']/ancestor::tr/th/lightning-primitive-cell-factory//records-hoverable-link/div/a/span/slot/span/slot")).Text;
                 return value;
             }
             else
@@ -4837,7 +4837,7 @@ namespace SF_Automation.Pages
                 Thread.Sleep(5000);
                 driver.FindElement(tabClientSubject).Click();
                 Thread.Sleep(5000);
-                string value = driver.FindElement(By.XPath("//span[text()='Private Equity']/ancestor::tr/td//span[text()='Client']/ancestor::tr/th/lightning-primitive-cell-factory//records-hoverable-link/div/a/span/slot/span/slot")).Text;
+                string value = driver.FindElement(By.XPath("//span[text()='Client']/ancestor::td[1]/ancestor::tr[1]/th[1]//span//span/a[text()='"+name+"']")).Text;
                 return value;
             }
             else
@@ -4850,14 +4850,14 @@ namespace SF_Automation.Pages
                 Thread.Sleep(5000);
                 //driver.FindElement(lnkShowMoreL).Click();
                 //Thread.Sleep(5000);
-                string value = driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + recordType + "']/ancestor::records-record-layout-row/slot/records-record-layout-item[1]//a//slot/span/slot")).Text;
+                string value = driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + recordType + "']/ancestor::record_flexipage-record-field/ancestor::slot[2]/ancestor::flexipage-column2[1]/ancestor::slot[1]/flexipage-column2[1]//flexipage-field[1]//a")).Text;
                 return value;
             }
         }
         //Get type of added additional client record
         public string GetTypeOfAdditionalKeyCreditor()
         {
-            string value = driver.FindElement(By.XPath("//span[text()='Private Equity']/ancestor::tr/td//span[text()='Key Creditor']")).Text;
+            string value = driver.FindElement(By.XPath("//a[text()='Accupac']/ancestor::tr[1]/td//span[text()='Key Creditor']")).Text;
             return value;
         }
         //Get type of added additional client record
@@ -4865,7 +4865,7 @@ namespace SF_Automation.Pages
         {
             Thread.Sleep(5000);
             //driver.FindElement(tabClientL).Click();
-            string value = driver.FindElement(By.XPath("//span[text()='Private Equity']/ancestor::tr/td//span[text()='" + name + "']")).Text;
+            string value = driver.FindElement(By.XPath("//a[text()='Accupac']/ancestor::tr[1]/td//span[text()='" + name + "']")).Text;
             return value;
         }
 
@@ -5005,7 +5005,9 @@ namespace SF_Automation.Pages
         //Validate the company name of Key Creditor 
         public string GetAddedCompanyNameL(string name)
         {
-            string value = driver.FindElement(By.XPath("//span[text()='Private Equity']/ancestor::tr/td//span[text()='" + name + "']/ancestor::tr/th/lightning-primitive-cell-factory//records-hoverable-link/div/a/span/slot/span/slot")).Text;
+            string value = driver.FindElement(By.XPath("//a[text()='"+ name + "']/ancestor::tr[1]/td//span[text()='Key Creditor']/ancestor::tr[1]//th[1]//a")).Text;
+                    
+            // string value = driver.FindElement(By.XPath("//span[text()='Private Equity']/ancestor::tr/td//span[text()='" + name + "']/ancestor::tr/th/lightning-primitive-cell-factory//records-hoverable-link/div/a/span/slot/span/slot")).Text;
             return value;
         }
 

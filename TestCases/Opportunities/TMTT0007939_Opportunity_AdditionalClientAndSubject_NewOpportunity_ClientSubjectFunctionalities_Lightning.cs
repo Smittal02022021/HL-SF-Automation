@@ -87,7 +87,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("Tab with name: " + displayedTab + " is displayed upon saving internal deal team members details ");
 
                     //Validate the buttons i.e., New Opportunity Client/Subject and Mass Edit Record
-                    opportunityDetails.ValidateClientSubjectAndReferralTabL();
+                    opportunityDetails.ValidateClientSubjectAndReferralTabFVAL();
                     string buttonNew = opportunityDetails.ValidateVisibilityOfNewButtonL();
                   Assert.AreEqual("New", buttonNew);
                   extentReports.CreateLog("Button with name : " + buttonNew + " is displayed on Client/Subject & Referral ");
@@ -164,7 +164,7 @@ namespace SF_Automation.TestCases.Opportunities
                         Assert.AreEqual("Additional Clients/Subjects", titeMassEditPage);
                         extentReports.CreateLog("Page with title : " + titeMassEditPage + " is displayed upon clicking Mass Edit Records button ");
 
-                        opportunityDetails.ValidateClientSubjectAndReferralTabL();
+                        opportunityDetails.ValidateClientSubjectAndReferralTabFVAL();
                     }
                     usersLogin.DiffLightningLogout();
                 }

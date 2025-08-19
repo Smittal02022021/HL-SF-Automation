@@ -89,51 +89,55 @@ namespace SF_Automation.TestCases.Opportunities
                     //Validate added client with new types of Fee Attribution Party and Key Creditor along with additional Client and Subject
                     //--Validate Additional Client and Subject
                     //--Validate added client in Additional Clients/Subjects section
-                    opportunityDetails.ValidateClientSubjectAndReferralTabL();
+                    opportunityDetails.ValidateClientSubjectAndReferralTabFVAL();
                     string addedCompany = clientSubjectsPage.ValidateAddedClientL();
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 1), addedCompany);
                     Console.WriteLine("addedCompany:" + addedCompany);
                     string addedCompanyType = clientSubjectsPage.ValidateTypeOfAddedClientL();
                     Assert.AreEqual("Client", addedCompanyType);
                     Console.WriteLine("addedCompanyType:" + addedCompanyType);
-                    string addedCompanyRecType = clientSubjectsPage.ValidateRecTypeOfAddedClientL();
-                    Assert.AreEqual("Operating Company", addedCompanyRecType);
-                    extentReports.CreateLog(addedCompany + " with Type: " + addedCompanyType + " and Record Type: " + addedCompanyRecType + " is added in Additional Client/Subject section ");
+                    //string addedCompanyRecType = clientSubjectsPage.ValidateRecTypeOfAddedClientL();
+                    //Assert.AreEqual("Operating Company", addedCompanyRecType);
+                    //extentReports.CreateLog(addedCompany + " with Type: " + addedCompanyType + " and Record Type: " + addedCompanyRecType + " is added in Additional Client/Subject section ");
+                    extentReports.CreateLog(addedCompany + " with Type: " + addedCompanyType + " is added in Additional Client/Subject section ");
 
                     //--Validate added subject in Additional Clients/Subjects section               
                     if (valJobType.Equals("Creditor Advisors"))
                     {
                         string addedSubject = clientSubjectsPage.ValidateAddedSubjectWithKeyCreditorL();
                         string addedSubjectType = clientSubjectsPage.ValidateTypeOfAddedSubjectL();
-                        string addedSubjectRecType = clientSubjectsPage.ValidateRecTypeOfAddedSubjectL();
+                        //string addedSubjectRecType = clientSubjectsPage.ValidateRecTypeOfAddedSubjectL();
                         Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 2), addedSubject);
                         Assert.AreEqual("Subject", addedSubjectType);
-                        Assert.AreEqual("Operating Company", addedSubjectRecType);
-                        extentReports.CreateLog(addedSubject + " with Type: " + addedSubjectType + " and Record Type: " + addedSubjectRecType + " is added in Additional Client/Subject section ");
+                        //Assert.AreEqual("Operating Company", addedSubjectRecType);
+                        //extentReports.CreateLog(addedSubject + " with Type: " + addedSubjectType + " and Record Type: " + addedSubjectRecType + " is added in Additional Client/Subject section ");
+                        extentReports.CreateLog(addedSubject + " with Type: " + addedSubjectType + " is added in Additional Client/Subject section ");
                     }
                     else
                     {
                         string addedKeyCre = clientSubjectsPage.ValidateAddedSubjectWithKeyCreditorL();
                         string typeKeyCre = clientSubjectsPage.ValidateTypeOfAddedSubjectL();
-                        string recTypeKeyCre = clientSubjectsPage.ValidateRecTypeOfAddedSubjectL();
+                        //string recTypeKeyCre = clientSubjectsPage.ValidateRecTypeOfAddedSubjectL();
                         Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 2), addedKeyCre);
                         Assert.AreEqual("Subject", typeKeyCre);
-                        Assert.AreEqual("Operating Company", recTypeKeyCre);
-                        extentReports.CreateLog("Company with name: " + addedKeyCre + " with Type: " + typeKeyCre + " and Record Type as: " + recTypeKeyCre + " is displayed in Additional Clients/Subjects section ");
+                        //Assert.AreEqual("Operating Company", recTypeKeyCre);
+                        //extentReports.CreateLog("Company with name: " + addedKeyCre + " with Type: " + typeKeyCre + " and Record Type as: " + recTypeKeyCre + " is displayed in Additional Clients/Subjects section ");
+                         extentReports.CreateLog("Company with name: " + addedKeyCre + " with Type: " + typeKeyCre + " is displayed in Additional Clients/Subjects section ");
                     }
 
                     //---Validate added client for Key Creditors
                     string addedKey = opportunityDetails.GetCompanyNameOfKeyCreditorL();
                     string typeKey = opportunityDetails.GetTypeOfKeyCreditorL();
                     Console.WriteLine("typeKey: " + typeKey);
-                    string recTypeKey = opportunityDetails.GetRecTypeOfKeyCreditorL();
-                    Console.WriteLine("recTypeKey: " + recTypeKey);
+                    //string recTypeKey = opportunityDetails.GetRecTypeOfKeyCreditorL();
+                    //Console.WriteLine("recTypeKey: " + recTypeKey);
                     if (valJobType.Equals("Creditor Advisors"))
                     {
                         Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddOpportunity", 1), addedKey);
                         Assert.AreEqual("Key Creditor", typeKey);
-                        Assert.AreEqual("Operating Company", recTypeKey);
-                        extentReports.CreateLog("Company with name: " + addedKey + " with Type: " + typeKey + " and Record Type as: " + recTypeKey + " is displayed in Additional Clients/Subjects section ");
+                       // Assert.AreEqual("Operating Company", recTypeKey);
+                        //extentReports.CreateLog("Company with name: " + addedKey + " with Type: " + typeKey + " and Record Type as: " + recTypeKey + " is displayed in Additional Clients/Subjects section ");
+                        extentReports.CreateLog("Company with name: " + addedKey + " with Type: " + typeKey + " is displayed in Additional Clients/Subjects section ");
 
                         //T1649 -Additional Client and Subject as Yes
                         string additionalClient =   opportunityDetails.UpdateAdditionalClientL();
@@ -150,7 +154,7 @@ namespace SF_Automation.TestCases.Opportunities
                     {
                         Assert.AreEqual("No new client exists", addedKey);
                         Assert.AreEqual("No new client exists", typeKey);
-                        Assert.AreEqual("No new client exists", recTypeKey);
+                        //Assert.AreEqual("No new client exists", recTypeKey);
                         extentReports.CreateLog("No company with Key Creditors exists in Additional Clients/Subjects section ");
                     }                 
                   

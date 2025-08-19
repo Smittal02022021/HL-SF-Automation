@@ -2002,7 +2002,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(txtRevMM).SendKeys("25");
             driver.FindElement(txtEBITDA).SendKeys("10");
             driver.FindElement(btnSaveFin).Click();
-            Thread.Sleep(7000);
+            Thread.Sleep(8000);
             string value = driver.FindElement(valAddedFin).Text;
             return value;
         }

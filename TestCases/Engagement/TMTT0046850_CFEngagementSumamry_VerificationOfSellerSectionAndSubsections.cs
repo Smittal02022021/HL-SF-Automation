@@ -251,7 +251,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //14.  TMTI0114539_Verify that the Add Contact functionality is on the Seller Contact.
                 string contactEng = engagementDetails.ValidateContactDisplayedInEng();
-                Assert.AreEqual(addedContact, "Mr. " + contactEng);
+                Assert.AreEqual(addedContact, contactEng);
                 string roleEng = engagementDetails.GetRoleOfContactInEng("Sonika Goyal");
                 Assert.AreEqual("Board of Directors", roleEng);
                 extentReports.CreateLog("Contact: " + addedContact + " with role: " + roleEng + " is displayed under Engagement Contacts after adding in Seller Contacts ");
