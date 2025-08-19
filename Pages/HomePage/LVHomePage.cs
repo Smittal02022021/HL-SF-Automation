@@ -143,7 +143,7 @@ namespace SF_Automation.Pages.HomePage
             driver.FindElement(txtMainSearch).Clear();
             driver.FindElement(txtMainSearch).SendKeys(name);
             Thread.Sleep(3000);
-            driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
+            driver.FindElement(txtMainSearch).SendKeys(OpenQA.Selenium.Keys.Enter);
             Thread.Sleep(8000);
 
             WebDriverWaits.WaitForPageToLoad(driver, 120);
@@ -175,7 +175,7 @@ namespace SF_Automation.Pages.HomePage
             Thread.Sleep(5000);
 
             driver.FindElement(txtMainSearch).SendKeys(name);
-            driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
+            driver.FindElement(txtMainSearch).SendKeys(OpenQA.Selenium.Keys.Enter);
             Thread.Sleep(10000);
 
             try
@@ -261,7 +261,7 @@ namespace SF_Automation.Pages.HomePage
             driver.FindElement(txtMainSearch1).Clear();
             driver.FindElement(txtMainSearch1).SendKeys(actSub);
             Thread.Sleep(3000);
-            driver.FindElement(txtMainSearch1).SendKeys(Keys.Enter);
+            driver.FindElement(txtMainSearch1).SendKeys(OpenQA.Selenium.Keys.Enter);
             Thread.Sleep(3000);
 
             WebDriverWaits.WaitForPageToLoad(driver, 120);
@@ -306,7 +306,7 @@ namespace SF_Automation.Pages.HomePage
             Thread.Sleep(5000);
 
             driver.FindElement(txtMainSearch).SendKeys(name);
-            driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
+            driver.FindElement(txtMainSearch).SendKeys(OpenQA.Selenium.Keys.Enter);
             Thread.Sleep(5000);
 
             try
@@ -333,7 +333,7 @@ namespace SF_Automation.Pages.HomePage
             Thread.Sleep(5000);
 
             driver.FindElement(txtMainSearch).SendKeys(name);
-            driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
+            driver.FindElement(txtMainSearch).SendKeys(OpenQA.Selenium.Keys.Enter);
             Thread.Sleep(5000);
 
             By ele = By.XPath($"(//a[@title='{name}'])[1]");
@@ -355,7 +355,7 @@ namespace SF_Automation.Pages.HomePage
             Thread.Sleep(5000);
 
             driver.FindElement(txtMainSearch).SendKeys(name);
-            driver.FindElement(txtMainSearch).SendKeys(Keys.Enter);
+            driver.FindElement(txtMainSearch).SendKeys(OpenQA.Selenium.Keys.Enter);
             Thread.Sleep(5000);
 
             By ele = By.XPath($"(//a[@title='{name}'])[1]");
