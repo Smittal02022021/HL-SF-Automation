@@ -11,7 +11,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.IO;
 
-namespace SF_Automation.TestCases.Contact
+namespace SF_Automation.TestCases.LV_Activities
 {
     class TMTT0046706_VerifyFunctionalityOfAddNewCompanyFromAddNewActivityPage : BaseClass
     {
