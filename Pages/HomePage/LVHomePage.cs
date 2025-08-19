@@ -5,6 +5,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace SF_Automation.Pages.HomePage
 {
@@ -78,7 +79,6 @@ namespace SF_Automation.Pages.HomePage
 
         By pageHeaderEle = By.XPath("//lst-breadcrumbs//span");
 
-       
         private By _appInAppLauncher(string appName)
         {
             return By.XPath($"//h3[text()='Apps']/following::div/*/span/p/b[text()='{appName}']");
@@ -386,6 +386,15 @@ namespace SF_Automation.Pages.HomePage
             driver.FindElement(txtSearchItems).SendKeys(item);
             Thread.Sleep(2000);
             driver.FindElement(itemExpenseRequestLWC).Click();
+            Thread.Sleep(3000);
+        }
+
+        public void SearchObjects(string item)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchItems, 140);
+            driver.FindElement(txtSearchItems).SendKeys(item);
+            Thread.Sleep(2000);
+            driver.FindElement(By.XPath($"(//b[text()='{item}'])[1]")).Click();
             Thread.Sleep(3000);
         }
 

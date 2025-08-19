@@ -75,7 +75,6 @@ namespace SF_Automation.Pages.Contact
                     break;
                 }
             }
-
         }
 
         public void SearchAndNavigateToContactDetailFromRecentlyViewedContactsListBasedOnView(string contactName)
@@ -151,6 +150,12 @@ namespace SF_Automation.Pages.Contact
         {
             Thread.Sleep(3000);
             driver.FindElement(By.XPath($"//button[contains(@title,'Close {tabName}')]")).Click();
+        }
+
+        public void NavigateToHLEmployeeDetailPage()
+        {
+            driver.FindElement(By.XPath("//tr[@data-row-number='1']/th//a")).Click();
+            Thread.Sleep(3000);
         }
     }
 }
