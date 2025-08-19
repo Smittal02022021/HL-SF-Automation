@@ -666,6 +666,7 @@
     <Compile Include="TestCases\Contact\LV_T1541_T2366_AddActivityWithoutExternalContactAndValidateErrorMessage.cs" />
     <Compile Include="TestCases\Contact\LV_T1950_Contacts_ValidationRules_PreventHCMProfileFromEditingInternalContactRecords.cs" />
     <Compile Include="TestCases\Contact\LV_T2057_T1841_Contact_ContactDetailsPage_ActivitiesEdit_AddNewCompany.cs" />
+    <Compile Include="TestCases\Contact\LV_TMTT0048689_VerifyTheCapitalSolutionChangesImplementedOnContactObject.cs" />
     <Compile Include="TestCases\Contact\LV_TMTC0019257_VerifyContactsValidationRulesAndWorkFlows.cs" />
     <Compile Include="TestCases\Contact\LV_TMTC0019251_VerifyBasicUIOfContactsOnSFLightning.cs" />
     <Compile Include="TestCases\Contact\LV_TMTC0019612_VerifyExternalContactFeaturesOnSFLightning.cs" />
