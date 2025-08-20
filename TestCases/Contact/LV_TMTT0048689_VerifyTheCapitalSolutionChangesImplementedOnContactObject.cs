@@ -14,12 +14,10 @@ namespace SF_Automation.TestCases.Contact
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
-        UsersLogin usersLogin = new UsersLogin();
         HomeMainPage homePage = new HomeMainPage();
         LVHomePage lvHomePage = new LVHomePage();
         LV_RecentlyViewedContactsPage lvRecentlyViewContact = new LV_RecentlyViewedContactsPage();
         LV_ContactDetailsPage lvContactDetails = new LV_ContactDetailsPage();
-        LV_ContactsCreatePage lvCreateContact = new LV_ContactsCreatePage();
 
         public static string fileTMTT0048689 = "LV_TMTT0048689_VerifyTheCapitalSolutionChangesImplementedOnContactObject";
 
@@ -74,7 +72,8 @@ namespace SF_Automation.TestCases.Contact
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Recently Viewed | Contacts | Salesforce"), true);
                 extentReports.CreateStepLogs("Passed", "User navigated to contacts list page.");
 
-                // TMTI0119921 - Verify that the "Staff Industry" picklist value "CS" is added in the list.
+                //TMTI0119921 - Verify that the "Staff Industry" picklist value "CS" is added in the list.
+
                 //Search HL Employee contact
                 lvRecentlyViewContact.ChangeContactListView("HL Employee");
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "HL Employee | Contacts | Salesforce"), true);
@@ -88,8 +87,19 @@ namespace SF_Automation.TestCases.Contact
                 lvContactDetails.ClickEditContactButton();
 
                 //Verify Staff Industry picklist value has 'CS' in it
-                Assert.IsTrue(lvContactDetails.VerifyStaffIndustryPicklistValueHasCSInIt("CS"));
-                extentReports.CreateStepLogs("Passed", "The Staff Industry picklist value - CS is added in the list");
+                Assert.IsTrue(lvContactDetails.VerifyStaffIndustryPicklistValue("CS"));
+                extentReports.CreateStepLogs("Passed", "The Staff Industry picklist value - CS is added in the list.");
+
+                //TMTI0119923 - Verify that the "Staff Industry" do not contain picklist values "CM" and "PFG".
+                Assert.IsTrue(lvContactDetails.VerifyValuesNotPresentInStaffIndustry("CM", "PFG"));
+                extentReports.CreateStepLogs("Passed", "The Staff Industry do not contain picklist values - CM & PFG.");
+
+                lvContactDetails.CLickCancelButton();
+                lvContactDetails.ClickEditContactButton();
+
+                //TMTI0119925 - Verify that the "Product Specialty" picklist values "Capital Solutions" and "Mergers & Acquisitions" are added in the list.
+                Assert.IsTrue(lvContactDetails.VerifyProductSpecialtyPicklistValue("Capital Solutions", "Mergers & Acquisitions"));
+                extentReports.CreateStepLogs("Passed", "The Product Specialty picklist values - Capital Solutions and Mergers & Acquisitions are added in the list.");
 
                 //TC - End
                 lvHomePage.LogoutFromSFLightningAsApprover();

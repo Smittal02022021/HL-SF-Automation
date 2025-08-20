@@ -178,6 +178,13 @@ namespace SF_Automation.Pages.Contact
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
             driver.FindElement(btnEdit).Click();
+            Thread.Sleep(5000);
+        }
+
+        public void CLickCancelButton()
+        {
+            //Click on Cancel button
+            driver.FindElement(btnCancelOnEdit).Click();
             Thread.Sleep(2000);
         }
 
@@ -2199,7 +2206,7 @@ namespace SF_Automation.Pages.Contact
             return result;
         }
 
-        public bool VerifyStaffIndustryPicklistValueHasCSInIt(string picklistValue)
+        public bool VerifyStaffIndustryPicklistValue(string picklistValue)
         {
             bool result = false;
             CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//label[text()='Classification']")));
@@ -2223,5 +2230,76 @@ namespace SF_Automation.Pages.Contact
             }
             return result;
         }
+
+        public bool VerifyValuesNotPresentInStaffIndustry(string picklistValue1, string picklistValue2)
+        {
+            bool result = false;
+
+            IList<IWebElement> staffIndustryValues = driver.FindElements(By.XPath("//button[@aria-label='Staff Industry']//following::lightning-base-combobox-item//span[2]/span"));
+            foreach(IWebElement value in staffIndustryValues)
+            {
+                if(value.Text != picklistValue1 && value.Text != picklistValue2)
+                {
+                    result = true;
+                    continue;
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+            return result;
+        }
+
+        public bool VerifyProductSpecialtyPicklistValue(string picklistValue1, string picklistValue2)
+        {
+            bool finalResult = false;
+            bool result1 = false;
+            bool result2 = false;
+
+            CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//label[text()='Industry Group']")));
+            Thread.Sleep(3000);
+
+            //Get the Product Specialty picklist values
+            driver.FindElement(By.XPath("//button[@aria-label='Product Specialty']")).Click();
+
+            IList<IWebElement> staffIndustryValues = driver.FindElements(By.XPath("//button[@aria-label='Product Specialty']//following::lightning-base-combobox-item//span[2]/span"));
+            foreach(IWebElement value in staffIndustryValues)
+            {
+                if(value.Text == picklistValue1)
+                {
+                    result1 = true;
+                    break;
+                }
+                else
+                {
+                    result1 = false;
+                }
+            }
+
+            foreach(IWebElement value in staffIndustryValues)
+            {
+                if(value.Text == picklistValue2)
+                {
+                    result2 = true;
+                    break;
+                }
+                else
+                {
+                    result2 = false;
+                }
+            }
+
+            if(result1 && result2 == true)
+            {
+                finalResult = true;
+            }
+            else
+            {
+                finalResult = false;
+            }
+            return finalResult;
+        }
+
     }
 }
