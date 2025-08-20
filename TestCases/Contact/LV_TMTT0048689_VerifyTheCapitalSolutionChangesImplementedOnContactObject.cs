@@ -82,6 +82,14 @@ namespace SF_Automation.TestCases.Contact
 
                 //Navigate to an HL Employee detail page
                 lvRecentlyViewContact.NavigateToHLEmployeeDetailPage();
+                extentReports.CreateStepLogs("Passed", "HL Employee detail page is opened.");
+
+                //Click Edit contact button
+                lvContactDetails.ClickEditContactButton();
+
+                //Verify Staff Industry picklist value has 'CS' in it
+                Assert.IsTrue(lvContactDetails.VerifyStaffIndustryPicklistValueHasCSInIt("CS"));
+                extentReports.CreateStepLogs("Passed", "The Staff Industry picklist value - CS is added in the list");
 
                 //TC - End
                 lvHomePage.LogoutFromSFLightningAsApprover();

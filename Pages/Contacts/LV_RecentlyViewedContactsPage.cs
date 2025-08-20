@@ -63,16 +63,21 @@ namespace SF_Automation.Pages.Contact
             driver.FindElement(btnSelectListView).Click();
             Thread.Sleep(5000);
 
-            int recordCount = driver.FindElements(By.XPath("//ul[@aria-label='Contacts | List Views']/li")).Count;
+            int groupCount = driver.FindElements(By.XPath("//ul[@role='group']")).Count;
 
-            for (int j = 2; j <= recordCount; j++)
+            for (int j = 1; j <= groupCount; j++)
             {
-                string sfListViewValue = driver.FindElement(By.XPath($"//ul[@aria-label='Contacts | List Views']/li[{j}]/a/span")).Text;
-                if (viewName == sfListViewValue)
+                int recordCount = driver.FindElements(By.XPath($"//ul[@role='group'][{j}]/li")).Count;
+
+                for(int i = 2; i <= recordCount; i++)
                 {
-                    driver.FindElement(By.XPath($"//ul[@aria-label='Contacts | List Views']/li[{j}]/a")).Click();
-                    Thread.Sleep(10000);
-                    break;
+                    string sfListViewValue = driver.FindElement(By.XPath($"//ul[@role='group'][{j}]/li[{i}]/lightning-base-combobox-item/span[2]/span")).Text;
+                    if (viewName == sfListViewValue)
+                    {
+                        driver.FindElement(By.XPath($"//ul[@role='group'][{j}]/li[{i}]/lightning-base-combobox-item/span[2]")).Click();
+                        Thread.Sleep(8000);
+                        break;
+                    }
                 }
             }
         }

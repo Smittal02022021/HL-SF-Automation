@@ -5,6 +5,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
@@ -2194,6 +2195,31 @@ namespace SF_Automation.Pages.Contact
             if(size == 0)
             {
                 result = true;
+            }
+            return result;
+        }
+
+        public bool VerifyStaffIndustryPicklistValueHasCSInIt(string picklistValue)
+        {
+            bool result = false;
+            CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//label[text()='Classification']")));
+            Thread.Sleep(3000);
+
+            //Get the Staff Industry picklist values
+            driver.FindElement(By.XPath("//button[@aria-label='Staff Industry']")).Click();
+
+            IList<IWebElement> staffIndustryValues = driver.FindElements(By.XPath("//button[@aria-label='Staff Industry']//following::lightning-base-combobox-item//span[2]/span"));
+            foreach(IWebElement value in staffIndustryValues)
+            {
+                if(value.Text == picklistValue)
+                {
+                    result = true;
+                    break;
+                }
+                else
+                {
+                    result = false;
+                }
             }
             return result;
         }
