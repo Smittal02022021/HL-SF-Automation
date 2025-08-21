@@ -9908,8 +9908,9 @@ namespace SF_Automation.Pages
             Thread.Sleep(2000);
 
             js.ExecuteScript("window.scrollTo(0,0)");
+            CustomFunctions.PageReload(driver);
 
-            Thread.Sleep(2000);
+            Thread.Sleep(10000);
             try
             {
                 driver.FindElement(By.XPath("(//a[text()='Activity'])[2]")).Click();
