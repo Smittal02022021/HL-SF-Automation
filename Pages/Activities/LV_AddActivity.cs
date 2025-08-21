@@ -400,9 +400,12 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(txtDate).Clear();
             driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM dd, yyyy"));
 
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtExternalAttendee));
+            Thread.Sleep(2000);
+
             driver.FindElement(drpdownIndustryGroup).Click();
             Thread.Sleep(2000);
-            driver.FindElement(By.XPath($"//span[@title='{industryGroup}']/../..")).Click();
+            driver.FindElement(By.XPath($"(//span[@title='{industryGroup}'])[24]/../..")).Click();
             Thread.Sleep(2000);
 
             driver.FindElement(drpdownProductType).Click();
@@ -422,7 +425,7 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(2000);
 
             driver.FindElement(txtOpportunitiesDiscussed).SendKeys(oppDiscussed);
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             driver.FindElement(By.XPath($"(//div[@data-name='{oppDiscussed}'])[1]")).Click();
             Thread.Sleep(2000);
 
@@ -850,16 +853,16 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(meetingNotes);
 
             //Add new External Attendee
-            CustomFunctions.MoveToElement(driver, driver.FindElement(txtExternalAttendee));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtCompanyDiscussed));
             driver.FindElement(txtExternalAttendee).SendKeys(additionalExtAttendee);
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             driver.FindElement(By.XPath($"//div[@data-name='{additionalExtAttendee}']")).Click();
             Thread.Sleep(2000);
 
             //Update HL Attendee
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtHLAttendee));
             driver.FindElement(txtHLAttendee).SendKeys(additionalHLAttendee);
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             driver.FindElement(By.XPath($"//div[@data-name='{additionalHLAttendee}']")).Click();
             Thread.Sleep(2000);
 
