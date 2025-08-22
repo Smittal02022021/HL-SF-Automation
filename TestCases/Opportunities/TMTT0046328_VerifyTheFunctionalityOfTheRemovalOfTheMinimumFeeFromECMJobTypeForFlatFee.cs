@@ -104,16 +104,16 @@ namespace SF_Automation.TestCases.Opportunities
                         extentReports.CreateLog("Estimated Contingent Fee field is not displayed upon saving Transaction Fee as Flat Fee in CNBC Form ");
 
                         string flatFeeReport = nform.VerifyMinFeeFieldForFlatAndIncentiveFeeinReport("Flat Fee");
-                        Assert.AreEqual("Flat Fee (MM): ", flatFeeReport);
+                        Assert.AreEqual("Flat Fee: ", flatFeeReport);
                         extentReports.CreateLog("Minimum Fee field is not displayed in Cognos report upon saving Transaction Fee as Flat Fee ");
 
                         //4.   TMTI0113200_Verify that the "Minimum Fee" field is available for the Transaction Type - "Incentive Fee" on the CNBC form and the Cognos Report PDF on the existing Opportunities of the Equity Capital Market job types
-                        bool incenFee = nform.ValidateMinFeeFieldUponSelectingFlatAndIncentiveFeeType("Incentive Structure");
+                        bool incenFee = nform.ValidateMinFeeFieldUponSelectingFlatAndIncentiveFeeType("Incentive Structure (Value Based)");
                         Assert.AreEqual(true, incenFee);
                         extentReports.CreateLog("Minimum Fee field is displayed upon saving Transaction Fee as Incentive Fee in CNBC Form ");
 
-                        string incenFeeReport = nform.VerifyMinFeeFieldForFlatAndIncentiveFeeinReport("Incentive Structure");
-                        Assert.AreEqual("Minimum Fee (MM): ", incenFeeReport);
+                        string incenFeeReport = nform.VerifyMinFeeFieldForFlatAndIncentiveFeeinReport("Incentive Structure (Value Based)");
+                        Assert.AreEqual("Minimum Fee: ", incenFeeReport);
                         extentReports.CreateLog("Minimum Fee field is displayed in Cognos report upon saving Transaction Fee as Incentive Fee ");
 
                     driver.SwitchTo().Window(driver.WindowHandles.First());

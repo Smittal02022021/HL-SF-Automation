@@ -22,6 +22,8 @@ namespace SF_Automation.TestCases.Opportunities
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
         AddOpportunityContact addContact = new AddOpportunityContact();
+        RandomPages randomPages = new RandomPages();
+
 
         public static string file8330 = "TMTT0008330_AdditionalClientSubjects_MassEditFunctionalities2";
 
@@ -99,6 +101,11 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityDetails.UpdateTotalDebtConfirmedLV();
                     opportunityDetails.UpdateInternalTeamDetailsL(file8330);
 
+                    //PitchMandateAward details
+                    randomPages.ClickPitchMandteAwardTabLV();
+                    opportunityDetails.CreateNewPitchMandateAwardLV();
+                    extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
+
                     //Logout of user and validate Admin login
                     usersLogin.LightningLogout();
 
@@ -174,7 +181,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //Search for same engagement and click on Mass Edit button
                     engHome.SelectDirectEngUnderHLBanker();
                     string searchedEng1 = engHome.SearchEngagementWithNumberOnLightning(engName,valJobType);
-                    opportunityDetails.ValidateClientSubjectAndReferralTabL();
+                    opportunityDetails.ValidateClientSubjectAndReferralTabFVAL();
 
                     //Validate the buttons i.e.,New Engagement Client/Subject button and Mass Edit Records button
                     string buttonNew = opportunityDetails.ValidateVisibilityOfNewButtonL();
@@ -543,7 +550,7 @@ namespace SF_Automation.TestCases.Opportunities
                             }
                         }
                         engagementDetails.ClickBackToEngButtonAndValidatePageL();
-                        opportunityDetails.ValidateClientSubjectAndReferralTabL();
+                        opportunityDetails.ValidateClientSubjectAndReferralTabFVAL();
                         opportunityDetails.ClickMassEditRecordsButtonLightning();
                     }
                     engagementDetails.SwitchDefaultFrame();

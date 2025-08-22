@@ -119,6 +119,7 @@ namespace SF_Automation.Pages.Common
         By tabFullViewL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Full View']");
         By tabMoreFullViewL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='Full View']");
         By iconHeaderMoreTabsL = By.XPath("(//lightning-tab-bar/ul/li/lightning-button-menu/button[@title='More Tabs'])[1]");
+        By tabMorePitchesMandateAwardsL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='Pitches/Mandate Awards']");
 
         By toastMsgPopup = By.XPath("//span[contains(@class,'toastMessage')]");
 
@@ -845,6 +846,7 @@ namespace SF_Automation.Pages.Common
         }
 
         By txtPageHeader = By.XPath("//h1//lightning-formatted-text");
+        By tabPitchMandateAwardL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Pitches/Mandate Awards']");
         public string SelectJobTypesLV(string name)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -907,7 +909,27 @@ namespace SF_Automation.Pages.Common
             return pageheader;
         }
 
-       
+        public void ClickPitchMandteAwardTabLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(1000);
+            try
+            {
+                js.ExecuteScript("window.scrollTo(0,0)");
+                WebDriverWaits.WaitUntilEleVisible(driver, tabPitchMandateAwardL, 10);
+                driver.FindElement(tabPitchMandateAwardL).Click();
+            }
+            catch (Exception e)
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconHeaderMoreTabsL, 10);
+                driver.FindElement(iconHeaderMoreTabsL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, tabMorePitchesMandateAwardsL, 10);
+                driver.FindElement(tabMorePitchesMandateAwardsL).Click();
+            }
+            Thread.Sleep(10000);
+        }
+
         public string GetJobTypeProductLineLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtProductLineL, 20);

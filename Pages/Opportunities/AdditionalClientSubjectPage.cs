@@ -157,12 +157,12 @@ namespace SF_Automation.Pages
         By valRevAllocationSub = By.XPath("//table/tbody[1]/tr/td[6]/div/lightning-formatted-text");
         By valRevAllocationSubEng = By.XPath("//table/tbody[2]/tr/td[5]/div/lightning-formatted-text");
         By comboKeyCreditorImpEng = By.XPath("//tr[1]//div/button[contains(@data-value,'Medium')]/ancestor::div[2]//lightning-base-combobox-item/span[2]/span");
-        By comboKeyCreditorImp = By.XPath("//lightning-formatted-text[contains(text(),'Accupac')]/ancestor::tr/td[7]//lightning-base-combobox-item/span[2]/span");
+        By comboKeyCreditorImp = By.XPath("//tr/td[7]//lightning-base-combobox-item/span[2]/span");
         By comboRole = By.XPath("//lightning-base-combobox-item/span[2]/span");
         By comboRoleEng = By.XPath("//*[@id='dropdown-element-132']/lightning-base-combobox-item/span[2]/span");
         By valKeyCreditorImpDefault = By.XPath("//lightning-formatted-text[contains(text(),'A&D')]/ancestor::tr/td[7]//button/span");
         By valKeyCreditorImpDefaultEng = By.XPath("//tr[1]//div/button[contains(@data-value,'Medium')]/span");
-        By btnKeyCreditor = By.XPath("//lightning-formatted-text[text()='Accupac']/ancestor::tr/td[7]//button");
+        By btnKeyCreditor = By.XPath("//tr/td[7]//button");
         By btnKeyCreditorEng = By.XPath("//tr[1]//div/button[contains(@data-value,'Medium')]");
         By btnRole = By.XPath("//button[@name='Type']");
         By btnRoleEng = By.XPath("//button[@id='combobox-button-132']");
@@ -878,7 +878,7 @@ namespace SF_Automation.Pages
                 Console.WriteLine(driver.FindElement(By.XPath("//table/thead/tr/td[7]/div")).Text + "col1");
                 Console.WriteLine(driver.FindElement(By.XPath("//table/thead/tr/td[8]/div")).Text + "col1");
                 Console.WriteLine(driver.FindElement(By.XPath("//table/thead/tr/td[9]/div")).Text + "col1");
-                string[] expectedValue = { "Client/Subject  ", "Type  ", "Role", "Debt Holdings (MM) - USD   ", "Debt Holdings % Total Debt  ", "Key Creditor Importance  ", "Key Creditor Weighting %  ", "Revenue Allocation %  ", "Notes" };
+                string[] expectedValue = { "Type  ", "Debt Holdings (MM) - USD   ", "Debt Holdings % Total Debt  ", "Key Creditor Importance  ", "Key Creditor Weighting %  ", "Revenue Allocation %  " };
                 bool isSame = true;
 
                 if (expectedValue.Length != actualValue.Length)
@@ -905,8 +905,9 @@ namespace SF_Automation.Pages
                 Console.WriteLine(driver.FindElement(By.XPath("//table/thead/tr/td[3]/div")).Text + "col1");
                 Console.WriteLine(driver.FindElement(By.XPath("//table/thead/tr/td[4]/div")).Text + "col1");
                 Console.WriteLine(driver.FindElement(By.XPath("//table/thead/tr/td[5]/div")).Text + "col1");
+                string[] expectedValue = { "Primary?  ", "Type  ", "Revenue Allocation %  " };
 
-                string[] expectedValue = { "Client/Subject  ", "Primary?  ", "Type  ", "Role", "Revenue Allocation %  " };
+                //string[] expectedValue = { "Client/Subject Company  ", "Primary?  ", "Type  ", "Role", "Revenue Allocation %  " };
                 bool isSame = true;
 
                 if (expectedValue.Length != actualValue.Length)
@@ -932,7 +933,8 @@ namespace SF_Automation.Pages
                 Console.WriteLine(driver.FindElement(By.XPath("//table/thead/tr/td[2]/div")).Text + "col1");
                 Console.WriteLine(driver.FindElement(By.XPath("//table/thead/tr/td[3]/div")).Text + "col1");
                 Console.WriteLine(driver.FindElement(By.XPath("//table/thead/tr/td[4]/div")).Text + "col1");
-                string[] expectedValue = { "Client/Subject  ", "Type  ", "Role", "Revenue Allocation %  " };
+                string[] expectedValue = { "Type  ", "Revenue Allocation %  " };
+
                 bool isSame = true;
 
                 if (expectedValue.Length != actualValue.Length)

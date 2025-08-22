@@ -239,7 +239,7 @@ namespace SF_Automation.Pages.Engagement
         By labelWomenFR = By.CssSelector("div:nth-child(29) > table > tbody > tr:nth-child(13) > td:nth-child(1)");
         By valAddedClient = By.CssSelector("div[id*='DbX_body']> table > tbody > tr:nth-child(2) > td:nth-child(3)");
         By valAddedClientName = By.CssSelector("div[id *= 'DbX_body']> table > tbody > tr:nth-child(6) >th>a");
-        By tabClientSubject = By.XPath("//a[text()='Client/Subject & Referral']");
+        By tabClientSubject = By.XPath("//a[text()='KYC/Client/Subject/Referral']");
         By valAddedKeyCred = By.CssSelector("div[id*='DbX_body']> table > tbody > tr:nth-child(6) >th>a");
         By valAddedKeyCredType = By.CssSelector("div[id*='DbX_body']> table > tbody > tr:nth-child(6) > td:nth-child(3)");
         By lnkShowMore = By.CssSelector("div[id*='DbX_body'] > div > a:nth-child(1)");
@@ -388,13 +388,13 @@ namespace SF_Automation.Pages.Engagement
         By lnkEditCurrency = By.XPath("//button[@title='Edit Currency']");
         By txtEBITDA = By.XPath("//input[@name='EBITDA_MM__c']");
         By valEBITDA = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.EBITDA_MM__c']/div//lightning-formatted-text");
-        By tabClientSub = By.XPath("//a[text()='Client/Subject & Referral']");
+        By tabClientSub = By.XPath("//a[text()='KYC/Client/Subject/Referral']");
         By lnkRefType = By.XPath("//button[@title='Edit Referral Type']");
         By txtEstRefFee = By.XPath("//flexipage-tab2[6]//flexipage-column2[1]/div/slot/flexipage-field[3]//lightning-primitive-input-simple//input");
         By valEstFee = By.XPath("//flexipage-tab2[6]//flexipage-field[3]//slot[1]/lightning-formatted-text");
         By btnShowMore = By.XPath("//tr[1]/td[8]/lightning-primitive-cell-factory/span//lst-list-view-row-level-action");
-        By btnEditClient = By.XPath("//body/div[8]//a");
-        By btnTypeClient = By.XPath("//label[text()='Type']/ancestor::div[1]/div[1]//button[1]");
+        By btnEditClient = By.XPath("//button[@title='Edit Referral Type']");
+        By btnTypeClient = By.XPath("//label[text()='Referral Type']/ancestor::div[1]/div[1]//button[1]");
         By valUpdatedType = By.XPath("//tbody/tr[1]/td[2]/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/lst-formatted-text");
         By btnCloseMsg = By.XPath("//button[@title='Close error dialog']");
         By tabRevenue = By.XPath("//li[7]/a[@data-label='Revenue']");
@@ -713,7 +713,7 @@ namespace SF_Automation.Pages.Engagement
         By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
         By btnEditEngL = By.XPath("//ul//li[contains(@data-target-selection-name,'Button.Engagement')]//button[@name='Edit']");
         By txtClientSubjectL = By.XPath("//input[@placeholder='Search Companies...']");
-        By lnkEngClientSubL = By.XPath("//span[text()='Engagement']/ancestor::div/dd/div[1]//force-lookup//records-hoverable-link");
+        By lnkEngClientSubL = By.XPath("//span[text()='Engagement']/ancestor::div[2]//div[2]//force-lookup//records-hoverable-link");
 
         By txtAssociatedEngLabel = By.XPath("//table[@class='detailList']//td[text()='Associated Engagement']");
         By editAssociatedEngField = By.XPath("//input[@name='CF00N6e00000MfcTw']");
@@ -4500,20 +4500,24 @@ namespace SF_Automation.Pages.Engagement
             string value = driver.FindElement(By.XPath("//span[text()='Private Equity']/ancestor::tr/td//span[text()='Client']/ancestor::tr/th/lightning-primitive-cell-factory//records-hoverable-link/div/a/span/slot/span/slot")).Text;
             return value;
         }
+        
         //Validate additional Subject added from Additional Client/Subject Pop up
         public string ValidateAdditionalSubjectFromPopUpL(string name)
         {
+            Thread.Sleep(5000);
+            driver.FindElement(tabClientL).Click();
+
             if (name.Equals("A&D Mortgage LLC"))
-            {
+            {                
                 Thread.Sleep(7000);
                 //string value = driver.FindElement(By.XPath("//*[contains(@id,'DbX_body')]/table/tbody/tr/th/a[text()='" + name + "']")).Displayed.ToString();
-                string type = driver.FindElement(By.XPath("//table/tbody/tr/th//slot[text()='A&D Mortgage LLC']/ancestor::tr/td[3]//lst-formatted-text/span")).Text;
+                string type = driver.FindElement(By.XPath("//table/tbody/tr/th//a[text()='A&D Mortgage LLC']/ancestor::tr/td[3]//lst-formatted-text/span")).Text;
                 return type;
             }
             else
             {
                 Thread.Sleep(6000);
-                string type = driver.FindElement(By.XPath("//table/tbody/tr/th//slot[text()='" + name + "']/ancestor::tr/td[3]//lst-formatted-text/span")).Text;
+                string type = driver.FindElement(By.XPath("//table/tbody/tr/th//a[text()='" + name + "']/ancestor::tr/td[3]//lst-formatted-text/span")).Text;
                 return type;
             }
         }
@@ -4561,7 +4565,7 @@ namespace SF_Automation.Pages.Engagement
                 Thread.Sleep(5000);
                 driver.FindElement(tabClientSubject).Click();
                 Thread.Sleep(5000);
-                string value = driver.FindElement(By.XPath("//span[text()='Private Equity']/ancestor::tr/td//span[text()='Client']/ancestor::tr/th/lightning-primitive-cell-factory//records-hoverable-link/div/a/span/slot/span/slot")).Text;
+                string value = driver.FindElement(By.XPath("//span[text()='Client']/ancestor::td[1]/ancestor::tr[1]/th[1]//span//span/a[text()='"+name+"']")).Text;
                 return value;
             }
             else
@@ -6168,15 +6172,15 @@ namespace SF_Automation.Pages.Engagement
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,350)");
             Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnShowMore, 150);
-            driver.FindElement(btnShowMore).Click();
-            Thread.Sleep(3000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnShowMore, 150);
+            //driver.FindElement(btnShowMore).Click();
+            //Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditClient, 150);
             driver.FindElement(btnEditClient).Click();
             Thread.Sleep(5000);
             driver.FindElement(btnTypeClient).Click();
             Thread.Sleep(5000);
-            driver.FindElement(By.XPath("//div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[4]/span[2]/span")).Click();
+            driver.FindElement(By.XPath("//records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div/lightning-base-combobox//div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
             Thread.Sleep(4000);
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(4000);

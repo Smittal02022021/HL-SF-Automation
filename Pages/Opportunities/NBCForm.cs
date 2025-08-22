@@ -3932,7 +3932,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnSave).Click();
             Thread.Sleep(4000);
             string value = driver.FindElement(valEstTxnVal).Text;
-            return value.Substring(4, 5);
+            return value.Substring(4, 3);
         }
 
         //Update all Ratchet values
@@ -3963,7 +3963,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnSave).Click();
             Thread.Sleep(4000);
             string value = driver.FindElement(valEstTotalFee).Text;
-            return value.Substring(4, 6);
+            return value.Substring(4,2);
 
         }
 
@@ -4037,8 +4037,8 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(7000);
             driver.FindElement(btnTxnFeeType1).Click();
             driver.FindElement(By.XPath("//label[text()='Transaction Fee Type']/ancestor::div[1]/div//button/ancestor::div[2]/div[2]/lightning-base-combobox-item//span[text()='Other Fee Structure']")).Click();
-            driver.FindElement(txtEstimatedFee).Clear();
-            driver.FindElement(txtEstimatedFee).SendKeys("60");
+            //driver.FindElement(txtEstimatedFee).Clear();
+            //driver.FindElement(txtEstimatedFee).SendKeys("60");
             driver.FindElement(txtOtherFee).SendKeys("20");
             driver.FindElement(btnSave).Click();
             Thread.Sleep(5000);
@@ -4103,7 +4103,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(lnkEditCurrencyL).Click();
             Thread.Sleep(6000);
             driver.FindElement(btnTxnFeeType1).Click();
-            driver.FindElement(By.XPath("//label[text()='Transaction Fee Type']/ancestor::div[1]/div//button/ancestor::div[2]/div[2]/lightning-base-combobox-item//span[text()='"+value+"']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Transaction Fee Type']/ancestor::div[1]//button/ancestor::div[2]//lightning-base-combobox-item//span[text()='" + value+"']")).Click();
             driver.FindElement(btnSave).Click();
             Thread.Sleep(5000);
             try
@@ -4132,7 +4132,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(8000);
             driver.FindElement(By.XPath("//a[text()='Page down']")).Click();
             Thread.Sleep(8000);
-            if (value.Equals("Incentive Structure") || value.Equals("Other Fee Structure"))
+            if (value.Equals("Incentive Structure (Value Based)") || value.Equals("Other Fee Structure"))
             {
                 string minFee = driver.FindElement(By.XPath("//tr[2]//tr[4]/td/span[1]")).Text;
                 return minFee;

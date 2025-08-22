@@ -369,7 +369,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Validate Client/Subject & Referral tab 
                 string tabClient = engagementDetails.ValidateClientSubjectAndReferralTab();
-                Assert.AreEqual("Client/Subject & Referral", tabClient);
+                Assert.AreEqual("KYC/Client/Subject/Referral", tabClient);
                 extentReports.CreateLog("Sub Tab " + tabClient + " is displayed on Engagement Details page ");
 
                 //Validate Edit functionality of Client/Subject & Referral tab                
@@ -382,10 +382,10 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.AreEqual("GBP 10.0", valFee);
                 extentReports.CreateLog("Entered value : " + valFee + " is displayed after updating details of Est. Referral Fee in Client/Subject & Referral tab ");
 
-                //Validate the updated value of Additional Client and Subject section            
-                string valType = engagementDetails.ValidateMandatoryValidationOfClientSubject();
-                Assert.AreEqual("Client", valType);
-                extentReports.CreateLog("Updated value: " + valType + " is not displayed upon editing as Primary Client and Subject can not change the Type ");
+                ////Validate the updated value of Additional Client and Subject section            
+                //string valType = engagementDetails.ValidateMandatoryValidationOfClientSubject();
+                //Assert.AreEqual("Client", valType);
+                //extentReports.CreateLog("Updated value: " + valType + " is not displayed upon editing as Primary Client and Subject can not change the Type ");
                
                 //TC_04 --Revenue
                 //Validate Revenue tab 

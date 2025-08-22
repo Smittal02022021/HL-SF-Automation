@@ -285,7 +285,7 @@ namespace SF_Automation.Pages
         By valNewClient = By.CssSelector("div[id*='p_body'] > table > tbody > tr:nth-child(5)> th > a");
         By valNewClientL = By.XPath("//span[text()='Client/Subject']/ancestor::div[2]/dd//span//a//slot/span/slot");
         By valClientType = By.CssSelector("div[id*='uhQp_body'] > table > tbody > tr:nth-child(5)>td:nth-child(3)");
-        By tabClientL = By.XPath("//records-entity-label[text()='Engagement']/ancestor::flexipage-record-home-template-desktop2/div[1]/div[2]//ul//a[text()='Client/Subject & Referral']");
+        By tabClientL = By.XPath("//records-entity-label[text()='Engagement']/ancestor::flexipage-record-home-template-desktop2/div[1]/div[2]//ul//a[text()='KYC/Client/Subject/Referral']");
         By valClientTypeL = By.XPath("//span[text()='Record Type']/ancestor::div[2]/dd[1]//records-record-type/div/div/span");
         By lnkEditClient = By.CssSelector("div[id*='hQp_body'] > table > tbody > tr.dataRow.even.last > td.actionColumn > a:nth-child(1)");
         By comboType = By.CssSelector("select[name*='D9DcL']");
@@ -319,6 +319,9 @@ namespace SF_Automation.Pages
         By txtWomenLedFR = By.CssSelector("div:nth-child(23)>table>tbody>tr:nth-child(4)>td:nth-child(3)");
         By btnAdditionalClientSubject = By.CssSelector("input[value*='New Opportunity Client/Subject']");
         By btnNewL = By.XPath("//button[text()='New']");
+        By comboRolePitchL = By.XPath("//label[text()='Role Pitched']/..//button");
+        By comboPitchOutcomeL = By.XPath("//label[text()='Pitch Outcome']/..//button");
+        By inputPitchDateL = By.XPath("//label[text()='Date of Pitch']/..//input");
         By btnMassEditRecords = By.CssSelector("input[value*='Mass Edit Records']");
         By titleMassEditPage = By.XPath("//div[2]/h2]/span");
         By btnBackToOpp = By.XPath("//div[1]/span/lightning-button/button");
@@ -1204,7 +1207,7 @@ namespace SF_Automation.Pages
             {
                 Thread.Sleep(6000);
                 string type = driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + value + "']")).Text;
-                driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + value + "']/ancestor::records-record-layout-section/div//dl//records-record-layout-row[2]//force-lookup//records-hoverable-link")).Click();
+                driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + value + "']/ancestor::record_flexipage-record-field/ancestor::slot[3]/flexipage-column2[1]//flexipage-field[2]//records-hoverable-link")).Click();
                 Thread.Sleep(5000);
                 driver.FindElement(tabClientSubject).Click();
                 Thread.Sleep(5000);
@@ -2894,6 +2897,26 @@ namespace SF_Automation.Pages
                 return validations;
             }
             catch (Exception ex) { return "Validation not Found"; }
+        }
+
+        public void CreateNewPitchMandateAwardLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewL, 10);
+            driver.FindElement(btnNewL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, comboRolePitchL, 5);
+            driver.FindElement(comboRolePitchL).Click();
+            By optionRolPitchL = By.XPath("//label[text()='Role Pitched']/..//lightning-base-combobox-item//span[@title='Buyside']");
+            WebDriverWaits.WaitUntilEleVisible(driver, optionRolPitchL, 5);
+            driver.FindElement(optionRolPitchL).Click();
+            driver.FindElement(comboPitchOutcomeL).Click();
+            By optionPitchOutcomeL = By.XPath("//label[text()='Pitch Outcome']/..//lightning-base-combobox-item//span[@title='HL Passed']");
+            WebDriverWaits.WaitUntilEleVisible(driver, optionPitchOutcomeL, 5);
+            driver.FindElement(optionPitchOutcomeL).Click();
+            string getDate = DateTime.Today.ToString("MM/dd/yyyy");
+            WebDriverWaits.WaitUntilEleVisible(driver, inputPitchDateL, 5);
+            driver.FindElement(inputPitchDateL).SendKeys(getDate);
+            driver.FindElement(btnSaveL).Click();
+            Thread.Sleep(8000);
         }
         public string ValidationForDebtConfirmedWithTotalDebtValue(string file)
         {
@@ -8538,7 +8561,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(2000);
             driver.FindElement(btnLocationBenefitL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Location where Benefit was Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
+            driver.FindElement(By.XPath("//label[text()='Location where Benefit is to be Provided']/following::lightning-base-combobox-item//span[text()='Benefit is likely >75% outside the US']")).Click();
             Thread.Sleep(2000);
             driver.FindElement(txtEstCloseDateL).SendKeys("10/11/2023");
 

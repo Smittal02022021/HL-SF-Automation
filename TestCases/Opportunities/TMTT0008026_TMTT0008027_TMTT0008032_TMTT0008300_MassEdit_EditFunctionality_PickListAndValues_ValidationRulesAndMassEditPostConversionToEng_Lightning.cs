@@ -22,6 +22,7 @@ namespace SF_Automation.TestCases.Opportunities
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         AddOpportunityContact addContact = new AddOpportunityContact();
         EngagementHomePage engHome = new EngagementHomePage();
+        RandomPages randomPages = new RandomPages();
 
 
         public static string file8026 = "TMTT0008026_AdditionalClientAndSubject_MassEdit_EditFunctionalities.xlsx";
@@ -90,7 +91,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateLog("Tab with name: " + displayedTab + " is displayed upon saving internal deal team members details ");
 
                     //Validate the buttons i.e., New Opportunity Client/Subject and Mass Edit Record
-                    opportunityDetails.ValidateClientSubjectAndReferralTabL();
+                    opportunityDetails.ValidateClientSubjectAndReferralTabFVAL();
                     string buttonNew = opportunityDetails.ValidateVisibilityOfNewButtonL();
                     Assert.AreEqual("New", buttonNew);
                     extentReports.CreateLog("Button with name : " + buttonNew + " is displayed on Client/Subject & Referral ");
@@ -366,6 +367,11 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityDetails.UpdateReqFieldsForFRConversionLV(file8026);
                     opportunityDetails.UpdateTotalDebtConfirmedLV();
                     opportunityDetails.UpdateInternalTeamDetailsL(file8026);
+
+                    //PitchMandateAward details
+                    randomPages.ClickPitchMandteAwardTabLV();
+                    opportunityDetails.CreateNewPitchMandateAwardLV();
+                    extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
 
                     //Logout of user and validate Admin login
                     usersLogin.LightningLogout();
