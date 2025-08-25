@@ -1523,6 +1523,20 @@ namespace SF_Automation.Pages.Common
             WebDriverWaits.WaitUntilEleVisible(driver, btnCancelL, 20);
             driver.FindElement(btnCancelL).Click(); 
         }
-        
+        By btnInterruptionOKL = By.XPath("//h1[text()='Sorry to interrupt']/../..//button[@title='OK']");
+        public string ClickInterruptionOKButtonLV()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnInterruptionOKL, 5);
+                driver.FindElement(btnInterruptionOKL).Click();
+                return "Interruption popup displayed and OK button clicked";
+            }
+            catch (Exception e)
+            {
+                return "No interruption popup displayed";
+            }
+        }
+
     }
 }

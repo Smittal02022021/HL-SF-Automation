@@ -104,7 +104,7 @@ namespace SF_Automation.Pages.Engagement
         By lnkRecChange = By.CssSelector("div[id*='RecordType'] > a");
         By comboRecType = By.CssSelector("select[id*='p3']");
         By btnContinue = By.CssSelector("input[value='Continue']");
-        By txtComments = By.CssSelector("textarea[id*='FlHaO']");
+        //By txtComments = By.CssSelector("textarea[id*='FlHaO']");
         By lnkFinalReport = By.CssSelector("div:nth-child(13) > table > tbody > tr:nth-child(1) > td:nth-child(4) > span > span > a");
         By lnkReDisplayRec = By.CssSelector("table > tbody > tr:nth-child(2) > td > a:nth-child(4)");
         By valPOC = By.CssSelector("div[id*='GQj_id0_j_id4_ileinner']");
@@ -893,6 +893,14 @@ namespace SF_Automation.Pages.Engagement
         By lnkRevAccuL = By.XPath("//table[@aria-label='Revenue Accruals']//tbody//tr[1]/th//a[2]");
         By tabCPDashoardL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Counterparty Dashboard']");
         By tabMoreCPDashoardL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='Counterparty Dashboard']");
+        By txtComments = By.XPath($"//dt[text()='Comment:']/..//lightning-base-formatted-text");
+        By txtAreaEmailBodyL = By.XPath("//strong[text()='Job Type: ']/..");
+        By lnkOpenRepordL = By.XPath("//a//span[text()='Open Record']//ancestor::a");
+        By labelTASProjectStageL = By.XPath("//span[text()='TAS Project Stage']");
+        By valTASProjectStageL = By.XPath("//span[text()='TAS Project Stage']/../../..//lightning-formatted-text");
+        By comboTASProjectStageL = By.XPath("//button[contains(@aria-label,'TAS Project Stage')]");
+        By comboTASProjectStageOptions = By.XPath("//div[@aria-label='TAS Project Stage']//lightning-base-combobox-item//span/span");
+        By txtEngDescL = By.XPath("//label[text()='Engagement Description']/ancestor::records-record-layout-text-area/lightning-textarea/div/textarea");
 
         private By _quickLink(string linkText)
         {
@@ -1157,7 +1165,7 @@ namespace SF_Automation.Pages.Engagement
             //////////
             jse.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(inputTailExpL));
             Thread.Sleep(1000);
-            string dateTailExp = DateTime.Today.ToString("dd/MM/yyyy");
+            string dateTailExp = DateTime.Today.ToString("MM/dd/yyyy"); //dd / MM / yyyy
             driver.FindElement(inputTailExpL).SendKeys(dateTailExp);
             driver.FindElement(btnSaveL).Click();
             //Thread.Sleep(8000);
@@ -8705,8 +8713,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, linkOppPIFReportL, 10);
             driver.FindElement(linkOppPIFReportL).Click();
         }
-
-        By txtAreaEmailBodyL = By.XPath("//strong[text()='Job Type: ']/..");
+       
         public void ClickBillingRequestButtonLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnBillingRequestL, 10);
@@ -8826,7 +8833,7 @@ namespace SF_Automation.Pages.Engagement
             }            
             Thread.Sleep(10000);
         }
-        By lnkOpenRepordL = By.XPath("//a//span[text()='Open Record']//ancestor::a");
+        
         public void ClickCPDashboardCounterpartyLV(string counterparty)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -8841,7 +8848,75 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
         }
         
+        public bool IsTASProjectStageFieldDisplayedLV()
+        {
+            try
+            {
+                CustomFunctions.MoveToElement(driver, driver.FindElement(labelTASProjectStageL));
+                WebDriverWaits.WaitUntilEleVisible(driver, labelTASProjectStageL, 5);
+                return driver.FindElement(labelTASProjectStageL).Displayed;
+            }
+            catch { return false; }
+        }
+        public string GetValueTASProjectStageLV()
+        {
+            CustomFunctions.MoveToElement(driver, driver.FindElement(labelTASProjectStageL));
+            WebDriverWaits.WaitUntilEleVisible(driver, valTASProjectStageL, 5);
+            return driver.FindElement(valTASProjectStageL).Text;
+        }
 
+        public bool AreEngTASProjectStageDisplayedLV(string fileName)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngDescL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtEngDescL));
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + fileName;
+            bool isEqual = false;
+            WebDriverWaits.WaitUntilEleVisible(driver, comboTASProjectStageL, 5);
+            driver.FindElement(comboTASProjectStageL).Click();
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboTASProjectStageOptions);
+            var actualValue = valTypes.Select(x => x.GetAttribute("title")).ToArray();
+
+            int countRow = ReadExcelData.GetRowCount(excelPath, "EngTASPrjStage");
+            string[] expectedValue = new string[countRow - 1];
+            int index;
+            for (int row = 2; row <= countRow; row++)
+            {
+                index = row - 2;
+                string valueExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EngTASPrjStage", row, 1);
+
+                if (valueExl == "None")
+                {
+                    valueExl = "--" + valueExl + "--";
+                }
+                expectedValue[index] = valueExl;
+                string expectedval = expectedValue[index];
+                string typeName = actualValue[index];
+            }
+            isEqual = actualValue.SequenceEqual(expectedValue);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(btnCancelL));
+            return isEqual;
+        }
+        public void UpdateEngTASProjectStageLV(string valStage)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngDescL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtEngDescL));
+            ReadJSONData.Generate("Admin_Data.json");
+            WebDriverWaits.WaitUntilEleVisible(driver, comboTASProjectStageL, 5);
+            driver.FindElement(comboTASProjectStageL).Click();
+            Thread.Sleep(2000);
+            By eleStage = By.XPath($"//div[@aria-label='TAS Project Stage']//lightning-base-combobox-item//span/span[@title='{valStage}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleStage, 5);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleStage));
+            driver.FindElement(eleStage).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(10000);
+        }
 
     }
 }

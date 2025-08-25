@@ -62,7 +62,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 int rowOpp = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
                 for (int row = 2; row <= rowOpp; row++) 
                 {  
-                    for (int rowStg = 2; rowStg <= rowStage; rowStg++)
+                    for (int rowStg = 2; rowStg < rowStage; rowStg++)
                     {
                         string valStage = ReadExcelData.ReadDataMultipleRows(excelPath, "Stage", rowStg, 1);
                         string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);

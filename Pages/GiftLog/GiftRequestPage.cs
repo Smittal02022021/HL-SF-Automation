@@ -339,7 +339,7 @@ namespace SF_Automation.Pages.GiftLog
         }
         public string EnterDesiredDateLV(int Days)
         {
-            string getDate = DateTime.Today.AddDays(Days).ToString("dd/MM/yyyy");
+            string getDate = DateTime.Today.AddDays(Days).ToString("MM/dd/yyyy");//dd/MM/yyyy
             WebDriverWaits.WaitUntilEleVisible(driver, txtDesireDate);
             driver.FindElement(txtDesireDate).Clear();
             string newDate = getDate.Replace('-', '/');

@@ -13,7 +13,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
     class LV_T1426_112115_11219_11220_11221_24069_TMTT0024069_VerifyOpportunityToEngagementConversionMappingForCFJobTypesOnOpportunityEngagementPageLightningView : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
-        LoginPage login = new LoginPage();
+        LoginPage login = new LoginPage(); 
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
         AddOpportunityPage addOpportunity = new AddOpportunityPage();
         UsersLogin usersLogin = new UsersLogin();

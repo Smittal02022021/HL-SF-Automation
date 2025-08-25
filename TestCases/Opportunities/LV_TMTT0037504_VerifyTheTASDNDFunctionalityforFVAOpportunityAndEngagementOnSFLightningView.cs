@@ -207,6 +207,12 @@ namespace SF_Automation.TestCases.OpportunitiesDND
                         result = opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
                         Assert.AreEqual("Record found", result);
                         extentReports.CreateStepLogs("Passed", result + " and selected");
+
+                        //TMTI0121698	Verify that the TAS-DND feature is working with the "TAS Project Stage" field value updated in opportunity. 
+                        //Verify TAS TAS Project Stage field is present.
+                        Assert.IsTrue(opportunityDetails.IsTASProjectStageFieldDisplayedLV(), "Verify TAS Project Stage field is present on opportunity detail page and user can peform TAS DND funtionality");
+                        extentReports.CreateStepLogs("Passed", "TAS Project Stage field is present on opportunity detail page and user can peform TAS DND funtionality");
+
                         //Verify TAS DND field is present
                         Assert.IsTrue(opportunityDetails.IsTASDNDFieldDisplayedLV(),"Verify TAS DND field is Present on Opportunity Detail page");
                         extentReports.CreateStepLogs("Passed", "TAS DND field is Present on Opportunity Detail page");

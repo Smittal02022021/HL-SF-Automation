@@ -10877,7 +10877,81 @@ namespace SF_Automation.Pages
             driver.FindElement(tabFees).Click();
             Thread.Sleep(5000);
         }
-        
+        By labelTASProjectStageL = By.XPath("//span[text()='TAS Project Stage']");
+        By valTASProjectStageL = By.XPath("//span[text()='TAS Project Stage']/../../..//lightning-formatted-text");
+        By comboTASProjectStageL = By.XPath("//button[contains(@aria-label,'TAS Project Stage')]");
+        By comboTASProjectStageOptions = By.XPath("//div[@aria-label='TAS Project Stage']//lightning-base-combobox-item//span/span");
+
+        public bool IsTASProjectStageFieldDisplayedLV()
+        {
+            try
+            {
+                CustomFunctions.MoveToElement(driver, driver.FindElement(labelTASProjectStageL));
+                WebDriverWaits.WaitUntilEleVisible(driver, labelTASProjectStageL, 5);
+                return driver.FindElement(labelTASProjectStageL).Displayed;
+            }
+            catch { return false; }
+        }
+        public string GetValueTASProjectStageLV()
+        {
+            CustomFunctions.MoveToElement(driver, driver.FindElement(labelTASProjectStageL));
+            WebDriverWaits.WaitUntilEleVisible(driver, valTASProjectStageL, 5);
+            return driver.FindElement(valTASProjectStageL).Text;
+        }
+
+       public bool AreTASProjectStageDisplayedLV(string fileName)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppDescL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL));
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + fileName;
+            bool isEqual = false;
+            WebDriverWaits.WaitUntilEleVisible(driver, comboTASProjectStageL, 5);
+            driver.FindElement(comboTASProjectStageL).Click();
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboTASProjectStageOptions);
+            var actualValue = valTypes.Select(x => x.GetAttribute("title")).ToArray();
+
+            int countRow = ReadExcelData.GetRowCount(excelPath, "OppTASPrjStage");
+            string[] expectedValue = new string[countRow - 1];           
+            int index;
+            for (int row = 2; row <= countRow; row++)
+            {
+                index = row - 2;
+                string valueExl = ReadExcelData.ReadDataMultipleRows(excelPath, "OppTASPrjStage", row, 1);
+               
+                if (valueExl == "None")
+                {
+                    valueExl = "--" + valueExl + "--";
+                }
+                expectedValue[index] = valueExl;
+                string expectedval = expectedValue[index];
+                string typeName = actualValue[index];
+                //expectedValue[index] = ReadExcelData.ReadDataMultipleRows(excelPath, "OppTASPrjStage", row, 1);
+            }
+            isEqual = actualValue.SequenceEqual(expectedValue);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(btnCancelL));
+            return isEqual;
+        }
+        public void UpdateOppTASProjectStageLV(string valStage)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditL, 10);
+            driver.FindElement(btnEditL).Click();
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOppDescL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtOppDescL));
+            ReadJSONData.Generate("Admin_Data.json");
+            WebDriverWaits.WaitUntilEleVisible(driver, comboTASProjectStageL, 5);
+            driver.FindElement(comboTASProjectStageL).Click();
+            Thread.Sleep(2000);
+            By eleStage = By.XPath($"//div[@aria-label='TAS Project Stage']//lightning-base-combobox-item//span/span[@title='{valStage}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, eleStage, 5);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(eleStage));
+            driver.FindElement(eleStage).Click();            
+            driver.FindElement(btnSaveDetailsL).Click(); 
+            Thread.Sleep(10000);
+        }
     }
 }
 

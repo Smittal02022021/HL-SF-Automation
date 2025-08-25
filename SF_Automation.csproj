@@ -847,6 +847,8 @@
     <Compile Include="TestCases\Opportunities\LV_TMTT0048213_FR_VerifyLocationWhereBenefitWasProvidedFieldValueIsMappedToEngagementUponConversion.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0048213_FVA_VerifyLocationWhereBenefitWasProvidedFieldValueIsMappedToEngagementUponConversion.cs" />
     <Compile Include="TestCases\Opportunities\LV_1_TMTT0048664_VerifyWaiveRFOFieldInOpportunityEngagementConversion.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0048826_VerifyNewTASProjectStagesForTASDealsWithFVALOBOnOppertunityAndEngagementPage.cs" />
+    <Compile Include="TestCases\Opportunities\LV_TMTT0048826_VerifyTASProjectStagesForTASDealsWithFVALOBOnReport.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS01_ValidateERPSection_PostCreationOfOpportunityLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS02_ValidateERPSectionPostUpdatingDFFFieldsOfOpportunityLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS03_ValidateERPSubmittedAndERPLastIntegrationResponsePostManualSyncOpportunityLightningView.cs" />
