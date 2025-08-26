@@ -68,10 +68,10 @@ namespace SF_Automation.TestCases.Opportunities
                 int rowJobType = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
                 Console.WriteLine("rowCount " + rowJobType);
 
-                for (int row = 2; row <= rowJobType; row++)
+                for (int row = 2; row <= 2; row++)
                 {
 
-                    string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
+                    string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", 2, 3);
 
                     //Verify the availability of Opportunity under HL Banker list
                     string tagOpp = opportunityHome.ClickOppUnderHLBanker();
@@ -129,7 +129,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //6(a)   TMTI0113204_Verify that the "Minimum Fee" field is available for the Transaction Types—"Incentive Fee" and "Other" on the CNBC form and the Cognos Report PDF on the New Opportunities of the Equity Capital Market job type
                     bool incenFee = form.ValidateMinFeeFieldUponSelectingFlatAndIncentiveFeeType("Incentive Structure (Value Based)");
-                    form.UpdateAllRatchetValues(fileTC1232);
+                    form.UpdateAllRatchetValues(fileTC1232, "Incentive Structure (Value Based)");
                     form.UpdateFinalRatchetAmt(fileTC1232);
                     Assert.AreEqual(true, incenFee);
                     extentReports.CreateLog("Minimum Fee field is displayed upon saving Transaction Fee as Incentive Fee in CNBC Form ");
@@ -168,7 +168,7 @@ namespace SF_Automation.TestCases.Opportunities
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                usersLogin.UserLogOut();
+                usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }                

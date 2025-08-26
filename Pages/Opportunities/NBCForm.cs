@@ -3936,7 +3936,7 @@ namespace SF_Automation.Pages.Opportunity
         }
 
         //Update all Ratchet values
-        public string UpdateAllRatchetValues(string file)
+        public string UpdateAllRatchetValues(string file,string fee)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
@@ -3962,9 +3962,16 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txt4thRatchetToAmount).SendKeys(ToAmt);
             driver.FindElement(btnSave).Click();
             Thread.Sleep(4000);
-            string value = driver.FindElement(valEstTotalFee).Text;
-            return value.Substring(4,2);
-
+            if (fee.Equals("Incentive Structure (Value Based)"))
+            {
+                string value = driver.FindElement(valEstTotalFee).Text;
+                return value.Substring(4, 2);
+            }
+            else
+            {
+                string value = driver.FindElement(valEstTotalFee).Text;
+                return value.Substring(4, 6);
+            }
         }
 
         //Update Other Fee Structure
@@ -4066,7 +4073,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btnPDF).Click();
             Thread.Sleep(4000);
             driver.SwitchTo().Window(driver.WindowHandles.Last());
-            Thread.Sleep(12000);
+            Thread.Sleep(15000);
             driver.FindElement(txtCognoUser).SendKeys("SSharma0427");
             driver.FindElement(txtCognoPass).SendKeys("Avika_Ashok@2024");
             driver.FindElement(btnSignin).Click();

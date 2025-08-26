@@ -282,7 +282,17 @@ namespace SF_Automation.Pages.Engagement
         By btnSigningDate = By.XPath("//button[@title='Edit: Closing_Bid_Due_Date__c']");
         By txtSigningDate = By.XPath("//input[@name='Closing_Bid_Due_Date__c']");
         By valSigningDate = By.XPath("//span[text()='Signing Date']/ancestor::div[1]//div[1]/lightning-formatted-text");
+        By iconBuyerStratergy = By.XPath("//span[text()='Buyer Strategy']/ancestor::button[1]/c-hl-universal-pop-over/div/lightning-icon");
         By lblClosingFields = By.XPath("//span[text()='Engagement Timeline']/ancestor::section[1]/div[2]//div[1]/div[contains(@class,'tertiaryRecord')]/div//lightning-output-field/span");
+        By msgBuyerStrategy1 = By.XPath("//span[text()='Buyer Strategy']/ancestor::button//section//ul//li[1]/span");
+        By msgBuyerStrategy2 = By.XPath("//span[text()='Buyer Strategy']/ancestor::button//section//ul//li[2]/span");
+        By btnEditBuyerProcessType = By.XPath("//button[@title='Edit: Buyer_Process_Type__c']");
+        By btnBuyerProcessType = By.XPath("//button[@name='Buyer_Process_Type__c']");
+        By valBuyerProcessType = By.XPath("//button[@name='Buyer_Process_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
+        By btnBuyerPlatType = By.XPath("//button[@name='Buyer_Platform_Type__c']");
+        By valBuyerPlatType = By.XPath("//button[@name='Buyer_Platform_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
+
+
 
         public void ClickEngagementDynamicsSection()
         {
@@ -2602,6 +2612,72 @@ namespace SF_Automation.Pages.Engagement
             IReadOnlyCollection<IWebElement> valSections = driver.FindElements(lblClosingFields);
             var actualValue = valSections.Select(x => x.Text).ToArray();
             string[] expectedValue = { "Close Date", "Closed - Weeks From Date Engaged" };
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+        public string ValidateMandatoryField1OfBuyerStrategy()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, iconBuyerStratergy);
+            driver.FindElement(iconBuyerStratergy).Click();
+            string value = driver.FindElement(msgBuyerStrategy1).Text;
+            return value;
+        }
+
+        public string ValidateMandatoryField2OfBuyerStrategy()
+        {           
+            string value = driver.FindElement(msgBuyerStrategy2).Text;
+            return value;
+        }
+
+        public bool VerifyValuesOfBuyerProcessType()
+        {
+            Thread.Sleep(6000);
+            driver.FindElement(btnEditBuyerProcessType).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnBuyerProcessType).Click();
+            IReadOnlyCollection<IWebElement> valSections = driver.FindElements(valBuyerProcessType);
+            var actualValue = valSections.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "--None--", "Broad Auction", "Controlled Auction", "Direct Negotiation", "DM&A", "Targeted Negotiations (5 to 10 parties)" };
+
+            bool isSame = true;
+
+            if (expectedValue.Length != actualValue.Length)
+            {
+                return !isSame;
+            }
+            for (int rec = 0; rec < expectedValue.Length; rec++)
+            {
+                if (!expectedValue[rec].Equals(actualValue[rec]))
+                {
+                    isSame = false;
+                    break;
+                }
+            }
+            return isSame;
+        }
+
+
+        public bool VerifyValuesOfBuyerPlatformType()
+        {            
+            Thread.Sleep(4000);
+            driver.FindElement(btnBuyerPlatType).Click();
+            IReadOnlyCollection<IWebElement> valSections = driver.FindElements(valBuyerPlatType);
+            var actualValue = valSections.Select(x => x.Text).ToArray();
+            string[] expectedValue = { "--None--", "N/A", "Platform", "Bolt-On", "Strategic Add-On", "Product Extension" };
 
             bool isSame = true;
 

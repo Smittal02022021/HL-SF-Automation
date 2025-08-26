@@ -110,12 +110,27 @@ namespace SF_Automation.TestCases.Engagement
 
                 //3.  TMTI0114573_Verify that the "Buyer's Strategy" information is displayed under the subsection of the Buyer section
                 string secBuyerStrategy = summaryPage.ValidateStrategySectionOfBuyer();
-                Assert.AreEqual("Buyer Strategy", secBuyerStrategy);
+                Assert.AreEqual("Buyer Strategy", secBuyerStrategy); 
+                extentReports.CreateLog("Subsection: " + secBuyerStrategy + " is displayed under Parties section ");
 
                 Assert.IsTrue(summaryPage.VerifyFieldsUnderBuyerStrategySection(), "Verify that displayed fields under Buyer Strategy section are same");
                 extentReports.CreateStepLogs("Passed", "Displayed fields under Buyer Strategy section are as expected ");
 
+                string messageBuyerStrategy1 = summaryPage.ValidateMandatoryField1OfBuyerStrategy();
+                Assert.AreEqual("Buyer Process Type", messageBuyerStrategy1);
+                extentReports.CreateLog("Mandatory Validation1: " + messageBuyerStrategy1 + " is displayed upon hovering mouse at Buyer Strategy ");
 
+                string messageBuyerStrategy2 = summaryPage.ValidateMandatoryField2OfBuyerStrategy();
+                Assert.AreEqual("Buyer Platform Type", messageBuyerStrategy2);
+                extentReports.CreateLog("Mandatory Validation: " + messageBuyerStrategy2 + " is displayed upon hovering mouse at Buyer Strategy ");
+
+                Assert.IsTrue(summaryPage.VerifyValuesOfBuyerProcessType(), "Verify that displayed values of Buyer Process Type are same");
+                extentReports.CreateStepLogs("Passed", "Displayed  values of Buyer Process Type are as expected ");
+
+                Assert.IsTrue(summaryPage.VerifyValuesOfBuyerPlatformType(), "Verify that displayed values of Buyer Platform Type are same");
+                extentReports.CreateStepLogs("Passed", "Displayed  values of Buyer Platform Type are as expected ");
+
+                
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();

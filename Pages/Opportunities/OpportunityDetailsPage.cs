@@ -466,7 +466,7 @@ namespace SF_Automation.Pages
         By valAddedComment = By.XPath("//records-record-layout-item[@field-label='Comment']//slot[1]/lightning-formatted-text");
         By valCreator = By.XPath("//dt[text()='Created By:']/ancestor::dl/dd[2]//span");
         By msgComplianceL = By.XPath("//div[contains(text(),'Only')]");
-        By tabOpportunityL = By.XPath("//div[1]/div/div[1]/div[2]//ul[2]/li[2]/a/span[2]");
+        By tabOpportunityL = By.XPath("//div[2]/div/div/ul[2]/li[2]/a/span[2]");
         By valRelatedOppL = By.XPath("//span[text()='Related Opportunity']/ancestor::div[2]/div[2]//a//slot//span//span");
         By valAddedCommentType = By.XPath("//dt[text()='Comment Type:']/ancestor::dl/dd[2]/lst-template-list-field/lst-formatted-text");
         By lnkEngagementL = By.XPath("//records-entity-label[text()='Engagement Comment']/ancestor::div[7]/div[2]//span[text()='Engagement']/ancestor::div[2]//a//span//slot//slot/span");
@@ -1240,8 +1240,8 @@ namespace SF_Automation.Pages
         //Get the value of Est Txn Size
         public string GetEstTransactionSizeL()
         {
-            Thread.Sleep(8000);
-            driver.FindElement(tabOpportunityL).Click();            
+            //Thread.Sleep(8000);
+            driver.FindElement(tabOpportunityL).Click();
             Thread.Sleep(5000);
             driver.FindElement(tabOppL).Click();
             Thread.Sleep(5000);

@@ -448,7 +448,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Estimated Total Fee with value : " + valEstFinalRatchetWithUpdEstTxnValue + " is displayed when Estimated Transaction value is entered less than Final Ratchet amount along with Retainer and Progress fields ");
 
                 //Update all Ratchet values i.e., 1st, 2nd, 3rd and 4th
-                string updEstAllRatchets = form.UpdateAllRatchetValues(fileTC1232);
+                string updEstAllRatchets = form.UpdateAllRatchetValues(fileTC1232,"Incentive Structure");
                 Console.WriteLine("updEstAllRatchets: " + updEstAllRatchets);
 
                 //Validate Estimated Total Fee when all Ratchet values are saved
@@ -460,7 +460,6 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.AreEqual(((Convert.ToDouble(finalRetainer + finalProgress+ final1stRatchet+ final2ndRatchetEst + final3rdRatchetEst+final4thRatchetEst+ finalFinalRatchetEst))+(Convert.ToDouble((valBaseFee).Substring(4, 5)))).ToString("0.00"), updEstAllRatchets.Replace(",", ""));
                 extentReports.CreateLog("Estimated Total Fee with value : " + updEstAllRatchets + " is displayed when all Ratchet amounts are entered along with Retainer and Progress fields ");
                              
-
                 form.SwitchFrame(); 
                 usersLogin.DiffLightningLogout();
 
