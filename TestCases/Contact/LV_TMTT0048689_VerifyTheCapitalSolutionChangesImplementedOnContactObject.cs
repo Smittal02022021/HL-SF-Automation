@@ -20,6 +20,7 @@ namespace SF_Automation.TestCases.Contact
         LVHomePage lvHomePage = new LVHomePage();
         LV_RecentlyViewedContactsPage lvRecentlyViewContact = new LV_RecentlyViewedContactsPage();
         LV_ContactDetailsPage lvContactDetails = new LV_ContactDetailsPage();
+        LV_ContactsCreatePage lvCreateContact = new LV_ContactsCreatePage();
 
         public static string fileTMTT0048689 = "LV_TMTT0048689_VerifyTheCapitalSolutionChangesImplementedOnContactObject";
 
@@ -133,9 +134,17 @@ namespace SF_Automation.TestCases.Contact
                 lvContactDetails.CloseTab(hlEmployee1);
                 lvContactDetails.CloseTab(hlEmployee1);
 
-                //TMTI0119931 - Verify that the "Industry Umbrella" fields appear blank when "Staff Industry" and Product Specialty is "Capital Solutions" in Contacts.
                 lvHomePage.SearchHLEmpContactFromMainSearch(hlEmployee2);
 
+                //TMTI0119966 - Verify that the Staff Industry is assigned the value "CS" if Product Specialty is "Capital Solutions" in Contacts.
+                Assert.IsTrue(lvContactDetails.VerifyStaffIndustryIsCSWhenProductSpecialtyIsCapitalSolutions());
+                extentReports.CreateStepLogs("Passed", "The Staff Industry is assigned the value as CS, if Product Specialty is Capital Solutions for Contact = " + hlEmployee2);
+
+                //TMTI0120053 - Verify that the HCM Cost Center in the Contact details page displays "CS". 
+                Assert.IsTrue(lvContactDetails.VerifyHCMCostCenterDisplaysCSWhenProductSpecialtyIsCapitalSolutions());
+                extentReports.CreateStepLogs("Passed", "The HCM Cost Center in the Contact details page displays CS, when Product Specialty = Capital Solutions for contact = " + hlEmployee2);
+
+                //TMTI0119931 - Verify that the "Industry Umbrella" fields appear blank when "Staff Industry" and Product Specialty is "Capital Solutions" in Contacts.
                 Assert.IsTrue(lvContactDetails.VerifyIndustryUmbrellaIsBlankWhenProductSpecialtyIsCapitalSolutionsAndStaffIndustryIsCS());
                 extentReports.CreateStepLogs("Passed", "The Industry Umbrella fields appear blank when Staff Industry = CS and Product Specialty = Capital Solutions for contact = " + hlEmployee2);
 
@@ -150,6 +159,20 @@ namespace SF_Automation.TestCases.Contact
 
                 lvContactDetails.CloseTab(hlEmployee3);
                 lvContactDetails.CloseTab(hlEmployee3);
+
+                //TMTI0121384 - Verify that the "Product Specialty" picklist values "Capital Solutions" and "Mergers & Acquisitions" are added and displaying in the list in New Contact page.
+                
+                //Select Contact type and click continue
+                lvRecentlyViewContact.NavigateToContactTypeSelectionPage();
+                extentReports.CreateStepLogs("Info", "User navigated to contacts type selection page. ");
+
+                string contactType = ReadExcelData.ReadData(excelPath, "Contact Type", 2);
+                lvRecentlyViewContact.SelectContactType(contactType);
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "New Contact: Houlihan Employee | Salesforce"), true);
+                extentReports.CreateStepLogs("Passed", "User selected contact type as: " + contactType + ".");
+
+                Assert.IsTrue(lvCreateContact.VerifyProductSpecialtyPicklistValueInNewContactPage("Capital Solutions", "Mergers & Acquisitions"));
+                extentReports.CreateStepLogs("Passed", "The Product Specialty picklist values - Capital Solutions and Mergers & Acquisitions are added in the list on New Contact page.");
 
                 //TC - End
                 lvHomePage.LogoutFromSFLightningAsApprover();

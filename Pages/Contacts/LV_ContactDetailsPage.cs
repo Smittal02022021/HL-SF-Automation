@@ -2354,14 +2354,53 @@ namespace SF_Automation.Pages.Contact
             bool result = false;
             string productSp = driver.FindElement(By.XPath("((//span[text()='Product Specialty'])[1]/following::div)[1]//lightning-formatted-text")).Text;
 
-            string indGrp = driver.FindElement(By.XPath("((//span[text()='Staff Industry'])[3]/following::div)[1]//lightning-formatted-text")).Text;
+            string staffInd = driver.FindElement(By.XPath("((//span[text()='Staff Industry'])[3]/following::div)[1]//lightning-formatted-text")).Text;
 
             string indUmb = driver.FindElement(By.XPath("((//span[text()='Industry Umbrella'])[1]/following::div)[1]//lightning-formatted-text")).Text;
-            if(productSp == "Capital Solutions" && indGrp == "CS")
+            if(productSp == "Capital Solutions" && staffInd == "CS")
             {
                 if(indUmb == "")
                 {
                     result = true;
+                    Thread.Sleep(3000);
+                }
+            }
+            return result;
+        }
+
+        public bool VerifyStaffIndustryIsCSWhenProductSpecialtyIsCapitalSolutions()
+        {
+            bool result = false;
+            string productSp = driver.FindElement(By.XPath("((//span[text()='Product Specialty'])[1]/following::div)[1]//lightning-formatted-text")).Text;
+            string staffInd = driver.FindElement(By.XPath("((//span[text()='Staff Industry'])[3]/following::div)[1]//lightning-formatted-text")).Text;
+            if(productSp == "Capital Solutions")
+            {
+                if(staffInd == "CS")
+                {
+                    result = true;
+                    Thread.Sleep(3000);
+                }
+            }
+            return result;
+        }
+
+        public bool VerifyHCMCostCenterDisplaysCSWhenProductSpecialtyIsCapitalSolutions()
+        {
+            bool result = false;
+
+            string productSp = driver.FindElement(By.XPath("((//span[text()='Product Specialty'])[1]/following::div)[1]//lightning-formatted-text")).Text;
+
+            //Scroll to the bottom of the page
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0, 3000)");
+
+            string costCenter = driver.FindElement(By.XPath("((//span[text()='HCM Cost Center'])[1]/following::div)[2]//lightning-formatted-text")).Text;
+            if(productSp == "Capital Solutions")
+            {
+                if(costCenter.Contains("CS"))
+                {
+                    result = true;
+                    js.ExecuteScript("window.scrollTo(0, 0)");
                     Thread.Sleep(3000);
                 }
             }

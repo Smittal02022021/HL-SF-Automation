@@ -4,6 +4,7 @@ using OpenQA.Selenium.Interactions;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace SF_Automation.Pages.Contact
@@ -28,6 +29,7 @@ namespace SF_Automation.Pages.Contact
         By inputCompanySearchBox = By.XPath("//input[@placeholder='Search Companies...']");
         By btnGo = By.XPath("//input[@id='j_id0:j_id1:j_id2:formId:btnGo']");
         By selFirstOption = By.CssSelector("td[id*='tblResults:0:j_id49'] > a");
+        By dropdownProductSpecialty = By.XPath("//button[@aria-label='Product Specialty']");
 
         //New Contact Page - Select Contact Type
         By radioExternalContact = By.XPath("//span[text()='External Contact']/../input");
@@ -337,6 +339,53 @@ namespace SF_Automation.Pages.Contact
         {
             string msg = driver.FindElement(By.XPath("(//span[text()='Last Name'])[1]/..")).Text;
             return msg;
+        }
+
+        public bool VerifyProductSpecialtyPicklistValueInNewContactPage(string picklistValue1, string picklistValue2)
+        {
+            bool finalResult = false;
+            bool result1 = false;
+            bool result2 = false;
+
+            CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//label[text()='Staff Type']")));
+
+            driver.FindElement(dropdownProductSpecialty).Click();
+            IList<IWebElement> staffIndustryValues = driver.FindElements(By.XPath("//button[@aria-label='Product Specialty']//following::lightning-base-combobox-item//span[2]/span"));
+            foreach(IWebElement value in staffIndustryValues)
+            {
+                if(value.Text == picklistValue1)
+                {
+                    result1 = true;
+                    break;
+                }
+                else
+                {
+                    result1 = false;
+                }
+            }
+
+            foreach(IWebElement value in staffIndustryValues)
+            {
+                if(value.Text == picklistValue2)
+                {
+                    result2 = true;
+                    break;
+                }
+                else
+                {
+                    result2 = false;
+                }
+            }
+
+            if(result1 && result2 == true)
+            {
+                finalResult = true;
+            }
+            else
+            {
+                finalResult = false;
+            }
+            return finalResult;
         }
     }
 }
