@@ -158,8 +158,43 @@ namespace SF_Automation.Pages.HomePage
                 driver.FindElement(By.XPath($"(//a[@title='{name}'])[1]")).Click();
                 Thread.Sleep(5000);
             }
-            
         }
+
+        public void SearchHLEmpContactFromMainSearch(string name)
+        {
+            Thread.Sleep(3000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnMainSearch, 120);
+            driver.FindElement(btnMainSearch).Click();
+            Thread.Sleep(3000);
+
+            driver.FindElement(dropdownSearchAll).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, linkContactsInSearchAllDropDown, 120);
+            driver.FindElement(linkContactsInSearchAllDropDown).Click();
+            Thread.Sleep(5000);
+
+            driver.FindElement(txtMainSearch).Clear();
+            driver.FindElement(txtMainSearch).SendKeys(name);
+            Thread.Sleep(3000);
+            driver.FindElement(txtMainSearch).SendKeys(OpenQA.Selenium.Keys.Enter);
+            Thread.Sleep(8000);
+
+            WebDriverWaits.WaitForPageToLoad(driver, 120);
+
+            int rowCount = driver.FindElements(By.XPath("(//tbody)[2]/tr")).Count;
+
+            for(int i=1; i<= rowCount; i++)
+            {
+                string compName = driver.FindElement(By.XPath($"(//tbody)[2]/tr[{i}]//td[2]//a")).GetAttribute("title");
+                if(compName.Contains("Houlihan Lokey"))
+                {
+                    driver.FindElement(By.XPath($"(//tbody)[2]/tr[{i}]//th//a")).Click();
+                    Thread.Sleep(5000);
+                    break;
+                }
+            }
+        }
+
 
         public void SearchUserFromMainSearch(string name)
         {

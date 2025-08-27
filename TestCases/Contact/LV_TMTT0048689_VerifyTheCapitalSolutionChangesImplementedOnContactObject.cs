@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.CodeAnalysis;
+using NUnit.Framework;
+using OpenQA.Selenium.BiDi.Input;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Contact;
@@ -39,6 +41,11 @@ namespace SF_Automation.TestCases.Contact
                 string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData", fileTMTT0048689 + ".xlsx");
                 excelPath = Path.GetFullPath(excelPath);
 
+                string hlEmployee = ReadExcelData.ReadData(excelPath, "Contact", 1);
+                string hlEmployee1 = ReadExcelData.ReadData(excelPath, "Contact", 2);
+                string hlEmployee2 = ReadExcelData.ReadData(excelPath, "Contact", 3);
+                string hlEmployee3 = ReadExcelData.ReadData(excelPath, "Contact", 4);
+
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateStepLogs("Passed", driver.Title + " is displayed. ");
@@ -73,14 +80,8 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateStepLogs("Passed", "User navigated to contacts list page.");
 
                 //TMTI0119921 - Verify that the "Staff Industry" picklist value "CS" is added in the list.
-
-                //Search HL Employee contact
-                lvRecentlyViewContact.ChangeContactListView("HL Employee");
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "HL Employee | Contacts | Salesforce"), true);
-                extentReports.CreateStepLogs("Passed", "HL Employee listing page is opened.");
-
                 //Navigate to an HL Employee detail page
-                lvRecentlyViewContact.NavigateToHLEmployeeDetailPage();
+                lvHomePage.SearchHLEmpContactFromMainSearch(hlEmployee);
                 extentReports.CreateStepLogs("Passed", "HL Employee detail page is opened.");
 
                 //Click Edit contact button
@@ -101,8 +102,59 @@ namespace SF_Automation.TestCases.Contact
                 Assert.IsTrue(lvContactDetails.VerifyProductSpecialtyPicklistValue("Capital Solutions", "Mergers & Acquisitions"));
                 extentReports.CreateStepLogs("Passed", "The Product Specialty picklist values - Capital Solutions and Mergers & Acquisitions are added in the list.");
 
+                lvContactDetails.CLickCancelButton();
+
+                lvContactDetails.CloseTab(hlEmployee);
+                lvContactDetails.CloseTab(hlEmployee);
+
+                //TMTI0119927 - Verify that the industry group field non-NULL validation is removed for "Capital Solutions" product specialty.
+                //Open a new HL Employee having "Product Specialty"="Capital Solutions".
+
+                lvHomePage.SearchHLEmpContactFromMainSearch(hlEmployee1);
+                Assert.IsTrue(lvContactDetails.VerifyProductSpecialtyIsCapitalSolution("Capital Solutions"));
+                extentReports.CreateStepLogs("Passed", "User navigated to details page of HL Employee having Product Specialty = Capital Solutions.");
+
+                lvContactDetails.ClickEditContactButton();
+
+                string valIndGrp = ReadExcelData.ReadData(excelPath, "Industry Group", 1);
+
+                lvContactDetails.ChangeIndustryGroupValue(valIndGrp);
+                Assert.IsTrue(lvContactDetails.VerifyIndustryGroupIsSavedSuccessfully(valIndGrp));
+                extentReports.CreateStepLogs("Passed", "The industry group field non-NULL validation is removed for Capital Solutions product specialty.");
+
+                //TMTI0119929 - Verify that the industry group field with value <> None does not display validation when product specialty field having value "Capital Solutions".
+                lvContactDetails.ClickEditContactButton();
+                string valIndGrp1 = ReadExcelData.ReadData(excelPath, "Industry Group", 2);
+
+                lvContactDetails.ChangeIndustryGroupValue(valIndGrp1);
+                Assert.IsTrue(lvContactDetails.VerifyIndustryGroupIsSavedSuccessfully(valIndGrp1));
+                extentReports.CreateStepLogs("Passed", "Contact record is getting saved successfully for the Industry group = " + valIndGrp1 + "  having value when Product Specialty = Capital Solutions.");
+
+                lvContactDetails.CloseTab(hlEmployee1);
+                lvContactDetails.CloseTab(hlEmployee1);
+
+                //TMTI0119931 - Verify that the "Industry Umbrella" fields appear blank when "Staff Industry" and Product Specialty is "Capital Solutions" in Contacts.
+                lvHomePage.SearchHLEmpContactFromMainSearch(hlEmployee2);
+
+                Assert.IsTrue(lvContactDetails.VerifyIndustryUmbrellaIsBlankWhenProductSpecialtyIsCapitalSolutionsAndStaffIndustryIsCS());
+                extentReports.CreateStepLogs("Passed", "The Industry Umbrella fields appear blank when Staff Industry = CS and Product Specialty = Capital Solutions for contact = " + hlEmployee2);
+
+                lvContactDetails.CloseTab(hlEmployee2);
+                lvContactDetails.CloseTab(hlEmployee2);
+
+                //TMTI0119933 - Verify that the Product Specialty is assigned as "Mergers & Acquisitions'" for non-CS Product Specialty contacts in Contacts.
+                lvHomePage.SearchHLEmpContactFromMainSearch(hlEmployee3);
+
+                Assert.IsTrue(lvContactDetails.VerifyProductSpecialtyIsMergersAcquisitionsForNonCSProductSpecialtyContact());
+                extentReports.CreateStepLogs("Passed", "The Product Specialty is = Mergers & Acquisitions for non-CS Product Specialty contact = " + hlEmployee3);
+
+                lvContactDetails.CloseTab(hlEmployee3);
+                lvContactDetails.CloseTab(hlEmployee3);
+
                 //TC - End
                 lvHomePage.LogoutFromSFLightningAsApprover();
+                extentReports.CreateStepLogs("Info", "Admin user logged out of SF Lightning View. ");
+
                 driver.Quit();
             }
             catch (Exception e)

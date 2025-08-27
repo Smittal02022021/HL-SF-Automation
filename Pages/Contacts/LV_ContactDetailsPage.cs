@@ -144,6 +144,7 @@ namespace SF_Automation.Pages.Contact
         By inputBadgeLastName = By.XPath("//input[@name='Badge_Last_Name__c']");
         By inputBadgeCompanyName = By.XPath("//input[@name='Badge_Company__c']");
         By inputAccEngScore = By.XPath("//label[text()='Account Engagement Score']/following::div/input");
+        By dropdownindustryGroup = By.XPath("//button[@aria-label='Industry Group']");
 
         //Marketing Tab Elements
         By lblDealAnnouncement = By.XPath("(//span[text()='Deal Announcements']/following::lightning-formatted-text)[1]");
@@ -2213,9 +2214,9 @@ namespace SF_Automation.Pages.Contact
             Thread.Sleep(3000);
 
             //Get the Staff Industry picklist values
-            driver.FindElement(By.XPath("//button[@aria-label='Staff Industry']")).Click();
+            driver.FindElement(By.XPath("(//button[@aria-label='Staff Industry'])[2]")).Click();
 
-            IList<IWebElement> staffIndustryValues = driver.FindElements(By.XPath("//button[@aria-label='Staff Industry']//following::lightning-base-combobox-item//span[2]/span"));
+            IList<IWebElement> staffIndustryValues = driver.FindElements(By.XPath("(//button[@aria-label='Staff Industry'])[2]//following::lightning-base-combobox-item//span[2]/span"));
             foreach(IWebElement value in staffIndustryValues)
             {
                 if(value.Text == picklistValue)
@@ -2235,7 +2236,7 @@ namespace SF_Automation.Pages.Contact
         {
             bool result = false;
 
-            IList<IWebElement> staffIndustryValues = driver.FindElements(By.XPath("//button[@aria-label='Staff Industry']//following::lightning-base-combobox-item//span[2]/span"));
+            IList<IWebElement> staffIndustryValues = driver.FindElements(By.XPath("(//button[@aria-label='Staff Industry'])[2]//following::lightning-base-combobox-item//span[2]/span"));
             foreach(IWebElement value in staffIndustryValues)
             {
                 if(value.Text != picklistValue1 && value.Text != picklistValue2)
@@ -2301,5 +2302,82 @@ namespace SF_Automation.Pages.Contact
             return finalResult;
         }
 
+        public bool VerifyProductSpecialtyIsCapitalSolution(string productSpecialty)
+        {
+            bool result = false;
+            string val = driver.FindElement(By.XPath("((//span[text()='Product Specialty'])[1]/following::div)[1]//lightning-formatted-text")).Text;
+            if(val == productSpecialty)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public void ChangeIndustryGroupValue(string val)
+        {
+            CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//label[text()='Classification']")));
+            Thread.Sleep(3000);
+
+            driver.FindElement(dropdownindustryGroup).Click();
+            Thread.Sleep(3000);
+            By ele = By.XPath($"//label[text()='Industry Group']/following::lightning-base-combobox-item//span[@title='{val}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, ele, 60);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(ele));
+            driver.FindElement(ele).Click();
+
+            //Click on Save button
+            driver.FindElement(btnSaveOnEdit).Click();
+            Thread.Sleep(3000);
+        }
+
+        public bool VerifyIndustryGroupIsSavedSuccessfully(string valInd)
+        {
+            bool result = false;
+            string val = driver.FindElement(By.XPath("((//span[text()='Industry Group'])[1]/following::div)[1]//lightning-formatted-text")).Text;
+            if(val == valInd || val == "")
+            {
+                result = true;
+                Thread.Sleep(3000);
+            }
+            return result;
+        }
+
+        public bool ChangeIndustryGroupValueFromNoneAndVerifyThereIsNoErrorValidationMsg()
+        {
+            bool result = false;
+
+            return result;
+        }
+
+        public bool VerifyIndustryUmbrellaIsBlankWhenProductSpecialtyIsCapitalSolutionsAndStaffIndustryIsCS()
+        {
+            bool result = false;
+            string productSp = driver.FindElement(By.XPath("((//span[text()='Product Specialty'])[1]/following::div)[1]//lightning-formatted-text")).Text;
+
+            string indGrp = driver.FindElement(By.XPath("((//span[text()='Staff Industry'])[3]/following::div)[1]//lightning-formatted-text")).Text;
+
+            string indUmb = driver.FindElement(By.XPath("((//span[text()='Industry Umbrella'])[1]/following::div)[1]//lightning-formatted-text")).Text;
+            if(productSp == "Capital Solutions" && indGrp == "CS")
+            {
+                if(indUmb == "")
+                {
+                    result = true;
+                    Thread.Sleep(3000);
+                }
+            }
+            return result;
+        }
+
+        public bool VerifyProductSpecialtyIsMergersAcquisitionsForNonCSProductSpecialtyContact()
+        {
+            bool result = false;
+            string productSp = driver.FindElement(By.XPath("((//span[text()='Product Specialty'])[1]/following::div)[1]//lightning-formatted-text")).Text;
+            if (productSp == "Mergers & Acquisitions")
+            {
+                result = true;
+                Thread.Sleep(3000);
+            }
+            return result;
+        }
     }
 }
