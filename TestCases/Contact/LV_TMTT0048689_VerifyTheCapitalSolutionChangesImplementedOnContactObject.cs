@@ -160,13 +160,56 @@ namespace SF_Automation.TestCases.Contact
                 lvContactDetails.CloseTab(hlEmployee3);
                 lvContactDetails.CloseTab(hlEmployee3);
 
+                //TMTI0122317 - Verify that the Staff Industry is assigned the value as per existing logic when Product Specialty is not "Capital Solutions".
+                int rowCount = ReadExcelData.GetRowCount(excelPath, "Logic Based");
+
+                for(int row=2; row<rowCount; row++)
+                {
+                    string contactName = ReadExcelData.ReadDataMultipleRows(excelPath, "Logic Based", row, 1);
+                    string indGrp = ReadExcelData.ReadDataMultipleRows(excelPath, "Logic Based", row, 3);
+
+                    //Navigate to contact detail page
+                    lvHomePage.SearchHLEmpContactFromMainSearch(contactName);
+                    extentReports.CreateStepLogs("Info", "User has navigated to contact = " + contactName + " detail page.");
+
+                    if(indGrp == "GEN - General")
+                    {
+                        string indGrpVal = lvContactDetails.GetIndustryGroupValue();
+
+                        if(indGrp == indGrpVal)
+                        {
+                            Assert.IsTrue(lvContactDetails.VerifyStaffIndustryValueAsPerContactOffice(fileTMTT0048689, row));
+
+                            string contactOffVal = lvContactDetails.GetContactOfficeValue();
+                            string staffIndVal = lvContactDetails.GetStaffIndustryValue();
+
+                            extentReports.CreateStepLogs("Passed", "The Staff Industry is = " + staffIndVal + " when Industry Group is = " + indGrpVal + " and Contact Office is = " + contactOffVal);
+                        }
+                    }
+                    else
+                    {
+                        string indGrpVal = lvContactDetails.GetIndustryGroupValue();
+
+                        if(indGrp == indGrpVal)
+                        {
+                            Assert.IsTrue(lvContactDetails.VerifyStaffIndustryValueAsPerIndustryGroup(fileTMTT0048689, row));
+
+                            string staffIndVal = lvContactDetails.GetStaffIndustryValue();
+                            extentReports.CreateStepLogs("Passed", "The Staff Industry is = " + staffIndVal + " when Industry Group is = " + indGrpVal);
+                        }
+                    }
+
+                    lvContactDetails.CloseTab(contactName);
+                    lvContactDetails.CloseTab(contactName);
+                }
+
                 //TMTI0121384 - Verify that the "Product Specialty" picklist values "Capital Solutions" and "Mergers & Acquisitions" are added and displaying in the list in New Contact page.
-                
+
                 //Select Contact type and click continue
                 lvRecentlyViewContact.NavigateToContactTypeSelectionPage();
                 extentReports.CreateStepLogs("Info", "User navigated to contacts type selection page. ");
 
-                string contactType = ReadExcelData.ReadData(excelPath, "Contact Type", 2);
+                string contactType = ReadExcelData.ReadData(excelPath, "Contact Type", 1);
                 lvRecentlyViewContact.SelectContactType(contactType);
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "New Contact: Houlihan Employee | Salesforce"), true);
                 extentReports.CreateStepLogs("Passed", "User selected contact type as: " + contactType + ".");

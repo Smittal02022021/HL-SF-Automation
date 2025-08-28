@@ -213,7 +213,7 @@ namespace SF_Automation.Pages.Contact
         public bool VerifyButtonsDisplayedAtTheTopOfExternalContactDetailsPageForCFFinancialUser()
         {
             bool result = false;
-            WebDriverWaits.WaitUntilEleVisible(driver,btnEdit,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 120);
             if(driver.FindElement(btnEdit).Displayed && driver.FindElement(btnAddRelationshipL).Displayed && driver.FindElement(btnPrintableView).Displayed)
             {
                 result = true;
@@ -226,10 +226,10 @@ namespace SF_Automation.Pages.Contact
             bool result = false;
             int recordCount = driver.FindElements(By.XPath("//slot[@name='secondaryFields']/records-highlights-details-item")).Count;
 
-            for (int i = 1; i <= recordCount; i++)
+            for(int i = 1; i <= recordCount; i++)
             {
                 string val = driver.FindElement(By.XPath($"//slot[@name='secondaryFields']/records-highlights-details-item[{i}]/div/p[1]")).Text;
-                if(val=="Company Name" || val=="Title" || val == "Email")
+                if(val == "Company Name" || val == "Title" || val == "Email")
                 {
                     result = true;
                 }
@@ -252,10 +252,10 @@ namespace SF_Automation.Pages.Contact
             int excelCount = ReadExcelData.GetRowCount(excelPath, "ExternalContactTabs");
             int tabCount = driver.FindElements(By.XPath("//ul[@role='tablist']/li")).Count;
 
-            for (int i = 2; i <= excelCount; i++)
+            for(int i = 2; i <= excelCount; i++)
             {
                 string excelTabName = ReadExcelData.ReadDataMultipleRows(excelPath, "ExternalContactTabs", i, 1);
-                for (int j=1; j<=tabCount; j++)
+                for(int j = 1; j <= tabCount; j++)
                 {
                     string tabName = driver.FindElement(By.XPath($"//ul[@role='tablist']/li[{j}]/a")).Text;
                     if(tabName == excelTabName)
@@ -285,13 +285,13 @@ namespace SF_Automation.Pages.Contact
             int excelCount = ReadExcelData.GetRowCount(excelPath, "ExternalContactSections");
             int tabCount = driver.FindElements(By.XPath("(//flexipage-tab2[@class='slds-tabs_default__content slds-show'])[2]/slot/flexipage-component2")).Count;
 
-            for (int i = 2; i <= excelCount; i++)
+            for(int i = 2; i <= excelCount; i++)
             {
                 string excelSectionName = ReadExcelData.ReadDataMultipleRows(excelPath, "ExternalContactSections", i, 1);
-                for (int j = 1; j <= tabCount; j++)
+                for(int j = 1; j <= tabCount; j++)
                 {
                     string sectionName;
-                    if(j==1)
+                    if(j == 1)
                     {
                         sectionName = driver.FindElement(By.XPath($"(((//flexipage-tab2[@class='slds-tabs_default__content slds-show'])[2]/slot/flexipage-component2)[{j}]//div[2]/lightning-formatted-text)[1]")).Text;
                     }
@@ -299,7 +299,7 @@ namespace SF_Automation.Pages.Contact
                     {
                         sectionName = driver.FindElement(By.XPath($"(((//flexipage-tab2[@class='slds-tabs_default__content slds-show'])[2]/slot/flexipage-component2)[{j}]//div[2]/a)[1]")).Text;
                     }
-                    if (sectionName == excelSectionName)
+                    if(sectionName == excelSectionName)
                     {
                         result = true;
                         break;
@@ -363,19 +363,19 @@ namespace SF_Automation.Pages.Contact
         {
             bool result = false;
 
-            WebDriverWaits.WaitUntilEleVisible(driver,btnAddActivity, 120);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddActivity, 120);
             driver.FindElement(btnAddActivity).Click();
             Thread.Sleep(10000);
 
             int framCount = driver.FindElements(By.XPath("//iframe")).Count;
-            if(framCount>0)
+            if(framCount > 0)
             {
                 driver.SwitchTo().Frame(framCount - 1);
             }
 
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblActivityDetails);
-            if(driver.FindElement(lblActivityDetails).Text=="Activity Details")
+            if(driver.FindElement(lblActivityDetails).Text == "Activity Details")
             {
                 result = true;
             }
@@ -391,7 +391,7 @@ namespace SF_Automation.Pages.Contact
 
         public void NavigateToActivityTabInsideCFFinancialUser()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver,tabActivity,60);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabActivity, 60);
             driver.FindElement(tabActivity).Click();
             Thread.Sleep(5000);
         }
@@ -406,9 +406,9 @@ namespace SF_Automation.Pages.Contact
                 Thread.Sleep(2000);
             }
 
-            WebDriverWaits.WaitUntilEleVisible(driver,lblGetPrimaryContactNameFromActivity,60);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblGetPrimaryContactNameFromActivity, 60);
             string name = driver.FindElement(lblGetPrimaryContactNameFromActivity).Text;
-            if(name==extName)
+            if(name == extName)
             {
                 result = true;
             }
@@ -424,7 +424,7 @@ namespace SF_Automation.Pages.Contact
                 driver.SwitchTo().Frame(framCount - 1);
             }
 
-            WebDriverWaits.WaitUntilEleVisible(driver,linkEditActivity,60);
+            WebDriverWaits.WaitUntilEleVisible(driver, linkEditActivity, 60);
             if(driver.FindElement(linkEditActivity).Displayed)
             {
                 driver.FindElement(linkEditActivity).Click();
@@ -443,7 +443,7 @@ namespace SF_Automation.Pages.Contact
                 driver.SwitchTo().Frame(framCount - 1);
             }
 
-            WebDriverWaits.WaitUntilEleVisible(driver,lblGetPrimaryContactNameFromActivity,60);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblGetPrimaryContactNameFromActivity, 60);
             string name = driver.FindElement(lblGetPrimaryContactNameFromActivity).Text;
             if(name == extName)
             {
@@ -454,7 +454,7 @@ namespace SF_Automation.Pages.Contact
 
         public string GetExternalContactName()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver,lblContactName,60);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblContactName, 60);
             return driver.FindElement(lblContactName).Text;
         }
 
@@ -493,7 +493,7 @@ namespace SF_Automation.Pages.Contact
                 string contactAddress = driver.FindElement(By.XPath("(//span[text()='Mailing Address']/following::div//a/div)[1]")).Text + "\r\n" + driver.FindElement(By.XPath("(//span[text()='Mailing Address']/following::div//a/div)[2]")).Text;
                 return contactAddress;
             }
-            catch (NoSuchElementException)
+            catch(NoSuchElementException)
             {
                 return "Contact Address not found";
             }
@@ -532,7 +532,7 @@ namespace SF_Automation.Pages.Contact
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
 
-            string contactTitle="";
+            string contactTitle = "";
             if(ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", row, 1).Contains("Houlihan Employee"))
             {
                 contactTitle = driver.FindElement(By.XPath("(//span[text()='Title']/following::div//lightning-formatted-text)[6]")).Text;
@@ -615,12 +615,12 @@ namespace SF_Automation.Pages.Contact
             int linkCount = driver.FindElements(By.XPath("(//*[text()='Related List Quick Links'])[1]/following::ul/li//slot")).Count;
 
             //Get the count from excel
-            int excelLinkCount = ReadExcelData.GetRowCount(excelPath,"QuickLinks");
+            int excelLinkCount = ReadExcelData.GetRowCount(excelPath, "QuickLinks");
 
-            for(int i = 2;i <= excelLinkCount;i++)
+            for(int i = 2; i <= excelLinkCount; i++)
             {
-                string excelLinkName = ReadExcelData.ReadDataMultipleRows(excelPath,"QuickLinks",i,1);
-                for(int j=1;j<=linkCount;j++)
+                string excelLinkName = ReadExcelData.ReadDataMultipleRows(excelPath, "QuickLinks", i, 1);
+                for(int j = 1; j <= linkCount; j++)
                 {
                     string linkName = driver.FindElement(By.XPath($"((//*[text()='Related List Quick Links'])[1]/following::ul/li//slot)[{j}]")).Text;
                     if(linkName.Contains(excelLinkName))
@@ -673,12 +673,12 @@ namespace SF_Automation.Pages.Contact
             int linkCount = driver.FindElements(By.XPath("(//ul[@class='slds-grid slds-wrap list'])[1]/li")).Count;
 
             //Get the count from excel
-            int excelLinkCount = ReadExcelData.GetRowCount(excelPath,"QuickLinks");
+            int excelLinkCount = ReadExcelData.GetRowCount(excelPath, "QuickLinks");
 
-            for(int i = 2;i <= excelLinkCount;i++)
+            for(int i = 2; i <= excelLinkCount; i++)
             {
-                string excelLinkName = ReadExcelData.ReadDataMultipleRows(excelPath,"QuickLinks",i,1);
-                for(int j = 1;j <= linkCount;j++)
+                string excelLinkName = ReadExcelData.ReadDataMultipleRows(excelPath, "QuickLinks", i, 1);
+                for(int j = 1; j <= linkCount; j++)
                 {
                     string linkName = driver.FindElement(By.XPath($"(//ul[@class='slds-grid slds-wrap list'])[1]/li[{j}]/lst-related-list-quick-link/div/div/records-hoverable-link/div/a/slot/span")).Text;
                     if(linkName.Contains(excelLinkName))
@@ -706,7 +706,7 @@ namespace SF_Automation.Pages.Contact
 
         public void AddNewRelationshipUsingAddRelationshipButtonForSysAdmin(string file)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver,btnAddRelationship,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddRelationship, 120);
             driver.FindElement(btnAddRelationship).Click();
             Thread.Sleep(5000);
 
@@ -714,15 +714,15 @@ namespace SF_Automation.Pages.Contact
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
 
-            string empName = ReadExcelData.ReadData(excelPath,"AddRelationship",1);
+            string empName = ReadExcelData.ReadData(excelPath, "AddRelationship", 1);
             driver.FindElement(txtLookupEmployee).SendKeys(empName);
             Thread.Sleep(3000);
             driver.FindElement(By.XPath($"//li[contains(text(),'{empName}')]")).Click();
 
-            CustomFunctions.SelectByValue(driver,driver.FindElement(dropdownStrengthRating),ReadExcelData.ReadData(excelPath,"AddRelationship",2));
-            CustomFunctions.SelectByValue(driver,driver.FindElement(dropdownType),ReadExcelData.ReadData(excelPath,"AddRelationship",3));
-            driver.FindElement(txtPersonalNote).SendKeys(ReadExcelData.ReadData(excelPath,"AddRelationship",4));
-            driver.FindElement(txtOutlookCategories).SendKeys(ReadExcelData.ReadData(excelPath,"AddRelationship",5));
+            CustomFunctions.SelectByValue(driver, driver.FindElement(dropdownStrengthRating), ReadExcelData.ReadData(excelPath, "AddRelationship", 2));
+            CustomFunctions.SelectByValue(driver, driver.FindElement(dropdownType), ReadExcelData.ReadData(excelPath, "AddRelationship", 3));
+            driver.FindElement(txtPersonalNote).SendKeys(ReadExcelData.ReadData(excelPath, "AddRelationship", 4));
+            driver.FindElement(txtOutlookCategories).SendKeys(ReadExcelData.ReadData(excelPath, "AddRelationship", 5));
             driver.FindElement(btnCreateRelationship).Click();
             Thread.Sleep(5000);
         }
@@ -734,10 +734,10 @@ namespace SF_Automation.Pages.Contact
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
 
-            WebDriverWaits.WaitUntilEleVisible(driver,linkHLRelationships,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, linkHLRelationships, 120);
             driver.FindElement(linkHLRelationships).Click();
             Thread.Sleep(5000);
-            string empName = ReadExcelData.ReadData(excelPath,"AddRelationship",1);
+            string empName = ReadExcelData.ReadData(excelPath, "AddRelationship", 1);
 
             if(driver.FindElement(By.XPath($"(//a[@title='{empName}'])[3]")).Displayed)
             {
@@ -748,7 +748,7 @@ namespace SF_Automation.Pages.Contact
 
         public void AddNewRelationshipUsingAddRelationshipButtonForCFFinancialUser(string file)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver,btnAddRelationshipL,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddRelationshipL, 120);
             driver.FindElement(btnAddRelationshipL).Click();
             Thread.Sleep(5000);
 
@@ -756,13 +756,13 @@ namespace SF_Automation.Pages.Contact
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
 
-            string empName = ReadExcelData.ReadData(excelPath,"AddRelationship",1);
+            string empName = ReadExcelData.ReadData(excelPath, "AddRelationship", 1);
             driver.FindElement(txtHLContact).SendKeys(empName);
             Thread.Sleep(5000);
             driver.FindElement(By.XPath($"//div[@title='{empName}']/..")).Click();
 
-            driver.FindElement(txtAreaPersonalNote).SendKeys(ReadExcelData.ReadData(excelPath,"AddRelationship",4));
-            driver.FindElement(txtAreaOutlookCategories).SendKeys(ReadExcelData.ReadData(excelPath,"AddRelationship",5));
+            driver.FindElement(txtAreaPersonalNote).SendKeys(ReadExcelData.ReadData(excelPath, "AddRelationship", 4));
+            driver.FindElement(txtAreaOutlookCategories).SendKeys(ReadExcelData.ReadData(excelPath, "AddRelationship", 5));
             driver.FindElement(btnSave).Click();
             Thread.Sleep(5000);
         }
@@ -774,10 +774,10 @@ namespace SF_Automation.Pages.Contact
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
 
-            WebDriverWaits.WaitUntilEleVisible(driver,tabRelationships,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabRelationships, 120);
             driver.FindElement(tabRelationships).Click();
             Thread.Sleep(10000);
-            string empName = ReadExcelData.ReadData(excelPath,"AddRelationship",1);
+            string empName = ReadExcelData.ReadData(excelPath, "AddRelationship", 1);
 
             if(driver.FindElement(By.XPath($"(//a[@title='{empName}'])[1]")).Displayed)
             {
@@ -811,12 +811,12 @@ namespace SF_Automation.Pages.Contact
         {
             bool result = false;
 
-            WebDriverWaits.WaitUntilEleVisible(driver,linkViewDetails,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, linkViewDetails, 120);
             driver.FindElement(linkViewDetails).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver,btnEditRelationshipL,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditRelationshipL, 120);
             driver.FindElement(btnEditRelationshipL).Click();
 
-            WebDriverWaits.WaitUntilEleVisible(driver,txtOutlookCategoriesEdit,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtOutlookCategoriesEdit, 120);
             driver.FindElement(txtOutlookCategoriesEdit).Clear();
             driver.FindElement(txtOutlookCategoriesEdit).SendKeys(updatedText);
 
@@ -828,10 +828,10 @@ namespace SF_Automation.Pages.Contact
 
         public bool VerifyUserLandedOnCorrectContactDetailsPage(string contactName)
         {
-            bool result=false;
+            bool result = false;
 
             WebDriverWaits.WaitUntilEleVisible(driver, txtContactName, 120);
-            string name=driver.FindElement(txtContactName).Text;
+            string name = driver.FindElement(txtContactName).Text;
             if(name.Contains(contactName))
             {
                 result = true;
@@ -841,26 +841,26 @@ namespace SF_Automation.Pages.Contact
 
         public bool VerifyTheAvailableSectionsUnderRelationshipTreeMapOnContactDetailsPage(string path)
         {
-            bool result=false;
+            bool result = false;
 
             Thread.Sleep(5000);
             int exlRowCount = ReadExcelData.GetRowCount(path, "Sections");
-            for(int i = 1; i<=exlRowCount; i++)
+            for(int i = 1; i <= exlRowCount; i++)
             {
                 string exlSectionName = ReadExcelData.ReadDataMultipleRows(path, "Sections", i, 1);
                 string sfSectionName = driver.FindElement(By.XPath($"(//span[@class='slds-icon_container slds-m-right_small']/following::span/b)[{i}]")).Text;
-                if(exlSectionName==sfSectionName)
+                if(exlSectionName == sfSectionName)
                 {
-                    result=true;
+                    result = true;
                 }
                 else
                 {
-                    result=false;
+                    result = false;
                 }
             }
-            if(result==true)
+            if(result == true)
             {
-                Assert.IsTrue(driver.FindElement(By.XPath("//p[@title='Company Name']")).Displayed && driver.FindElement(By.XPath("//p[@title='Company Name']")).Text=="Company Name");
+                Assert.IsTrue(driver.FindElement(By.XPath("//p[@title='Company Name']")).Displayed && driver.FindElement(By.XPath("//p[@title='Company Name']")).Text == "Company Name");
             }
             return result;
         }
@@ -883,7 +883,7 @@ namespace SF_Automation.Pages.Contact
                     result = false;
                 }
             }
-            if (result==true)
+            if(result == true)
             {
                 Assert.IsTrue(driver.FindElement(By.XPath("//button[@title='Show more Phone Numbers']/p")).Text == "Phone (2)");
             }
@@ -912,7 +912,7 @@ namespace SF_Automation.Pages.Contact
             return result;
         }
 
-        public bool VerifyContactsUnderTopRelationshipSectionIsSortedCorrectly() 
+        public bool VerifyContactsUnderTopRelationshipSectionIsSortedCorrectly()
         {
             bool result = false;
 
@@ -921,13 +921,13 @@ namespace SF_Automation.Pages.Contact
 
             //Get the name of each contact and store in an array
             String[] contactNames = new String[noOfContacts];
-            for(int i=0; i< noOfContacts; i++)
+            for(int i = 0; i < noOfContacts; i++)
             {
                 try
                 {
                     contactNames[i] = driver.FindElement(By.XPath($"((//b[text()='Top Relationships']/following::div/dl/dt/p[text()='Contact Name: '])[{i + 1}]/following::dd/p/button/b)[1]")).Text;
                 }
-                catch (Exception)
+                catch(Exception)
                 {
                     contactNames[i] = driver.FindElement(By.XPath($"((//b[text()='Top Relationships']/following::div/dl/dt/p[text()='Contact Name: '])[{i + 1}]/following::dd/p/button)[1]")).Text;
                 }
@@ -993,7 +993,7 @@ namespace SF_Automation.Pages.Contact
             //Compare the star rating for each contact and verify sorting
             for(int finalCompare = 0; finalCompare < noOfContacts - 1; finalCompare++)
             {
-                if(totalStarRatingForContact[finalCompare] < totalStarRatingForContact[finalCompare+1])
+                if(totalStarRatingForContact[finalCompare] < totalStarRatingForContact[finalCompare + 1])
                 {
                     result = false;
                     break;
@@ -1204,7 +1204,7 @@ namespace SF_Automation.Pages.Contact
                     }
                 }
             }
-            
+
             return result;
         }
 
@@ -1239,7 +1239,7 @@ namespace SF_Automation.Pages.Contact
 
         public bool VerifyIfThereAreBothActiveAndInactiveEngagementsThenOnlyActiveEngagementsAreDisplayedUnderAssociatedEngagementsSection()
         {
-            bool result= false;
+            bool result = false;
 
             //Get the no. of Engagements under Associated Engagements section
             int noOfEngagements = driver.FindElements(By.XPath("//b[text()='Associated Engagements ']/../../div/dl")).Count;
@@ -1309,7 +1309,7 @@ namespace SF_Automation.Pages.Contact
                 {
                     for(int p = 0; p < totalActiveEngagements; p++)
                     {
-                        if(m>0)
+                        if(m > 0)
                         {
                             if(latestDates[m] == estCloseDate[m - 1])
                             {
@@ -1404,7 +1404,7 @@ namespace SF_Automation.Pages.Contact
                     }
                 }
             }
-            
+
             return result;
         }
 
@@ -1845,7 +1845,7 @@ namespace SF_Automation.Pages.Contact
                 driver.FindElement(By.XPath("//button[@aria-label='Deal Announcements']/following::div[2]/lightning-base-combobox-item[2]")).Click();
                 Thread.Sleep(2000);
             }
-            else if (dealAnn == "Opt Out")
+            else if(dealAnn == "Opt Out")
             {
                 driver.FindElement(By.XPath("//button[@aria-label='Deal Announcements']/following::div[2]/lightning-base-combobox-item[3]")).Click();
                 Thread.Sleep(2000);
@@ -1924,7 +1924,7 @@ namespace SF_Automation.Pages.Contact
                 }
             }
 
-            if(result1 && result2 == true) 
+            if(result1 && result2 == true)
             {
                 overallResult = true;
             }
@@ -1953,7 +1953,7 @@ namespace SF_Automation.Pages.Contact
             string badgeCompany = ReadExcelData.ReadData(excelPath, "EventBadges", 3);
             string badgeFullName = badgeFirst + " " + badgeLast;
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(2000);
 
@@ -2146,8 +2146,8 @@ namespace SF_Automation.Pages.Contact
         public bool VerifySubscriptionPreferencesAreUpdated()
         {
             bool result = false;
-            
-            if(driver.FindElement(lblDealAnnouncementChangeDate).Text!="" && driver.FindElement(lblEventsConferencesChangeDate).Text != "" && driver.FindElement(lblGeneralAnnouncementsChangeDate).Text != "" && driver.FindElement(lblInsightsContentChangeDate).Text != "")
+
+            if(driver.FindElement(lblDealAnnouncementChangeDate).Text != "" && driver.FindElement(lblEventsConferencesChangeDate).Text != "" && driver.FindElement(lblGeneralAnnouncementsChangeDate).Text != "" && driver.FindElement(lblInsightsContentChangeDate).Text != "")
             {
                 result = true;
             }
@@ -2162,7 +2162,7 @@ namespace SF_Automation.Pages.Contact
                 driver.FindElement(btnAddToCampaign).Click();
                 Thread.Sleep(5000);
             }
-            catch (Exception ex) { }
+            catch(Exception ex) { }
         }
 
         public void SearchAndSelectCampaignName(string name)
@@ -2411,11 +2411,73 @@ namespace SF_Automation.Pages.Contact
         {
             bool result = false;
             string productSp = driver.FindElement(By.XPath("((//span[text()='Product Specialty'])[1]/following::div)[1]//lightning-formatted-text")).Text;
-            if (productSp == "Mergers & Acquisitions")
+            if(productSp == "Mergers & Acquisitions")
             {
                 result = true;
                 Thread.Sleep(3000);
             }
+            return result;
+        }
+
+        public bool VerifyStaffIndustryValueAsPerContactOffice(string file, int rowNo)
+        {
+            bool result = false;
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            //Get Excel Values
+            string contactOfcExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Logic Based", rowNo, 2);
+            string staffIndExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Logic Based", rowNo, 4);
+
+            //Get values from UI
+            string contactOfcUI = driver.FindElement(By.XPath("((//span[text()='Office'])[1]/following::div)[1]//lightning-formatted-text")).Text;
+            string staffIndUI = driver.FindElement(By.XPath("((//span[text()='Staff Industry'])[3]/following::div)[1]//lightning-formatted-text")).Text;
+
+            if(contactOfcExl == contactOfcUI && staffIndExl == staffIndUI)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        public string GetIndustryGroupValue()
+        {
+            string val = driver.FindElement(By.XPath("((//span[text()='Industry Group'])[1]/following::div)[1]//lightning-formatted-text")).Text;
+            return val;
+        }
+
+        public string GetContactOfficeValue()
+        {
+            string contactOfcUI = driver.FindElement(By.XPath("((//span[text()='Office'])[1]/following::div)[1]//lightning-formatted-text")).Text;
+            return contactOfcUI;
+        }
+
+        public string GetStaffIndustryValue()
+        {
+            string staffIndUI = driver.FindElement(By.XPath("((//span[text()='Staff Industry'])[3]/following::div)[1]//lightning-formatted-text")).Text;
+            return staffIndUI;
+        }
+
+        public bool VerifyStaffIndustryValueAsPerIndustryGroup(string file, int rowNo)
+        {
+            bool result = false;
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            //Get Excel Values
+            string indGroupcExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Logic Based", rowNo, 3);
+            string staffIndExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Logic Based", rowNo, 4);
+
+            //Get values from UI
+            string indGroupUI = driver.FindElement(By.XPath("((//span[text()='Industry Group'])[1]/following::div)[1]//lightning-formatted-text")).Text;
+            string staffIndUI = driver.FindElement(By.XPath("((//span[text()='Staff Industry'])[3]/following::div)[1]//lightning-formatted-text")).Text;
+
+            if(indGroupcExl == indGroupUI && staffIndExl == staffIndUI)
+            {
+                result = true;
+            }
+
             return result;
         }
     }
