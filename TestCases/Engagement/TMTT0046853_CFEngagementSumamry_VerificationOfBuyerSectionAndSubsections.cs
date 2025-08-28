@@ -118,11 +118,14 @@ namespace SF_Automation.TestCases.Engagement
 
                 string messageBuyerStrategy1 = summaryPage.ValidateMandatoryField1OfBuyerStrategy();
                 Assert.AreEqual("Buyer Process Type", messageBuyerStrategy1);
-                extentReports.CreateLog("Mandatory Validation1: " + messageBuyerStrategy1 + " is displayed upon hovering mouse at Buyer Strategy ");
+                extentReports.CreateLog("Mandatory Validation 1: " + messageBuyerStrategy1 + " is displayed upon hovering mouse at Buyer Strategy ");
 
                 string messageBuyerStrategy2 = summaryPage.ValidateMandatoryField2OfBuyerStrategy();
                 Assert.AreEqual("Buyer Platform Type", messageBuyerStrategy2);
-                extentReports.CreateLog("Mandatory Validation: " + messageBuyerStrategy2 + " is displayed upon hovering mouse at Buyer Strategy ");
+                extentReports.CreateLog("Mandatory Validation 2: " + messageBuyerStrategy2 + " is displayed upon hovering mouse at Buyer Strategy ");
+
+                string valProcessType = summaryPage.GetValueOfBuyerProcessType();
+                string valPlatformType = summaryPage.GetValueOfBuyerPlatformType();
 
                 Assert.IsTrue(summaryPage.VerifyValuesOfBuyerProcessType(), "Verify that displayed values of Buyer Process Type are same");
                 extentReports.CreateStepLogs("Passed", "Displayed  values of Buyer Process Type are as expected ");
@@ -130,7 +133,53 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.IsTrue(summaryPage.VerifyValuesOfBuyerPlatformType(), "Verify that displayed values of Buyer Platform Type are same");
                 extentReports.CreateStepLogs("Passed", "Displayed  values of Buyer Platform Type are as expected ");
 
+                //4.  TMTI0114572_Verify the Edit functionality of the Buyer's Strategy section
+                //Validate the cancel functinality
+                string cancelProcess = summaryPage.ValidateCancelFunctionalityOfBuyerStrategySection("Controlled Auction","Bolt-On");
+                string cancelPlatform = summaryPage.GetValueOfBuyerPlatformType();
                 
+                Assert.AreEqual(valProcessType, cancelProcess);
+                Assert.AreEqual(valPlatformType, cancelPlatform);
+                extentReports.CreateLog("Buyer Strategy's section  details are not saved post clicking Cancel button ");
+
+                //Validate the Edit functinality
+                string editProcess = summaryPage.ValidateEditFunctionalityOfBuyerStrategySection("Controlled Auction", "Bolt-On");
+                string editPlatform = summaryPage.GetValueOfBuyerPlatformType();
+
+                Assert.AreNotEqual(valProcessType, editProcess);
+                Assert.AreNotEqual(valPlatformType, editPlatform);
+                extentReports.CreateLog("Buyer Strategy's section  details are updated post clicking Save button ");
+
+               summaryPage.ValidateEditFunctionalityOfBuyerStrategySection("Broad Auction", "Platform");
+
+                //5.  TMTI0114570_Verify the "Buyer Contacts" displayed under the Buyer's subsection
+                string iconAddRecordContact = summaryPage.ValidateAddRecordBuyerContactIcon();
+                Assert.AreEqual("Add Record", iconAddRecordContact);
+                extentReports.CreateLog("Icon " + iconAddRecordContact + " is displayed in Seller Contacts section ");
+
+                Assert.IsTrue(summaryPage.VerifyAddRecordFieldsOfAddContact(), "Verify that displayed fields on Add Record section of Seller Contacts are same");
+                extentReports.CreateStepLogs("Passed", "Displayed fields on Add Record section of Seller Contacts are as expected ");
+
+                Assert.IsTrue(summaryPage.ValidateTypeValuesOfSellerContacts(), "Verify that displayed Values of Type dropdown are same");
+                extentReports.CreateStepLogs("Passed", "Displayed Values of Type dropdown are as expected ");
+
+                Assert.IsTrue(summaryPage.ValidateRoleValuesOfSellerContacts(), "Verify that displayed Values of Role dropdown are same");
+                extentReports.CreateStepLogs("Passed", "Displayed Values of Role dropdown are as expected ");
+
+                string messageContact = summaryPage.ValidateMandatoryMessageOfContact();
+                Assert.AreEqual("Contact\r\nComplete this field.", messageContact);
+                extentReports.CreateLog("Message: " + messageContact + " is displayed on Contact field when save button is clickd without entering it ");
+
+                //6.   TMTI0114565_Verify that the fields "Engagement Contacts Check" and "Engagement Contact No Attorney" are displayed
+                string iconEngContactCheck = summaryPage.ValidateEngContactCheckIcon();
+                Assert.AreEqual("Indicates if required Engagement Contacts for Seller are present (an Attorney contact along with Company Contact and/or Board of Directors contacts are required)", iconEngContactCheck);
+                extentReports.CreateLog("Message: " + iconEngContactCheck + " is displayed upon hovering Engagement Contacts Seller Check ");
+
+                string iconEngContactNoCheck = summaryPage.ValidateEngContactAtorneyCheckIcon();
+                Assert.AreEqual("Please \"check\" if a Seller Attorney was not required for this Engagement", iconEngContactNoCheck);
+                extentReports.CreateLog("Message: " + iconEngContactNoCheck + " is displayed upon hovering Engagement Contact Seller No Attorney checkbox ");
+
+
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();

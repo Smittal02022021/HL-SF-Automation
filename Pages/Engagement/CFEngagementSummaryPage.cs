@@ -214,6 +214,8 @@ namespace SF_Automation.Pages.Engagement
         By valTxnRationaleBeforeUpdate = By.XPath("//button[@title='Edit: Transaction_Rationale__c']/ancestor::div[1]/lightning-formatted-text");
         By iconAddRecord = By.XPath("//span[text()='Seller Financials']/ancestor::h3//button[@title='Add Record']");
         By iconAddRecordContact = By.XPath("//span[text()='Seller Contacts']/ancestor::h3//button[@title='Add Record']");
+        By iconAddRecordBuyerContact = By.XPath("//span[text()='Buyer Contacts']/ancestor::h3//button[@title='Add Record']");
+
         By lblAddRecordSection = By.XPath("//span[text()='Add/Edit Record']/ancestor::article[1]/div[2]//label");
         By lblAddContactSection = By.XPath("//span[text()='Add/Edit Record']/ancestor::article[1]/div[2]//label");
         By btnType = By.XPath("//button[@name='Type__c']");
@@ -291,7 +293,8 @@ namespace SF_Automation.Pages.Engagement
         By valBuyerProcessType = By.XPath("//button[@name='Buyer_Process_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
         By btnBuyerPlatType = By.XPath("//button[@name='Buyer_Platform_Type__c']");
         By valBuyerPlatType = By.XPath("//button[@name='Buyer_Platform_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span");
-
+        By valProcessTypePostSave = By.XPath("//span[text()='Buyer Process Type']/ancestor::div[1]//div[1]/lightning-formatted-text");
+        By valPlatformTypePostSave = By.XPath("   //span[text()='Buyer Platform Type']/ancestor::div[1]//div[1]/lightning-formatted-text");
 
 
         public void ClickEngagementDynamicsSection()
@@ -1796,6 +1799,16 @@ namespace SF_Automation.Pages.Engagement
             string value = driver.FindElement(iconAddRecordContact).GetAttribute("title");
             return value;
         }
+
+        public string ValidateAddRecordBuyerContactIcon()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,650)");
+            WebDriverWaits.WaitUntilEleVisible(driver, iconAddRecordBuyerContact);
+            driver.FindElement(iconAddRecordBuyerContact).Click();
+            string value = driver.FindElement(iconAddRecordBuyerContact).GetAttribute("title");
+            return value;
+        }
         public bool VerifyAddRecordFields()
         {            
             Thread.Sleep(6000);
@@ -2406,7 +2419,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             driver.FindElement(txtCreditFacility).SendKeys(number);
             driver.FindElement(btnCancel).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             string value = driver.FindElement(valCreditFacility).Text;
             return value.Substring(0, 5); 
         }
@@ -2493,8 +2506,8 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(txtPurchasePrice).SendKeys(number);
             Thread.Sleep(5000);
             driver.FindElement(btnSave).Click();
-            js.ExecuteScript("window.scrollTo(0,-150)");
-            Thread.Sleep(5000);
+            js.ExecuteScript("window.scrollTo(0,-120)");
+            Thread.Sleep(6000);
             string value = driver.FindElement(valPurchasePrice).Text;
             return value.Substring(0, 6);
         }
@@ -2694,6 +2707,50 @@ namespace SF_Automation.Pages.Engagement
                 }
             }
             return isSame;
+        }
+
+        public string GetValueOfBuyerProcessType()
+        {
+            string value = driver.FindElement(valProcessTypePostSave).Text;
+            return value;
+        }
+
+        public string GetValueOfBuyerPlatformType()
+        {
+            string value = driver.FindElement(valPlatformTypePostSave).Text;
+            return value;
+        }
+
+        //Validate Cancel functionality of Buyer details
+        public string ValidateCancelFunctionalityOfBuyerStrategySection(string process, string platform)
+        {
+            driver.FindElement(btnBuyerProcessType).Click();
+            driver.FindElement(By.XPath("//button[@name='Buyer_Process_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span[text()='"+process+"']")).Click(); ;
+            Thread.Sleep(4000);
+            driver.FindElement(btnBuyerPlatType).Click();
+            driver.FindElement(By.XPath("//button[@name='Buyer_Platform_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + platform + "']")).Click(); ;
+            Thread.Sleep(4000);
+            driver.FindElement(btnCancel).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(valProcessTypePostSave).Text;
+            return value;
+        }
+
+        //Validate Cancel functionality of Buyer details
+        public string ValidateEditFunctionalityOfBuyerStrategySection(string process, string platform)
+        {
+            driver.FindElement(btnEditBuyerProcessType).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(btnBuyerProcessType).Click();
+            driver.FindElement(By.XPath("//button[@name='Buyer_Process_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + process + "']")).Click(); ;
+            Thread.Sleep(4000);
+            driver.FindElement(btnBuyerPlatType).Click();
+            driver.FindElement(By.XPath("//button[@name='Buyer_Platform_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + platform + "']")).Click(); ;
+            Thread.Sleep(4000);
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(4000);
+            string value = driver.FindElement(valProcessTypePostSave).Text;
+            return value;
         }
     }
 
