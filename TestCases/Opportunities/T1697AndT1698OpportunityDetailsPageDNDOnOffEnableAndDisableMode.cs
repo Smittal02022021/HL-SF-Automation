@@ -6,7 +6,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Threading;
 
-namespace SF_Automation.TestCases.Opportunities
+namespace SF_Automation.TestCases.ClassicOpportunities
 {
     class T1697AndT1698OpportunityDetailsPageDNDOnOffEnableAndDisableMode : BaseClass
     {

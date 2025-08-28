@@ -8,7 +8,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.Opportunities
+namespace SF_Automation.TestCases.ClassicOpportunities
 {
     class TMTT0014212_TMTT0014213_TMTT0014215_Opportunity_VerifyTheUserIsAbleToAddNewSectorOnTheOpportunityPage : BaseClass
     {

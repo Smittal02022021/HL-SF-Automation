@@ -7,7 +7,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Globalization;
 
-namespace SF_Automation.TestCases.Opportunities
+namespace SF_Automation.TestCases.ClassicOpportunities
 {
     class TMTT0013837_VerifyTheAvailableFieldsOnCNBCLightningForm : BaseClass
     {

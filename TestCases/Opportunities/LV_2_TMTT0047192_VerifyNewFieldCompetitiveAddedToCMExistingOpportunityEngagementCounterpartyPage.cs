@@ -9,7 +9,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Linq;
 
-namespace SF_Automation.TestCases.Opportunities
+namespace SF_Automation.TestCases.OpportunitiesCounterparty
 {
     class LV_2_TMTT0047192_VerifyNewFieldCompetitiveAddedToCMExistingOpportunityEngagementCounterpartyPage: BaseClass
     {
@@ -156,7 +156,7 @@ namespace SF_Automation.TestCases.Opportunities
                     //TMTI0115619	Verify that new checkbox "Competitive" field is seen in Engagement Counterparty on accessing from Counterparty dashboard for an existing Engagement having counterparties added. 
                     engagementDetails.ClickCounterpartyDashboardLV();
                     engagementDetails.ClickCPDashboardCounterpartyLV(counterpartyCompanyNameExl);
-                    extentReports.CreateLog("User Clicked on Engagement Dashboard tab ");
+                    extentReports.CreateStepLogs("Info", "User Clicked on Engagement Dashboard tab ");
                     Assert.IsTrue(addCounterparty.IsCPDetailpageCompetitiveCheckboxDisplayedLV(), "Verify that new checkbox 'Competitive' field is seen in Engagement Counterparty on accessing from Counterparty dashboard for an Existing Engagement Page");
                     extentReports.CreateStepLogs("Passed", "New checkbox 'Competitive' field is seen in Engagement Counterparty on accessing from Counterparty dashboard for an Existing Engagement Page");
                     driver.Close();

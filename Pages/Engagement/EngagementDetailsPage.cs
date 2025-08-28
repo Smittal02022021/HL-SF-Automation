@@ -8836,14 +8836,14 @@ namespace SF_Automation.Pages.Engagement
         
         public void ClickCPDashboardCounterpartyLV(string counterparty)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            //js.ExecuteScript("window.scrollTo(0,0)");
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             Thread.Sleep(1000);
             By lnkCPDashboardCounterpartyNameL = By.XPath($"(//table//tr//td//div//button[contains(text(),'{counterparty}')])[1]");
             WebDriverWaits.WaitUntilEleVisible(driver, lnkCPDashboardCounterpartyNameL, 10);
+            //jse.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(lnkCPDashboardCounterpartyNameL));
             driver.FindElement(lnkCPDashboardCounterpartyNameL).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkOpenRepordL, 10);
-            driver.FindElement(lnkOpenRepordL).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, lnkOpenRepordL, 10);
+            //driver.FindElement(lnkOpenRepordL).Click();
             CustomFunctions.SwitchToWindow(driver, 1);
             Thread.Sleep(5000);
         }

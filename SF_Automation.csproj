@@ -529,6 +529,7 @@
     <Compile Include="Pages\HomePage\LVHomePage.cs" />
     <Compile Include="Pages\Common\UsersLogin.cs" />
     <Compile Include="Pages\Common\LoginPage.cs" />
+    <Compile Include="Pages\JobTypes\JobTypesPage.cs" />
     <Compile Include="Pages\Opportunities\AdditionalClientSubjectPage.cs" />
     <Compile Include="Pages\Opportunities\AdditionalClientSubjectPageWithJson.cs" />
     <Compile Include="Pages\Opportunities\AddOppCounterparty.cs" />
@@ -762,6 +763,7 @@
     <Compile Include="TestCases\GiftLog\LV_T2020_GiftApprovalProcessApproveGiftsVerifyColumnSortingOfTheGiftDetailsTableOnGiftsApprovedTab.cs" />
     <Compile Include="TestCases\GiftLog\LV_T2021_GiftApprovalProcessApproveGiftsApproveOrDenyMultipleGiftRequests.cs" />
     <Compile Include="TestCases\GiftLog\LV_T2022_GiftLogGiftRequestProcessVerifyTheYearlyGiftAllowanceExceedLimitForTheNewGiftTotalNextYear.cs" />
+    <Compile Include="TestCases\JobTypes\LV_TMTT0048687_VerifyTheCaptialSolutionChangesImplementedOnJobTypeobject.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0072214_TMT0072217_TMT0072219_TMT0072222_TMT0072226_VerifyThatDelegateOfANonPrimaryAttendeeBankerCan_Add_View_Edit_SendNotification_Delete_TheActivity.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0072201_TMT0072203_TMT0072205_TMT0072207_TMT0072209_VerifyThatDelegateOfAPrimaryAttendeeBankerCan_Add_View_Edit_SendNotification_Delete_TheActivity.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0072233_VerifyActivityIsLinkedToTheRelatedEngagement.cs" />
@@ -791,7 +793,7 @@
     <Compile Include="TestCases\Opportunities\LV_FR_TMTC0036135_ValidationOfCommentsAndMappingOnConvertingOpportunityToEngagement.cs" />
     <Compile Include="TestCases\Opportunities\LV_FVA_TMTC0036135_ValidationOfCommentsAndMappingOnConvertingOpportunityToEngagement.cs" />
     <Compile Include="TestCases\Opportunities\LV_T1197andT1198AddOpportunityInOpportunityHomeLightningView.cs" />
-    <Compile Include="TestCases\Opportunities\LV_T1426_112115_11219_11220_11221_24069_TMTT0024069_VerifyOpportunityToEngagementConversionMappingForCFJobTypesOnOpportunityEngagementPageLightningView.cs" />
+    <Compile Include="TestCases\Opportunities\LV_T1426_112115_11219_11220_11221_TMTT0024069_VerifyOpportunityToEngagementConversionMappingForCFJobTypesOnOpportunityEngagementPageLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_T1432_TMTT0024858_TMTT0030610_TMTT0035436_OppToEngConversionMappingForFVAJobTypesToResultingERPRTPortfolioValuationRoleLimit.cs" />
     <Compile Include="TestCases\Opportunities\LV_T1592_TMTT0011214_TMTT0011218_CF_ValidationsToBeCompletedBeforeCFOpportunityIsApproved_ValidateWomenLedValues_OptionalWomenLed.cs" />
     <Compile Include="TestCases\Opportunities\LV_T1624_OpportunityToEngagementConversionMappingForFRJobTypes.cs" />

@@ -1,6 +1,7 @@
 ﻿using AventStack.ExtentReports.Gherkin.Model;
 using Microsoft.Office.Interop.Excel;
 using OpenQA.Selenium;
+using SF_Automation.TestCases.EventExpense;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
@@ -859,7 +860,7 @@ namespace SF_Automation.Pages.Common
             Thread.Sleep(8000);
             WebDriverWaits.WaitUntilEleVisible(driver, iconListViewPicker, 20);
             driver.FindElement(iconListViewPicker).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, _optionListView(name), 10);
@@ -1536,7 +1537,6 @@ namespace SF_Automation.Pages.Common
             {
                 return "No interruption popup displayed";
             }
-        }
-
+        }        
     }
 }

@@ -167,7 +167,7 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                 homePageLV.UserLogoutFromSFLightningView();
                 extentReports.CreateStepLogs("Info", valUser + " logged out ");
                 driver.Quit();
-                extentReports.CreateStepLogs("Info", "Browser Closed");
+                extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
             catch(Exception e)
             {

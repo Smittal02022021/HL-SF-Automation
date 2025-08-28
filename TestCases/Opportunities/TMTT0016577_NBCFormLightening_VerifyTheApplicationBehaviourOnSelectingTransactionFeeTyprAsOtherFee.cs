@@ -5,9 +5,8 @@ using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Globalization;
 
-namespace SF_Automation.TestCases.Opportunities
+namespace SF_Automation.TestCases.ClassicOpportunities
 {
     class TMTT0016577_NBCFormLightening_VerifyTheApplicationBehaviourOnSelectingTransactionFeeTyprAsOtherFee : BaseClass
     {

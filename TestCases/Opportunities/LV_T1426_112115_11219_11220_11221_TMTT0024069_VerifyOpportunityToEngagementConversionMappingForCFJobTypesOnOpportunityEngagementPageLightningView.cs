@@ -10,7 +10,7 @@ using SF_Automation.TestData;
 
 namespace SF_Automation.TestCases.OpportunitiesConversion
 {
-    class LV_T1426_112115_11219_11220_11221_24069_TMTT0024069_VerifyOpportunityToEngagementConversionMappingForCFJobTypesOnOpportunityEngagementPageLightningView : BaseClass
+    class LV_T1426_112115_11219_11220_11221_TMTT0024069_VerifyOpportunityToEngagementConversionMappingForCFJobTypesOnOpportunityEngagementPageLightningView : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage(); 
