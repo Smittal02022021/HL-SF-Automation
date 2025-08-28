@@ -163,7 +163,7 @@ namespace SF_Automation.TestCases.Contact
                 //TMTI0122317 - Verify that the Staff Industry is assigned the value as per existing logic when Product Specialty is not "Capital Solutions".
                 int rowCount = ReadExcelData.GetRowCount(excelPath, "Logic Based");
 
-                for(int row=2; row<rowCount; row++)
+                for(int row=2; row<=rowCount; row++)
                 {
                     string contactName = ReadExcelData.ReadDataMultipleRows(excelPath, "Logic Based", row, 1);
                     string indGrp = ReadExcelData.ReadDataMultipleRows(excelPath, "Logic Based", row, 3);

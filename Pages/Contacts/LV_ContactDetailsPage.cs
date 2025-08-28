@@ -2393,6 +2393,7 @@ namespace SF_Automation.Pages.Contact
             //Scroll to the bottom of the page
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0, 3000)");
+            Thread.Sleep(3000);
 
             string costCenter = driver.FindElement(By.XPath("((//span[text()='HCM Cost Center'])[1]/following::div)[2]//lightning-formatted-text")).Text;
             if(productSp == "Capital Solutions")
