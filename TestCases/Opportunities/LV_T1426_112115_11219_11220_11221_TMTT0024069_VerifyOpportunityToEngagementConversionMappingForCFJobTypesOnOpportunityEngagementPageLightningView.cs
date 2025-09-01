@@ -39,6 +39,9 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
         //TMTI0055395 Verify user is able to create new Opportunity with new Job Type - Lender Education
         //TMTI0113217 Verify that the "Tail Expires" field does not display on the CF page layout for different Job Types on creating new opportunities
         //TMTI0113236 Verify that the "Tail Expires" field is removed as a required field on the Engagement conversion errors page while converting existing opportunities into engagement
+        //TMTI0120008	Verify that the new Job types are available in the Job type picklist in the New Opportunity page
+        //TMTI0120042 Verify the Oracle ERP Information details in the Opportunity details page for the new Job type
+
         [Test]
 
         public void OpportunityToEngagementConversionMappingForCFLightningView()
@@ -103,6 +106,8 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
 
                     //TMTI0055384 Verify the availability of new Job Type- Lender Education in Job Type Picklist while adding new CF Opportunity
                     //TMTI0055395 Verify user is able to create new Opportunity with new Job Type - Lender Education
+                    //TMTI0120008	Verify that the new Job types are available in the Job type picklist in the New Opportunity page
+
                     extentReports.CreateStepLogs("Info", "Creating Opportunity for Job Type: " + valJobType);
                     string opportunityName = addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTMTI0055384);//updated move to jobtype
                     extentReports.CreateStepLogs("Info", "Opportunity : " + opportunityName + " is created ");
@@ -142,24 +147,27 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", valUser + " Standard User logged out ");
 
+                    string adminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUsers", 5, 1);
+                    homePage.SearchUserByGlobalSearchN(adminUser);
+                    extentReports.CreateStepLogs("Info", "Admin User: " + adminUser + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
+                    login.SwitchToLightningExperience();
+                    extentReports.CreateStepLogs("Passed", "Admin User: " + adminUser + " logged in on Lightning View");
+                    homePageLV.SelectAppLV(appNameExl);
+                    appName = homePageLV.GetAppName();
+                    Assert.AreEqual(appNameExl, appName);
+                    extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
+                    homePageLV.SelectModule(moduleNameExl);
+                    extentReports.CreateStepLogs("Info", "Admin User is on " + moduleNameExl + " Page ");
+                    //Search for created opportunity
+                    opportunityHome.GlobalSearchOpportunityInLightningView(opportunityName);
                     extentReports.CreateStepLogs("Info", "Admin is Performing Required Actions ");
-                    opportunityHome.SearchOpportunity(opportunityName);
                     //update CC and NBC checkboxes 
-                    opportunityDetails.UpdateOutcomeDetails(fileTMTI0055384);
-                    if (valJobType.Equals("Buyside") || valJobType.Equals("Sellside")|| valJobType.Equals("Debt Financing")||valJobType.Equals("Directs") || valJobType.Equals("Primary Capital Advisory"))
-                    {
-                        opportunityDetails.UpdateNBCApproval();
-                        extentReports.CreateStepLogs("Info", "Conflict Check and NBC fields are updated ");
-                    }
-                    else
-                    {
-                        extentReports.CreateStepLogs("Info", "Conflict Check fields are updated ");
-                    }  
-                    //TMTI0056861 Verify that NBC form is not required for new Job type - Lender education
-                    //Get NBC Approved Default Status
-                    Assert.AreEqual(opportunityDetails.GetNBCApprovedStatus(),"Checked");
-                    extentReports.CreateStepLogs("Info", "NBC Approved Checkbox is already Checked ");
-                    
+                    opportunityDetails.UpdateOutcomeNBCApproveDetailsLV(valJobType);
+                    homePageLV.LogoutFromSFLightningAsApprover();
+                    extentReports.CreateStepLogs("Info", adminUser + " System Administrator logged out ");
+
                     //Login as CF FIn user to request opp to convert into eng.
                     homePage.SearchUserByGlobalSearchN(valUser);
                     extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
@@ -178,6 +186,27 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
                     //Search for created opportunity
                     opportunityHome.GlobalSearchOpportunityInLightningView(opportunityName);
+
+                    //TMTI0120042	Verify the Oracle ERP Information details in the Opportunity details page for the new Job type
+
+                    //Validate the ERP status on Engagement details page
+                    randomPages.ClickTabOracleERPLV();
+                    extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
+
+                    string productType = randomPages.GetERPProductTypeLV();
+                    string prodType = ReadExcelData.ReadDataMultipleRows(excelPath, "ProductType", row, 1);
+                    Assert.AreEqual(prodType, productType, "Verify the Product Type in Oracle ERP Information Opportunity details page for the opportunity having Job type as " + valJobType);
+                    extentReports.CreateStepLogs("Passed", "ERP Product Type  " + productType + " in ERP section for Job Type: " + valJobType);
+
+                    string prodTypeCodeERP = ReadExcelData.ReadDataMultipleRows(excelPath, "ProductType", row, 2);
+                    string productTypeCodeERP = randomPages.GetERPProductTypeCodeLV();
+                    Assert.AreEqual(prodTypeCodeERP, productTypeCodeERP, "Verify the Product code in Oracle ERP Information Opportunity details page for the opportunity having Job type as " + valJobType);
+                    extentReports.CreateStepLogs("Passed", "ERP Product Type Code: " + productTypeCodeERP + " in ERP section for Job Type: " + valJobType);
+                    string ERPStatusIG = randomPages.GetERPLastIntegrationStatusLV();
+                    Assert.AreEqual("Success", ERPStatusIG);
+                    extentReports.CreateStepLogs("Passed", "ERP Last Integration Status in ERP section: " + ERPStatusIG + " is displayed on Opportunity Detail page ");
+
+
                     opportunityDetails.ClickRequestToEngL();
 
                     //Submit Request To Engagement Conversion 
@@ -245,10 +274,27 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     Assert.AreEqual(recordTypeExpected, engRecordType);
                     extentReports.CreateStepLogs("Passed", "Value of Record type is : " + engRecordType + " for Job Type " + valJobType + " ");
 
+
+
                     //TMTI0055387 Verify the status is updated in Oracle ERP Information section after creating the Opportunity
+                    //TMTI0120042	Verify the Oracle ERP Information details in the Opportunity details page for the new Job type
+
                     //Validate the ERP status on Engagement details page
+                    //randomPages.ClickTabOracleERPLV();
+                    //extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
+
+                    //string productType = randomPages.GetERPProductTypeLV();
+                    //string prodType= ReadExcelData.ReadDataMultipleRows(excelPath, "ProductType", row, 1);
+                    //Assert.AreEqual(prodType, productType, "Verify the Product Type in Oracle ERP Information Opportunity details page for the opportunity having Job type as " + valJobType);
+                    //extentReports.CreateStepLogs("Passed", "ERP Product Type  " + productType + " in ERP section for Job Type: " + valJobType);
+
+                    //string prodTypeCodeERP = ReadExcelData.ReadDataMultipleRows(excelPath, "ProductType", row, 2);
+                    //string productTypeCodeERP = randomPages.GetERPProductTypeCodeLV();
+                    //Assert.AreEqual(prodTypeCodeERP, productTypeCodeERP, "Verify the Product code in Oracle ERP Information Opportunity details page for the opportunity having Job type as " + valJobType);
+                    //extentReports.CreateStepLogs("Passed", "ERP Product Type Code: " + productTypeCodeERP + " in ERP section for Job Type: " + valJobType);
+                   
                     randomPages.ClickTabOracleERPLV();
-                    string ERPStatusIG = randomPages.GetERPLastIntegrationStatusLV();
+                    ERPStatusIG = randomPages.GetERPLastIntegrationStatusLV();
                     Assert.AreEqual("Success", ERPStatusIG);
                     extentReports.CreateStepLogs("Passed", "ERP Last Integration Status in ERP section: " + ERPStatusIG + " is displayed on Engagement Detail page ");
                    // extentReports.CreateStepLogs("Passed", valJobType+ "******************ERP Last Integration Status in ERP section: " + ERPStatusIG + " is displayed on Engagement Detail page***********");
@@ -282,6 +328,14 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     string valERPStatus = randomPages.GetERPLastIntegrationStatusLV();
                     Assert.AreEqual("Success", valERPStatus);
                     extentReports.CreateStepLogs("Passed", "ERP Last Integration Status in ERP section: " + valERPStatus + " is displayed on Opportunity Detail page");
+
+                    //randomPages.ClickTabAdminLV();
+                    //Validate the value of Record Type in Engagement details page
+                    //string engRecordType = engagementDetails.GetRecordType();
+                    //string recordTypeExpected = ReadExcelData.ReadDataMultipleRows(excelPath, "Engagement", row, 2);
+                    //Assert.AreEqual(recordTypeExpected, engRecordType);
+                    //extentReports.CreateLog("Value of Record type is : " + engRecordType + " for Job Type " + valJobType + " ");
+
                     randomPages.CloseActiveTab(opportunityName);
                     homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " logged out ");                    

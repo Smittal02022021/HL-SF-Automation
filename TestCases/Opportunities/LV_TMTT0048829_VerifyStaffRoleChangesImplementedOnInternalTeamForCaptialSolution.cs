@@ -6,10 +6,11 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SF_Automation.TestCases.OpportunitiesInternalTeam
+namespace SalesForce_Project.TestCases.Opportunities
 {
-    class LV_TC2330_TMTC0002482_VerifyTheRolesAvailableToRegisteredUSAndNonUSFinancialPFGContactInOpportunityOfNonPFAJobType : BaseClass
+    class LV_TMTT0048829_VerifyStaffRoleChangesImplementedOnInternalTeamForCaptialSolution:BaseClass
     {
+
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
@@ -18,7 +19,7 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
         HomeMainPage homePage = new HomeMainPage();
-        public static string fileT2330 = "LV_T2330_TMTC0002482_VerifyTheRolesAvailable";
+        public static string fileTMTT0048829 = "LV_TMTT0048829_VerifyStaffRoleChangesImplementedOnInternalTeamForCaptialSolution";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -32,10 +33,10 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
         [Test]
         public void VerifyTheRolesAvailableLightningView()
         {
-            try 
-            { 
+            try
+            {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileT2330;
+                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTT0048829;
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -59,22 +60,25 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
                 string stdUser = login.ValidateUserLightningView();
                 Assert.AreEqual(stdUser.Contains(userExl), true);
                 extentReports.CreateLog("User: " + userExl + " Switched to Lightning View ");
+                string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
+                homePageLV.SelectAppLV(appNameExl);
+                string appName = homePageLV.GetAppName();
+                Assert.AreEqual(appNameExl, appName);
+                extentReports.CreateStepLogs("Pass", appName + " App is selected from App Launcher ");
 
+                string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
+                homePageLV.SelectModule(moduleNameExl);
+                extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
                 int teamMember = ReadExcelData.GetRowCount(excelPath, "Users");
                 for (int row = 2; row <= teamMember; row++)
                 {
+                    string teamMemberName = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
                     string opportunityName = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 3);
-                    string teamMemberName = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);  
-
-                    string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                    homePageLV.SelectAppLV(appNameExl);
-                    string appName = homePageLV.GetAppName();
-                    Assert.AreEqual(appNameExl, appName);
-                    extentReports.CreateStepLogs("Pass", appName + " App is selected from App Launcher ");
-
-                    string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
-                    homePageLV.SelectModule(moduleNameExl);
-                    extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
+                    string OppLocation = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 6);
+                    string contactLocation = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 7);
+                    string contactStatus = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 8);
+                    string opportunityRecordType = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 9);
+                    extentReports.CreateStepLogs("Info", "Verify The Available Roles  On " + OppLocation + " Opportunity " + opportunityRecordType + " for Team member: " + teamMemberName + " of " + contactLocation + " as " + contactStatus + " contact");
 
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
                     extentReports.CreateStepLogs("Info", "User is on " + opportunityName + " Detail Page ");
@@ -85,94 +89,71 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
                     //------Validate all the roles checkbox
                     //Verify Initiator role
                     Assert.AreEqual("True", chkInitiator);
-                    extentReports.CreateStepLogs("Pass","Initiator role checkbox is displayed ");
+                    extentReports.CreateStepLogs("Pass", "Initiator role checkbox is displayed ");
 
-                    //Verify Seller role
-                    string chkSeller = opportunityDetails.VerifySellerRole();
-                    Assert.AreEqual("True", chkSeller);
+                    //Verify Seller role                    
+                    Assert.IsTrue(opportunityDetails.IsSellerRoleCheckboxDisplayedLV());
                     extentReports.CreateStepLogs("Pass", "Seller role checkbox is displayed ");
 
-                    //Verify Principal role
-                    string chkPrin = opportunityDetails.VerifyPrincipalRole();
-                    Assert.AreEqual("False", chkPrin);
-                   extentReports.CreateStepLogs("Pass", "Principal role checkbox is not displayed ");
+                    //Verify Principal role                    
+                    Assert.IsTrue(opportunityDetails.IsPrincipalRoleDisplayedLV());
+                    extentReports.CreateStepLogs("Pass", "Principal role checkbox is not displayed ");
 
                     //Verify Manager role
-                    string chkMgr = opportunityDetails.VerifyManagerRole();
-                    Assert.AreEqual("False", chkMgr);
+                    Assert.IsTrue(opportunityDetails.IsManagerRoleDisplayedLV());
                     extentReports.CreateStepLogs("Pass", "Manager role checkbox is not displayed ");
 
-                    //Verify Associate role
-                    string chkAssociate = opportunityDetails.VerifyAssociateRole();
-                    Assert.AreEqual("False", chkAssociate);
+                    //Verify Associate role                    
+                    Assert.IsTrue(opportunityDetails.IsAssociateRoleDisplayedLV());
                     extentReports.CreateStepLogs("Pass", "Associate role checkbox is not displayed ");
 
                     //Verify Analyst role
-                    string chkAnalyst = opportunityDetails.VerifyAnalystRole();
-                    Assert.AreEqual("False", chkAnalyst);
+                    Assert.IsTrue(opportunityDetails.IsAnalystRoleDisplayedLV());
                     extentReports.CreateStepLogs("Pass", "Analyst role checkbox is not displayed ");
 
-                    //Verify Specialty role
-                    string chkSpecialty = opportunityDetails.VerifySpecialtyRole();
-                    Assert.AreEqual("True", chkSpecialty);
+                    //Verify Specialty role 
+                    Assert.IsTrue(opportunityDetails.IsSpecialtyRoleDisplayedLV());
                     extentReports.CreateStepLogs("Pass", "Specialty role checkbox is displayed ");
 
-                    //Verify PE/HF role
-                    string chkPE = opportunityDetails.VerifyPERole();
-                    Assert.AreEqual("False", chkPE);
+                    //Verify PE/HF role 
+                    Assert.IsTrue(opportunityDetails.IsPERoleDisplayedLV());
                     extentReports.CreateStepLogs("Pass", "PE role checkbox is not displayed ");
 
-                    //Verify Public role
-                    string chkPublic = opportunityDetails.VerifyPublicRole();
-                    Assert.AreEqual("False", chkPublic);
+                    //Verify Public role 
+                    Assert.IsTrue(opportunityDetails.IsPublicRoleDisplayedLV());
                     extentReports.CreateStepLogs("Pass", "Public role checkbox is not displayed ");
 
                     //Verify Admin role
-                    string chkAdmin = opportunityDetails.VerifyAdminRole();
-                    Assert.AreEqual("False", chkAdmin);
+                    Assert.IsTrue(opportunityDetails.IsAdminRoleDisplayedLV());
                     extentReports.CreateStepLogs("Pass", "Admin role checkbox is not displayed ");
 
                     //Verify RMS role
-                    string chkRMS = opportunityDetails.VerifyRMSRole();
-                    Assert.AreEqual("False", chkRMS);
+                    Assert.IsTrue(opportunityDetails.IsRMSRoleDisplayedLV());
                     extentReports.CreateStepLogs("Pass", "RMS role checkbox is not displayed ");
 
                     //Verify Expense role
-                    string chkExpense = opportunityDetails.VerifyExpenseOnlyRole();
-                    Assert.AreEqual("False", chkExpense);
+                    Assert.IsTrue(opportunityDetails.IsExpenseOnlyRoleDisplayedLV());
                     extentReports.CreateStepLogs("Pass", "Expense role checkbox is not displayed ");
 
-                    //Verify Non Registered role
-                    string chkNonReg = opportunityDetails.VerifyNonRegisteredRole();
-                    Assert.AreEqual("False", chkNonReg);
-                    extentReports.CreateStepLogs("Pass", "Non Registered role checkbox is not displayed ");
+                    //Verify Non Registered role                   
 
-                    if (opportunityName.Equals("Project Neon"))
+                    if (contactStatus == "Registered")
                     {
-                        if (teamMemberName.Equals("Jake Noone"))
-                        {
-                            extentReports.CreateStepLogs("Pass", "Only Initiator, Seller and Specialty role's checkboxes are displayed for US Opportunity with Non PFA Job Type for Registered US FIN PFG contact ");
-                        }
-                        else
-                        {
-                            extentReports.CreateStepLogs("Pass", "Only Initiator, Seller and Specialty role's checkboxes are displayed for US Opportunity with Non PFA Job Type for Registered Non US FIN PFG contact ");
-                        }
+                        Assert.IsTrue(opportunityDetails.IsNonRegisteredRoleDisplayedLV());
+                        extentReports.CreateStepLogs("Pass", "Registered role checkbox is not displayed ");
                     }
-                    else
+
+                    if (contactStatus == "Non-Registered")
                     {
-                        if (teamMemberName.Equals("Jake Noone"))
-                        {
-                            extentReports.CreateStepLogs("Pass", "Only Initiator, Seller and Specialty role's checkboxes are displayed for Foreign Opportunity with Non PFA Job Type for Registered US FIN PFG contact ");
-                        }
-                        else
-                        {
-                            extentReports.CreateStepLogs("Pass", "Only Initiator, Seller and Specialty role's checkboxes are displayed for Foreign Opportunity with Non PFA Job Type for Registered Non US FIN PFG contact ");
-                        }
+                        Assert.IsFalse(opportunityDetails.IsNonRegisteredRoleDisplayedLV());
+                        extentReports.CreateStepLogs("Pass", "Registered role checkbox is not displayed ");
+
                     }
+
                     opportunityDetails.ClickReturnToOpportunityL();// switched to DefaultView
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
                     randomPages.CloseActiveTab("Internal Team");
-                    randomPages.CloseActiveTab(opportunityName);
+                    randomPages.CloseActiveTab(opportunityName);            
                 }
                 homePageLV.UserLogoutFromSFLightningView();
                 driver.Quit();
@@ -187,6 +168,6 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
                 driver.Quit();
             }
         }
-        
+
     }
 }

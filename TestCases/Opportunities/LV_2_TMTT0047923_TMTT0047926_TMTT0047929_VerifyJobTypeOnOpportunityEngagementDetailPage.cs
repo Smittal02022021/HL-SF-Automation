@@ -7,6 +7,7 @@ using SF_Automation.UtilityFunctions;
 using SF_Automation.TestData;
 using NUnit.Framework;
 using System;
+using AventStack.ExtentReports.Gherkin.Model;
 
 namespace SF_Automation.TestCases.Opportunities
 {
@@ -83,9 +84,10 @@ namespace SF_Automation.TestCases.Opportunities
         //TMTI0117864 Verify that the Job type "DRC - Estate & Gift" gets displayed on adding Job type column in Filters while creating the reports.
         //TMTI0117862 Verify that the user is able to edit/update other Job type to "DRC - Estate & Gift" for an existing opportunity.
         //TMTI0117871 Verify that the new Job type "DRC -Estate & Gift" gets displayed in Billing Request page.
-        //TMTI0117869 Verify that the new Job type "DRC -Estate & Gift" gets displayed in Revenue Accrual page.
+        //TMTI0117869 Verify that the new Job type "DRC -Estate & Gift" gets displayed in Revenue Accrual page.        
 
-        [Test]
+
+       [Test]
         public void VerifyJobTypeDisplayedInJobTypeDropDownWhileAddingNewOpportunity()
         {
            try

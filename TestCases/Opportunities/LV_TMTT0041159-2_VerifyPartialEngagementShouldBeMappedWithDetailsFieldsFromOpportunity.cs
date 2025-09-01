@@ -7,6 +7,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
+using Microsoft.Office.Interop.Excel;
 
 namespace SF_Automation.TestCases.OpportunitiesConversion
 {
@@ -307,6 +308,8 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");                
                 engagementHome.GlobalSearchEngagementInLightningView(opportunityName);
                 extentReports.CreateStepLogs("Info", "Engagement found and selected");
+
+                //TMTI0101390: Verify that CF user can fill all the related list in Partial engagement like - Counterparty, FS Eng, Eng Contact, comments etc.
                 // Click FS Eng
                 engagementDetails.ClickTabFSEngagementLV();
                 string idFSEng=engagementDetails.GetFSEngagementIDLV();

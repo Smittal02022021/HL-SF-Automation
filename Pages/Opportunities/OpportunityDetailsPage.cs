@@ -4462,196 +4462,172 @@ namespace SF_Automation.Pages
         }
 
         //Validate Seller role
-        public string VerifySellerRole()
+        public bool IsSellerRoleCheckboxDisplayedLV()
         {
             try
             {
-                if (driver.FindElement(checkSeller).Displayed.ToString().Equals("True"))
-                    return "True";
-                else
-                    return "False";
+                WebDriverWaits.WaitUntilEleVisible(driver, checkSeller, 5);
+                return driver.FindElement(checkSeller).Displayed;                  
+                
             }
             catch (Exception)
             {
-                return "False";
+                return false;
             }
         }
 
         //Validate Principal role
-        public string VerifyPrincipalRole()
+        public bool IsPrincipalRoleDisplayedLV()
         {
             try
             {
-                if (driver.FindElement(checkPrincipal).Displayed.ToString().Equals("True"))
-                    return "True";
-                else
-                    return "False";
+                WebDriverWaits.WaitUntilEleVisible(driver, checkPrincipal, 5);
+                return driver.FindElement(checkPrincipal).Displayed;               
             }
             catch (Exception)
             {
-                return "False";
+                return false;
             }
         }
 
         //Validate Manager role
-        public string VerifyManagerRole()
+        public bool IsManagerRoleDisplayedLV()
         {
             try
             {
-                if (driver.FindElement(checkManager).Displayed.ToString().Equals("True"))
-                    return "True";
-                else
-                    return "False";
+                WebDriverWaits.WaitUntilEleVisible(driver, checkManager, 5);
+                return driver.FindElement(checkManager).Displayed;                   
             }
             catch (Exception)
             {
-                return "False";
+                return false;
             }
         }
 
         //Validate Associate role
-        public string VerifyAssociateRole()
+        public bool  IsAssociateRoleDisplayedLV()
         {
             try
             {
-                if (driver.FindElement(checkAssociate).Displayed.ToString().Equals("True"))
-                    return "True";
-                else
-                    return "False";
-            }
+                WebDriverWaits.WaitUntilEleVisible(driver, checkAssociate, 5);
+                return driver.FindElement(checkAssociate).Displayed;
+                            }
             catch (Exception)
             {
-                return "False";
+                return false;
             }
         }
 
         //Validate Analyst role
-        public string VerifyAnalystRole()
+        public bool IsAnalystRoleDisplayedLV()
         {
             try
             {
-                if (driver.FindElement(checkAnalyst).Displayed.ToString().Equals("True"))
-                    return "True";
-                else
-                    return "False";
+                WebDriverWaits.WaitUntilEleVisible(driver, checkAnalyst, 5);
+                return driver.FindElement(checkAnalyst).Displayed;                
             }
             catch (Exception)
             {
-                return "False";
+                return false;
             }
         }
 
         //Validate Specialty role
-        public string VerifySpecialtyRole()
+        public bool IsSpecialtyRoleDisplayedLV()
         {
             try
             {
-                if (driver.FindElement(checkSpeciality).Displayed.ToString().Equals("True"))
-                    return "True";
-                else
-                    return "False";
+                WebDriverWaits.WaitUntilEleVisible(driver, checkSpeciality, 5);
+                return driver.FindElement(checkSpeciality).Displayed;                
             }
             catch (Exception)
             {
-                return "False";
+                return false;
             }
         }
 
         //Validate PE/HF role
-        public string VerifyPERole()
+        public bool IsPERoleDisplayedLV()
         {
             try
             {
-                if (driver.FindElement(checkPE).Displayed.ToString().Equals("True"))
-                    return "True";
-                else
-                    return "False";
+                WebDriverWaits.WaitUntilEleVisible(driver, checkPE, 5);
+                return driver.FindElement(checkPE).Displayed;                   
             }
             catch (Exception)
             {
-                return "False";
+                return false;
             }
         }
 
         //Validate Public role
-        public string VerifyPublicRole()
+        public bool IsPublicRoleDisplayedLV()
         {
             try
             {
-                if (driver.FindElement(checkPublic).Displayed.ToString().Equals("True"))
-                    return "True";
-                else
-                    return "False";
+                WebDriverWaits.WaitUntilEleVisible(driver, checkPublic, 5);
+                return driver.FindElement(checkPublic).Displayed;                 
             }
             catch (Exception)
             {
-                return "False";
+                return false;
             }
         }
 
 
         //Validate Admin role
-        public string VerifyAdminRole()
+        public bool IsAdminRoleDisplayedLV()
         {
             try
             {
-                if (driver.FindElement(checkAdmin).Displayed.ToString().Equals("True"))
-                    return "True";
-                else
-                    return "False";
+                WebDriverWaits.WaitUntilEleVisible(driver, checkAdmin, 5);
+                return driver.FindElement(checkAdmin).Displayed;
             }
             catch (Exception)
             {
-                return "False";
+                return false;
             }
         }
 
         //Validate RMS role
-        public string VerifyRMSRole()
+        public bool IsRMSRoleDisplayedLV()
         {
             try
             {
-                if (driver.FindElement(checkRMS).Displayed.ToString().Equals("True"))
-                    return "True";
-                else
-                    return "False";
+                WebDriverWaits.WaitUntilEleVisible(driver, checkRMS, 5);
+                return driver.FindElement(checkRMS).Displayed;
             }
             catch (Exception)
             {
-                return "False";
+                return false;
             }
         }
 
         //Validate Expense Only role
-        public string VerifyExpenseOnlyRole()
+        public bool IsExpenseOnlyRoleDisplayedLV()
         {
             try
             {
-                if (driver.FindElement(checkExpenseOnly).Displayed.ToString().Equals("True"))
-                    return "True";
-                else
-                    return "False";
+                WebDriverWaits.WaitUntilEleVisible(driver, checkExpenseOnly, 5);
+                return driver.FindElement(checkExpenseOnly).Displayed;
             }
             catch (Exception)
             {
-                return "False";
+                return false;
             }
         }
 
-
         //Validate Non Registered role
-        public string VerifyNonRegisteredRole()
+        public bool IsNonRegisteredRoleDisplayedLV()
         {
             try
             {
-                if (driver.FindElement(checkNonRegistered).Displayed.ToString().Equals("True"))
-                    return "True";
-                else
-                    return "False";
+                WebDriverWaits.WaitUntilEleVisible(driver, checkNonRegistered, 5);
+                return driver.FindElement(checkNonRegistered).Displayed;
             }
             catch (Exception)
             {
-                return "False";
+                return false;
             }
 
         }
