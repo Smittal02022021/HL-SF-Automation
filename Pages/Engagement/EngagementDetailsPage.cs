@@ -8842,8 +8842,13 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, lnkCPDashboardCounterpartyNameL, 10);
             //jse.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(lnkCPDashboardCounterpartyNameL));
             driver.FindElement(lnkCPDashboardCounterpartyNameL).Click();
-            //WebDriverWaits.WaitUntilEleVisible(driver, lnkOpenRepordL, 10);
-            //driver.FindElement(lnkOpenRepordL).Click();
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkOpenRepordL, 2);
+                driver.FindElement(lnkOpenRepordL).Click();
+            }
+            catch { };
+
             CustomFunctions.SwitchToWindow(driver, 1);
             Thread.Sleep(5000);
         }
