@@ -258,14 +258,13 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 randomPages.CloseActiveTab(opportunityName);
                 homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + userExl + " logged out");
-                
+
 
                 //Login as System Admin user to add FS Opportunity 
-                adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 4, 1);
-                extentReports.CreateStepLogs("Info", "System Admin User: " + adminUserExl + " Adding FS Opportunity ");
+                string userFSExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 6, 1);
 
-                homePage.SearchUserByGlobalSearchN(adminUserExl);
-                extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
+                homePage.SearchUserByGlobalSearchN(userFSExl);
+                extentReports.CreateStepLogs("Info", " FS User: " + userFSExl + " details are displayed. ");
                 usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 extentReports.CreateStepLogs("Passed", "System Admin Switched to Lightning View ");
@@ -284,8 +283,30 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 popupMessage = randomPages.GetLVMessagePopup();
                 Assert.IsTrue(popupMessage.Contains("FS Opp"), "Verify the Added FS Opportunity is displayed in Popup message ");
                 extentReports.CreateStepLogs("Passed", " FS Opportunity " + idFSOpp + " added for Opportunity with Sponsored Company: " + counterpartyCompanyNameExl);
-                randomPages.CloseActiveTab(idFSOpp);                               
+                randomPages.CloseActiveTab(idFSOpp);
+                randomPages.CloseActiveTab(opportunityName);
+                homePageLV.LogoutFromSFLightningAsApprover();
+                extentReports.CreateStepLogs("Passed", "FS User: " + userFSExl + " logged out");
 
+                extentReports.CreateStepLogs("Info", "System Admin User: " + adminUserExl + " Updating the Required details ");
+
+                homePage.SearchUserByGlobalSearchN(adminUserExl);
+                extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
+                usersLogin.LoginAsSelectedUser();
+                login.SwitchToLightningExperience();
+                userAdmin = login.ValidateUserLightningView();
+                Assert.AreEqual(userAdmin.Contains(adminUserExl), true);
+                extentReports.CreateStepLogs("Passed", "System Admin User: " + adminUserExl + " User logged in ");
+
+                //Go to Opportunity module in Lightning View 
+                homePageLV.SelectAppLV(appNameExl);
+                Assert.AreEqual(appNameExl, homePageLV.GetAppName());
+                extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
+                homePageLV.SelectModule(moduleNameExl);
+                extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
+                //Search for created opportunity
+                opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
+                extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
                 opportunityDetails.EditOpportunityStageLV(stageExl);
                 string updatedStage = opportunityDetails.GetStageLV();
                 Assert.AreEqual(updatedStage, stageExl);
@@ -299,7 +320,18 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 Assert.IsTrue(opportunityDetails.IsVerballyEngagedEngCreatedLV(opportunityName), "Verify changing stage to Verbally Engaged creates a Partial Engagement");
                 extentReports.CreateStepLogs("Passed", "Changing stage to Verbally Engaged creates a Partial Engagement");
                 randomPages.CloseActiveTab(opportunityName);
+                homePageLV.LogoutFromSFLightningAsApprover();
+                extentReports.CreateStepLogs("Passed", "System Admin User: " + adminUserExl + " logged out");
 
+                homePage.SearchUserByGlobalSearchN(userFSExl);
+                extentReports.CreateStepLogs("Info", " FS User: " + userFSExl + " details are displayed. ");
+                usersLogin.LoginAsSelectedUser();
+                login.SwitchToLightningExperience();
+                extentReports.CreateStepLogs("Passed", "FS User Switched to Lightning View ");
+                //Go to Opportunity module in Lightning View 
+                homePageLV.SelectAppLV(appNameExl);
+                Assert.AreEqual(appNameExl, homePageLV.GetAppName());
+                extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");                
 
                 //TMTI0101384 Verify that Partial Engagement should be mapped with all the details filled from Opportunity
                 //Validate relevant objects on VE Eng 
@@ -318,11 +350,11 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 extentReports.CreateStepLogs("Passed", "FS Engagement with ID: " + idFSEng + " and Sponsor Company: "+ counterpartyCompanyNameExl+" is mapped on Engagement page same as added on Oporunity page  ");
                 randomPages.CloseActiveTab(opportunityName);
                 homePageLV.LogoutFromSFLightningAsApprover();
-                extentReports.CreateStepLogs("Passed", "System Admin User: " + adminUserExl + " logged out");
+                extentReports.CreateStepLogs("Passed", "FS User: " + userFSExl + " logged out");
 
                 //Login as CF Financial User logged in to fill fields level required fields 
                 homePage.SearchUserByGlobalSearchN(userExl);
-                extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+                extentReports.CreateStepLogs("Info", "CF User: " + userExl + " details are displayed. ");
                 usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 stdUser = login.ValidateUserLightningView();

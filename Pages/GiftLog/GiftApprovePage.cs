@@ -79,7 +79,7 @@ namespace SF_Automation.Pages.GiftLog
             DateTime date = DateTime.ParseExact(dateStr, "dd/MMM/yyyy", CultureInfo.InvariantCulture);
             string todayDayDate = date.ToString("dd");
 
-            if (todayDayDate == "01" || todayDayDate == "02" || todayDayDate == "03" || todayDayDate == "04" || todayDayDate == "05")
+            if (todayDayDate == "01")// || todayDayDate == "02" || todayDayDate == "03" || todayDayDate == "04" || todayDayDate == "05")
             {
                 getMonth = DateTime.Today.AddMonths(-1).ToString("MMM");
             }
@@ -671,7 +671,7 @@ namespace SF_Automation.Pages.GiftLog
             DateTime date = DateTime.ParseExact(dateStr, "dd/MMM/yyyy", CultureInfo.InvariantCulture);
             string todayDayDate = date.ToString("dd");
 
-            if(todayDayDate=="01"|| todayDayDate == "02" || todayDayDate == "03" || todayDayDate == "04" || todayDayDate == "05")
+            if(todayDayDate=="01")// todayDayDate == "02" || todayDayDate == "03" || todayDayDate == "04" || todayDayDate == "05")
             {
                 getMonth = DateTime.Today.AddMonths(-1).ToString("MMM");
             }
@@ -883,7 +883,7 @@ namespace SF_Automation.Pages.GiftLog
             DateTime date = DateTime.ParseExact(dateStr, "dd/MMM/yyyy", CultureInfo.InvariantCulture);
             string todayDayDate = date.ToString("dd");
 
-            if (todayDayDate == "01" || todayDayDate == "02" || todayDayDate == "03" || todayDayDate == "04" || todayDayDate == "05")
+            if (todayDayDate == "01" ) //|| todayDayDate == "02" || todayDayDate == "03" || todayDayDate == "04" || todayDayDate == "05")
             {
                 getMonth = DateTime.Today.AddMonths(-1).ToString("MMM");
             }

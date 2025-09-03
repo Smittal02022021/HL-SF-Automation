@@ -800,7 +800,7 @@
     <Compile Include="TestCases\Opportunities\LV_T1683AndT2074_OpportunityDetails_HLInternalTeam_EditAndUpdateAndClientSubjectAsPrimary.cs" />
     <Compile Include="TestCases\Opportunities\LV_T1692_TMTT0011214_FVA_ValidationsToBeCompletedBeforeFASOpportunityIsApproved_ValidateWomenLedValues.cs" />
     <Compile Include="TestCases\Opportunities\LV_T1693_TMTT0011213_FR_RequestEngagementNumber_ValidationsToBeCompletedBeforeFROpportunityIsApproved.cs" />
-    <Compile Include="TestCases\Opportunities\LV_T1697AndT1698OpportunityDetailsPageDNDOnOffEnableAndDisableMode.cs" />
+    <Compile Include="TestCases\Opportunities\LV_T1697_T1698_TMTT0048720_OpportunityDetailsPageDNDOnOffEnableAndDisableModeWithCaptialSolutionJobTypes.cs" />
     <Compile Include="TestCases\Opportunities\LV_CF_TMTC0036078_TMTC0036082_VerifyTheMappingOfComplianceAndLegalFieldsFromOpportunityToEngagementCF..cs" />
     <Compile Include="TestCases\Opportunities\LV_FVA_TMTC0036078_TMTC0036082_VerifyTheMappingOfComplianceAndLegalFieldsFromOpportunityToEngagementFVA.cs" />
     <Compile Include="TestCases\Opportunities\Dup_LV_TMTI0055389_55386_56861_VerifyUserIsAbleToEditOtherJobTypeToNewJobTypeForExistingOpportunityEngagement.cs" />

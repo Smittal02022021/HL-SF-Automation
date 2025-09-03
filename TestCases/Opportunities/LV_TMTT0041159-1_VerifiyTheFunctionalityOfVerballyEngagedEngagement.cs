@@ -410,12 +410,12 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 extentReports.CreateStepLogs("Passed", "Compliance User: "+ complianceuserExl+" logged out");
                 ////*****************************************////
 
-                //Login as System Admin user to add FS Engagement 
-                adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 4, 1);
-                extentReports.CreateStepLogs("Info", "System Admin User: " + adminUserExl + " Adding FS Engagement ");
+                                                
+                //Login as FS User to add FS Engagement 
+                string userFSExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 6, 1);
 
-                homePage.SearchUserByGlobalSearchN(adminUserExl);
-                extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
+                homePage.SearchUserByGlobalSearchN(userFSExl);
+                extentReports.CreateStepLogs("Info", "FS User: " + userFSExl + " details are displayed. ");
                 usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 extentReports.CreateStepLogs("Passed", "System Admin Switched to Lightning View ");
@@ -436,7 +436,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 extentReports.CreateStepLogs("Passed", " FS Engagement "+ nameFSEng+" added for Engagement with Sponsored Company: " + counterpartyCompanyNameExl);
                 randomPages.CloseActiveTab(nameFSEng);
                 homePageLV.LogoutFromSFLightningAsApprover();
-                extentReports.CreateStepLogs("Passed", "System Administrator: " + appNameExl + " logged out");
+                extentReports.CreateStepLogs("Passed", "FS User: " + userFSExl + " logged out");
 
                 //////////////////////////////////////////               
 

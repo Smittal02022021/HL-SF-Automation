@@ -1,14 +1,15 @@
-﻿using NUnit.Framework;
+﻿using AventStack.ExtentReports.Gherkin.Model;
+using NUnit.Framework;
+using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.HomePage;
-using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
 namespace SF_Automation.TestCases.OpportunitiesDND
 {
-    class LV_T1697AndT1698OpportunityDetailsPageDNDOnOffEnableAndDisableMode:BaseClass
+    class LV_T1697_T1698_TMTT0048720_OpportunityDetailsPageDNDOnOffEnableAndDisableModeWithCaptialSolutionJobTypes:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -123,8 +124,9 @@ namespace SF_Automation.TestCases.OpportunitiesDND
                     extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " Clicked on DND On/Off Button ");
                     string txtMessage= randomPages.GetLVMessagePopup();
                     extentReports.CreateStepLogs("Pass", txtMessage);
+                    randomPages.CloseActiveTab(opportunityName);
                     homePageLV.UserLogoutFromSFLightningView();
-                    extentReports.CreateStepLogs("Pass", "User: " + userCAOExl + " switched to Classic and Loggout ");
+                    extentReports.CreateStepLogs("Pass", "CAO User: " + userCAOExl + " Loggout ");
 
                     //Login as user from group DND Approval Q
                     string userDNDApproverExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 3);
@@ -156,6 +158,12 @@ namespace SF_Automation.TestCases.OpportunitiesDND
                     //Get OppName after DND approved
                     string approvedOppName = opportunityDetails.GetOpportunityNameL();
                     extentReports.CreateStepLogs("Pass", opportunityDetails.ValidateOpportunityNameL(approvedOppName));
+                    
+                    //TMTI0120019	Verify that the new Job types are retained and displayed when making the Opportunity as DND.
+                    string jobTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "OppJobTypes", row, 1);
+                    Assert.AreEqual(jobTypeExl, opportunityDetails.GetJobTypeLV(), "Verify that the new Job types are retained and displayed when making the Opportunity as DND");
+                    extentReports.CreateStepLogs("Pass", "Job types: " + jobTypeExl + " retained and displayed when making the Opportunity as DND");
+                    randomPages.CloseActiveTab(approvedOppName);
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateStepLogs("Pass", "User: " + userDNDApproverExl + " Loggout ");
 
@@ -190,7 +198,7 @@ namespace SF_Automation.TestCases.OpportunitiesDND
                 }
                 usersLogin.UserLogOut();
                 driver.Quit();
-                extentReports.CreateStepLogs("Pass", "Browser Closed");
+                extentReports.CreateStepLogs("Pass", "Browser Closed Successfully");
             }
                 catch(Exception e)
                 {
