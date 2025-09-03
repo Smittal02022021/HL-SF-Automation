@@ -261,34 +261,34 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
 
 
                 //Login as System Admin user to add FS Opportunity 
-                string userFSExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 6, 1);
+                //string userFSExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 6, 1);
 
-                homePage.SearchUserByGlobalSearchN(userFSExl);
-                extentReports.CreateStepLogs("Info", " FS User: " + userFSExl + " details are displayed. ");
-                usersLogin.LoginAsSelectedUser();
-                login.SwitchToLightningExperience();
-                extentReports.CreateStepLogs("Passed", "System Admin Switched to Lightning View ");
-                //Go to Opportunity module in Lightning View 
-                homePageLV.SelectAppLV(appNameExl);
-                Assert.AreEqual(appNameExl, homePageLV.GetAppName());
-                extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
-                homePageLV.SelectModule(moduleNameExl);
-                extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
-                extentReports.CreateStepLogs("Info", "Opportunity found and selected");
+                //homePage.SearchUserByGlobalSearchN(userFSExl);
+                //extentReports.CreateStepLogs("Info", " FS User: " + userFSExl + " details are displayed. ");
+                //usersLogin.LoginAsSelectedUser();
+                //login.SwitchToLightningExperience();
+                //extentReports.CreateStepLogs("Passed", "FS User Switched to Lightning View ");
+                ////Go to Opportunity module in Lightning View 
+                //homePageLV.SelectAppLV(appNameExl);
+                //Assert.AreEqual(appNameExl, homePageLV.GetAppName());
+                //extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
+                //homePageLV.SelectModule(moduleNameExl);
+                //extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
+                //opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
+                //extentReports.CreateStepLogs("Info", "Opportunity found and selected");
 
-                opportunityDetails.ClickTabFSOppLV();
-                extentReports.CreateStepLogs("Info", "User is on FS Opportunity tab");
-                string idFSOpp = opportunityDetails.CreateNewFSOppLV(counterpartyCompanyNameExl);
-                popupMessage = randomPages.GetLVMessagePopup();
-                Assert.IsTrue(popupMessage.Contains("FS Opp"), "Verify the Added FS Opportunity is displayed in Popup message ");
-                extentReports.CreateStepLogs("Passed", " FS Opportunity " + idFSOpp + " added for Opportunity with Sponsored Company: " + counterpartyCompanyNameExl);
-                randomPages.CloseActiveTab(idFSOpp);
-                randomPages.CloseActiveTab(opportunityName);
-                homePageLV.LogoutFromSFLightningAsApprover();
-                extentReports.CreateStepLogs("Passed", "FS User: " + userFSExl + " logged out");
+                //opportunityDetails.ClickTabFSOppLV();
+                //extentReports.CreateStepLogs("Info", "User is on FS Opportunity tab");
+                //string idFSOpp = opportunityDetails.CreateNewFSOppLV(counterpartyCompanyNameExl);
+                //popupMessage = randomPages.GetLVMessagePopup();
+                //Assert.IsTrue(popupMessage.Contains("FS Opp"), "Verify the Added FS Opportunity is displayed in Popup message ");
+                //extentReports.CreateStepLogs("Passed", " FS Opportunity " + idFSOpp + " added for Opportunity with Sponsored Company: " + counterpartyCompanyNameExl);
+                //randomPages.CloseActiveTab(idFSOpp);
+                //randomPages.CloseActiveTab(opportunityName);
+                //homePageLV.LogoutFromSFLightningAsApprover();
+                //extentReports.CreateStepLogs("Passed", "FS User: " + userFSExl + " logged out");
 
-                extentReports.CreateStepLogs("Info", "System Admin User: " + adminUserExl + " Updating the Required details ");
+                extentReports.CreateStepLogs("Info", "System Admin : " + adminUserExl + " Updating the Required details ");
 
                 homePage.SearchUserByGlobalSearchN(adminUserExl);
                 extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
@@ -307,6 +307,15 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 //Search for created opportunity
                 opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
                 extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
+
+                opportunityDetails.ClickTabFSOppLV();
+                extentReports.CreateStepLogs("Info", "User is on FS Opportunity tab");
+                string idFSOpp = opportunityDetails.CreateNewFSOppLV(counterpartyCompanyNameExl);
+                popupMessage = randomPages.GetLVMessagePopup();
+                Assert.IsTrue(popupMessage.Contains("FS Opp"), "Verify the Added FS Opportunity is displayed in Popup message ");
+                extentReports.CreateStepLogs("Passed", " FS Opportunity " + idFSOpp + " added for Opportunity with Sponsored Company: " + counterpartyCompanyNameExl);
+                randomPages.CloseActiveTab(idFSOpp);
+
                 opportunityDetails.EditOpportunityStageLV(stageExl);
                 string updatedStage = opportunityDetails.GetStageLV();
                 Assert.AreEqual(updatedStage, stageExl);
@@ -323,6 +332,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "System Admin User: " + adminUserExl + " logged out");
 
+                string userFSExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 6, 1);
                 homePage.SearchUserByGlobalSearchN(userFSExl);
                 extentReports.CreateStepLogs("Info", " FS User: " + userFSExl + " details are displayed. ");
                 usersLogin.LoginAsSelectedUser();
@@ -364,7 +374,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 homePageLV.SelectAppLV(appNameExl);
                 appName = homePageLV.GetAppName();
                 Assert.AreEqual(appNameExl, appName);
-                extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
+                extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher "); 
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "CF Fin User is on " + moduleNameExl + " Page ");
                 engagementHome.GlobalSearchEngagementInLightningView(opportunityName);

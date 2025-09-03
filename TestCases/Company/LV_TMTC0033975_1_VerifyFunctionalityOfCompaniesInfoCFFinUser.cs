@@ -268,17 +268,7 @@ namespace SF_Automation.TestCases.Companies
                     companyDetail.DeleteCompanyLV();
                     extentReports.CreateStepLogs("Info", "Company: " +companyNameExl+" Deleted via 'Delete' button on the Company detail page for the System Admin");
 
-                    //randomPages.CloseActiveTab(companyNameExl);
                 }
-
-                //TMT0076679 Verify the functionality of the "Delete" button on the Company detail page for the System Admin
-                //rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Company");
-                //for (int row = 2; row <= rowCompanyName; row++)
-                //{
-                //    string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
-                //    companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
-                //    companyDetail.DeleteCompanyLV();
-                //}
                 homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");

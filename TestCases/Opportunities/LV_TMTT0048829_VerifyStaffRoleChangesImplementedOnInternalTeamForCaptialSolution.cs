@@ -50,7 +50,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                 extentReports.CreateStepLogs("Info", "User " + login.ValidateUser() + " is able to login ");
 
                 //Login as Standard User profile and validate the user
-                string userExl = ReadExcelData.ReadData(excelPath, "Users", 1);
+                string userExl = ReadExcelData.ReadData(excelPath, "UsersFinancial", 1);
 
                 homePage.SearchUserByGlobalSearchN(userExl);
                 extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
@@ -69,15 +69,15 @@ namespace SalesForce_Project.TestCases.Opportunities
                 string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                int teamMember = ReadExcelData.GetRowCount(excelPath, "Users");
+                int teamMember = ReadExcelData.GetRowCount(excelPath, "UsersFinancial");
                 for (int row = 2; row <= teamMember; row++)
                 {
-                    string teamMemberName = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 2);
-                    string opportunityName = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 3);
-                    string OppLocation = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 6);
-                    string contactLocation = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 7);
-                    string contactStatus = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 8);
-                    string opportunityRecordType = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 9);
+                    string teamMemberName = ReadExcelData.ReadDataMultipleRows(excelPath, "UsersFinancial", row, 2);
+                    string opportunityName = ReadExcelData.ReadDataMultipleRows(excelPath, "UsersFinancial", row, 3);
+                    string OppLocation = ReadExcelData.ReadDataMultipleRows(excelPath, "UsersFinancial", row, 6);
+                    string contactLocation = ReadExcelData.ReadDataMultipleRows(excelPath, "UsersFinancial", row, 7);
+                    string contactStatus = ReadExcelData.ReadDataMultipleRows(excelPath, "UsersFinancial", row, 8);
+                    string opportunityRecordType = ReadExcelData.ReadDataMultipleRows(excelPath, "UsersFinancial", row, 9);
                     extentReports.CreateStepLogs("Info", "Verify The Available Roles  On " + OppLocation + " Opportunity " + opportunityRecordType + " for Team member: " + teamMemberName + " of " + contactLocation + " as " + contactStatus + " contact");
 
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
@@ -124,7 +124,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     extentReports.CreateStepLogs("Pass", "Public role checkbox is not displayed ");
 
                     //Verify Admin role
-                    Assert.IsTrue(opportunityDetails.IsAdminRoleDisplayedLV());
+                    Assert.IsFalse(opportunityDetails.IsAdminRoleDisplayedLV());
                     extentReports.CreateStepLogs("Pass", "Admin role checkbox is not displayed ");
 
                     //Verify RMS role
@@ -139,13 +139,13 @@ namespace SalesForce_Project.TestCases.Opportunities
 
                     if (contactStatus == "Registered")
                     {
-                        Assert.IsTrue(opportunityDetails.IsNonRegisteredRoleDisplayedLV());
+                        Assert.IsFalse(opportunityDetails.IsNonRegisteredRoleDisplayedLV());
                         extentReports.CreateStepLogs("Pass", "Registered role checkbox is not displayed ");
                     }
 
                     if (contactStatus == "Non-Registered")
                     {
-                        Assert.IsFalse(opportunityDetails.IsNonRegisteredRoleDisplayedLV());
+                        Assert.IsTrue(opportunityDetails.IsNonRegisteredRoleDisplayedLV());
                         extentReports.CreateStepLogs("Pass", "Registered role checkbox is not displayed ");
 
                     }

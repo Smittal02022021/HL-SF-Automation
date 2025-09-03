@@ -255,10 +255,10 @@ namespace SF_Automation.TestCases.Opportunities
                     //TMTI0117839	Verify that the new Job type "DRC -ESOP" gets displayed in Opportunities -> Conflict check page. 
 
                     opportunityDetails.ClickConflicksCheckLV();
-                    jobTypeCC= opportunityDetails.GetConflictTypeJobTypeLV();
+                    jobTypeCC = opportunityDetails.GetConflictTypeJobTypeLV();
                     Assert.AreEqual(jobTypeCC, valJobType);
-                    extentReports.CreateStepLogs("Passed", "Job Type: " + jobTypeCC+ " updated on Opportunity Conflicts Check form ");
-                    
+                    extentReports.CreateStepLogs("Passed", "Job Type: " + jobTypeCC + " updated on Opportunity Conflicts Check form ");
+
                     //Submit Request To Engagement Conversion  
                     opportunityDetails.ClickRequestToEngL();                    
                     string msgSuccess = opportunityDetails.GetRequestToEngMsgL();
@@ -403,13 +403,13 @@ namespace SF_Automation.TestCases.Opportunities
                     engagementDetails.ClickConflicksCheckLV();
                     jobTypeCC = engagementDetails.GetConflictTypeJobTypeLV();
                     Assert.AreEqual(jobTypeCC, valJobType);
-                    extentReports.CreateStepLogs("Passed", "Job Type: " + jobTypeCC + " updatd on Engagement Conflicts Check form ");                    
+                    extentReports.CreateStepLogs("Passed", "Job Type: " + jobTypeCC + " updatd on Engagement Conflicts Check form ");
                     randomPages.CloseActiveTab(opportunityName);
 
                     //TMTI0117818 Verify that the Job Type "DRC – Dispute" gets displayed in the search results on searching with the Engagement number in Global search
                     //TMTI0117853 Verify that the Job Type "DRC – ESOP" gets displayed in the search results on searching with the Engagement number in Global search
                     //TMTI0117857 Verify that the Job Type "DRC – Estate & Gift" gets displayed in the search results on searching with the Engagement number in Global search
-                    
+
                     Assert.IsTrue(engagementHome.IsEngagementWithJobTypeFoundLV(engName, valJobType), "Verify that the Job Type: "+valJobType+ " gets displayed in the search results on searching with the Engagement Name in Global search");
                     extentReports.CreateStepLogs("Passed", "Engagement: " + engName + " with the Job Type: " + valJobType + " gets displayed in the search results on searching with the Engagement Name in Global search");
 
