@@ -6962,12 +6962,12 @@ namespace SF_Automation.Pages.Engagement
         }
         public string GetEngagementNumberL()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtEngNumberL, 30);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngNumberL, 20);
             return driver.FindElement(txtEngNumberL).Text;
         }
         public string GetEngagementNameL()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtEngNameL, 30);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEngNameL, 20);
             return driver.FindElement(txtEngNameL).Text;
         }
         public string GetStageLV()
