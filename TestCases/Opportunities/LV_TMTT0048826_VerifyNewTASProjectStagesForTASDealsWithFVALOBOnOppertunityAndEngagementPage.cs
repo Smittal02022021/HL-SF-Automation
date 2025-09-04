@@ -278,6 +278,7 @@ namespace SalesForce_Project.TestCases.Opportunities
                     /////////////////////////
                     if (valJobType.Contains("TAS"))
                     {
+
                         Assert.IsTrue(engagementDetails.IsTASProjectStageFieldDisplayedLV(), "Verify TAS TAS Project Stage field is present on Engagement detail page ");
                         extentReports.CreateStepLogs("Passed", "Verify TAS Project Stage field is present on Engagement detail page ");
 

@@ -11,7 +11,34 @@ using System;
 namespace SF_Automation.TestCases.OpportunitiesConversion
 {
     class LV_T1432_TMTT0024858_TMTT0030610_TMTT0035436_OppToEngConversionMappingForFVAJobTypesToResultingERPRTPortfolioValuationRoleLimit : BaseClass
-    {
+    {        
+        ExtentReport extentReports = new ExtentReport();
+        LoginPage login = new LoginPage();
+        OpportunityHomePage opportunityHome = new OpportunityHomePage();
+        AddOpportunityPage addOpportunity = new AddOpportunityPage();
+        UsersLogin usersLogin = new UsersLogin();
+        OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
+        AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
+        EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
+        EngagementHomePage engagementHome = new EngagementHomePage();
+        LVHomePage homePageLV = new LVHomePage();
+        RandomPages randomPages = new RandomPages();
+        HomeMainPage homePage = new HomeMainPage();
+
+        public static string fileT1432 = "LV_T1432_OpportunityToEngagementConversionMappingForFVAJobTypes";
+        private string txtTASProjectStageExl;
+        private string valTASProjectStage;
+        private bool areTASProjectStatgeOptionsPresent;
+        private string result;
+
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            Initialize();
+            ExtentReportHelper();
+            ReadJSONData.Generate("Admin_Data.json");
+            extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
+        }
         //Test Data is updated to check the New FVA Jo Type for following Tes Cases.//
         /*done
          TMTI0056866 Verify the availability of new Job Type- FA - Portfolio-Auto Struct Prd/Consulting in Job Type Picklist while adding new FVA Opportunity
@@ -45,29 +72,15 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
         TMTI0084221 Verify the status is updated in the Oracle ERP Information section
 
         */
-        ExtentReport extentReports = new ExtentReport();
-        LoginPage login = new LoginPage();
-        OpportunityHomePage opportunityHome = new OpportunityHomePage();
-        AddOpportunityPage addOpportunity = new AddOpportunityPage();
-        UsersLogin usersLogin = new UsersLogin();
-        OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
-        AddOpportunityContact addOpportunityContact = new AddOpportunityContact();
-        EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
-        EngagementHomePage engagementHome = new EngagementHomePage();
-        LVHomePage homePageLV = new LVHomePage();
-        RandomPages randomPages = new RandomPages();
-        HomeMainPage homePage = new HomeMainPage();
+        //TMTI0120321 Verify that a new picklist field "TAS Project Stage" is created on Opportunity details page for TAS Deals only and the default value in the Opportunity is "Active Opportunity".
+        //TMTI0120324 Verify that the "TAS Project Stage" field displays the mentioned values in the picklist in Opportunity details page.
+        //TMTI0120384 Verify that the "TAS project Stage" field values can be changed and saved in Opportunity details page
+        //TMTI0120395 Verify that a new picklist "TAS Project Stage" field is created on Engagement for TAS Deals only and the default value on converting an opportunity to Engagement is "Engaged – Ongoing"
+        //TMTI0120398 Verify that the "TAS Project Stage" field displays the mentioned values in the picklist in the Engagement details page
+        //TMTI0120401 Verify that the "TAS project Stage" field values can be changed and saved in Engagement details page.
+        //TMTI0120388 Verify that a new picklist "TAS Project Stage" field is not visible on Opportunity for Non-TAS Deals
+        //TMTI0121693 Verify that a new picklist ""TAS Project Stage"" field is not visible on Engagement for Non-TAS Deals.	
 
-        public static string fileT1432 = "LV_T1432_OpportunityToEngagementConversionMappingForFVAJobTypes";
-        
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            Initialize();
-            ExtentReportHelper();
-            ReadJSONData.Generate("Admin_Data.json");
-            extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
-        }
         [Test]
         public void OpportunityToEngagementConversionMappingForFVAOnLightningView()
         {
@@ -156,38 +169,26 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
                     //Login user
                     usersLogin.LoginAsSelectedUser();
-
-                    login.SwitchToClassicView();
-                    string userAdmin = login.ValidateUser();
-                    Assert.AreEqual(userAdmin.Contains(adminUserExl), true);
-                    extentReports.CreateStepLogs("Passed", "System Admin User: " + adminUserExl + " User logged in ");
-
-                    login.SwitchToClassicView();
-                    opportunityHome.SearchOpportunity(opportunityName);
-                    extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
-                    //update CC 
-                    opportunityDetails.UpdateOutcomeDetails(fileT1432);
-                    extentReports.CreateStepLogs("Info", "Conflict Check fields are updated");
-
-                    /////////////////////////////////////////////////////////////////////
                     login.SwitchToLightningExperience();
-                    extentReports.CreateStepLogs("Passed", "System Admin Switched to Lightning View ");
-                    //Go to Opportunity module in Lightning View 
+                    extentReports.CreateStepLogs("Passed", "Admin User: " + adminUserExl + " logged in on Lightning View");
                     homePageLV.SelectAppLV(appNameExl);
-                    Assert.AreEqual(appNameExl, homePageLV.GetAppName());
-                    extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
+                    appName = homePageLV.GetAppName();
+                    Assert.AreEqual(appNameExl, appName);
+                    extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
-                    extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
+                    extentReports.CreateStepLogs("Info", "Admin User is on " + moduleNameExl + " Page ");
                     //Search for created opportunity
-                    opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
-                    extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
+                    opportunityHome.GlobalSearchOpportunityInLightningView(opportunityName);
+                    extentReports.CreateStepLogs("Info", "Admin is Performing Required Actions ");
+                    //update CC and NBC checkboxes 
+                    opportunityDetails.UpdateOutcomeNBCApproveDetailsLV(valJobType);
 
                     //////Standard User don't have permission to modify the Internal team so System Admin is modifying the roles////////
                     opportunityDetails.UpdateInternalTeamDetailsLV(fileT1432);
                     extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are provided ");
                     opportunityDetails.ClickReturnToOpportunityLV();
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
-                    randomPages.CloseActiveTab("Internal Team");    
+                    randomPages.CloseActiveTab("Internal Team");
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
                     randomPages.CloseActiveTab(opportunityName);
                     homePageLV.UserLogoutFromSFLightningView();
@@ -211,10 +212,42 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
                     //Search for DND Approved opportunity with new name
-                    string result = opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
+                    result = opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
                     Assert.AreEqual("Record found", result);
                     extentReports.CreateStepLogs("Passed", result + " and selected");
-                   
+
+                    if (valJobType.Contains("TAS"))
+                    {
+                        //TMTI0120321	Verify that a new picklist field "TAS Project Stage" is created on Opportunity details page for TAS Deals only and the default value in the Opportunity is "Active Opportunity".
+                        Assert.IsTrue(opportunityDetails.IsTASProjectStageFieldDisplayedLV(), "Verify TAS TAS Project Stage field is present on opportunity detail page ");
+                        extentReports.CreateStepLogs("Passed", "Verify TAS Project Stage field is present on opportunity detail page ");
+
+                        txtTASProjectStageExl = ReadExcelData.ReadDataMultipleRows(excelPath, "OppTASPrjStage", 3, 1);
+                        valTASProjectStage = opportunityDetails.GetValueTASProjectStageLV();
+                        Assert.AreEqual(txtTASProjectStageExl, valTASProjectStage, "Verify TAS Project Stage default value is '" + valTASProjectStage + "' on Opportunity detail page ");
+                        extentReports.CreateStepLogs("Passed", "TAS Project Stage default value is '" + valTASProjectStage + "' on Opportunity detail page ");
+
+                        //TMTI0120324	Verify that the "TAS Project Stage" field displays the mentioned values in the picklist in Opportunity details page.
+                        opportunityDetails.ClickEditOpportunityLV();
+                        areTASProjectStatgeOptionsPresent = opportunityDetails.AreTASProjectStageDisplayedLV(fileT1432);
+                        Assert.IsTrue(areTASProjectStatgeOptionsPresent, "Verify TAS Project Stage field displays the mentioned values in the picklist in Opportunity details page");
+                        extentReports.CreateStepLogs("Passed", "TAS Project Stage field displays the All expected  values in the picklist in Opportunity details page");
+
+                        //TMTI0120384	Verify that the "TAS project Stage" field values can be changed and saved in Opportunity details page
+                        txtTASProjectStageExl = ReadExcelData.ReadDataMultipleRows(excelPath, "OppTASPrjStage", 4, 1);
+                        opportunityDetails.UpdateOppTASProjectStageLV(txtTASProjectStageExl);
+                        Assert.AreEqual(txtTASProjectStageExl, opportunityDetails.GetValueTASProjectStageLV(), "Verify that the 'TAS project Stage' field values can be changed and saved in Opportunity details page");
+                        extentReports.CreateStepLogs("Passed", "'TAS project Stage' field values can be changed and saved on Opportunity details page");
+
+
+                    }
+                    //TMTI0120388	 Verify that a new picklist "TAS Project Stage" field is not visible on Opportunity for Non-TAS Deals
+                    else
+                    {
+                        Assert.IsFalse(opportunityDetails.IsTASProjectStageFieldDisplayedLV(), "Verify that a new picklist 'TAS Project Stage' field is not visible on Opportunity for Non-TAS Deals: " + valJobType);
+                        extentReports.CreateStepLogs("Passed", "new picklist 'TAS Project Stage' field is not visible on Opportunity for Non-TAS Deals: " + valJobType);
+                    }
+
                     opportunityDetails.ClickRequestToEngL();
                     //Submit Request To Engagement Conversion 
                     string msgSuccess = opportunityDetails.GetRequestToEngMsgL();
@@ -271,6 +304,37 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
                     engagementHome.SearchEngagementInLightningView(engName);
 
+                    if (valJobType.Contains("TAS"))
+                    {
+                        //TMTI0120398 Verify that the "TAS Project Stage" field displays the mentioned values in the picklist in the Engagement details page
+                        Assert.IsTrue(engagementDetails.IsTASProjectStageFieldDisplayedLV(), "Verify TAS TAS Project Stage field is present on Engagement detail page ");
+                        extentReports.CreateStepLogs("Passed", "Verify TAS Project Stage field is present on Engagement detail page ");
+
+                        txtTASProjectStageExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EngTASPrjStage", 4, 1);
+                        valTASProjectStage = engagementDetails.GetValueTASProjectStageLV();
+                        Assert.AreEqual(txtTASProjectStageExl, valTASProjectStage, "Verify TAS Project Stage default value is '" + valTASProjectStage + "' on Engagement detail page ");
+                        extentReports.CreateStepLogs("Passed", "TAS Project Stage default value is '" + valTASProjectStage + "' on Engagement detail page ");
+
+                        //TMTI0120398	Verify that the "TAS Project Stage" field displays the mentioned values in the picklist in the Engagement details page
+                        engagementDetails.ClickEditEngagementLV();
+                        areTASProjectStatgeOptionsPresent = engagementDetails.AreEngTASProjectStageDisplayedLV(fileT1432);
+                        Assert.IsTrue(areTASProjectStatgeOptionsPresent, "Verify TAS Project Stage field displays the mentioned values in the picklist in Engagement details page");
+                        extentReports.CreateStepLogs("Passed", "TAS Project Stage field displays the All expected  values in the picklist in Engagement details page");
+
+                        //TMTI0120401	Verify that the "TAS project Stage" field values can be changed and saved in Engagement details page.
+                        txtTASProjectStageExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EngTASPrjStage", 3, 1);
+                        engagementDetails.UpdateEngTASProjectStageLV(txtTASProjectStageExl);
+                        Assert.AreEqual(txtTASProjectStageExl, engagementDetails.GetValueTASProjectStageLV(), "Verify that the 'TAS project Stage' field values can be changed and saved in Engagement details page");
+                        extentReports.CreateStepLogs("Passed", "'TAS project Stage' field values can be changed and saved on Engagement details page");
+
+
+                    }
+                    //TMTI0121693	"Verify that a new picklist ""TAS Project Stage"" field is not visible on Engagement for Non-TAS Deals.	"
+                    else
+                    {
+                        Assert.IsFalse(engagementDetails.IsTASProjectStageFieldDisplayedLV(), "Verify that a new picklist 'TAS Project Stage' field is not visible on Engagement for Non-TAS Deals: " + valJobType);
+                        extentReports.CreateStepLogs("Passed", "new picklist 'TAS Project Stage' field is not visible on Engagement for Non-TAS Deals: " + valJobType);
+                    }
 
                     //TMTI0056869 Verify the availability of new Job Types on Edit Engagement page
                     //TMTI0071654 Verify the availability of new Job Types on the Edit Engagement page
