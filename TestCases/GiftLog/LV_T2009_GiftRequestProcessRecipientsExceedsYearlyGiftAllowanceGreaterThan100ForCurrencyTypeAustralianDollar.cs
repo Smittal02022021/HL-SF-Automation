@@ -136,7 +136,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Page Title: " + giftRequestTitle + " is diplayed upon click of revise request button ");
 
                 //Set Desire date to Next Calendar year
-                newDesireDate = giftRequest.EnterDesiredDateLV(364);//365
+                newDesireDate = giftRequest.EnterDesiredDateLV(363);//365
                 extentReports.CreateLog("Next Calendar Year date is set to: " + newDesireDate);
 
                 //Click on submit gift request

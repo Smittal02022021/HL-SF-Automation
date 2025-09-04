@@ -305,7 +305,7 @@ namespace SF_Automation.Pages.GiftLog
             }
             if (colorOfValueNewGiftAmtYTD.Equals("rgba(0, 0, 0, 1)"))
             {
-                return "Red";
+                return "Black";
             }
             else
             {
