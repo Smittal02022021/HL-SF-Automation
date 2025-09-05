@@ -253,7 +253,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
                     randomPages.CloseActiveTab(engagementName);
-                    //randomPages.CloseActiveTab(opportunityName);
+                    randomPages.CloseActiveTab(opportunityName);
                     // login.SwitchToClassicView();
                     // engagementHome.ClickEngagementTab();
                     // engagementHome.SearchEngagement(engagementName);
