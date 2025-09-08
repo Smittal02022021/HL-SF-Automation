@@ -111,6 +111,7 @@ namespace SF_Automation.TestCases.Contact
                 Assert.IsTrue(lvContactDetails.VerifyUserCanEditAssistantNamePhoneAndEmail(assistantName, assistantPhone, assistantEmail));
                 extentReports.CreateStepLogs("Passed", "CF financial user is able to edit the Assistant Name, phone and email under the Additional information.");
 
+                lvContactDetails.CloseDuplicateCompanyAlertMessageDialogBox();
                 lvContactDetails.CloseTab("Test External | Contact");
                 lvContactDetails.CloseTab("Test External - Search");
 

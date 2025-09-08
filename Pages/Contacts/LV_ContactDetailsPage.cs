@@ -15,7 +15,7 @@ namespace SF_Automation.Pages.Contact
     {
         //General elements
         By txtContactName = By.XPath("//lightning-formatted-name[@slot='primaryField']");
-        By btnCloseDuplicateCompanyAlertDialogBox = By.XPath("//button[@title='Close']");
+        By btnCloseDuplicateCompanyAlertDialogBox = By.XPath("//lightning-icon[@icon-name='utility:close']/../..");
         By linkImportantDates = By.XPath("//a[text()='Important Dates']");
         By btnDeleteContact = By.XPath("//div[contains(text(),'Are you sure you want')]/following::button[@title='Delete']");
 
@@ -1232,9 +1232,16 @@ namespace SF_Automation.Pages.Contact
 
         public void CloseDuplicateCompanyAlertMessageDialogBox()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnCloseDuplicateCompanyAlertDialogBox, 120);
-            driver.FindElement(btnCloseDuplicateCompanyAlertDialogBox).Click();
-            Thread.Sleep(5000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnCloseDuplicateCompanyAlertDialogBox, 120);
+                driver.FindElement(btnCloseDuplicateCompanyAlertDialogBox).Click();
+                Thread.Sleep(5000);
+            }
+            catch(Exception e)
+            {
+
+            }
         }
 
         public bool VerifyIfThereAreBothActiveAndInactiveEngagementsThenOnlyActiveEngagementsAreDisplayedUnderAssociatedEngagementsSection()

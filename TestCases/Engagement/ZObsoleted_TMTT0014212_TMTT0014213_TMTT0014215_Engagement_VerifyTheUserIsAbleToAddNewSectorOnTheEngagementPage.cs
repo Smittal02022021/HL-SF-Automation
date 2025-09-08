@@ -11,7 +11,7 @@ using System;
 
 namespace SF_Automation.TestCases.Engagement
 {
-    class TMTT0014212_TMTT0014213_TMTT0014215_Engagement_VerifyTheUserIsAbleToAddNewSectorOnTheEngagementPage : BaseClass
+    class ZObsoleted_TMTT0014212_TMTT0014213_TMTT0014215_Engagement_VerifyTheUserIsAbleToAddNewSectorOnTheEngagementPage : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
