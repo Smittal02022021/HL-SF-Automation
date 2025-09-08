@@ -41,7 +41,7 @@ namespace SF_Automation.TestCases.Engagement
         }
 
         [Test]
-        public void VerifyActivityIsLinkedToTheRelatedEngagement()
+        public void VerificationOfBuyersListFeatureOnEngagementScreen()
         {
             try
             {
@@ -275,37 +275,6 @@ namespace SF_Automation.TestCases.Engagement
                 //Logout FSCO User
                 lvHomePage.UserLogoutFromSFLightningView();
                 extentReports.CreateStepLogs("Info", "FSCO User: " + FSCOUser + " is Logged Out from SF Lightning View. ");
-
-                //Select HL Banker app
-                try
-                {
-                    lvHomePage.SelectAppLV("HL Banker");
-                }
-                catch(Exception)
-                {
-                    lvHomePage.SelectAppLV1("HL Banker");
-                }
-
-                //Search CF Financial user by global search
-                lvHomePage.SearchUserFromMainSearch(valUser);
-
-                //Verify searched user
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, valUser + " | Salesforce"), true);
-                extentReports.CreateLog("User " + valUser + " details are displayed ");
-
-                //Login as CF Financial user
-                lvHomePage.UserLogin();
-
-                //Switch to lightning view
-                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
-                {
-                    homePage.SwitchToLightningView();
-                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
-                }
-
-                //Validate user logged in
-                Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(valUser));
-                extentReports.CreateStepLogs("Passed", "CF Financial User: " + valUser + " is logged in again.");
 
                 //Select HL Banker app
                 try

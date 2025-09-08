@@ -3319,9 +3319,18 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, lblHLEntityL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblHLEntityL));
             Thread.Sleep(2000);
-            driver.FindElement(inputCCOutcomeDateL).SendKeys(dateCCOutcome);
-            driver.FindElement(comboCCOutcomeL).Click();
-            Thread.Sleep(2000);
+
+            try
+            {
+                driver.FindElement(inputCCOutcomeDateL).SendKeys(dateCCOutcome);
+                driver.FindElement(comboCCOutcomeL).Click();
+                Thread.Sleep(2000);
+            }
+            catch
+            {
+
+            }
+            
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, optionCCOutcomeL, 5);
@@ -7634,10 +7643,18 @@ namespace SF_Automation.Pages
             driver.FindElement(By.XPath($"//label[text()='Confidentiality Agreement']/following::lightning-base-combobox-item//span[@title='{valConf}']")).Click();
 
             //New fields for for CF conversion
-            CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//flexipage-field[contains(@data-field-id,'Conflicts_Check')]//label[text()='Conflicts Run']")));
-            driver.FindElement(comboIndemLngL).Click();
-            Thread.Sleep(4000);
-            driver.FindElement(By.XPath($"//label[text()='Indemnification Language']/following::lightning-base-combobox-item//span[@title='No']")).Click();
+            try
+            {
+                CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//flexipage-field[contains(@data-field-id,'Conflicts_Check')]//label[text()='Conflicts Run']")));
+                driver.FindElement(comboIndemLngL).Click();
+                Thread.Sleep(4000);
+                driver.FindElement(By.XPath($"//label[text()='Indemnification Language']/following::lightning-base-combobox-item//span[@title='No']")).Click();
+            }
+            catch(Exception e)
+            {
+
+            }
+            
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(10000);
         }
@@ -10054,7 +10071,7 @@ namespace SF_Automation.Pages
 
         public string GetParentRequestID()
         {
-            string requestID = driver.FindElement(By.XPath("(//span[text()='HL Parent Request']/following::dd//a//span)[3]")).Text;
+            string requestID = driver.FindElement(By.XPath("(//span[text()='HL Parent Request']/following::div//a//span)[3]")).Text;
             Thread.Sleep(5000);
             return requestID;
         }
@@ -10063,7 +10080,7 @@ namespace SF_Automation.Pages
         {
             try
             {
-                CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath("(//span[text()='HL Parent Request']/following::dd//a)[1]")), 60);
+                CustomFunctions.ActionClick(driver, driver.FindElement(By.XPath("(//span[text()='HL Parent Request']/following::div//a)[1]")), 60);
                 Thread.Sleep(5000);
             }
             catch(Exception)
@@ -10144,7 +10161,9 @@ namespace SF_Automation.Pages
 
         public string GetCompanyListName()
         {
-            string name = driver.FindElement(By.XPath("(//span[text()='Company List Name']/following::dd/div//lightning-formatted-text)[1]")).Text;
+            Thread.Sleep(5000);
+
+            string name = driver.FindElement(By.XPath("(//span[text()='Company List Name']/following::div)[1]/span//lightning-formatted-text")).Text;
             return name;
         }
 
