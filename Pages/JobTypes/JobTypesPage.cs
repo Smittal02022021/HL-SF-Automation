@@ -225,6 +225,7 @@ namespace SalesForce_Project.Pages.JobTypes
         {
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             jse.ExecuteScript("window.scrollTo(0,5000)");
+            Thread.Sleep(2000);
             IReadOnlyCollection<IWebElement> valReqJobTypes = driver.FindElements(lnkReqJobTypeNameL);
             var actualValue = valReqJobTypes.Select(x => x.Text).ToArray();
             string isFound = "False";

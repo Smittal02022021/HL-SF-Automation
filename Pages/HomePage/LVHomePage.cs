@@ -387,12 +387,12 @@ namespace SF_Automation.Pages.HomePage
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, userImage, 120);
+            WebDriverWaits.WaitUntilEleVisible(driver, userImage, 20);
             driver.FindElement(userImage).Click();
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, linkLogOut, 120);
+            //Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, linkLogOut, 20);
             driver.FindElement(linkLogOut).Click();
-            Thread.Sleep(10000);
+            Thread.Sleep(5000);
         }
 
         public void SwitchBackToClassicView()

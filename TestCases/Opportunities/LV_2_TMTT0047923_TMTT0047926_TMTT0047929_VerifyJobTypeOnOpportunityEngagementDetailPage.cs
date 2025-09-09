@@ -246,8 +246,8 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Passed", "ERP Product Type Code: " + productCode + " in ERP section for Job Type: " + valJobType);
 
                     string ERPStatus = randomPages.GetERPLastIntegrationStatusLV();
-                    Assert.AreEqual("Success", ERPStatus, "Verify the Engagement ERP Last Integration Status as Success ");
-                    extentReports.CreateStepLogs("Passed", "Engagement ERP Last Integration Status updated: " + ERPStatus+ " for the opportunity having Job type as "+valJobType);
+                    Assert.AreEqual("Success", ERPStatus, "Verify the Opportunity ERP Last Integration Status as Success ");
+                    extentReports.CreateStepLogs("Passed", "Opportunity ERP Last Integration Status updated: " + ERPStatus+ " for the opportunity having Job type as "+valJobType);
 
                     //Only works on VM only 
                     //TMTI0117819	Verify that the new Job type "DRC -Dispute" gets displayed in Opportunities -> Conflict check page. 

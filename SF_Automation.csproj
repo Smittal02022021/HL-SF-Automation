@@ -783,6 +783,7 @@
     <Compile Include="TestCases\LV_Activities\TMT0072151_TMT0072475_TMT0072477_TMT0072479_VerifyTypesOfActivitiesCreatedByBankerInSF.cs" />
     <Compile Include="TestCases\Opportunities\Clonebutton_DisplayedOrNot_Update.cs" />
     <Compile Include="TestCases\Opportunities\LV_1_TMTT0024069_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage.cs" />
+    <Compile Include="TestCases\Opportunities\LV_1_CF_TMTT0049771_VerifyMergersAcquisitionsMAChangesInOpportunityCreationToEngagementConversionWithTheApprovalProcess.cs" />
     <Compile Include="TestCases\Opportunities\LV_3_TMTT0048829_VerifyStaffRoleChangesImplementedOnInternalTeamForCaptialSolution.cs" />
     <Compile Include="TestCases\Opportunities\LV_2_TMTT0048829_VerifyStaffRoleChangesImplementedOnInternalTeamForCaptialSolution.cs" />
     <Compile Include="TestCases\Opportunities\LV_2_TMTT0024069_TMTT0048720_VerifyUserIsAbleToEditOtherJobTypeToNewJobTypeForExistingOpportunityEngagementCaptialSolutionchangesLV.cs" />

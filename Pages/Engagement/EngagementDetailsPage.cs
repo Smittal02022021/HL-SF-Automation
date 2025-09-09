@@ -874,6 +874,7 @@ namespace SF_Automation.Pages.Engagement
         By tabRevenueL = By.XPath("(//a[text()='Revenue'])[1]");
         By subtabRevenueL = By.XPath("(//a[text()='Revenue'])[2]");
         By btnAddRevAccuL = By.XPath("//button[text()='Add Revenue Accrual']");
+        By btnAddAccrualL = By.XPath("//button[text()='Add Accrual']");
         By txtRevAccuJobTypeL = By.XPath("//div[contains(@data-target-selection-name,'Revenue_Accrual__c.Job_Type')]//lightning-formatted-text");
         By txtRevAccuNumberL = By.XPath("//records-entity-label[text()='Revenue Accrual']//ancestor::h1//lightning-formatted-text");
         By txtEstTransMCapL = By.XPath("//span[contains(text(),'Transaction Size')]/../../..//lightning-formatted-text");
@@ -7939,7 +7940,7 @@ namespace SF_Automation.Pages.Engagement
         public void ClickEngAdministrationTabLV()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(tabInformationL));
+            js.ExecuteScript("window.scrollTo(0,0)");
             WebDriverWaits.WaitUntilEleVisible(Driver, subTabAdmin, 10);
             driver.FindElement(subTabAdmin).Click();
             Thread.Sleep(5000);
@@ -8923,5 +8924,68 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(10000);
         }
 
+        By inputPAFeesL = By.XPath("//span[text()='Period Accrued Fees']/../../input");
+        By txtLatestNewValueL = By.XPath("(//article//dd//lightning-formatted-text)[2]");
+        By txtTotalExtimatedFeeL = By.XPath("//table//tbody//td[@data-label='Total Estimated Fee']");
+        public void AddAccrualLV(string accruedFees)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            WebDriverWaits.WaitUntilEleVisible(driver, btnAddAccrualL, 5);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnAddAccrualL));
+            driver.FindElement(btnAddAccrualL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, inputPAFeesL, 10);
+            driver.FindElement(inputPAFeesL).SendKeys(accruedFees);
+            driver.FindElement(btnSaveConfirmSubmit).Click();
+        }
+        public string GetHistoryNewValueLV()
+        {
+            Thread.Sleep(5000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,1800)");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtLatestNewValueL, 10);
+            IWebElement elm= driver.FindElement(txtLatestNewValueL);
+            return elm.Text;
+        }
+        public string GetRevenueAccruTotalEstimatedFeeLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            WebDriverWaits.WaitUntilEleVisible(driver, tabRevenueL, 10);
+            driver.FindElement(tabRevenueL).Click();
+            js.ExecuteScript("window.scrollTo(0,1800)");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtTotalExtimatedFeeL, 10);
+            IWebElement elm = driver.FindElement(txtTotalExtimatedFeeL);
+            return elm.Text;
+        }
+        public bool IsModifyRoleButtonDisplayedInternalTeamDetailsLV()
+        {
+            bool isFound = false;
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(tabInternalTeamL));
+            driver.FindElement(tabInternalTeamL).Click();
+            Thread.Sleep(8000);
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
+            Thread.Sleep(5000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnModifyRolesL, 10);
+                isFound = driver.FindElement(btnModifyRolesL).Displayed;
+            }
+            catch { isFound = false; }
+            driver.SwitchTo().DefaultContent();
+            return isFound;
+        }
+
+        public bool IsButtonAddRevenueDisplayedLV()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnAddAccrualL, 5);
+                return driver.FindElement(btnAddAccrualL).Displayed;
+            }
+            catch { return false; }
+        }
     }
 }

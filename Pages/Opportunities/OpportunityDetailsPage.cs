@@ -10928,6 +10928,26 @@ namespace SF_Automation.Pages
             driver.FindElement(btnSaveDetailsL).Click(); 
             Thread.Sleep(10000);
         }
+
+        public bool IsModifyRoleButtonDisplayedInternalTeamDetailsLV()
+        {
+            bool isFound = false;
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(tabInternalTeamL));
+            driver.FindElement(tabInternalTeamL).Click();
+            Thread.Sleep(8000);
+            driver.SwitchTo().Frame(driver.FindElement(frameInternalTeamDetailPage));
+            Thread.Sleep(5000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnModifyRolesL, 10);
+                isFound= driver.FindElement(btnModifyRolesL).Displayed;
+            }
+            catch { isFound= false; }
+            driver.SwitchTo().DefaultContent();
+            return isFound;
+        }
     }
 }
 

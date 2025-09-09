@@ -1537,6 +1537,48 @@ namespace SF_Automation.Pages.Common
             {
                 return "No interruption popup displayed";
             }
-        }        
+        }
+        By txtAssignToLV = By.XPath("//div[@title='Assigned To:']/..//span");
+        By txtActualApproverLV = By.XPath("//div[@title='Actual Approver:']/..//span");
+        By txtActualApprovedLV = By.XPath("//div[@title='Actual Approver:']/..//a");
+        By txtStatusLV = By.XPath("//div[@title='Status:']/..//span");
+        By txtCommentsLV = By.XPath("//div[@title='Comments:']/..//span");
+
+        public string GetHistoryAssignToNameLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,1800)");
+            WebDriverWaits.WaitUntilEleVisible(driver, txtAssignToLV, 5);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtAssignToLV));
+            return driver.FindElement(txtAssignToLV).Text;
+        }
+
+        public string GetHistoryActualApproverLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtActualApproverLV, 5);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtActualApproverLV));
+            return driver.FindElement(txtActualApproverLV).Text;
+        }
+        public string GetHistoryActualApprovedLV()
+        {
+            //WebDriverWaits.WaitUntilEleVisible(driver, txtActualApprovedLV, 5);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(txtActualApprovedLV));
+            IWebElement elm = driver.FindElements(txtActualApprovedLV).First();
+            return elm.Text;
+        }
+        public string GetHistoryStatusLV()
+        {
+            //WebDriverWaits.WaitUntilEleVisible(driver, txtStatusLV, 5);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(txtStatusLV));
+            IWebElement elm = driver.FindElements(txtStatusLV).First();
+            return elm.Text;
+        }
+        public string GetHistoryCommentsLV()
+        {
+            //WebDriverWaits.WaitUntilEleVisible(driver, txtCommentsLV, 5);
+            //CustomFunctions.MoveToElement(driver, driver.FindElement(txtCommentsLV));
+            IWebElement elm = driver.FindElements(txtCommentsLV).First();
+            return elm.Text;
+        }
     }
 }
