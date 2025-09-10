@@ -33,7 +33,7 @@ namespace SalesForce_Project.TestCases.JobTypes
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            InitializeZoom70();
+            Initialize();
             ExtentReportHelper();
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);

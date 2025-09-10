@@ -8961,7 +8961,7 @@ namespace SF_Automation.Pages.Engagement
         public bool IsModifyRoleButtonDisplayedInternalTeamDetailsLV()
         {
             bool isFound = false;
-            Thread.Sleep(7000);
+            Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabInternalTeamL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(tabInternalTeamL));
             driver.FindElement(tabInternalTeamL).Click();

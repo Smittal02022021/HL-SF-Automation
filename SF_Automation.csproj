@@ -784,6 +784,7 @@
     <Compile Include="TestCases\Opportunities\Clonebutton_DisplayedOrNot_Update.cs" />
     <Compile Include="TestCases\Opportunities\LV_1_TMTT0024069_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage.cs" />
     <Compile Include="TestCases\Opportunities\LV_1_CF_TMTT0049771_VerifyMergersAcquisitionsMAChangesInOpportunityCreationToEngagementConversionWithTheApprovalProcess.cs" />
+    <Compile Include="TestCases\Opportunities\LV_2_CF_TMTT0049771_VerifyTheCAOAndNonCAOCFGroupAndCAOMAAndOrCAOCSPermissionSetsHasModifiedInternalTeamAccessOnEngagementWithERPMAAndOrCS.cs" />
     <Compile Include="TestCases\Opportunities\LV_3_TMTT0048829_VerifyStaffRoleChangesImplementedOnInternalTeamForCaptialSolution.cs" />
     <Compile Include="TestCases\Opportunities\LV_2_TMTT0048829_VerifyStaffRoleChangesImplementedOnInternalTeamForCaptialSolution.cs" />
     <Compile Include="TestCases\Opportunities\LV_2_TMTT0024069_TMTT0048720_VerifyUserIsAbleToEditOtherJobTypeToNewJobTypeForExistingOpportunityEngagementCaptialSolutionchangesLV.cs" />
@@ -797,7 +798,7 @@
     <Compile Include="TestCases\Opportunities\LV_FVA_TMTC0036135_ValidationOfCommentsAndMappingOnConvertingOpportunityToEngagement.cs" />
     <Compile Include="TestCases\Opportunities\LV_T1197andT1198AddOpportunityInOpportunityHomeLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_T1426_112115_11219_11220_11221_TMTT0024069_VerifyOpportunityToEngagementConversionMappingForCFJobTypesOnOpportunityEngagementPageLightningView.cs" />
-    <Compile Include="TestCases\Opportunities\LV_T1432_TMTT0024858_TMTT0030610_TMTT0035436_OppToEngConversionMappingForFVAJobTypesToResultingERPRTPortfolioValuationRoleLimit.cs" />
+    <Compile Include="TestCases\Opportunities\LV_T1432_TMTT0024858_TMTT0030610_TMTT0035436_TMTT0048826_VerifyNewTASProjectStagesForTASDealOppToEngConversionMappingForFVAJobTypesToResultingERPRT.cs" />
     <Compile Include="TestCases\Opportunities\LV_T1592_TMTT0011214_TMTT0011218_CF_ValidationsToBeCompletedBeforeCFOpportunityIsApproved_ValidateWomenLedValues_OptionalWomenLed.cs" />
     <Compile Include="TestCases\Opportunities\LV_T1624_OpportunityToEngagementConversionMappingForFRJobTypes.cs" />
     <Compile Include="TestCases\Opportunities\LV_T1683AndT2074_OpportunityDetails_HLInternalTeam_EditAndUpdateAndClientSubjectAsPrimary.cs" />
@@ -844,7 +845,7 @@
     <Compile Include="TestCases\Opportunities\LV_TMTT0048213_FR_VerifyLocationWhereBenefitWasProvidedFieldValueIsMappedToEngagementUponConversion.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0048213_FVA_VerifyLocationWhereBenefitWasProvidedFieldValueIsMappedToEngagementUponConversion.cs" />
     <Compile Include="TestCases\Opportunities\LV_1_TMTT0048664_VerifyWaiveRFOFieldInOpportunityEngagementConversion.cs" />
-    <Compile Include="TestCases\Opportunities\LV_TMTT0048826_VerifyNewTASProjectStagesForTASDealsWithFVALOBOnOppertunityAndEngagementPage.cs" />
+    <Compile Include="TestCases\Opportunities\Dup_LV_TMTT0048826_VerifyNewTASProjectStagesForTASDealsWithFVALOBOnOppertunityAndEngagementPage.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0048826_VerifyTASProjectStagesForTASDealsWithFVALOBOnReport.cs" />
     <Compile Include="TestCases\Opportunities\LV_1_TMTT0048829_VerifyStaffRoleChangesImplementedOnInternalTeamForCaptialSolution.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS01_ValidateERPSection_PostCreationOfOpportunityLightningView.cs" />

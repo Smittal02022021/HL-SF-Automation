@@ -21,6 +21,7 @@ namespace SF_Automation.UtilityFunctions
             ChromeOptions options = new ChromeOptions();
             //options.AddArguments("user-data-dir=" + path);
             //options.AddArguments("profile-directory=Default");
+            //options.AddArgument("--headless");  // Run in headless mode
             options.AddArgument("--disable-notifications"); // Disables notifications
             options.AddArguments("--force-device-scale-factor=70/100");// set the zoom level % 
             driver = new ChromeDriver(options);            

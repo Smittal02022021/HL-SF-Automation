@@ -199,11 +199,11 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     //CustomFunctions.PageReload(driver);
                     CustomFunctions.SwitchToWindow(driver, 1);
                     extentReports.CreateStepLogs("Info", "User Switched to new tab ");
-                    
 
 
 
-                    
+
+
                     /*
 
                     //TMTI0063918 Verify that the counterparty's comments are visible on the counterparty's details page and mapped correctly after conversion into the engagement 
@@ -213,7 +213,7 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
 
                     */
 
-                    
+
 
 
                     //TMTI0063912 Verify the functionality of adding new Counterparty Contact in Opportunity Counter party Detail Page
@@ -234,6 +234,9 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
 
                     //TMTI0063918 Verify that the counterparty's comments are visible on the counterparty's details page and mapped correctly after conversion into the engagement 
                     //Adding Opportunity Counterparty Comments from updated View(Footer section on detail page) 
+
+                    
+                    
                     addCounterparty.ClickAddOppCPCommentsLV();
                     string commentTypeCPExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", 3, 2);
                     string commentTextCPExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", 2, 3);
@@ -244,11 +247,14 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     string commentTypeCP = addCounterparty.GetCommentTypeLV();
                     Assert.AreEqual(commentTypeCP, commentTypeCPExl, "Verify Comments added with Type:  " + commentTypeCPExl);
                     randomPages.CloseActiveTab("OCC");
+
+
                     ///////**********************
                     ///
 
 
-
+                    //Checking the ISU0012080
+                    /*
                     //Verify the ways of add contact and Adding Contacts
                     addCounterparty.ButtonClick("New Opportunity Counterparty Contact");
                     string counterpartyContactNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyContact", 2, 1);
@@ -265,6 +271,9 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     addCounterparty.ButtonClick("Back");
                     CustomFunctions.CloseWindow(driver, 1);
                     CustomFunctions.SwitchToWindow(driver, 0);
+
+                    */
+
                     //CustomFunctions.PageReload(driver);
 
                     //****UI Changes not QuickLink to view added contact
@@ -478,12 +487,16 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     Assert.IsTrue(addCounterparty.IsCommentDisplayedInQuickLinkList(commentsExl));
                     extentReports.CreateStepLogs("Passed", "Opportunity Counterparties Comments are mapped on Engagement page after conversion ");
                     addCounterparty.CloseEngCounterpartiesCommentsTab();
+
+                    /*//Checking the ISU0012080
                     engagementDetails.ClickPanelRightEngagementPageLV("Contacts");
                     Assert.IsTrue(addCounterparty.IsContactDisplayedInQuickLinkList(valCPContact));
                     extentReports.CreateStepLogs("Passed", "Opportunity Counterparties Contact: " + valCPContact + " is mapped on Engagement page after conversion ");
                     CustomFunctions.CloseWindow(driver, 1);
                     CustomFunctions.SwitchToWindow(driver, 0);
                     extentReports.CreateStepLogs("Info", "Counterparty Company Page is closed user switched previous Tab ");
+                    
+                    */
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateStepLogs("Info", valUser + " logged out ");
                     driver.Quit();
