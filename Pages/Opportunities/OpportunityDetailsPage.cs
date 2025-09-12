@@ -3454,7 +3454,7 @@ namespace SF_Automation.Pages
                 Thread.Sleep(2000);
             }
             driver.FindElement(optionCCOutcomeL).Click();
-            if (valJobType.Equals("Buyside") || valJobType.Equals("Sellside") || valJobType.Equals("Debt Financing") || valJobType.Equals("Liability Management") || valJobType.Equals("Primary Capital Advisory") || valJobType.Equals("Directs")|| valJobType.Equals("Equity Placements") || valJobType.Equals("GP Stake Sale") || valJobType.Equals("LP-led Secondaries"))
+            if (valJobType.Equals("Buyside") || valJobType.Equals("Sellside") || valJobType.Equals("Debt Financing") || valJobType.Equals("Liability Management") || valJobType.Equals("Primary Capital Advisory") || valJobType.Equals("Directs")|| valJobType.Equals("Equity Placements") || valJobType.Equals("GP Stake Sale") || valJobType.Equals("LP-Led Secondaries"))
             {
                 CustomFunctions.MoveToElement(driver, driver.FindElement(lblCreatedBy));
                 Thread.Sleep(2000);
