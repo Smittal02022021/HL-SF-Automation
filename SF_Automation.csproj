@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="packages\MSTest.TestAdapter.3.0.0\build\net462\MSTest.TestAdapter.props" Condition="Exists('packages\MSTest.TestAdapter.3.0.0\build\net462\MSTest.TestAdapter.props')" />
   <Import Project="packages\Microsoft.Extensions.Configuration.UserSecrets.2.2.0\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.props" Condition="Exists('packages\Microsoft.Extensions.Configuration.UserSecrets.2.2.0\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.props')" />
@@ -43,6 +43,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoItX3.Assembly, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a646454c8d475470, processorArchitecture=MSIL">
+      <HintPath>packages\AutoItX.Dotnet.3.3.14.5\lib\AutoItX3.Assembly.dll</HintPath>
+    </Reference>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>packages\BouncyCastle.Cryptography.2.5.1\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
     <Reference Include="DnsClient, Version=1.6.0.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
       <HintPath>packages\DnsClient.1.6.0\lib\net471\DnsClient.dll</HintPath>
     </Reference>
@@ -51,6 +57,9 @@
     </Reference>
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <HintPath>packages\SikuliIntegrator.1.1.0\lib\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.4, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\iTextSharp.5.5.13.4\lib\net461\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore, Version=2.1.7.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.AspNetCore.2.1.7\lib\netstandard2.0\Microsoft.AspNetCore.dll</HintPath>
@@ -276,6 +285,9 @@
     </Reference>
     <Reference Include="SikuliSharp, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\SikuliSharp.1.5.0\lib\net451\SikuliSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp, Version=3.116.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>packages\SkiaSharp.3.116.1\lib\net462\SkiaSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -654,9 +666,14 @@
     <Compile Include="TestCases\Engagement\TMTT0014212_TMTT0014213_TMTT0014215_Engagement_VerifyTheUserIsAbleToAddNewSectorOnTheEngagementPage.cs" />
     <Compile Include="TestCases\Engagement\TMTT0017891_ViewCounterparties_EditBidFunctionality.cs" />
     <Compile Include="TestCases\Engagement\TMTT0024518_VerifyTheFunctionalityOfFREngagementSummaryInSFLightning.cs" />
-    <Compile Include="TestCases\Engagement\TMTT0027451_CommentsAndContactsMappingToEngUponConversionFromOpportunity.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0027451_CommentsAndContactsMappingToEngUponConversionFromOpportunityCounterparty.cs" />
     <Compile Include="TestCases\Engagement\TMTT0027453_ViewCounterparties_MassCheckbox.cs" />
     <Compile Include="TestCases\Engagement\TMTT0027456_7457_7444_7458_7446_7448_7445_7449_7451_7453_7447_7455_0267_0270_View_Email_Access_Delete_ViewAll.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0046853_CFEngagementSumamry_VerificationOfBuyerSectionAndSubsections.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0046852_CFEngagementSumamry_VerificationOfTimelineSectionAndSubsections.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0046851_CFEngagementSumamry_VerificationOfCapitalizationDetailsSectionAndSubsections.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0046850_CFEngagementSumamry_VerificationOfSellerSectionAndSubsections.cs" />
+    <Compile Include="TestCases\Engagement\TMTT0046849_VerificationOfEngagementBasicInformationOnEngagementSummaryPage.cs" />
     <Compile Include="TestCases\Engagement\TMTT0031164_VerifyTheInformationUnderEngagementInformationTab.cs" />
     <Compile Include="TestCases\Engagement\TMTT0031167_VerifyTheFieldsAndFunctionalityOfFinancialsProjectionsTab.cs" />
     <Compile Include="TestCases\Engagement\TMTT0031209_ VerifyTheFieldsAndFunctionalityOfTheDistressedMAInformationTab.cs" />
@@ -865,6 +882,7 @@
     <Compile Include="TestCases\Opportunities\TMTI63910_63912_63913_63918_63922_63923_70811_T1699_1701_1702_VerifyCounterpartiesDetailsAreMappedFromOpportunityToEngagementAfterConversion.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0005815_TMTT0005817NBCAndCNBCAccessExistingFunctionality_RestrictedAccess_Lightning.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0007935_Opportunity_AdditionalClientAndSubject_NewOpportunity.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0007935_T1649_Opportunity_AdditionalClientAndSubject_NewOpportunity_Lightning.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0007939_Opportunity_AdditionalClientAndSubject_NewOpportunity_ClientSubjectFunctionalities.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0007939_Opportunity_AdditionalClientAndSubject_NewOpportunity_ClientSubjectFunctionalities_Lightning.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0008023_Opportunity_AdditionalClientAndSubject_MassEditFunctionalities.cs" />
@@ -879,14 +897,19 @@
     <Compile Include="TestCases\Opportunities\TMTT0012824_TMTT0024069_VerifyNewJobForLOBOtherThanCF.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0012824_VerifyUserCanEditAnyOtherJobTypesToNewJobTypeForExistingCFOpportunityEngagement.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013005_TMTT0013007_TMTT0013008_TMTT0013009_TMTT0013010_TMTT0013011_TMTT0013013_TMTT0013015_ValidateTailExpires.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0013974_VerifyThePopUpLoadsToSelectTheFormType_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0014637_EstimatedValuationFieldIsIndependentInputFieldOnOpportunityAndNBC_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0014789_VerificationOfRetainerShouldNoLongerReadInMillions_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0046328_VerifyTheFunctionalityOfTheRemovalOfTheMinimumFeeFromECMJobTypeForFlatFee_Part2.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013765_TMTT0014798_TMTT0033330_VerifyTheAvailableFieldsOnNBCLightningFormAndAddFinancialLayout_ReviewSectionChanges.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013767_TMTT0013772_TMTT0014070_TMTT0014796_NBCFormLightening_HeadersAndReqFields_SubmitforReview_EmailTemplate_DateSubmitted.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013837_VerifyTheAvailableFieldsOnCNBCLightningForm.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0013844_CNBCForm_RequiredFields_SubmitForReview.cs" />
-    <Compile Include="TestCases\Opportunities\TMTT0013974_VerifyThePopUpLoadsToSelectTheFormType.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0046328_VerifyTheFunctionalityOfTheRemovalOfTheMinimumFeeFromECMJobTypeForFlatFee.cs" />
+    <Compile Include="TestCases\Opportunities\zTMTT0013974_VerifyThePopUpLoadsToSelectTheFormType.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0014212_TMTT0014213_TMTT0014215_Opportunity_VerifyTheUserIsAbleToAddNewSectorOnTheOpportunityPage.cs" />
-    <Compile Include="TestCases\Opportunities\TMTT0014637_EstimatedValuationFieldIsIndependentInputFieldOnOpportunityAndNBC.cs" />
-    <Compile Include="TestCases\Opportunities\TMTT0014789_VerificationOfRetainerShouldNoLongerReadInMillions.cs" />
+    <Compile Include="TestCases\Opportunities\zTMTT0014637_EstimatedValuationFieldIsIndependentInputFieldOnOpportunityAndNBC.cs" />
+    <Compile Include="TestCases\Opportunities\zTMTT0014789_VerificationOfRetainerShouldNoLongerReadInMillions.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0014792_WhenConflictCheckStatusIsInProgress_CCQuestionsAreRequired.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0016556AndTMTT0014794_NBCFormLightening_VerifyTheFeeCalcualtionsBasedOnTransactionalTypeAsFlatFee_AddProgressAndRetainerCreditableCalculationsToFlatFee.cs" />
     <Compile Include="TestCases\Opportunities\TMTT0016558AndTMTT0014786_NBCFormLightening_VerifyTheFeeCalcualtionsBasedOnTransactionalTypeAsIncentiveStructure_MinFeeCalculationOnTotalEstimatedFee.cs" />
@@ -1371,7 +1394,8 @@
     <Error Condition="!Exists('packages\Microsoft.AspNetCore.Server.IIS.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IIS.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.AspNetCore.Server.IIS.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IIS.targets'))" />
     <Error Condition="!Exists('packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.0\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets'))" />
     <Error Condition="!Exists('packages\Selenium.WebDriver.4.18.1\build\Selenium.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.4.18.1\build\Selenium.WebDriver.targets'))" />
-    <Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.133.0.6943.12600\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.133.0.6943.12600\build\Selenium.WebDriver.ChromeDriver.targets'))" />
+    <Error Condition="!Exists('packages\AutoItX.Dotnet.3.3.14.5\build\AutoItX.Dotnet.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\AutoItX.Dotnet.3.3.14.5\build\AutoItX.Dotnet.targets'))" />
+    <Error Condition="!Exists('packages\Selenium.WebDriver.ChromeDriver.139.0.7258.6800\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Selenium.WebDriver.ChromeDriver.139.0.7258.6800\build\Selenium.WebDriver.ChromeDriver.targets'))" />
   </Target>
   <Import Project="packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets" Condition="Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net472.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net472.targets')" />
   <Import Project="packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets" Condition="Exists('packages\MongoDB.Libmongocrypt.1.3.0\build\MongoDB.Libmongocrypt.targets')" />
@@ -1383,5 +1407,6 @@
   <Import Project="packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets" Condition="Exists('packages\Microsoft.NETFramework.ReferenceAssemblies.net461.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net461.targets')" />
   <Import Project="packages\Selenium.WebDriver.ChromeDriver.117.0.5938.149000\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.117.0.5938.149000\build\Selenium.WebDriver.ChromeDriver.targets')" />
   <Import Project="packages\Selenium.WebDriver.4.18.1\build\Selenium.WebDriver.targets" Condition="Exists('packages\Selenium.WebDriver.4.18.1\build\Selenium.WebDriver.targets')" />
-  <Import Project="packages\Selenium.WebDriver.ChromeDriver.133.0.6943.12600\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.133.0.6943.12600\build\Selenium.WebDriver.ChromeDriver.targets')" />
+  <Import Project="packages\AutoItX.Dotnet.3.3.14.5\build\AutoItX.Dotnet.targets" Condition="Exists('packages\AutoItX.Dotnet.3.3.14.5\build\AutoItX.Dotnet.targets')" />
+  <Import Project="packages\Selenium.WebDriver.ChromeDriver.139.0.7258.6800\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('packages\Selenium.WebDriver.ChromeDriver.139.0.7258.6800\build\Selenium.WebDriver.ChromeDriver.targets')" />
 </Project>

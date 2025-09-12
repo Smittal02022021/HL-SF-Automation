@@ -96,7 +96,7 @@ namespace SF_Automation.Pages
         By chkAdmin = By.CssSelector("input[name*='j_id73:9:j_id75']");
         By chkAdmin2 = By.CssSelector("input[name *= 'j_id64:9:j_id66']");
         By btnFEIS = By.Name("feis_and_fairness_forms");
-        By btnFEISL = By.XPath("//button[text()='FEIS (Part I) Form']");
+        By btnFEISL = By.XPath("//lightning-button/button[text()='FEIS (Part I) Form']");
         By linkRequestDateFAS = By.CssSelector("div.pbBody > div:nth-child(23) > table > tbody > tr:nth-child(2) > td:nth-child(4) > span > span > a");
         By btnCounterparties = By.CssSelector(".pbButton > input[title = 'Counterparties']");
         By btnPortfolioValuation = By.CssSelector("input[title='Portfolio Valuation']");
@@ -488,7 +488,7 @@ namespace SF_Automation.Pages
         By lnkEditRefType = By.XPath("//button[@title='Edit Referral Type']");
         By valRefTypeBefore = By.XPath("//button[@data-value='Accountant']");
         By btnRefType = By.XPath("//label[text()='Referral Type']/ancestor::lightning-combobox/div/div[1]/lightning-base-combobox/div/div[1]/div/button");
-        By valRefTypeAfter = By.XPath("//span[text()='Referral Type']/ancestor::div[1]/following::lightning-formatted-text");
+        By valRefTypeAfter = By.XPath("//span[text()='Referral Type']/ancestor::div[2]/div[2]//lightning-formatted-text");
         By valConfAfter = By.XPath("//flexipage-field[@data-field-id='RecordConfidentiality_Agreement__cField']/slot//slot[1]/lightning-formatted-text");
 
         By valBenOwnerAfter = By.XPath("//flexipage-field[@data-field-id='RecordBeneficial_Owner_Control_Person_form__cField']/slot/record_flexipage-record-field//slot[1]/lightning-formatted-text");
@@ -652,8 +652,8 @@ namespace SF_Automation.Pages
         By valOppNumL = By.XPath("//flexipage-column2[2]/div/slot/flexipage-field[1]/slot/record_flexipage-record-field/div/div/div[2]/span/slot[1]/lightning-formatted-text");
 
         By tabOppActivity = By.XPath("//li[@title='Activity']//a[@id='flexipage_tab4__item']");
-        By valClientL = By.XPath("//span[text()='Client']/ancestor::div[3]//records-hoverable-link//slot/span/slot");
-        By valSubjectL = By.XPath("//span[text()='Subject']/ancestor::div[3]//records-hoverable-link//slot/span/slot");
+        By valClientL = By.XPath("//span[text()='Client']/ancestor::div[3]//records-hoverable-link//slot/span//span");
+        By valSubjectL = By.XPath("//span[text()='Subject']/ancestor::div[3]//records-hoverable-link//slot/span/slot/span");
         By valOppNumNBCL = By.XPath("//span[text()='Opportunity Number']/ancestor::div[2]//lightning-formatted-text");
         By btnPortfolioVL = By.XPath("//span[text()='Portfolio Valuation']");
         By btnPortfolioVL2 = By.XPath("//button[text()='Portfolio Valuation']");
@@ -2064,7 +2064,7 @@ namespace SF_Automation.Pages
         //Validate FEIS Form button
         public string ValidateFEISFormButton()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnFEISL, 120);
+            Thread.Sleep(7000);
             try
             {
                 //WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 80);
@@ -5828,8 +5828,8 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, lnkMoreL, 80);
             driver.FindElement(lnkMoreL).Click();
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnReqEng1L, 320);
-            driver.FindElement(btnReqEng1L).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReqEngL, 320);
+            driver.FindElement(btnReqEngL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, msgReqEngFVAL, 320);
             string validations = driver.FindElement(msgReqEngFVAL).Text;
             driver.FindElement(btnCloseReqEngFVAL).Click();
@@ -6102,9 +6102,10 @@ namespace SF_Automation.Pages
         //Get updated value of Ref Type
         public string GetRefTypePostUpdate()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(8000);
             WebDriverWaits.WaitUntilEleVisible(driver, valRefTypeAfter, 150);
             string value = driver.FindElement(valRefTypeAfter).Text;
+            Thread.Sleep(5000);
             return value;
         }
 

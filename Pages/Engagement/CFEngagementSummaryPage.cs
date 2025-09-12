@@ -230,7 +230,7 @@ namespace SF_Automation.Pages.Engagement
         By valRevMM = By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//td[2]//lightning-formatted-number");
         By btnCurrency = By.XPath("//label[text()='Currency']/ancestor::div[1]/div//button");
         By tabEngagementL = By.XPath("//div[2]/section//ul[2]/li[2]/a/span[2]");
-        By tabSummary = By.XPath("//div[2]/section//ul[2]/li[3]/a/span[text()='Engagement Summary']");
+        By tabSummary = By.XPath("//div[2]/section//ul[2]/li[5]/a/span[text()='Engagement Summary']");
         By tabContacts = By.XPath("//a[text()='Contacts']");
         By tabFees = By.XPath("//a[@data-label='Fees & Financials']");
         By valAddedRevs = By.XPath("//span[@title='Financials']/ancestor::article//tr/td[2]//span//lst-formatted-text/span");
@@ -242,11 +242,15 @@ namespace SF_Automation.Pages.Engagement
         By btnClose = By.XPath("//button[@title='Close']");
         By lblSellerContacts = By.XPath("//span[text()='Seller Contacts']");
         By btnRefreshContact = By.XPath("//span[text()='Seller Contacts']/ancestor::h3//button[@title='Add Record']/ancestor::div[1]//button[@title='Refresh Table']");
+        By btnRefreshBuyerContact = By.XPath("//span[text()='Buyer Contacts']/ancestor::h3//button[@title='Add Record']/ancestor::div[1]//button[@title='Refresh Table']");
+
         By btnMoreFin = By.XPath("//tr[1]/td[6]//lightning-button-menu/button");
         By lnkEditRecord = By.XPath("//span[text()='Edit']");
         By chkEngFinCheck = By.XPath("//input[@name='Engagement_Financials_Check__c']");
         By chkEngContactCheck = By.XPath("//input[@name='Engagement_Contacts_Seller_Check__c']");
         By chkEngContactNoAttorneyCheck = By.XPath("//input[@name='Engagement_Contact_Seller_No_Attorney__c']");
+        By chkEngContactCheckBuyer = By.XPath("//input[@name='Engagement_Contacts_Buyer_Check__c']");
+        By chkEngContactNoAttorneyCheckBuyer = By.XPath("//input[@name='Engagement_Contact_Buyer_No_Attorney__c']");
         By lnkDeleteRecord = By.XPath("//span[text()='Delete']");
         By btnWinCancel = By.XPath("//button[text()='Cancel']");
         By btnWinOk = By.XPath("//button[text()='Ok']");
@@ -257,10 +261,15 @@ namespace SF_Automation.Pages.Engagement
         By txtContact = By.XPath("//input[@placeholder='Search Contacts...']");
         By valAddedContact = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr[1]/th//span//a");
         By valAdded2ndContact = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr[2]/th//span//a");
+        By valAddedBuyerContact = By.XPath("//span[text()='Buyer Contacts']/ancestor::div[1]//tbody/tr[1]/th//span//a");
         By btnShowMoreContact = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr[1]/td[5]//button");
+        By valAdded2ndBuyerContact = By.XPath("//span[text()='Buyer Contacts']/ancestor::div[1]//tbody/tr[2]/th//span//a");
+
         By lnkEdit = By.XPath("//span[text()='Edit']");
         By iconEngContactCheck = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]/div//span[text()='Engagement Contacts Seller Check']/ancestor::lightning-output-field//button/span[2]");
         By iconEngContactAttorneyCheck = By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]/div//span[text()='Engagement Contact Seller No Attorney']/ancestor::lightning-output-field//button/span[2]");
+        By iconEngContactCheckBuyer = By.XPath("//span[text()='Buyer Contacts']/ancestor::div[1]/div//span[text()='Engagement Contacts Buyer Check']/ancestor::lightning-output-field//button/span[2]");
+        By iconEngContactAttorneyCheckBuyer = By.XPath("//span[text()='Buyer Contacts']/ancestor::div[1]/div//span[text()='Engagement Contact Buyer No Attorney']/ancestor::lightning-output-field//button/span[2]");
         By btnEditCheckbox = By.XPath("//button[@title='Edit: Engagement_Contact_Seller_No_Attorney__c']");
         By chkNoAttorney = By.XPath("//input[@name='Engagement_Contact_Seller_No_Attorney__c']");
         By secCapitalization = By.XPath("//span[text()='Capitalization Details']");
@@ -1803,7 +1812,7 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateAddRecordBuyerContactIcon()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
-            js.ExecuteScript("window.scrollTo(0,650)");
+            js.ExecuteScript("window.scrollTo(0,750)");
             WebDriverWaits.WaitUntilEleVisible(driver, iconAddRecordBuyerContact);
             driver.FindElement(iconAddRecordBuyerContact).Click();
             string value = driver.FindElement(iconAddRecordBuyerContact).GetAttribute("title");
@@ -2169,10 +2178,37 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
+        public string ValidateSaveBuyerContactFunctionality(string name, string role)
+        {
+            driver.FindElement(txtContact).Click();
+            driver.FindElement(txtContact).SendKeys(name);
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath("//input[@placeholder='Search Contacts...']/ancestor::div[@role='list']//li[1]//span[2]/span[1]")).Click();
+            driver.FindElement(btnRole).Click();
+            driver.FindElement(By.XPath("//button[@name='Role__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + role + "']")).Click();
+            driver.FindElement(btnSave).Click();
+            Thread.Sleep(6000);
+            string value = driver.FindElement(valAddedBuyerContact).Text;
+            return value;
+        }
 
+
+         public string ValidateCancelBuyerContactFunctionality(string name, string role)
+        {
+            driver.FindElement(txtContact).Click();
+            driver.FindElement(txtContact).SendKeys(name);
+            Thread.Sleep(5000);
+            driver.FindElement(By.XPath("//input[@placeholder='Search Contacts...']/ancestor::div[@role='list']//li[1]//span[2]/span[1]")).Click();
+            driver.FindElement(btnRole).Click();
+            driver.FindElement(By.XPath("//button[@name='Role__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + role + "']")).Click();
+            driver.FindElement(btnCancel).Click();
+            Thread.Sleep(6000);
+            string value = driver.FindElement(valAddedBuyerContact).Text;
+            return value;
+        }
         public string ValidateAddedContactInEng()
         {
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             driver.FindElement(tabSummary).Click();           
             Thread.Sleep(10000);                   
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -2184,11 +2220,34 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
+        public string ValidateAddedBuyerContactInEng()
+        {
+            Thread.Sleep(6000);
+            driver.FindElement(tabSummary).Click();
+            Thread.Sleep(10000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,1200)");
+            Thread.Sleep(6000);
+            driver.FindElement(btnRefreshBuyerContact).Click();
+            Thread.Sleep(7000);
+            string value = driver.FindElement(valAdded2ndBuyerContact).Text;
+            return value;
+        }
+
+
         public string GetRoleOfContactAddedInEng(string name)
         {
             string value = driver.FindElement(By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr/th//a[text()='"+name+"']/ancestor::tr[1]/td[3]//lightning-base-formatted-text")).Text;
             return value;
         }
+
+
+        public string GetRoleOfBuyerContactAddedInEng(string name)
+        {
+            string value = driver.FindElement(By.XPath("//span[text()='Buyer Contacts']/ancestor::div[1]//tbody/tr/th//a[text()='" + name + "']/ancestor::tr[1]/td[3]//lightning-base-formatted-text")).Text;
+            return value;
+        }
+
 
         public string ValidateCancelContactFunctionality(string name,string role)
         {
@@ -2263,6 +2322,19 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
 
+        public string ValidateEngContactCheckIconBuyer()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, iconEngContactCheckBuyer);
+            string value = driver.FindElement(iconEngContactCheckBuyer).Text;
+            return value;
+        }
+
+        public string ValidateEngContactAtorneyCheckIconBuyer()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, iconEngContactAttorneyCheckBuyer);
+            string value = driver.FindElement(iconEngContactAttorneyCheckBuyer).Text;
+            return value;
+        }
         public string ValidateEngContactSellerCheckbox()
         {
             if (driver.FindElement(chkEngContactCheck).Displayed)
@@ -2300,6 +2372,46 @@ namespace SF_Automation.Pages.Engagement
             else
             {
                 return "Engagement Contact Seller No Attorney checkbox is not displayed";
+            }
+        }
+
+        public string ValidateEngContactBuyerCheckbox()
+        {
+            if (driver.FindElement(chkEngContactCheckBuyer).Displayed)
+            {
+                CustomFunctions.MoveToElement(driver, driver.FindElement(chkEngContactCheckBuyer));
+                if (driver.FindElement(chkEngContactCheckBuyer).Selected)
+                {
+                    return "Engagement Contacts Buyer Check checkbox is displayed and checked";
+                }
+                else
+                {
+                    return "Engagement Contacts Buyer Check checkbox is displayed and not-checked";
+                }
+            }
+            else
+            {
+                return "Engagement Contacts Buyer Check checkbox is not displayed";
+            }
+        }
+
+        public string ValidateEngContactBuyerNoAttorneyCheckbox()
+        {
+            if (driver.FindElement(chkEngContactNoAttorneyCheckBuyer).Displayed)
+            {
+                CustomFunctions.MoveToElement(driver, driver.FindElement(chkEngContactNoAttorneyCheckBuyer));
+                if (driver.FindElement(chkEngContactNoAttorneyCheckBuyer).Selected)
+                {
+                    return "Engagement Contact Buyer No Attorney checkbox is displayed and checked";
+                }
+                else
+                {
+                    return "Engagement Contact Buyer No Attorney checkbox is displayed and not-checked";
+                }
+            }
+            else
+            {
+                return "Engagement Contact Buyer No Attorney checkbox is not displayed";
             }
         }
         public string ValidateEngContactSellerCheckboxAfterCheckingNoAttorney()
@@ -2491,6 +2603,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             driver.FindElement(txtPurchasePrice).SendKeys(number);
             driver.FindElement(btnCancel).Click();
+            Thread.Sleep(5000);
             string value = driver.FindElement(valPurchasePrice).Text;
             return value.Substring(0, 5);
         }

@@ -8582,7 +8582,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(By.XPath("//ul/li/a[text()='" + role + "']")).Click();
             driver.FindElement(btnPartyCFL).Click();
             Thread.Sleep(3000);
-            driver.FindElement(By.XPath("//ul/li/a[text()='Seller']")).Click();
+            driver.FindElement(By.XPath("//ul/li/a[text()='Buyer']")).Click();
             driver.FindElement(btnSaveConfirmSubmit).Click();
             Thread.Sleep(8000);
             string value = driver.FindElement(By.XPath("//a[text()='Vijay Kumar']")).Text;

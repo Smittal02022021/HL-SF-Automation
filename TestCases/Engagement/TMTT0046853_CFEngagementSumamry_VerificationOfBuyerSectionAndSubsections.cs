@@ -5,6 +5,7 @@ using SF_Automation.Pages.Engagement;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Data;
 using System.Reflection;
 
 namespace SF_Automation.TestCases.Engagement
@@ -171,13 +172,56 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Message: " + messageContact + " is displayed on Contact field when save button is clickd without entering it ");
 
                 //6.   TMTI0114565_Verify that the fields "Engagement Contacts Check" and "Engagement Contact No Attorney" are displayed
-                string iconEngContactCheck = summaryPage.ValidateEngContactCheckIcon();
-                Assert.AreEqual("Indicates if required Engagement Contacts for Seller are present (an Attorney contact along with Company Contact and/or Board of Directors contacts are required)", iconEngContactCheck);
-                extentReports.CreateLog("Message: " + iconEngContactCheck + " is displayed upon hovering Engagement Contacts Seller Check ");
+                string iconEngContactCheck = summaryPage.ValidateEngContactCheckIconBuyer();
+                Assert.AreEqual("Indicates if required Engagement Contacts for Buyer are present (an Attorney contact along with Company Contact and/or Board of Directors contacts are required)", iconEngContactCheck);
+                extentReports.CreateLog("Message: " + iconEngContactCheck + " is displayed upon hovering Engagement Contacts Buyer Check ");
 
-                string iconEngContactNoCheck = summaryPage.ValidateEngContactAtorneyCheckIcon();
-                Assert.AreEqual("Please \"check\" if a Seller Attorney was not required for this Engagement", iconEngContactNoCheck);
-                extentReports.CreateLog("Message: " + iconEngContactNoCheck + " is displayed upon hovering Engagement Contact Seller No Attorney checkbox ");
+                string iconEngContactNoCheck = summaryPage.ValidateEngContactAtorneyCheckIconBuyer();
+                Assert.AreEqual("Please \"check\" if a Buyer Attorney was not required for this Engagement", iconEngContactNoCheck);
+                extentReports.CreateLog("Message: " + iconEngContactNoCheck + " is displayed upon hovering Engagement Contact Buyer No Attorney checkbox ");
+
+                //7.   TMTI0114574 _Verify that the fields "Engagement Contacts Check" and "Engagement Contact No Attorney" default to being unchecked, and "Engagement Contacts Check" gets checked if and only if the contacts with role Attorney and Company Contact / Board Of Directors are present on the Buyer Contacts
+                //8.   TMTI0114571_Verify the Add Record functionality on the Buyer Contact section
+                string checkboxEngContact = summaryPage.ValidateEngContactBuyerCheckbox();
+                Assert.AreEqual("Engagement Contacts Buyer Check checkbox is displayed and not-checked", checkboxEngContact);
+                extentReports.CreateLog("Engagement Contacts Buyer Check checkbox is not checked by default ");
+
+                string checkboxEngContactAttorney = summaryPage.ValidateEngContactBuyerNoAttorneyCheckbox();
+                Assert.AreEqual("Engagement Contact Buyer No Attorney checkbox is displayed and not-checked", checkboxEngContactAttorney);
+                extentReports.CreateLog("Engagement Contact Buyer No Attorney checkbox is not checked by default ");
+
+                string addedContact = summaryPage.ValidateSaveBuyerContactFunctionality("Sonika Goyal", "Board of Directors");
+
+                string checkboxEngContactNoAttorney = summaryPage.ValidateEngContactBuyerCheckbox();
+                Assert.AreEqual("Engagement Contacts Buyer Check checkbox is displayed and not-checked", checkboxEngContactNoAttorney);
+                extentReports.CreateLog("Engagement Contacts Buyer Check checkbox is not checked when Contact with only Board of Directors role is added ");
+
+                string checkboxEngAttorneyWithNoAttorney = summaryPage.ValidateEngContactBuyerNoAttorneyCheckbox();
+                Assert.AreEqual("Engagement Contact Buyer No Attorney checkbox is displayed and not-checked", checkboxEngAttorneyWithNoAttorney);
+                extentReports.CreateLog("Engagement Contact Buyer No Attorney checkbox is not checked when Contact with only Board of Directors role is added ");
+
+                string contactEng = engagementDetails.ValidateContactDisplayedInEng();
+                Assert.AreEqual("Sonika Goyal", contactEng);
+                string roleEng = engagementDetails.GetRoleOfContactInEng("Sonika Goyal");
+                Assert.AreEqual("Board of Directors", roleEng);
+                extentReports.CreateLog("Contact: " + addedContact + " with role: " + roleEng + " is displayed under Engagement Contacts after adding in Seller Contacts ");
+
+               //----Add Contact in Engagement and validate the same in Engagement summary 
+                engagementDetails.ClickAddCFOppContact();
+                string contactAddedInEng = engagementDetails.CreateContactCFL("Vijay Kumar", "Attorney");
+                string roleContactAddedinEng = engagementDetails.GetRoleOfContactInEng("Vijay Kumar");
+
+                //----Get added Contact and role of Buyer Contact section
+                string contactSummary = summaryPage.ValidateAddedBuyerContactInEng();
+                Console.WriteLine("contactSummary" + contactSummary);
+                string roleSummary = summaryPage.GetRoleOfBuyerContactAddedInEng("Vijay Kumar");
+                Assert.AreEqual(contactAddedInEng, contactSummary);
+                Assert.AreEqual(roleContactAddedinEng, roleSummary);
+                extentReports.CreateLog("Contact: " + contactSummary + " with role: " + roleSummary + " is displayed under Engagement Contacts after adding in Engagement Contacts ");
+
+                //9.   
+
+
 
 
 
