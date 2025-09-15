@@ -9,7 +9,7 @@ using NUnit.Framework;
 using SF_Automation.TestData;
 using Microsoft.Office.Interop.Excel;
 
-namespace SF_Automation.TestCases.OpportunitiesConversion
+namespace SF_Automation.TestCases.OpportunitiesCounterparty
 {
     class LV_TMTT0041159_2_VerifyPartialEngagementShouldBeMappedWithDetailsFieldsFromOpportunity:BaseClass
     {

@@ -8,7 +8,7 @@ using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
 
-namespace SF_Automation.TestCases.OpportunitiesConversion
+namespace SF_Automation.TestCases.OpportunitiesCounterparty
 {
     class LV_TMTT0041159_1_VerifiyTheFunctionalityOfVerballyEngagedEngagement:BaseClass
     {

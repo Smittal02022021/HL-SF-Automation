@@ -71,7 +71,7 @@ namespace SalesForce_Project.TestCases.JobTypes
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "User is on Module: " + moduleNameExl + " Page ");
 
-                randomPages.SelectListViewLV("All");
+                randomPages.SelectListViewLV("CF");
                 extentReports.CreateStepLogs("Info", " All List option is selected ");
                 //Calling functions to validate for all LOBs operation
                 rowJobType = ReadExcelData.GetRowCount(excelPath, "JobType");

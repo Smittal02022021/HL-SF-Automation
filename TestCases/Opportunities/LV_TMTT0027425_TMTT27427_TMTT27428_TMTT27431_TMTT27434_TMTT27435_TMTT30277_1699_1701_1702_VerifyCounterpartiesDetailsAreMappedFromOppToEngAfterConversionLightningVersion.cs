@@ -298,10 +298,14 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     // Assert.IsTrue(addCounterparty.IsAddedCounterpartyCompanyDisplayedOnEmailTemplate(counterpartyCompanyNameExl), "Verify Company Counterparty name is present on Email Template ");
                     // extentReports.CreateStepLogs("Passed", "Company Counterparty name:" + counterpartyCompanyNameExl + " is present on Email Template ");
 
-                    
-                    
-                    
+
+
+
                     //TMTI0070811	Verification of Export Data feature available on View Counterparty screen
+                    //
+                    CustomFunctions.CloseWindow(driver, 1);
+                    CustomFunctions.SwitchToWindow(driver, 0);
+                    //
                     addCounterparty.ClickOpportunityCounterpartyExportDataButton();
                     string locationExportedFile = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", row, 4);
                     string exportedFileName = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", row, 5);

@@ -7712,10 +7712,11 @@ namespace SF_Automation.Pages
                 driver.FindElement(refContactL).Click();
             }
             string valWomen = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
-            if (valJobType == "Sellside")
+            //if (valJobType == "Sellside")
+            if (valJobType == "Sellside" || valJobType == "Buyside" || valJobType == "Activism Advisory")
             {
                 driver.FindElement(txtEBITDAL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
-                Thread.Sleep(2000);
+               Thread.Sleep(2000);
             }
             //Date Engaged
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnWomenLedL));
@@ -7827,7 +7828,8 @@ namespace SF_Automation.Pages
                 driver.FindElement(refContactL).Click();
             }
             string valWomen = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
-            if (valJobType == "Sellside")
+            //if (valJobType == "Sellside")
+            if (valJobType == "Sellside" || valJobType == "Buyside" || valJobType == "Activism Advisory")
             {
                 driver.FindElement(txtEBITDAL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
                 Thread.Sleep(2000);
@@ -8756,7 +8758,8 @@ namespace SF_Automation.Pages
                     driver.FindElement(refContactL).Click();
                 }
                 string valWomen = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
-                if (valJobType == "Sellside")
+                //if (valJobType == "Sellside")
+                if (valJobType == "Sellside" || valJobType == "Buyside" || valJobType == "Activism Advisory")
                 {
                     driver.FindElement(txtEBITDAL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
                     Thread.Sleep(2000);
@@ -10372,7 +10375,7 @@ namespace SF_Automation.Pages
 
             // EBITDA(MM)
             string valWomen = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
-            if (valJobType == "Sellside" || valJobType == "Buyside")
+            if (valJobType == "Sellside" || valJobType == "Buyside" || valJobType == "Activism Advisory")
             {
                 driver.FindElement(txtEBITDAL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
                 //Thread.Sleep(2000);

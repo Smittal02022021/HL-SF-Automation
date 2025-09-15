@@ -1399,9 +1399,10 @@ namespace SF_Automation.Pages.Common
             IReadOnlyCollection < IWebElement > tableRow= driver.FindElements(resultTable);
             foreach(IWebElement element in tableRow)
             {
-               string value= element.Text;
+                //jse.ExecuteScript("arguments[0].scrollIntoView(true);", element);
+                string value= element.Text;
                 if (value == reportName)
-                {
+                {                    
                     element.Click();
                     break;
                 }
@@ -1548,6 +1549,7 @@ namespace SF_Automation.Pages.Common
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,1800)");
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtAssignToLV, 5);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtAssignToLV));
             return driver.FindElement(txtAssignToLV).Text;
@@ -1555,6 +1557,9 @@ namespace SF_Automation.Pages.Common
 
         public string GetHistoryActualApproverLV()
         {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,1800)");
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtActualApproverLV, 5);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtActualApproverLV));
             return driver.FindElement(txtActualApproverLV).Text;
@@ -1563,12 +1568,18 @@ namespace SF_Automation.Pages.Common
         {
             //WebDriverWaits.WaitUntilEleVisible(driver, txtActualApprovedLV, 5);
             //CustomFunctions.MoveToElement(driver, driver.FindElement(txtActualApprovedLV));
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,1800)");
+            Thread.Sleep(5000);
             IWebElement elm = driver.FindElements(txtActualApprovedLV).First();
             return elm.Text;
         }
         public string GetHistoryStatusLV()
         {
             //WebDriverWaits.WaitUntilEleVisible(driver, txtStatusLV, 5);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,1800)");
+            Thread.Sleep(5000);
             //CustomFunctions.MoveToElement(driver, driver.FindElement(txtStatusLV));
             IWebElement elm = driver.FindElements(txtStatusLV).First();
             return elm.Text;
@@ -1577,6 +1588,9 @@ namespace SF_Automation.Pages.Common
         {
             //WebDriverWaits.WaitUntilEleVisible(driver, txtCommentsLV, 5);
             //CustomFunctions.MoveToElement(driver, driver.FindElement(txtCommentsLV));
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,1800)");
+            Thread.Sleep(5000);
             IWebElement elm = driver.FindElements(txtCommentsLV).First();
             return elm.Text;
         }

@@ -1264,6 +1264,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnPartyL).Click();
             Thread.Sleep(3000);
             driver.FindElement(By.XPath("//div[8]/div/ul/li/a[text()='" + party + "']")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, chkBillingContactL, 5);
             driver.FindElement(chkBillingContactL).Click();
             driver.FindElement(chkAckBillingContactL).Click();
             driver.FindElement(chkPrimaryContactL).Click();
@@ -8977,7 +8978,6 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().DefaultContent();
             return isFound;
         }
-
         public bool IsButtonAddRevenueDisplayedLV()
         {
             try
@@ -8986,6 +8986,24 @@ namespace SF_Automation.Pages.Engagement
                 return driver.FindElement(btnAddAccrualL).Displayed;
             }
             catch { return false; }
+        }
+        By lnkViewAllL = By.XPath("//article[@aria-label='Approval History']//span[text()='View All']");
+        By titleApproveL = By.XPath("//h1[@title='Approval History']");
+        By btnApproveL = By.XPath("//div[@title='Approve']");
+        By txtCommentsL = By.XPath("//textarea[@class='inputTextArea cuf-messageTextArea textarea']");
+        By btnApproveOppL = By.XPath("//span[text()='Approve']");
+        public void ApproveVEEngagementLV()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,1800)");
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkViewAllL, 10);
+            driver.FindElement(lnkViewAllL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnApproveL, 10);
+            driver.FindElement(btnApproveL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(txtCommentsL).SendKeys("Approved");
+            driver.FindElement(btnApproveOppL).Click();
+            Thread.Sleep(7000);            
         }
     }
 }
