@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.OpportunitiesConversion
 {
-    class LV_3_CF_TMTT0049771_VerifyMAOpportunityIsConvertedIntoVerballyEengagedAndConvertedIntoFullyEngagedEngagementAndRevenueAccrualIsAddedOnEngagement:BaseClass
+    class LV_3_CF_TMTT0049771_VerifyMACSVerballyEngagedAndConvertedIntoFullyEngagedEngagementAndRevenueAccrualIsAddedOnEngagement:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -21,10 +21,9 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
         EngagementHomePage engagementHome = new EngagementHomePage();
         LVHomePage homePageLV = new LVHomePage();
         HomeMainPage homePage = new HomeMainPage();
-        RandomPages randomPages = new RandomPages();
-       
+        RandomPages randomPages = new RandomPages();       
 
-        public static string fileTMTT0049771 = "LV_TMTT0049771_VerifyMAOpportunityIsConvertedIntoVerballyEngagedAndConvertedIntoFullyEngagedEngagementAndRevenueAccrualIsAddedOnEngagement";
+        public static string fileTMTT0049771 = "LV_TMTT0049771_VerifyMACSVerballyEngagedAndConvertedIntoFullyEngagedEngagementAndRevenueAccrualIsAddedOnEngagement";
                 
 
         [OneTimeSetUp]
@@ -36,7 +35,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         //TMTI0123102	Verify that the M&A opportunity is converted into verbally engaged and converted into fully engaged engagement and revenue accrual is added on to the engagement.
-
+        // MA & CS Job types scenarios
         [Test]
         public void VerifyMAOpportunityIsConvertedIntoVerballyEngagedAndConvertedIntoFullyEngagedEngagementAndRevenueAccrualIsAddedOnEngagementLV()
         {
@@ -61,7 +60,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 {
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
                     string valRecordType = ReadExcelData.ReadData(excelPath, "AddOpportunity", 25);
-                    string userExl = ReadExcelData.ReadData(excelPath, "StandardUsers", 1);
+                    string userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "StandardUsers", row,1);
 
                     //Login as Standard User profile and validate the user
                     homePage.SearchUserByGlobalSearchN(userExl);
@@ -104,7 +103,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "CF Financial User: " + userExl + " Logged out ");
 
-                    string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUsers", 4, 1);
+                    string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUsers", 6, 1);
                     extentReports.CreateStepLogs("Info", "System Admin User: " + adminUserExl + " Updating the Required details ");
 
                     homePage.SearchUserByGlobalSearchN(adminUserExl);
@@ -261,7 +260,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     extentReports.CreateStepLogs("Info", "CF Financial User: " + userExl + " Logged out");
 
                     //9. Login as MA CAO – Brian Miller and load the partial engagement 
-                    string userCAOExl = ReadExcelData.ReadData(excelPath, "CAOUsers", 1);
+                    string userCAOExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUsers", row,1);
                     homePage.SearchUserByGlobalSearchN(userCAOExl);
                     extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " details are displayed. ");
                     //Login user
@@ -327,7 +326,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
 
                     //5.Click on the partial engagement link and load the partial engagement
                     Assert.IsFalse(randomPages.GetVerballyEngCheckboxStatusLV(), "Verify Verbally Engaged checkbox is Checked on Verbally Engaged Engagement");
-                    extentReports.CreateStepLogs("Passed", "Verbally Engaged checkbox is Checked on Verbally Engaged Engagement");
+                    extentReports.CreateStepLogs("Passed", "Verbally Engaged checkbox is not Checked on Fully Engaged Engagement");
 
                     //11. Navigate to Administration tab and check the Record type. 
                     //Record Type: Sellside/Ac Adv

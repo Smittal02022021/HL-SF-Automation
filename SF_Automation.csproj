@@ -785,9 +785,9 @@
     <Compile Include="TestCases\Opportunities\LV_1_TMTT0024069_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage.cs" />
     <Compile Include="TestCases\Opportunities\LV_1_CF_TMTT0049771_VerifyMergersAcquisitionsMAChangesInOpportunityCreationToEngagementConversionWithTheApprovalProcess.cs" />
     <Compile Include="TestCases\Opportunities\LV_2_CF_TMTT0049771_VerifyTheCAOAndNonCAOCFGroupAndCAOMAAndOrCAOCSPermissionSetsHasModifiedInternalTeamAccessOnEngagementWithERPMAAndOrCS.cs" />
-    <Compile Include="TestCases\Opportunities\LV_3_CF_TMTT0049771_VerifyMAOpportunityIsConvertedIntoVerballyEengagedAndConvertedIntoFullyEngagedEngagementAndRevenueAccrualIsAddedOnEngagement.cs" />
+    <Compile Include="TestCases\Opportunities\LV_3_CF_TMTT0049771_VerifyMACSVerballyEngagedAndConvertedIntoFullyEngagedEngagementAndRevenueAccrualIsAddedOnEngagement.cs" />
     <Compile Include="TestCases\Opportunities\LV_3_TMTT0048829_VerifyStaffRoleChangesImplementedOnInternalTeamForCaptialSolution.cs" />
-    <Compile Include="TestCases\Opportunities\LV_2_TMTT0048829_VerifyStaffRoleChangesImplementedOnInternalTeamForCaptialSolution.cs" />
+    <Compile Include="TestCases\Opportunities\LV_2_CF_TMTT0048829_VerifyStaffRoleChangesImplementedOnInternalTeamForCaptialSolution.cs" />
     <Compile Include="TestCases\Opportunities\LV_2_TMTT0024069_TMTT0048720_VerifyUserIsAbleToEditOtherJobTypeToNewJobTypeForExistingOpportunityEngagementCaptialSolutionchangesLV.cs" />
     <Compile Include="TestCases\Opportunities\LV_1_TMTT0047923_TMTT0047926_TMTT0047929_TMTT0024858_TMTT0030610_TMTT0024069_VerifyJobTypesGetsDispalyedOnAddingJobTypeFiltersWhileCreatingReports.cs" />
     <Compile Include="TestCases\Opportunities\LV_2_TMTT0047192_VerifyNewFieldCompetitiveAddedToCMExistingOpportunityEngagementCounterpartyPage.cs" />
@@ -848,7 +848,7 @@
     <Compile Include="TestCases\Opportunities\LV_1_TMTT0048664_VerifyWaiveRFOFieldInOpportunityEngagementConversion.cs" />
     <Compile Include="TestCases\Opportunities\Dup_LV_TMTT0048826_VerifyNewTASProjectStagesForTASDealsWithFVALOBOnOppertunityAndEngagementPage.cs" />
     <Compile Include="TestCases\Opportunities\LV_TMTT0048826_VerifyTASProjectStagesForTASDealsWithFVALOBOnReport.cs" />
-    <Compile Include="TestCases\Opportunities\LV_1_TMTT0048829_VerifyStaffRoleChangesImplementedOnInternalTeamForCaptialSolution.cs" />
+    <Compile Include="TestCases\Opportunities\LV_1_CF_TMTT0048829_VerifyStaffRoleChangesImplementedOnInternalTeamForCaptialSolution.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS01_ValidateERPSection_PostCreationOfOpportunityLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS02_ValidateERPSectionPostUpdatingDFFFieldsOfOpportunityLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS03_ValidateERPSubmittedAndERPLastIntegrationResponsePostManualSyncOpportunityLightningView.cs" />

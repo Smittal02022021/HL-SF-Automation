@@ -8,7 +8,7 @@ using System;
 
 namespace SF_Automation.TestCases.OpportunitiesInternalTeam
 {
-    class LV_1_TMTT0048829_VerifyStaffRoleChangesImplementedOnInternalTeamForCaptialSolution:BaseClass
+    class LV_2_CF_TMTT0048829_VerifyStaffRoleChangesImplementedOnInternalTeamForCaptialSolution:BaseClass
     {
 
         ExtentReport extentReports = new ExtentReport();
@@ -69,16 +69,16 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
                 string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                int teamMember = ReadExcelData.GetRowCount(excelPath, "UsersSet1");
+                int teamMember = ReadExcelData.GetRowCount(excelPath, "UsersSet2");
                 for (int row = 2; row <= teamMember; row++)
                 {
-                    string teamMemberName = ReadExcelData.ReadDataMultipleRows(excelPath, "UsersSet1", row, 2);
-                    string opportunityName = ReadExcelData.ReadDataMultipleRows(excelPath, "UsersSet1", row, 3);
-                    string OppLocation = ReadExcelData.ReadDataMultipleRows(excelPath, "UsersSet1", row, 6);
-                    string contactLocation = ReadExcelData.ReadDataMultipleRows(excelPath, "UsersSet1", row, 7);
-                    string contactStatus = ReadExcelData.ReadDataMultipleRows(excelPath, "UsersSet1", row, 8);
-                    string opportunityRecordType = ReadExcelData.ReadDataMultipleRows(excelPath, "UsersSet1", row, 9);
-                    extentReports.CreateStepLogs("Info", "Verify The Available Roles  On '"+ opportunityName+"' " + OppLocation + " Opportunity " + opportunityRecordType + " for Team member: " + teamMemberName + " of " + contactLocation + " as " + contactStatus + " contact");
+                    string teamMemberName = ReadExcelData.ReadDataMultipleRows(excelPath, "UsersSet2", row, 2);
+                    string opportunityName = ReadExcelData.ReadDataMultipleRows(excelPath, "UsersSet2", row, 3);
+                    string OppLocation = ReadExcelData.ReadDataMultipleRows(excelPath, "UsersSet2", row, 6);
+                    string contactLocation = ReadExcelData.ReadDataMultipleRows(excelPath, "UsersSet2", row, 7);
+                    string contactStatus = ReadExcelData.ReadDataMultipleRows(excelPath, "UsersSet2", row, 8);
+                    string opportunityRecordType = ReadExcelData.ReadDataMultipleRows(excelPath, "UsersSet2", row, 9);
+                    extentReports.CreateStepLogs("Info", "Verify The Available Roles  On '" + opportunityName + "' " + OppLocation + " Opportunity " + opportunityRecordType + " for Team member: " + teamMemberName + " of " + contactLocation + " as " + contactStatus + " contact");
 
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
                     extentReports.CreateStepLogs("Info", "User is on " + opportunityName + " Detail Page ");
@@ -88,66 +88,57 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
 
                     //------Validate all the roles checkbox
                     //Verify Initiator role
-                    Assert.AreEqual("True", chkInitiator, "Verify Initiator role should be True ");
-                    extentReports.CreateStepLogs("Pass", "Initiator role checkbox is displayed ");
+                    Assert.AreEqual("False", chkInitiator, "Verify Initiator role should be False ");
+                    extentReports.CreateStepLogs("Pass", "Initiator role checkbox is not displayed ");
 
                     //Verify Seller role                    
-                    Assert.IsTrue(opportunityDetails.IsSellerRoleCheckboxDisplayedLV(), "Verify Seller role should be True ");
-                    extentReports.CreateStepLogs("Pass", "Seller role checkbox is displayed ");
+                    Assert.IsFalse(opportunityDetails.IsSellerRoleCheckboxDisplayedLV(), "Verify Seller role should be False ");
+                    extentReports.CreateStepLogs("Pass", "Seller role checkbox is not displayed ");
 
                     //Verify Principal role                    
-                    Assert.IsTrue(opportunityDetails.IsPrincipalRoleDisplayedLV(), "Verify Principal role should be True ");
-                    extentReports.CreateStepLogs("Pass", "Principal role checkbox is displayed ");
+                    Assert.IsFalse(opportunityDetails.IsPrincipalRoleDisplayedLV(), "Verify Principal role should be False ");
+                    extentReports.CreateStepLogs("Pass", "Principal role checkbox is not displayed ");
 
                     //Verify Manager role
-                    Assert.IsTrue(opportunityDetails.IsManagerRoleDisplayedLV(), "Verify Manager role should be True ");
-                    extentReports.CreateStepLogs("Pass", "Manager role checkbox is displayed ");
+                    Assert.IsFalse(opportunityDetails.IsManagerRoleDisplayedLV(), "Verify Manager role should be False ");
+                    extentReports.CreateStepLogs("Pass", "Manager role checkbox is not displayed ");
 
                     //Verify Associate role                    
-                    Assert.IsTrue(opportunityDetails.IsAssociateRoleDisplayedLV(), "Verify Associate role should be True ");
-                    extentReports.CreateStepLogs("Pass", "Associate role checkbox is displayed ");
+                    Assert.IsFalse(opportunityDetails.IsAssociateRoleDisplayedLV(), "Verify Associate role should be False ");
+                    extentReports.CreateStepLogs("Pass", "Associate role checkbox is not displayed ");
 
                     //Verify Analyst role
-                    Assert.IsTrue(opportunityDetails.IsAnalystRoleDisplayedLV(), "Verify Analyst role should be True ");
-                    extentReports.CreateStepLogs("Pass", "Analyst role checkbox is displayed ");
+                    Assert.IsFalse(opportunityDetails.IsAnalystRoleDisplayedLV(), "Verify Analyst role should be False ");
+                    extentReports.CreateStepLogs("Pass", "Analyst role checkbox is not displayed ");
 
                     //Verify Specialty role 
-                    Assert.IsTrue(opportunityDetails.IsSpecialtyRoleDisplayedLV(), "Verify Specialty role should be True ");
-                    extentReports.CreateStepLogs("Pass", "Specialty role checkbox is displayed ");
+                    Assert.IsFalse(opportunityDetails.IsSpecialtyRoleDisplayedLV(), "Verify Specialty role should be False ");
+                    extentReports.CreateStepLogs("Pass", "Specialty role checkbox is not displayed ");
 
                     //Verify PE/HF role 
-                    Assert.IsTrue(opportunityDetails.IsPERoleDisplayedLV(), "Verify PE/HF role should be True ");
-                    extentReports.CreateStepLogs("Pass", "PE role checkbox is displayed ");
+                    Assert.IsFalse(opportunityDetails.IsPERoleDisplayedLV(), "Verify PE/HF role should be False ");
+                    extentReports.CreateStepLogs("Pass", "PE role checkbox is not displayed ");
 
                     //Verify Public role 
-                    Assert.IsTrue(opportunityDetails.IsPublicRoleDisplayedLV(), "Verify Public role should be True ");
-                    extentReports.CreateStepLogs("Pass", "Public role checkbox is displayed ");
+                    Assert.IsFalse(opportunityDetails.IsPublicRoleDisplayedLV(), "Verify Public role should be False ");
+                    extentReports.CreateStepLogs("Pass", "Public role checkbox is not displayed ");
 
                     //Verify Admin role
-                    Assert.IsFalse(opportunityDetails.IsAdminRoleDisplayedLV(), "Verify Admin role should be False ");
-                    extentReports.CreateStepLogs("Pass", "Admin role checkbox is not displayed ");
+                    Assert.IsTrue(opportunityDetails.IsAdminRoleDisplayedLV(), "Verify Admin role should be False ");
+                    extentReports.CreateStepLogs("Pass", "Admin role checkbox is displayed ");
 
                     //Verify RMS role
-                    Assert.IsTrue(opportunityDetails.IsRMSRoleDisplayedLV(), "Verify RMS role should be True ");
-                    extentReports.CreateStepLogs("Pass", "RMS role checkbox is displayed ");
+                    Assert.IsFalse(opportunityDetails.IsRMSRoleDisplayedLV(), "Verify RMS role should be False ");
+                    extentReports.CreateStepLogs("Pass", "RMS role checkbox is not displayed ");
 
                     //Verify Expense role
-                    Assert.IsTrue(opportunityDetails.IsExpenseOnlyRoleDisplayedLV(), "Verify Expense role should be True ");
-                    extentReports.CreateStepLogs("Pass", "Expense role checkbox is displayed ");
+                    Assert.IsFalse(opportunityDetails.IsExpenseOnlyRoleDisplayedLV(), "Verify Expense role should be False ");
+                    extentReports.CreateStepLogs("Pass", "Expense role checkbox is not displayed ");
 
                     //Verify Non Registered role 
-                    if (contactStatus == "Registered")
-                    {
-                        Assert.IsFalse(opportunityDetails.IsNonRegisteredRoleDisplayedLV(), "Verify Registered role should be False ");
-                        extentReports.CreateStepLogs("Pass", "Registered role checkbox is not displayed ");
-                    }
-
-                    if (contactStatus == "Non-Registered")
-                    {
-                        Assert.IsTrue(opportunityDetails.IsNonRegisteredRoleDisplayedLV(), "Verify Registered role should be True ");
-                        extentReports.CreateStepLogs("Pass", "Registered role checkbox is displayed ");
-                    }
-
+                    Assert.IsFalse(opportunityDetails.IsNonRegisteredRoleDisplayedLV(), "Verify Registered role should be False ");
+                    extentReports.CreateStepLogs("Pass", "Registered role checkbox is not displayed ");
+                    
                     opportunityDetails.ClickReturnToOpportunityL();
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
                     randomPages.CloseActiveTab("Internal Team");
