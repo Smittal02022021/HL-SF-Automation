@@ -3454,7 +3454,7 @@ namespace SF_Automation.Pages
                 Thread.Sleep(2000);
             }
             driver.FindElement(optionCCOutcomeL).Click();
-            if (valJobType.Equals("Buyside") || valJobType.Equals("Sellside") || valJobType.Equals("Debt Financing") || valJobType.Equals("Liability Management") || valJobType.Equals("Primary Capital Advisory") || valJobType.Equals("Directs")|| valJobType.Equals("Equity Placements") || valJobType.Equals("GP Stake Sale") || valJobType.Equals("LP-Led Secondaries"))
+            if (valJobType.Equals("Buyside") || valJobType.Equals("Sellside") || valJobType.Equals("Debt Financing") || valJobType.Equals("Liability Management") || valJobType.Equals("Primary Capital Advisory") || valJobType.Equals("Directs")|| valJobType.Equals("Equity Placements") || valJobType.Equals("GP Stake Sale") || valJobType.Equals("LP-Led Secondaries")||valJobType.Equals("Buyside & Financing Advisory") || valJobType.Equals("Discretionary CS Advisory"))
             {
                 CustomFunctions.MoveToElement(driver, driver.FindElement(lblCreatedBy));
                 Thread.Sleep(2000);
@@ -10375,7 +10375,7 @@ namespace SF_Automation.Pages
 
             // EBITDA(MM)
             string valWomen = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
-            if (valJobType == "Sellside" || valJobType == "Buyside" || valJobType == "Activism Advisory")
+            if (valJobType == "Sellside" || valJobType == "Buyside" || valJobType == "Activism Advisory" || valJobType == "Buyside & Financing Advisory" || valJobType == "Discretionary CS Advisory")
             {
                 driver.FindElement(txtEBITDAL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
                 //Thread.Sleep(2000);
