@@ -31,12 +31,12 @@ namespace SalesForce_Project.TestCases.JobTypes
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
-        //TMTI0119936	Verify that the new Job types are added to the Job types object. 
+        //TMTI0119936	Verify that the new Job types are added to the Job types object.
+        //TMTI0119938 Verify that the mentioned existing Job types are displayed Inactive in the Job types object.
         //TMTI0119940 Verify that the new CS job type has the new values created for the mentioned fields.
         //TMTI0119942 Verify that the "Lender Education", "Liability Management" and "Buyside & Financing Advisory" Job types product classifications is changed to "CS".
         //TMTI0119944 Verify that the mentioned fields are derived from existing CM/PFG jobs for the new job types, consistent with mapped job types.
         //TMTI0122901 Verify that "Debt Financing", "Buyside & Financing Advisory", "Equity Placements" and "Financial Asset Sale" has the Closed Deal Memo enforced in Job Type Required Items. 
-        //TMTI0119938 Verify that the mentioned existing Job types are displayed Inactive in the Job types object.
 
 
         [Test]
@@ -71,7 +71,7 @@ namespace SalesForce_Project.TestCases.JobTypes
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "User is on Module: " + moduleNameExl + " Page ");
 
-                randomPages.SelectListViewLV("CF");
+                randomPages.SelectListViewLV("All");
                 extentReports.CreateStepLogs("Info", " All List option is selected ");
                 //Calling functions to validate for all LOBs operation
                 rowJobType = ReadExcelData.GetRowCount(excelPath, "JobType");
@@ -110,18 +110,12 @@ namespace SalesForce_Project.TestCases.JobTypes
                     string jobProductTypeReportingExl = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 7);
                     Assert.AreEqual(jobProductTypeReportingExl, jobTypesPage.GetProductTypeReportingLV(), "Verify the Product Type Reporting on Job Type detail page");
 
-                    string jobEngagementDetailtStageExl = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 8);
-                    Assert.AreEqual(jobEngagementDetailtStageExl, jobTypesPage.GetEngagementDetailtStageLV(), "Verify the Engagement Detailt Stage on Job Type detail page");
-
-                    extentReports.CreateStepLogs("Passed", "Job Type: " + jobTypeNameExl + " Available with Product Type Code: " + jobCodeExl + ", Product Type Code: " + jobProductTypeCodeExl + ", Product Type: " + jobProductTypeExl + ", Product Line Reporting: " + jobProductLineReportingExl + ", Product Line: " + jobProductLineExl + ", Product Type Reporting" + jobProductTypeReportingExl + ", Engagement Detailt Stage: " + jobEngagementDetailtStageExl);
-
+                   
+                    
                     //TMTI0119944	Verify that the mentioned fields are derived from existing CM/PFG jobs for the new job types, consistent with mapped job types.
 
                     string jobPrimaryLOBExl = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 9);
-                    Assert.AreEqual(jobPrimaryLOBExl, jobTypesPage.GetPrimaryLineBusinessLV(), "Verify the Primary Line of Business on Job Type detail page");
-
-                    string jobEngRTExl = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 10);
-                    Assert.AreEqual(jobEngRTExl, jobTypesPage.GetEngagementRecordTypeLV(), "Verify the Engagement Record Type on Job Type detail page");
+                    Assert.AreEqual(jobPrimaryLOBExl, jobTypesPage.GetPrimaryLineBusinessLV(), "Verify the Primary Line of Business on Job Type detail page");                   
 
                     string jobReqCapSourceExl = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 11);
                     Assert.AreEqual(jobReqCapSourceExl, jobTypesPage.GetRequireCapsourceLV(), "Verify the Require Capsource on Job Type detail page");
@@ -129,14 +123,25 @@ namespace SalesForce_Project.TestCases.JobTypes
                     string jobReqMAClosedExl = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 12);
                     Assert.AreEqual(jobReqMAClosedExl, jobTypesPage.GetRequireMAClosedWithLV(), "Verify the Require MA Closed With on Job Type detail page");
 
-                    extentReports.CreateStepLogs("Passed", "Job Type: " + jobTypeNameExl + " derived from existing CM/PFG jobs with following fields Primary Line of Business: " + jobPrimaryLOBExl + ", Engagement Record type: " + jobEngRTExl + ", Primary Line of Business: " + jobPrimaryLOBExl + ", Require MA ClosedWith: " + jobReqMAClosedExl + ", Require Capsource: " + jobReqCapSourceExl);
-
                     //TMTI0122901 Verify that "Debt Financing", "Buyside & Financing Advisory", "Equity Placements" and "Financial Asset Sale" has the Closed Deal Memo enforced in Job Type Required Items.
                     string jobTypeRequiredItemExl = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", 1, 13);
                     string isPresntExl = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 13);
 
                     Assert.AreEqual(isPresntExl, jobTypesPage.IsRequiredItemDisplayedLV(jobTypeRequiredItemExl), "Verify that " + jobTypeNameExl + " the 'Closed Deal Memo' enforced in Job Type Required Items.");
                     extentReports.CreateStepLogs("Passed", "Job Type: " + jobTypeNameExl + " 'Closed Deal Memo' enforced in Job Type Required Items is : " + isPresntExl);
+
+                    //Click on Code Information tab
+                    jobTypesPage.ClickTabCodeInformationLV();
+                    string jobEngagementDetailtStageExl = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 8);
+                    Assert.AreEqual(jobEngagementDetailtStageExl, jobTypesPage.GetEngagementDetailtStageLV(), "Verify the Engagement Detailt Stage on Job Type detail page");
+
+                    string jobEngRTExl = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 10);
+                    Assert.AreEqual(jobEngRTExl, jobTypesPage.GetEngagementRecordTypeLV(), "Verify the Engagement Record Type on Job Type detail page");
+
+                    extentReports.CreateStepLogs("Passed", "Job Type: " + jobTypeNameExl + " Available with Product Type Code: " + jobCodeExl + ", Product Type Code: " + jobProductTypeCodeExl + ", Product Type: " + jobProductTypeExl + ", Product Line Reporting: " + jobProductLineReportingExl + ", Product Line: " + jobProductLineExl + ", Product Type Reporting" + jobProductTypeReportingExl + ", Engagement Detailt Stage: " + jobEngagementDetailtStageExl);
+                    extentReports.CreateStepLogs("Passed", "Job Type: " + jobTypeNameExl + " derived from existing CM/PFG jobs with following fields Primary Line of Business: " + jobPrimaryLOBExl + ", Engagement Record type: " + jobEngRTExl + ", Primary Line of Business: " + jobPrimaryLOBExl + ", Require MA ClosedWith: " + jobReqMAClosedExl + ", Require Capsource: " + jobReqCapSourceExl);
+
+                    
 
                     randomPages.CloseActiveTab(jobTypeNameExl);
                 }

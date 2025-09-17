@@ -29,6 +29,7 @@ namespace SalesForce_Project.Pages.JobTypes
         By lnkReqJobTypeNameL = By.XPath("//td[@data-label='Required Job Type Name']//a//span");
         By chkIsActiveL = By.XPath("//div[contains(@class,'RecordHomeTemplate')]//div//Input[contains(@name,'Is_Active')]");
         By lnkViewAllL = By.XPath("//a//span[text()='View All']/..");
+        By tabCodeInfoL = By.XPath("//li[@title='Code Information']/a");
 
         private By _eleJobType(string name)
         {
@@ -150,6 +151,15 @@ namespace SalesForce_Project.Pages.JobTypes
                 return driver.FindElement(txtProductTypeReportingL).Text;
             }
             catch { return "Error"; }
+        }
+
+        public void ClickTabCodeInformationLV()
+        {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            jse.ExecuteScript("window.scrollTo(0,0)");
+            WebDriverWaits.WaitUntilEleVisible(driver, tabCodeInfoL, 5);
+            driver.FindElement(tabCodeInfoL).Click();
+            Thread.Sleep(2000);
         }
         public string GetEngagementDetailtStageLV()
         {
