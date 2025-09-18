@@ -1,12 +1,13 @@
-﻿using NUnit.Framework;
-using SF_Automation.Pages.Common;
-using SF_Automation.Pages.Opportunity;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using NUnit.Framework;
+using SalesForce_Project.Pages.JobTypes;
 using SF_Automation.Pages;
+using SF_Automation.Pages.Common;
+using SF_Automation.Pages.HomePage;
+using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using SF_Automation.Pages.HomePage;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace SF_Automation.TestCases.OpportunitiesOracleERP
 {
@@ -24,6 +25,7 @@ namespace SF_Automation.TestCases.OpportunitiesOracleERP
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
         HomeMainPage homePage = new HomeMainPage();
+        JobTypesPage jobTypesPage = new JobTypesPage();
 
         public static string ERPTS01 = "LV_TS01_ValidateERPSection";
 
@@ -230,6 +232,9 @@ namespace SF_Automation.TestCases.OpportunitiesOracleERP
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 4, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
+                    randomPages.SelectListViewLV("All");
+                    extentReports.CreateStepLogs("Info", " All List option is selected ");
+                    jobTypesPage.SearchJobtypeLV(jobType);
                     pageTitle = randomPages.SelectJobTypesLV(jobType);
                     Assert.AreEqual(jobType, pageTitle);
                     extentReports.CreateStepLogs("Passed", "Page with title: " + pageTitle + " is displayed upon clicking Job Types link ");
