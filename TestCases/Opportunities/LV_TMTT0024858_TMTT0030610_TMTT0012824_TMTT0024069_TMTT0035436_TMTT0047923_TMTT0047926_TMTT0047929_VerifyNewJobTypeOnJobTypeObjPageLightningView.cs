@@ -1,7 +1,8 @@
 ﻿using NUnit.Framework;
+using SalesForce_Project.Pages.JobTypes;
+using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.HomePage;
-using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -16,6 +17,7 @@ namespace SalesForce_Project.TestCases.JobTypes
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
         HomeMainPage homePage = new HomeMainPage();
+        JobTypesPage jobTypesPage = new JobTypesPage();
 
         //System Admin: Verify New Job Type is present on Job Type Object page
         //TMTI0056876 Verify New / Updated Job Type And Job Code Under Job Type Object/tab
@@ -70,14 +72,15 @@ namespace SalesForce_Project.TestCases.JobTypes
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "User is on Module: " + moduleNameExl + " Page ");
 
-                //randomPages.SelectListViewLV("All");
-                //extentReports.CreateStepLogs("Info", " All List option is selected ");
+                randomPages.SelectListViewLV("All");
+                extentReports.CreateStepLogs("Info", " All List option is selected ");
                 //Calling functions to validate for all LOBs operation
                 int rowJobType = ReadExcelData.GetRowCount(excelPath, "JobType");
                 for (int row = 2; row <= rowJobType; row++)
                 {
                     extentReports.CreateStepLogs("Info", "Verify New Job Type is present on Job Type Object page as System Administrator ");
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 1);
+                    jobTypesPage.SearchJobtypeLV(valJobType);
                     string pageTitle = randomPages.SelectJobTypesLV(valJobType);
                     Assert.AreEqual(valJobType, pageTitle);
                     extentReports.CreateStepLogs("Passed", "Page with title: " + pageTitle + " is displayed upon clicking Job Types link ");
