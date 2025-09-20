@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.OpportunitiesConversion
 {
-    class LV_TMTT0046653_CF_VerifyTailExpireFieldOnEngagementwithJobTypeShowsValidationWhileChangingStage:BaseClass
+    class LV_CF_TMTT0046653_1_VerifyTailExpireFieldOnEngagementwithJobTypeShowsValidationWhileChangingStage:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

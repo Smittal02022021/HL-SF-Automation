@@ -8,7 +8,7 @@ using SF_Automation.TestData;
 
 namespace SF_Automation.TestCases.Opportunities
 {
-    class LV_1_TMTT0024069_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage : BaseClass
+    class LV_TMTT0024069_1_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

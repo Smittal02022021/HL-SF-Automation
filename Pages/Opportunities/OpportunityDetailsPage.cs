@@ -15,6 +15,7 @@ using System.Net.PeerToPeer;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text.RegularExpressions;
 using System.Threading;
+using static MongoDB.Bson.Serialization.Serializers.SerializerHelper;
 
 namespace SF_Automation.Pages
 {
@@ -3454,7 +3455,7 @@ namespace SF_Automation.Pages
                 Thread.Sleep(2000);
             }
             driver.FindElement(optionCCOutcomeL).Click();
-            if (valJobType.Equals("Buyside") || valJobType.Equals("Sellside") || valJobType.Equals("Debt Financing") || valJobType.Equals("Liability Management") || valJobType.Equals("Primary Capital Advisory") || valJobType.Equals("Directs")|| valJobType.Equals("Equity Placements") || valJobType.Equals("GP Stake Sale") || valJobType.Equals("LP-Led Secondaries")||valJobType.Equals("Buyside & Financing Advisory") || valJobType.Equals("Discretionary CS Advisory"))
+            if (valJobType.Equals("Buyside") || valJobType.Equals("Sellside") || valJobType.Equals("Debt Financing") || valJobType.Equals("Liability Management") || valJobType.Equals("Primary Capital Advisory") || valJobType.Equals("Directs")|| valJobType.Equals("Equity Placements") || valJobType.Equals("GP Stake Sale") || valJobType.Equals("LP-Led Secondaries")||valJobType.Equals("Buyside & Financing Advisory") || valJobType.Equals("Discretionary CS Advisory") || valJobType.Equals("Merger"))
             {
                 CustomFunctions.MoveToElement(driver, driver.FindElement(lblCreatedBy));
                 Thread.Sleep(2000);
@@ -6763,6 +6764,8 @@ namespace SF_Automation.Pages
         //Click Return to Opportunity button
         public void ClickRequestToEngL()
         {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            jse.ExecuteScript("window.scrollTo(0,0)");
             try
             {
                 Thread.Sleep(5000);
@@ -6921,8 +6924,7 @@ namespace SF_Automation.Pages
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(1000);
             try
-            {
-                js.ExecuteScript("window.scrollTo(0,0)");
+            {                
                 WebDriverWaits.WaitUntilEleVisible(driver, btnConvertToEngL2, 10);
                 driver.FindElement(btnConvertToEngL2).Click();
             }
@@ -9343,7 +9345,7 @@ namespace SF_Automation.Pages
         }
 
 
-
+        
         //Verify Is DND On/Off button displayed
         public bool IsButtonDNDOnOffDisplayedLV()
         {
@@ -9361,8 +9363,7 @@ namespace SF_Automation.Pages
             driver.FindElement(btnDNDOnOFF).Click();
             //Thread.Sleep(8000);
         }
-
-
+        
         public string GetOpportunityNameL()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
@@ -10375,9 +10376,9 @@ namespace SF_Automation.Pages
 
             // EBITDA(MM)
             string valWomen = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
-            if (valJobType == "Sellside" || valJobType == "Buyside" || valJobType == "Activism Advisory" || valJobType == "Buyside & Financing Advisory" || valJobType == "Discretionary CS Advisory")
+            if (valJobType == "Sellside" || valJobType == "Buyside" || valJobType == "Activism Advisory" || valJobType == "Buyside & Financing Advisory" || valJobType == "Discretionary CS Advisory" || valJobType == "Merger")
             {
-                driver.FindElement(txtEBITDAL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15));
+                driver.FindElement(txtEBITDAL).SendKeys(ReadExcelData.ReadData(excelPath, "AddOpportunity", 15)); 
                 //Thread.Sleep(2000);
             }
 

@@ -8,7 +8,7 @@ using System;
 
 namespace SF_Automation.TestCases.OpportunitiesInternalTeam
 {
-    class LV_2_CF_TMTT0048829_VerifyStaffRoleChangesImplementedOnInternalTeamForCaptialSolution:BaseClass
+    class LV_CF_2_TMTT0048829_VerifyStaffRoleChangesImplementedOnInternalTeamForCaptialSolution:BaseClass
     {
 
         ExtentReport extentReports = new ExtentReport();

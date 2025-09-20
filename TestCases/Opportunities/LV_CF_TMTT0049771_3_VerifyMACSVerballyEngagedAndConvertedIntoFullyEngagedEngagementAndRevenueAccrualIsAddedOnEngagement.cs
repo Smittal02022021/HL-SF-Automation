@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.OpportunitiesConversion
 {
-    class LV_3_CF_TMTT0049771_VerifyMACSVerballyEngagedAndConvertedIntoFullyEngagedEngagementAndRevenueAccrualIsAddedOnEngagement:BaseClass
+    class LV_CF_TMTT0049771_3_VerifyMACSVerballyEngagedAndConvertedIntoFullyEngagedEngagementAndRevenueAccrualIsAddedOnEngagement:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -246,7 +246,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     */
                     string historyStatus = ReadExcelData.ReadDataMultipleRows(excelPath, "ProductType", row, 8);
                     Assert.AreEqual(historyStatus, randomPages.GetHistoryStatusLV(), "Verify the Status on Requested Full engaged Engagement");
-                    extentReports.CreateStepLogs("Passed", "Status: " + historyStatus + " on Requested Full engaged Engagemen");
+                    extentReports.CreateStepLogs("Passed", "Status: " + historyStatus + " on Requested Full engaged Engagement");
 
                     string historyExpectedAssignTo = ReadExcelData.ReadDataMultipleRows(excelPath, "ProductType", row, 3);
                     Assert.AreEqual(historyExpectedAssignTo, randomPages.GetHistoryAssignToNameLV(), "Verify the Assign To for Approval Group Name on Requested Full engaged Engagement");

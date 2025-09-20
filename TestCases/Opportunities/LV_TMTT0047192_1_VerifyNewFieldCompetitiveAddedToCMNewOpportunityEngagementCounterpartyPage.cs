@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace SF_Automation.TestCases.OpportunitiesConversion
 {
-    class LV_1_TMTT0047192_VerifyNewFieldCompetitiveAddedToCMNewOpportunityEngagementCounterpartyPage:BaseClass
+    class LV_TMTT0047192_1_VerifyNewFieldCompetitiveAddedToCMNewOpportunityEngagementCounterpartyPage:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();

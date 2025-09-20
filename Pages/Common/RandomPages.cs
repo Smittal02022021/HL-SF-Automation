@@ -131,6 +131,8 @@ namespace SF_Automation.Pages.Common
         By tabOracleERPL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Oracle ERP']");
         By tabMoreOracleERPL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='Oracle ERP']");
         By btnNewL = By.XPath("//button[@name='New']");
+        By txtDNDStatusL = By.XPath("//span[text()='DND Status']/../..//lightning-formatted-text");
+        By txtPageHeader = By.XPath("//h1//lightning-formatted-text");
         private By _optionListView(string name)
         {
             return By.XPath($"//lightning-popup/section//span[text()='{name}']"); //div[contains(@class,'scroller')]//ul[contains(@aria-label,'List Views')]//li//a//span[text()='{name}']");
@@ -182,8 +184,7 @@ namespace SF_Automation.Pages.Common
         {
             return By.XPath($"//div[contains(@class,'listViewContainer')]//table//tbody//th//a[@title='{name}']");
         }
-
-        By txtPageHeader = By.XPath("//h1//lightning-formatted-text");
+        
         
         public void RefreshActiveTab(string name)
         {
@@ -1277,8 +1278,7 @@ namespace SF_Automation.Pages.Common
             try
             {
                 try
-                {
-                    js.ExecuteScript("window.scrollTo(0,0)");
+                {                    
                     WebDriverWaits.WaitUntilEleVisible(driver, tabOracleERPL, 5);
                     driver.FindElement(tabOracleERPL).Click();
                 }
@@ -1593,6 +1593,12 @@ namespace SF_Automation.Pages.Common
             Thread.Sleep(5000);
             IWebElement elm = driver.FindElements(txtCommentsLV).First();
             return elm.Text;
+        }
+        
+        public string GetDNDStatusLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtDNDStatusL, 5);
+            return driver.FindElement(txtDNDStatusL).Text;
         }
     }
 }
