@@ -1113,6 +1113,12 @@
     <None Include="TestData\ERPPostCoversionToEngagement1.xlsx" />
     <None Include="TestData\ERPPostCreationOfOpportunity.xlsx" />
     <None Include="TestData\ERPPostCreationOfOpportunity1.xlsx" />
+    <None Include="TestData\LV_T1140_T1141_T1151_T1144_T1146_CompaniesAddNewCompanyWithRecordTypeForCapitalProviderAndOperatingCompany.xlsx" />
+    <None Include="TestData\LV_T1147_CompaniesEditAndUpdateTheExistingInformation.xlsx" />
+    <None Include="TestData\LV_T1169_Companies_AddNewContactButtonFuncContactModuleOnCompanyDetailPage.xlsx" />
+    <None Include="TestData\LV_T1174_CompaniesAddCFOpportunityOnCompanyDetailPage.xlsx" />
+    <None Include="TestData\LV_T1176_CompaniesAddFVAOpportunityInCompanyDetailPage.xlsx" />
+    <None Include="TestData\LV_T1177_CompaniesAddFROpportunityInCompanyDetailPage.xlsx" />
     <None Include="TestData\LV_T1426_OpportunityToEngagementConversionMappingForCF.xlsx" />
     <None Include="TestData\LV_T1432_OpportunityToEngagementConversionMappingForFVAJobTypes.xlsx" />
     <None Include="TestData\LV_T1508_T1511_T1514_VerifyTheRequiredFieldsValidationsAndHelpTextOfFields.xlsx" />
@@ -1146,6 +1152,18 @@
     <None Include="TestData\LV_TC2331_TMTC0002485_VerifyTheRolesAvailable.xlsx" />
     <None Include="TestData\LV_TC2332_TMTC0002488_VerifyTheRolesAvailable.xlsx" />
     <None Include="TestData\LV_TC2333_TMTC0002494_VerifyTheRolesAvailable.xlsx" />
+    <None Include="TestData\LV_TMT0076335_VerifyTheFunctionalityOfNewContactButtonAndHLRelationshipObjectOCompanyDetailsPage.xlsx" />
+    <None Include="TestData\LV_TMT0076578_VerifyTheFunctionalityOfCoveageOfficeStatusOnCoverageTeamDetailPages.xlsx" />
+    <None Include="TestData\LV_TMTC0033975_4_VerifyRelatedListIsUdatedOnCratedCompany.xlsx" />
+    <None Include="TestData\LV_TMTC0033975_VerifyDuplicateAlertFunctionalityOfCompaniesAndContact.xlsx" />
+    <None Include="TestData\LV_TMTC0033975_VerifyFunctionalityOfCompaniesInfo.xlsx" />
+    <None Include="TestData\LV_TMTC0033975_VerifyFunctionalityOfCompaniesInfoSystemAdmin.xlsx" />
+    <None Include="TestData\LV_TMTC0033978_VerifyTheFunctionalityOfContactsTabOnCompanyDetailPage.xlsx" />
+    <None Include="TestData\LV_TMTC0034013_VerifyTheFunctionalityOfTheBoardMembersTabInTheCompany.xlsx" />
+    <None Include="TestData\LV_TMTC0034016_VerifyTheFunctionalityOfCoverageTabOnCompany.xlsx" />
+    <None Include="TestData\LV_TMTC0034038_VerifyTheFunctionalityOfTheFinancialSponsorsTabOnCompanyDetailPage.xlsx" />
+    <None Include="TestData\LV_TMTC0034058_VerifyTheFunctionalityOfFilesTabOnTheCompanyDetailPage.xlsx" />
+    <None Include="TestData\LV_TMTC0034072_VerifyTheFunctionalityOftheFSFundTabOnTheCompanyDetailPage.xlsx" />
     <None Include="TestData\LV_TMTI0054683_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFROpportunityAndEngagementPage.xlsx" />
     <None Include="TestData\LV_TMTI0054719_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPage.xlsx" />
     <None Include="TestData\LV_TMTI0054728_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFVAOpportunityAndEngagementPage.xlsx" />
@@ -1158,6 +1176,8 @@
     <None Include="TestData\LV_TMTI0063927_VerifyViewCounterpartiesButtonAndViewsOnSalesforceLightningVersion.xlsx" />
     <None Include="TestData\LV_TMTT0012113_ValidateCoExistFieldForGCATracking.xlsx" />
     <None Include="TestData\LV_TMTT0012115_ValidateLegacyPeriodAccuredFeesFieldOnRevenueAccruals.xlsx" />
+    <None Include="TestData\LV_TMTT0012451_VerifyCFIndustryGroupUpdatedToTECHonCompanies.xlsx" />
+    <None Include="TestData\LV_TMTT0012453_VerifyIndustryTypeIsUpdatedForCampaignsAndCapIQCompanies.xlsx" />
     <None Include="TestData\LV_TMTT0024858_VerifyNewJobTypeOnJobTypeObjPageLightningView.xlsx" />
     <None Include="TestData\LV_TMTT0035665_VerifyInternalDealTeamForAnalystRoleLimitForCFLOBOpportunityEngagement.xlsx" />
     <None Include="TestData\LV_TMTT0035666_VerifyInternalDealTeamForAnalystRoleLimitForFRLOBOpportunityEngagement.xlsx" />
@@ -1169,6 +1189,7 @@
     <None Include="TestData\LV_TMTT0037504_VerifyTheTASDNDFunctionalityforFVAOpportunityAndEngagementOnSFLightningView.xlsx" />
     <None Include="TestData\LV_TMTT0041159_VerifiyTheFunctionalityOfVerballyEngagedCFEngagement.xlsx" />
     <None Include="TestData\LV_TMTT0042958_VerifyCapitalMarketViewsOnOpportunityCounterpartyPage.xlsx" />
+    <None Include="TestData\LV_TMTT0046139_VerifyNewInvestorTypeAppearsAsRelatedListForCS_FSCG_MAInvestmentPreferencesCompanyPage.xlsx" />
     <None Include="TestData\LV_TS01_ValidateERPSection.xlsx" />
     <None Include="TestData\LV_TS02_PostUpdatingDFFFieldsOfOpportunity.xlsx" />
     <None Include="TestData\LV_TS04AndTS07_ValidateERPSection.xlsx" />
@@ -1317,6 +1338,7 @@
     <None Include="TestData\TMTC0019612_VerifyExternalContactFeaturesOnSFLightning.xlsx" />
     <None Include="TestData\TMTC0032938_VerifyTheFunctionalityOfCreatingParentProjectAndAssociatingTheEngagementToParentProject.xlsx" />
     <None Include="TestData\TMTC0032942_VerifyTheFunctionalityOfCreatingBillingEventsAndSubmitForApprovalProcess.xlsx" />
+    <None Include="TestData\TMTC0034027_VerifyTheFunctionalityOfFinancialsTabOnCompanyDetailPage.xlsx" />
     <None Include="TestData\TMTI0003744_TimeRecordManager_VerifyTimeEntriesInTimeRecordManager_RoundOffToFirstDecimalPlaceOfAnHour.xlsx" />
     <None Include="TestData\TMTI0018624_FREngagementSummary_VerifyLendersAddedunderPreAndPostTransaction.xls" />
     <None Include="TestData\TMTI0027300_VerifyIndustryTypeIsUpdatedForCampaignsAndCapIQCompanies.xlsx" />
