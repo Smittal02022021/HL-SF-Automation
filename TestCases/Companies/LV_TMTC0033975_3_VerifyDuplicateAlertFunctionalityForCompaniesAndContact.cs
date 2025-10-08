@@ -11,7 +11,7 @@ using System;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class LV_TMTC0033975_3_VerifyDuplicateAlertFunctionalityForCompaniesAndContact:BaseClass
+    class LV_TMTC0033975_3_VerifyDuplicateAlertFunctionalityForCompaniesAndContact : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -79,9 +79,9 @@ namespace SF_Automation.TestCases.Companies
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
                 rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Company");
-                for (int rowComp = 2; rowComp <= rowCompanyName; rowComp++)
+                for(int rowComp = 2; rowComp <= rowCompanyName; rowComp++)
                 {
-                    for (int row = rowComp; rowComp <= rowCompanyName; rowComp++)
+                    for(int row = rowComp; rowComp <= rowCompanyName; rowComp++)
                     {
                         string btnNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Buttons", 2, 1);
                         companyHome.ClickButtonCompanyHomePageLV(btnNameExl);
@@ -95,7 +95,7 @@ namespace SF_Automation.TestCases.Companies
                         //TMT0076751	Verify that the Duplicate alert message appears on the screen when creating a new company matches the existing company record
                         // Create a  company
                         bool isAlertFound = createCompany.ValidateDuplicateAlertForCreateNewCompanyLV(fileTMTC0033975);
-                        if (isAlertFound)
+                        if(isAlertFound)
                         {
                             Assert.IsTrue(isAlertFound);
                             extentReports.CreateStepLogs("Passed", "Duplicate Alert message displayed for " + companyNameExl);
@@ -138,14 +138,14 @@ namespace SF_Automation.TestCases.Companies
                 companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 2);
                 companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
                 int rowContact = ReadExcelData.GetRowCount(excelPath, "Contact");
-                for (int row = 2; row <= rowContact; row++)
-                { 
-                    for (int cRow = 2; cRow <= rowContact; cRow++)
+                for(int row = 2; row <= rowContact; row++)
+                {
+                    for(int cRow = 2; cRow <= rowContact; cRow++)
                     {
                         companyDetail.ClickNewContactLV();
                         //TMT0076753 Verify that the duplicate alert message appears on the screen when the creation of the new contact matches with the existing contact of the company
                         bool isAlertFound = companyDetail.ValidateDuplicateAlertForCreateContactLV(fileTMTC0033975);
-                        if (isAlertFound)
+                        if(isAlertFound)
                         {
                             Assert.IsTrue(isAlertFound);
                             extentReports.CreateStepLogs("Passed", "Duplicate Contact Alert message displayed while creating contact on " + companyNameExl);
@@ -173,22 +173,22 @@ namespace SF_Automation.TestCases.Companies
                 //string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
                     companyDetail.DeleteCompanyLV();
                     extentReports.CreateStepLogs("Passed", companyNameExl + " Company Deleted");
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 string valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
                 extentReports.CreateStepLogs("Info", "CF Fin User: " + valAdminUser + " details are displayed. ");
@@ -207,14 +207,14 @@ namespace SF_Automation.TestCases.Companies
                 string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     //string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 2);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
                     companyDetail.DeleteCompanyLV();
                     extentReports.CreateStepLogs("Passed", companyNameExl + " Company Deleted");
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
         }

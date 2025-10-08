@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class LV_T1140_T1141_T1151_T1144_T1146_CompaniesAddNewCompanyWithRecordTypeForCapitalProviderAndOperatingCompany:BaseClass
+    class LV_T1140_T1141_T1151_T1144_T1146_CompaniesAddNewCompanyWithRecordTypeForCapitalProviderAndOperatingCompany : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -78,23 +78,23 @@ namespace SF_Automation.TestCases.Companies
                 companyHome.ClickButtonCompanyHomePageLV(btnNameExl);
 
                 //TMTC0005824/T1140 Verify company record types and description on company record page
-                Assert.IsTrue(companySelectRecord.AreCompanyRecordTypesDisplayedLV(fileT1140),"Verify All Companies Record Types are Displayed ");
+                Assert.IsTrue(companySelectRecord.AreCompanyRecordTypesDisplayedLV(fileT1140), "Verify All Companies Record Types are Displayed ");
                 extentReports.CreateStepLogs("Passed", "Company All Record Types Displayed");
                 Assert.IsTrue(companySelectRecord.AreCompanyRecordTypesDescriptionDisplayedLV(fileT1140), "Verify All Companies Record Type's Descriptions are Displayed ");
                 extentReports.CreateStepLogs("Passed", "Company All Record Type's Descriptions Displayed");
 
                 btnNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Buttons", 3, 1);
                 Assert.IsTrue(companySelectRecord.IsButtonPresentOnRecordTypePageLV(btnNameExl));
-                extentReports.CreateStepLogs("Passed", "Button: "+ btnNameExl+" present on Company Record Type Page");
+                extentReports.CreateStepLogs("Passed", "Button: " + btnNameExl + " present on Company Record Type Page");
                 btnNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Buttons", 4, 1);
                 Assert.IsTrue(companySelectRecord.IsButtonPresentOnRecordTypePageLV(btnNameExl));
                 extentReports.CreateStepLogs("Passed", "Button: " + btnNameExl + " present on Company Record Type Page");
 
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "System Administrator User: " + valAdminUser + " logged out");
-                                
+
                 int rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Company");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     // Search standard user by global search
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
@@ -159,7 +159,7 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Passed", "Company Type: " + companyType + " in add company page matches on company details page ");
 
                     // Logout from standard User
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
 
                     valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
@@ -171,12 +171,12 @@ namespace SF_Automation.TestCases.Companies
                     user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(valAdminUser), true);
                     extentReports.CreateStepLogs("Passed", "User: " + valAdminUser + " logged in on Lightning View");
-                                        
+
                     homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
-                    
+
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
@@ -191,7 +191,7 @@ namespace SF_Automation.TestCases.Companies
 
                     extentReports.CreateStepLogs("Info", "Required field values are entered into edit company details page ");
 
-                    if (companyType.Equals(ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1)))
+                    if(companyType.Equals(ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1)))
                     {
                         //Validate company sub type
                         string companySubType = companyDetail.GetCompanySubTypeLV();
@@ -233,17 +233,17 @@ namespace SF_Automation.TestCases.Companies
                     //}
 
                     //Delete company
-                   companyDetail.DeleteCompanyLV();
-                   extentReports.CreateLog("Created company is deleted successfully ");
-                   randomPages.CloseActiveTab(companyName);
-                   usersLogin.ClickLogoutFromLightningView();
-                   extentReports.CreateStepLogs("Passed", "System Admin: " + valAdminUser + " logged out");
-                }           
+                    companyDetail.DeleteCompanyLV();
+                    extentReports.CreateLog("Created company is deleted successfully ");
+                    randomPages.CloseActiveTab(companyName);
+                    homePageLV.LogoutFromSFLightningAsApprover();
+                    extentReports.CreateStepLogs("Passed", "System Admin: " + valAdminUser + " logged out");
+                }
 
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 driver.SwitchTo().DefaultContent();

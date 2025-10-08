@@ -6,7 +6,6 @@ using System;
 using System.IO;
 using System.Threading;
 
-
 namespace SF_Automation.UtilityFunctions
 {
   public class ExtentReport :BaseClass

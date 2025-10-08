@@ -53,14 +53,14 @@ namespace SF_Automation.TestCases.Companies
         //TMT0076499 Verify that the most recent Year and Date information is updated on the Company's Annual Financials
         //TMT0076501 Verify that clicking "Delete" will delete the HL Company Financials and give a success message on the screen.
 
-    [Test]
+        [Test]
         public void VerifyTheFunctionalityOfFinancialsTabOnCompanyDetailPageLV()
-    {
-        try
         {
-            //Get path of Test data file
+            try
+            {
+                //Get path of Test data file
                 excelPath = ReadJSONData.data.filePaths.testData + fileTMTC0034027;
-            //Validating Title of Login Page
+                //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateLog(driver.Title + " is displayed ");
                 //Calling Login function                
@@ -89,11 +89,11 @@ namespace SF_Automation.TestCases.Companies
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
                 rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Companies");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 1);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
-                    extentReports.CreateStepLogs("Passed", "Company: "+companyNameExl + " found and selected");
+                    extentReports.CreateStepLogs("Passed", "Company: " + companyNameExl + " found and selected");
 
                     //TMT0076489 Verify the availability of the "Financials" tab on the Company detail page for the CF Financials User.
                     tabNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "TabName", 2, 1);
@@ -105,9 +105,8 @@ namespace SF_Automation.TestCases.Companies
                     Assert.IsTrue(companyDetail.IsCompanyFiancialRecordsFoundLV(), "Verify that the 'Financials' tab lists all the company financials added from the different data sources.");
                     extentReports.CreateStepLogs("Passed", "'Financials' tab lists all the company financials added from the different data sources on the Company detail page");
                     randomPages.CloseActiveTab(companyNameExl);
-
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
 
                 valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
@@ -123,11 +122,11 @@ namespace SF_Automation.TestCases.Companies
                 appName = homePageLV.GetAppName();
                 Assert.AreEqual(appNameExl, appName);
                 extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
-                
+
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
 
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 1);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
@@ -138,7 +137,7 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Passed", tabNameExl + " tab available on the Company detail page");
 
                     companyDetail.ClickCompanyDetailPageTabLV(tabNameExl);
-                    
+
                     //TMT0076493 Verify that the "New" button is available on the Financials tab to add new HL Company Financials for System Admin.
                     Assert.IsTrue(companyDetail.IsNewHLCompanyFinancialsDisplayedLV(), "Verify that the 'New' button is available on the Financials tab to add new HL Company Financials for System Admin.");
                     extentReports.CreateStepLogs("Passed", "'New' button is available on the Financials tab to add new HL Company Financials for System Admin.");
@@ -147,43 +146,40 @@ namespace SF_Automation.TestCases.Companies
                     companyDetail.ClickNewButtonCompanyFinancialsLV();
                     string valYarExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Financials", 2, 1);
                     string valSourceExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Financials", 2, 2);
-                    string valRevenueExl= ReadExcelData.ReadDataMultipleRows(excelPath, "Financials", 2, 3);
+                    string valRevenueExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Financials", 2, 3);
                     string valEBITDAExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Financials", 2, 4);
                     string valDataSourceExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Financials", 2, 5);
-                    msgSuccess=companyDetail.AddNewHLCompanyFinancialLV(valYarExl,valSourceExl,valRevenueExl,valEBITDAExl, valDataSourceExl);
-                    companyHLFinancialName=companyDetail.GetHLFinancialNameLV();
-                    extentReports.CreateStepLogs("Passed", "HL Company Financial Created with success message: "+msgSuccess);
+                    msgSuccess = companyDetail.AddNewHLCompanyFinancialLV(valYarExl, valSourceExl, valRevenueExl, valEBITDAExl, valDataSourceExl);
+                    companyHLFinancialName = companyDetail.GetHLFinancialNameLV();
+                    extentReports.CreateStepLogs("Passed", "HL Company Financial Created with success message: " + msgSuccess);
                     randomPages.CloseActiveTab(companyHLFinancialName);
 
                     //TMT0076497 Verify that the System Admin can update HL Company Financials using the "Edit" button on the Financials tab of the Company Detail Page
                     //TMT0076499 Verify that the most recent Year and Date information is updated on the Company's Annual Financials
                     valRevenueExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Financials", 2, 6);
-                    string updatedAsOfDate = companyDetail.EditHLFinancialRecordLV(companyHLFinancialName, valRevenueExl);                    
-                    string updatedRevenue= companyDetail.GetHLFinancialRecordRevenueLV(companyHLFinancialName);
+                    string updatedAsOfDate = companyDetail.EditHLFinancialRecordLV(companyHLFinancialName, valRevenueExl);
+                    string updatedRevenue = companyDetail.GetHLFinancialRecordRevenueLV(companyHLFinancialName);
                     Assert.AreEqual(valRevenueExl, updatedRevenue);
-                    extentReports.CreateStepLogs("Passed", " New HL Company Financials: "+ companyHLFinancialName+" Revenue is updated");
-                    string latestAsOfDate= companyDetail.GetHLFinancialRecordAsOfDateLV(companyHLFinancialName);
+                    extentReports.CreateStepLogs("Passed", " New HL Company Financials: " + companyHLFinancialName + " Revenue is updated");
+                    string latestAsOfDate = companyDetail.GetHLFinancialRecordAsOfDateLV(companyHLFinancialName);
                     Assert.AreEqual(updatedAsOfDate, latestAsOfDate);
-                    extentReports.CreateStepLogs("Passed", " New HL Company Financials: "+ companyHLFinancialName+" As Of Date is updated");
+                    extentReports.CreateStepLogs("Passed", " New HL Company Financials: " + companyHLFinancialName + " As Of Date is updated");
 
                     //TMT0076501 Verify that clicking "Delete" will delete the HL Company Financials and give a success message on the screen.
-                    msgSuccess= companyDetail.DeleteHLFinancialRecordLV(tabNameExl,companyHLFinancialName);
+                    msgSuccess = companyDetail.DeleteHLFinancialRecordLV(tabNameExl, companyHLFinancialName);
                     extentReports.CreateStepLogs("Passed", msgSuccess);
                     randomPages.CloseActiveTab(companyNameExl);
-
                 }
-
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "System Admin: " + appNameExl + " logged out");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
-                
-            catch (Exception e)
+
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                usersLogin.ClickLogoutFromLightningView();
-                //valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
+                homePageLV.LogoutFromSFLightningAsApprover();
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
                 usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
@@ -191,7 +187,6 @@ namespace SF_Automation.TestCases.Companies
                 Assert.AreEqual(user.Contains(valAdminUser), true);
                 extentReports.CreateStepLogs("Passed", "System Admin User: " + valAdminUser + " logged in on Lightning View");
 
-                //appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                 homePageLV.SelectAppLV(appNameExl);
                 appName = homePageLV.GetAppName();
                 Assert.AreEqual(appNameExl, appName);
@@ -200,7 +195,7 @@ namespace SF_Automation.TestCases.Companies
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
 
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 1);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
@@ -213,7 +208,7 @@ namespace SF_Automation.TestCases.Companies
                         extentReports.CreateStepLogs("Passed", "HL Company Financials: " + companyHLFinancialName + " Deleted with followed by message: " + msgSuccess);
 
                     }
-                    catch (Exception ex)
+                    catch(Exception ex)
                     {
 
                     }

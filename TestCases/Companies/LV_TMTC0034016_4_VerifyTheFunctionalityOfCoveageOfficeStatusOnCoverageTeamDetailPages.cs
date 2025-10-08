@@ -12,7 +12,7 @@ using Microsoft.Office.Interop.Excel;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class LV_TMTC0034016_4_VerifyTheFunctionalityOfCoveageOfficeStatusOnCoverageTeamDetailPages:BaseClass
+    class LV_TMTC0034016_4_VerifyTheFunctionalityOfCoveageOfficeStatusOnCoverageTeamDetailPages : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -72,7 +72,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Company");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
                     homePage.SearchUserByGlobalSearchN(valUser);
@@ -131,14 +131,14 @@ namespace SF_Automation.TestCases.Companies
                     Assert.AreEqual(officerStatusExl, coverageTeamStatus);
                     randomPages.CloseActiveTab(coverageTeamId);
                     extentReports.CreateStepLogs("Passed", "Coverage Team Officer Status is " + coverageTeamStatus);
-                    Assert.IsTrue(companyDetail.IsIndustryCoverageTamMemberDisplayedRelatedTabListLV(officerExl),"Verify Coverage Team officer should be displayed in List");
+                    Assert.IsTrue(companyDetail.IsIndustryCoverageTamMemberDisplayedRelatedTabListLV(officerExl), "Verify Coverage Team officer should be displayed in List");
                     extentReports.CreateStepLogs("Passed", "Coverage Team officer should be displayed in List");
 
                     randomPages.CloseActiveTab(companyNameExl);
                     //////////////////////////////////////////////////////////////
-                    
+
                     //Changing the status of Officer as System admin 
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
 
                     valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
@@ -164,7 +164,7 @@ namespace SF_Automation.TestCases.Companies
                     contactDetail.UpdateContactStatusLV(contactStatus);
                     extentReports.CreateStepLogs("Passed", "Coverage Team Officer Contact is updated to Inactive");
                     randomPages.CloseActiveTab(officerExl);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Passed", "System Admin: " + valAdminUser + " logged out");
                     /////////////////////////////////////////////////////////
                     ///Verify the Oficer Status as CF Fin user
@@ -193,9 +193,9 @@ namespace SF_Automation.TestCases.Companies
                     Assert.IsFalse(companyDetail.IsIndustryCoverageTamMemberDisplayedRelatedTabListLV(officerExl), "Verify that the Coverage officer i.e. Houlihan Contact is Inactive has been removed from the respective types of Coverage Team.");
                     extentReports.CreateStepLogs("Passed", "Inactive Houlihan Contact is has been removed from the respective types of Coverage Team List.");
                     randomPages.CloseActiveTab(companyNameExl);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
-                   
+
                     //Changing the status of Contact as System Admin
                     //valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
                     homePage.SearchUserByGlobalSearchN(valAdminUser);//Login user
@@ -219,7 +219,7 @@ namespace SF_Automation.TestCases.Companies
                     contactDetail.UpdateContactStatusLV(contactStatus);
                     randomPages.CloseActiveTab(officerExl);
 
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Passed", "System Admin: " + valAdminUser + " logged out");
 
                     //Verify the status of Officer as CF Fin User
@@ -247,7 +247,7 @@ namespace SF_Automation.TestCases.Companies
                     companyDetail.ClickCoverageTabLV();
                     Assert.IsFalse(companyDetail.IsIndustryCoverageTamMemberDisplayedRelatedTabListLV(officerExl), "Verify that the Coverage officer i.e. Houlihan Contact is Inactive has been removed from the respective types of Coverage Team.");
                     extentReports.CreateStepLogs("Passed", "Re-Activated Houlihan Contact is not displaying under the respective types of Coverage Team List.");
-                    
+
                     //TMT0076584 Verify that the user can add the same coverage officer once its status is updated to "Active".
                     //# 16.Verify that the user can add the same coverage officer once its status is updated to "Active".
                     coverageTeam.ClickNewButtonSponsorCoverageDisplayedLV();
@@ -267,7 +267,7 @@ namespace SF_Automation.TestCases.Companies
                     randomPages.CloseActiveTab(companyNameExl);
                     //Change the Coverage team satatus as CF FIn user need to work 
 
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
 
                     //Delete crated company,coverage team, as system admin 
@@ -295,16 +295,16 @@ namespace SF_Automation.TestCases.Companies
                     companyDetail.DeleteCompanyLV();
                     extentReports.CreateStepLogs("Passed", companyNameExl + " Company Deleted");
 
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Passed", "System Administrator: " + valAdminUser + " logged out");
                 }
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
                 extentReports.CreateStepLogs("Info", "System Admin User: " + valAdminUser + " details are displayed. ");
@@ -329,8 +329,8 @@ namespace SF_Automation.TestCases.Companies
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
                 contactHome.GlobalSearchContactInLightningView(officerExl);
-                
-                if(contactDetail.GetContactStatusLV()=="Inactive")
+
+                if(contactDetail.GetContactStatusLV() == "Inactive")
                 {
                     contactDetail.UpdateContactStatusLV("Active");
                     randomPages.CloseActiveTab(officerExl);
@@ -339,7 +339,7 @@ namespace SF_Automation.TestCases.Companies
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
@@ -358,7 +358,7 @@ namespace SF_Automation.TestCases.Companies
                         extentReports.CreateStepLogs("Passed", companyNameExl + " Company Deleted");
                     }
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
         }

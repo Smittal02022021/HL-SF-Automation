@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NUnit.Framework.Constraints;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SF_Automation.Pages.Company;
@@ -11,9 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Timers;
-using System.Web.Razor.Tokenizer;
-using System.Xml.Linq;
 
 namespace SF_Automation.Pages.Companies
 {
@@ -222,7 +217,7 @@ namespace SF_Automation.Pages.Companies
         By tabContactL = By.XPath("//a[text()='Contacts']");
         By tabCoverageL = By.XPath("//a[text()='Coverage']");
         By tabFinancialsL = By.XPath("//a[text()='Financials']");
-        By txtsectionNameL = By.XPath("//h3//span[@class='slds-truncate']");
+        By txtsectionNameL = By.XPath("//h3//button/span"); //h3//span[@class='slds-truncate']");
         By btnInlineEditPhoneL = By.XPath("//button[@title='Edit Phone']");
         By inputPhoneL = By.XPath("//input[@name='Phone']");
         //By btnCancelDetailsL = By.XPath("//button[@name='CancelEdit']");
@@ -273,7 +268,7 @@ namespace SF_Automation.Pages.Companies
         By toastMsgPopup = By.XPath("//span[contains(@class,'toastMessage')]");
         By toastMsgCloseIcon = By.XPath("//button[@title='Close']");
         By tableFullNameL = By.XPath("//table//tr//td[@data-label='Full Name']//a");
-        By iconContactActionsMoreL = By.XPath("//button[contains(@class,'button slds-button_icon-border')]");
+        By iconContactActionsMoreL = By.XPath("//button[contains(@class,'button slds-button_icon-border')]");//button[@aria-haspopup='true'][contains(@class,'button slds-button_icon-border')]");
         By lnkContactActionsMoreL = By.XPath("//ul//a[@role='menuitem']//span[text()='Edit']");
         By txtContactPhoneNumberL = By.XPath("//table//td[@data-label='Business Phone']/span");
         By btnAddRelationshipL = By.XPath("//button[contains(@name,'Contact.Add_Relationship')]");
@@ -327,12 +322,61 @@ namespace SF_Automation.Pages.Companies
         By btnNewFSFundsL = By.XPath("//article[@aria-label='FS Funds']//div//button[@name='New']");
         By valCompanyNameL = By.XPath("//label[text()='Company']/..//input");
         By btnNewFinancialsL = By.XPath("//article[@aria-label='HL Company Financials']//div//button[@name='New']");
-        By btnNewFinancialsSPL = By.XPath("//article[@aria-label='Current Sponsors']//div//button[@name='New']");
+        By btnNewFinancialsSPL = By.XPath("//article[contains(@aria-label,'Current')]//div//button[@name='New']");
         By txtSPNameL = By.XPath("//span[text()='Investment List Number']/../../..//lightning-formatted-text");
+        By btnInlineFlagReasonL = By.XPath("//button[@title='Edit Flag Reason']");
+        By btnFlagReasonL = By.XPath("//button[@aria-label='Flag Reason']");
+        By inputFlagReasonCommentL = By.XPath("//label[text()='Flag Reason Comment']/..//textarea");
+        By txtFlagReasonL = By.XPath("//span[text()='Flag Reason']/../../..//lightning-formatted-text");
+        By txtFlagReasonCommentL = By.XPath("//span[text()='Flag Reason Comment']/../../..//lightning-formatted-text");
+        By btnEditL = By.XPath("//button[@name='Edit']");
+        By comboIndustryTypeL = By.XPath("//label[text()='Industry Group']/..//button");
+        By comboIndustryTypeOptionsL = By.XPath("//label[text()='Industry Group']/..//lightning-base-combobox-item//span[2]/span");
+        By btnCancelL = By.XPath("//button[@name='CancelEdit']");
+        By iframeCompanyForm = By.XPath("//iframe[contains(@name,'vfFrame')]");
+        By btnNewCoverageTeamL = By.XPath("//span[contains(text(),'Sponsor Coverage')]//ancestor::header//button");//span[contains(text(),'Sponsor Coverage')]//ancestor::h2/..//following-sibling::div//button[text()='New']");
+        By btnDialogNextL = By.XPath("//div[@role='dialog']//button[text()='Next']");
+        By comboTypeL = By.XPath("//label[text()='Type']/..//button");
+        By comboTypeOptionsL = By.XPath("//label[text()='Type']/..//lightning-base-combobox-item//span[2]/span");
 
-        By comboIGL = By.XPath("//label[text()='Industry Group']/parent::div//button");
-        By txtValidationSectorL = By.XPath("//div[@class='fieldLevelErrors']//ul/li/a[text()='Sector']");
-        By txtValidationNameL = By.XPath("//div[@class='fieldLevelErrors']//ul/li/a[text()='Name']");
+        By btnEditInvestmentL = By.XPath("//records-entity-label[text()='Investment List']//ancestor::h1/../../..//button[@name='Edit']");
+        By btnDeleteInvestmentL = By.XPath("//records-entity-label[text()='Investment List']//ancestor::h1/../../..//button[@name='Delete']");
+        By inputInvestmentAmountL = By.XPath("//label[text()='Amount of Investment']/..//input");
+        By btnInvestStatusL = By.XPath("//button[@aria-label='Status']");
+        By btnActivitiesReportL = By.XPath("//button[text()='Activities Report']");
+        By iframeTableCompanyActivityL = By.XPath("//iframe[@title='Report Viewer']");
+        By headerPageL = By.XPath("//div[contains(@class,'reportView')]//h1");
+        By tableCompaiesActivities = By.XPath("//table[contains(@class,'full-table')]");
+        By tableActivityCompanyName = By.XPath("//table[contains(@class,'full-table')]//tbody//tr[2]//td[6]//span/a");
+        By btnNewIPL = By.XPath("//h1[@title='Investment Preferences']/../../../../..//ul//button[@name='New']");
+        By btnDialogNewIPL = By.XPath("//h2//a[@title='Investment Preferences']/../../../../..//ul//a[@title='New']");
+        By btnNextL = By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button/span[text()='Next']");
+        By btnDeleteIPL = By.XPath("//ul//button[@name='Delete']");
+        By txtIPNameL = By.XPath("//h1//records-entity-label[text()='Investment Preference']/../../..//lightning-formatted-text");
+        By txtIPContactNumberL = By.XPath("//h1//records-entity-label[text()='Investment Preference Contact']/../../..//lightning-formatted-text");
+        By txtIPTypeNumberL = By.XPath("//h1//records-entity-label[text()='Investment Preference Investment Type']/../../..//lightning-formatted-text");
+        By txtIPInvestorNumberL = By.XPath("//h1//records-entity-label[text()='Investment Preference Investor Type']/../../..//lightning-formatted-text");
+        By txtIPUseOfProceedsNumberL = By.XPath("//h1//records-entity-label[text()='Investment Preference Use of Proceeds']/../../..//lightning-formatted-text");
+        By txtIPOwnershipNumberL = By.XPath("//h1//records-entity-label[text()='Investment Preference Ownership']/../../..//lightning-formatted-text");
+        By txtIPSectorL = By.XPath("//h1//records-entity-label[text()='Investment Preference Sector']/../../..//lightning-formatted-text");
+        By txtsectorTypeL = By.XPath("//span[text()='Type']/../..//lightning-formatted-text");
+        By btnIvestorTypeL = By.XPath("//label[text()='Investor Type']/..//button");
+        By btnUseOfProceedsL = By.XPath("//label[text()='Use of Proceeds']/..//button");
+        By btnInvestmentTypeL = By.XPath("//label[text()='Investment Type']/..//button");
+        By btnOwnershipL = By.XPath("//label[text()='Ownership']/..//button");
+        By comboOwnershipOptionsL = By.XPath("//label[text()='Ownership']/..//lightning-base-combobox-item//span/span");
+        By comboIvestorTypeOptionsL = By.XPath("//label[text()='Investor Type']/..//lightning-base-combobox-item//span/span");
+        By comboUseOfProceedsOptionsL = By.XPath("//label[text()='Use of Proceeds']/..//lightning-base-combobox-item//span/span");
+        By comboInvestmentTypeOptionsL = By.XPath("//label[text()='Investment Type']/..//lightning-base-combobox-item//span/span");
+        By inputSectorL = By.XPath("//label[text()='Sector']/..//input");
+        By inputIPContactL = By.XPath("//label[text()='Contact']/..//input");
+        By inputIPContactRoleL = By.XPath("//label[text()='Role']/..//input");
+        By txtIPContactL = By.XPath("//h2//span[text()='Investment Preference Contacts']//ancestor::article//h3//lightning-formatted-rich-text/span");
+        By txtIPSectorSidePanelL = By.XPath("//h2//span[text()='Investment Preference Sectors']//ancestor::article//h3//span//span//span");
+        By txtIPInvestmentTypePanelL = By.XPath("//h2//span[text()='Investment Preference Investment Type']//ancestor::article//lst-formatted-text/span");
+        By txtIPInvestorTypePanelL = By.XPath("//h2//span[text()='Investment Preference Investor Type']//ancestor::article//lst-formatted-text/span");
+        By txtIPOwnershipPanelL = By.XPath("//h2//span[text()='Investment Preference Ownership']//ancestor::article//lst-formatted-text/span");
+        By txtIPUseOfProceedsPanelL = By.XPath("//h2//span[text()='Investment Preference Use of Proceeds']//ancestor::article//lst-formatted-text/span");
 
         private By _DetailPageQuickLink(string name)
         {
@@ -343,6 +387,7 @@ namespace SF_Automation.Pages.Companies
         {
             return By.XPath($"//lightning-tabset[@class='flexipage-tabset']//a[contains(@data-label,'{name}')]");
         }
+
         private By _tabHeader(string name)
         {
             return By.XPath($"//div[@class='slds-card__header slds-grid']//h2//span[contains(text(),'{name}')]");
@@ -352,13 +397,357 @@ namespace SF_Automation.Pages.Companies
         {
             return By.XPath($"//flexipage-component2//li[contains(@class,'relatedListQuickLink')]//a[contains(@href,'{name}')]");
         }
+
         private By _btnAddOpportunity(string valLOB)
         {
             return By.XPath($"//li//button[text()='Add {valLOB} Opportunity']");
         }
+
         private By _inlineRadioRecordType(string name)
         {
             return By.XPath($"//label//div[contains(@class,'changeRecordTypeOption')]//span[text()='{name}']//ancestor::label/div/span");
+        }
+        private By _btnRadioIPRecordType(string type)
+        {
+            return By.XPath($"//h2[text()='New Investment Preference']/..//label//span[text()='{type}']");
+        }
+        private By _IPSidePanelLV(string name)
+        {
+            return By.XPath($"//h2//span[text()='{name}']");
+        }
+        private By _IPSidePanelActionIconLV(string name)
+        {
+            return By.XPath($"//h2//span[text()='{name}']//ancestor::div[contains(@class,'firstHeaderRow')]/..//button");
+        }
+        private By _sidePanelActionLV(string action)
+        {
+            return By.XPath($"//lightning-button-menu[contains(@class,'slds-is-open')]//a/span[text()='{action}']");
+        }
+
+        public bool IsIPContactInputFieldDisplayedLV()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, inputIPContactL, 10);
+                return driver.FindElement(inputIPContactL).Displayed;
+            }
+            catch(NoSuchElementException)
+            {
+                return false;
+
+            }
+        }
+        public bool IsSectorInputFieldDisplayedLV()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, inputSectorL, 10);
+                return driver.FindElement(inputSectorL).Displayed;
+            }
+            catch(NoSuchElementException)
+            {
+                return false;
+            }
+        }
+        public void AddInvestmentPreferenceContactLV(string name, string role)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, inputIPContactL, 10);
+            driver.FindElement(inputIPContactL).SendKeys(name);
+            By contactOption = By.XPath($"//div[@role='listbox']//ul//li//lightning-base-combobox-formatted-text[@title='{name}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, contactOption, 10);
+            driver.FindElement(contactOption).Click();
+            driver.FindElement(inputIPContactRoleL).SendKeys(role);
+            driver.FindElement(btnSaveDetailsL).Click();
+        }
+        public void DeleteIPLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteIPL, 10);
+            driver.FindElement(btnDeleteIPL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnConfirmDeleteL, 10);
+            driver.FindElement(btnConfirmDeleteL).Click();
+        }
+        public void AddInvestmentPreferenceSectorLV(string value)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, inputSectorL, 10);
+            driver.FindElement(inputSectorL).SendKeys(value);
+            By listSectorOption = By.XPath($"//div[@role='listbox']//ul//li//lightning-base-combobox-formatted-text[@title='{value}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, listSectorOption, 5);
+            driver.FindElement(listSectorOption).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+        }
+        public bool AreAllOwnershipFoundLV(string fileName)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + fileName;
+            bool isEqual = false;
+            int rowColumn, index;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOwnershipL, 10);
+            driver.FindElement(btnOwnershipL).Click();
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboOwnershipOptionsL);
+            var actualValue = valTypes.Select(x => x.GetAttribute("title")).ToArray();
+            rowColumn = ReadExcelData.GetRowCount(excelPath, "Ownership");
+            string[] expectedValue = new string[rowColumn - 1];
+            for(int row = 2; row <= rowColumn; row++)
+            {
+                index = row - 2;
+                string typeName = actualValue[index];
+                string valueExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Ownership", row, 1);
+                //expectedValue[index] = ReadExcelData.ReadDataMultipleRows(excelPath, "InvestorTypes", row, 1);
+
+                if(valueExl == "None")
+                {
+                    valueExl = "--" + valueExl + "--";
+                }
+                expectedValue[index] = valueExl;
+                string expectedval = expectedValue[index];
+            }
+            isEqual = actualValue.SequenceEqual(expectedValue);
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(btnCancelL));
+            return isEqual;
+        }
+
+        public bool AreAllInvestorTypeFoundLV(string fileName)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + fileName;
+            bool isEqual = false;
+            int rowColumn, index;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnIvestorTypeL, 10);
+            driver.FindElement(btnIvestorTypeL).Click();
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIvestorTypeOptionsL);
+            var actualValue = valTypes.Select(x => x.GetAttribute("title")).ToArray();
+            rowColumn = ReadExcelData.GetRowCount(excelPath, "InvestorTypes");
+            string[] expectedValue = new string[rowColumn - 1];
+            for(int row = 2; row <= rowColumn; row++)
+            {
+                index = row - 2;
+                string typeName = actualValue[index];
+                string valueExl = ReadExcelData.ReadDataMultipleRows(excelPath, "InvestorTypes", row, 1);
+                //expectedValue[index] = ReadExcelData.ReadDataMultipleRows(excelPath, "InvestorTypes", row, 1);
+
+                if(valueExl == "None")
+                {
+                    valueExl = "--" + valueExl + "--";
+                }
+                expectedValue[index] = valueExl;
+                string expectedval = expectedValue[index];
+            }
+            isEqual = actualValue.SequenceEqual(expectedValue);
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(btnCancelL));
+            return isEqual;
+        }
+        public bool AreAllUseOfProceedsFoundLV(string fileName)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + fileName;
+            bool isEqual = false;
+            int rowColumn, index;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnUseOfProceedsL, 10);
+            driver.FindElement(btnUseOfProceedsL).Click();
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboUseOfProceedsOptionsL);
+            var actualValue = valTypes.Select(x => x.GetAttribute("title")).ToArray();
+            rowColumn = ReadExcelData.GetRowCount(excelPath, "UseofProceeds");
+            string[] expectedValue = new string[rowColumn - 1];
+            for(int row = 2; row <= rowColumn; row++)
+            {
+                index = row - 2;
+                string typeName = actualValue[index];
+                string valueExl = ReadExcelData.ReadDataMultipleRows(excelPath, "UseofProceeds", row, 1);
+                //expectedValue[index] = ReadExcelData.ReadDataMultipleRows(excelPath, "InvestorTypes", row, 1);
+
+                if(valueExl == "None")
+                {
+                    valueExl = "--" + valueExl + "--";
+                }
+                expectedValue[index] = valueExl;
+                string expectedval = expectedValue[index];
+            }
+            isEqual = actualValue.SequenceEqual(expectedValue);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancelL, 10);
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(btnCancelL));
+
+            return isEqual;
+        }
+        public void CreateNewIPInvestmentType(string type)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnInvestmentTypeL, 10);
+            driver.FindElement(btnInvestmentTypeL).Click();
+            By elmOption = By.XPath($"//label[text()='Investment Type']/..//lightning-base-combobox-item//span/span[@title='{type}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, elmOption, 10);
+            driver.FindElement(elmOption).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+
+        }
+        public void CreateNewIPInvestorType(string type)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnIvestorTypeL, 10);
+            driver.FindElement(btnIvestorTypeL).Click();
+            By elmOption = By.XPath($"//label[text()='Investor Type']/..//lightning-base-combobox-item//span/span[@title='{type}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, elmOption, 10);
+            driver.FindElement(elmOption).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+        }
+        public void CreateNewIPUseOfProceeds(string proceeds)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnUseOfProceedsL, 10);
+            driver.FindElement(btnUseOfProceedsL).Click();
+            By elmOption = By.XPath($"//label[text()='Use of Proceeds']/..//lightning-base-combobox-item//span/span[@title='{proceeds}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, elmOption, 10);
+            driver.FindElement(elmOption).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+        }
+        public void CreateNewIPOwnership(string ownership)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOwnershipL, 10);
+            driver.FindElement(btnOwnershipL).Click();
+            By elmOption = By.XPath($"//label[text()='Ownership']/..//lightning-base-combobox-item//span/span[@title='{ownership}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, elmOption, 10);
+            driver.FindElement(elmOption).Click();
+            driver.FindElement(btnSaveDetailsL).Click();
+        }
+        public bool AreAllInvestmentTypesFoundLV(string fileName)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + fileName;
+            bool isEqual = false;
+            int rowColumn, index;
+            WebDriverWaits.WaitUntilEleVisible(driver, btnInvestmentTypeL, 10);
+            driver.FindElement(btnInvestmentTypeL).Click();
+            IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboInvestmentTypeOptionsL);
+            var actualValue = valTypes.Select(x => x.GetAttribute("title")).ToArray();
+            rowColumn = ReadExcelData.GetRowCount(excelPath, "InvestmentTypes");
+            string[] expectedValue = new string[rowColumn - 1];
+            for(int row = 2; row <= rowColumn; row++)
+            {
+                index = row - 2;
+                string typeName = actualValue[index];
+                string valueExl = ReadExcelData.ReadDataMultipleRows(excelPath, "InvestmentTypes", row, 1);
+                //expectedValue[index] = ReadExcelData.ReadDataMultipleRows(excelPath, "InvestorTypes", row, 1);
+
+                if(valueExl == "None")
+                {
+                    valueExl = "--" + valueExl + "--";
+                }
+                expectedValue[index] = valueExl;
+                string expectedval = expectedValue[index];
+            }
+            isEqual = actualValue.SequenceEqual(expectedValue);
+            //WebDriverWaits.WaitUntilEleVisible(driver, btnCancelL, 10);
+            //driver.FindElement(btnCancelL).Click();
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("arguments[0].click();", driver.FindElement(btnCancelL));
+
+            return isEqual;
+        }
+        public void ClickSidePanelActionIconLV(string sectionName)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, _IPSidePanelActionIconLV(sectionName), 10);
+            driver.FindElement(_IPSidePanelActionIconLV(sectionName)).Click();
+        }
+
+        public void ClickSidePanelActionLV(string action)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, _sidePanelActionLV(action), 10);
+            driver.FindElement(_sidePanelActionLV(action)).Click();
+        }
+        public void SelectIPTypeLV(string type)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, _btnRadioIPRecordType(type), 10);
+            driver.FindElement(_btnRadioIPRecordType(type)).Click();
+            driver.FindElement(btnNextL).Click();
+        }
+        public void ClickNewIPButtonLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDialogNewIPL, 10);
+            driver.FindElement(btnDialogNewIPL).Click();
+        }
+
+        public void ClickSaveIPDefaultDetailsLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 10);
+            driver.FindElement(btnSaveDetailsL).Click();
+        }
+
+        public string GetIPNameLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtIPNameL, 10);
+            return driver.FindElement(txtIPNameL).Text;
+        }
+        public string GetIPTypeNumberLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtIPTypeNumberL, 10);
+            return driver.FindElement(txtIPTypeNumberL).Text;
+        }
+        public string GetIPInvestorNumberLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtIPInvestorNumberL, 10);
+            return driver.FindElement(txtIPInvestorNumberL).Text;
+        }
+        public string GetIPUseOfProceedsNumberLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtIPUseOfProceedsNumberL, 10);
+            return driver.FindElement(txtIPUseOfProceedsNumberL).Text;
+        }
+        public string GetIPOwnershipNumberLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtIPOwnershipNumberL, 10);
+            return driver.FindElement(txtIPOwnershipNumberL).Text;
+        }
+        public string GetIPContactNumberLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtIPContactNumberL, 10);
+            return driver.FindElement(txtIPContactNumberL).Text;
+        }
+        public string GetIPInvestmentTypeSidePanelLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtIPInvestmentTypePanelL, 10);
+            return driver.FindElement(txtIPInvestmentTypePanelL).Text;
+        }
+        public string GetIPInvestorTypeSidePanelLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtIPInvestorTypePanelL, 10);
+            return driver.FindElement(txtIPInvestorTypePanelL).Text;
+        }
+        public string GetIPUseOfProceedsSidePanelLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtIPUseOfProceedsPanelL, 10);
+            return driver.FindElement(txtIPUseOfProceedsPanelL).Text;
+        }
+        public string GetIPOwnershipSidePanelLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtIPOwnershipPanelL, 10);
+            return driver.FindElement(txtIPOwnershipPanelL).Text;
+        }
+        public string GetIPContactNameLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtIPContactL, 10);
+            string lastName = driver.FindElement(txtIPContactL).Text.Split(',')[0].Trim();
+            string firstName = driver.FindElement(txtIPContactL).Text.Split(',')[1].Trim();
+            return firstName + " " + lastName;
+
+        }
+        public string GetIPSectorLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtIPSectorL, 10);
+            return driver.FindElement(txtIPSectorL).Text;
+        }
+        public string GetIPSectorSidePaneIDLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtIPSectorSidePanelL, 10);
+            return driver.FindElement(txtIPSectorSidePanelL).Text;
+
+        }
+        public string GetIPSectorTypeLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, txtsectorTypeL, 10);
+            return driver.FindElement(txtsectorTypeL).Text;
         }
 
         public bool IsOpportunityTabDisplayedLV()
@@ -403,7 +792,7 @@ namespace SF_Automation.Pages.Companies
                 WebDriverWaits.WaitUntilEleVisible(driver, btnPrintableViewL, 5);
                 return driver.FindElement(btnPrintableViewL).Displayed;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 5);
                 driver.FindElement(iconExpandMoreButonL).Click();
@@ -413,7 +802,7 @@ namespace SF_Automation.Pages.Companies
         }
         public void ClickPritableViewLV()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             try
             {
@@ -421,7 +810,7 @@ namespace SF_Automation.Pages.Companies
                 WebDriverWaits.WaitUntilEleVisible(driver, btnPrintableViewL, 5);
                 driver.FindElement(btnPrintableViewL).Click();
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 10);
                 driver.FindElement(iconExpandMoreButonL).Click();
@@ -440,6 +829,7 @@ namespace SF_Automation.Pages.Companies
         {
             WebDriverWaits.WaitUntilEleVisible(driver, inputAffNotesL, 10);
             driver.FindElement(inputAffNotesL).SendKeys(notes);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 10);
             driver.FindElement(btnSaveDetailsL).Click();
         }
 
@@ -510,7 +900,7 @@ namespace SF_Automation.Pages.Companies
             WebDriverWaits.WaitUntilEleVisible(driver, txtReqFields, 10);
             IList<IWebElement> fieldLevelErrors = driver.FindElements(txtReqFields);
             string formatedReqFieldLabels = "";
-            foreach (IWebElement txtFieldLevelError in fieldLevelErrors)
+            foreach(IWebElement txtFieldLevelError in fieldLevelErrors)
             {
                 string fieldLevelError = txtFieldLevelError.Text;
                 string formatedfieldLevelLabels = Regex.Replace(fieldLevelError, @"\t|\n|\r", "");
@@ -575,20 +965,20 @@ namespace SF_Automation.Pages.Companies
 
         public void ClickNewButtonCompanyFinancialsLV()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             WebDriverWaits.WaitUntilEleVisible(driver, btnNewHLCompanyFinancialsL, 10);
             js.ExecuteScript("arguments[0].click();", driver.FindElement(btnNewHLCompanyFinancialsL));
         }
 
-        
+
         public string GetHLFinancialNameLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtHLFinNameL, 10);
             return driver.FindElement(txtHLFinNameL).Text;
         }
         public string EditHLFinancialRecordLV(string financialName, string revenue)
-        {            
-            By elmFinancialNameMoreActionIcon= By.XPath($"//table[@aria-label='HL Company Financials']//tbody//th//a//span/slot/span[text()='{financialName}']//ancestor::tr//button[contains(@class,'slds-button_icon-border')]");
+        {
+            By elmFinancialNameMoreActionIcon = By.XPath($"//table[@aria-label='HL Company Financials']//tbody//th//a//span/slot/span[text()='{financialName}']//ancestor::tr//button[contains(@class,'slds-button_icon-border')]");
             WebDriverWaits.WaitUntilEleVisible(driver, elmFinancialNameMoreActionIcon, 10);
             driver.FindElement(elmFinancialNameMoreActionIcon).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditL, 5);
@@ -642,18 +1032,38 @@ namespace SF_Automation.Pages.Companies
         }
         public string AddNewHLCompanyFinancialLV(string year, string source, string revenue, string EBITDA, string dataSource)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, comboYearL, 10);
-            driver.FindElement(comboYearL).Click();
-            By elmYear = By.XPath($"//label[text()='Year']/..//lightning-base-combobox-item//span[text()='{year}']");
             Thread.Sleep(2000);
-            WebDriverWaits.WaitUntilEleVisible(driver, elmYear, 10);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(elmYear));            
+            WebDriverWaits.WaitUntilEleVisible(driver, comboYearL, 5);
+            driver.FindElement(comboYearL).Click();
+            Thread.Sleep(2000);
+            By elmYear = By.XPath($"//label[text()='Year']/..//lightning-base-combobox-item//span[text()='{year}']");
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, elmYear, 5);
+            }
+            catch
+            {
+                driver.FindElement(comboYearL).Click();
+                elmYear = By.XPath($"//label[text()='Year']/..//lightning-base-combobox-item//span[text()='{year}']");
+                WebDriverWaits.WaitUntilEleVisible(driver, elmYear, 5);
+            }
+            WebDriverWaits.WaitUntilEleVisible(driver, elmYear, 5);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(elmYear));
             driver.FindElement(elmYear).Click();
-
+            Thread.Sleep(2000);
             driver.FindElement(comboSourceL).Click();
             By elmSource = By.XPath($"//label[text()='Source']/..//lightning-base-combobox-item//span[text()='{source}']");
             Thread.Sleep(2000);
-            WebDriverWaits.WaitUntilEleVisible(driver, elmSource, 10);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, elmSource, 5);
+            }
+            catch
+            {
+                driver.FindElement(comboSourceL).Click();
+                elmSource = By.XPath($"//label[text()='Source']/..//lightning-base-combobox-item//span[text()='{source}']");
+                WebDriverWaits.WaitUntilEleVisible(driver, elmSource, 5);
+            }
             CustomFunctions.MoveToElement(driver, driver.FindElement(elmSource));
             driver.FindElement(elmSource).Click();
 
@@ -666,7 +1076,7 @@ namespace SF_Automation.Pages.Companies
             CustomFunctions.MoveToElement(driver, driver.FindElement(inputEBITDAL));
             driver.FindElement(inputEBITDAL).SendKeys(EBITDA);
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             CustomFunctions.MoveToElement(driver, driver.FindElement(comboDataSourceL));
             WebDriverWaits.WaitUntilEleVisible(driver, comboDataSourceL, 10);
             js.ExecuteScript("arguments[0].click();", driver.FindElement(comboDataSourceL));
@@ -708,8 +1118,8 @@ namespace SF_Automation.Pages.Companies
         public bool IsCompanyFiancialRecordsFoundLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tableFinancialsL, 10);
-            int recordCount=driver.FindElements(tableFinancialsL).Count;
-            if (recordCount >= 1)
+            int recordCount = driver.FindElements(tableFinancialsL).Count;
+            if(recordCount >= 1)
             {
                 return true;
             }
@@ -722,7 +1132,7 @@ namespace SF_Automation.Pages.Companies
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tableActivityL, 10);
             int recordCount = driver.FindElements(tableActivityL).Count;
-            if (recordCount >= 1)
+            if(recordCount >= 1)
             {
                 return true;
             }
@@ -731,7 +1141,7 @@ namespace SF_Automation.Pages.Companies
                 return false;
             }
         }
-        
+
         public bool IsCompanySectorDisplayedLV(string companySector)
         {
             By txtCompanySectorL = By.XPath($"//table//th[@data-label='Company Sector']//a//span/slot/span[text()='{companySector}']");
@@ -748,7 +1158,7 @@ namespace SF_Automation.Pages.Companies
             return driver.FindElement(txtCompanySectorL).Text;
         }
 
-        public string DeleteCompanySectorRecordLV(string tabName,string companySector)
+        public string DeleteCompanySectorRecordLV(string tabName, string companySector)
         {
             driver.Navigate().Refresh();
             Thread.Sleep(10000);
@@ -768,8 +1178,8 @@ namespace SF_Automation.Pages.Companies
             return toasMsg;
         }
 
-            public string UpdateCompanySectorRecordLV(string companySector,string newSector)
-        {            
+        public string UpdateCompanySectorRecordLV(string companySector, string newSector)
+        {
             By elmCompanySectorsMoreActionIcon = By.XPath($"//table//th[@data-label='Company Sector']//a//span/slot/span[text()='{companySector}']//ancestor::tr//td//button[contains(@class,'button_icon-border')]");
             WebDriverWaits.WaitUntilEleVisible(driver, elmCompanySectorsMoreActionIcon, 10);
             driver.FindElement(elmCompanySectorsMoreActionIcon).Click();
@@ -839,7 +1249,7 @@ namespace SF_Automation.Pages.Companies
         }
         public void SelectAddLocationRecordLV(string addLocationID)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             By elmAddLocationRecord = By.XPath($"//table[@aria-label='Address']//tbody//tr//slot//slot/span[text()='{addLocationID}']//ancestor::a");
             WebDriverWaits.WaitUntilEleVisible(driver, elmAddLocationRecord, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(elmAddLocationRecord));
@@ -864,7 +1274,9 @@ namespace SF_Automation.Pages.Companies
             WebDriverWaits.WaitUntilEleVisible(driver, txtAddLocationL, 10);
             return driver.FindElement(txtAddLocationL).Text;
         }
-        public string AddNewCompanyLocationLV(string addressType)
+        By inputAddressL = By.XPath("(//label[text()='Address Search']/..//input)[1]");
+        By comboAddressL = By.XPath("(//label[text()='Address Search']/..//input/../../../..)//lightning-base-combobox-item[1]");
+        public string AddNewCompanyLocationLV(string addressType, string address)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNewAddLocationL, 10);
             driver.FindElement(btnNewAddLocationL).Click();
@@ -874,11 +1286,21 @@ namespace SF_Automation.Pages.Companies
             By eleAddType = By.XPath($"//label[text()='Address Type']/..//lightning-base-combobox-item//span[@title='{addressType}']");
             WebDriverWaits.WaitUntilEleVisible(driver, eleAddType, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleAddType));
+            Thread.Sleep(2000);
             driver.FindElement(eleAddType).Click();
+            CustomFunctions.MoveToElement(driver, driver.FindElement(inputAddressL));
+            Thread.Sleep(2000);
+            WebDriverWaits.WaitUntilEleVisible(driver, inputAddressL, 10);
+            driver.FindElement(inputAddressL).SendKeys(address);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboAddressL, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(comboAddressL));
+            WebDriverWaits.WaitUntilEleVisible(driver, comboAddressL, 10);
+            driver.FindElement(comboAddressL).Click();
+            Thread.Sleep(2000);
             driver.FindElement(btnSaveDetailsL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, toastMsgPopup, 10);
             string toasMsg = driver.FindElement(toastMsgPopup).Text;
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
             return toasMsg;
         }
 
@@ -933,7 +1355,7 @@ namespace SF_Automation.Pages.Companies
         {
             By eleSubTab = By.XPath($"//span[@class='gridLayoutWidget text'][text()='{subTabName}']/..");
             WebDriverWaits.WaitUntilEleVisible(driver, eleSubTab, 10);
-            driver.FindElement(eleSubTab).Click();            
+            driver.FindElement(eleSubTab).Click();
         }
         public void ClickInvestmentPrefrenceNewButtonLV()
         {
@@ -942,10 +1364,10 @@ namespace SF_Automation.Pages.Companies
         }
         By txtRecordTypeL = By.XPath("//div[@class='changeRecordTypeCenter']//label//span[2]");
         By btnCancelRecordTypeL = By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button[1]");
-        
+
         public bool AreInvestmentPreferenceTypesPresentLV(string file)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
@@ -954,14 +1376,14 @@ namespace SF_Automation.Pages.Companies
             IList<IWebElement> listRecordTypes = driver.FindElements(txtRecordTypeL);
             bool recordTypeFound = false;
             int rowOpp = ReadExcelData.GetRowCount(excelPath, "IPTypes");
-            foreach (IWebElement txtRecordType in listRecordTypes)
+            foreach(IWebElement txtRecordType in listRecordTypes)
             {
                 recordTypeFound = false;
                 string actualRecordType = txtRecordType.Text.Trim();
-                for (int row = 2; row <= rowOpp; row++)
+                for(int row = 2; row <= rowOpp; row++)
                 {
                     string valRecordTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "IPTypes", row, 1);
-                    if (actualRecordType == valRecordTypeExl)
+                    if(actualRecordType == valRecordTypeExl)
                     {
                         recordTypeFound = true;
                         break;
@@ -981,6 +1403,7 @@ namespace SF_Automation.Pages.Companies
                 if(record.Text == officeName)
                 {
                     record.Click();
+                    Thread.Sleep(5000);
                     break;
                 }
             }
@@ -990,11 +1413,12 @@ namespace SF_Automation.Pages.Companies
             WebDriverWaits.WaitUntilEleVisible(driver, txtSCOfficerNameL, 10);
             IReadOnlyCollection<IWebElement> valRecords = driver.FindElements(txtSCOfficerNameL);
             var actualValue = valRecords.Select(x => x.Text).ToArray();
-            foreach (IWebElement record in valRecords)
+            foreach(IWebElement record in valRecords)
             {
-                if (record.Text == officeName)
+                if(record.Text == officeName)
                 {
                     record.Click();
+                    Thread.Sleep(5000);
                     break;
                 }
             }
@@ -1015,7 +1439,7 @@ namespace SF_Automation.Pages.Companies
 
         public void ClickEditLinkICRecordLV()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             WebDriverWaits.WaitUntilEleVisible(driver, iconICExpandMoreButonL, 10);
             js.ExecuteScript("arguments[0].click();", driver.FindElement(iconICExpandMoreButonL));
 
@@ -1027,7 +1451,7 @@ namespace SF_Automation.Pages.Companies
         }
         public void ClickEditLinkSCRecordLV()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             WebDriverWaits.WaitUntilEleVisible(driver, iconSCExpandMoreButonL, 10);
             js.ExecuteScript("arguments[0].click();", driver.FindElement(iconSCExpandMoreButonL));
 
@@ -1046,9 +1470,9 @@ namespace SF_Automation.Pages.Companies
                 WebDriverWaits.WaitUntilEleVisible(driver, txtICofficerNameL, 10);
                 IReadOnlyCollection<IWebElement> valRecords = driver.FindElements(txtICofficerNameL);
                 var actualValue = valRecords.Select(x => x.Text).ToArray();
-                for (int row = 0; row <= actualValue.Length; row++)
+                for(int row = 0; row <= actualValue.Length; row++)
                 {
-                    if (actualValue[row] == officeName)
+                    if(actualValue[row] == officeName)
                     {
                         isFound = true;
                         break;
@@ -1065,9 +1489,9 @@ namespace SF_Automation.Pages.Companies
             WebDriverWaits.WaitUntilEleVisible(driver, txtSCOfficerNameL, 10);
             IReadOnlyCollection<IWebElement> valRecords = driver.FindElements(txtSCOfficerNameL);
             var actualValue = valRecords.Select(x => x.Text).ToArray();
-            for (int row = 0; row <= actualValue.Length; row++)
+            for(int row = 0; row <= actualValue.Length; row++)
             {
-                if (actualValue[row] == officeName)
+                if(actualValue[row] == officeName)
                 {
                     isFound = true;
                     break;
@@ -1105,7 +1529,7 @@ namespace SF_Automation.Pages.Companies
                 WebDriverWaits.WaitUntilEleVisible(driver, btnAddFilesL, 5);
                 return driver.FindElement(btnAddFilesL).Displayed;
             }
-            catch {return false;}
+            catch { return false; }
         }
 
         public bool IsNewFSFundsButtonDisplayedLV()
@@ -1117,7 +1541,7 @@ namespace SF_Automation.Pages.Companies
             }
             catch { return false; }
         }
-        
+
         public bool IsNewFinancialSPButtonDisplayedLV()
         {
             try
@@ -1133,82 +1557,134 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(btnNewFinancialsSPL).Click();
         }
 
-        
-        public void AddNewCompanyFinancialsSponsorsLV()
+
+        public void AddNewCompanyFinancialsSponsorsLV(string status)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnInvestStatusL, 10);
+            driver.FindElement(btnInvestStatusL).Click();
+            By optionsStatus = By.XPath($"//button[@aria-label='Status']/../..//lightning-base-combobox-item//span[@title='{status}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, optionsStatus, 10);
+            driver.FindElement(optionsStatus).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 10);
             driver.FindElement(btnSaveDetailsL).Click();
         }
-        
+
         public string GetFinancialSponsorsNameLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtSPNameL, 5);
             return driver.FindElement(txtSPNameL).Text;
         }
-       
+
         public bool IsFinancialSPRecordDisplayedLV(string investmentNumber)
         {
-            By fundRecord = By.XPath($"//table[@aria-label='Current Sponsors']//tbody//th[@data-label='Investment List Number']//a//span[text()='{investmentNumber}']");
+            Thread.Sleep(5000);
+            By fundRecord = By.XPath($"//table//tbody//th[@data-label='Investment List Number']//a//span[text()='{investmentNumber}']");
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, fundRecord, 5);
+                WebDriverWaits.WaitUntilEleVisible(driver, fundRecord, 10);
                 return driver.FindElement(fundRecord).Displayed;
             }
             catch { return false; }
         }
-        By btnEditInvestmentL = By.XPath("(//button[@name='Edit'])[2]");
-        By inputInvestmentAmountL = By.XPath("//label[text()='Amount of Investment']/..//input");
-        public void EditFinancialSPRecord(string investmentNumber, string InvestmentAmount)
+        public string GetFinancialSPSectionLV(string investmentNumber)
         {
-            By fundRecord = By.XPath($"//table[@aria-label='Current Sponsors']//tbody//th[@data-label='Investment List Number']//a//span[text()='{investmentNumber}']");
+            By sectionRecord = By.XPath($"//table//tbody//th[@data-label='Investment List Number']//a//span[text()='{investmentNumber}']//ancestor::article//h2//span");
+            WebDriverWaits.WaitUntilEleVisible(driver, sectionRecord, 10);
+            return driver.FindElement(sectionRecord).GetAttribute("title");
+
+        }
+
+        public void EditFinancialSPRecordLV(string investmentNumber, string InvestmentAmount)
+        {
+            By fundRecord = By.XPath($"//table//tbody//th[@data-label='Investment List Number']//a//span[text()='{investmentNumber}']");
             WebDriverWaits.WaitUntilEleVisible(driver, fundRecord, 10);
             driver.FindElement(fundRecord).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, fundRecord, 10);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditInvestmentL, 10);
             driver.FindElement(btnEditInvestmentL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, inputInvestmentAmountL, 10);
             driver.FindElement(inputInvestmentAmountL).SendKeys(InvestmentAmount);
+            Thread.Sleep(2000);
             driver.FindElement(btnSaveDetailsL).Click();
+        }
+        public void ClickInvestmentNumberLV(string investmentNumber)
+        {
+            By fundRecord = By.XPath($"//table//tbody//th[@data-label='Investment List Number']//a//span[text()='{investmentNumber}']");
+            WebDriverWaits.WaitUntilEleVisible(driver, fundRecord, 10);
+            driver.FindElement(fundRecord).Click();
+            Thread.Sleep(5000);
+        }
+
+        public bool IsEditButtonDisplayedLV()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEditInvestmentL, 5);
+                return driver.FindElement(btnEditInvestmentL).Displayed;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool IsDeleteButtonDisplayedLV()
+        {
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteInvestmentL, 5);
+                return driver.FindElement(btnDeleteInvestmentL).Displayed;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public void DeleteInvestmentLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteInvestmentL, 5);
+            driver.FindElement(btnDeleteInvestmentL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnConfirmDeleteL, 5);
+            driver.FindElement(btnConfirmDeleteL).Click();
         }
 
         public void ClickFSFundsNewButtonDisplayedLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNewFSFundsL, 5);
-            driver.FindElement(btnNewFSFundsL).Click();            
+            driver.FindElement(btnNewFSFundsL).Click();
         }
         public string GetNewFundsCompanyNameLV()
         {
-            
+
             WebDriverWaits.WaitUntilEleVisible(driver, valCompanyNameL, 5);
             return driver.FindElement(valCompanyNameL).GetAttribute("data-value");
         }
-        By inputDryPowderL=By.XPath("//label[text()='Dry Powder %']/..//input");
+        By inputDryPowderL = By.XPath("//label[text()='Dry Powder %']/..//input");
         By txtNameFSFundsL = By.XPath("//span[text()='FS Fund Name']/../../..//lightning-formatted-text");
         public void AddNewCompanyFSFundsLV(string fileName)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + fileName;
-            string dryPowderExl= ReadExcelData.ReadDataMultipleRows(excelPath, "TabName", 2, 2);
+            string dryPowderExl = ReadExcelData.ReadDataMultipleRows(excelPath, "TabName", 2, 2);
             WebDriverWaits.WaitUntilEleVisible(driver, inputDryPowderL, 5);
             driver.FindElement(inputDryPowderL).SendKeys(dryPowderExl);
             driver.FindElement(btnSaveDetailsL).Click();
         }
 
-        
+
 
 
         public void EditCompanyFSFundsLV(string fileName)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
-            string excelPath = dir + fileName;            
+            string excelPath = dir + fileName;
             WebDriverWaits.WaitUntilEleVisible(driver, inputDryPowderL, 5);
             driver.FindElement(inputDryPowderL).Clear();
             string dryPowderExl = ReadExcelData.ReadDataMultipleRows(excelPath, "TabName", 2, 3);
             driver.FindElement(inputDryPowderL).SendKeys(dryPowderExl);
             driver.FindElement(btnSaveDetailsL).Click();
         }
-        
+
         public string GetFSFundsNameLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtNameFSFundsL, 10);
@@ -1226,7 +1702,7 @@ namespace SF_Automation.Pages.Companies
         }
         public void FundsRecordMoreActionsLV(string fileName, string action)
         {
-            
+
             WebDriverWaits.WaitUntilEleVisible(driver, _btnRecordMoreActionsL(fileName), 10);
             driver.FindElement(_btnRecordMoreActionsL(fileName)).Click();
             //Thread.Sleep(5000);
@@ -1262,7 +1738,7 @@ namespace SF_Automation.Pages.Companies
                 return driver.FindElement(txtFileNameL).Displayed;
             }
             catch { return false; }
-        }        
+        }
 
         public void ClickViewAllUploadedFilesLV()
         {
@@ -1284,14 +1760,14 @@ namespace SF_Automation.Pages.Companies
             return By.XPath($"//table//span[text()='{name}']//ancestor::tr//td//button");
         }
 
-        public void UploadedFileMoreActionsLV(string fileName,string action)
+        public void UploadedFileMoreActionsLV(string fileName, string action)
         {
             string file = fileName.Split('.')[0].Trim();
             WebDriverWaits.WaitUntilEleVisible(driver, _lnkBtnRecordMoreActionsL(file), 10);
             driver.FindElement(_lnkBtnRecordMoreActionsL(file)).Click();
             //Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, _lnkRecordMoreActionsOptionL(action), 10);
-            driver.FindElement(_lnkRecordMoreActionsOptionL(action)).Click();            
+            driver.FindElement(_lnkRecordMoreActionsOptionL(action)).Click();
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, btnConfirmDeleteL, 5);
@@ -1300,11 +1776,11 @@ namespace SF_Automation.Pages.Companies
             catch
             {
                 Thread.Sleep(5000);
-            }            
+            }
         }
 
         public void ClickCoverageTabLV()
-        {            
+        {
             WebDriverWaits.WaitUntilEleVisible(driver, tabCoverageL, 10);
             driver.FindElement(tabCoverageL).Click();
             Thread.Sleep(5000);
@@ -1322,7 +1798,7 @@ namespace SF_Automation.Pages.Companies
             Thread.Sleep(10000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabBML, 10);
             driver.FindElement(tabBML).Click();
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             WebDriverWaits.WaitUntilEleVisible(driver, iconBMShowMoreL, 10);
             js.ExecuteScript("arguments[0].click();", driver.FindElement(iconBMShowMoreL));
             //driver.FindElement(iconShowMoreL).Click();
@@ -1335,7 +1811,7 @@ namespace SF_Automation.Pages.Companies
         }
         public void ClickEditBoardMemberLinkLV()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             WebDriverWaits.WaitUntilEleVisible(driver, iconBMShowMoreL, 10);
             js.ExecuteScript("arguments[0].click();", driver.FindElement(iconBMShowMoreL));
             //driver.FindElement(iconShowMoreL).Click();
@@ -1353,16 +1829,16 @@ namespace SF_Automation.Pages.Companies
             Thread.Sleep(10000);
             driver.SwitchTo().Frame(driver.FindElement(frameReportL));
             WebDriverWaits.WaitUntilEleVisible(driver, txtHeaderReportL, 10);
-            bool displayed= driver.FindElement(txtHeaderReportL).Displayed;
+            bool displayed = driver.FindElement(txtHeaderReportL).Displayed;
             driver.SwitchTo().DefaultContent();
             return displayed;
         }
         public string GetHLContactLV()
         {
-            
+
             driver.SwitchTo().Frame(driver.FindElement(frameReportL));
             WebDriverWaits.WaitUntilEleVisible(driver, txtHLRelationContactL, 15);
-            string name= driver.FindElement(txtHLRelationContactL).Text;
+            string name = driver.FindElement(txtHLRelationContactL).Text;
             driver.SwitchTo().DefaultContent();
             return name;
         }
@@ -1374,7 +1850,7 @@ namespace SF_Automation.Pages.Companies
         }
         public void ClickViewNestedRContactLV(string contactName)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             WebDriverWaits.WaitUntilEleVisible(driver, _btnViewNestedRContactL(contactName), 10);
             js.ExecuteScript("arguments[0].click();", driver.FindElement(_btnViewNestedRContactL(contactName)));
             //driver.FindElement(_btnViewNestedRContactL(contactName)).Click();
@@ -1396,7 +1872,7 @@ namespace SF_Automation.Pages.Companies
                 driver.FindElement(eleOptionName).Click();
 
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 By iconContactSearchItem = By.XPath("//div[contains(@class,'searchButton')]");
                 WebDriverWaits.WaitUntilEleVisible(driver, iconContactSearchItem, 5);
@@ -1406,7 +1882,7 @@ namespace SF_Automation.Pages.Companies
                 driver.FindElement(txtContact).Click();
             }
 
-            
+
             driver.FindElement(btnSaveContactL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, toastMsgPopup, 10);
             string toasMsg = driver.FindElement(toastMsgPopup).Text;
@@ -1420,7 +1896,7 @@ namespace SF_Automation.Pages.Companies
         }
         public void ClickContactnameInRelatedTabListLV(string contactFullName)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             By elmContatFullName = By.XPath($"//table//tr//td[@data-label='Full Name']/a[text()='{contactFullName}']");
             WebDriverWaits.WaitUntilEleVisible(driver, elmContatFullName, 10);
             js.ExecuteScript("arguments[0].click();", driver.FindElement(elmContatFullName));
@@ -1446,7 +1922,7 @@ namespace SF_Automation.Pages.Companies
             return driver.FindElement(txtContactPhoneNumberL).Text;
         }
         public void UpdateContactPhoneNumberLV(string valPhoneNumber)
-        {            
+        {
             WebDriverWaits.WaitUntilEleVisible(driver, inputPhoneL, 10);
             driver.FindElement(inputPhoneL).SendKeys(valPhoneNumber);
             Thread.Sleep(200);
@@ -1454,7 +1930,7 @@ namespace SF_Automation.Pages.Companies
         }
         public void ClickEditContactContactTabLV()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;            
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             WebDriverWaits.WaitUntilEleVisible(driver, iconContactActionsMoreL, 10);
             js.ExecuteScript("arguments[0].click();", driver.FindElement(iconContactActionsMoreL));
             //driver.FindElement(iconContactActionsMoreL).Click();
@@ -1470,11 +1946,11 @@ namespace SF_Automation.Pages.Companies
             WebDriverWaits.WaitUntilEleVisible(driver, tableFullNameL, 20);
             IReadOnlyCollection<IWebElement> valRecords = driver.FindElements(tableFullNameL);
             var actualValue = valRecords.Select(x => x.Text).ToArray();
-            for (int row = 0; row <= actualValue.Length; row++)
+            for(int row = 0; row <= actualValue.Length; row++)
             {
-                if (actualValue[row]== contactFullName)
+                if(actualValue[row] == contactFullName)
                 {
-                    isFound = true;                    
+                    isFound = true;
                     break;
                 }
             }
@@ -1482,7 +1958,7 @@ namespace SF_Automation.Pages.Companies
 
         }
         public string CreateContactLV(string valFirstName, string valLastName)
-        {            
+        {
             WebDriverWaits.WaitUntilEleVisible(driver, inputNewContactFirstNameL, 10);
             driver.FindElement(inputNewContactFirstNameL).SendKeys(valFirstName);
             WebDriverWaits.WaitUntilEleVisible(driver, inputNewContactLastNameL, 10);
@@ -1513,14 +1989,14 @@ namespace SF_Automation.Pages.Companies
                 return isValidation;
             }
             catch
-            {               
-                    return false;                
+            {
+                return false;
             }
         }
 
         public void ClickNextButtonRecordTypeLV()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnNexRecordTypetL, 10);
             js.ExecuteScript("arguments[0].click();", driver.FindElement(btnNexRecordTypetL));
@@ -1528,7 +2004,7 @@ namespace SF_Automation.Pages.Companies
 
         public void ClickNewButtonContactTabLV()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnContactNewL, 10);
             js.ExecuteScript("arguments[0].click();", driver.FindElement(btnContactNewL));
@@ -1540,7 +2016,7 @@ namespace SF_Automation.Pages.Companies
             return driver.FindElement(tabContactL).Displayed;
         }
         public void ClickContactTabLV()
-        {            
+        {
             WebDriverWaits.WaitUntilEleVisible(driver, tabContactL, 10);
             driver.FindElement(tabContactL).Click();
             Thread.Sleep(5000);
@@ -1562,8 +2038,8 @@ namespace SF_Automation.Pages.Companies
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + fileName;
-            string valFirstName= ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", 2, 1);
-            string valLastName= ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", 2, 2);
+            string valFirstName = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", 2, 1);
+            string valLastName = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", 2, 2);
             WebDriverWaits.WaitUntilEleVisible(driver, inputFirstNameL, 10);
             driver.FindElement(inputFirstNameL).SendKeys(valFirstName);
             WebDriverWaits.WaitUntilEleVisible(driver, inputLastNameL, 10);
@@ -1575,7 +2051,8 @@ namespace SF_Automation.Pages.Companies
                 driver.FindElement(btnContactContactL).Click();
                 alertFound = true;
             }
-            catch {
+            catch
+            {
                 alertFound = false;
             }
             return alertFound;
@@ -1585,7 +2062,7 @@ namespace SF_Automation.Pages.Companies
             WebDriverWaits.WaitUntilEleVisible(driver, btnInlineChngTypeL, 10);
             driver.FindElement(btnInlineChngTypeL).Click();
         }
-        
+
         public void ChangeCompanyRadioTypeLV(string name)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, _inlineRadioRecordType(name), 20);
@@ -1593,7 +2070,7 @@ namespace SF_Automation.Pages.Companies
             WebDriverWaits.WaitUntilEleVisible(driver, btnNextChangeRecordTypeL, 5);
             driver.FindElement(btnNextChangeRecordTypeL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 20);
-            driver.FindElement(btnSaveDetailsL).Click();            
+            driver.FindElement(btnSaveDetailsL).Click();
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtValidationSectorL, 5);
@@ -1603,7 +2080,7 @@ namespace SF_Automation.Pages.Companies
                 By eleSector = By.XPath("//label[text()='Sector']/following::lightning-base-combobox-item//span[@title='Cybersecurity Services']");
                 CustomFunctions.MoveToElement(driver, driver.FindElement(eleSector));
                 driver.FindElement(eleSector).Click();
-                driver.FindElement(btnSaveDetailsL).Click();               
+                driver.FindElement(btnSaveDetailsL).Click();
             }
             catch
             {
@@ -1612,10 +2089,10 @@ namespace SF_Automation.Pages.Companies
 
             Thread.Sleep(10000);
         }
-        
+
         public void ClickInfoTabLV()
         {
-            driver.SwitchTo().DefaultContent();            
+            driver.SwitchTo().DefaultContent();
             WebDriverWaits.WaitUntilEleVisible(driver, tabInfoL, 20);
             driver.FindElement(tabInfoL).Click();
         }
@@ -1634,7 +2111,7 @@ namespace SF_Automation.Pages.Companies
             {
                 countColumn = ReadExcelData.GetRowCount(excelPath, "OC_Sections");
                 string[] expectedValue = new string[countColumn - 1];
-                for (int row = 2; row <= countColumn; row++)
+                for(int row = 2; row <= countColumn; row++)
                 {
                     index = row - 2;
                     //string sectionName = actualValue[index];
@@ -1646,17 +2123,17 @@ namespace SF_Automation.Pages.Companies
             {
                 countColumn = ReadExcelData.GetRowCount(excelPath, "CP_Sections");
                 string[] expectedValue = new string[countColumn - 1];
-                for (int row = 2; row <= countColumn; row++)
+                for(int row = 2; row <= countColumn; row++)
                 {
                     index = row - 2;
                     //string sectionName = actualValue[index];
                     expectedValue[index] = ReadExcelData.ReadDataMultipleRows(excelPath, "CP_Sections", row, 1);
                 }
                 isEqual = actualValue.SequenceEqual(expectedValue);
-            }            
+            }
             return isEqual;
         }
-        
+
         public void ClickInEditInlinePhoneNumberLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnInlineEditPhoneL, 10);
@@ -1664,19 +2141,19 @@ namespace SF_Automation.Pages.Companies
             Thread.Sleep(2000);
         }
 
-        
+
         public bool IsPhoneEditableInlineLV()
         {
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, inputPhoneL, 10);
-                bool editPhoneDisplayed= driver.FindElement(inputPhoneL).Displayed;
+                bool editPhoneDisplayed = driver.FindElement(inputPhoneL).Displayed;
                 driver.FindElement(btnCancelL).Click();
                 return editPhoneDisplayed;
             }
             catch { return false; }
-        }        
-        
+        }
+
         public void UpdatePhoneNumberInlineEditLV(string phoneNumber)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnInlineEditPhoneL, 10);
@@ -1687,14 +2164,14 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(btnSaveDetailsL).Click();
             //Thread.Sleep(8000);
         }
-        
+
         public string GetCompanyPhoneNumberLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtPhoneNumberL, 10);
             return driver.FindElement(txtPhoneNumberL).Text;
         }
         public string GetCompanyTradeNameLV()
-        {            
+        {
             WebDriverWaits.WaitUntilEleVisible(driver, txtTradeNameL, 10);
             return driver.FindElement(txtTradeNameL).Text;
         }
@@ -1720,7 +2197,9 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(btnEditTopPanelL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, headerEditBoxL, 10);
         }
-        
+        By comboIGL = By.XPath("//label[text()='Industry Group']/parent::div//button");
+        By txtValidationSectorL = By.XPath("//div[@class='fieldLevelErrors']//ul/li/a[text()='Sector']");
+        By txtValidationNameL = By.XPath("//div[@class='fieldLevelErrors']//ul/li/a[text()='Name']");
         public bool IsContactNameValidationDisplayedLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveDetailsL, 10);
@@ -1729,7 +2208,7 @@ namespace SF_Automation.Pages.Companies
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtValidationNameL, 10);
-                bool isValidation= driver.FindElement(txtValidationNameL).Displayed;
+                bool isValidation = driver.FindElement(txtValidationNameL).Displayed;
                 driver.FindElement(btnCancelL).Click();
                 return isValidation;
             }
@@ -1743,20 +2222,20 @@ namespace SF_Automation.Pages.Companies
                 catch
                 {
                     return false;
-                } 
-            }                        
+                }
+            }
         }
 
         public void ClickAddOpportunityButtonLV(string valLOB)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, _btnAddOpportunity(valLOB), 10);
             driver.FindElement(_btnAddOpportunity(valLOB)).Click();
-            
+
         }
 
         public void ClickQuickLinkLV(string linkTxt, string companyType)
         {
-            if(companyType== "Houlihan Company")
+            if(companyType == "Houlihan Company")
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, tabContactsL, 10);
                 driver.FindElement(tabContactsL).Click();
@@ -1765,11 +2244,11 @@ namespace SF_Automation.Pages.Companies
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, _CompanyDetailPageQuickLink(linkTxt), 10);
                 driver.FindElement(_CompanyDetailPageQuickLink(linkTxt)).Click();
-            }            
+            }
         }
 
         public void ClickRelatedNewContactButtonLV()
-        {            
+        {
             WebDriverWaits.WaitUntilEleVisible(driver, btnRelatedNewContactL, 10);
             driver.FindElement(btnRelatedNewContactL).Click();
         }
@@ -1782,15 +2261,15 @@ namespace SF_Automation.Pages.Companies
 
         public void DeleteCompanyLV()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             try
             {
                 Thread.Sleep(3000);
                 WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteL, 5);
-                driver.FindElement(btnDeleteL).Click();                
+                driver.FindElement(btnDeleteL).Click();
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, iconExpandMoreButonL, 10);
                 driver.FindElement(iconExpandMoreButonL).Click();
@@ -1805,7 +2284,7 @@ namespace SF_Automation.Pages.Companies
         //Function to get Description
         public string GetDescriptionValueLV()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,600)");
             WebDriverWaits.WaitUntilEleVisible(driver, txtDscL, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtDscL));
@@ -1839,7 +2318,7 @@ namespace SF_Automation.Pages.Companies
         }
 
         public void ClickEditButtonLV()
-        {            
+        {
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL);
             driver.FindElement(btnEditL).Click();
         }
@@ -1882,7 +2361,7 @@ namespace SF_Automation.Pages.Companies
         public bool VerifyIfCompanySectorQuickLinkIsDisplayed()
         {
             bool result = false;
-            if (driver.FindElement(linkCompanySector).Displayed)
+            if(driver.FindElement(linkCompanySector).Displayed)
             {
                 result = true;
             }
@@ -1898,7 +2377,7 @@ namespace SF_Automation.Pages.Companies
 
         public void SelectCoverageSectorDependency(string covSectorDependencyName)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver,drpdownInvestmentPref,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, drpdownInvestmentPref, 120);
             driver.FindElement(drpdownInvestmentPref).SendKeys("Operating Sector");
             Thread.Sleep(2000);
 
@@ -2060,7 +2539,7 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(linkCoverageTeam).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, linkOfficerName, 120);
             driver.FindElement(linkOfficerName).Click();
-            string title = driver.FindElement(titlePage).Text;            
+            string title = driver.FindElement(titlePage).Text;
             return title;
         }
 
@@ -2161,7 +2640,7 @@ namespace SF_Automation.Pages.Companies
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            if (CompanyType.Equals("Houlihan Company"))//For Houlihan Lockey company
+            if(CompanyType.Equals("Houlihan Company"))//For Houlihan Lockey company
             {
                 driver.FindElement(By.CssSelector($"input[value = '{new_value}']")).Click();
             }
@@ -2178,7 +2657,7 @@ namespace SF_Automation.Pages.Companies
         // Get Account Description value
         public string ERPAccountDescription(string companyRecordType)
         {
-            if (companyRecordType.Equals("Capital Provider") || companyRecordType.Contains("Operating Company"))
+            if(companyRecordType.Equals("Capital Provider") || companyRecordType.Contains("Operating Company"))
             {
                 return "External Customer";
             }
@@ -2190,7 +2669,7 @@ namespace SF_Automation.Pages.Companies
 
         public string ERPCustomerType(string companyRecordType)
         {
-            if (companyRecordType.Equals("Capital Provider") || companyRecordType.Contains("Operating Company"))
+            if(companyRecordType.Equals("Capital Provider") || companyRecordType.Contains("Operating Company"))
             {
                 return "R";
             }
@@ -2202,7 +2681,7 @@ namespace SF_Automation.Pages.Companies
 
         public string ERPCustomerTypeDescription(string companyRecordType)
         {
-            if (companyRecordType.Equals("Capital Provider") || companyRecordType.Contains("Operating Company"))
+            if(companyRecordType.Equals("Capital Provider") || companyRecordType.Contains("Operating Company"))
             {
                 return "External";
             }
@@ -2229,7 +2708,7 @@ namespace SF_Automation.Pages.Companies
         //Click on new company financial button
         public void ClickNewCompanyFinancial(string file, string CompanyType)
         {
-            if (CustomFunctions.IsElementPresent(driver, errPage))
+            if(CustomFunctions.IsElementPresent(driver, errPage))
             {
                 companyHome.SearchCompany(file, CompanyType);
             }
@@ -2280,8 +2759,8 @@ namespace SF_Automation.Pages.Companies
         public string GetPriorityHelpText()
         {
             IWebElement toolTipText = driver.FindElement(toolTipPriorityText);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            string htmlCode = (string)js.ExecuteScript("return arguments[0].innerHTML;", toolTipText);
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            string htmlCode = (string) js.ExecuteScript("return arguments[0].innerHTML;", toolTipText);
             string toolTipPriorityTxt = htmlCode.Split(',')[1].Trim();
             return toolTipPriorityTxt;
         }
@@ -2318,7 +2797,7 @@ namespace SF_Automation.Pages.Companies
 
         public void DeleteCompanyContract(string file, string CompanyType)
         {
-            if (CustomFunctions.IsElementPresent(driver, errPage))
+            if(CustomFunctions.IsElementPresent(driver, errPage))
             {
                 companyHome.SearchCompany(file, CompanyType);
             }
@@ -2369,7 +2848,7 @@ namespace SF_Automation.Pages.Companies
 
         public void ClickEditButton(string file, string CompanyType)
         {
-            if (CustomFunctions.IsElementPresent(driver, errPage))
+            if(CustomFunctions.IsElementPresent(driver, errPage))
             {
                 companyHome.SearchCompany(file, CompanyType);
             }
@@ -2379,7 +2858,7 @@ namespace SF_Automation.Pages.Companies
 
         public void EditCompanyAddress(string file, string CompanyType)
         {
-            if (CustomFunctions.IsElementPresent(driver, errPage))
+            if(CustomFunctions.IsElementPresent(driver, errPage))
             {
                 companyHome.SearchCompany(file, CompanyType);
             }
@@ -2388,13 +2867,13 @@ namespace SF_Automation.Pages.Companies
             //IList<IWebElement> rows = driver.FindElements(comboStateProvince);
             SelectElement element = new SelectElement(driver.FindElement(comboStateProvince));
             IList<IWebElement> options = element.Options;
-            for (int i = 1; i <= options.Count; i++)
+            for(int i = 1; i <= options.Count; i++)
             {
                 IWebElement defaultSelected = element.SelectedOption;
                 element.SelectByIndex(i);
 
                 IWebElement updateValue = element.SelectedOption;
-                if (updateValue.Text.Equals(defaultSelected.Text))
+                if(updateValue.Text.Equals(defaultSelected.Text))
                 {
                     element.SelectByIndex(i + 1);
                     break;
@@ -2508,7 +2987,7 @@ namespace SF_Automation.Pages.Companies
         }
 
         //Get company description
-       
+
         public string GetCompanyDescription()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valCompanyDescription, 60);
@@ -2544,7 +3023,7 @@ namespace SF_Automation.Pages.Companies
             string companyType = GetCompanyType();
             WebDriverWaits.WaitUntilEleVisible(driver, linkChangeCompanyType);
             driver.FindElement(linkChangeCompanyType).Click();
-            if (companyType != (ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1)))
+            if(companyType != (ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1)))
             {
                 string recordType1 = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1);
                 conSelectRecord.SelectCompanyRecordType(file, recordType1);
@@ -2625,12 +3104,12 @@ namespace SF_Automation.Pages.Companies
 
         public void DeleteCompanyFinancialRecord(string file, string CompanyType)
         {
-            if (CustomFunctions.IsElementPresent(driver, errPage))
+            if(CustomFunctions.IsElementPresent(driver, errPage))
             {
                 companyHome.SearchCompany(file, CompanyType);
             }
             WebDriverWaits.WaitUntilEleVisible(driver, linkDelCompanyFinancial);
-            if (CustomFunctions.IsElementPresent(driver, linkDelCompanyFinancial))
+            if(CustomFunctions.IsElementPresent(driver, linkDelCompanyFinancial))
             {
                 driver.FindElement(linkDelCompanyFinancial).Click();
 
@@ -2649,7 +3128,7 @@ namespace SF_Automation.Pages.Companies
         {
 
             WebDriverWaits.WaitUntilEleVisible(driver, linkDelContact);
-            if (CustomFunctions.IsElementPresent(driver, linkDelContact))
+            if(CustomFunctions.IsElementPresent(driver, linkDelContact))
             {
                 driver.FindElement(linkDelContact).Click();
 
@@ -2666,7 +3145,7 @@ namespace SF_Automation.Pages.Companies
 
         public void DeleteCoverageTeamRecord(string file, string CompanyType)
         {
-            if (CustomFunctions.IsElementPresent(driver, errPage))
+            if(CustomFunctions.IsElementPresent(driver, errPage))
             {
                 companyHome.SearchCompany(file, CompanyType);
             }
@@ -2681,7 +3160,7 @@ namespace SF_Automation.Pages.Companies
 
         public void DeleteCoverageSector(string file, string CompanyType)
         {
-            if (CustomFunctions.IsElementPresent(driver, errPage))
+            if(CustomFunctions.IsElementPresent(driver, errPage))
             {
                 companyHome.SearchCompany(file, CompanyType);
             }
@@ -2717,9 +3196,9 @@ namespace SF_Automation.Pages.Companies
             string CoverageType = driver.FindElement(valCoverageType).Text;
             return CoverageType;
         }
-        
-       
-   
+
+
+
         public string GetValERPSubmittedToSync()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valERPSubmittedToSync, 120);
@@ -2906,7 +3385,7 @@ namespace SF_Automation.Pages.Companies
         {
             WebDriverWaits.WaitUntilEleVisible(driver, linkPrimaryBillingContact, 120);
             driver.FindElement(linkPrimaryBillingContact).SendKeys(Keys.Control + Keys.Return);
-            if (row.Equals(2))
+            if(row.Equals(2))
             {
                 CustomFunctions.SwitchToWindow(driver, 3);
             }
@@ -2932,7 +3411,7 @@ namespace SF_Automation.Pages.Companies
 
             int CompanyRecordList = ReadExcelData.GetRowCount(excelPath, "CompanyRecordTypes");
 
-            for (int row = 2; row <= CompanyRecordList; row++)
+            for(int row = 2; row <= CompanyRecordList; row++)
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, changelinkCompanyRecordType, 120);
                 driver.FindElement(changelinkCompanyRecordType).Click();
@@ -2944,7 +3423,7 @@ namespace SF_Automation.Pages.Companies
                 string companyRecordTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyRecordTypes", row, 3);
                 Console.WriteLine(currentRecordType.Text);
                 Console.WriteLine(companyRecordTypeExl);
-                
+
                 IList<IWebElement> options = select.Options;
                 IWebElement companyRecordTypeOption = options[row - 2];
                 companyRecordTypeOption.Click();
@@ -2957,7 +3436,7 @@ namespace SF_Automation.Pages.Companies
 
                 WebDriverWaits.WaitUntilEleVisible(driver, btnSaveCoverageTeam, 120);
 
-                if ((companyRecordTypeExl).Equals("Conflicts Check LDCCR"))
+                if((companyRecordTypeExl).Equals("Conflicts Check LDCCR"))
                 {
                     IWebElement officecodeDropdown = driver.FindElement(drpdownOfficeCode);
                     SelectElement select1 = new SelectElement(officecodeDropdown);
@@ -2967,7 +3446,7 @@ namespace SF_Automation.Pages.Companies
             }
 
         }
-        
+
         // Click on tab from Company Detail page 
         //public bool IsCompanyDetailPageTabPresentLV(string tabname)
         //{
@@ -2978,10 +3457,10 @@ namespace SF_Automation.Pages.Companies
         //    }
         //    catch { return false; }
         //}
-        
+
         public bool IsCompanyDetailPageTabPresentLV(string tabname)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(1000);
             bool tabFound = false;
@@ -2992,11 +3471,11 @@ namespace SF_Automation.Pages.Companies
                     WebDriverWaits.WaitUntilEleVisible(driver, _homePageTab(tabname), 5);
                     return driver.FindElement(_homePageTab(tabname)).Displayed;
                 }
-                catch (Exception e)
+                catch(Exception e)
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, iconHeaderMoreTabsL, 5);
                     driver.FindElement(iconHeaderMoreTabsL).Click();
-                    By lnkFlag= By.XPath($"//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='{tabname}']");
+                    By lnkFlag = By.XPath($"//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='{tabname}']");
                     WebDriverWaits.WaitUntilEleVisible(driver, lnkFlag, 5);
                     tabFound = driver.FindElement(lnkFlag).Displayed;
                     driver.FindElement(iconHeaderMoreTabsL).Click();
@@ -3007,15 +3486,15 @@ namespace SF_Automation.Pages.Companies
         }
         public bool ClickCompanyDetailPageTabLV(string tabname)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
-            Thread.Sleep(1000);            
+            Thread.Sleep(1000);
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, _homePageTab(tabname), 5);
                 driver.FindElement(_homePageTab(tabname)).Click();
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, iconHeaderMoreTabsL, 5);
                 driver.FindElement(iconHeaderMoreTabsL).Click();
@@ -3029,16 +3508,12 @@ namespace SF_Automation.Pages.Companies
                 WebDriverWaits.WaitUntilEleVisible(driver, _tabHeader(tabname), 10);
                 return driver.FindElement(_tabHeader(tabname)).Displayed;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 return false;
-            }            
+            }
         }
-        By btnInlineFlagReasonL = By.XPath("//button[@title='Edit Flag Reason']");
-        By btnFlagReasonL = By.XPath("//button[@aria-label='Flag Reason']");
-        By inputFlagReasonCommentL = By.XPath("//label[text()='Flag Reason Comment']/..//textarea");
-        By txtFlagReasonL = By.XPath("//span[text()='Flag Reason']/../../..//lightning-formatted-text");
-        By txtFlagReasonCommentL = By.XPath("//span[text()='Flag Reason Comment']/../../..//lightning-formatted-text");
+
         public string GetFlagReasonLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtFlagReasonL, 10);
@@ -3062,12 +3537,9 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(inputFlagReasonCommentL).Clear();
             driver.FindElement(inputFlagReasonCommentL).SendKeys(flagReasonComment);
             driver.FindElement(btnSaveDetailsL).Click();
+            Thread.Sleep(5000);
         }
-        By btnActivitiesReportL = By.XPath("//button[text()='Activities Report']");
-        By iframeTableCompanyActivityL = By.XPath("//iframe[@title='Report Viewer']");
-        By headerPageL = By.XPath("//div[contains(@class,'reportView')]//h1");
-        By tableCompaiesActivities = By.XPath("//table[contains(@class,'full-table')]");
-        By tableActivityCompanyName = By.XPath("//table[contains(@class,'full-table')]//tbody//tr[2]//td[6]//span/a");
+
         public void ClickActivitiesReportButtonLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnActivitiesReportL);
@@ -3083,7 +3555,7 @@ namespace SF_Automation.Pages.Companies
         public string GetActivityCompanyNameLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tableActivityCompanyName, 20);
-            string companyName= driver.FindElement(tableActivityCompanyName).Text;
+            string companyName = driver.FindElement(tableActivityCompanyName).Text;
             driver.SwitchTo().DefaultContent();
             return companyName;
         }
@@ -3112,11 +3584,12 @@ namespace SF_Automation.Pages.Companies
             catch { return false; }
         }
 
-        public bool IsOppoortunitiesFoundByNameLV(string name)
+        public bool IsOpportunitiesFoundByNameLV(string name)
         {
+            IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
             By recordByName = By.XPath($"//lightning-datatable//table//tbody//tr//a[text()='{name}']");
             WebDriverWaits.WaitUntilEleVisible(driver, searchOpportunitiesL, 10);
-            driver.FindElement(searchOpportunitiesL).SendKeys(name);
+            jse.ExecuteScript("arguments[0].value='" + name + "';", driver.FindElement(searchOpportunitiesL));
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, recordByName, 10);
@@ -3207,8 +3680,8 @@ namespace SF_Automation.Pages.Companies
         }
 
         public void CloseCompanyTabLV(string name)
-         {
-            By buttonCloseTab = By.XPath($"//button[contains(@title,'Close {name}')]");            
+        {
+            By buttonCloseTab = By.XPath($"//button[contains(@title,'Close {name}')]");
 
             try
             {
@@ -3219,7 +3692,7 @@ namespace SF_Automation.Pages.Companies
                 driver.Navigate().Refresh();
                 Thread.Sleep(4000);
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 driver.FindElement(buttonCloseTab).Click();
                 Thread.Sleep(4000);
@@ -3244,7 +3717,7 @@ namespace SF_Automation.Pages.Companies
             WebDriverWaits.WaitUntilEleVisible(driver, btnCloseViewAllPopup, 10);
             driver.FindElement(btnCloseViewAllPopup).Click();
         }
-       
+
         public bool IsOppEngFoundByNameOnViewAllLV(string name)
         {
             try
@@ -3304,7 +3777,7 @@ namespace SF_Automation.Pages.Companies
 
             catch { return false; }
 
-        }      
+        }
 
         public void CloseCoverageTeamDetailPageLV()
         {
@@ -3336,7 +3809,7 @@ namespace SF_Automation.Pages.Companies
         }
         public string ClickContactNestedListHLRelationshipLV(string contactName)
         {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
             By btnNestedHLRelationship = By.XPath($"//a[contains(@class,'NestedTables')][text()='{contactName}']//parent::td//preceding-sibling::td//button");
             WebDriverWaits.WaitUntilEleVisible(driver, btnNestedHLRelationship, 20);
             //driver.FindElement(btnNestedHLRelationship).Click();
@@ -3350,7 +3823,7 @@ namespace SF_Automation.Pages.Companies
 
         public string ClickCoverageNestedListLV(string contactName)
         {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
             By btnNestedHLRelationshipL = By.XPath($"//article//div[contains(@class,'NestedTables')]//table//tr//td[@data-label='Officer Name']//a[text()='{contactName}']//ancestor::td//preceding-sibling::td//button");
             //WebDriverWaits.WaitUntilEleVisible(driver, btnNestedHLRelationshipL, 20);
             //driver.FindElement(btnNestedHLRelationship).Click();
@@ -3375,7 +3848,7 @@ namespace SF_Automation.Pages.Companies
         }
         public void ClickCompanyNestedContactLV(string contactName)
         {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
             By linkNestedHLRelationshipL = By.XPath($"//a[contains(@class,'NestedTables')][text()='{contactName}']");
             //driver.FindElement(linkNestedHLRelationship ).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, linkNestedHLRelationshipL, 20);
@@ -3383,7 +3856,7 @@ namespace SF_Automation.Pages.Companies
         }
         public void ClickNestedCoverageTeamOfficerLV(string officerName)
         {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
             By btnNestedHLRelationshipL = By.XPath($"//article//div[contains(@class,'NestedTables')]//table//tr//td[@data-label='Officer Name']//a[text()='{officerName}']");
             // WebDriverWaits.WaitUntilEleVisible(driver, btnNestedHLRelationshipL, 20);
             jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnNestedHLRelationshipL));
@@ -3416,7 +3889,7 @@ namespace SF_Automation.Pages.Companies
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyDetailCoverageTypeL, 20);
             return driver.FindElement(txtCompanyDetailCoverageTypeL).Text;
-        }        
+        }
 
         public string GetOfficerCoverageTypeLV()
         {
@@ -3425,7 +3898,7 @@ namespace SF_Automation.Pages.Companies
             WebDriverWaits.WaitUntilEleVisible(driver, panelCoverageTypeL, 10);
             return driver.FindElement(panelCoverageTypeL).Text;
         }
-        
+
         public bool IsIndustryTypePresent(string industryType)
         {
             bool isFound = false;
@@ -3435,9 +3908,9 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(comboIndustryType).Click();
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIndustryTypeOptions);
             var actualValue = valTypes.Select(x => x.Text).ToArray();
-            for (int row = 0; row <= actualValue.Length; row++)
+            for(int row = 0; row <= actualValue.Length; row++)
             {
-                if (actualValue[row].Contains(industryType))
+                if(actualValue[row].Contains(industryType))
                 {
                     isFound = true;
                     driver.FindElement(btnCancel).Click();
@@ -3453,6 +3926,13 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(_DetailPageQuickLink(linkName)).Click();
         }
 
+        public void MouseHoverDetailPageQuickLink(string linkName)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, _CompanyDetailPageQuickLink(linkName), 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(_CompanyDetailPageQuickLink(linkName)));
+            //driver.FindElement(_CompanyDetailPageQuickLink(linkName)).Click();
+        }
+
         public void ClickNewCoverageTeamButton()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnNewCoverageTeam);
@@ -3466,9 +3946,9 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(comboType).Click();
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboTypeOption);
             var actualValue = valTypes.Select(x => x.Text).ToArray();
-            for (int row = 0; row <= actualValue.Length; row++)
+            for(int row = 0; row <= actualValue.Length; row++)
             {
-                if (actualValue[row].Contains(industryType))
+                if(actualValue[row].Contains(industryType))
                 {
                     isFound = true;
                     driver.FindElement(btnCancel).Click();
@@ -3478,23 +3958,11 @@ namespace SF_Automation.Pages.Companies
             return isFound;
         }
 
-        By btnEditL = By.XPath("//button[@name='Edit']");
-        By comboIndustryTypeL = By.XPath("//label[text()='Industry Group']/..//button");
-        By comboIndustryTypeOptionsL = By.XPath("//label[text()='Industry Group']/..//lightning-base-combobox-item//span[2]/span");
-        By btnCancelL = By.XPath("//button[@name='CancelEdit']");
-        By iframeCompanyForm = By.XPath("//iframe[contains(@name,'vfFrame')]");
-        By btnNewCoverageTeamL = By.XPath("//span[contains(text(),'Sponsor Coverage')]//ancestor::header//button");//span[contains(text(),'Sponsor Coverage')]//ancestor::h2/..//following-sibling::div//button[text()='New']");
-        By btnDialogNextL= By.XPath("//div[@role='dialog']//button[text()='Next']");
-        By comboTypeL = By.XPath("//label[text()='Type']/..//button");
-        By comboTypeOptionsL = By.XPath("//label[text()='Type']/..//lightning-base-combobox-item//span[2]/span");
-        
-               
         private By _btnViewNestedRContactL(string contactName)
         {
             return By.XPath($"//a[contains(@class,'NestedTables')][text()='{contactName}']//parent::td//preceding-sibling::td//button");
         }
 
-        
         public bool IsIndustryTypePresentonCoverageTeamLV(string industryType)
         {
             bool isFound = false;
@@ -3502,10 +3970,10 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(comboTypeL).Click();
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboTypeOptionsL);
             var actualValue = valTypes.Select(x => x.Text).ToArray();
-            for (int row = 0; row <= actualValue.Length; row++)
+            for(int row = 0; row <= actualValue.Length; row++)
             {
                 //Thread.Sleep(1000);
-                if (actualValue[row].Contains(industryType))
+                if(actualValue[row].Contains(industryType))
                 {
                     isFound = true;
                     //driver.FindElement(comboTypeL).Click();
@@ -3520,20 +3988,20 @@ namespace SF_Automation.Pages.Companies
             bool isFound = false;
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditL);
             driver.FindElement(btnEditL).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, comboIndustryTypeL,20);
+            WebDriverWaits.WaitUntilEleVisible(driver, comboIndustryTypeL, 20);
             driver.FindElement(comboIndustryTypeL).Click();
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIndustryTypeOptionsL);
-            if (valTypes.Count == 0)
+            if(valTypes.Count == 0)
             {
                 Thread.Sleep(2000);
                 driver.FindElement(comboIndustryTypeL).Click();
                 valTypes = driver.FindElements(comboIndustryTypeOptionsL);
             }
             var actualValue = valTypes.Select(x => x.Text).ToArray();
-            for (int row = 0; row <= actualValue.Length; row++)
+            for(int row = 0; row <= actualValue.Length; row++)
             {
                 //CustomFunctions.MoveToElement(actualValue[row])
-                if (actualValue[row].Contains(industryType))
+                if(actualValue[row].Contains(industryType))
                 {
                     isFound = true;
                     driver.FindElement(comboIndustryTypeL).Click();
@@ -3553,7 +4021,7 @@ namespace SF_Automation.Pages.Companies
         {
             Actions actions = new Actions(driver);
             Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, btnNewCoverageTeamL, 20);             
+            WebDriverWaits.WaitUntilEleVisible(driver, btnNewCoverageTeamL, 20);
             actions.MoveToElement(driver.FindElement(btnNewCoverageTeamL)).Click().Perform();
             WebDriverWaits.WaitUntilEleVisible(driver, btnDialogNextL, 10);
             Thread.Sleep(2000);
@@ -3572,4 +4040,3 @@ namespace SF_Automation.Pages.Companies
         }
     }
 }
-

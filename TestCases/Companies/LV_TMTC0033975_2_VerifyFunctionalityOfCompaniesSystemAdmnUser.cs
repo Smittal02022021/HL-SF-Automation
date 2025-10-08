@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.Companies
 {
-     class LV_TMTC0033975_2_VerifyFunctionalityOfCompaniesSystemAdmnUser:BaseClass
+    class LV_TMTC0033975_2_VerifyFunctionalityOfCompaniesSystemAdmnUser : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -77,7 +77,7 @@ namespace SF_Automation.TestCases.Companies
                 string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                 
+
                 string btnNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Buttons", 2, 1);
                 // Click New Company button
                 companyHome.ClickButtonCompanyHomePageLV(btnNameExl);
@@ -123,7 +123,7 @@ namespace SF_Automation.TestCases.Companies
                 btnNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Buttons", 2, 1);
                 companyHome.ClickButtonCompanyHomePageLV(btnNameExl);
                 valRecordTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 1);
-                companySelectRecord.SelectCompanyRecordTypeAndClickNextLV(valRecordTypeExl);                  
+                companySelectRecord.SelectCompanyRecordTypeAndClickNextLV(valRecordTypeExl);
                 createCompanyPage = createCompany.GetCreateCompanyPageHeaderLV();
                 Assert.IsTrue(createCompanyPage.Contains("New Company"));
                 extentReports.CreateStepLogs("Passed", "Page with heading: " + createCompanyPage + " is displayed upon selecting company record type ");
@@ -131,11 +131,11 @@ namespace SF_Automation.TestCases.Companies
                 // Validate company type display as selected 
                 Assert.AreEqual(valRecordTypeExl, createCompany.GetSelectedCompanyTypeLV());
                 extentReports.CreateStepLogs("Passed", "Selected company type: " + valRecordTypeExl + " choosen on select company record type page is matching on Company create page ");
-                    
+
                 //TMT0076757 Verify that the Houlihan Lockey Company is created by clicking the "Save" button and redirecting the user to a Company detail page System Admin
                 //Create a  company
                 createCompany.CreateNewCompanyLV(fileTMTC0033975, 2);
-                extentReports.CreateStepLogs("Info", " New Company Created ");                    
+                extentReports.CreateStepLogs("Info", " New Company Created ");
                 //Validate company detail heading
                 string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 2);
                 newCompanyName = companyDetail.GetCompanyNameHeaderLV();
@@ -153,15 +153,15 @@ namespace SF_Automation.TestCases.Companies
                 companyDetail.DeleteCompanyLV();
                 randomPages.CloseActiveTab(companyNameExl);
 
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 string valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
                 extentReports.CreateStepLogs("Info", "System Admin User: " + valAdminUser + " details are displayed. ");
@@ -180,18 +180,18 @@ namespace SF_Automation.TestCases.Companies
                 string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
                     companyDetail.DeleteCompanyLV();
-                    extentReports.CreateStepLogs("Passed", companyNameExl+" Company Deleted");
+                    extentReports.CreateStepLogs("Passed", companyNameExl + " Company Deleted");
 
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
-            
+
         }
     }
 }

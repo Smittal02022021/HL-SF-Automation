@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class LV_T1147_CompaniesCommonCompanyEditAndUpdateTheExistingInformation:BaseClass
+    class LV_T1147_CompaniesCommonCompanyEditAndUpdateTheExistingInformation : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -77,7 +77,7 @@ namespace SF_Automation.TestCases.Companies
 
                 // Calling Search Company function
 
-                string companyNameExl= ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 2);
+                string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", 2, 2);
                 companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
 
                 string companyDetailHeading = companyDetail.GetCompanyDetailsHeadingLV();
@@ -98,12 +98,12 @@ namespace SF_Automation.TestCases.Companies
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Company", 10), companyDesc);
                 extentReports.CreateLog("Updated Company description: " + companyDesc + " in edit company page matches on company details page ");
 
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 login.SwitchToClassicView();

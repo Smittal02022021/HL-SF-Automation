@@ -80,10 +80,10 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog(moduleNameExl + ": Module is selected from menu ");
 
                 int companiesRowsCountExl = ReadExcelData.GetRowCount(excelPath, "Companies");
-                for (int row = 2; row <= companiesRowsCountExl; row++)
+                for(int row = 2; row <= companiesRowsCountExl; row++)
                 {
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 1);
-                    companyhome.SearchCompanyInLightning(companyNameExl);
+                    companyhome.GlobalSearchCompanyInLightningView(companyNameExl);
                     extentReports.CreateLog(companyNameExl + ": Company is searched and selected ");
 
                     string companyTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 2);
@@ -138,18 +138,18 @@ namespace SF_Automation.TestCases.Companies
                     companyDetails.CloseCompanyTabLV(companyNameExl);//not displayed so commenting this line for now
                     extentReports.CreateLog(companyNameExl + ": Company Tab Closed ");
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "User: " + adminUserExl + " logged out");
                 usersLogin.UserLogOut();
                 driver.Quit();
-                extentReports.CreateStepLogs("Info", "Browser Closed");
+                extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 extentReports.CreateLog(ex.Message);
                 login.SwitchToClassicView();
                 usersLogin.UserLogOut();
-                driver.Quit();                
+                driver.Quit();
             }
         }
     }

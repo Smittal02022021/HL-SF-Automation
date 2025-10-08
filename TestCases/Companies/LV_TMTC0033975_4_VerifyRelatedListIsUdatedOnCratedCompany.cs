@@ -98,8 +98,8 @@ namespace SF_Automation.TestCases.Companies
                 Assert.IsTrue(newCompanyName.Contains(companyNameExl));
                 extentReports.CreateStepLogs("Passed", valRecordTypeExl + " Company created and name :" + newCompanyName + " displayed on Company Detail page Header ");
                 randomPages.CloseActiveTab(newCompanyName);
-                usersLogin.ClickLogoutFromLightningView();
-                extentReports.CreateStepLogs("Info", " CF Fin user: "+valUser+" logged out after creating Company: " + newCompanyName);
+                homePageLV.LogoutFromSFLightningAsApprover();
+                extentReports.CreateStepLogs("Info", " CF Fin user: " + valUser + " logged out after creating Company: " + newCompanyName);
 
                 //Login as System Admin to update values on created Company detail page
                 string valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
@@ -129,7 +129,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Info", " Client Number and Parent Company is updated on " + newCompanyName);
                 companyDetail.GetCompanyNameHeaderLV();
                 randomPages.CloseActiveTab(newCompanyName);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", " System Admin user: " + valAdminUser + " logged out after creating Company " + newCompanyName);
 
                 //CF User Login to verify the Client Number And Parent Company Updates 
@@ -153,16 +153,16 @@ namespace SF_Automation.TestCases.Companies
                 //TMT0076309	Verify that once the Company is created related list of the company details gets updated
                 companyHome.GlobalSearchCompanyInLightningView(newCompanyName);
 
-                Assert.AreEqual(valClientNumberExl,companyDetail.GetClientNumberLV());
+                Assert.AreEqual(valClientNumberExl, companyDetail.GetClientNumberLV());
                 extentReports.CreateStepLogs("Passed", "Client Number updated ");
 
-                Assert.AreEqual(valParentCompanyExl,companyDetail.GetParentCompanyLV());
+                Assert.AreEqual(valParentCompanyExl, companyDetail.GetParentCompanyLV());
                 extentReports.CreateStepLogs("Passed", "Parent Company updated ");
 
                 randomPages.CloseActiveTab(newCompanyName);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", " CF Fin user: " + valUser + " logged out after creating Company " + newCompanyName);
-               
+
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
                 extentReports.CreateStepLogs("Info", "CF Fin User: " + valAdminUser + " details are displayed. ");
                 //Login user
@@ -180,7 +180,7 @@ namespace SF_Automation.TestCases.Companies
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
                 rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Company");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
@@ -188,16 +188,16 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Passed", companyNameExl + " Company Deleted at last");
 
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
 
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 string valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
                 extentReports.CreateStepLogs("Info", "System Admin User: " + valAdminUser + " details are displayed. ");
@@ -216,7 +216,7 @@ namespace SF_Automation.TestCases.Companies
                 string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
@@ -224,7 +224,7 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Passed", companyNameExl + " Company Deleted");
 
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
         }

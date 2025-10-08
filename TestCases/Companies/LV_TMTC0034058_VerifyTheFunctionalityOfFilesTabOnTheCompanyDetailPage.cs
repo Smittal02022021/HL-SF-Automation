@@ -55,7 +55,7 @@ namespace SF_Automation.TestCases.Companies
         //TMT0076598 Verify that the user is able to upload the file followed by the success message and the list gets updated on the screen.
         //TMT0076600 Verify that the user can download the file using the "Download" button given corresponding to each File.
         //TMT0076602 Verify the "Delete" functionality of the added File on the Files tab.
-        
+
         [Test]
         public void VerifyTheFunctionalityOfFilesTabOnTheCompanyDetailPageLV()
         {
@@ -91,7 +91,7 @@ namespace SF_Automation.TestCases.Companies
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
                 rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Company");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     //companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 1);
                     //companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
@@ -129,14 +129,14 @@ namespace SF_Automation.TestCases.Companies
 
                     Assert.IsTrue(companyDetail.IsUploadFilesButtonDisplayedLV(), "Verify that the 'Add Files' button is available on the Files tab to add files to the company.");
                     extentReports.CreateStepLogs("Passed", tabNameExl + "Verify that the 'UploadFiles' button is available on the Files tab to add files to the company.");
-                    
+
                     //TMT0076598 Verify that the user is able to upload the file followed by the success message and the list gets updated on the screen.
-                    fileName= ReadExcelData.ReadDataMultipleRows(excelPath, "FileName", 2, 1);
+                    fileName = ReadExcelData.ReadDataMultipleRows(excelPath, "FileName", 2, 1);
                     fileToUpload = ReadJSONData.data.filePaths.testData + fileName;
                     CustomFunctions.FileUpload(driver, fileToUpload);
-                    string msgBubble= randomPages.GetPopUpMessagelV();
+                    string msgBubble = randomPages.GetPopUpMessagelV();
                     Assert.IsTrue(msgBubble.Contains("file was added"));
-                    extentReports.CreateStepLogs("Passed"," File is uploaded followed by the success message: "+ msgBubble);
+                    extentReports.CreateStepLogs("Passed", " File is uploaded followed by the success message: " + msgBubble);
 
                     //TMT0076594 Verify that the "Files" tab lists all the uploaded files related to the company.
                     Assert.IsTrue(companyDetail.IsUploadedFileDisplayedLV(fileName), "Verify that the 'Files' tab lists all the uploaded files related to the company.");
@@ -144,17 +144,17 @@ namespace SF_Automation.TestCases.Companies
 
                     //TMT0076600 Verify that the user can download the file using the "Download" button given corresponding to each File.
                     companyDetail.ClickViewAllUploadedFilesLV();
-                    fileAction= ReadExcelData.ReadDataMultipleRows(excelPath, "FileName", 2, 3);
+                    fileAction = ReadExcelData.ReadDataMultipleRows(excelPath, "FileName", 2, 3);
                     companyDetail.UploadedFileMoreActionsLV(fileName, fileAction);
                     ///Need to Revisit for Download find logic
-                    string locationExportedFile = ReadExcelData.ReadDataMultipleRows(excelPath, "FileName", 2,2);
+                    string locationExportedFile = ReadExcelData.ReadDataMultipleRows(excelPath, "FileName", 2, 2);
                     bool isFilePresent = CustomFunctions.ValidateFileExists(locationExportedFile, fileName);
                     Assert.IsTrue(isFilePresent, " Verify File name:" + fileName + " is downloaded ");
                     extentReports.CreateStepLogs("Passed", "File name:" + fileName + " is downloaded and available at location:" + locationExportedFile);
                     //delete downloaded file
                     CustomFunctions.DeleteFile(locationExportedFile, fileName);
                     extentReports.CreateStepLogs("Info", "Downloaded File:" + fileName + " is deleted from location:" + locationExportedFile);
-                    
+
                     //TMT0076602 Verify the "Delete" functionality of the added File on the Files tab.
                     fileAction = ReadExcelData.ReadDataMultipleRows(excelPath, "FileName", 3, 3);
                     companyDetail.UploadedFileMoreActionsLV(fileName, fileAction);
@@ -165,9 +165,9 @@ namespace SF_Automation.TestCases.Companies
                     randomPages.CloseActiveTab("Files");
                     Assert.IsFalse(companyDetail.IsUploadedFileDisplayedLV(fileName), "Verify that Deleted file is not present on the 'Files' tab lists.");
                     extentReports.CreateStepLogs("Passed", "Deleted file is not present on the 'Files' tab lists.");
-                    randomPages.CloseActiveTab(companyNameExl);                    
+                    randomPages.CloseActiveTab(companyNameExl);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "Fin user: " + valUser + " logged out");
 
                 valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
@@ -186,7 +186,7 @@ namespace SF_Automation.TestCases.Companies
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
@@ -194,15 +194,15 @@ namespace SF_Automation.TestCases.Companies
                     companyDetail.DeleteCompanyLV();
                     extentReports.CreateStepLogs("Passed", companyNameExl + " Company Deleted Successfully");
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
-                extentReports.CreateStepLogs("Info", "Browser Closed Successfully");                
+                extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 extentReports.CreateExceptionLog(ex.Message);
                 //Assert.IsTrue(msgBubble.Contains("File was deleted"));
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
                 usersLogin.LoginAsSelectedUser();
@@ -219,13 +219,13 @@ namespace SF_Automation.TestCases.Companies
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
                     extentReports.CreateStepLogs("Passed", companyNameExl + " found and selected");
                     randomPages.CloseActiveTab("Files");
-                    companyDetail.ClickCompanyDetailPageTabLV(tabNameExl);                    
+                    companyDetail.ClickCompanyDetailPageTabLV(tabNameExl);
                     companyDetail.UploadedFileMoreActionsLV(fileName, fileAction);
                     randomPages.GetPopUpMessagelV();
                     extentReports.CreateStepLogs("Passed", "Uploaded file" + randomPages.GetPopUpMessagelV());

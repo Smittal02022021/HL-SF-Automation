@@ -60,7 +60,7 @@ namespace SF_Automation.TestCases.Companies
                 //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileTMTI0046461;
                 string fileToUpload = ReadJSONData.data.filePaths.testData + "FileToUpload.txt";
-                
+
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
                 extentReports.CreateLog(driver.Title + " is displayed ");
@@ -91,28 +91,28 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog(moduleNameExl + ": Module is selected from menu ");
 
                 int companiesRowsCountExl = ReadExcelData.GetRowCount(excelPath, "Companies");
-                for (int row = 2; row <= companiesRowsCountExl; row++)
-                {                    
+                for(int row = 2; row <= companiesRowsCountExl; row++)
+                {
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 1);
-                    companyhome.SearchCompanyInLightning(companyNameExl);
+                    companyhome.GlobalSearchCompanyInLightningView(companyNameExl);
                     extentReports.CreateLog(companyNameExl + ": Company is searched and selected ");
 
-                    string companyTypeExl= ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 2);
-                    string valueCompanyType= companyDetails.GetCompanyTypeLV();
+                    string companyTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 2);
+                    string valueCompanyType = companyDetails.GetCompanyTypeLV();
                     Assert.AreEqual(companyTypeExl, valueCompanyType);
-                    extentReports.CreateLog("Selected Company Type is " +valueCompanyType+ " ");
+                    extentReports.CreateLog("Selected Company Type is " + valueCompanyType + " ");
 
                     //TMT0076505 Verify the availability of the "Opportunity" tab on the Company detail page
                     tabNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "TabName", 2, 1);
-                    Assert.IsTrue(companyDetails.IsCompanyDetailPageTabPresentLV(tabNameExl), "Verify the availability of the '"+ tabNameExl+"' tab on the Company detail page");
-                    extentReports.CreateStepLogs("Passed", tabNameExl+" tab available on the Company detail page");
+                    Assert.IsTrue(companyDetails.IsCompanyDetailPageTabPresentLV(tabNameExl), "Verify the availability of the '" + tabNameExl + "' tab on the Company detail page");
+                    extentReports.CreateStepLogs("Passed", tabNameExl + " tab available on the Company detail page");
 
                     tabDetailPageDisplayed = companyDetails.ClickCompanyDetailPageTabLV(tabNameExl);
                     Assert.IsTrue(tabDetailPageDisplayed, "Verify Detail Page Displayed after clicking on Opportunities Tab ");
-                    extentReports.CreateStepLogs("Info", "Detail Page Displayed after clicking on " + tabNameExl+" Tab ");
+                    extentReports.CreateStepLogs("Info", "Detail Page Displayed after clicking on " + tabNameExl + " Tab ");
 
                     //TMTI0046461,TMTI0046464 Verify that for related list - opportunities enhanced with filtering/search Capability on Company Page.
-                    
+
                     searchOpportunitiesBoxDisplayed = companyDetails.IsOpportunitiesSearchBoxL();
                     Assert.IsTrue(searchOpportunitiesBoxDisplayed, "Verify search Opportunities Box is Displayed after clicking on Opportunities Tab ");
                     extentReports.CreateLog("Search Opportunities Box is Displayed after clicking on Opportunities Tab ");
@@ -126,17 +126,17 @@ namespace SF_Automation.TestCases.Companies
                     string oppNumberExcel = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 4);
                     string oppStageExcel = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 5);
 
-                    Assert.IsTrue(companyDetails.IsOppoortunitiesFoundByNameLV(oppNameExcel),"Verify Opportunity is found with Opportunity Name ");
-                    extentReports.CreateLog("Opportunity is found with Opportunity Name:: "+ oppNameExcel+" ");
+                    Assert.IsTrue(companyDetails.IsOpportunitiesFoundByNameLV(oppNameExcel), "Verify Opportunity is found with Opportunity Name ");
+                    extentReports.CreateLog("Opportunity is found with Opportunity Name:: " + oppNameExcel + " ");
                     Assert.IsTrue(companyDetails.IsOppoortunitiesFoundByNumberLV(oppNumberExcel), "Verify Opportunity is found with Opportunity Number");
-                    extentReports.CreateLog("Opportunity is found with Opportunity Number:: "+ oppNumberExcel+" ");
+                    extentReports.CreateLog("Opportunity is found with Opportunity Number:: " + oppNumberExcel + " ");
                     Assert.IsTrue(companyDetails.IsOppoortunitiesFoundByStageLV(oppStageExcel), "Verify Opportunity is found with Opportunity Stage");
-                    extentReports.CreateLog("Opportunity is found with Opportunity Stage:: "+ oppStageExcel+" ");
+                    extentReports.CreateLog("Opportunity is found with Opportunity Stage:: " + oppStageExcel + " ");
 
                     //Search from View All
                     //TMTI0046459 Verify that filtering/search bar is available on clicking "View All" link of opportunity related list.
                     companyDetails.ClickViewAllOpportunities();
-                    extentReports.CreateLog(" User clicked on View All link on "+ tabNameExl+" tab");
+                    extentReports.CreateLog(" User clicked on View All link on " + tabNameExl + " tab");
 
                     Assert.IsTrue(companyDetails.IsOppEngFoundByNameOnViewAllLV(oppNameExcel));
                     extentReports.CreateLog("Opportunity is found on View All with Opportunity Name:: " + oppNameExcel + " ");
@@ -144,7 +144,7 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateLog("Opportunity is found on View All with Opportunity Name:: " + oppNumberExcel + " ");
                     Assert.IsTrue(companyDetails.IsOppEngFoundByStageOnViewAllLV(oppStageExcel));
                     extentReports.CreateLog("Opportunity is found on View All with Opportunity Name:: " + oppStageExcel + " ");
-                    
+
                     companyDetails.CloseViewAllPopup();
                     extentReports.CreateLog("View All Pop-Up is closed ");
 
@@ -155,7 +155,7 @@ namespace SF_Automation.TestCases.Companies
 
                     tabDetailPageDisplayed = companyDetails.ClickCompanyDetailPageTabLV(tabNameExl);
                     Assert.IsTrue(tabDetailPageDisplayed, "Verify Detail Page Displayed after clicking on Opportunities Tab ");
-                    extentReports.CreateLog("Detail Page Displayed after clicking on "+ tabNameExl+" Tab ");
+                    extentReports.CreateLog("Detail Page Displayed after clicking on " + tabNameExl + " Tab ");
 
                     //TMTI0046463,TMTI0046458 Verify that for related list - Engagement enhanced with filtering/search Capability on Company Page.
                     //TMT0076515 Verify that the "Engagement" tab lists all the Engagement in which the company is associated
@@ -172,9 +172,9 @@ namespace SF_Automation.TestCases.Companies
                     string engStageExcel = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 8);
 
                     Assert.IsTrue(companyDetails.IsEngagementFoundByNameLV(engNameExcel), "Verify Engagement is found with Engagement Name");
-                    extentReports.CreateLog("Engagement is found with Engagement Name: "+ engNameExcel+" ");
+                    extentReports.CreateLog("Engagement is found with Engagement Name: " + engNameExcel + " ");
                     Assert.IsTrue(companyDetails.IsEngagementFoundByNumberLV(engNumberExcel), "Verify Engagement is found with Engagement Number");
-                    extentReports.CreateLog("Engagement is found with Engagement Name: " + engNumberExcel+" ");
+                    extentReports.CreateLog("Engagement is found with Engagement Name: " + engNumberExcel + " ");
                     Assert.IsTrue(companyDetails.IsEngagementFoundByStageLV(engStageExcel), "Verify Engagement is found with Engagement Stage");
                     extentReports.CreateLog("Engagement is found with Engagement Name: " + engStageExcel + " ");
 
@@ -195,13 +195,13 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateLog("View All Pop-Up is closed ");
 
                     companyDetails.CloseCompanyTabLV(companyNameExl);
-                    extentReports.CreateLog(companyNameExl+": Company Tab Closed ");
+                    extentReports.CreateLog(companyNameExl + ": Company Tab Closed ");
                 }
                 homePageLV.UserLogoutFromSFLightningView();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 login.SwitchToClassicView();
@@ -210,6 +210,6 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog("Browser Closed ");
             }
 
-        } 
+        }
     }
 }

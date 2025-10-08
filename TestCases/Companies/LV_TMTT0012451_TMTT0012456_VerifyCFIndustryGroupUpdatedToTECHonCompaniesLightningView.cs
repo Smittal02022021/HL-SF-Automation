@@ -75,21 +75,21 @@ namespace SF_Automation.TestCases.Companies
 
 
                 ////*************************
-               
+
                 //Search via New Industry Group Type
                 //TMTI0027298 Verify User is able to search Companies with Industry Group TECH is on Companies Home page
                 //Search Company page is different on LV from Classic so this test case is OUT OF SCOPE
-                
+
                 //*************************
 
                 //Add New Company
                 //TMTI0027296 Verify the CF Industry Group Changes TECH is updated in place of TMT & D&A While Creating Companies 
                 int countCompanyRecordTypeExl = ReadExcelData.GetRowCount(excelPath, "CompanyType");
                 string industryGroupExl = ReadExcelData.ReadData(excelPath, "IndustryType", 1);
-                for (int record = 2; record <= countCompanyRecordTypeExl; record++)
+                for(int record = 2; record <= countCompanyRecordTypeExl; record++)
                 {
                     string companyRecordTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyType", record, 1);
-                     companyName = createCompany.CreateCompanyLV(fileTMTT0012451,companyRecordTypeExl);
+                    companyName = createCompany.CreateCompanyLV(fileTMTT0012451, companyRecordTypeExl);
                     extentReports.CreateStepLogs("Info", "New Company:  " + companyName + " with Record Type :" + companyRecordTypeExl + " is created");
                     arrayCompany[index] = companyName;
                     index++;
@@ -107,28 +107,28 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Info", "Industry Group: " + industryGroupExl + " is updated on Company's Coverage Team Type Drop-Down ");
                     randomPages.CloseActiveTab(companyName);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Pass", "User: " + userExl + " Logged out");
                 login.SwitchToClassicView();
                 //Deleting ceated compnay as garbage collection 
-                for (int i = 0; i < index; i++)
+                for(int i = 0; i < index; i++)
                 {
                     companyDetails.DeleteCompanyNew(arrayCompany[i]);
-                    extentReports.CreateStepLogs("Info", arrayCompany[i]+" is deleted ");
+                    extentReports.CreateStepLogs("Info", arrayCompany[i] + " is deleted ");
                 }
                 usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");
             }
 
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                if (companyName != null)
+                if(companyName != null)
                 {
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     login.SwitchToClassicView();
-                    for (int i = 0; i < index; i++)
+                    for(int i = 0; i < index; i++)
                     {
                         companyDetails.DeleteCompanyNew(arrayCompany[i]);
                         extentReports.CreateStepLogs("Info", arrayCompany[i] + " is deleted ");
@@ -140,9 +140,8 @@ namespace SF_Automation.TestCases.Companies
                 login.SwitchToClassicView();
                 usersLogin.UserLogOut();
                 driver.Quit();
-            } 
+            }
 
         }
     }
 }
-         

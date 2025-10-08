@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class LV_T1174_TMTC0033995_CompaniesAddCFOpportunityInCompanyDetailsPage:BaseClass
+    class LV_T1174_TMTC0033995_CompaniesAddCFOpportunityInCompanyDetailsPage : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -57,7 +57,7 @@ namespace SF_Automation.TestCases.Companies
                 //Validate user logged in          
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
-                
+
                 string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
                 homePage.SearchUserByGlobalSearchN(valUser);
                 extentReports.CreateStepLogs("Info", "CF Fin User: " + valUser + " details are displayed. ");
@@ -80,12 +80,12 @@ namespace SF_Automation.TestCases.Companies
 
                 //-----Add Cancel Delete CF opportunity by all types of companies ----//
                 int rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Company");
-                for (int row = 2; row <= rowCompanyName-2; row++)
-                {                    
+                for(int row = 2; row <= rowCompanyName - 2; row++)
+                {
                     // Calling Search Company function
                     string companyType = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 1);
-                    string companyNameExl= ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
-                    companyHome.SearchCompanyInLightning(companyNameExl);
+                    string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
+                    companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
                     string companyDetailHeading = companyDetail.GetCompanyDetailsHeadingLV();
                     Assert.AreEqual(companyNameExl, companyDetailHeading);
                     extentReports.CreateStepLogs("Passed", "Page with heading: " + companyDetailHeading + " is displayed upon searching company ");
@@ -97,7 +97,7 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Passed", "Add: " + valOppLOBExl + " Opportunity button is displayed and Clicked on Company page");
 
                     //Verify edit opportunity heading page
-                    string txtOpportunitypageHeading = addOpportunity.GetNewOpportunityPageHeadingLV();                    
+                    string txtOpportunitypageHeading = addOpportunity.GetNewOpportunityPageHeadingLV();
                     Assert.IsTrue(txtOpportunitypageHeading.Contains(valOppLOBExl));
                     extentReports.CreateStepLogs("Passed", "Opportunity Page with heading:  " + txtOpportunitypageHeading + " is displayed upon clicking opportunity button ");
 
@@ -133,7 +133,7 @@ namespace SF_Automation.TestCases.Companies
                     //Click Cancel and check user is redireced to Company page 
                     addOpportunity.ClickCancelAddOpportunityPageLV();
                     randomPages.CloseActiveTab(companyNameExl);
-                    companyHome.SearchCompanyInLightning(companyNameExl);
+                    companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
                     companyDetailHeading = companyDetail.GetCompanyDetailsHeadingLV();
                     Assert.AreEqual(companyNameExl, companyDetailHeading, "Verify that clicking the 'Cancel' button navigates the user back to the Company details page.");
                     extentReports.CreateStepLogs("Passed", "Clicking the 'Cancel' button navigates the user back to the Company details page.");
@@ -180,7 +180,7 @@ namespace SF_Automation.TestCases.Companies
                     //extentReports.CreateStepLogs("Passed", "Sector: " + sector + " in add opportunity page matches on Opportunity details page ");
 
                     //randomPages.DetailPageFullViewLV();
-                    companyDetail.ClickCompanyDetailPageTabLV("Client/Subject & Referral");
+                    companyDetail.ClickCompanyDetailPageTabLV("KYC/Client/Subject/Referral");
                     // Validate additonal client 
                     string additionalClient = oppDetails.GetAdditionalClientLV();
                     string additionalClientExl = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
@@ -202,7 +202,7 @@ namespace SF_Automation.TestCases.Companies
                     // Validate beneficiary owner info value
                     companyDetail.ClickCompanyDetailPageTabLV("Compliance & Legal");
                     string beneOwnerInfoExl = ReadExcelData.ReadData(excelPath, "AddOpportunity", 10);
-                    string beneOwnerInfo = oppDetails.GetBeneOwnerAndControlPersonFormLV();                    
+                    string beneOwnerInfo = oppDetails.GetBeneOwnerAndControlPersonFormLV();
                     Assert.AreEqual(beneOwnerInfoExl, beneOwnerInfo);
                     extentReports.CreateStepLogs("Passed", "Beneficial owner and control person form: " + beneOwnerInfo + " in add opportunity page matches on Opportunity details page ");
 
@@ -237,7 +237,8 @@ namespace SF_Automation.TestCases.Companies
                     randomPages.CloseActiveTab(opportunityName);
                     randomPages.CloseActiveTab(opportunityName);
                     randomPages.CloseActiveTab("Tab");
-                    companyHome.SearchCompanyInLightning(companyNameExl);
+                    companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
+
                     //TMT0076505 Verify the availability of the "Opportunity" tab on the Company detail page
                     Assert.IsTrue(companyDetail.IsOpportunityTabDisplayedLV(), "Verify the availability of the 'Opportunity' tab on the Company detail page"); ;
                     extentReports.CreateStepLogs("Passed", "'Opportunity' tab is available on the Company detail page");
@@ -245,22 +246,22 @@ namespace SF_Automation.TestCases.Companies
                     //TMT0076507 Verify that the "Opportunity" tab lists all the Opportunities in which the company is associated 
                     companyDetail.ClickOpportunitiesTabLV();
                     Assert.IsTrue(companyDetail.IsOpportunityDisplayed(opportunityName), "Verify that the 'Opportunity' tab lists all the Opportunities in which the company is associated ");
-                    extentReports.CreateStepLogs("Passed", " Associated Opportunity: " + opportunityName+" is displayed 'Opportunity' tab list");
+                    extentReports.CreateStepLogs("Passed", " Associated Opportunity: " + opportunityName + " is displayed 'Opportunity' tab list");
 
                     //TMT0076509 Verify the "Search" functionality on the "Opportunity" tab of the Company detail page
                     Assert.IsTrue(companyDetail.IsOpportunitiesSearchBoxL(), "Verify search Opportunities Box is Displayed after clicking on Opportunities Tab ");
                     extentReports.CreateStepLogs("Passed", "Search Opportunities Box is Displayed after clicking on Opportunities Tab ");
 
-                    Assert.IsTrue(companyDetail.IsOppoortunitiesFoundByNameLV(opportunityName), "Verify Opportunity is found with Opportunity Name ");
+                    Assert.IsTrue(companyDetail.IsOpportunitiesFoundByNameLV(opportunityName), "Verify Opportunity is found with Opportunity Name ");
                     extentReports.CreateStepLogs("Passed", "Opportunity searched and found with Opportunity Name:: " + opportunityName + " in list");
                     randomPages.CloseActiveTab(companyNameExl);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "CF Fin User: " + valUser + " logged out, Add Opportunitues button is not present for Houlihan Company and Conflicts Check LDCCR Company Type");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 driver.SwitchTo().DefaultContent();

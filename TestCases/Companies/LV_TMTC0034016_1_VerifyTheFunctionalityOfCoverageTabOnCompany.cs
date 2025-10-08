@@ -11,7 +11,7 @@ using SF_Automation.Pages.Contact;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class LV_TMTC0034016_1_VerifyTheFunctionalityOfCoverageTabOnCompany:BaseClass
+    class LV_TMTC0034016_1_VerifyTheFunctionalityOfCoverageTabOnCompany : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -23,7 +23,7 @@ namespace SF_Automation.TestCases.Companies
         UsersLogin usersLogin = new UsersLogin();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
-        AddCoverageTeam coverageTeam= new AddCoverageTeam();
+        AddCoverageTeam coverageTeam = new AddCoverageTeam();
         CoverageTeamDetail coverageTeamDetail = new CoverageTeamDetail();
 
         public static string fileTMTC0034016 = "LV_TMTC0034016_VerifyTheFunctionalityOfCoverageTabOnCompany";
@@ -89,7 +89,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
                 rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Company");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     string btnNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Buttons", 2, 1);
                     companyHome.ClickButtonCompanyHomePageLV(btnNameExl);
@@ -120,18 +120,18 @@ namespace SF_Automation.TestCases.Companies
                     // TMT0076425 Verify the availability of the "New" button in the Coverage tab of the Company Details Page for Sponsor Coverage and Industry Coverage
                     companyDetail.ClickCoverageTabLV();
                     Assert.IsTrue(coverageTeam.IsNewButtonSponsorCoverageDisplayedLV(), "Verify the availability of the 'New' button in the Sponsor Coverage section of the Company Details Page.");
-                    extentReports.CreateStepLogs("Passed"," 'New' button is displayed in the Sponsor Coverage section of the Company Details Page.");
+                    extentReports.CreateStepLogs("Passed", " 'New' button is displayed in the Sponsor Coverage section of the Company Details Page.");
                     Assert.IsTrue(coverageTeam.IsNewButtonIndustryCoverageDisplayedLV(), "Verify the availability of the 'New' button in the Industry Coverage section of the Company Details Page.");
                     extentReports.CreateStepLogs("Passed", " 'New' button is displayed in the Industry Coverage section of the Company Details Page.");
 
                     //TMT0076427 Verify that the required field validation appears on clicking the "Save" button without filling in any details on New Coverage Team - Standard Coverage Team
                     coverageTeam.ClickNewButtonSponsorCoverageDisplayedLV();
                     coverageTeam.ClickNextButtonRecordTypeLV();
-                    coverageTeam.ClickSaveNewCoverageTeamButtonLV();                    
-                    string actualRequiredFields=coverageTeam.GetNewCoverageTeamReqFieldsLV();
+                    coverageTeam.ClickSaveNewCoverageTeamButtonLV();
+                    string actualRequiredFields = coverageTeam.GetNewCoverageTeamReqFieldsLV();
                     string expectedRequiredFields = ReadExcelData.ReadDataMultipleRows(excelPath, "CoverageTeam", row, 4);
                     Assert.AreEqual(expectedRequiredFields, actualRequiredFields);
-                    
+
                     //TMT0076429 Verify that clicking the "Cancel" button of the New Standard Coverage Team navigates the user back to the Coverage screen
                     coverageTeam.ClickCancelNewCoverageTeamButtonLV();
                     Assert.IsTrue(coverageTeam.IsNewButtonSponsorCoverageDisplayedLV(), "Verify the availability of the 'New' button in the Sponsor Coverage section of the Company Details Page.");
@@ -140,16 +140,16 @@ namespace SF_Automation.TestCases.Companies
                     //TMT0076431 Verify that clicking the "Save" button of the New Standard Coverage Team creates the Coverage Team with the provided details and redirects the user to the Coverage Team detail page with a success message on the screen
                     coverageTeam.ClickNewButtonSponsorCoverageDisplayedLV();
                     coverageTeam.ClickNextButtonRecordTypeLV();
-                    string tierExl= ReadExcelData.ReadDataMultipleRows(excelPath, "CoverageTeam", row, 2);
-                    string levelExl= ReadExcelData.ReadDataMultipleRows(excelPath, "CoverageTeam", row, 5);
-                    string typeExl= ReadExcelData.ReadDataMultipleRows(excelPath, "CoverageTeam", row, 6);
+                    string tierExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CoverageTeam", row, 2);
+                    string levelExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CoverageTeam", row, 5);
+                    string typeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CoverageTeam", row, 6);
                     string msgSuccess = coverageTeam.AddNewCoverageTeamLV(valUser, tierExl, levelExl, typeExl);
                     extentReports.CreateStepLogs("Passed", "New Coverage Team Added with Success Message: " + msgSuccess);
                     string coverageTeamId = coverageTeamDetail.GetCoverageTeamIDLV();
-                    extentReports.CreateStepLogs("Passed", "New Coverage Team with ID: "+ coverageTeamId + " and user is redirected to Coverage Team Detail Page");
-                    
+                    extentReports.CreateStepLogs("Passed", "New Coverage Team with ID: " + coverageTeamId + " and user is redirected to Coverage Team Detail Page");
+
                     //TMT0076469 Verify that the Coverage Team "Delete" functionality is not available to CF Financial User
-                    bool isDisplayed= coverageTeamDetail.IsDeleteButtonDisplayedLV();
+                    bool isDisplayed = coverageTeamDetail.IsDeleteButtonDisplayedLV();
                     Assert.IsFalse(isDisplayed, "Verify that the Coverage Team 'Delete' functionality is not available to CF Financial User");
                     extentReports.CreateStepLogs("Passed", "Coverage Team 'Delete' button is not available to CF Financial User");
 
@@ -165,19 +165,19 @@ namespace SF_Automation.TestCases.Companies
                     msgSuccess = coverageTeam.UpdateCoverageTeamTierLV(tierExl);
                     extentReports.CreateStepLogs("Passed", "Tier updated with Success Message: " + msgSuccess);
 
-                    string coverageTeamTier= companyDetail.GetIndustryCoverageTeamMemberTierLV();
+                    string coverageTeamTier = companyDetail.GetIndustryCoverageTeamMemberTierLV();
                     Assert.AreEqual(tierExl, coverageTeamTier, "Verify that the updates on the Industry Coverage get reflected on the Coverage team detail page by clicking the save button of the Edit dialog box");
-                    extentReports.CreateStepLogs("Passed", "Tier updated and saved on Industry Coverage section" );
+                    extentReports.CreateStepLogs("Passed", "Tier updated and saved on Industry Coverage section");
 
                     //TMT0076437	Verify that the user can add "Coverage Team Comment" on the Standard Coverage Team Member and redirect the user to Coverage Team Comment followed by a success message
 
                     companyDetail.ClickIndustryCoverageTamMemberLV(valUser);
-                    string coverageID= coverageTeamDetail.GetCoverageTeamIDLV();
+                    string coverageID = coverageTeamDetail.GetCoverageTeamIDLV();
                     Assert.AreEqual(coverageTeamId, coverageID);
                     extentReports.CreateStepLogs("Passed", "Coverage team member Clicked and user is redirected to Coverate team Detail page");
                     string coverageCommentsExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CoverageTeam", row, 8);
                     coverageTeamDetail.SaveCoverageTeamCommentsLV(coverageCommentsExl);
-                    string actualSavedComments= coverageTeamDetail.GetCoverageTeamCommentsLV();
+                    string actualSavedComments = coverageTeamDetail.GetCoverageTeamCommentsLV();
                     Assert.AreEqual(coverageCommentsExl, actualSavedComments);
                     extentReports.CreateStepLogs("Passed", "Coverage team Comments saved");
 
@@ -190,7 +190,7 @@ namespace SF_Automation.TestCases.Companies
                     randomPages.CloseActiveTab(coverageID);
                     randomPages.CloseActiveTab(companyNameExl);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
                 string valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
@@ -208,7 +208,7 @@ namespace SF_Automation.TestCases.Companies
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
@@ -217,7 +217,7 @@ namespace SF_Automation.TestCases.Companies
                     companyDetail.ClickIndustryCoverageTamMemberLV(valUser);
                     coverageTeamDetail.DeleteCoverageCommentsLV();
                     extentReports.CreateStepLogs("Info", "Created Coverage Team Comments Deleted Successfully");
-                    
+
                     // TMT0076473 Verify the functionality of the "Delete" button on the Industry Coverage Officer detail page
                     coverageTeamDetail.DeleteCoverageTeamLV();
                     extentReports.CreateStepLogs("Passed", "Created Industry Coverage Officer Deleted Successfully");
@@ -225,14 +225,14 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Passed", companyNameExl + " Company Deleted Successfully");
 
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 string valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
                 usersLogin.LoginAsSelectedUser();
@@ -249,7 +249,7 @@ namespace SF_Automation.TestCases.Companies
                 string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     try
@@ -280,7 +280,7 @@ namespace SF_Automation.TestCases.Companies
                         extentReports.CreateStepLogs("Passed", companyNameExl + " Company Deleted");
                     }
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
         }

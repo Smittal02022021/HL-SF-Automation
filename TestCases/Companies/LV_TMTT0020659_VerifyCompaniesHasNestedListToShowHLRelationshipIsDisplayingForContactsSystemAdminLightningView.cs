@@ -11,7 +11,7 @@ using System;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class LV_TMTT0020659_VerifyCompaniesHasNestedListToShowHLRelationshipIsDisplayingForContactsSystemAdminLightningView:BaseClass
+    class LV_TMTT0020659_VerifyCompaniesHasNestedListToShowHLRelationshipIsDisplayingForContactsSystemAdminLightningView : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -65,7 +65,7 @@ namespace SF_Automation.TestCases.Companies
                 string stdUser = login.ValidateUserLightningView();
                 Assert.AreEqual(stdUser.Contains(adminUserExl), true);
                 extentReports.CreateStepLogs("Passed", "System Administrator User: " + adminUserExl + " logged in on Lightning View");
-                                
+
                 appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
                 homePageLV.SelectAppLV(appNameExl);
 
@@ -78,11 +78,11 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Info", moduleNameExl + ": Module is selected from menu ");
 
                 int companiesRowsCountExl = ReadExcelData.GetRowCount(excelPath, "Companies");
-                for (int row = 2; row <= companiesRowsCountExl; row++)
+                for(int row = 2; row <= companiesRowsCountExl; row++)
                 {
 
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 1);
-                    companyhome.SearchCompanyInLightning(companyNameExl);
+                    companyhome.GlobalSearchCompanyInLightningView(companyNameExl);
                     extentReports.CreateStepLogs("Info", companyNameExl + ": Company is searched and selected ");
 
                     string companyTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 2);
@@ -122,13 +122,13 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Info", companyNameExl + ": Company Tab Closed ");
 
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "User: " + adminUserExl + " logged out");
                 usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 extentReports.CreateLog(ex.Message);
                 login.SwitchToClassicView();

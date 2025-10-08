@@ -10,7 +10,7 @@ using System;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class LV_TMTT0020659_VerifyCompaniesHasNestedListToShowHLRelationshipForCoverageLightningView:BaseClass
+    class LV_TMTT0020659_VerifyCompaniesHasNestedListToShowHLRelationshipForCoverageLightningView : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -87,10 +87,10 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog(moduleNameExl + ": Module is selected from menu ");
 
                 int companiesRowsCountExl = ReadExcelData.GetRowCount(excelPath, "Companies");
-                for (int row = 2; row <= companiesRowsCountExl; row++)
+                for(int row = 2; row <= companiesRowsCountExl; row++)
                 {
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 1);
-                    companyhome.SearchCompanyInLightning(companyNameExl);
+                    companyhome.GlobalSearchCompanyInLightningView(companyNameExl);
                     extentReports.CreateLog(companyNameExl + ": Company is searched and selected ");
 
                     string companyTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 2);
@@ -113,12 +113,12 @@ namespace SF_Automation.TestCases.Companies
                     string txtHeaderNestedList = companyDetails.ClickCoverageNestedListLV(coverageOfficerNameExl);
                     Assert.IsTrue(txtHeaderNestedList.Contains("Coverage"));
                     extentReports.CreateLog("Nested List of Coverage is displayed for Coverage Officer" + coverageOfficerNameExl + "  ");
-                    
+
                     //Get Coverage Type from Nested List of Coverage Officer
                     string txtCompanyOfficeNameCoverageType = companyDetails.GetCompanyOfficeNameCoverageTypeLV();
-                    extentReports.CreateLog("Coverage type for selected officer in nested list " + txtCompanyOfficeNameCoverageType + " ");                    
+                    extentReports.CreateLog("Coverage type for selected officer in nested list " + txtCompanyOfficeNameCoverageType + " ");
                     companyDetails.ClickNestedCoverageTeamOfficerLV(coverageOfficerNameExl);
-                   
+
                     tabNameExl = ReadExcelData.ReadData(excelPath, "TabName", 1);
                     bool IsCoverageTeamDetailsPageDisplayed = companyDetails.IsCoverageTeamDetailsPageDisplayedLV(tabNameExl);
                     Assert.IsTrue(IsCoverageTeamDetailsPageDisplayed, "Verify User is on Coverage Team Detail Page ");
@@ -149,7 +149,7 @@ namespace SF_Automation.TestCases.Companies
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 extentReports.CreateLog(ex.Message);
                 login.SwitchToClassicView();

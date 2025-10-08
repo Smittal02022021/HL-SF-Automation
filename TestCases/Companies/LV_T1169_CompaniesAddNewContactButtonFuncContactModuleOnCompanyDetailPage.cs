@@ -67,34 +67,34 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
                 int companyTypeRow = ReadExcelData.GetRowCount(excelPath, "Company");
-                for (int row = 2; row <= companyTypeRow; row++)
-                {                    
+                for(int row = 2; row <= companyTypeRow; row++)
+                {
                     //Search for the Company
                     string companyType = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 1);
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
-                    companyHome.GlobalSearchCompanyInLightningView(companyNameExl);                                        
-                    string companyName = companyDetail.GetCompanyNameHeaderLV(); 
+                    companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
+                    string companyName = companyDetail.GetCompanyNameHeaderLV();
                     Assert.AreEqual(companyNameExl, companyName);
-                    extentReports.CreateStepLogs("Passed", "Company: " + companyName + " with Company Type: "+ companyType+" is displayed upon searching company ");
+                    extentReports.CreateStepLogs("Passed", "Company: " + companyName + " with Company Type: " + companyType + " is displayed upon searching company ");
                     companyDetail.ClickQuickLinkLV("Contacts", companyType);
                     companyDetail.ClickRelatedNewContactButtonLV();
-                    string txtDialogHeader= companyDetail.GetNewContactDialogHeaderLV();
-                    Assert.AreEqual("New Contact",txtDialogHeader);
+                    string txtDialogHeader = companyDetail.GetNewContactDialogHeaderLV();
+                    Assert.AreEqual("New Contact", txtDialogHeader);
                     extentReports.CreateStepLogs("Passed", "Select contact record type page is displayed upon clicking New button from Contact section ");
 
                     //validating ContactRecordType function to validate all types of contact record type
                     Assert.IsTrue(conSelectRecord.AreContactTypesDisplayedLV(fileTC1169), "Verify All Contact Types are Displayed ");
-                    extentReports.CreateStepLogs("Passed", "All Contact Types are Displayed for Company: " + companyName + " with Company Type: "+ companyType);
+                    extentReports.CreateStepLogs("Passed", "All Contact Types are Displayed for Company: " + companyName + " with Company Type: " + companyType);
                     conSelectRecord.ClickCancelContactTypePageLV();
                     randomPages.CloseActiveTab(companyName);
                     randomPages.CloseActiveTab(companyName);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "System Admin: " + valAdminUser + " logged out");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully ");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 login.SwitchToClassicView();

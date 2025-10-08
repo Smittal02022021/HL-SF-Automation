@@ -39,19 +39,19 @@ namespace SF_Automation.TestCases.Companies
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         //TMTC0034010 Verify the functionality of the "Printable View" tab in Company
-            //TMT0076401 Verify the availability of the "Printable View" tab on the Company detail page.
-            //TMT0076403 Verify that "Printable View" opens up a tab to get the print view of the Company detail page
-        
+        //TMT0076401 Verify the availability of the "Printable View" tab on the Company detail page.
+        //TMT0076403 Verify that "Printable View" opens up a tab to get the print view of the Company detail page
+
         //TMTC0034013Verify the functionality of the "Board Members" tab in the Company
-            //TMT0076406 Verify the availability of the "Board Members" tab on the Company detail page
-            //TMT0076408 Verify that clicking "New" from Board Members navigates to the New Affiliation Page and is prefilled with the selected company's name and Status as Current
-            //TMT0076410 Verify that the required field validation appears on clicking the "Save" button without filling in any details on the Board Members - New Affiliation screen
-            //TMT0076412 Verify that clicking the "Cancel" button of New Affiliation navigates the user back to the Board Member screen
-            //TMT0076414 Verify that the user can save the board member of the "Inside Board Member" type by clicking the "Save" button of New Affiliation
-            //TMT0076416 Verify that the created Board Member(Affiliation) will be listed under the Board Members tab of the Company Detail Page.
-            //TMT0076418 Verify the functionality of the "Edit" action button on the Board Member - Affiliation detail page
-            //TMT0076420 Verify the functionality of the "Delete" button on the Board Member - Affiliation details of the Board Member
-            //TMT0076747 Verify that the user can save the board member of the "Outside Board Member" type by clicking the "Save" button of New Affiliation
+        //TMT0076406 Verify the availability of the "Board Members" tab on the Company detail page
+        //TMT0076408 Verify that clicking "New" from Board Members navigates to the New Affiliation Page and is prefilled with the selected company's name and Status as Current
+        //TMT0076410 Verify that the required field validation appears on clicking the "Save" button without filling in any details on the Board Members - New Affiliation screen
+        //TMT0076412 Verify that clicking the "Cancel" button of New Affiliation navigates the user back to the Board Member screen
+        //TMT0076414 Verify that the user can save the board member of the "Inside Board Member" type by clicking the "Save" button of New Affiliation
+        //TMT0076416 Verify that the created Board Member(Affiliation) will be listed under the Board Members tab of the Company Detail Page.
+        //TMT0076418 Verify the functionality of the "Edit" action button on the Board Member - Affiliation detail page
+        //TMT0076420 Verify the functionality of the "Delete" button on the Board Member - Affiliation details of the Board Member
+        //TMT0076747 Verify that the user can save the board member of the "Outside Board Member" type by clicking the "Save" button of New Affiliation
 
         [Test]
         public void VerifyFunctionalityOfCompaniesInfoLV()
@@ -90,7 +90,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
                 rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Company");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     string btnNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Buttons", 2, 1);
                     companyHome.ClickButtonCompanyHomePageLV(btnNameExl);
@@ -134,16 +134,16 @@ namespace SF_Automation.TestCases.Companies
                     companyDetail.ClickNewBoardMemberButtonLV();
                     extentReports.CreateStepLogs("Passed", "New Button Clicked from Board Members tab on created Company created ");
 
-                    string companyAff=companyDetail.GetPrefilledAffCompanyNameLV();
+                    string companyAff = companyDetail.GetPrefilledAffCompanyNameLV();
                     Assert.AreEqual(companyNameExl, companyAff);
-                    string statusAff=companyDetail.GetPrefilledAffStatusLV();
+                    string statusAff = companyDetail.GetPrefilledAffStatusLV();
                     Assert.AreEqual("Current", statusAff);
 
                     //TMT0076410	Verify that the required field validation appears on clicking the "Save" button without filling in any details on the Board Members - New Affiliation screen
                     companyDetail.ClickSaveNewAffiliationButtonLV();
                     string expectedRequiredFields = ReadExcelData.ReadDataMultipleRows(excelPath, "Affiliation", row, 6);
 
-                    string actualRequiredFields= companyDetail.GetNewAffiliationReqFieldsLV();
+                    string actualRequiredFields = companyDetail.GetNewAffiliationReqFieldsLV();
                     Assert.AreEqual(expectedRequiredFields, actualRequiredFields);
                     extentReports.CreateStepLogs("Passed", "All Required Fields Validations are displayed on New Affiliation page");
 
@@ -158,9 +158,9 @@ namespace SF_Automation.TestCases.Companies
                     companyDetail.ClickNewBoardMemberButtonLV();
                     extentReports.CreateStepLogs("Passed", "New Button Clicked from Board Members tab on created Company created ");
 
-                    string contactNameAff= ReadExcelData.ReadDataMultipleRows(excelPath, "Affiliation", row, 1);
-                    string typeAff= ReadExcelData.ReadDataMultipleRows(excelPath, "Affiliation", row, 2);
-                    string msgSuccess=companyDetail.CreateNewAffiliationLV(contactNameAff, typeAff);
+                    string contactNameAff = ReadExcelData.ReadDataMultipleRows(excelPath, "Affiliation", row, 1);
+                    string typeAff = ReadExcelData.ReadDataMultipleRows(excelPath, "Affiliation", row, 2);
+                    string msgSuccess = companyDetail.CreateNewAffiliationLV(contactNameAff, typeAff);
                     Assert.IsTrue(msgSuccess.Contains("created"));
                     extentReports.CreateStepLogs("Passed", "New Affiliation Added with Success message: " + msgSuccess);
 
@@ -169,20 +169,22 @@ namespace SF_Automation.TestCases.Companies
 
                     string detailAffiliationType = companyDetail.GetAffiliationTypeLV();
                     Assert.AreEqual(typeAff, detailAffiliationType);
-                    extentReports.CreateStepLogs("Passed", "User redirected to Affiliation detail page with Type: "+ detailAffiliationType);
+                    extentReports.CreateStepLogs("Passed", "User redirected to Affiliation detail page with Type: " + detailAffiliationType);
                     randomPages.CloseActiveTab(numberAffiliation);
 
                     //TMT0076416 Verify that the created Board Member(Affiliation) will be listed under the Board Members tab of the Company Detail Page.
                     companyDetail.ClickBoardMembersTabLV();
-                    string nameBoardMemberType= companyDetail.GetBoardMemberAffiliationTypeLV();
+                    string nameBoardMemberType = companyDetail.GetBoardMemberAffiliationTypeLV();
                     Assert.IsTrue(nameBoardMemberType.Contains(typeAff));
                     extentReports.CreateStepLogs("Passed", "Created Board Member(Affiliation)listed under the Board Members tab of the Company Detail Page");
 
                     //TMT0076418	Verify the functionality of the "Edit" action button on the Board Member - Affiliation detail page
+                    CustomFunctions.PageReload(driver);
+                    companyDetail.ClickBoardMembersTabLV();
                     companyDetail.ClickEditBoardMemberLinkLV();
-                    string notesExl= ReadExcelData.ReadDataMultipleRows(excelPath, "Affiliation", row, 3);
+                    string notesExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Affiliation", row, 3);
                     companyDetail.UpdateAffiliationNotesLV(notesExl);
-                    string valAffNotes= companyDetail.GetBoardMemberAffiliationNotesLV();
+                    string valAffNotes = companyDetail.GetBoardMemberAffiliationNotesLV();
                     Assert.AreEqual(notesExl, valAffNotes);
                     extentReports.CreateStepLogs("Passed", "Updated value is saved on created Board Member(Affiliation) listed under the Board Members tab of the Company Detail Page");
 
@@ -193,7 +195,7 @@ namespace SF_Automation.TestCases.Companies
                     randomPages.CloseActiveTab(companyNameExl);
                 }
 
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 string valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
                 extentReports.CreateStepLogs("Info", "System Admin User: " + valAdminUser + " details are displayed. ");
@@ -212,22 +214,22 @@ namespace SF_Automation.TestCases.Companies
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
                     companyDetail.DeleteCompanyLV();
                     extentReports.CreateStepLogs("Passed", companyNameExl + " Company Deleted");
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 string valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
                 extentReports.CreateStepLogs("Info", "System Admin User: " + valAdminUser + " details are displayed. ");
@@ -246,17 +248,16 @@ namespace SF_Automation.TestCases.Companies
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
                     companyDetail.DeleteCompanyLV();
                     extentReports.CreateStepLogs("Passed", companyNameExl + " Company Deleted");
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
         }
     }
 }
-

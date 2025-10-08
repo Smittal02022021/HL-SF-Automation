@@ -25,7 +25,7 @@ namespace SF_Automation.TestCases.Companies
         RandomPages randomPages = new RandomPages();
 
         public static string fileTMTC0033975 = "LV_TMTC0033975_VerifyFunctionalityOfCompaniesInfo";
-        
+
         //string excelPath = ReadJSONData.data.filePaths.testData + fileTMTC0033975;
         //private string[] newCompanyName = new string[5];
         //private int index = 0;
@@ -39,7 +39,7 @@ namespace SF_Automation.TestCases.Companies
             Initialize();
             ExtentReportHelper();
             ReadJSONData.Generate("Admin_Data.json");
-            extentReports.CreateTest(TestContext.CurrentContext.Test.Name);             
+            extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
         //TMT0076275 Verify the availability of "Companies" under HL Banker drop list.
         //TMT0076278 Verify that when you select Companies, you will list the "Recently Viewed" default list of the chosen view of the Companies.
@@ -97,8 +97,8 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
 
                 //TMT0076278 Verify that when you select Companies, you will list the "Recently Viewed" default list of the chosen view of the Companies.
-                string valViewExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Views", 6, 1);                ;
-                Assert.AreEqual(valViewExl, companyHome.GetDefaultSelectedViewLV(),"Verify the Default View selection is "+ valViewExl);
+                string valViewExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Views", 6, 1);
+                Assert.AreEqual(valViewExl, companyHome.GetDefaultSelectedViewLV(), "Verify the Default View selection is " + valViewExl);
                 extentReports.CreateStepLogs("Passed", "Company Home page Default selected View is " + valViewExl);
 
                 //TMT0076281 Verify the different list view options available to view Companies on the Companies object
@@ -111,19 +111,19 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Passed", "Search functionality available on Companies");
 
                 //TMT0076285 Verify that the Search functionality on the Company will display the results as per the entered keyword.
-                string companyName =companyHome.GetCompanyFromDislayedListLV();
+                string companyName = companyHome.GetCompanyFromDislayedListLV();
                 Assert.IsTrue(companyHome.SearchRecentCompanyLV(companyName), "Verify that the Search functionality on the Company will display the results as per the entered keyword");
-                extentReports.CreateStepLogs("Passed", "Search functionality is working on Companies home page, Company "+ companyName+" found");
-                
+                extentReports.CreateStepLogs("Passed", "Search functionality is working on Companies home page, Company " + companyName + " found");
+
                 string btnNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Buttons", 2, 1);
                 companyHome.ClearRecentSearchAreaLV();
                 // Click New Company button
                 companyHome.ClickButtonCompanyHomePageLV(btnNameExl);
-                extentReports.CreateStepLogs("Passed", btnNameExl +" button clicked from Company Home page");
+                extentReports.CreateStepLogs("Passed", btnNameExl + " button clicked from Company Home page");
                 //TMT0076287 Verify that on clicking "New" will allow user to choose Company Type to add New Company as CF Fin User
-                Assert.IsTrue(companySelectRecord.AreCompanyRecordTypesDisplayedLV(fileTMTC0033975),"Verify All Companies Record Types are Displayed ");
+                Assert.IsTrue(companySelectRecord.AreCompanyRecordTypesDisplayedLV(fileTMTC0033975), "Verify All Companies Record Types are Displayed ");
                 extentReports.CreateStepLogs("Passed", "Company All Record Types Displayed");
-                
+
                 //TMT0076289 Verify that the Company Record Types - Capital Provider, Operating Company with description for CF Financial User
                 Assert.IsTrue(companySelectRecord.AreCompanyRecordTypesDescriptionDisplayedLV(fileTMTC0033975), "Verify All Companies Record Type's Descriptions are Displayed ");
                 extentReports.CreateStepLogs("Passed", "Company All Record Type's Descriptions Displayed");
@@ -132,10 +132,10 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Passed", "Company Record type page canceled");
 
                 rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Company");
-                for (int row = 2; row <= rowCompanyName; row++)
-                {                    
+                for(int row = 2; row <= rowCompanyName; row++)
+                {
                     btnNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Buttons", 2, 1);
-                    companyHome.ClickButtonCompanyHomePageLV(btnNameExl);                    
+                    companyHome.ClickButtonCompanyHomePageLV(btnNameExl);
                     string valRecordTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 1);
                     companySelectRecord.SelectCompanyRecordTypeAndClickNextLV(valRecordTypeExl);
                     // Select company record type                    
@@ -146,7 +146,7 @@ namespace SF_Automation.TestCases.Companies
                     // Validate company type display as selected 
                     Assert.AreEqual(valRecordTypeExl, createCompany.GetSelectedCompanyTypeLV());
                     extentReports.CreateStepLogs("Passed", "Selected company type: " + valRecordTypeExl + " choosen on select company record type page is matching on Company create page ");
-                    
+
                     // TMT0076293 Verify the required field validation by clicking the "Save" button without filling in any details
                     createCompany.ClickSaveNewCompanyButtonLV();
                     string txtError = createCompany.GetErrorMessageCreateCompanyPageLV();
@@ -161,8 +161,8 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Passed", "User Redirected to Company List page and Search functionality available on Companies");
 
                 }
-                
-                for (int row = 2; row <= rowCompanyName; row++)
+
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     btnNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Buttons", 2, 1);
                     companyHome.ClickButtonCompanyHomePageLV(btnNameExl);
@@ -184,49 +184,49 @@ namespace SF_Automation.TestCases.Companies
                     //TMT0076297 Verify that the Company is created by clicking the "Save" button and redirecting the user to the Company detail page.
                     //Validate company detail heading
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
-                    newCompanyName = companyDetail.GetCompanyNameHeaderLV();                    
+                    newCompanyName = companyDetail.GetCompanyNameHeaderLV();
                     Assert.IsTrue(newCompanyName.Contains(companyNameExl));
-                    extentReports.CreateStepLogs("Passed", valRecordTypeExl+" Company created and name :" + newCompanyName+" displayed on Company Detail page Header ");
-                    
+                    extentReports.CreateStepLogs("Passed", valRecordTypeExl + " Company created and name :" + newCompanyName + " displayed on Company Detail page Header ");
+
                     //TMT0076299 Verify the "Info" tab on Company detail page
                     companyDetail.ClickInfoTabLV();
                     //Connected Data is present for now removed from File need to confirm
-                    Assert.IsTrue(companyDetail.AreAllSectionsDisplayedLV(valRecordTypeExl,fileTMTC0033975), "Verify the available Info tab sections on Company detail page");
-                    extentReports.CreateStepLogs("Passed", "All sections are available under Info tab on "+ valRecordTypeExl+" Company detail page ");
+                    Assert.IsTrue(companyDetail.AreAllSectionsDisplayedLV(valRecordTypeExl, fileTMTC0033975), "Verify the available Info tab sections on Company detail page");
+                    extentReports.CreateStepLogs("Passed", "All sections are available under Info tab on " + valRecordTypeExl + " Company detail page ");
 
                     //TMT0076669 Verify that the error message appears for the "Sector" field when Industry is selected and Sector is blank
                     companyDetail.ClickEditCompanyButtonLV();
                     bool isSectorValidationDisplayed = companyDetail.GetIGSectorValidationLV();
-                    if(valRecordTypeExl== "Operating Company")
+                    if(valRecordTypeExl == "Operating Company")
                     {
                         Assert.IsTrue(isSectorValidationDisplayed);
-                        extentReports.CreateStepLogs("Passed", "Validation error message appeared for the 'Sector' field when Industry is selected and Sector is blank for "+ valRecordTypeExl);
+                        extentReports.CreateStepLogs("Passed", "Validation error message appeared for the 'Sector' field when Industry is selected and Sector is blank for " + valRecordTypeExl);
                     }
                     if(valRecordTypeExl == "Capital Provider")
                     {
                         Assert.IsFalse(isSectorValidationDisplayed);
-                        extentReports.CreateStepLogs("Passed", "Validation error message not appeared for the 'Sector' field when Industry is selected and Sector is blank for "+ valRecordTypeExl);
+                        extentReports.CreateStepLogs("Passed", "Validation error message not appeared for the 'Sector' field when Industry is selected and Sector is blank for " + valRecordTypeExl);
                     }
 
                     // TMT0076301 Verify that clicking the pencil icon will allow the user to update the details of the Company under the info tab.
                     companyDetail.ClickInEditInlinePhoneNumberLV();
                     Assert.IsTrue(companyDetail.IsPhoneEditableInlineLV(), "Verify that clicking the pencil icon will allow the user to update the details of the Company under the info tab.");
-                    extentReports.CreateStepLogs("Passed", "Clicking the Pencil/Inline icon allows the user to update the details of "+ valRecordTypeExl+" the Company under the info tab.");
-                    
+                    extentReports.CreateStepLogs("Passed", "Clicking the Pencil/Inline icon allows the user to update the details of " + valRecordTypeExl + " the Company under the info tab.");
+
                     //TMT0076303 Verify that clicking the "Save" button will save the updated details on the Company info page
                     string phoneNumberExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 17);
                     companyDetail.UpdatePhoneNumberInlineEditLV(phoneNumberExl);
                     Assert.AreEqual(companyDetail.GetCompanyPhoneNumberLV(), phoneNumberExl, "Verify that clicking the 'Save' button will save the updated details on the Company info page ");
-                    extentReports.CreateStepLogs("Passed", "Phone number updated by Clicking the Pencil/Inline icon on " + valRecordTypeExl+" Company Detail page");
+                    extentReports.CreateStepLogs("Passed", "Phone number updated by Clicking the Pencil/Inline icon on " + valRecordTypeExl + " Company Detail page");
 
                     //TMT0076305 Verify that the user can update the Company details by clicking the "Edit" button given at the top of the company detail page
                     phoneNumberExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 18);
                     companyDetail.EditCompanyPhoneNumberLV(phoneNumberExl);
                     Assert.AreEqual(companyDetail.GetCompanyPhoneNumberLV(), phoneNumberExl, "Verify user can update the Company details by clicking the 'Edit' button given at the top of the company detail page");
-                    extentReports.CreateStepLogs("Passed", "Phone number updated by clicking the 'Edit' button given at the top of the "+ valRecordTypeExl+" company detail page");
+                    extentReports.CreateStepLogs("Passed", "Phone number updated by clicking the 'Edit' button given at the top of the " + valRecordTypeExl + " company detail page");
                     randomPages.CloseActiveTab(newCompanyName);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
 
                 //System Admin actions    
@@ -253,7 +253,7 @@ namespace SF_Automation.TestCases.Companies
 
                 //TMT0076307 Verify the functionality to update the existing Record Type in the Company Detail Page System Admin 
                 rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Company");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
@@ -261,33 +261,22 @@ namespace SF_Automation.TestCases.Companies
                     companyDetail.ClickInlineChangeRecordTypeButtonLV();
                     string valRecordTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "RecordTypes", row, 1);
                     companyDetail.ChangeCompanyRadioTypeLV(valRecordTypeExl);
-                    string newCompanyType = companyDetail.GetCompanyTypeLV();                    
+                    string newCompanyType = companyDetail.GetCompanyTypeLV();
                     Assert.AreEqual(valRecordTypeExl, newCompanyType, "Verify Record Type is changed ");
-                    extentReports.CreateStepLogs("Info", "Company Record Type changed from "+ companyType+" to " + newCompanyType);
+                    extentReports.CreateStepLogs("Info", "Company Record Type changed from " + companyType + " to " + newCompanyType);
                     //TMT0076679 Verify the functionality of the "Delete" button on the Company detail page for the System Admin
                     companyDetail.DeleteCompanyLV();
-                    extentReports.CreateStepLogs("Info", "Company: " +companyNameExl+" Deleted via 'Delete' button on the Company detail page for the System Admin");
-
-                    //randomPages.CloseActiveTab(companyNameExl);
+                    extentReports.CreateStepLogs("Info", "Company: " + companyNameExl + " Deleted via 'Delete' button on the Company detail page for the System Admin");
                 }
-
-                //TMT0076679 Verify the functionality of the "Delete" button on the Company detail page for the System Admin
-                //rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Company");
-                //for (int row = 2; row <= rowCompanyName; row++)
-                //{
-                //    string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
-                //    companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
-                //    companyDetail.DeleteCompanyLV();
-                //}
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 string valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
                 extentReports.CreateStepLogs("Info", "System Admin User: " + valAdminUser + " details are displayed. ");
@@ -306,15 +295,14 @@ namespace SF_Automation.TestCases.Companies
                 string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
                     companyDetail.DeleteCompanyLV();
-                    extentReports.CreateStepLogs("Passed", companyNameExl+" Company Deleted");
-
+                    extentReports.CreateStepLogs("Passed", companyNameExl + " Company Deleted");
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
         }

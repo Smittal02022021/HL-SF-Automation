@@ -12,7 +12,7 @@ using static SF_Automation.TestData.ReadJSONData;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class LV_TMTC0034068_VerifyTheFunctionalityOfFlagTabOnTheCompanyDetailPage:BaseClass
+    class LV_TMTC0034068_VerifyTheFunctionalityOfFlagTabOnTheCompanyDetailPage : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -85,7 +85,7 @@ namespace SF_Automation.TestCases.Companies
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
                 rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Companies");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 1);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
@@ -105,11 +105,11 @@ namespace SF_Automation.TestCases.Companies
                     flagReasonCommentExl = ReadExcelData.ReadDataMultipleRows(excelPath, "FlagSection", 2, 2);
                     companyDetail.EditCompanyFlagLV(flagReasonExl, flagReasonCommentExl);
 
-                    string flagReason=companyDetail.GetFlagReasonLV();
+                    string flagReason = companyDetail.GetFlagReasonLV();
                     Assert.AreEqual(flagReasonExl, flagReason);
-                    string flagReasonComment= companyDetail.GetFlagReasonCommentLV();                    
+                    string flagReasonComment = companyDetail.GetFlagReasonCommentLV();
                     Assert.AreEqual(flagReasonCommentExl, flagReasonComment);
-                    extentReports.CreateStepLogs("Passed", "Flag Reason:: "+ flagReason+" and Flag Comment:: "+ flagReasonComment+" updated on the Company detail page");
+                    extentReports.CreateStepLogs("Passed", "Flag Reason:: " + flagReason + " and Flag Comment:: " + flagReasonComment + " updated on the Company detail page");
 
                     //Flag Reason and Comment Reverting back 
                     flagReasonExl = ReadExcelData.ReadDataMultipleRows(excelPath, "FlagSection", 3, 1);
@@ -118,16 +118,16 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Passed", "Flag Reason and Flag Comment reverted Company detail page");
                     randomPages.CloseActiveTab(companyNameExl);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "Fin user: " + valUser + " logged out");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 extentReports.CreateExceptionLog(ex.Message);
-                randomPages.CloseActiveTab(companyNameExl);                
-                usersLogin.ClickLogoutFromLightningView();
+                randomPages.CloseActiveTab(companyNameExl);
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
         }

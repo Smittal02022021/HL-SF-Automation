@@ -32,7 +32,7 @@ namespace SF_Automation.TestCases.Companies
         private string excelPath;
         private string valUser;
         private string msgSuccess;
-        private string[] sectorDependencyName= new string[3];
+        private string[] sectorDependencyName = new string[3];
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -57,6 +57,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateLog(driver.Title + " is displayed ");
                 //Calling Login function                
                 login.LoginApplication();
+                login.SwitchToClassicView();
                 //Validate user logged in          
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
@@ -83,26 +84,26 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
                 rowCompanyName = ReadExcelData.GetRowCount(excelPath, "ExistingCompany");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     string valRecordTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ExistingCompany", row, 1);
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ExistingCompany", row, 2);
-                    
+
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
-                    extentReports.CreateStepLogs("Passed", "Company: "+companyNameExl + " with Record Type :" + valRecordTypeExl + " found and selected ");
+                    extentReports.CreateStepLogs("Passed", "Company: " + companyNameExl + " with Record Type :" + valRecordTypeExl + " found and selected ");
                     newCompanyName = companyDetail.GetCompanyNameHeaderLV();
                     Assert.IsTrue(newCompanyName.Contains(companyNameExl));
                     extentReports.CreateStepLogs("Passed", valRecordTypeExl + " Company name :" + newCompanyName + " found and selected");
                     extentReports.CreateStepLogs("Passed", companyDetail.IsCoverageTabDisplayedLV() + " 'Coverage' tab is available on " + newCompanyName + " Company Detail page ");
-                    companyDetail.ClickCoverageTabLV();                    
+                    companyDetail.ClickCoverageTabLV();
                     companyDetail.ClickIndustryCoverageTamMemberLV(valUser);
-                    string coverageID = coverageTeamDetail.GetCoverageTeamIDLV();                    
+                    string coverageID = coverageTeamDetail.GetCoverageTeamIDLV();
                     //TMT0076441 Verify that the user can add "Coverage Sector" on the Standard Coverage Team Member and redirect the user to Coverage Sector detail page followed by a success message
                     coverageTeamDetail.ClickCoverageSectorPanelLV();
                     coverageTeamDetail.ClickNewCoverageSectorsSectionButtonLV();
                     string coverageSectorDepExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CoverageTeam", row, 10);
                     msgSuccess = coverageTeamDetail.AddNewCoverageSectorLV(coverageSectorDepExl);
-                    sectorDependencyName[row-2] = coverageTeamDetail.GetCoverageSectorDependencyNameLV();
+                    sectorDependencyName[row - 2] = coverageTeamDetail.GetCoverageSectorDependencyNameLV();
                     extentReports.CreateStepLogs("Passed", "Coverage Sector Dependency:: " + sectorDependencyName[row - 2] + " Added with Success message: " + msgSuccess);
                     randomPages.CloseActiveTab(sectorDependencyName[row - 2]);
 
@@ -115,7 +116,7 @@ namespace SF_Automation.TestCases.Companies
                     randomPages.CloseActiveTab(coverageID);
                     randomPages.CloseActiveTab(companyNameExl);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
                 string valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
@@ -135,7 +136,7 @@ namespace SF_Automation.TestCases.Companies
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ExistingCompany", row, 2);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
@@ -147,14 +148,14 @@ namespace SF_Automation.TestCases.Companies
                     coverageTeamDetail.DeleteCoverageSector(sectorDependencyName[row - 2]);
                     randomPages.CloseActiveTab(companyNameExl);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 string valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
                 extentReports.CreateStepLogs("Info", "System Admin User: " + valAdminUser + " details are displayed. ");
@@ -173,24 +174,24 @@ namespace SF_Automation.TestCases.Companies
                 string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ExistingCompany", row, 2);
                     try
                     {
                         companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
-                        companyDetail.ClickCoverageTabLV();                        
+                        companyDetail.ClickCoverageTabLV();
                         companyDetail.ClickIndustryCoverageTamMemberLV(valUser);
                         coverageTeamDetail.ClickCoverageSectorPanelLV();
                         coverageTeamDetail.DeleteCoverageSector(sectorDependencyName[row - 2]);
                         randomPages.CloseActiveTab(companyNameExl);
-                    }                    
+                    }
                     catch
                     {
                         randomPages.CloseActiveTab(companyNameExl);
                     }
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
         }

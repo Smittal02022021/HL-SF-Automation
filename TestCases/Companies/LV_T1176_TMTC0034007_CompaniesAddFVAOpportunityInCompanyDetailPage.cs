@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class LV_T1176_TMTC0034007_CompaniesAddFVAOpportunityInCompanyDetailPage: BaseClass
+    class LV_T1176_TMTC0034007_CompaniesAddFVAOpportunityInCompanyDetailPage : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -79,13 +79,13 @@ namespace SF_Automation.TestCases.Companies
 
                 //-----Add Cancel Delete CF opportunity by all types of companies ----//
                 int rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Company");
-                for (int row = 2; row <= rowCompanyName - 2; row++)
+                for(int row = 2; row <= rowCompanyName - 2; row++)
                 {
 
                     // Calling Search Company function
                     string companyType = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 1);
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
-                    companyHome.SearchCompanyInLightning(companyNameExl);
+                    companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
                     string companyDetailHeading = companyDetail.GetCompanyDetailsHeadingLV();
                     Assert.AreEqual(companyNameExl, companyDetailHeading);
                     extentReports.CreateStepLogs("Passed", "Page with heading: " + companyDetailHeading + " is displayed upon searching company ");
@@ -131,7 +131,7 @@ namespace SF_Automation.TestCases.Companies
                     //Click Cancel and check user is redireced to Company page 
                     addOpportunity.ClickCancelAddOpportunityPageLV();
                     randomPages.CloseActiveTab(companyNameExl);
-                    companyHome.SearchCompanyInLightning(companyNameExl);
+                    companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
                     companyDetailHeading = companyDetail.GetCompanyDetailsHeadingLV();
                     Assert.AreEqual(companyNameExl, companyDetailHeading, "Verify that clicking the 'Cancel' button navigates the user back to the Company details page.");
                     extentReports.CreateStepLogs("Passed", "Clicking the 'Cancel' button navigates the user back to the Company details page.");
@@ -177,7 +177,7 @@ namespace SF_Automation.TestCases.Companies
                     //extentReports.CreateStepLogs("Passed", "Sector: " + sector + " in add opportunity page matches on Opportunity details page ");
 
                     //randomPages.DetailPageFullViewLV();
-                    companyDetail.ClickCompanyDetailPageTabLV("Client/Subject & Referral");
+                    companyDetail.ClickCompanyDetailPageTabLV("KYC/Client/Subject/Referral");
                     // Validate additonal client 
                     string additionalClient = oppDetails.GetAdditionalClientLV();
                     string additionalClientExl = ReadExcelData.ReadData(excelPath, "AddOpportunity", 6);
@@ -234,12 +234,12 @@ namespace SF_Automation.TestCases.Companies
                     randomPages.CloseActiveTab(opportunityName);
                     randomPages.CloseActiveTab("Tab");
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out\r, Add Opportunitues button is not present for Houlihan Company and Conflicts Check LDCCR Company Type");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 driver.SwitchTo().DefaultContent();

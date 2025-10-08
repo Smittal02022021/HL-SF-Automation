@@ -43,7 +43,7 @@ namespace SF_Automation.TestCases.Companies
         }
         //TMT0076605 Verify the availability of the "Tearheet" tab on the Company detail page.
         //TMT0076607 Verify that the "Tearsheet" tab list all the important details related to the company.
-        
+
         [Test]
         public void VerifyTheFunctionalityOfTearsheetTabOnCompanyDetailPageLV()
         {
@@ -79,8 +79,8 @@ namespace SF_Automation.TestCases.Companies
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
                 rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Companies");
-                for (int row = 2; row <= rowCompanyName; row++)
-                {                    
+                for(int row = 2; row <= rowCompanyName; row++)
+                {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 1);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
                     extentReports.CreateStepLogs("Passed", "Company: " + companyNameExl + " found and selected");
@@ -93,15 +93,15 @@ namespace SF_Automation.TestCases.Companies
                     //TMT0076607	Verify that the "Tearsheet" tab list all the important details(Tearsheet,Eng,RecentInfo related to the company.
                     companyDetail.ClickCompanyDetailPageTabLV(tabNameExl);
                     int rowTabTearsheet = ReadExcelData.GetRowCount(excelPath, "TeearsheetSubTabs");
-                    
-                    for (int subTabrow = 2; subTabrow <= rowTabTearsheet; subTabrow++)
+
+                    for(int subTabrow = 2; subTabrow <= rowTabTearsheet; subTabrow++)
                     {
                         string subTabTearsheetExl = ReadExcelData.ReadDataMultipleRows(excelPath, "TeearsheetSubTabs", subTabrow, 1);
-                        Assert.IsTrue(companyDetail.IsSubTabDisplayedLV(subTabTearsheetExl), "Verify that the 'Tearsheet'tab has sub tab: "+ subTabTearsheetExl);
+                        Assert.IsTrue(companyDetail.IsSubTabDisplayedLV(subTabTearsheetExl), "Verify that the 'Tearsheet'tab has sub tab: " + subTabTearsheetExl);
                         extentReports.CreateStepLogs("Passed", " '" + subTabTearsheetExl + "' tab is displayed on Tearsheet tab");
                     }
 
-                    for (int subTabrow = rowTabTearsheet; subTabrow >= 2; subTabrow--)
+                    for(int subTabrow = rowTabTearsheet; subTabrow >= 2; subTabrow--)
                     {
                         string subTabTearsheetExl = ReadExcelData.ReadDataMultipleRows(excelPath, "TeearsheetSubTabs", subTabrow, 1);
                         companyDetail.ClickSubTabLV(subTabTearsheetExl);
@@ -110,15 +110,15 @@ namespace SF_Automation.TestCases.Companies
 
                     randomPages.CloseActiveTab(companyNameExl);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "System Administrator User: " + valAdminUser + " logged out");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 extentReports.CreateExceptionLog(ex.Message);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
         }

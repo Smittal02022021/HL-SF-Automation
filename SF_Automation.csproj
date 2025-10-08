@@ -549,6 +549,7 @@
     <Compile Include="Pages\Company\CapIQCompaniesHomePage.cs" />
     <Compile Include="Pages\Company\CompanyCreatePage.cs" />
     <Compile Include="Pages\Companies\CompanyDetailsPage.cs" />
+    <Compile Include="Pages\Company\CompanyDetailsPage.cs" />
     <Compile Include="Pages\Company\CompanyEditPage.cs" />
     <Compile Include="Pages\Companies\CompanyHomePage.cs" />
     <Compile Include="Pages\Company\CompanyListCreatePage.cs" />
@@ -621,6 +622,7 @@
     <Compile Include="Pages\TimeRecordManager\TimeRecorderFunctionalities.cs" />
     <Compile Include="Pages\TimeRecordManager\TimeRecordManagerEntryPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestCases\Companies\LV_TMTT0046139_VerifyNewInvestorTypeAppearsAsRelatedListForCS_FSCG_MAInvestmentPreferencesCompanyPage.cs" />
     <Compile Include="TestCases\Companies\LV_TMTT0047023_VerifyFunctionalityOfRoundTripSectionOnCompanyInfoPage.cs" />
     <Compile Include="TestCases\Companies\LV_T1140_T1141_T1151_T1144_T1146_CompaniesAddNewCompanyWithRecordTypeForCapitalProviderAndOperatingCompany.cs" />
     <Compile Include="TestCases\Companies\LV_T1147_CompaniesCommonCompanyEditAndUpdateTheExistingInformation.cs" />

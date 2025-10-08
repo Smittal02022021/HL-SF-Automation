@@ -10,7 +10,7 @@ using AventStack.ExtentReports.Gherkin.Model;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class LV_TMTC0034041_VerifyTheFunctionalityOfInvestmentProfileTabOnCompanyDetailPage:BaseClass
+    class LV_TMTC0034041_VerifyTheFunctionalityOfInvestmentProfileTabOnCompanyDetailPage : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -84,7 +84,7 @@ namespace SF_Automation.TestCases.Companies
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
                 rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Companies");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Companies", row, 1);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
@@ -98,33 +98,33 @@ namespace SF_Automation.TestCases.Companies
                     //TMT0076542	Verify that the "New" button is available on the Company Sectors and Investment Preferences sections of the Investment Profile tab
                     companyDetail.ClickCompanyDetailPageTabLV(tabNameExl);
                     Assert.IsTrue(companyDetail.IsCompanySectorsNewButtonDisplayedLV(), "Verify that the 'New' button is available on the Company Sectors and Investment Preferences sections of the Investment Profile tab");
-                    extentReports.CreateStepLogs("Passed"," '"+ tabNameExl+ "' 'New' button is available on the Company Sectors and Investment Preferences sections of the Investment Profile tab");
-                    
+                    extentReports.CreateStepLogs("Passed", " '" + tabNameExl + "' 'New' button is available on the Company Sectors and Investment Preferences sections of the Investment Profile tab");
+
                     //Test Case number not present
                     Assert.IsTrue(companyDetail.IsInvestmentPreferencesNewButtonDisplayedLV(), "Verify that the 'New' button is available");
                     extentReports.CreateStepLogs("Passed", "'New' button is available");
 
                     //TMT0076550	Verify that clicking the "New" button of the Investment preferences redirects the user to the New Investment Preferences page
                     companyDetail.ClickInvestmentPrefrenceNewButtonLV();
-                    bool recordsFound= companyDetail.AreInvestmentPreferenceTypesPresentLV(fileTMTC0034041);
+                    bool recordsFound = companyDetail.AreInvestmentPreferenceTypesPresentLV(fileTMTC0034041);
                     Assert.IsTrue(recordsFound, "Verify that clicking the 'New' button of the Investment preferences redirects the user to the New Investment Preferences page with all record types present");
                     extentReports.CreateStepLogs("Passed", "All Investment preferences Record Types are present ");
 
                     //TMT0076544	Verify that the user can add Company Sector using the "New" button on the Investment Profile Page followed by a success message and redirect the user to the Company Sector detail page
                     string sectorExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Financials", 2, 7);
-                    string msgSuccess= companyDetail.AddNewCompanySectorLV(sectorExl);
+                    string msgSuccess = companyDetail.AddNewCompanySectorLV(sectorExl);
                     string companySector = companyDetail.GetCompanySectorLV();
-                    extentReports.CreateStepLogs("Passed", "New Company Sector added under Investment Profile tab with message: "+ msgSuccess);
-                    
+                    extentReports.CreateStepLogs("Passed", "New Company Sector added under Investment Profile tab with message: " + msgSuccess);
+
                     randomPages.CloseActiveTab(companySector);
                     //TMT0076540 Verify that the "Investment Profile" tab lists the Company Sectors and Investment Preferences of the Company
                     Assert.IsTrue(companyDetail.IsCompanySectorDisplayedLV(companySector), "Verify that the 'Investment Profile' tab lists the Company Sectors");
-                    extentReports.CreateStepLogs("Passed", " Company Sectors: "+ companySector+" present under Investment Profile tab");
-                    
+                    extentReports.CreateStepLogs("Passed", " Company Sectors: " + companySector + " present under Investment Profile tab");
+
                     //TMT0076546	Verify that the user can update the Company Sector using the "Edit" button on the Company Sector list
                     string newSectorExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Financials", 2, 8);
                     msgSuccess = companyDetail.UpdateCompanySectorRecordLV(companySector, newSectorExl);
-                    extentReports.CreateStepLogs("Passed", "Company Sector: "+ companySector+ " updated under Investment Profile tab with new Sector Category:" +newSectorExl+" followed by message: " + msgSuccess);
+                    extentReports.CreateStepLogs("Passed", "Company Sector: " + companySector + " updated under Investment Profile tab with new Sector Category:" + newSectorExl + " followed by message: " + msgSuccess);
 
                     //TMT0076548	Verify the "Delete" functionality of the Company Sector on the Investment Profile of the Company
                     msgSuccess = companyDetail.DeleteCompanySectorRecordLV(tabNameExl, companySector);
@@ -133,17 +133,17 @@ namespace SF_Automation.TestCases.Companies
                     randomPages.CloseActiveTab(companyNameExl);
 
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
 
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 randomPages.CloseActiveTab(companyNameExl);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
             }
         }
     }

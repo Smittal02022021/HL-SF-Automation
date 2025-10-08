@@ -12,7 +12,7 @@ using Microsoft.Office.Interop.Excel;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class LV_TMTC0034072_VerifyTheFunctionalityOftheFSFundTabOnTheCompanyDetailPage:BaseClass
+    class LV_TMTC0034072_VerifyTheFunctionalityOftheFSFundTabOnTheCompanyDetailPage : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -54,9 +54,9 @@ namespace SF_Automation.TestCases.Companies
         //TMT0076653 Verify that the "New" button is available on the FS Fund tab
         //TMT0076655 Verify that the user is able to add FS Fund using the "New" button on the FS Fund Page followed by a success message and redirects user to the fund detail page
         //TMT0076657 Verify that the user can update the FS Fund using the "Edit" button on the fund list
-    [Test]
-    public void VerifyTheFunctionalityOftheFSFundTabOnTheCompanyDetailPageLV()
-    {
+        [Test]
+        public void VerifyTheFunctionalityOftheFSFundTabOnTheCompanyDetailPageLV()
+        {
             try
             {
                 //Get path of Test data file
@@ -89,8 +89,8 @@ namespace SF_Automation.TestCases.Companies
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
                 rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Company");
-                for (int row = 2; row <= rowCompanyName; row++)
-                {                    
+                for(int row = 2; row <= rowCompanyName; row++)
+                {
                     btnNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Buttons", 2, 1);
                     companyHome.ClickButtonCompanyHomePageLV(btnNameExl);
                     string valRecordTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 1);
@@ -101,7 +101,7 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Passed", "Page with heading: " + createCompanyPage + " is displayed upon selecting company record type ");
                     // Create a  company
                     createCompany.CreateNewCompanyLV(fileTMTC0034058, row);
-                    extentReports.CreateStepLogs("Info", " New Company Created ");                    
+                    extentReports.CreateStepLogs("Info", " New Company Created ");
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     newCompanyName = companyDetail.GetCompanyNameHeaderLV();
                     Assert.IsTrue(newCompanyName.Contains(companyNameExl));
@@ -124,14 +124,14 @@ namespace SF_Automation.TestCases.Companies
                     string nameFSFundsCompany = companyDetail.GetNewFundsCompanyNameLV();
                     Assert.AreEqual(newCompanyName, nameFSFundsCompany, "Verify that the Company field is pre-filled with the selected Company name. ");
                     extentReports.CreateStepLogs("Passed", "The Company field is pre-filled with the selected Company name on New FS Funds form.");
-                                        
+
                     companyDetail.AddNewCompanyFSFundsLV(fileTMTC0034058);
                     msgBubble = randomPages.GetPopUpMessagelV();
                     Assert.IsTrue(msgBubble.Contains("was created"));
                     extentReports.CreateStepLogs("Passed", " New FS Funds added followed by the success message: " + msgBubble);
 
-                    string valFSFundsName= companyDetail.GetFSFundsNameLV();
-                    extentReports.CreateStepLogs("Passed", " New FS Funds: "+ valFSFundsName+" added");
+                    string valFSFundsName = companyDetail.GetFSFundsNameLV();
+                    extentReports.CreateStepLogs("Passed", " New FS Funds: " + valFSFundsName + " added");
                     extentReports.CreateStepLogs("Passed", " FS Funds updated followed by the success message: " + msgBubble);
                     randomPages.CloseActiveTab(valFSFundsName);
 
@@ -148,7 +148,7 @@ namespace SF_Automation.TestCases.Companies
 
                     randomPages.CloseActiveTab(companyNameExl);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "Fin user: " + valUser + " logged out");
 
                 valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
@@ -167,7 +167,7 @@ namespace SF_Automation.TestCases.Companies
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
@@ -176,15 +176,15 @@ namespace SF_Automation.TestCases.Companies
                     companyDetail.DeleteCompanyLV();
                     extentReports.CreateStepLogs("Passed", companyNameExl + " Company Deleted Successfully");
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 extentReports.CreateExceptionLog(ex.Message);
                 //Assert.IsTrue(msgBubble.Contains("File was deleted"));
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
                 usersLogin.LoginAsSelectedUser();
@@ -201,7 +201,7 @@ namespace SF_Automation.TestCases.Companies
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);

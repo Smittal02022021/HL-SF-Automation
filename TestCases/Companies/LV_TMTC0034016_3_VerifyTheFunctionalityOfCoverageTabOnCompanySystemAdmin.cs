@@ -11,7 +11,7 @@ using System;
 
 namespace SF_Automation.TestCases.Companies
 {
-    class LV_TMTC0034016_3_VerifyTheFunctionalityOfCoverageTabOnCompanySystemAdmin:BaseClass
+    class LV_TMTC0034016_3_VerifyTheFunctionalityOfCoverageTabOnCompanySystemAdmin : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -54,7 +54,7 @@ namespace SF_Automation.TestCases.Companies
         //TMT0076461 Verify that the user can add "Coverage Contact" on the FS Coverage Team Member and redirect the user to the Coverage Contact detail page followed by a success message
         //TMT0076463 Verify that the user can "Edit" Coverage Contact added on the FS Coverage Team Officer
         //TMT0076471 Verify the functionality of the "Delete" button on the Sponsor Coverage Officer detail page
-        
+
         [Test]
         public void VerifyTheFunctionalityOfCoverageTabOnCompanyLV()
         {
@@ -93,7 +93,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
                 rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Company");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     string btnNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Buttons", 2, 1);
                     companyHome.ClickButtonCompanyHomePageLV(btnNameExl);
@@ -119,7 +119,7 @@ namespace SF_Automation.TestCases.Companies
 
                     Assert.IsTrue(companyDetail.IsCoverageTabDisplayedLV(), "Verify the availability of the 'Contacts' tab on the Company detail page");
                     extentReports.CreateStepLogs("Passed", valRecordTypeExl + " 'Contacts' tab is available on " + newCompanyName + " Company Detail page ");
-                    
+
                     companyDetail.ClickCoverageTabLV();
                     extentReports.CreateStepLogs("Passed", " 'New' button is displayed in the Industry Coverage section of the Company Details Page.");
 
@@ -173,7 +173,7 @@ namespace SF_Automation.TestCases.Companies
                     string actualSavedComments = coverageTeamDetail.GetCoverageTeamCommentsLV();
                     Assert.AreEqual(coverageCommentsExl, actualSavedComments);
                     extentReports.CreateStepLogs("Passed", "Coverage team Comments saved");
-                    
+
                     //TMT0076459 Verify that the user can "Edit" the Coverage Team Comment added on the FS Coverage Team Officer
                     coverageCommentsExl = ReadExcelData.ReadDataMultipleRows(excelPath, "FSCoverageTeam", row, 9);
                     coverageTeamDetail.UpdateCoverageCommentsLV(coverageCommentsExl);
@@ -185,13 +185,13 @@ namespace SF_Automation.TestCases.Companies
                     coverageTeamDetail.ClickCoverageContactsPanelLV();
                     coverageTeamDetail.ClickNewCoverageContactsSectionButtonLV();
                     string coverageContactExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CoverageContact", row, 1);
-                    string coverageContactFocusExl= ReadExcelData.ReadDataMultipleRows(excelPath, "CoverageContact", row, 2);
+                    string coverageContactFocusExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CoverageContact", row, 2);
 
                     msgSuccess = coverageTeamDetail.AddNewCoverageContactsLV(coverageContactExl, coverageContactFocusExl, coverageID);
                     string coverageContactID = coverageTeamDetail.GetCoverageContactIDLV();
                     extentReports.CreateStepLogs("Passed", "Coverage Contact Added with Success message: " + msgSuccess);
                     randomPages.CloseActiveTab(coverageContactID);
-                    
+
                     //TMT0076463 Verify that the user can "Edit" Coverage Contact added on the FS Coverage Team Officer
                     companyDetail.ClickCoverageTabLV();
                     companyDetail.ClickSponsorCoverageTamMemberLV(OfficerExl);
@@ -203,14 +203,14 @@ namespace SF_Automation.TestCases.Companies
                     coverageContactFocusExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CoverageContact", row, 3);
 
                     msgSuccess = coverageTeamDetail.UpdateCoverageContactLV(coverageContactFocusExl);
-                    extentReports.CreateStepLogs("Passed", "Coverage Team updated New Focus: "+ coverageContactFocusExl+" followed by Success Message: " + msgSuccess);
+                    extentReports.CreateStepLogs("Passed", "Coverage Team updated New Focus: " + coverageContactFocusExl + " followed by Success Message: " + msgSuccess);
 
                     //coverageTeamDetail.ClickCoverageSectorPanelLV();
 
                     randomPages.CloseActiveTab(coverageID);
                     randomPages.CloseActiveTab(companyNameExl);
                 }
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
@@ -230,16 +230,16 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Passed", companyNameExl + " Company Deleted Successfully");
 
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 randomPages.CloseActiveTab(coverageID);
                 randomPages.CloseActiveTab(companyNameExl);
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     try
@@ -249,7 +249,7 @@ namespace SF_Automation.TestCases.Companies
                         try
                         {
                             companyDetail.ClickSponsorCoverageTamMemberLV(valUser);
-                            
+
                             coverageTeamDetail.DeleteCoverageCommentsLV();
                             extentReports.CreateStepLogs("Info", "Created Coverage Team Comments Deleted");
                             coverageTeamDetail.ClickCoverageContactsPanelLV();
@@ -279,7 +279,7 @@ namespace SF_Automation.TestCases.Companies
                         extentReports.CreateStepLogs("Info", companyNameExl + " Company Deleted");
                     }
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
         }

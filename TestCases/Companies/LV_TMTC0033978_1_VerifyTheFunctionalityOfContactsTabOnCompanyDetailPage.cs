@@ -11,7 +11,7 @@ using SF_Automation.Pages.Contact;
 
 namespace SF_Automation.TestCases.Companies
 {
-     class LV_TMTC0033978_1_VerifyTheFunctionalityOfContactsTabOnCompanyDetailPage:BaseClass
+    class LV_TMTC0033978_1_VerifyTheFunctionalityOfContactsTabOnCompanyDetailPage : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -28,7 +28,7 @@ namespace SF_Automation.TestCases.Companies
         ContactDetailsPage contactDetail = new ContactDetailsPage();
 
         public static string fileTMTC0033978 = "LV_TMTC0033978_VerifyTheFunctionalityOfContactsTabOnCompanyDetailPage";
-                
+
         private int rowCompanyName;
         private string newCompanyName;
         private string excelPath;
@@ -80,13 +80,13 @@ namespace SF_Automation.TestCases.Companies
                 string appName = homePageLV.GetAppName();
                 Assert.AreEqual(appNameExl, appName);
                 extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
-                                
+
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
 
                 rowCompanyName = ReadExcelData.GetRowCount(excelPath, "Company");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     string btnNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Buttons", 2, 1);
                     companyHome.ClickButtonCompanyHomePageLV(btnNameExl);
@@ -131,8 +131,8 @@ namespace SF_Automation.TestCases.Companies
                     string valFirstName = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 1);
                     string valLastName = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 2);
                     string contactFullName = valFirstName + " " + valLastName;
-                    string msgSuccess= companyDetail.CreateContactLV(valFirstName, valLastName);
-                    Assert.IsTrue(msgSuccess.Contains(contactFullName),"Verify Success messag is poped up on creation of New Contact");
+                    string msgSuccess = companyDetail.CreateContactLV(valFirstName, valLastName);
+                    Assert.IsTrue(msgSuccess.Contains(contactFullName), "Verify Success messag is poped up on creation of New Contact");
                     extentReports.CreateStepLogs("Passed", msgSuccess);
                     randomPages.CloseActiveTab(contactFullName);
 
@@ -142,15 +142,17 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Passed", contactFullName + " created contact is listed under the Contacts tab of the Company Detail Page");
 
                     //TMT0076333 Verify the functionality of "Edit" action button on the Contact - HL Relationship
+                    CustomFunctions.PageReload(driver);
+                    companyDetail.ClickContactTabLV();
                     companyDetail.ClickEditContactContactTabLV();
                     string valPhoneNumber = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 4);
                     companyDetail.UpdateContactPhoneNumberLV(valPhoneNumber);
-                    Assert.AreEqual(valPhoneNumber,companyDetail.GetContactPhoneNumberInRelatedTab(), "Verify the functionality of 'Edit' action button on the Contact - HL Relationship");
+                    Assert.AreEqual(valPhoneNumber, companyDetail.GetContactPhoneNumberInRelatedTab(), "Verify the functionality of 'Edit' action button on the Contact - HL Relationship");
                     extentReports.CreateStepLogs("Passed", contactFullName + " Phone Number updated and saved via 'Edit' Action button on the Contact - HL Relationship ");
 
                     randomPages.CloseActiveTab(newCompanyName);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
 
                 string valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
@@ -171,7 +173,7 @@ namespace SF_Automation.TestCases.Companies
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     string valFirstName = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 1);
                     string valLastName = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 2);
@@ -184,7 +186,7 @@ namespace SF_Automation.TestCases.Companies
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
@@ -192,15 +194,15 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Passed", companyNameExl + " Company Deleted");
 
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 string valAdminUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 3, 1);
                 homePage.SearchUserByGlobalSearchN(valAdminUser);
                 extentReports.CreateStepLogs("Info", "System Admin User: " + valAdminUser + " details are displayed. ");
@@ -221,7 +223,7 @@ namespace SF_Automation.TestCases.Companies
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                    for (int row = 2; row <= rowCompanyName; row++)
+                    for(int row = 2; row <= rowCompanyName; row++)
                     {
                         string valFirstName = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 1);
                         string valLastName = ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 2);
@@ -231,12 +233,13 @@ namespace SF_Automation.TestCases.Companies
                         extentReports.CreateStepLogs("Passed", contactFullName + " Contact Deleted");
                     }
                 }
-                catch 
+                catch
                 {
+                    CustomFunctions.PageReload(driver);
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                    for (int row = 2; row <= rowCompanyName; row++)
+                    for(int row = 2; row <= rowCompanyName; row++)
                     {
                         string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                         companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
@@ -248,7 +251,7 @@ namespace SF_Automation.TestCases.Companies
                 moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                for (int row = 2; row <= rowCompanyName; row++)
+                for(int row = 2; row <= rowCompanyName; row++)
                 {
                     string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", row, 2);
                     companyHome.GlobalSearchCompanyInLightningView(companyNameExl);
@@ -256,7 +259,7 @@ namespace SF_Automation.TestCases.Companies
                     extentReports.CreateStepLogs("Passed", companyNameExl + " Company Deleted");
 
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
         }
