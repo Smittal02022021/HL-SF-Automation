@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Office.Interop.Excel;
+using OpenQA.Selenium;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
@@ -47,7 +48,7 @@ namespace SF_Automation.Pages.Reports
         public void DismissStateCountryPicklistWarningPopup()
         {
             Thread.Sleep(5000);
-            if (CustomFunctions.IsElementPresent(driver, btnStateCountryPicklistWarning))
+            if(CustomFunctions.IsElementPresent(driver, btnStateCountryPicklistWarning))
             {
                 driver.FindElement(btnStateCountryPicklistWarning).Click();
                 Thread.Sleep(2000);
@@ -66,7 +67,7 @@ namespace SF_Automation.Pages.Reports
         public void ClickNeverUpdateOfPageSettings()
         {
             Thread.Sleep(2000);
-            if (CustomFunctions.IsElementPresent(driver, btnNeverUpdate))
+            if(CustomFunctions.IsElementPresent(driver, btnNeverUpdate))
             {
                 driver.FindElement(btnNeverUpdate).Click();
                 Thread.Sleep(5000);
@@ -90,7 +91,7 @@ namespace SF_Automation.Pages.Reports
                 Thread.Sleep(4000);
                 return "Record found";
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "No record found";
             }
@@ -112,7 +113,7 @@ namespace SF_Automation.Pages.Reports
                 Thread.Sleep(2000);
                 return "Record found";
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "No record found";
             }
@@ -146,7 +147,7 @@ namespace SF_Automation.Pages.Reports
         public void GetDuplicateCompaniesList(string file, string ReportType, string user)
         {
             string excelPath = dir + file;
-            if (ReadExcelData.ReadDataMultipleRows(excelPath, "Report", 2, 2).Contains(ReportType))
+            if(ReadExcelData.ReadDataMultipleRows(excelPath, "Report", 2, 2).Contains(ReportType))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, By.XPath($"//*[text()='{user}']/../../../td[1]/input"));
                 driver.FindElement(By.XPath($"//*[text()='{user}']/../../../td[1]/input")).Click();
@@ -178,7 +179,7 @@ namespace SF_Automation.Pages.Reports
         public void GetDuplicateContactsList(string file, string ReportType, string user)
         {
             string excelPath = dir + file;
-            if (ReadExcelData.ReadDataMultipleRows(excelPath, "Report", 2, 2).Contains(ReportType))
+            if(ReadExcelData.ReadDataMultipleRows(excelPath, "Report", 2, 2).Contains(ReportType))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, By.XPath($"//*[text()='{user}']/../../td[1]/input"));
                 driver.FindElement(By.XPath($"//*[text()='{user}']/../../td[1]/input")).Click();
@@ -191,7 +192,7 @@ namespace SF_Automation.Pages.Reports
             WebDriverWaits.WaitUntilEleVisible(driver, btnDrillDown);
             driver.FindElement(btnDrillDown).Click();
 
-            string getDate = DateTime.Today.AddDays(0).ToString("MM/dd/yyyy").Replace('-','/');
+            string getDate = DateTime.Today.AddDays(0).ToString("MM/dd/yyyy").Replace('-', '/');
             WebDriverWaits.WaitUntilEleVisible(driver, fromDate);
 
             string fromD = DateTime.Today.AddDays(-1).ToString("MM/dd/yyyy").Replace('-', '/');
@@ -256,7 +257,7 @@ namespace SF_Automation.Pages.Reports
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, DataHygieneFolderTitle, 60);
             string DataHygieneFolder = driver.FindElement(DataHygieneFolderTitle).Text;
-            return DataHygieneFolder;            
+            return DataHygieneFolder;
         }
 
         public string GetReportDuplicateRuleAccountTitle()
@@ -265,13 +266,13 @@ namespace SF_Automation.Pages.Reports
             string DuplicateRuleAccountCreatedBy = driver.FindElement(ReportDuplicateRuleAccount).Text;
             return DuplicateRuleAccountCreatedBy;
         }
-        
+
         public string GetCreatedByUserAfterShowDetails()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valCreatedByFullName, 60);
             string CreatedByFullName = driver.FindElement(valCreatedByFullName).Text;
             return CreatedByFullName;
-            
+
         }
         public string GetLabelGroupBy()
         {
@@ -281,5 +282,109 @@ namespace SF_Automation.Pages.Reports
             return CreatedDateLabel;
 
         }
+
+        By lnkAllReportsL = By.XPath("//a[@title='All Reports']");
+        By inputSearchReportL = By.XPath("//input[@placeholder='Search all reports...']");
+        By lnkReportNameL = By.XPath("//a[contains(@title,'TASProjectStageAuditRecords')]");
+        By btnEditReportL = By.XPath("//button[text()='Edit']");
+        By subTabFilterL = By.XPath("//ul[@role='tablist']//li//h2[text()='Filters']//ancestor::a");
+        By inputAddFilterL = By.XPath("//input[@placeholder='Add filter...']");
+        By inputSearchFilterItemL = By.XPath("//h2[text()='Filter By']/../..//label[text()='Search for item']/..//input");
+        By btnCancelFilterBySection = By.XPath("//button[text()='Cancel']");
+        By resultTable = By.XPath("//table//td//p");
+        By inputFilterValueL = By.XPath("(//h2[text()='Filter By']/../..//div//label/..//input)[2]");
+        By btnApplyL = By.XPath("//h2[text()='Filter By']/../..//div//button[text()='Apply']");
+        By frameCreateReportPage = By.XPath("//iframe[@title='Report Builder']");
+        By frameViewReportPage = By.XPath("//iframe[@title='Report Viewer']");
+        By bnCloseReportLV = By.XPath("//button[text()='Close']");
+
+        private By _eleReportL(string reportName)
+        {
+            return By.XPath($"//a[contains(@title,'{reportName}')]/..");
+        }
+        private By _optionFilterL(string filterName)
+        {
+            return By.XPath($"//div[@role='listbox']//li//span[@title='{filterName}']");
+        }
+
+        public void SearchReportLV(string name)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, lnkAllReportsL, 20);
+            driver.FindElement(lnkAllReportsL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, inputSearchReportL, 20);
+            driver.FindElement(inputSearchReportL).SendKeys(name);
+            WebDriverWaits.WaitUntilEleVisible(driver, _eleReportL(name), 20);
+            driver.FindElement(_eleReportL(name)).Click();
+        }
+        public void EditReportLV()
+        {
+
+            WebDriverWaits.WaitUntilEleVisible(driver, frameViewReportPage, 20);
+            driver.SwitchTo().Frame(driver.FindElement(frameViewReportPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, btnEditReportL, 20);
+            driver.FindElement(btnEditReportL).Click();
+            driver.SwitchTo().DefaultContent();
+        }
+        public void AddReportFilterLV(string filter, string filterValue)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, frameCreateReportPage, 20);
+            driver.SwitchTo().Frame(driver.FindElement(frameCreateReportPage));
+            WebDriverWaits.WaitUntilEleVisible(driver, subTabFilterL, 20);
+            driver.FindElement(subTabFilterL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, inputAddFilterL, 20);
+            driver.FindElement(inputAddFilterL).SendKeys(filter);
+            WebDriverWaits.WaitUntilEleVisible(driver, _optionFilterL(filter), 10);
+            driver.FindElement(_optionFilterL(filter)).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, inputFilterValueL, 20);
+            driver.FindElement(inputFilterValueL).SendKeys(filterValue);
+            driver.FindElement(btnApplyL).Click();
+        }
+        public string GetReportRecordIDLV(string tableName)
+        {
+            By elmRecord = By.XPath($"//table[@aria-label='{tableName}']//tr[2]//td[3]");
+            WebDriverWaits.WaitUntilEleVisible(driver, elmRecord, 10);
+            return driver.FindElement(elmRecord).Text;
+
+        }
+        public string GetRecordtFieldLV(string tableName)
+        {
+            By elmRecord = By.XPath($"//table[@aria-label='{tableName}']//tr[2]//td[4]");
+            WebDriverWaits.WaitUntilEleVisible(driver, elmRecord, 10);
+            return driver.FindElement(elmRecord).Text;
+        }
+        public string GetRecordOldValueLV(string tableName)
+        {
+            By elmRecord = By.XPath($"//table[@aria-label='{tableName}']//tr[2]//td[5]");
+            WebDriverWaits.WaitUntilEleVisible(driver, elmRecord, 10);
+            return driver.FindElement(elmRecord).Text;
+        }
+        public string GetRecordNewValueLV(string tableName)
+        {
+            By elmRecord = By.XPath($"//table[@aria-label='{tableName}']//tr[2]//td[6]");
+            WebDriverWaits.WaitUntilEleVisible(driver, elmRecord, 10);
+            return driver.FindElement(elmRecord).Text;
+        }
+        public string GetRecordLastModifiedByLV(string tableName)
+        {
+            By elmRecord = By.XPath($"//table[@aria-label='{tableName}']//tr[2]//td[7]");
+            WebDriverWaits.WaitUntilEleVisible(driver, elmRecord, 10);
+            return driver.FindElement(elmRecord).Text;
+        }
+        public string GetRecordLastModifiedDateLV(string tableName)
+        {
+            By elmRecord = By.XPath($"//table[@aria-label='{tableName}']//tr[2]//td[8]");
+            WebDriverWaits.WaitUntilEleVisible(driver, elmRecord, 10);
+            return driver.FindElement(elmRecord).Text;
+        }
+
+        public void CloseReportLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, bnCloseReportLV, 10);
+            driver.FindElement(bnCloseReportLV).Click();
+            Thread.Sleep(2000);
+            driver.SwitchTo().DefaultContent();
+        }
+
+
     }
 }

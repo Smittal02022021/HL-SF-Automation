@@ -23,9 +23,7 @@ namespace SF_Automation.Pages.Common
         By lblLagacyPAFee = By.XPath("//records-record-layout-item[@field-label='Legacy Period Accrued Fees']");
 
         By lnkIsCurrentColumn = By.XPath("//th[@aria-label='Is Current']//a");
-
-        By chkIsCurrent = By.XPath("//table//tbody//tr[1]//td[5]//img");//(//td[@data-label='Is Current'])[1]//input"); .GetAttribute("alt");
-
+        By chkIsCurrent = By.XPath("//table//tbody//tr[1]//td[5]/span//input");//..//span[contains(@class,'slds-checkbox')]");////table//tbody//tr[1]//td[5]//img");//(//td[@data-label='Is Current'])[1]//input"); .GetAttribute("alt");
         By linkCurrentMonthRev = By.XPath("//table//tbody//tr[1]/th//a");// (//td[@data-label='Is Current'])[1]//ancestor::tr//th//a");
 
         By linkViewAllRevAccu = By.XPath("//article[@aria-label='Revenue Accruals']//a[contains(@class,'footer')]");
@@ -35,130 +33,77 @@ namespace SF_Automation.Pages.Common
         By valRVAccuNum = By.XPath("//records-record-layout-item[@field-label='Revenue Accrual #']//lightning-formatted-text");
 
         public void SelectCurrentMonthRevenuePageLV()
-
         {
-
+            bool IsCurrentFound = false;
         IsCurrentStatus:
-
-            string chckboxStatus = driver.FindElement(chkIsCurrent).GetAttribute("alt");
-
-            if(chckboxStatus == "True")
-
+            while(IsCurrentFound == false)
             {
-
-                driver.FindElement(linkCurrentMonthRev).Click();
-
-                Thread.Sleep(5000);
-
+                //string chckboxStatus = driver.FindElement(chkIsCurrent).IsSelected; // GetAttribute("alt");
+                bool chckboxStatus = driver.FindElement(chkIsCurrent).Selected;
+                if(chckboxStatus)
+                {
+                    driver.FindElement(linkCurrentMonthRev).Click();
+                    Thread.Sleep(5000);
+                    IsCurrentFound = true;
+                }
+                else
+                {
+                    driver.FindElement(lnkIsCurrentColumn).Click();
+                    Thread.Sleep(2000);
+                    goto IsCurrentStatus;
+                }
             }
-
-            else
-
-            {
-
-                driver.FindElement(lnkIsCurrentColumn).Click();
-
-                Thread.Sleep(2000);
-
-                goto IsCurrentStatus;
-
-            }
-
         }
 
 
         public string SelectRevenueAccrualLV(string lob)
-
         {
-
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-
             js.ExecuteScript("window.scrollTo(0,5000)");
-
             Thread.Sleep(2000);
-
             string valRVAccu = "";
-
             CustomFunctions.MoveToElement(driver, driver.FindElement(linkViewAllRevAccu));
-
             Thread.Sleep(2000);
-
             //driver.FindElement(linkViewAllRevAccu).Click();
-
             js.ExecuteScript("arguments[0].click();", driver.FindElement(linkViewAllRevAccu));
-
             WebDriverWaits.WaitUntilEleVisible(driver, listRevAccu, 20);
-
             IList<IWebElement> element = driver.FindElements(listRevAccu);
-
             int totalRows = element.Count;
-
             for(int row = 1; row <= totalRows; row++)
-
             {
-
                 By linkRevAccu = By.XPath($"(//table[@aria-label='Revenue Accruals'])[2]//tbody//tr[{row}]//th//a/../..");
-
                 driver.FindElement(linkRevAccu).Click();
-
                 WebDriverWaits.WaitUntilEleVisible(driver, valRVAccuNum, 20);
-
                 valRVAccu = driver.FindElement(valRVAccuNum).Text;
-
                 string RevAccuLOB = randomPages.GetLOBLV();
-
                 if(RevAccuLOB == lob)
-
                 {
-
                     break;
-
                 }
-
                 else
-
                 {
-
                     By btnCloseRevAccu = By.XPath($"//button[contains(@title,'Close {valRVAccu} | Revenue Accrual')]");
-
                     driver.FindElement(btnCloseRevAccu).Click();
-
                     Thread.Sleep(2000);
-
                 }
-
             }
-
             return valRVAccu;
-
         }
 
         public bool IsLegacyPeriodAccruedFeesExistLV()
-
         {
-
             try
-
             {
-
                 WebDriverWaits.WaitUntilEleVisible(driver, lblLagacyPAFee, 10);
-
                 CustomFunctions.MoveToElement(driver, driver.FindElement(lblLagacyPAFee));
-
                 return driver.FindElement(lblLagacyPAFee).Displayed;
-
             }
-
             catch { return false; }
-
-
         }
-
-
 
         public void SelectMonthlyRevenueProcessControlView()
         {
-            if (driver.FindElement(btnGo).Displayed)
+            if(driver.FindElement(btnGo).Displayed)
             {
                 driver.FindElement(dropDownView).SendKeys("All Monthly Revenue Process Controls");
                 Thread.Sleep(2000);
@@ -173,7 +118,7 @@ namespace SF_Automation.Pages.Common
         public void SortDataAndGetToCurrentMonthRevenuePage()
         {
             string attValue = driver.FindElement(imgIsCurrent).GetAttribute("alt");
-            if (attValue == "Not Checked")
+            if(attValue == "Not Checked")
             {
                 driver.FindElement(colIsCurrent).Click();
                 Thread.Sleep(2000);
@@ -190,13 +135,13 @@ namespace SF_Automation.Pages.Common
         {
             IList<IWebElement> element = driver.FindElements(LOBColLength);
             int totalRows = element.Count;
-            for (int i = 2; i <= totalRows; i++)
+            for(int i = 2; i <= totalRows; i++)
             {
                 By xyz = By.XPath($"//div[@id='a1r6e000004Sj9R_00N3100000GbhhF_body']/table/tbody/tr[{i}]/td[2]");
                 IWebElement LOBElement = driver.FindElement(xyz);
 
                 string lobName = LOBElement.Text;
-                if (lobName.Equals(lob))
+                if(lobName.Equals(lob))
                 {
                     Console.WriteLine("LOB Name Matches");
                     By linkAccrualNo = By.XPath($"//div[@id='a1r6e000004Sj9R_00N3100000GbhhF_body']/table/tbody/tr[{i}]/th/a");
@@ -211,7 +156,7 @@ namespace SF_Automation.Pages.Common
 
         public string ValidateIfLegacyPeriodAccruedFeesExist()
         {
-            if (driver.FindElement(lblLegacyPeriod).Displayed)
+            if(driver.FindElement(lblLegacyPeriod).Displayed)
             {
                 return "Legacy field is displayed. ";
             }

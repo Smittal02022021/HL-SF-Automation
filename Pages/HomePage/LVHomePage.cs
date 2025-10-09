@@ -90,10 +90,10 @@ namespace SF_Automation.Pages.HomePage
             Thread.Sleep(2000);
             driver.FindElement(menuNavigation).Click();
             IList<IWebElement> modules = driver.FindElements(avaiableModules);
-            for (int module = 0; module <= modules.Count; module++)
+            for(int module = 0; module <= modules.Count; module++)
             {
                 string moduleValue = modules[module].Text;
-                if (moduleValue.Equals(moduleName))
+                if(moduleValue.Equals(moduleName))
                 {
                     modules[module].Click();
                     Thread.Sleep(4000);
@@ -136,7 +136,7 @@ namespace SF_Automation.Pages.HomePage
             Thread.Sleep(3000);
 
             driver.FindElement(dropdownSearchAll).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver,linkContactsInSearchAllDropDown,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, linkContactsInSearchAllDropDown, 120);
             driver.FindElement(linkContactsInSearchAllDropDown).Click();
             Thread.Sleep(5000);
 
@@ -183,7 +183,7 @@ namespace SF_Automation.Pages.HomePage
 
             int rowCount = driver.FindElements(By.XPath("(//tbody)[2]/tr")).Count;
 
-            for(int i=1; i<= rowCount; i++)
+            for(int i = 1; i <= rowCount; i++)
             {
                 string compName = driver.FindElement(By.XPath($"(//tbody)[2]/tr[{i}]//td[2]//a")).GetAttribute("title");
                 if(compName.Contains("Houlihan Lokey"))
@@ -248,7 +248,7 @@ namespace SF_Automation.Pages.HomePage
             }
             catch(Exception)
             {
-                
+
             }
         }
 
@@ -304,14 +304,14 @@ namespace SF_Automation.Pages.HomePage
             //Get total rows under events
             int totalRows = driver.FindElements(By.XPath("//a[text()='Events']/../../../../..//table//tr")).Count;
 
-            for(int i=1; i<totalRows; i++)
+            for(int i = 1; i < totalRows; i++)
             {
                 string sub1 = driver.FindElement(By.XPath($"//a[text()='Events']/../../../../..//table//tr[{i}]/td[3]//a")).Text;
-                string alias1 = driver.FindElement(By.XPath($"//a[text()='Events']/../../../../..//table//tr[{i}]/td[6]/span/span")).Text.Remove(0,1);
+                string alias1 = driver.FindElement(By.XPath($"//a[text()='Events']/../../../../..//table//tr[{i}]/td[6]/span/span")).Text.Remove(0, 1);
 
                 if(sub1 == actSub && addUser.Contains(alias1))
                 {
-                    for(int j=2; j < totalRows; j++)
+                    for(int j = 2; j < totalRows; j++)
                     {
                         string sub2 = driver.FindElement(By.XPath($"//a[text()='Events']/../../../../..//table//tr[{j}]/td[3]//a")).Text;
                         string alias2 = driver.FindElement(By.XPath($"//a[text()='Events']/../../../../..//table//tr[{j}]/td[6]/span/span")).Text.Remove(0, 1);
@@ -441,7 +441,7 @@ namespace SF_Automation.Pages.HomePage
                 driver.FindElement(linkLogout).Click();
                 Thread.Sleep(4000);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 driver.Navigate().Refresh();
                 Thread.Sleep(4000);
@@ -453,28 +453,28 @@ namespace SF_Automation.Pages.HomePage
 
         public void LogoutFromSFLightningAsApprover()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            driver.SwitchTo().DefaultContent();
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, userImage, 20);
+            driver.FindElement(userImage).Click();
+            //Thread.Sleep(5000);
+            WebDriverWaits.WaitUntilEleVisible(driver, linkLogOut, 20);
+            driver.FindElement(linkLogOut).Click();
+            Thread.Sleep(5000);
+        }
+
+        public void SwitchBackToClassicView()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(5000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, userImage, 120);
             driver.FindElement(userImage).Click();
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, linkLogOut, 120);
-            driver.FindElement(linkLogOut).Click();
-            Thread.Sleep(10000);
-        }
-
-        public void SwitchBackToClassicView()
-        {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            js.ExecuteScript("window.scrollTo(0,0)");
-            Thread.Sleep(5000);
-
-            WebDriverWaits.WaitUntilEleVisible(driver,userImage,120);
-            driver.FindElement(userImage).Click();
             Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver,linkSwitchToClassic,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, linkSwitchToClassic, 120);
             driver.FindElement(linkSwitchToClassic).Click();
             Thread.Sleep(10000);
         }
@@ -486,7 +486,7 @@ namespace SF_Automation.Pages.HomePage
             WebDriverWaits.WaitUntilEleVisible(driver, lblTearsheetHeading, 120);
             Thread.Sleep(5000);
 
-            if(driver.FindElement(lblTearsheetHeading).Text =="Tearsheet")
+            if(driver.FindElement(lblTearsheetHeading).Text == "Tearsheet")
             {
                 result = true;
             }
@@ -504,14 +504,14 @@ namespace SF_Automation.Pages.HomePage
             IList<IWebElement> elements = driver.FindElements(By.XPath("//ul[@aria-label='Navigation Menu']/li"));
             int size = elements.Count;
 
-            for (int items=1; items<=size; items++)
+            for(int items = 1; items <= size; items++)
             {
                 By linkTearsheet = By.XPath($"//ul[@aria-label='Navigation Menu']/li[{items}]/div/a");
 
                 WebDriverWaits.WaitUntilEleVisible(driver, linkTearsheet, 120);
                 string itemName = driver.FindElement(linkTearsheet).GetAttribute("data-label");
 
-                if (itemName == "Tearsheet")
+                if(itemName == "Tearsheet")
                 {
                     driver.FindElement(linkTearsheet).Click();
                     Thread.Sleep(3000);
@@ -535,14 +535,14 @@ namespace SF_Automation.Pages.HomePage
             IList<IWebElement> elements = driver.FindElements(By.XPath("//ul[@aria-label='Navigation Menu']/li"));
             int size = elements.Count;
 
-            for (int items = 1; items <= size; items++)
+            for(int items = 1; items <= size; items++)
             {
                 By linkContacts = By.XPath($"//ul[@aria-label='Navigation Menu']/li[{items}]/div/a");
 
                 WebDriverWaits.WaitUntilEleVisible(driver, linkContacts, 120);
                 string itemName = driver.FindElement(linkContacts).GetAttribute("data-label");
 
-                if (itemName == "Contacts")
+                if(itemName == "Contacts")
                 {
                     driver.FindElement(linkContacts).Click();
                     Thread.Sleep(5000);
@@ -562,7 +562,7 @@ namespace SF_Automation.Pages.HomePage
             WebDriverWaits.WaitUntilEleVisible(driver, lblTabHeading, 120);
             Thread.Sleep(5000);
 
-            if (driver.FindElement(lblTabHeading).Text == "Contacts")
+            if(driver.FindElement(lblTabHeading).Text == "Contacts")
             {
                 result = true;
             }
@@ -571,18 +571,18 @@ namespace SF_Automation.Pages.HomePage
 
         public void NavigateToHomePageTabFromHLBankerDropdown()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver,menuNavigation,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, menuNavigation, 120);
             driver.FindElement(menuNavigation).Click();
             Thread.Sleep(5000);
 
             IList<IWebElement> elements = driver.FindElements(By.XPath("//ul[@aria-label='Navigation Menu']/li"));
             int size = elements.Count;
 
-            for(int items = 1;items <= size;items++)
+            for(int items = 1; items <= size; items++)
             {
                 By linkHome = By.XPath($"//ul[@aria-label='Navigation Menu']/li[{items}]/div/a");
 
-                WebDriverWaits.WaitUntilEleVisible(driver,linkHome,120);
+                WebDriverWaits.WaitUntilEleVisible(driver, linkHome, 120);
                 string itemName = driver.FindElement(linkHome).GetAttribute("data-label");
 
                 if(itemName == "Home")
@@ -590,7 +590,7 @@ namespace SF_Automation.Pages.HomePage
                     driver.FindElement(linkHome).Click();
                     Thread.Sleep(10000);
                     driver.SwitchTo().Frame("asset-My_Homepage");
-                    WebDriverWaits.WaitUntilEleVisible(driver,homePageH1Heading,120);
+                    WebDriverWaits.WaitUntilEleVisible(driver, homePageH1Heading, 120);
                     string heading = driver.FindElement(homePageH1Heading).Text;
                     Assert.IsTrue(heading == "My Homepage");
                     break;
@@ -611,7 +611,7 @@ namespace SF_Automation.Pages.HomePage
         public bool VerifyIfUserCanSeeMyCoverageTabUnderActivitiesFilter()
         {
             bool result = false;
-            WebDriverWaits.WaitUntilEleVisible(driver,activitiesFilter,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, activitiesFilter, 120);
             driver.FindElement(activitiesFilter).Click();
             Thread.Sleep(5000);
 
@@ -630,19 +630,19 @@ namespace SF_Automation.Pages.HomePage
             string excelPath = dir + file;
 
             bool result = false;
-            WebDriverWaits.WaitUntilEleVisible(driver,dropdownStartDateFilter,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, dropdownStartDateFilter, 120);
             if(driver.FindElement(dropdownStartDateFilter).Displayed)
             {
                 driver.FindElement(dropdownStartDateFilter).Click();
                 Thread.Sleep(3000);
                 int recordCount = driver.FindElements(By.XPath("//div[@class='css-1vp5y9m']/div/div[3]/div/div")).Count;
-                int excelCount = ReadExcelData.GetRowCount(excelPath,"StartDateFilterOptions");
+                int excelCount = ReadExcelData.GetRowCount(excelPath, "StartDateFilterOptions");
 
-                for(int i = 2;i <= excelCount;i++)
+                for(int i = 2; i <= excelCount; i++)
                 {
-                    string exlListViewValue = ReadExcelData.ReadDataMultipleRows(excelPath,"StartDateFilterOptions",i,1);
+                    string exlListViewValue = ReadExcelData.ReadDataMultipleRows(excelPath, "StartDateFilterOptions", i, 1);
 
-                    for(int j = 1;j <= recordCount;j++)
+                    for(int j = 1; j <= recordCount; j++)
                     {
                         string sfListViewValue = driver.FindElement(By.XPath($"//div[@class='css-1vp5y9m']/div/div[3]/div/div[{j}]/div[2]/div/div")).Text;
                         if(exlListViewValue == sfListViewValue)
@@ -667,7 +667,7 @@ namespace SF_Automation.Pages.HomePage
         {
             Thread.Sleep(5000);
             bool result = false;
-            WebDriverWaits.WaitUntilEleVisible(driver,dropdownStartDateFilter,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, dropdownStartDateFilter, 120);
             if(driver.FindElement(dropdownStartDateFilter).Text == "Last 7 Days")
             {
                 result = true;
@@ -677,7 +677,7 @@ namespace SF_Automation.Pages.HomePage
 
         public bool VerifyFunctionalityOfActivityStartDateGridFilterOnMyCoverageDashboard()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver,dropdownStartDateFilter,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, dropdownStartDateFilter, 120);
             driver.FindElement(dropdownStartDateFilter).Click();
             Thread.Sleep(5000);
 
@@ -697,7 +697,7 @@ namespace SF_Automation.Pages.HomePage
             int filterCount = driver.FindElements(By.XPath("//div[@class='css-1vp5y9m']/div/div[3]/div/div")).Count;
             DateTime currentDate = DateTime.Today;
 
-            for(int i = 1;i <= filterCount;i++)
+            for(int i = 1; i <= filterCount; i++)
             {
                 driver.FindElement(By.XPath($"//div[@class='css-1vp5y9m']/div/div[3]/div/div[{i}]/div[1]/div/input")).Click();
                 Thread.Sleep(3000);
@@ -710,28 +710,28 @@ namespace SF_Automation.Pages.HomePage
                     case "Last 7 Days":
                         DateTime setDate = currentDate.AddDays(-7);
 
-                        bool recPresent = CustomFunctions.IsElementPresent(driver,lblNoRecords);
+                        bool recPresent = CustomFunctions.IsElementPresent(driver, lblNoRecords);
                         if(recPresent == false)
                         {
                             //Get the no. of record in table
                             string noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
                             int recordCount = Convert.ToInt32(noOfRows) - 1;
 
-                            for(int j = 2;j <= recordCount;j++)
+                            for(int j = 2; j <= recordCount; j++)
                             {
-                                bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div"));
+                                bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div"));
                                 if(elePresent == true)
                                 {
                                     string activityDate = driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div")).Text;
                                     try
                                     {
                                         DateTime dateTime = DateTime.Parse(activityDate);
-                                        if (dateTime < currentDate && dateTime >= setDate)
+                                        if(dateTime < currentDate && dateTime >= setDate)
                                         {
                                             result1 = true;
                                         }
                                     }
-                                    catch (Exception e)
+                                    catch(Exception e)
                                     {
 
                                     }
@@ -746,28 +746,28 @@ namespace SF_Automation.Pages.HomePage
                     case "Last 30 Days":
                         DateTime setDate1 = currentDate.AddDays(-30);
 
-                        bool recPresent1 = CustomFunctions.IsElementPresent(driver,lblNoRecords);
-                        if(recPresent1==false)
+                        bool recPresent1 = CustomFunctions.IsElementPresent(driver, lblNoRecords);
+                        if(recPresent1 == false)
                         {
                             //Get the no. of record in table
                             string noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
                             int recordCount = Convert.ToInt32(noOfRows) - 1;
 
-                            for(int j = 2;j <= recordCount;j++)
+                            for(int j = 2; j <= recordCount; j++)
                             {
-                                bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div"));
+                                bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div"));
                                 if(elePresent == true)
                                 {
                                     string activityDate = driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div")).Text;
                                     try
                                     {
                                         DateTime dateTime = DateTime.Parse(activityDate);
-                                        if (dateTime < currentDate && dateTime >= setDate1)
+                                        if(dateTime < currentDate && dateTime >= setDate1)
                                         {
                                             result2 = true;
                                         }
                                     }
-                                    catch (Exception e)
+                                    catch(Exception e)
                                     {
 
                                     }
@@ -782,28 +782,28 @@ namespace SF_Automation.Pages.HomePage
                     case "Last 3 Months":
                         DateTime setDate2 = currentDate.AddMonths(-3);
 
-                        bool recPresent2 = CustomFunctions.IsElementPresent(driver,lblNoRecords);
+                        bool recPresent2 = CustomFunctions.IsElementPresent(driver, lblNoRecords);
                         if(recPresent2 == false)
                         {
                             //Get the no. of record in table
                             string noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
                             int recordCount = Convert.ToInt32(noOfRows) - 1;
 
-                            for(int j = 2;j <= recordCount;j++)
+                            for(int j = 2; j <= recordCount; j++)
                             {
-                                bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div"));
+                                bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div"));
                                 if(elePresent == true)
                                 {
                                     string activityDate = driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div")).Text;
                                     try
                                     {
                                         DateTime dateTime = DateTime.Parse(activityDate);
-                                        if (dateTime < currentDate && dateTime >= setDate2)
+                                        if(dateTime < currentDate && dateTime >= setDate2)
                                         {
                                             result3 = true;
                                         }
                                     }
-                                    catch (Exception e)
+                                    catch(Exception e)
                                     {
 
                                     }
@@ -818,28 +818,28 @@ namespace SF_Automation.Pages.HomePage
                     case "Last 6 Months":
                         DateTime setDate3 = currentDate.AddMonths(-6);
 
-                        bool recPresent3 = CustomFunctions.IsElementPresent(driver,lblNoRecords);
+                        bool recPresent3 = CustomFunctions.IsElementPresent(driver, lblNoRecords);
                         if(recPresent3 == false)
                         {
                             //Get the no. of record in table
                             string noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
                             int recordCount = Convert.ToInt32(noOfRows) - 1;
 
-                            for(int j = 2;j <= recordCount;j++)
+                            for(int j = 2; j <= recordCount; j++)
                             {
-                                bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div"));
+                                bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div"));
                                 if(elePresent == true)
                                 {
                                     string activityDate = driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div")).Text;
                                     try
                                     {
                                         DateTime dateTime = DateTime.Parse(activityDate);
-                                        if (dateTime < currentDate && dateTime >= setDate3)
+                                        if(dateTime < currentDate && dateTime >= setDate3)
                                         {
                                             result4 = true;
                                         }
                                     }
-                                    catch (Exception e)
+                                    catch(Exception e)
                                     {
 
                                     }
@@ -854,28 +854,28 @@ namespace SF_Automation.Pages.HomePage
                     case "Last 12 Months":
                         DateTime setDate4 = currentDate.AddMonths(-12);
 
-                        bool recPresent4 = CustomFunctions.IsElementPresent(driver,lblNoRecords);
+                        bool recPresent4 = CustomFunctions.IsElementPresent(driver, lblNoRecords);
                         if(recPresent4 == false)
                         {
                             //Get the no. of record in table
                             string noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
                             int recordCount = Convert.ToInt32(noOfRows) - 1;
 
-                            for(int j = 2;j <= recordCount;j++)
+                            for(int j = 2; j <= recordCount; j++)
                             {
-                                bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div"));
+                                bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div"));
                                 if(elePresent == true)
                                 {
                                     string activityDate = driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div")).Text;
                                     try
                                     {
                                         DateTime dateTime = DateTime.Parse(activityDate);
-                                        if (dateTime < currentDate && dateTime >= setDate4)
+                                        if(dateTime < currentDate && dateTime >= setDate4)
                                         {
                                             result5 = true;
                                         }
                                     }
-                                    catch (Exception e)
+                                    catch(Exception e)
                                     {
 
                                     }
@@ -890,28 +890,28 @@ namespace SF_Automation.Pages.HomePage
                     case "Next 7 Days":
                         DateTime setDate5 = currentDate.AddDays(7);
 
-                        bool recPresent5 = CustomFunctions.IsElementPresent(driver,lblNoRecords);
+                        bool recPresent5 = CustomFunctions.IsElementPresent(driver, lblNoRecords);
                         if(recPresent5 == false)
                         {
                             //Get the no. of record in table
                             string noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
                             int recordCount = Convert.ToInt32(noOfRows) - 1;
 
-                            for(int j = 2;j <= recordCount;j++)
+                            for(int j = 2; j <= recordCount; j++)
                             {
-                                bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div"));
+                                bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div"));
                                 if(elePresent == true)
                                 {
                                     string activityDate = driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div")).Text;
                                     try
                                     {
                                         DateTime dateTime = DateTime.Parse(activityDate);
-                                        if (dateTime < currentDate && dateTime >= setDate5)
+                                        if(dateTime < currentDate && dateTime >= setDate5)
                                         {
                                             result6 = true;
                                         }
                                     }
-                                    catch (Exception e)
+                                    catch(Exception e)
                                     {
 
                                     }
@@ -926,28 +926,28 @@ namespace SF_Automation.Pages.HomePage
                     case "Next 30 Days":
                         DateTime setDate6 = currentDate.AddDays(30);
 
-                        bool recPresent6 = CustomFunctions.IsElementPresent(driver,lblNoRecords);
+                        bool recPresent6 = CustomFunctions.IsElementPresent(driver, lblNoRecords);
                         if(recPresent6 == false)
                         {
                             //Get the no. of record in table
                             string noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
                             int recordCount = Convert.ToInt32(noOfRows) - 1;
 
-                            for(int j = 2;j <= recordCount;j++)
+                            for(int j = 2; j <= recordCount; j++)
                             {
-                                bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div"));
+                                bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div"));
                                 if(elePresent == true)
                                 {
                                     string activityDate = driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div")).Text;
                                     try
                                     {
                                         DateTime dateTime = DateTime.Parse(activityDate);
-                                        if (dateTime < currentDate && dateTime >= setDate6)
+                                        if(dateTime < currentDate && dateTime >= setDate6)
                                         {
                                             result7 = true;
                                         }
                                     }
-                                    catch (Exception e)
+                                    catch(Exception e)
                                     {
 
                                     }
@@ -962,28 +962,28 @@ namespace SF_Automation.Pages.HomePage
                     case "Next 3 Months":
                         DateTime setDate7 = currentDate.AddMonths(3);
 
-                        bool recPresent7 = CustomFunctions.IsElementPresent(driver,lblNoRecords);
+                        bool recPresent7 = CustomFunctions.IsElementPresent(driver, lblNoRecords);
                         if(recPresent7 == false)
                         {
                             //Get the no. of record in table
                             string noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
                             int recordCount = Convert.ToInt32(noOfRows) - 1;
 
-                            for(int j = 2;j <= recordCount;j++)
+                            for(int j = 2; j <= recordCount; j++)
                             {
-                                bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div"));
+                                bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div"));
                                 if(elePresent == true)
                                 {
                                     string activityDate = driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div")).Text;
                                     try
                                     {
                                         DateTime dateTime = DateTime.Parse(activityDate);
-                                        if (dateTime < currentDate && dateTime >= setDate7)
+                                        if(dateTime < currentDate && dateTime >= setDate7)
                                         {
                                             result8 = true;
                                         }
                                     }
-                                    catch (Exception e)
+                                    catch(Exception e)
                                     {
 
                                     }
@@ -998,28 +998,28 @@ namespace SF_Automation.Pages.HomePage
                     case "Next 6 Months":
                         DateTime setDate8 = currentDate.AddMonths(6);
 
-                        bool recPresent8 = CustomFunctions.IsElementPresent(driver,lblNoRecords);
+                        bool recPresent8 = CustomFunctions.IsElementPresent(driver, lblNoRecords);
                         if(recPresent8 == false)
                         {
                             //Get the no. of record in table
                             string noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
                             int recordCount = Convert.ToInt32(noOfRows) - 1;
 
-                            for(int j = 2;j <= recordCount;j++)
+                            for(int j = 2; j <= recordCount; j++)
                             {
-                                bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div"));
+                                bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div"));
                                 if(elePresent == true)
                                 {
                                     string activityDate = driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div")).Text;
                                     try
                                     {
                                         DateTime dateTime = DateTime.Parse(activityDate);
-                                        if (dateTime < currentDate && dateTime >= setDate8)
+                                        if(dateTime < currentDate && dateTime >= setDate8)
                                         {
                                             result9 = true;
                                         }
                                     }
-                                    catch (Exception e)
+                                    catch(Exception e)
                                     {
 
                                     }
@@ -1034,28 +1034,28 @@ namespace SF_Automation.Pages.HomePage
                     case "Next 12 Months":
                         DateTime setDate9 = currentDate.AddMonths(12);
 
-                        bool recPresent9 = CustomFunctions.IsElementPresent(driver,lblNoRecords);
+                        bool recPresent9 = CustomFunctions.IsElementPresent(driver, lblNoRecords);
                         if(recPresent9 == false)
                         {
                             //Get the no. of record in table
                             string noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
                             int recordCount = Convert.ToInt32(noOfRows) - 1;
 
-                            for(int j = 2;j <= recordCount;j++)
+                            for(int j = 2; j <= recordCount; j++)
                             {
-                                bool elePresent = CustomFunctions.IsElementPresent(driver,By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div"));
+                                bool elePresent = CustomFunctions.IsElementPresent(driver, By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div"));
                                 if(elePresent == true)
                                 {
                                     string activityDate = driver.FindElement(By.XPath($"(//table[@class='data-grid-table data-grid-full-table'])[2]/tbody/tr[{j}]/th[4]/div/div")).Text;
                                     try
                                     {
                                         DateTime dateTime = DateTime.Parse(activityDate);
-                                        if (dateTime < currentDate && dateTime >= setDate9)
+                                        if(dateTime < currentDate && dateTime >= setDate9)
                                         {
                                             result10 = true;
                                         }
                                     }
-                                    catch (Exception e)
+                                    catch(Exception e)
                                     {
 
                                     }
@@ -1069,7 +1069,7 @@ namespace SF_Automation.Pages.HomePage
                         break;
                 }
 
-                WebDriverWaits.WaitUntilEleVisible(driver,dropdownStartDateFilter,120);
+                WebDriverWaits.WaitUntilEleVisible(driver, dropdownStartDateFilter, 120);
                 driver.FindElement(dropdownStartDateFilter).Click();
                 Thread.Sleep(5000);
             }
@@ -1077,7 +1077,7 @@ namespace SF_Automation.Pages.HomePage
             driver.FindElement(dropdownStartDateFilter).Click();
             Thread.Sleep(5000);
 
-            if (result1 == true || result2 == true && result3 == true && result4 == true && result5 == true && result6 == true && result7 == true && result8 == true && result9 == true && result10 == true)
+            if(result1 == true || result2 == true && result3 == true && result4 == true && result5 == true && result6 == true && result7 == true && result8 == true && result9 == true && result10 == true)
             {
                 overallResult = true;
             }
@@ -1091,7 +1091,7 @@ namespace SF_Automation.Pages.HomePage
             string excelPath = dir + file;
 
             bool result = false;
-            int excelCount = ReadExcelData.GetRowCount(excelPath,"KPIMetrics");
+            int excelCount = ReadExcelData.GetRowCount(excelPath, "KPIMetrics");
             string lblKPI1 = driver.FindElement(lblKPITotal).Text;
             string lblKPI2 = driver.FindElement(lblKPIMeetings).Text;
             string lblKPI3 = driver.FindElement(lblKPICalls).Text;
@@ -1099,10 +1099,10 @@ namespace SF_Automation.Pages.HomePage
             string lblKPI5 = driver.FindElement(lblKPIOthers).Text;
             string lblKPI6 = driver.FindElement(lblKPIMissingNotes).Text;
 
-            for(int i = 2;i <= excelCount;i++)
+            for(int i = 2; i <= excelCount; i++)
             {
-                string exlKPIValue = ReadExcelData.ReadDataMultipleRows(excelPath,"KPIMetrics",i,1);
-                if(exlKPIValue==lblKPI1 || exlKPIValue == lblKPI2 || exlKPIValue == lblKPI3 || exlKPIValue == lblKPI4 || exlKPIValue == lblKPI5 || exlKPIValue == lblKPI6)
+                string exlKPIValue = ReadExcelData.ReadDataMultipleRows(excelPath, "KPIMetrics", i, 1);
+                if(exlKPIValue == lblKPI1 || exlKPIValue == lblKPI2 || exlKPIValue == lblKPI3 || exlKPIValue == lblKPI4 || exlKPIValue == lblKPI5 || exlKPIValue == lblKPI6)
                 {
                     result = true;
                 }
@@ -1181,14 +1181,14 @@ namespace SF_Automation.Pages.HomePage
                 break;
             }
 
-            int excelCount = ReadExcelData.GetRowCount(excelPath,"ActivityColumns");
+            int excelCount = ReadExcelData.GetRowCount(excelPath, "ActivityColumns");
             int columnCount = driver.FindElements(By.XPath("(//table[@role='grid'])[5]/tbody/tr[1]/th")).Count;
 
-            for(int i = 2;i <= excelCount;i++)
+            for(int i = 2; i <= excelCount; i++)
             {
-                string exlColValue = ReadExcelData.ReadDataMultipleRows(excelPath,"ActivityColumns",i,1);
+                string exlColValue = ReadExcelData.ReadDataMultipleRows(excelPath, "ActivityColumns", i, 1);
 
-                for(int j = 1;j <= columnCount; j++)
+                for(int j = 1; j <= columnCount; j++)
                 {
                     string sfColValue = driver.FindElement(By.XPath($"(//table[@role='grid'])[5]/tbody/tr[1]/th[{j}]/div/div/div/button/span/span")).Text;
                     if(exlColValue == sfColValue)
@@ -1227,7 +1227,7 @@ namespace SF_Automation.Pages.HomePage
             bool result5 = false;
             bool result6 = false;
 
-            WebDriverWaits.WaitUntilEleVisible(driver,dropdownStartDateFilter,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, dropdownStartDateFilter, 120);
             driver.FindElement(dropdownStartDateFilter).Click();
             Thread.Sleep(5000);
 
@@ -1235,21 +1235,21 @@ namespace SF_Automation.Pages.HomePage
             Thread.Sleep(3000);
 
             //Get total no. of KPI
-            int excelCount = ReadExcelData.GetRowCount(excelPath,"KPIMetrics");
+            int excelCount = ReadExcelData.GetRowCount(excelPath, "KPIMetrics");
 
-            for(int i = 2;i <= excelCount;i++)
+            for(int i = 2; i <= excelCount; i++)
             {
-                string exlKPIValue = ReadExcelData.ReadDataMultipleRows(excelPath,"KPIMetrics",i,1);
+                string exlKPIValue = ReadExcelData.ReadDataMultipleRows(excelPath, "KPIMetrics", i, 1);
                 switch(exlKPIValue)
                 {
                     case "Total":
                         string lblKPI1Count = driver.FindElement(lblTotalRecords).Text;
 
-                        if (lblKPI1Count == "0")
+                        if(lblKPI1Count == "0")
                         {
                             Thread.Sleep(2000);
                             bool recPresent = CustomFunctions.IsElementPresent(driver, lblNoRecords);
-                            if (recPresent == true)
+                            if(recPresent == true)
                             {
                                 result1 = true;
                             }
@@ -1260,12 +1260,12 @@ namespace SF_Automation.Pages.HomePage
                             string noOfRows = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[2]")).GetAttribute("aria-rowcount");
                             int rowCount = Convert.ToInt32(noOfRows) - 1;
                             string totalRows = Convert.ToString(rowCount);
-                            if (lblKPI1Count == totalRows)
+                            if(lblKPI1Count == totalRows)
                             {
                                 result1 = true;
                             }
                         }
-                        
+
                         break;
                     case "Meetings":
                         string lblKPI2Count = driver.FindElement(lblMeetingRecords).Text;
@@ -1277,7 +1277,7 @@ namespace SF_Automation.Pages.HomePage
                         {
                             Thread.Sleep(2000);
                             bool recPresent = CustomFunctions.IsElementPresent(driver, lblNoRecords);
-                            if(recPresent==true)
+                            if(recPresent == true)
                             {
                                 result2 = true;
                             }
@@ -1296,7 +1296,7 @@ namespace SF_Automation.Pages.HomePage
                             string noOfRows1 = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[3]")).GetAttribute("aria-rowcount");
                             int rowCount1 = Convert.ToInt32(noOfRows1) - 1;
                             string totalRows1 = Convert.ToString(rowCount1);
-                            if (lblKPI2Count == totalRows1)
+                            if(lblKPI2Count == totalRows1)
                             {
                                 result2 = true;
                             }
@@ -1311,11 +1311,11 @@ namespace SF_Automation.Pages.HomePage
                         driver.FindElement(linkKPICallsViewDetails).Click();
                         Thread.Sleep(3000);
 
-                        if (lblKPI3Count == "0")
+                        if(lblKPI3Count == "0")
                         {
                             Thread.Sleep(2000);
                             bool recPresent = CustomFunctions.IsElementPresent(driver, lblNoRecords);
-                            if (recPresent == true)
+                            if(recPresent == true)
                             {
                                 result3 = true;
                             }
@@ -1334,7 +1334,7 @@ namespace SF_Automation.Pages.HomePage
                             string noOfRows2 = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[3]")).GetAttribute("aria-rowcount");
                             int rowCount2 = Convert.ToInt32(noOfRows2) - 1;
                             string totalRows2 = Convert.ToString(rowCount2);
-                            if (lblKPI3Count == totalRows2)
+                            if(lblKPI3Count == totalRows2)
                             {
                                 result3 = true;
                             }
@@ -1349,11 +1349,11 @@ namespace SF_Automation.Pages.HomePage
                         driver.FindElement(linkKPIEmailsViewDetails).Click();
                         Thread.Sleep(3000);
 
-                        if (lblKPI4Count == "0")
+                        if(lblKPI4Count == "0")
                         {
                             Thread.Sleep(2000);
                             bool recPresent = CustomFunctions.IsElementPresent(driver, lblNoRecords);
-                            if (recPresent == true)
+                            if(recPresent == true)
                             {
                                 result4 = true;
                             }
@@ -1372,7 +1372,7 @@ namespace SF_Automation.Pages.HomePage
                             string noOfRows3 = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[3]")).GetAttribute("aria-rowcount");
                             int rowCount3 = Convert.ToInt32(noOfRows3) - 1;
                             string totalRows3 = Convert.ToString(rowCount3);
-                            if (lblKPI4Count == totalRows3)
+                            if(lblKPI4Count == totalRows3)
                             {
                                 result4 = true;
                             }
@@ -1387,11 +1387,11 @@ namespace SF_Automation.Pages.HomePage
                         driver.FindElement(linkKPIOthersViewDetails).Click();
                         Thread.Sleep(3000);
 
-                        if (lblKPI5Count == "0")
+                        if(lblKPI5Count == "0")
                         {
                             Thread.Sleep(2000);
                             bool recPresent = CustomFunctions.IsElementPresent(driver, lblNoRecords);
-                            if (recPresent == true)
+                            if(recPresent == true)
                             {
                                 result5 = true;
                             }
@@ -1410,7 +1410,7 @@ namespace SF_Automation.Pages.HomePage
                             string noOfRows4 = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[3]")).GetAttribute("aria-rowcount");
                             int rowCount4 = Convert.ToInt32(noOfRows4) - 1;
                             string totalRows4 = Convert.ToString(rowCount4);
-                            if (lblKPI5Count == totalRows4)
+                            if(lblKPI5Count == totalRows4)
                             {
                                 result5 = true;
                             }
@@ -1425,11 +1425,11 @@ namespace SF_Automation.Pages.HomePage
                         driver.FindElement(linkKPIMissingNotesViewDetails).Click();
                         Thread.Sleep(3000);
 
-                        if (lblKPI6Count == "0")
+                        if(lblKPI6Count == "0")
                         {
                             Thread.Sleep(2000);
                             bool recPresent = CustomFunctions.IsElementPresent(driver, lblNoRecords);
-                            if (recPresent == true)
+                            if(recPresent == true)
                             {
                                 result6 = true;
                             }
@@ -1448,7 +1448,7 @@ namespace SF_Automation.Pages.HomePage
                             string noOfRows5 = driver.FindElement(By.XPath("(//table[@class='data-grid-table data-grid-full-table'])[3]")).GetAttribute("aria-rowcount");
                             int rowCount5 = Convert.ToInt32(noOfRows5) - 1;
                             string totalRows5 = Convert.ToString(rowCount5);
-                            if (lblKPI6Count == totalRows5)
+                            if(lblKPI6Count == totalRows5)
                             {
                                 result6 = true;
                             }
@@ -1459,7 +1459,7 @@ namespace SF_Automation.Pages.HomePage
                         break;
                 }
             }
-            if(result1==true || result2==true && result3 == true && result4 == true && result5 == true && result6 == true)
+            if(result1 == true || result2 == true && result3 == true && result4 == true && result5 == true && result6 == true)
             {
                 overallResult = true;
             }
@@ -1470,14 +1470,14 @@ namespace SF_Automation.Pages.HomePage
         {
             Thread.Sleep(3000);
 
-            WebDriverWaits.WaitUntilEleVisible(driver,menuNavigation,120);
+            WebDriverWaits.WaitUntilEleVisible(driver, menuNavigation, 120);
             driver.FindElement(menuNavigation).Click();
             Thread.Sleep(5000);
 
             IList<IWebElement> elements = driver.FindElements(By.XPath("//ul[@aria-label='Navigation Menu']/li"));
             int size = elements.Count;
 
-            for(int items = 1;items <= size;items++)
+            for(int items = 1; items <= size; items++)
             {
                 By itemLink = By.XPath($"//ul[@aria-label='Navigation Menu']/li[{items}]/div/a");
 
@@ -1503,7 +1503,7 @@ namespace SF_Automation.Pages.HomePage
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, appHeader, 30);
             string defaultApp = driver.FindElement(appHeader).Text;
-            if (defaultApp == appName)
+            if(defaultApp == appName)
             {
                 //No need to select app again as desired aap is already selected
             }
