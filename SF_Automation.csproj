@@ -579,6 +579,7 @@
     <Compile Include="Pages\CoverageSectorDependencies\CoverageSectorDependenciesDetailPage.cs" />
     <Compile Include="Pages\CoverageSectorDependencies\CoverageSectorDependenciesHomePage.cs" />
     <Compile Include="Pages\CoverageSectorDependencies\NewCoverageSectorDependenciesPage.cs" />
+    <Compile Include="Pages\CoverageTeam\CoverageTeamPage.cs" />
     <Compile Include="Pages\Engagement\AddCounterparty.cs" />
     <Compile Include="Pages\Engagement\CFEngagementSummaryPage.cs" />
     <Compile Include="Pages\Engagement\ContractDetailsPage.cs" />
@@ -673,6 +674,7 @@
     <Compile Include="TestCases\Contact\LV_TMTC0019257_VerifyContactsValidationRulesAndWorkFlows.cs" />
     <Compile Include="TestCases\Contact\LV_TMTC0019251_VerifyBasicUIOfContactsOnSFLightning.cs" />
     <Compile Include="TestCases\Contact\LV_TMTC0019612_VerifyExternalContactFeaturesOnSFLightning.cs" />
+    <Compile Include="TestCases\CoverageTeam\LV_TMTT0048759_VerifyTheCaptialSolutionChangesImplementedOnCoverageTeamObject.cs" />
     <Compile Include="TestCases\Engagement\LV_TS04AndTS07_ValidateERPSectionAndDefaultContractPostConversionFromOpportunityToEngagementLightningView.cs" />
     <Compile Include="TestCases\Engagement\LV_TS05_ValidateERPSection_PostUpdatingDFFFieldsOfEngagementLightningView.cs" />
     <Compile Include="TestCases\Engagement\LV_TS06_ValidateERPSubmittedAndERPLastIntegrationResponsePostManualSyncEngagementLightningView.cs" />
@@ -1206,6 +1208,7 @@
     <None Include="TestData\LV_TMTT0042958_VerifyCapitalMarketViewsOnOpportunityCounterpartyPage.xlsx" />
     <None Include="TestData\LV_TMTT0046139_VerifyNewInvestorTypeAppearsAsRelatedListForCS_FSCG_MAInvestmentPreferencesCompanyPage.xlsx" />
     <None Include="TestData\LV_TMTT0048687_VerifyTheCaptialSolutionChangesImplementedOnJobTypeobject.xlsx" />
+    <None Include="TestData\LV_TMTT0048759_VerifyTheCaptialSolutionChangesImplementedOnCoverageTeamObject.xlsx" />
     <None Include="TestData\LV_TMTT0049795_VerifyMergersAcquisitionsChangesInJobTypesObject.xlsx" />
     <None Include="TestData\LV_TS01_ValidateERPSection.xlsx" />
     <None Include="TestData\LV_TS02_PostUpdatingDFFFieldsOfOpportunity.xlsx" />
