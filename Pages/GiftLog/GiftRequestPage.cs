@@ -12,7 +12,7 @@ namespace SF_Automation.Pages.GiftLog
 {
     class GiftRequestPage : BaseClass
     {
-
+        
         By shwAllTab = By.CssSelector("li[id='AllTab_Tab'] > a > img");
         By linkGiftRequests = By.CssSelector("td[class*='dataCol Custom40Block'] > a > img[title='Gift Requests']");
         By valGiftRequestsTitle = By.CssSelector("h2[class='mainTitle']");
@@ -93,11 +93,11 @@ namespace SF_Automation.Pages.GiftLog
 
         By btnSubmitGiftRequestL = By.XPath("");
         By frameGiftRequestL = By.XPath("//iframe[@title='accessibility title']");
-        By frameGiftRequestL2 = By.XPath("(//iframe[@title='accessibility title'])[2]");
+        By frameGiftRequestL2= By.XPath("(//iframe[@title='accessibility title'])[2]");
         By txtGiftTypeErrorL = By.XPath("//label[text()='Gift Type']/ancestor::tbody//td//div[@class='errorMsg']");
         By txtGiftNameErrorL = By.XPath("//h3[text()='Gift Details']/../..//tr[1]//td[1]//div[@class='errorMsg']");
         By txtHLRelationshipL = By.XPath("//h3[text()='Gift Details']/../..//tr[1]//td[2]//div[@class='errorMsg']");
-        By txtGiftValueL = By.XPath("//h3[text()='Gift Details']/../..//tr[2]//td[1]//div[@class='errorMsg']");
+        By txtGiftValueL= By.XPath("//h3[text()='Gift Details']/../..//tr[2]//td[1]//div[@class='errorMsg']");
         By txtVendorL = By.XPath("//h3[text()='Gift Details']/../..//tr[3]//td[2]//div[@class='errorMsg']");
 
         By listHaderErrors = By.CssSelector("div[class*='message errorM3']>table>tbody>tr:nth-child(2)>td>span>ul>li");
@@ -257,7 +257,7 @@ namespace SF_Automation.Pages.GiftLog
             Thread.Sleep(5000);
         }
         public void EnterGiftValueLV(string value)
-        {
+        {          
             WebDriverWaits.WaitUntilEleVisible(driver, txtGiftValue, 20);
             driver.FindElement(txtGiftValue).Clear();
             driver.FindElement(txtGiftValue).SendKeys(value);
@@ -269,8 +269,8 @@ namespace SF_Automation.Pages.GiftLog
                 WebDriverWaits.WaitUntilEleVisible(driver, btnSubmitGiftRequest, 10);
                 return CustomFunctions.IsElementPresent(driver, btnSubmitGiftRequest);
             }
-            catch { return false; }
-
+            catch {return false; }
+            
         }
         public void ClickReviseRequestButtonLV()
         {
@@ -299,13 +299,13 @@ namespace SF_Automation.Pages.GiftLog
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valNewGiftAmtYTD, 20);
             string colorOfValueNewGiftAmtYTD = driver.FindElement(valNewGiftAmtYTD).GetCssValue("color");
-            if(colorOfValueNewGiftAmtYTD.Equals("rgba(255, 0, 0, 1)"))
+            if (colorOfValueNewGiftAmtYTD.Equals("rgba(255, 0, 0, 1)"))
             {
                 return "Red";
             }
-            if(colorOfValueNewGiftAmtYTD.Equals("rgba(0, 0, 0, 1)"))
+            if (colorOfValueNewGiftAmtYTD.Equals("rgba(0, 0, 0, 1)"))
             {
-                return "Red";
+                return "Black";
             }
             else
             {
@@ -339,7 +339,7 @@ namespace SF_Automation.Pages.GiftLog
         }
         public string EnterDesiredDateLV(int Days)
         {
-            string getDate = DateTime.Today.AddDays(Days).ToString("dd/MM/yyyy");
+            string getDate = DateTime.Today.AddDays(Days).ToString("MM/dd/yyyy");//dd/MM/yyyy
             WebDriverWaits.WaitUntilEleVisible(driver, txtDesireDate);
             driver.FindElement(txtDesireDate).Clear();
             string newDate = getDate.Replace('-', '/');
@@ -433,7 +433,7 @@ namespace SF_Automation.Pages.GiftLog
             WebDriverWaits.WaitUntilEleVisible(driver, btnSearch, 20);
             driver.FindElement(btnSearch).Click();
             CustomFunctions.SelectByIndex(driver, driver.FindElement(selectCompanyName), 0);
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,800)");
         }
         public string GetAvailableRecipientCompanyLV()
@@ -446,7 +446,7 @@ namespace SF_Automation.Pages.GiftLog
         //Verify Contact Name Combo Box
         public void SearchWithContactNameComboBoxLV(string value, string contactname)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             CustomFunctions.SelectByText(driver, driver.FindElement(selectContactName), value);
             //Enter contact name
             WebDriverWaits.WaitUntilEleVisible(driver, txtContactName);
@@ -460,9 +460,11 @@ namespace SF_Automation.Pages.GiftLog
         }
         public string GetAvailableRecipientNameLV()
         {
+            Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, valAvailableRecipientName, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(valAvailableRecipientName));
             string AvailableRecipientName = driver.FindElement(valAvailableRecipientName).Text;
+            Thread.Sleep(2000);
             return AvailableRecipientName;
         }
         public void SearchWithCompanyContactNameComboBoxLV(string value, string val, string companyname, string contactname)
@@ -480,7 +482,7 @@ namespace SF_Automation.Pages.GiftLog
             driver.FindElement(btnSearch).Click();
             CustomFunctions.SelectByIndex(driver, driver.FindElement(selectContactName), 0);
             Thread.Sleep(5000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,800)");
 
         }
@@ -496,8 +498,8 @@ namespace SF_Automation.Pages.GiftLog
             Thread.Sleep(1000);
         }
         public bool ValidateFieldsUnderGiftBillingDetailsSectionLV()
-        {
-            if(driver.FindElement(comboGiftType).Displayed && driver.FindElement(txtSubmittedFor).Displayed)
+        {            
+            if (driver.FindElement(comboGiftType).Displayed && driver.FindElement(txtSubmittedFor).Displayed)
             {
                 return true;
             }
@@ -508,7 +510,7 @@ namespace SF_Automation.Pages.GiftLog
         }
         public bool ValidateFieldsUnderGiftDetailsSectionLV()
         {
-            if(driver.FindElement(txtGiftName).Displayed && driver.FindElement(txtGiftValue).Displayed && driver.FindElement(comboHlRelationship).Displayed && driver.FindElement(comboCurrency).Displayed && driver.FindElement(txtVendor).Displayed && driver.FindElement(txtReasonForGift).Displayed && driver.FindElement(txtDesireDate).Displayed && driver.FindElement(chkDivideGiftValue).Displayed)
+            if (driver.FindElement(txtGiftName).Displayed && driver.FindElement(txtGiftValue).Displayed && driver.FindElement(comboHlRelationship).Displayed && driver.FindElement(comboCurrency).Displayed && driver.FindElement(txtVendor).Displayed && driver.FindElement(txtReasonForGift).Displayed && driver.FindElement(txtDesireDate).Displayed && driver.FindElement(chkDivideGiftValue).Displayed)
             {
                 return true;
             }
@@ -520,7 +522,7 @@ namespace SF_Automation.Pages.GiftLog
 
         public bool ValidateFieldsUnderGiftRecipientsSectionLV()
         {
-            if(driver.FindElement(txtCompanyName).Displayed && driver.FindElement(txtContactName).Displayed)
+            if (driver.FindElement(txtCompanyName).Displayed && driver.FindElement(txtContactName).Displayed)
             {
                 return true;
             }
@@ -607,17 +609,17 @@ namespace SF_Automation.Pages.GiftLog
             driver.SwitchTo().Frame(driver.FindElement(resultFrame));
             string txt = driver.FindElement(txtSearchResults).Text.Trim();
             driver.SwitchTo().DefaultContent();
-            if(txt == "No records were found based on your criteria")
+            if (txt == "No records were found based on your criteria")
                 return txt;
-            else
-                return "Records were found based on your criteria";
+            else 
+                return "Records were found based on your criteria";            
         }
         public bool VerifyRadioBtnNameLV()
         {
             driver.SwitchTo().Frame(driver.FindElement(searchFrame));
             string str = driver.FindElement(radioBtnName).GetAttribute("checked");
             driver.SwitchTo().DefaultContent();
-            if(str.Equals("true"))
+            if (str.Equals("true"))
             {
                 return true;
             }
@@ -651,7 +653,7 @@ namespace SF_Automation.Pages.GiftLog
             Thread.Sleep(1000);
             WebDriverWaits.WaitUntilEleVisible(driver, elmToolTipL, 15);
             return driver.FindElement(elmToolTipL).Text.Trim();
-        }
+        }               
 
         public string GetRecipientErrorMessageLV()
         {
@@ -675,7 +677,7 @@ namespace SF_Automation.Pages.GiftLog
             //Enter value of gift name
             WebDriverWaits.WaitUntilEleVisible(driver, txtGiftName);
             driver.FindElement(txtGiftName).Clear();
-            string valGiftName = "GiftName_" + CustomFunctions.RandomValue();
+            string valGiftName = "GiftName_"+CustomFunctions.RandomValue();
             driver.FindElement(txtGiftName).SendKeys(valGiftName);
 
             // Enter gift value
@@ -714,12 +716,12 @@ namespace SF_Automation.Pages.GiftLog
             //Click search button
             WebDriverWaits.WaitUntilEleVisible(driver, btnSearch, 10);
             driver.FindElement(btnSearch).Click();
-            Thread.Sleep(5000);
+            Thread.Sleep(8000);
             return valGiftName;
         }
         public string AreRequiredFieldsValidationDisplayedLV(string file)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
@@ -728,28 +730,28 @@ namespace SF_Automation.Pages.GiftLog
             IList<IWebElement> fieldErrorsList = driver.FindElements(listHaderErrors);
             bool errorFound = false;
             int rowOpp = ReadExcelData.GetRowCount(excelPath, "GiftLogErrors");
-            foreach(IWebElement txtFieldError in fieldErrorsList)
+            foreach (IWebElement txtFieldError in fieldErrorsList)
             {
                 errorFound = false;
                 string ActualError = txtFieldError.Text.Trim();
-                for(int row = 2; row <= rowOpp; row++)
-                {
+                for (int row = 2; row <= rowOpp; row++)
+                {                    
                     string valErrorExl = ReadExcelData.ReadDataMultipleRows(excelPath, "GiftLogErrors", row, 1);
-                    if(ActualError == valErrorExl)
+                    if(ActualError== valErrorExl)
                     {
                         errorFound = true;
                         break;
                     }
                 }
             }
-            if(errorFound)
+            if (errorFound)
                 return "All errors for required fields are correct";
             else
                 return "Required fields errors are not correct";
         }
 
         public void ClickSubmitGiftRequestLV()
-        {
+        {   
             CustomFunctions.MoveToElement(driver, driver.FindElement(btnSubmitGiftRequest));
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSubmitGiftRequest, 20);
@@ -787,7 +789,7 @@ namespace SF_Automation.Pages.GiftLog
         {
 
             string valueOfDropDwn = driver.FindElement(valDrpDwnValue).Text;
-            if(valueOfDropDwn.Equals("HL Force"))
+            if (valueOfDropDwn.Equals("HL Force"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, drpdwnArrow, 120);
                 driver.FindElement(drpdwnArrow).Click();
@@ -822,11 +824,11 @@ namespace SF_Automation.Pages.GiftLog
             driver.FindElement(shwAllTab).Click();
 
             WebDriverWaits.WaitUntilEleVisible(driver, linkGiftRequests, 120);
-            driver.FindElement(linkGiftRequests).Click();
+            driver.FindElement(linkGiftRequests).Click();            
         }
 
         public string GetGiftRequestPageTitle()
-        {
+        {            
             WebDriverWaits.WaitUntilEleVisible(driver, valGiftRequestsTitle, 60);
             string selectedCompanyTypeSelected = driver.FindElement(valGiftRequestsTitle).Text;
             return selectedCompanyTypeSelected;
@@ -834,7 +836,7 @@ namespace SF_Automation.Pages.GiftLog
 
         public bool ValidateFieldsUnderGiftBillingDetailsSection()
         {
-            if(driver.FindElement(comboGiftType).Displayed && driver.FindElement(txtSubmittedFor).Displayed)
+            if (driver.FindElement(comboGiftType).Displayed && driver.FindElement(txtSubmittedFor).Displayed)
             {
                 return true;
             }
@@ -845,7 +847,7 @@ namespace SF_Automation.Pages.GiftLog
         }
         public bool ValidateFieldsUnderGiftDetailsSection()
         {
-            if(driver.FindElement(txtGiftName).Displayed && driver.FindElement(txtGiftValue).Displayed && driver.FindElement(comboHlRelationship).Displayed && driver.FindElement(comboCurrency).Displayed && driver.FindElement(txtVendor).Displayed && driver.FindElement(txtReasonForGift).Displayed && driver.FindElement(txtDesireDate).Displayed && driver.FindElement(chkDivideGiftValue).Displayed)
+            if (driver.FindElement(txtGiftName).Displayed && driver.FindElement(txtGiftValue).Displayed && driver.FindElement(comboHlRelationship).Displayed && driver.FindElement(comboCurrency).Displayed && driver.FindElement(txtVendor).Displayed && driver.FindElement(txtReasonForGift).Displayed && driver.FindElement(txtDesireDate).Displayed && driver.FindElement(chkDivideGiftValue).Displayed)
             {
                 return true;
             }
@@ -857,7 +859,7 @@ namespace SF_Automation.Pages.GiftLog
 
         public bool ValidateFieldsUnderGiftRecipientsSection()
         {
-            if(driver.FindElement(txtCompanyName).Displayed && driver.FindElement(txtContactName).Displayed)
+            if (driver.FindElement(txtCompanyName).Displayed && driver.FindElement(txtContactName).Displayed)
             {
                 return true;
             }
@@ -1233,7 +1235,7 @@ namespace SF_Automation.Pages.GiftLog
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valNewGiftAmtYTD, 60);
             string colorOfValueNewGiftAmtYTD = driver.FindElement(valNewGiftAmtYTD).GetCssValue("color");
-            if(colorOfValueNewGiftAmtYTD.Equals("rgba(255, 0, 0, 1)"))
+            if (colorOfValueNewGiftAmtYTD.Equals("rgba(255, 0, 0, 1)"))
             {
                 return "Red";
             }
@@ -1256,7 +1258,7 @@ namespace SF_Automation.Pages.GiftLog
         public bool VerifyWarningMessageDisplayed()
         {
             bool result = false;
-            if(driver.FindElement(valWarningMsgFirstLine).Displayed && driver.FindElement(valWarningMsgNextLine).Displayed)
+            if (driver.FindElement(valWarningMsgFirstLine).Displayed && driver.FindElement(valWarningMsgNextLine).Displayed)
             {
                 result = true;
             }
@@ -1305,7 +1307,7 @@ namespace SF_Automation.Pages.GiftLog
         {
             string str = driver.FindElement(radioBtnName).GetAttribute("checked");
             Console.WriteLine(str);
-            if(str.Equals("true"))
+            if (str.Equals("true"))
             {
 
                 return true;

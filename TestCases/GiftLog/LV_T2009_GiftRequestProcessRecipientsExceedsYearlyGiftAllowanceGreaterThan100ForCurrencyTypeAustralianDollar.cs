@@ -136,7 +136,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Page Title: " + giftRequestTitle + " is diplayed upon click of revise request button ");
 
                 //Set Desire date to Next Calendar year
-                newDesireDate = giftRequest.EnterDesiredDateLV(364);
+                newDesireDate = giftRequest.EnterDesiredDateLV(363);//365
                 extentReports.CreateLog("Next Calendar Year date is set to: " + newDesireDate);
 
                 //Click on submit gift request
@@ -156,12 +156,12 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog(congratulationMsg + " message is displayed upon successful submission of gift request. ");
 
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 driver.SwitchTo().DefaultContent();

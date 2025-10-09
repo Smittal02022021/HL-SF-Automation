@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class LV_T2006_GiftLogGiftRequestProcessGiftSubmissionForCurrentAndNextCalendarYear : BaseClass
+    class LV_T2006_GiftLogGiftRequestProcessGiftSubmissionForCurrentAndNextCalendarYear:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -111,12 +111,12 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Error Message: " + DesiredDateError + " is displayed upon entering a desire date greater than an year and clicking on submit gift request ");
 
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 driver.SwitchTo().DefaultContent();

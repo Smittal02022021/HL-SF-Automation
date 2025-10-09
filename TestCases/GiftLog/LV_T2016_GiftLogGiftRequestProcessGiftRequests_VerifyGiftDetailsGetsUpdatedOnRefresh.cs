@@ -148,7 +148,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateStepLogs("Info", "Gift Value: " + valueOfGift + " is displayed for next year. ");
 
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");

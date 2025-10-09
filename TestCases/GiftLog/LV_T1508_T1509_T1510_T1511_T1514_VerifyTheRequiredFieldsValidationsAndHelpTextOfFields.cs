@@ -155,7 +155,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateStepLogs("Passed", "Record found when user searched for Department: " + DeptSrchResults);
                 
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");

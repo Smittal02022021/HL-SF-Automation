@@ -15,7 +15,7 @@ using System.Threading;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class LV_T1524_T2014_GiftApprovalProcessApproveGiftsVerifyPendingApprovedAndDeniedGiftsEditRights : BaseClass
+    class LV_T1524_T2014_GiftApprovalProcessApproveGiftsVerifyPendingApprovedAndDeniedGiftsEditRights:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -54,7 +54,7 @@ namespace SF_Automation.TestCases.GiftLog
                 string excelPath = ReadJSONData.data.filePaths.testData + fileT2014;
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
-                extentReports.CreateStepLogs("Pass", driver.Title + " is displayed ");
+                extentReports.CreateStepLogs("Pass", driver.Title + " is displayed ");               
                 login.LoginApplication();
                 login.SwitchToClassicView();
                 // Validate user logged in                   
@@ -179,7 +179,7 @@ namespace SF_Automation.TestCases.GiftLog
                 Assert.AreEqual("Element is editable", giftEdit.IsDesiredDateEditableLV());
                 extentReports.CreateStepLogs("Passed", "Field: Desired Date is editable on gift request edit page ");
                 //CloseActivetab
-                randomPages.CloseActiveTab("Edit " + valGiftNameEntered);
+                randomPages.CloseActiveTab("Edit "+ valGiftNameEntered);
                 randomPages.ReloadPage();
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
@@ -330,7 +330,7 @@ namespace SF_Automation.TestCases.GiftLog
                 Assert.IsTrue(giftApprove.CompareGiftDescWithGiftNameLV(valGiftNameEntered1));
                 giftApprove.ClickApproveSelectedButtonLV();
 
-                string ErrorMsgApprovalComment = giftApprove.ErrorMsgApprovalCommentLV();
+                string ErrorMsgApprovalComment = giftApprove.ErrorMsgApprovalCommentLV();                
                 Assert.IsTrue(ErrorMsgApprovalComment.Contains("You MUST enter an Approval Comment to exceed the yearly limit. Recipients exceeding yearly limit"));
                 extentReports.CreateStepLogs("Passed", "Error message:" + ErrorMsgApprovalComment + " is displaying ");
 
@@ -346,11 +346,12 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateStepLogs("Info", "Click on Deny Selected Button successfully ");
 
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "Compliance User: " + valUser + " logged out");
-
+                driver.Quit();
+                extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 driver.SwitchTo().DefaultContent();
@@ -363,8 +364,7 @@ namespace SF_Automation.TestCases.GiftLog
                 {
                     contactDetails.DeleteCreatedContact(fileT2014, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
                 }
-                catch
-                {
+                catch{
                     //no record found
                 }
                 conHome.ClickContact();
@@ -380,8 +380,8 @@ namespace SF_Automation.TestCases.GiftLog
 
                 usersLogin.UserLogOut();
                 driver.Quit();
-                extentReports.CreateStepLogs("Info", "Browser Closed");
+                
             }
-        }
+        }        
     }
 }

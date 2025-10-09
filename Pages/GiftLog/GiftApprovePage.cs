@@ -5,7 +5,9 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading;
+using static SF_Automation.TestData.ReadJSONData;
 
 namespace SF_Automation.Pages.GiftLog
 {
@@ -61,17 +63,30 @@ namespace SF_Automation.Pages.GiftLog
 
 
         public string GetGiftStatusLV()
-        {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtGiftStatus, 10);
+        {            
+            WebDriverWaits.WaitUntilEleVisible(driver, txtGiftStatus,10);
             String txt = driver.FindElement(txtGiftStatus).Text;
             return txt;
         }
-
+        
         public void SearchByMonthYearAndStatusRecipientLastNameLV(string lastname, string status)
         {
             Thread.Sleep(3000);
 
-            string getMonth = DateTime.Today.ToString("MMM");
+            string getMonth;
+            string dateStr = DateTime.Today.ToString("dd/MMM/yyyy");
+
+            DateTime date = DateTime.ParseExact(dateStr, "dd/MMM/yyyy", CultureInfo.InvariantCulture);
+            string todayDayDate = date.ToString("dd");
+
+            if (todayDayDate == "01")// || todayDayDate == "02" || todayDayDate == "03" || todayDayDate == "04" || todayDayDate == "05")
+            {
+                getMonth = DateTime.Today.AddMonths(-1).ToString("MMM");
+            }
+            else
+            {
+                getMonth = DateTime.Today.ToString("MMM");
+            }
             WebDriverWaits.WaitUntilEleVisible(driver, comboMonth);
             driver.FindElement(comboMonth).SendKeys(getMonth);
 
@@ -145,27 +160,27 @@ namespace SF_Automation.Pages.GiftLog
         {
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 10);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnEdit,10);
                 return CustomFunctions.IsElementPresent(driver, btnEdit);
             }
             catch
             {
                 return false;
             }
-
+            
         }
         public bool ValidateGiftDescWithGiftNameLV(string giftName)
         {
             Thread.Sleep(6000);
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
-            for(int i = 1; i <= totalRows; i++)
+            for (int i = 1; i <= totalRows; i++)
             {
                 By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
                 IWebElement descGiftWebElement = driver.FindElement(xyz);
 
                 string descGift = descGiftWebElement.Text;
-                if(descGift.Equals(giftName))
+                if (descGift.Equals(giftName))
                 {
                     break;
                 }
@@ -174,7 +189,20 @@ namespace SF_Automation.Pages.GiftLog
         }
         public void SearchByRecipientLastNameAndStatusForNextYearLV(string recipientLastName, string status)
         {
-            string getMonth = DateTime.Today.ToString("MMM");
+            string getMonth;
+            string dateStr = DateTime.Today.ToString("dd/MMM/yyyy");
+
+            DateTime date = DateTime.ParseExact(dateStr, "dd/MMM/yyyy", CultureInfo.InvariantCulture);
+            string todayDayDate = date.ToString("dd");
+
+            if (todayDayDate == "01" || todayDayDate == "02" || todayDayDate == "03" || todayDayDate == "04" || todayDayDate == "05")
+            {
+                getMonth = DateTime.Today.AddMonths(-1).ToString("MMM");
+            }
+            else
+            {
+                getMonth = DateTime.Today.ToString("MMM");
+            }
             WebDriverWaits.WaitUntilEleVisible(driver, comboMonth);
             driver.FindElement(comboMonth).SendKeys(getMonth);
 
@@ -198,13 +226,13 @@ namespace SF_Automation.Pages.GiftLog
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
             string newYTDValue = null;
-            for(int i = 1; i <= totalRows; i++)
+            for (int i = 1; i <= totalRows; i++)
             {
                 By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
                 IWebElement descGiftWebElement = driver.FindElement(xyz);
 
                 string descGift = descGiftWebElement.Text;
-                if(descGift.Equals(giftName))
+                if (descGift.Equals(giftName))
                 {
                     By newYTDLabelValue = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(9)");
                     IWebElement newYTDElement = driver.FindElement(newYTDLabelValue);
@@ -221,13 +249,13 @@ namespace SF_Automation.Pages.GiftLog
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
             string giftValue = null;
-            for(int i = 1; i <= totalRows; i++)
+            for (int i = 1; i <= totalRows; i++)
             {
                 By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
                 IWebElement descGiftWebElement = driver.FindElement(xyz);
 
                 string descGift = descGiftWebElement.Text;
-                if(descGift.Equals(giftName))
+                if (descGift.Equals(giftName))
                 {
                     By giftValueLabel = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(8)");
                     IWebElement giftValueElement = driver.FindElement(giftValueLabel);
@@ -241,17 +269,17 @@ namespace SF_Automation.Pages.GiftLog
         public string GetApprovedPrevYTDValueLV(string giftName)
         {
             Thread.Sleep(2000);
-            WebDriverWaits.WaitUntilEleVisible(driver, GiftDescColLength, 20);
+            WebDriverWaits.WaitUntilEleVisible(driver, GiftDescColLength,20);
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
             string prevYTDValue = null;
-            for(int i = 1; i <= totalRows; i++)
+            for (int i = 1; i <= totalRows; i++)
             {
                 By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
                 IWebElement descGiftWebElement = driver.FindElement(xyz);
 
                 string descGift = descGiftWebElement.Text;
-                if(descGift.Equals(giftName))
+                if (descGift.Equals(giftName))
                 {
                     By prevYTDLabelValue = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(7)");
                     IWebElement prevYTDElement = driver.FindElement(prevYTDLabelValue);
@@ -267,13 +295,13 @@ namespace SF_Automation.Pages.GiftLog
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
             string newYTDValue = null;
-            for(int i = 1; i <= totalRows; i++)
+            for (int i = 1; i <= totalRows; i++)
             {
                 By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
                 IWebElement descGiftWebElement = driver.FindElement(xyz);
 
                 string descGift = descGiftWebElement.Text;
-                if(descGift.Equals(giftName))
+                if (descGift.Equals(giftName))
                 {
                     By newYTDLabelValue = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(12)");
                     IWebElement newYTDElement = driver.FindElement(newYTDLabelValue);
@@ -290,13 +318,13 @@ namespace SF_Automation.Pages.GiftLog
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
             string giftValue = null;
-            for(int i = 1; i <= totalRows; i++)
+            for (int i = 1; i <= totalRows; i++)
             {
                 By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
                 IWebElement descGiftWebElement = driver.FindElement(xyz);
 
                 string descGift = descGiftWebElement.Text;
-                if(descGift.Equals(giftName))
+                if (descGift.Equals(giftName))
                 {
                     By giftValueLabel = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(11)");
                     IWebElement giftValueElement = driver.FindElement(giftValueLabel);
@@ -313,13 +341,13 @@ namespace SF_Automation.Pages.GiftLog
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
             string prevYTDValue = null;
-            for(int i = 1; i <= totalRows; i++)
+            for (int i = 1; i <= totalRows; i++)
             {
                 By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
                 IWebElement descGiftWebElement = driver.FindElement(xyz);
 
                 string descGift = descGiftWebElement.Text;
-                if(descGift.Equals(giftName))
+                if (descGift.Equals(giftName))
                 {
                     By prevYTDLabelValue = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(10)");
                     IWebElement prevYTDElement = driver.FindElement(prevYTDLabelValue);
@@ -338,7 +366,7 @@ namespace SF_Automation.Pages.GiftLog
             IList<IWebElement> element = driver.FindElements(GiftTableColLength);
             int totalColumns = element.Count;
 
-            for(int columnPosition = 2; columnPosition < totalColumns; columnPosition++)
+            for (int columnPosition = 2; columnPosition < totalColumns; columnPosition++)
             {
                 //Get the column name
                 By GiftTableCol = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > thead > tr:nth-child(1) > th:nth-child({columnPosition}) > div > a");
@@ -346,14 +374,14 @@ namespace SF_Automation.Pages.GiftLog
                 //Thread.Sleep(2000);
                 string colName = driver.FindElement(GiftTableCol).Text;
 
-                if(name == colName)
+                if (name == colName)
                 {
                     //Before sort
                     IList<IWebElement> element1 = driver.FindElements(GiftDescColLength);
                     int totalRows = element1.Count;
                     string[] beforSortGiftDesc = new string[totalRows];
                     int i = 0;
-                    for(int j = 1; j <= totalRows; j++)
+                    for (int j = 1; j <= totalRows; j++)
                     {
                         By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({j}) > td:nth-child({columnPosition})");
                         IWebElement descGiftWebElement = driver.FindElement(xyz);
@@ -367,11 +395,11 @@ namespace SF_Automation.Pages.GiftLog
                     By SortIcon = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > thead > tr:nth-child(1) > th:nth-child({columnPosition}) > div > a > img");
                     string sortStatus = driver.FindElement(SortIcon).GetAttribute("alt");
 
-                    if(sortStatus == "Desc")
+                    if (sortStatus == "Desc")
                     {
                         string[] afterSortGiftDesc = new string[totalRows];
                         int k = 0;
-                        for(int m = 1; m <= totalRows; m++)
+                        for (int m = 1; m <= totalRows; m++)
                         {
                             By abc = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({m}) > td:nth-child({columnPosition})");
                             IWebElement descGiftWebElement1 = driver.FindElement(abc);
@@ -391,7 +419,7 @@ namespace SF_Automation.Pages.GiftLog
 
                         string[] afterSortGiftDesc = new string[totalRows];
                         int a = 0;
-                        for(int b = 1; b <= totalRows; b++)
+                        for (int b = 1; b <= totalRows; b++)
                         {
                             By abc = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({b}) > td:nth-child({columnPosition})");
                             IWebElement descGiftWebElement1 = driver.FindElement(abc);
@@ -414,21 +442,21 @@ namespace SF_Automation.Pages.GiftLog
             //Get the table columns count
             IList<IWebElement> element = driver.FindElements(GiftTableColLength);
             int totalColumns = element.Count;
-            for(int columnPosition = 2; columnPosition < totalColumns; columnPosition++)
+            for (int columnPosition = 2; columnPosition < totalColumns; columnPosition++)
             {
                 //Get the column name
                 By GiftTableCol = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > thead > tr:nth-child(1) > th:nth-child({columnPosition}) > div > a");
                 driver.FindElement(GiftTableCol).Click();
                 Thread.Sleep(2000);
                 string colName = driver.FindElement(GiftTableCol).Text;
-                if(name == colName)
+                if (name == colName)
                 {
                     //Before sort
                     IList<IWebElement> element1 = driver.FindElements(GiftDescColLength);
                     int totalRows = element1.Count;
                     string[] beforSortGiftDesc = new string[totalRows];
                     int i = 0;
-                    for(int j = 1; j <= totalRows; j++)
+                    for (int j = 1; j <= totalRows; j++)
                     {
                         By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({j}) > td:nth-child({columnPosition})");
                         IWebElement descGiftWebElement = driver.FindElement(xyz);
@@ -438,7 +466,7 @@ namespace SF_Automation.Pages.GiftLog
                     Array.Sort(beforSortGiftDesc);
                     By SortIcon = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > thead > tr:nth-child(1) > th:nth-child({columnPosition}) > div > a > img");
                     string sortStatus = driver.FindElement(SortIcon).GetAttribute("alt");
-                    if(sortStatus == "Desc")
+                    if (sortStatus == "Desc")
                     {
                         //Click button to sort results in ASC
                         driver.FindElement(GiftTableCol).Click();
@@ -446,7 +474,7 @@ namespace SF_Automation.Pages.GiftLog
                         //After Ascending Sort
                         string[] afterSortGiftDesc = new string[totalRows];
                         int k = 0;
-                        for(int m = 1; m <= totalRows; m++)
+                        for (int m = 1; m <= totalRows; m++)
                         {
                             By abc = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({m}) > td:nth-child({columnPosition})");
                             IWebElement descGiftWebElement1 = driver.FindElement(abc);
@@ -461,7 +489,7 @@ namespace SF_Automation.Pages.GiftLog
                     {
                         string[] afterSortGiftDesc = new string[totalRows];
                         int a = 0;
-                        for(int b = 1; b <= totalRows; b++)
+                        for (int b = 1; b <= totalRows; b++)
                         {
                             By abc = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({b}) > td:nth-child({columnPosition})");
                             IWebElement descGiftWebElement1 = driver.FindElement(abc);
@@ -480,10 +508,10 @@ namespace SF_Automation.Pages.GiftLog
         public bool VerifyCreatedByInGiftRequestDetailsLV(string valCreatedBy)
         {
             bool result = false;
-            if(driver.FindElement(labelCreatedBy).Displayed)
+            if (driver.FindElement(labelCreatedBy).Displayed)
             {
                 string createdBy = driver.FindElement(labelCreatedBy).Text;
-                if(createdBy.Contains(valCreatedBy))
+                if (createdBy.Contains(valCreatedBy))
                 {
                     result = true;
                 }
@@ -492,12 +520,12 @@ namespace SF_Automation.Pages.GiftLog
         }
 
         public bool VerifyReasonForGiftInGiftRequestDetailsLV(string ValReasonForGift)
-        {
+        {           
             bool result = false;
-            if(driver.FindElement(labelReasonForGift).Displayed)
+            if (driver.FindElement(labelReasonForGift).Displayed)
             {
                 string reasonForGift = driver.FindElement(labelReasonForGift).Text;
-                if(reasonForGift == ValReasonForGift)
+                if (reasonForGift == ValReasonForGift)
                 {
                     result = true;
                 }
@@ -507,10 +535,10 @@ namespace SF_Automation.Pages.GiftLog
         public bool VerifyHLRelationshipInGiftRequestDetailsLV(string valHLRelationship)
         {
             bool result = false;
-            if(driver.FindElement(labelHLRelationship).Displayed)
+            if (driver.FindElement(labelHLRelationship).Displayed)
             {
                 string hlRelationship = driver.FindElement(labelHLRelationship).Text;
-                if(hlRelationship == valHLRelationship)
+                if (hlRelationship == valHLRelationship)
                 {
                     result = true;
                 }
@@ -520,10 +548,10 @@ namespace SF_Automation.Pages.GiftLog
         public bool VerifyCurrencyInGiftRequestDetailsLV(string valCurrency)
         {
             bool result = false;
-            if(driver.FindElement(labelCurrency).Displayed)
+            if (driver.FindElement(labelCurrency).Displayed)
             {
                 string currency = driver.FindElement(labelCurrency).Text;
-                if(currency == valCurrency)
+                if (currency == valCurrency)
                 {
                     result = true;
                 }
@@ -532,12 +560,12 @@ namespace SF_Automation.Pages.GiftLog
         }
 
         public bool VerifyGiftValueInGiftRequestDetailsLV(string valGift)
-        {
+        {            
             bool result = false;
-            if(driver.FindElement(labelGiftValue).Displayed)
+            if (driver.FindElement(labelGiftValue).Displayed)
             {
                 string giftValue = driver.FindElement(labelGiftValue).Text;
-                if(giftValue.Contains(valGift))
+                if (giftValue.Contains(valGift))
                 {
                     result = true;
                 }
@@ -545,12 +573,12 @@ namespace SF_Automation.Pages.GiftLog
             return result;
         }
         public bool VerifyVendorInGiftRequestDetailsLV(string valVendor)
-        {
+        {            
             bool result = false;
-            if(driver.FindElement(labelVendor).Displayed)
+            if (driver.FindElement(labelVendor).Displayed)
             {
                 string vendor = driver.FindElement(labelVendor).Text;
-                if(vendor == valVendor)
+                if (vendor == valVendor)
                 {
                     result = true;
                 }
@@ -558,13 +586,13 @@ namespace SF_Automation.Pages.GiftLog
             return result;
         }
         public bool VerifySubmittedForInGiftRequestDetailsLV(string valSubmittedFor)
-        {
+        {            
             bool result = false;
 
-            if(driver.FindElement(labelSubmittedFor).Displayed)
+            if (driver.FindElement(labelSubmittedFor).Displayed)
             {
                 string submittedFor = driver.FindElement(labelSubmittedFor).Text;
-                if(submittedFor == valSubmittedFor)
+                if (submittedFor == valSubmittedFor)
                 {
                     result = true;
                 }
@@ -572,12 +600,12 @@ namespace SF_Automation.Pages.GiftLog
             return result;
         }
         public bool VerifyRecipientForInGiftRequestDetailsLV(string valEecipientName)
-        {
+        {            
             bool result = false;
-            if(driver.FindElement(labelRecipientForGift).Displayed)
+            if (driver.FindElement(labelRecipientForGift).Displayed)
             {
                 string recipientFor = driver.FindElement(labelRecipientForGift).Text;
-                if(recipientFor == valEecipientName)
+                if (recipientFor == valEecipientName)
                 {
                     result = true;
                 }
@@ -585,12 +613,12 @@ namespace SF_Automation.Pages.GiftLog
             return result;
         }
         public bool VerifyGiftTypeInGiftRequestDetailsLV(string valGiftType)
-        {
+        {            
             bool result = false;
-            if(driver.FindElement(labelGiftType).Displayed)
+            if (driver.FindElement(labelGiftType).Displayed)
             {
                 string giftType = driver.FindElement(labelGiftType).Text;
-                if(giftType == valGiftType)
+                if (giftType == valGiftType)
                 {
                     result = true;
                 }
@@ -599,12 +627,12 @@ namespace SF_Automation.Pages.GiftLog
         }
 
         public bool VerifyGiftNameInGiftRequestDetailsLV(string giftDesc)
-        {
+        {            
             bool result = false;
-            if(driver.FindElement(labelGiftName).Displayed)
+            if (driver.FindElement(labelGiftName).Displayed)
             {
                 string giftName = driver.FindElement(labelGiftName).Text;
-                if(giftName == giftDesc)
+                if (giftName == giftDesc)
                 {
                     result = true;
                 }
@@ -617,13 +645,13 @@ namespace SF_Automation.Pages.GiftLog
             Thread.Sleep(3000);
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
-            for(int i = 1; i <= totalRows; i++)
+            for (int i = 1; i <= totalRows; i++)
             {
                 By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
                 IWebElement descGiftWebElement = driver.FindElement(xyz);
 
                 string descGift = descGiftWebElement.Text;
-                if(descGift.Equals(giftName))
+                if (descGift.Equals(giftName))
                 {
                     By status = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(10) > span");
                     IWebElement CheckBoxElement = driver.FindElement(status);
@@ -637,7 +665,21 @@ namespace SF_Automation.Pages.GiftLog
 
         public void SearchByRecipientLastNameAndStatusLV(string recipientLastName, string status)
         {
-            string getMonth = DateTime.Today.ToString("MMM");
+            string getMonth;
+            string dateStr= DateTime.Today.ToString("dd/MMM/yyyy");
+
+            DateTime date = DateTime.ParseExact(dateStr, "dd/MMM/yyyy", CultureInfo.InvariantCulture);
+            string todayDayDate = date.ToString("dd");
+
+            if(todayDayDate=="01")// todayDayDate == "02" || todayDayDate == "03" || todayDayDate == "04" || todayDayDate == "05")
+            {
+                getMonth = DateTime.Today.AddMonths(-1).ToString("MMM");
+            }
+            else
+            {
+                getMonth = DateTime.Today.ToString("MMM");
+            }
+                
             WebDriverWaits.WaitUntilEleVisible(driver, comboMonth);
             driver.FindElement(comboMonth).SendKeys(getMonth);
 
@@ -665,12 +707,12 @@ namespace SF_Automation.Pages.GiftLog
             return text;
         }
         public bool IsCreatedByCorrectInGiftRequestDetailsLV(string createdByVal)
-        {
+        {            
             bool result = false;
-            if(driver.FindElement(labelCreatedBy).Displayed)
+            if (driver.FindElement(labelCreatedBy).Displayed)
             {
                 string createdBy = driver.FindElement(labelCreatedBy).Text;
-                if(createdBy.Contains(createdByVal))
+                if (createdBy.Contains(createdByVal))
                 {
                     result = true;
                 }
@@ -680,7 +722,7 @@ namespace SF_Automation.Pages.GiftLog
         public string GetApprovalNumberFromGiftRequestDetailsLV()
         {
             string approvalNum = "";
-            if(driver.FindElement(labelApprovalNumber).Displayed)
+            if (driver.FindElement(labelApprovalNumber).Displayed)
             {
                 approvalNum = driver.FindElement(labelApprovalNumber).Text;
             }
@@ -689,10 +731,10 @@ namespace SF_Automation.Pages.GiftLog
         public bool IsReasonForGiftCorrectInGiftRequestDetailsLV(string reasonForGiftVal)
         {
             bool result = false;
-            if(driver.FindElement(labelReasonForGift).Displayed)
+            if (driver.FindElement(labelReasonForGift).Displayed)
             {
                 string reasonForGift = driver.FindElement(labelReasonForGift).Text;
-                if(reasonForGift == reasonForGiftVal)
+                if (reasonForGift == reasonForGiftVal)
                 {
                     result = true;
                 }
@@ -700,12 +742,12 @@ namespace SF_Automation.Pages.GiftLog
             return result;
         }
         public bool IsHLRelationshipCorrectInGiftRequestDetailsLV(string hlRelationshipVal)
-        {
+        {            
             bool result = false;
-            if(driver.FindElement(labelHLRelationship).Displayed)
+            if (driver.FindElement(labelHLRelationship).Displayed)
             {
                 string hlRelationship = driver.FindElement(labelHLRelationship).Text;
-                if(hlRelationship == hlRelationshipVal)
+                if (hlRelationship == hlRelationshipVal)
                 {
                     result = true;
                 }
@@ -714,12 +756,12 @@ namespace SF_Automation.Pages.GiftLog
         }
 
         public bool IsCurrencyCorrectInGiftRequestDetailsLV(string currencyVal)
-        {
+        {            
             bool result = false;
-            if(driver.FindElement(labelCurrency).Displayed)
+            if (driver.FindElement(labelCurrency).Displayed)
             {
                 string currency = driver.FindElement(labelCurrency).Text;
-                if(currency == currencyVal)
+                if (currency == currencyVal)
                 {
                     result = true;
                 }
@@ -728,13 +770,13 @@ namespace SF_Automation.Pages.GiftLog
         }
 
         public bool IsyGiftValueCorrectInGiftRequestDetailsLV(string giftVal)
-        {
+        {            
             bool result = false;
 
-            if(driver.FindElement(labelGiftValue).Displayed)
+            if (driver.FindElement(labelGiftValue).Displayed)
             {
                 string giftValue = driver.FindElement(labelGiftValue).Text;
-                if(giftValue.Contains(giftVal))
+                if (giftValue.Contains(giftVal))
                 {
                     result = true;
                 }
@@ -744,10 +786,10 @@ namespace SF_Automation.Pages.GiftLog
         public bool IsVendorCorrectInGiftRequestDetailsLV(string vendorTxt)
         {
             bool result = false;
-            if(driver.FindElement(labelVendor).Displayed)
+            if (driver.FindElement(labelVendor).Displayed)
             {
                 string vendor = driver.FindElement(labelVendor).Text;
-                if(vendor == vendorTxt)
+                if (vendor == vendorTxt)
                 {
                     result = true;
                 }
@@ -758,10 +800,10 @@ namespace SF_Automation.Pages.GiftLog
         public bool IsSubmittedForCorrectInGiftRequestDetailsLV(string submittedName)
         {
             bool result = false;
-            if(driver.FindElement(labelSubmittedFor).Displayed)
+            if (driver.FindElement(labelSubmittedFor).Displayed)
             {
                 string submittedFor = driver.FindElement(labelSubmittedFor).Text;
-                if(submittedFor == submittedName)
+                if (submittedFor == submittedName)
                 {
                     result = true;
                 }
@@ -771,10 +813,10 @@ namespace SF_Automation.Pages.GiftLog
         public bool IsRecipientForCorrectInGiftRequestDetailsLV(string recipient)
         {
             bool result = false;
-            if(driver.FindElement(labelRecipientForGift).Displayed)
+            if (driver.FindElement(labelRecipientForGift).Displayed)
             {
                 string recipientFor = driver.FindElement(labelRecipientForGift).Text;
-                if(recipientFor == recipient)
+                if (recipientFor == recipient)
                 {
                     result = true;
                 }
@@ -785,10 +827,10 @@ namespace SF_Automation.Pages.GiftLog
         public bool ISGiftTypeCorrectInGiftRequestDetailsLV(string type)
         {
             bool result = false;
-            if(driver.FindElement(labelGiftType).Displayed)
+            if (driver.FindElement(labelGiftType).Displayed)
             {
                 string giftType = driver.FindElement(labelGiftType).Text;
-                if(giftType == type)
+                if (giftType == type)
                 {
                     result = true;
                 }
@@ -799,29 +841,29 @@ namespace SF_Automation.Pages.GiftLog
         {
             Thread.Sleep(2000);
             bool result = false;
-            if(driver.FindElement(labelGiftName).Displayed)
+            if (driver.FindElement(labelGiftName).Displayed)
             {
                 string giftName = driver.FindElement(labelGiftName).Text;
-                if(giftName == giftDesc)
+                if (giftName == giftDesc)
                 {
                     result = true;
                 }
             }
             return result;
         }
-
+        
         public void CompareAndClickGiftDescLV(string giftName)
         {
             Thread.Sleep(2000);
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
-            for(int i = 1; i <= totalRows; i++)
+            for (int i = 1; i <= totalRows; i++)
             {
                 By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
                 IWebElement descGiftWebElement = driver.FindElement(xyz);
 
                 string descGift = descGiftWebElement.Text;
-                if(descGift.Equals(giftName))
+                if (descGift.Equals(giftName))
                 {
                     Console.WriteLine("Gift Description and Gift Name Matches");
                     By linkGiftDesc = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
@@ -835,7 +877,20 @@ namespace SF_Automation.Pages.GiftLog
         }
         public void SearchByRecipientLastNameLV(string recipientLastName)
         {
-            string getMonth = DateTime.Today.ToString("MMM");
+            string getMonth;
+            string dateStr = DateTime.Today.ToString("dd/MMM/yyyy");
+
+            DateTime date = DateTime.ParseExact(dateStr, "dd/MMM/yyyy", CultureInfo.InvariantCulture);
+            string todayDayDate = date.ToString("dd");
+
+            if (todayDayDate == "01" ) //|| todayDayDate == "02" || todayDayDate == "03" || todayDayDate == "04" || todayDayDate == "05")
+            {
+                getMonth = DateTime.Today.AddMonths(-1).ToString("MMM");
+            }
+            else
+            {
+                getMonth = DateTime.Today.ToString("MMM");
+            }
             WebDriverWaits.WaitUntilEleVisible(driver, comboMonth);
             driver.FindElement(comboMonth).SendKeys(getMonth);
 
@@ -862,13 +917,13 @@ namespace SF_Automation.Pages.GiftLog
             bool result = false;
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
-            for(int i = 1; i <= totalRows; i++)
+            for (int i = 1; i <= totalRows; i++)
             {
                 By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
                 IWebElement descGiftWebElement = driver.FindElement(xyz);
 
                 string descGift = descGiftWebElement.Text;
-                if(descGift.Equals(giftName))
+                if (descGift.Equals(giftName))
                 {
                     By checkbox = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(1) > input");
                     IWebElement CheckBoxElement = driver.FindElement(checkbox);
@@ -898,7 +953,20 @@ namespace SF_Automation.Pages.GiftLog
         }
         public void SearchByRecipientLastNameForNextYearLV(string recipientLastName)
         {
-            string getMonth = DateTime.Today.ToString("MMM");
+            string getMonth;
+            string dateStr = DateTime.Today.ToString("dd/MMM/yyyy");
+
+            DateTime date = DateTime.ParseExact(dateStr, "dd/MMM/yyyy", CultureInfo.InvariantCulture);
+            string todayDayDate = date.ToString("dd");
+
+            if (todayDayDate == "01" || todayDayDate == "02" || todayDayDate == "03" || todayDayDate == "04" || todayDayDate == "05")
+            {
+                getMonth = DateTime.Today.AddMonths(-1).ToString("MMM");
+            }
+            else
+            {
+                getMonth = DateTime.Today.ToString("MMM");
+            }
             WebDriverWaits.WaitUntilEleVisible(driver, comboMonth);
             driver.FindElement(comboMonth).SendKeys(getMonth);
 
@@ -955,7 +1023,7 @@ namespace SF_Automation.Pages.GiftLog
                 driver.FindElement(btnSubmitRequest).Click();
                 Thread.Sleep(2000);
             }
-            catch(Exception)
+            catch (Exception)
             {
 
             }
@@ -968,10 +1036,10 @@ namespace SF_Automation.Pages.GiftLog
             string excelPath = dir + file;
             bool result = false;
 
-            if(driver.FindElement(labelGiftName).Displayed)
+            if (driver.FindElement(labelGiftName).Displayed)
             {
                 string giftName = driver.FindElement(labelGiftName).Text;
-                if(giftName == giftDesc)
+                if (giftName == giftDesc)
                 {
                     result = true;
                 }
@@ -987,10 +1055,10 @@ namespace SF_Automation.Pages.GiftLog
             string excelPath = dir + file;
             bool result = false;
 
-            if(driver.FindElement(labelGiftType).Displayed)
+            if (driver.FindElement(labelGiftType).Displayed)
             {
                 string giftType = driver.FindElement(labelGiftType).Text;
-                if(giftType == ReadExcelData.ReadData(excelPath, "GiftLog", 1))
+                if (giftType == ReadExcelData.ReadData(excelPath, "GiftLog", 1))
                 {
                     result = true;
                 }
@@ -1006,10 +1074,10 @@ namespace SF_Automation.Pages.GiftLog
             string excelPath = dir + file;
             bool result = false;
 
-            if(driver.FindElement(labelVendor).Displayed)
+            if (driver.FindElement(labelVendor).Displayed)
             {
                 string vendor = driver.FindElement(labelVendor).Text;
-                if(vendor == ReadExcelData.ReadData(excelPath, "GiftLog", 6))
+                if (vendor == ReadExcelData.ReadData(excelPath, "GiftLog", 6))
                 {
                     result = true;
                 }
@@ -1025,10 +1093,10 @@ namespace SF_Automation.Pages.GiftLog
             string excelPath = dir + file;
             bool result = false;
 
-            if(driver.FindElement(labelCurrency).Displayed)
+            if (driver.FindElement(labelCurrency).Displayed)
             {
                 string currency = driver.FindElement(labelCurrency).Text;
-                if(currency == ReadExcelData.ReadData(excelPath, "GiftLog", 5))
+                if (currency == ReadExcelData.ReadData(excelPath, "GiftLog", 5))
                 {
                     result = true;
                 }
@@ -1044,10 +1112,10 @@ namespace SF_Automation.Pages.GiftLog
             string excelPath = dir + file;
             bool result = false;
 
-            if(driver.FindElement(labelHLRelationship).Displayed)
+            if (driver.FindElement(labelHLRelationship).Displayed)
             {
                 string hlRelationship = driver.FindElement(labelHLRelationship).Text;
-                if(hlRelationship == ReadExcelData.ReadData(excelPath, "GiftLog", 4))
+                if (hlRelationship == ReadExcelData.ReadData(excelPath, "GiftLog", 4))
                 {
                     result = true;
                 }
@@ -1063,10 +1131,10 @@ namespace SF_Automation.Pages.GiftLog
             string excelPath = dir + file;
             bool result = false;
 
-            if(driver.FindElement(labelGiftValue).Displayed)
+            if (driver.FindElement(labelGiftValue).Displayed)
             {
                 string giftValue = driver.FindElement(labelGiftValue).Text;
-                if(giftValue.Contains(ReadExcelData.ReadData(excelPath, "GiftLog", 3)))
+                if (giftValue.Contains(ReadExcelData.ReadData(excelPath, "GiftLog", 3)))
                 {
                     result = true;
                 }
@@ -1082,10 +1150,10 @@ namespace SF_Automation.Pages.GiftLog
             string excelPath = dir + file;
             bool result = false;
 
-            if(driver.FindElement(labelSubmittedFor).Displayed)
+            if (driver.FindElement(labelSubmittedFor).Displayed)
             {
                 string submittedFor = driver.FindElement(labelSubmittedFor).Text;
-                if(submittedFor == ReadExcelData.ReadData(excelPath, "GiftLog", 2))
+                if (submittedFor == ReadExcelData.ReadData(excelPath, "GiftLog", 2))
                 {
                     result = true;
                 }
@@ -1101,10 +1169,10 @@ namespace SF_Automation.Pages.GiftLog
             string excelPath = dir + file;
             bool result = false;
 
-            if(driver.FindElement(labelRecipientForGift).Displayed)
+            if (driver.FindElement(labelRecipientForGift).Displayed)
             {
                 string recipientFor = driver.FindElement(labelRecipientForGift).Text;
-                if(recipientFor == ReadExcelData.ReadData(excelPath, "GiftLog", 9))
+                if (recipientFor == ReadExcelData.ReadData(excelPath, "GiftLog", 9))
                 {
                     result = true;
                 }
@@ -1120,10 +1188,10 @@ namespace SF_Automation.Pages.GiftLog
             string excelPath = dir + file;
             bool result = false;
 
-            if(driver.FindElement(labelReasonForGift).Displayed)
+            if (driver.FindElement(labelReasonForGift).Displayed)
             {
                 string reasonForGift = driver.FindElement(labelReasonForGift).Text;
-                if(reasonForGift == ReadExcelData.ReadData(excelPath, "GiftLog", 7))
+                if (reasonForGift == ReadExcelData.ReadData(excelPath, "GiftLog", 7))
                 {
                     result = true;
                 }
@@ -1139,10 +1207,10 @@ namespace SF_Automation.Pages.GiftLog
             string excelPath = dir + file;
             bool result = false;
 
-            if(driver.FindElement(labelCreatedBy).Displayed)
+            if (driver.FindElement(labelCreatedBy).Displayed)
             {
                 string createdBy = driver.FindElement(labelCreatedBy).Text;
-                if(createdBy.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)))
+                if (createdBy.Contains(ReadExcelData.ReadData(excelPath, "Users", 1)))
                 {
                     result = true;
                 }
@@ -1153,7 +1221,7 @@ namespace SF_Automation.Pages.GiftLog
         public string GetApprovalNumberFromGiftRequestDetails()
         {
             string approvalNum = "";
-            if(driver.FindElement(labelApprovalNumber).Displayed)
+            if (driver.FindElement(labelApprovalNumber).Displayed)
             {
                 approvalNum = driver.FindElement(labelApprovalNumber).Text;
             }
@@ -1167,7 +1235,7 @@ namespace SF_Automation.Pages.GiftLog
                 driver.FindElement(btnSubmitRequest).Click();
                 Thread.Sleep(2000);
             }
-            catch(Exception)
+            catch (Exception)
             {
 
             }
@@ -1302,8 +1370,21 @@ namespace SF_Automation.Pages.GiftLog
             string dir = ReadJSONData.data.filePaths.testData;
 
             string excelPath = dir + file;
+            string getMonth;
+            string dateStr = DateTime.Today.ToString("dd/MMM/yyyy");
 
-            string getMonth = DateTime.Today.ToString("MMM");
+            DateTime date = DateTime.ParseExact(dateStr, "dd/MMM/yyyy", CultureInfo.InvariantCulture);
+            string todayDayDate = date.ToString("dd");
+
+            if (todayDayDate == "01" || todayDayDate == "02" || todayDayDate == "03" || todayDayDate == "04" || todayDayDate == "05")
+            {
+                getMonth = DateTime.Today.AddMonths(-1).ToString("MMM");
+            }
+            else
+            {
+                getMonth = DateTime.Today.ToString("MMM");
+            }
+            
             WebDriverWaits.WaitUntilEleVisible(driver, comboMonth);
             driver.FindElement(comboMonth).SendKeys(getMonth);
 
@@ -1337,13 +1418,13 @@ namespace SF_Automation.Pages.GiftLog
 
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
-            for(int i = 1; i <= totalRows; i++)
+            for (int i = 1; i <= totalRows; i++)
             {
                 By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
                 IWebElement descGiftWebElement = driver.FindElement(xyz);
 
                 string descGift = descGiftWebElement.Text;
-                if(descGift.Equals(giftName))
+                if (descGift.Equals(giftName))
                 {
                     Console.WriteLine("Gift Description and Gift Name Matches");
                     By checkbox = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(1) > input");
@@ -1366,13 +1447,13 @@ namespace SF_Automation.Pages.GiftLog
             Thread.Sleep(2000);
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
-            for(int i = 1; i <= totalRows; i++)
+            for (int i = 1; i <= totalRows; i++)
             {
                 By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
                 IWebElement descGiftWebElement = driver.FindElement(xyz);
 
                 string descGift = descGiftWebElement.Text;
-                if(descGift.Equals(giftName))
+                if (descGift.Equals(giftName))
                 {
                     Console.WriteLine("Gift Description and Gift Name Matches");
                     By linkGiftDesc = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
@@ -1391,13 +1472,13 @@ namespace SF_Automation.Pages.GiftLog
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
             string prevYTDValue = null;
-            for(int i = 1; i <= totalRows; i++)
+            for (int i = 1; i <= totalRows; i++)
             {
                 By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
                 IWebElement descGiftWebElement = driver.FindElement(xyz);
 
                 string descGift = descGiftWebElement.Text;
-                if(descGift.Equals(giftName))
+                if (descGift.Equals(giftName))
                 {
                     By prevYTDLabelValue = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(10)");
                     IWebElement prevYTDElement = driver.FindElement(prevYTDLabelValue);
@@ -1415,13 +1496,13 @@ namespace SF_Automation.Pages.GiftLog
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
             string prevYTDValue = null;
-            for(int i = 1; i <= totalRows; i++)
+            for (int i = 1; i <= totalRows; i++)
             {
                 By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
                 IWebElement descGiftWebElement = driver.FindElement(xyz);
 
                 string descGift = descGiftWebElement.Text;
-                if(descGift.Equals(giftName))
+                if (descGift.Equals(giftName))
                 {
                     By prevYTDLabelValue = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(7)");
                     IWebElement prevYTDElement = driver.FindElement(prevYTDLabelValue);
@@ -1438,13 +1519,13 @@ namespace SF_Automation.Pages.GiftLog
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
             string newYTDValue = null;
-            for(int i = 1; i <= totalRows; i++)
+            for (int i = 1; i <= totalRows; i++)
             {
                 By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
                 IWebElement descGiftWebElement = driver.FindElement(xyz);
 
                 string descGift = descGiftWebElement.Text;
-                if(descGift.Equals(giftName))
+                if (descGift.Equals(giftName))
                 {
                     By newYTDLabelValue = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(12)");
                     IWebElement newYTDElement = driver.FindElement(newYTDLabelValue);
@@ -1461,13 +1542,13 @@ namespace SF_Automation.Pages.GiftLog
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
             string newYTDValue = null;
-            for(int i = 1; i <= totalRows; i++)
+            for (int i = 1; i <= totalRows; i++)
             {
                 By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
                 IWebElement descGiftWebElement = driver.FindElement(xyz);
 
                 string descGift = descGiftWebElement.Text;
-                if(descGift.Equals(giftName))
+                if (descGift.Equals(giftName))
                 {
                     By newYTDLabelValue = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(9)");
                     IWebElement newYTDElement = driver.FindElement(newYTDLabelValue);
@@ -1487,7 +1568,7 @@ namespace SF_Automation.Pages.GiftLog
             IList<IWebElement> element = driver.FindElements(GiftTableColLength);
             int totalColumns = element.Count;
 
-            for(int columnPosition = 2; columnPosition < totalColumns; columnPosition++)
+            for (int columnPosition = 2; columnPosition < totalColumns; columnPosition++)
             {
                 //Get the column name
                 By GiftTableCol = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > thead > tr:nth-child(1) > th:nth-child({columnPosition}) > div > a");
@@ -1495,14 +1576,14 @@ namespace SF_Automation.Pages.GiftLog
                 Thread.Sleep(2000);
                 string colName = driver.FindElement(GiftTableCol).Text;
 
-                if(name == colName)
+                if (name == colName)
                 {
                     //Before sort
                     IList<IWebElement> element1 = driver.FindElements(GiftDescColLength);
                     int totalRows = element1.Count;
                     string[] beforSortGiftDesc = new string[totalRows];
                     int i = 0;
-                    for(int j = 1; j <= totalRows; j++)
+                    for (int j = 1; j <= totalRows; j++)
                     {
                         By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({j}) > td:nth-child({columnPosition})");
                         IWebElement descGiftWebElement = driver.FindElement(xyz);
@@ -1516,7 +1597,7 @@ namespace SF_Automation.Pages.GiftLog
                     By SortIcon = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > thead > tr:nth-child(1) > th:nth-child({columnPosition}) > div > a > img");
                     string sortStatus = driver.FindElement(SortIcon).GetAttribute("alt");
 
-                    if(sortStatus == "Desc")
+                    if (sortStatus == "Desc")
                     {
                         //Click button to sort results in ASC
                         driver.FindElement(GiftTableCol).Click();
@@ -1525,7 +1606,7 @@ namespace SF_Automation.Pages.GiftLog
                         //After Ascending Sort
                         string[] afterSortGiftDesc = new string[totalRows];
                         int k = 0;
-                        for(int m = 1; m <= totalRows; m++)
+                        for (int m = 1; m <= totalRows; m++)
                         {
                             By abc = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({m}) > td:nth-child({columnPosition})");
                             IWebElement descGiftWebElement1 = driver.FindElement(abc);
@@ -1541,7 +1622,7 @@ namespace SF_Automation.Pages.GiftLog
                     {
                         string[] afterSortGiftDesc = new string[totalRows];
                         int a = 0;
-                        for(int b = 1; b <= totalRows; b++)
+                        for (int b = 1; b <= totalRows; b++)
                         {
                             By abc = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({b}) > td:nth-child({columnPosition})");
                             IWebElement descGiftWebElement1 = driver.FindElement(abc);
@@ -1567,7 +1648,7 @@ namespace SF_Automation.Pages.GiftLog
             IList<IWebElement> element = driver.FindElements(GiftTableColLength);
             int totalColumns = element.Count;
 
-            for(int columnPosition = 2; columnPosition < totalColumns; columnPosition++)
+            for (int columnPosition = 2; columnPosition < totalColumns; columnPosition++)
             {
                 //Get the column name
                 By GiftTableCol = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > thead > tr:nth-child(1) > th:nth-child({columnPosition}) > div > a");
@@ -1575,14 +1656,14 @@ namespace SF_Automation.Pages.GiftLog
                 //Thread.Sleep(2000);
                 string colName = driver.FindElement(GiftTableCol).Text;
 
-                if(name == colName)
+                if (name == colName)
                 {
                     //Before sort
                     IList<IWebElement> element1 = driver.FindElements(GiftDescColLength);
                     int totalRows = element1.Count;
                     string[] beforSortGiftDesc = new string[totalRows];
                     int i = 0;
-                    for(int j = 1; j <= totalRows; j++)
+                    for (int j = 1; j <= totalRows; j++)
                     {
                         By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({j}) > td:nth-child({columnPosition})");
                         IWebElement descGiftWebElement = driver.FindElement(xyz);
@@ -1596,11 +1677,11 @@ namespace SF_Automation.Pages.GiftLog
                     By SortIcon = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > thead > tr:nth-child(1) > th:nth-child({columnPosition}) > div > a > img");
                     string sortStatus = driver.FindElement(SortIcon).GetAttribute("alt");
 
-                    if(sortStatus == "Desc")
+                    if (sortStatus == "Desc")
                     {
                         string[] afterSortGiftDesc = new string[totalRows];
                         int k = 0;
-                        for(int m = 1; m <= totalRows; m++)
+                        for (int m = 1; m <= totalRows; m++)
                         {
                             By abc = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({m}) > td:nth-child({columnPosition})");
                             IWebElement descGiftWebElement1 = driver.FindElement(abc);
@@ -1620,7 +1701,7 @@ namespace SF_Automation.Pages.GiftLog
 
                         string[] afterSortGiftDesc = new string[totalRows];
                         int a = 0;
-                        for(int b = 1; b <= totalRows; b++)
+                        for (int b = 1; b <= totalRows; b++)
                         {
                             By abc = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({b}) > td:nth-child({columnPosition})");
                             IWebElement descGiftWebElement1 = driver.FindElement(abc);
@@ -1643,13 +1724,13 @@ namespace SF_Automation.Pages.GiftLog
             Thread.Sleep(6000);
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
-            for(int i = 1; i <= totalRows; i++)
+            for (int i = 1; i <= totalRows; i++)
             {
                 By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
                 IWebElement descGiftWebElement = driver.FindElement(xyz);
 
                 string descGift = descGiftWebElement.Text;
-                if(descGift.Equals(giftName))
+                if (descGift.Equals(giftName))
                 {
                     break;
                 }
@@ -1677,13 +1758,13 @@ namespace SF_Automation.Pages.GiftLog
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
             string giftValue = null;
-            for(int i = 1; i <= totalRows; i++)
+            for (int i = 1; i <= totalRows; i++)
             {
                 By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
                 IWebElement descGiftWebElement = driver.FindElement(xyz);
 
                 string descGift = descGiftWebElement.Text;
-                if(descGift.Equals(giftName))
+                if (descGift.Equals(giftName))
                 {
                     By giftValueLabel = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(11)");
                     IWebElement giftValueElement = driver.FindElement(giftValueLabel);
@@ -1701,13 +1782,13 @@ namespace SF_Automation.Pages.GiftLog
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
             string giftValue = null;
-            for(int i = 1; i <= totalRows; i++)
+            for (int i = 1; i <= totalRows; i++)
             {
                 By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
                 IWebElement descGiftWebElement = driver.FindElement(xyz);
 
                 string descGift = descGiftWebElement.Text;
-                if(descGift.Equals(giftName))
+                if (descGift.Equals(giftName))
                 {
                     By giftValueLabel = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(8)");
                     IWebElement giftValueElement = driver.FindElement(giftValueLabel);
@@ -1750,17 +1831,17 @@ namespace SF_Automation.Pages.GiftLog
             Thread.Sleep(3000);
 
             string getMonth = DateTime.Today.ToString("MMM");
-            WebDriverWaits.WaitUntilEleVisible(driver, comboMonth);
+            WebDriverWaits.WaitUntilEleVisible(driver,comboMonth);
             driver.FindElement(comboMonth).SendKeys(getMonth);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, comboApprovedStatus);
+            WebDriverWaits.WaitUntilEleVisible(driver,comboApprovedStatus);
             driver.FindElement(comboApprovedStatus).SendKeys(status);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, txtAreaRecipientLastName);
+            WebDriverWaits.WaitUntilEleVisible(driver,txtAreaRecipientLastName);
             driver.FindElement(txtAreaRecipientLastName).Clear();
             Thread.Sleep(2000);
 
-            WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
+            WebDriverWaits.WaitUntilEleVisible(driver,btnGo);
             driver.FindElement(btnGo).Click();
             Thread.Sleep(5000);
         }
@@ -1842,13 +1923,13 @@ namespace SF_Automation.Pages.GiftLog
             Thread.Sleep(3000);
             IList<IWebElement> element = driver.FindElements(GiftDescColLength);
             int totalRows = element.Count;
-            for(int i = 1; i <= totalRows; i++)
+            for (int i = 1; i <= totalRows; i++)
             {
                 By xyz = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(2) > a");
                 IWebElement descGiftWebElement = driver.FindElement(xyz);
 
                 string descGift = descGiftWebElement.Text;
-                if(descGift.Equals(giftName))
+                if (descGift.Equals(giftName))
                 {
                     By status = By.CssSelector($"table[id='j_id0:theForm:rr:table'] > tbody > tr:nth-child({i}) > td:nth-child(10) > span");
 

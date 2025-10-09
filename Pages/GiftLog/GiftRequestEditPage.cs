@@ -100,7 +100,7 @@ namespace SF_Automation.Pages.GiftLog
         }
 
         public void ClickCancelButtonLV()
-        {
+        {            
             WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
             driver.FindElement(btnCancel).Click();
             Thread.Sleep(5000);
@@ -121,7 +121,7 @@ namespace SF_Automation.Pages.GiftLog
             //Enter value of gift name
             WebDriverWaits.WaitUntilEleVisible(driver, txtGiftName);
             driver.FindElement(txtGiftName).Clear();
-            string valGiftName = "ANewGiftName_" + CustomFunctions.RandomValue();
+            string valGiftName = "ANewGiftName_"+CustomFunctions.RandomValue();
             driver.FindElement(txtGiftName).SendKeys(valGiftName);
 
             // Enter value in gift type

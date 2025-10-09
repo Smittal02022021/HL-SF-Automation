@@ -94,7 +94,7 @@ namespace SF_Automation.TestCases.GiftLog
                     //Verify company name Combo Box
                     actualRecipientCompanyName = giftRequest.GetAvailableRecipientCompanyLV();
                     Assert.IsTrue(actualRecipientCompanyName.Contains(nameCompanyExl));
-                    extentReports.CreateStepLogs("Passed", "Company Name: " + actualRecipientCompanyName + " is listed in Available Recipient(s) table for contains combo box in Cmmpany Name ");
+                    extentReports.CreateStepLogs("Passed", "Company Name: " + actualRecipientCompanyName + " is listed in Available Recipient(s) table for contains combo box in Company Name ");
 
                     giftRequest.ClearGiftRecipientsDetailsLV();
                     nameContactExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SearchCriteria", row + 4, 1);
@@ -250,10 +250,10 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateStepLogs("Passed", "Page Title: " + giftRequestTitle + " is diplayed upon click of return to pre approval page ");
 
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
                 driver.Quit();
-                extentReports.CreateStepLogs("Info", "Browser Closed");
+                extentReports.CreateStepLogs("Passed", "Browser Closed Successfully!");
             }
             catch (Exception e)
             {

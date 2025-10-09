@@ -218,7 +218,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Selected Gift is not listed under Gift Submitted as part of delete functionality ");
                 
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");

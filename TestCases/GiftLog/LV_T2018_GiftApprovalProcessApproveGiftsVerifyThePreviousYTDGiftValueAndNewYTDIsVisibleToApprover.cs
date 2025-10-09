@@ -9,7 +9,7 @@ using System;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class LV_T2018_GiftApprovalProcessApproveGiftsVerifyThePreviousYTDGiftValueAndNewYTDIsVisibleToApprover : BaseClass
+    class LV_T2018_GiftApprovalProcessApproveGiftsVerifyThePreviousYTDGiftValueAndNewYTDIsVisibleToApprover:BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -105,9 +105,9 @@ namespace SF_Automation.TestCases.GiftLog
                 //moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
                 //homePageLV.SelectModule(moduleNameExl);
                 //extentReports.CreateStepLogs("Info", "CF Fin User is on " + moduleNameExl + " Page ");
-                for(int i = 1; i < 3; i++)
+                for (int i = 1; i < 3; i++)
                 {
-                    if(i == 1)
+                    if (i == 1)
                     {
                         // Search standard user by global search
                         valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
@@ -132,11 +132,11 @@ namespace SF_Automation.TestCases.GiftLog
                         giftRequestTitle = giftRequest.GetGiftRequestPageTitleLV();
                         giftRequestTitleExl = ReadExcelData.ReadData(excelPath, "GiftLog", 10);
                         Assert.AreEqual(giftRequestTitleExl, giftRequestTitle);
-                        extentReports.CreateStepLogs("Info", "Page Title: " + giftRequestTitle + " is diplayed upon click of Gift Request link ");
+                        extentReports.CreateStepLogs("Info","Page Title: " + giftRequestTitle + " is diplayed upon click of Gift Request link ");
 
                         //Enter required details in client gift pre- approval page
                         valGiftNameEntered = giftRequest.EnterDetailsGiftRequestLV(fileT2018);
-                        extentReports.CreateStepLogs("Info", "Gift Reques Created with Name: " + valGiftNameEntered);
+                        extentReports.CreateStepLogs("Info","Gift Reques Created with Name: " + valGiftNameEntered);
 
                         //Verify company name
                         actualRecipientCompanyName = giftRequest.GetAvailableRecipientCompanyLV();
@@ -172,10 +172,10 @@ namespace SF_Automation.TestCases.GiftLog
                         giftRequest.ClickSubmitGiftRequestLV();
                         giftApprove.ClickSubmitRequestLV();
                         congratulationMsg = giftRequest.GetCongratulationsMsgLV();
-                        extentReports.CreateStepLogs("Info", "Congratulations message: " + congratulationMsg + " in displayed upon successful submission of gift request ");
+                        extentReports.CreateStepLogs("Info","Congratulations message: " + congratulationMsg + " in displayed upon successful submission of gift request ");
 
                         driver.SwitchTo().DefaultContent();
-                        usersLogin.ClickLogoutFromLightningView();
+                        homePageLV.LogoutFromSFLightningAsApprover();
                         extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
 
                         //Search Compliance user by global search
@@ -240,7 +240,7 @@ namespace SF_Automation.TestCases.GiftLog
                         extentReports.CreateStepLogs("Passed", "Approve Selected button is visible on click of approve gifts tab ");
 
                         //Search gift in approved list
-                        giftApprove.SearchByRecipientLastNameAndStatusLV(valRecipientLastNameExl, "Approved");
+                        giftApprove.SearchByRecipientLastNameAndStatusLV(valRecipientLastNameExl,"Approved");
 
                         //Get Prev YTD Value                        
                         approvedPrevYTD = giftApprove.GetApprovedPrevYTDValueLV(valGiftNameEntered);
@@ -260,11 +260,11 @@ namespace SF_Automation.TestCases.GiftLog
                         extentReports.CreateStepLogs("Passed", "New YTD Value : " + approvedNewYTDResult + " is equal to Prev YTD Value: " + approvedPrevYTDResult + " in approved gifts table. ");
 
                         driver.SwitchTo().DefaultContent();
-                        usersLogin.ClickLogoutFromLightningView();
+                        homePageLV.LogoutFromSFLightningAsApprover();
                         extentReports.CreateStepLogs("Passed", "Compliance User: " + valUser + " logged out");
 
                     }
-                    else if(i == 2)
+                    else if (i == 2)
                     {
                         // Search standard user by global search
                         valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
@@ -314,7 +314,7 @@ namespace SF_Automation.TestCases.GiftLog
                         extentReports.CreateStepLogs("Info", "Congratulations message: " + congratulationMsg + " in displayed upon successful submission of gift request ");
 
                         driver.SwitchTo().DefaultContent();
-                        usersLogin.ClickLogoutFromLightningView();
+                        homePageLV.LogoutFromSFLightningAsApprover();
                         extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
 
                         //Search Compliance user by global search
@@ -399,16 +399,16 @@ namespace SF_Automation.TestCases.GiftLog
                         extentReports.CreateStepLogs("Passed", "New YTD Value : " + approvedNewYTDResult + " is equal to Prev YTD Value: " + approvedPrevYTDResult + " in approved gifts table. ");
 
                         driver.SwitchTo().DefaultContent();
-                        usersLogin.ClickLogoutFromLightningView();
+                        homePageLV.LogoutFromSFLightningAsApprover();
                         extentReports.CreateStepLogs("Passed", "Compliance User: " + valUser + " logged out");
                     }
                 }
                 usersLogin.UserLogOut();
                 driver.Quit();
-                extentReports.CreateStepLogs("Info", "Browser Closed");
+                extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 driver.SwitchTo().DefaultContent();
