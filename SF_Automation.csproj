@@ -599,6 +599,7 @@
     <Compile Include="Pages\HomePage\LVHomePage.cs" />
     <Compile Include="Pages\Common\UsersLogin.cs" />
     <Compile Include="Pages\Common\LoginPage.cs" />
+    <Compile Include="Pages\JobTypes\JobTypesPage.cs" />
     <Compile Include="Pages\Opportunities\AdditionalClientSubjectPage.cs" />
     <Compile Include="Pages\Opportunities\AdditionalClientSubjectPageWithJson.cs" />
     <Compile Include="Pages\Opportunities\AddOppCounterparty.cs" />
@@ -842,6 +843,8 @@
     <Compile Include="TestCases\GiftLog\LV_T2020_GiftApprovalProcessApproveGiftsVerifyColumnSortingOfTheGiftDetailsTableOnGiftsApprovedTab.cs" />
     <Compile Include="TestCases\GiftLog\LV_T2021_GiftApprovalProcessApproveGiftsApproveOrDenyMultipleGiftRequests.cs" />
     <Compile Include="TestCases\GiftLog\LV_T2022_GiftLogGiftRequestProcessVerifyTheYearlyGiftAllowanceExceedLimitForTheNewGiftTotalNextYear.cs" />
+    <Compile Include="TestCases\JobTypes\LV_TMTT0048687_VerifyTheCaptialSolutionChangesImplementedOnJobTypeobject.cs" />
+    <Compile Include="TestCases\JobTypes\LV_TMTT0049795_VerifyMergersAcquisitionsChangesInJobTypesObject.cs" />
     <Compile Include="TestCases\LV_Activities\TMTT0046706_VerifyFunctionalityOfAddNewCompanyFromAddNewActivityPage.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0072214_TMT0072217_TMT0072219_TMT0072222_TMT0072226_VerifyThatDelegateOfANonPrimaryAttendeeBankerCan_Add_View_Edit_SendNotification_Delete_TheActivity.cs" />
     <Compile Include="TestCases\LV_Activities\TMT0072201_TMT0072203_TMT0072205_TMT0072207_TMT0072209_VerifyThatDelegateOfAPrimaryAttendeeBankerCan_Add_View_Edit_SendNotification_Delete_TheActivity.cs" />
@@ -1202,6 +1205,8 @@
     <None Include="TestData\LV_TMTT0041159_VerifiyTheFunctionalityOfVerballyEngagedCFEngagement.xlsx" />
     <None Include="TestData\LV_TMTT0042958_VerifyCapitalMarketViewsOnOpportunityCounterpartyPage.xlsx" />
     <None Include="TestData\LV_TMTT0046139_VerifyNewInvestorTypeAppearsAsRelatedListForCS_FSCG_MAInvestmentPreferencesCompanyPage.xlsx" />
+    <None Include="TestData\LV_TMTT0048687_VerifyTheCaptialSolutionChangesImplementedOnJobTypeobject.xlsx" />
+    <None Include="TestData\LV_TMTT0049795_VerifyMergersAcquisitionsChangesInJobTypesObject.xlsx" />
     <None Include="TestData\LV_TS01_ValidateERPSection.xlsx" />
     <None Include="TestData\LV_TS02_PostUpdatingDFFFieldsOfOpportunity.xlsx" />
     <None Include="TestData\LV_TS04AndTS07_ValidateERPSection.xlsx" />
