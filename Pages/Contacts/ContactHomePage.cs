@@ -4,6 +4,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading;
 
 namespace SF_Automation.Pages
@@ -26,9 +27,9 @@ namespace SF_Automation.Pages
 
         By lnkHome = By.CssSelector("ul[id='tabBar'] > li[id='home_Tab']");
         By btnAddContact = By.CssSelector("input[name*='j_id29:j_id30']");
-        
+
         By lnkReDisplayRec = By.CssSelector("table > tbody > tr:nth-child(2) > td > a:nth-child(4)");
-        
+
         By btnAddActivity = By.CssSelector("td[class='pbButton center'] > input[value='Add Activity']");
         By comboAcitivityType = By.CssSelector("select[id*='j_id31:eventType']");
         By txtActivitySubject = By.XPath("//label[contains(text(),'Subject')]/following::td/div/input");
@@ -59,11 +60,12 @@ namespace SF_Automation.Pages
         By inputGlobalSearchL = By.XPath("//button[@aria-label='Search']");
         By imgContactL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Contact']");
         By inputAdminGlobalSearchL = By.XPath("//input[contains(@placeholder,'and more...')]");
+        By inputAdminGlobalSearchL2 = By.XPath("//input[contains(@placeholder,'Search...')]");
         By btnContactSearchL = By.XPath("//button[@aria-label='Search']");
         By txtContactSearchL = By.XPath("//input[contains(@placeholder,'Search Contacts')]");
         By txtContactSearchL2 = By.XPath("//input[@placeholder='Search...']");
         By imgContact = By.XPath("(//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Contact'])[1]");
-        By valEmailL = By.XPath("//flexipage-field[@data-field-id='RecordEmailField']//dd//a");
+        By valEmailL = By.XPath("//flexipage-field[@data-field-id='RecordEmailField']//a");
 
         string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
@@ -71,28 +73,28 @@ namespace SF_Automation.Pages
         {
             try
             {
-            string excelPath = dir + file;
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkContacts, 130);
-            driver.FindElement(lnkContacts).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkShowAdvanceSearch);
-            driver.FindElement(lnkShowAdvanceSearch).Click();          
-            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyName);
-            driver.FindElement(txtCompanyName).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 1));
-            WebDriverWaits.WaitUntilEleVisible(driver, txtFirstName);
-            driver.FindElement(txtFirstName).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 2));
-            WebDriverWaits.WaitUntilEleVisible(driver, txtLastName);
-            driver.FindElement(txtLastName).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 3));
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSearch);
-            driver.FindElement(btnSearch).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 80);
-            Thread.Sleep(6000);
-            
+                string excelPath = dir + file;
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkContacts, 130);
+                driver.FindElement(lnkContacts).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, lnkShowAdvanceSearch);
+                driver.FindElement(lnkShowAdvanceSearch).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyName);
+                driver.FindElement(txtCompanyName).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 1));
+                WebDriverWaits.WaitUntilEleVisible(driver, txtFirstName);
+                driver.FindElement(txtFirstName).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 2));
+                WebDriverWaits.WaitUntilEleVisible(driver, txtLastName);
+                driver.FindElement(txtLastName).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 3));
+                WebDriverWaits.WaitUntilEleVisible(driver, btnSearch);
+                driver.FindElement(btnSearch).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 80);
+                Thread.Sleep(6000);
+
                 string result = driver.FindElement(matchedResult).Displayed.ToString();
                 Console.WriteLine("Search Results :" + result);
                 driver.FindElement(matchedResult).Click();
                 return "Record found";
             }
-            catch (Exception)
+            catch(Exception)
             {
                 driver.Navigate().Refresh();
                 string excelPath = dir + file;
@@ -144,7 +146,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(matchedResult).Click();
                 return "Record found";
             }
-            catch (Exception)
+            catch(Exception)
             {
                 driver.Navigate().Refresh();
                 string excelPath = dir + file;
@@ -184,7 +186,7 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, valEmail, 100);
                 string id = driver.FindElement(valEmail).Text;
                 return id;
-            }            
+            }
         }
 
         //To Click on Contact tab
@@ -240,7 +242,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(matchedResult).Click();
                 Thread.Sleep(4000);
 
-                if (CustomFunctions.IsElementPresent(driver, lnkReDisplayRec))
+                if(CustomFunctions.IsElementPresent(driver, lnkReDisplayRec))
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, lnkReDisplayRec, 100);
                     driver.FindElement(lnkReDisplayRec).Click();
@@ -268,9 +270,9 @@ namespace SF_Automation.Pages
                 return "Record found";
             }
 
-            catch (Exception)
+            catch(Exception)
             {
-                if (CustomFunctions.IsElementPresent(driver, lnkReDisplayRec))
+                if(CustomFunctions.IsElementPresent(driver, lnkReDisplayRec))
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, lnkReDisplayRec, 100);
                     driver.FindElement(lnkReDisplayRec).Click();
@@ -319,7 +321,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, txtFirstName);
             driver.FindElement(txtFirstName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 2));
             WebDriverWaits.WaitUntilEleVisible(driver, txtLastName);
-            driver.FindElement(txtLastName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row,  3));
+            driver.FindElement(txtLastName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 3));
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnSearch, 80);
             Thread.Sleep(2000);
@@ -332,7 +334,7 @@ namespace SF_Automation.Pages
             IList<IWebElement> element = driver.FindElements(tblResultsRowCount);
             int totalRows = element.Count;
 
-            if (totalRows >= 2)
+            if(totalRows >= 2)
             {
                 result = true;
                 driver.FindElement(matchedResult).Displayed.ToString();
@@ -374,7 +376,7 @@ namespace SF_Automation.Pages
             IList<IWebElement> element = driver.FindElements(tblResultsRowCount);
             int totalRows = element.Count;
 
-            if (totalRows == 1)
+            if(totalRows == 1)
             {
                 result = true;
             }
@@ -385,7 +387,6 @@ namespace SF_Automation.Pages
 
         public string SearchContact(string file, string ContactType)
         {
-
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
@@ -394,7 +395,7 @@ namespace SF_Automation.Pages
 
             WebDriverWaits.WaitUntilEleVisible(driver, lnkShowAdvanceSearch);
             driver.FindElement(lnkShowAdvanceSearch).Click();
-            if (ContactType.Equals(ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1)))
+            if(ContactType.Equals(ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1)))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyName);
                 driver.FindElement(txtCompanyName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", 2, 1));
@@ -403,7 +404,7 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, txtLastName);
                 driver.FindElement(txtLastName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", 2, 3));
             }
-            else if (ContactType.Equals(ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 3, 1)))
+            else if(ContactType.Equals(ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 3, 1)))
             {
 
                 WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyName);
@@ -413,7 +414,7 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, txtLastName);
                 driver.FindElement(txtLastName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", 3, 3));
             }
-            else if (ContactType.Equals(ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 4, 1)))
+            else if(ContactType.Equals(ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 4, 1)))
             {
 
                 WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyName);
@@ -423,7 +424,7 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, txtLastName);
                 driver.FindElement(txtLastName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", 4, 3));
             }
-            else if (ContactType.Equals(ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 5, 1)))
+            else if(ContactType.Equals(ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 5, 1)))
             {
 
                 WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyName);
@@ -433,7 +434,7 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, txtLastName);
                 driver.FindElement(txtLastName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", 5, 3));
             }
-            else if (ContactType.Equals(ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 6, 1)))
+            else if(ContactType.Equals(ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 6, 1)))
             {
 
                 WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyName);
@@ -443,7 +444,7 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, txtLastName);
                 driver.FindElement(txtLastName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", 6, 3));
             }
-            else if (ContactType.Equals(ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 7, 1)))
+            else if(ContactType.Equals(ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 7, 1)))
             {
 
                 WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyName);
@@ -464,7 +465,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(matchedResult).Click();
                 return "Record found";
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "No record found";
             }
@@ -473,7 +474,7 @@ namespace SF_Automation.Pages
         public string SearchHLAttendee(string HLAttendee)
         {
             IList<string> name = HLAttendee.Split(' ');
-            if (name.Count.Equals(3))
+            if(name.Count.Equals(3))
             {
                 string firstName = name[0];
                 string lastName = name[2];
@@ -491,7 +492,7 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, tblResults, 80);
                 Thread.Sleep(6000);
             }
-            else if (name.Count.Equals(2))
+            else if(name.Count.Equals(2))
             {
                 string firstName = name[0];
                 string lastName = name[1];
@@ -516,7 +517,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(matchedResult).Click();
                 return "Record found";
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "No record found";
             }
@@ -582,7 +583,7 @@ namespace SF_Automation.Pages
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
             int rowMenteeContacts = ReadExcelData.GetRowCount(excelPath, "MenteeContact");
-            for (int row = 2; row <= rowMenteeContacts; row++)
+            for(int row = 2; row <= rowMenteeContacts; row++)
             {
                 Thread.Sleep(1000);
                 WebDriverWaits.WaitUntilEleVisible(driver, txtLookupContact);
@@ -620,7 +621,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(matchedResult).Click();
                 return "Record found";
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "No record found";
             }
@@ -638,7 +639,7 @@ namespace SF_Automation.Pages
             return activitySelectedMentee;
         }
 
-        
+
 
         private By _lnkSearchedContactL(string name)
 
@@ -652,134 +653,78 @@ namespace SF_Automation.Pages
         public string GlobalSearchContactInLightningView(string contactName)
 
         {
-
             Thread.Sleep(6000);
-
             WebDriverWaits.WaitUntilEleVisible(driver, inputGlobalSearchL, 10);
-
             driver.FindElement(inputGlobalSearchL).Click();
-
             Thread.Sleep(4000);
-
-            WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL, 10);
-
-            driver.FindElement(inputAdminGlobalSearchL).SendKeys(contactName);
-
             try
-
             {
-
-                WebDriverWaits.WaitUntilEleVisible(driver, imgContactL, 10);
-
-                driver.FindElement(imgContactL).Click();
-
-                Thread.Sleep(8000);
-
-                return "Record found";
-
+                WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL, 10);
+                driver.FindElement(inputAdminGlobalSearchL).SendKeys(contactName);
             }
-
             catch
-
             {
-
-                driver.FindElement(inputAdminGlobalSearchL).SendKeys(Keys.Enter);
-
-                Thread.Sleep(6000);
-
-                try
-
-                {
-
-                    WebDriverWaits.WaitUntilEleVisible(driver, _lnkSearchedContactL(contactName), 20);
-
-                    driver.FindElement(_lnkSearchedContactL(contactName)).Click();
-
-                    Thread.Sleep(8000);
-
-                    return "Record found";
-
-                }
-
-                catch { return "No record found"; }
-
+                WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL2, 10);
+                driver.FindElement(inputAdminGlobalSearchL2).SendKeys(contactName);
             }
-
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, imgContactL, 10);
+                driver.FindElement(imgContactL).Click();
+                Thread.Sleep(8000);
+                return "Record found";
+            }
+            catch
+            {
+                driver.FindElement(inputAdminGlobalSearchL).SendKeys(Keys.Enter);
+                Thread.Sleep(6000);
+                try
+                {
+                    WebDriverWaits.WaitUntilEleVisible(driver, _lnkSearchedContactL(contactName), 20);
+                    driver.FindElement(_lnkSearchedContactL(contactName)).Click();
+                    Thread.Sleep(8000);
+                    return "Record found";
+                }
+                catch { return "No record found"; }
+            }
         }
 
         public void SearchContactInLightning(string value)
-
         {
-
             Thread.Sleep(2000);
-
             WebDriverWaits.WaitUntilEleVisible(driver, btnContactSearchL, 5);
-
             driver.FindElement(btnContactSearchL).Click();
-
             Thread.Sleep(2000);
-
             try
-
             {
-
                 WebDriverWaits.WaitUntilEleVisible(driver, txtContactSearchL, 5);
-
                 driver.FindElement(txtContactSearchL).SendKeys(value);
-
             }
-
             catch(Exception ex)
-
             {
-
                 try
-
                 {
-
                     WebDriverWaits.WaitUntilEleVisible(driver, txtContactSearchL2, 5);
-
                     driver.FindElement(txtContactSearchL2).SendKeys(value);
-
                 }
-
                 catch
-
                 {
-
                     WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL, 5);
-
                     driver.FindElement(inputAdminGlobalSearchL).SendKeys(value);
-
                 }
-
             }
-
             WebDriverWaits.WaitUntilEleVisible(driver, imgContact);
-
             Thread.Sleep(4000);
-
             driver.FindElement(imgContact).Click();
-
             Thread.Sleep(6000);
-
         }
 
         public string GetEmailIDOfContactLV()
-
         {
-
             WebDriverWaits.WaitUntilEleVisible(driver, valEmailL, 10);
-
             CustomFunctions.MoveToElement(driver, driver.FindElement(valEmailL));
-
             string id = driver.FindElement(valEmailL).Text;
-
             return id;
-
         }
-
-
-
     }
 }
