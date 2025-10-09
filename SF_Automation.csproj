@@ -813,6 +813,9 @@
     <Compile Include="TestCases\EventExpense\LV_T2276_T2277_EventExpenseEmailNotificationsRejectApproveRequestAsFirstLevelApprover.cs" />
     <Compile Include="TestCases\EventExpense\LV_T2278_TMTT0016300_EventExpenseEmailNotificationRequestMoreInformationApproveAsFirstLevelApproverSet1.cs" />
     <Compile Include="TestCases\EventExpense\LV_T2279_TMTT0016300_EventExpense_ApproveEventExpenseFormAsSecondLevelApproverSet1.cs" />
+    <Compile Include="TestCases\EventExpense\LV_TMTC0036647_1_VerifyTheFRAndSCLOBPicklistOptionsAreRemovedFromExpenseRequestLWC.cs" />
+    <Compile Include="TestCases\EventExpense\LV_TMTC0036647_2_VerifyNewFVAExpenseRequestCreationCloneDeleteSubmissionApproveFunctionalityAsStandardUser.cs" />
+    <Compile Include="TestCases\EventExpense\LV_TMTC0036647_3_VerifyNewCFExpenseRequestCreationCloneDeleteSubmissionApproveFunctionalityAsCAOUser.cs" />
     <Compile Include="TestCases\EventExpense\LV_TMTT0032247_TMTT0032249_EventExpenseEmailNotificationRequestMoreInformationApproveAsFirstLevelApproverSet2.cs" />
     <Compile Include="TestCases\EventExpense\LV_TMTT0032247_TMTT0032249_EventExpense_ApproveEventExpenseFormAsSecondLevelApproverSet2.cs" />
     <Compile Include="TestCases\EventExpense\TMTT0017339_EventExpense_VerifyTheCFExpenseRequestFunctionalityAsApprover.cs" />
@@ -1144,6 +1147,12 @@
     <None Include="TestData\LV_T2020_GiftApprovalProcessVerifyColumnSortingOfTheGiftDetailsTableOnGiftsApprovedTab.xlsx" />
     <None Include="TestData\LV_T2021_GiftApprovalProcessApproveGiftsApproveOrDenyMultipleGiftRequests.xlsx" />
     <None Include="TestData\LV_T2022_GiftLogGiftRequestProcessVerifyTheYearlyGiftAllowanceExceedLimitForTheNewGiftTotalNextYear.xlsx" />
+    <None Include="TestData\LV_T2274_VerifyValidationRulesOnEventExpense.xlsx" />
+    <None Include="TestData\LV_T2276_T2277_EventExpenseEmailNotificationsRejectApproveRequestAsFirstLevelApprover.xlsx" />
+    <None Include="TestData\LV_T2278_EventExpenseEmailNotificationRequestMoreInformationApproveAsFirstLevelApproverSet1.xlsx" />
+    <None Include="TestData\LV_T2278_EventExpenseEmailNotificationRequestMoreInformationApproveAsFirstLevelApproverSet2.xlsx" />
+    <None Include="TestData\LV_T2279_TMTI0036293_ApproveEventExpenseFormAsSecondLevelApproverSet1.xlsx" />
+    <None Include="TestData\LV_T2279_TMTI0036293_ApproveEventExpenseFormAsSecondLevelApproverSet2.xlsx" />
     <None Include="TestData\LV_T2327_TMTC0002473_VerifyTheRolesAvailableToRegistered.xlsx" />
     <None Include="TestData\LV_T2329_TMTC0002479_VerifyTheRoles.xlsx" />
     <None Include="TestData\LV_T2330_TMTC0002482_VerifyTheRolesAvailable.xlsx" />
@@ -1164,6 +1173,9 @@
     <None Include="TestData\LV_TMTC0034038_VerifyTheFunctionalityOfTheFinancialSponsorsTabOnCompanyDetailPage.xlsx" />
     <None Include="TestData\LV_TMTC0034058_VerifyTheFunctionalityOfFilesTabOnTheCompanyDetailPage.xlsx" />
     <None Include="TestData\LV_TMTC0034072_VerifyTheFunctionalityOftheFSFundTabOnTheCompanyDetailPage.xlsx" />
+    <None Include="TestData\LV_TMTC0036647_2_VerifyCFExpenseRequestCloneDeleteSubmissionApproveFunctionalityAsStandardUser.xlsx" />
+    <None Include="TestData\LV_TMTC0036647_3_VerifyNewCFExpenseRequestCreationCloneDeleteSubmissionApproveFunctionalityAsCAOUser.xlsx" />
+    <None Include="TestData\LV_TMTC0036647_VerifyTheFRAndSCLOBPicklistOptionsAreRemovedFromExpenseRequest%28LWC%29.xlsx" />
     <None Include="TestData\LV_TMTI0054683_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFROpportunityAndEngagementPage.xlsx" />
     <None Include="TestData\LV_TMTI0054719_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnCFOpportunityAndEngagementPage.xlsx" />
     <None Include="TestData\LV_TMTI0054728_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFVAOpportunityAndEngagementPage.xlsx" />

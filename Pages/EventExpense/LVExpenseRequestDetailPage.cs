@@ -22,7 +22,7 @@ namespace SF_Automation.Pages.EventExpense
         By btnApproveApprover = By.XPath("//button[contains(text(),'Approve')]");
         By btnRejectApprover = By.XPath("//button[contains(text(),'Reject')]");
         By lblApproverStatus = By.XPath("(//span[text()='Status']/following::div/span/slot/lightning-formatted-text)[1]");
-        
+
         //Requestor Buttons
         By btnSubmitForApproval = By.XPath("//button[contains(text(),'Submit for Approval')]");
         By btnReqDelete = By.XPath("(//button[contains(text(),'Delete')])[2]");
@@ -31,7 +31,7 @@ namespace SF_Automation.Pages.EventExpense
         By btnEdit = By.XPath("//button[@name='Edit']");
         By btnReject = By.XPath("(//button[contains(text(),'Reject')])[2]");
         By btnRequestMoreInformation = By.XPath("//button[text()='Request More Information']");
-        
+
         //Requestor/Host Information
         By linkRequestor = By.XPath("(//span[text()='Requestor']/following::div/a/span/slot/span/slot)[1]");
         By lblStatus = By.XPath("(//span[text()='Status']/following::div/span/slot/lightning-formatted-text)[1]");
@@ -127,6 +127,13 @@ namespace SF_Automation.Pages.EventExpense
         By inputCityLWC = By.XPath("//label[text()='City']/..//input");
         By txtCommentsL = By.XPath("//p//textarea");
         By btnRejectAcceptL = By.XPath("//p//button[@title='Primary action']");
+        By txtEventNameL = By.XPath("//span[text()='Event Name']/../..//lightning-formatted-text");
+        By txtInternalOppNameL = By.XPath("//span[text()='HL Internal Opportunity Name']/../..//a//slot/span//span");
+        By comboLOBL = By.XPath("//label[text()='LOB']/..//button");
+        By btnCloneDeleteL = By.XPath("(//button[contains(text(),'Delete')])[2]");
+        By txtEPStatusLWC = By.XPath("(//span[text()='Status']/../../..//lightning-formatted-text)[2]");
+        By txtDeletedEPStatusLWC = By.XPath("(//span[text()='Status']/../../..//lightning-formatted-text)");
+        By txtDeletedEPNumberLWC = By.XPath("//span[text()='Expense Preapproval Number']/../..//lightning-formatted-text");
 
         string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
@@ -183,6 +190,22 @@ namespace SF_Automation.Pages.EventExpense
             WebDriverWaits.WaitUntilEleVisible(driver, elmEPStatusLWC, 30);
             CustomFunctions.MoveToElement(driver, driver.FindElement(elmEPStatusLWC));
             return driver.FindElement(elmEPStatusLWC).Text;
+        }
+
+        public string GetClonedExpenseRequestStatusLWC()
+        {
+            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtEPStatusLWC, 30);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtEPStatusLWC));
+            return driver.FindElement(txtEPStatusLWC).Text;
+        }
+
+        public string GetDeletedExpenseRequestStatusLWC()
+        {
+            //Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtDeletedEPStatusLWC, 10);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtDeletedEPStatusLWC));
+            return driver.FindElement(txtDeletedEPStatusLWC).Text;
         }
 
         public void ClickRejectButtonLWC()
@@ -299,8 +322,16 @@ namespace SF_Automation.Pages.EventExpense
         public string GetCloneExpensePreapprovalNumber()
         {
             Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lblCloneExpPreAppNum, 120);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblCloneExpPreAppNum, 30);
             string expensePreapprovalNum = driver.FindElement(lblCloneExpPreAppNum).Text;
+            Thread.Sleep(3000);
+            return expensePreapprovalNum;
+        }
+        public string GetDeletedExpensePreapprovalNumber()
+        {
+            Thread.Sleep(3000);
+            WebDriverWaits.WaitUntilEleVisible(driver, txtDeletedEPNumberLWC, 10);
+            string expensePreapprovalNum = driver.FindElement(txtDeletedEPNumberLWC).Text;
             Thread.Sleep(3000);
             return expensePreapprovalNum;
         }
@@ -455,6 +486,7 @@ namespace SF_Automation.Pages.EventExpense
         {
             Thread.Sleep(3000);
             bool result = false;
+            WebDriverWaits.WaitUntilEleVisible(driver, lblTitle, 60);
 
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblTitle));
 
@@ -529,6 +561,178 @@ namespace SF_Automation.Pages.EventExpense
             Thread.Sleep(3000);
 
             return result;
+        }
+
+        public bool VerifyCFCloneButtonFunctionalityLV()
+        {
+            Thread.Sleep(3000);
+            bool result = false;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            WebDriverWaits.WaitUntilEleVisible(driver, lblTitle, 20);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblTitle));
+            js.ExecuteScript("window.scrollTo(0,1400)");
+            Thread.Sleep(2000);
+            //Get Expense Request details from the details page
+            js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(linkRequestor));
+            string requestor = driver.FindElement(linkRequestor).Text;
+            string title = driver.FindElement(lblTitle).Text;
+            string primaryEmail = driver.FindElement(linkPrimaryEmail).Text;
+            string industryGroup = driver.FindElement(lblIndustryGroup).Text;
+            string office = driver.FindElement(lblOffice).Text;
+            string status = driver.FindElement(lblStatus).Text;
+            string expensePreApprovalNum = driver.FindElement(lblExpensePreapprovalNumber).Text;
+            string eventContact = driver.FindElement(linkEventContact).Text;
+            string primaryPhnNum = driver.FindElement(lblPrimaryPhoneNumber).Text;
+
+            string eventName = driver.FindElement(txtEventNameL).Text;
+            string lob = driver.FindElement(lblLOB).Text;
+            string eventType = driver.FindElement(lblEventType).Text;
+            string eventFormat = driver.FindElement(lblEventFormat).Text;
+            string startDate = driver.FindElement(lblStartDate).Text;
+            //js.ExecuteScript("arguments[0].scrollIntoView(true);", driver.FindElement(txtInternalOppNameL));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtInternalOppNameL));
+            string internalOppName = driver.FindElement(txtInternalOppNameL).Text;
+            string city = driver.FindElement(lblCity).Text;
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblNumberOfGuests));
+            string numOfGuests = driver.FindElement(lblNumberOfGuests).Text;
+
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblDescriptionOfOtherCost));
+            string otherCost = driver.FindElement(lblOtherCost).Text;
+            string descOfOtherCost = driver.FindElement(lblDescriptionOfOtherCost).Text;
+            //string expLodgingCost = driver.FindElement(lblExpectedLodgingCost).Text;//Need to chck
+            string expFBCost = driver.FindElement(lblExpectedFBCost).Text;
+            string totalbudgetReq = driver.FindElement(lblTotalBudgetRequested).Text;
+
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnClone));
+            driver.FindElement(btnClone).Click();
+            Thread.Sleep(3000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, h2NewExpenseRequest, 20);
+            string clonedRequestor = driver.FindElement(txtRequestor1).GetAttribute("data-value");
+            string clonedTitle = driver.FindElement(lblTitle1).Text;
+            string clonedPrimaryEmail = driver.FindElement(linkPrimaryEmail1).Text;
+            string clonedIndustryGroup = driver.FindElement(lblIndustryGroup1).Text;
+            string clonedOffice = driver.FindElement(lblOffice1).Text;
+            string clonedStatus = driver.FindElement(lblStatus1).Text;
+            string clonedEventContact = driver.FindElement(txtEventContact1).GetAttribute("data-value");
+            string clonedPrimaryPhnNum = driver.FindElement(lblPrimaryPhnNum1).Text;
+            string clonedLob = driver.FindElement(comboLOBL).GetAttribute("data-value");
+
+            if(CustomFunctions.IsElementPresent(driver, h2NewExpenseRequest) == true)
+            {
+                if(requestor == clonedRequestor && title == clonedTitle && primaryEmail == clonedPrimaryEmail && industryGroup == clonedIndustryGroup && office == clonedOffice && status == clonedStatus && eventContact == clonedEventContact && primaryPhnNum == clonedPrimaryPhnNum)
+                {
+                    if(lob == clonedLob)
+                    {
+                        result = true;
+                    }
+                }
+            }
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCloneCancel, 10);
+            driver.FindElement(btnCloneCancel).Click();
+            Thread.Sleep(3000);
+
+            return result;
+        }
+
+        public bool VerifyFVACloneButtonFunctionalityLV()
+        {
+            Thread.Sleep(3000);
+            bool result = false;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblTitle));
+
+            //Get Expense Request details from the details page
+            string requestor = driver.FindElement(linkRequestor).Text;
+            string title = driver.FindElement(lblTitle).Text;
+            string primaryEmail = driver.FindElement(linkPrimaryEmail).Text;
+            string industryGroup = driver.FindElement(lblIndustryGroup).Text;
+            string office = driver.FindElement(lblOffice).Text;
+            string status = driver.FindElement(lblStatus).Text;
+            string expensePreApprovalNum = driver.FindElement(lblExpensePreapprovalNumber).Text;
+            string eventContact = driver.FindElement(linkEventContact).Text;
+            string primaryPhnNum = driver.FindElement(lblPrimaryPhoneNumber).Text;
+
+            string eventName = driver.FindElement(linkEvent).Text;
+            string lob = driver.FindElement(lblLOB).Text;
+            string eventType = driver.FindElement(lblEventType).Text;
+            string eventFormat = driver.FindElement(lblEventFormat).Text;
+            string startDate = driver.FindElement(lblStartDate).Text;
+            string internalOppNum = driver.FindElement(lblInternalOppNumber).Text;
+            string classfication = driver.FindElement(lblClassification).Text;
+            string city = driver.FindElement(lblCity).Text;
+            string eventLoc = driver.FindElement(lblEventLocation).Text;
+            string numOfGuests = driver.FindElement(lblNumberOfGuests).Text;
+
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblExpectedAirfareCost));
+
+            string expAirfareCost = driver.FindElement(lblExpectedAirfareCost).Text;
+            string expRegFee = driver.FindElement(lblExpectedRegistrationFee).Text;
+            string otherCost = driver.FindElement(lblOtherCost).Text;
+            string descOfOtherCost = driver.FindElement(lblDescriptionOfOtherCost).Text;
+            string expLodgingCost = driver.FindElement(lblExpectedLodgingCost).Text;
+            string expFBCost = driver.FindElement(lblExpectedFBCost).Text;
+            string totalbudgetReq = driver.FindElement(lblTotalBudgetRequested).Text;
+
+
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
+            CustomFunctions.MoveToElement(driver, driver.FindElement(btnClone));
+
+            driver.FindElement(btnClone).Click();
+            Thread.Sleep(3000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, h2NewExpenseRequest, 120);
+
+            string clonedRequestor = driver.FindElement(txtRequestor1).GetAttribute("data-value");
+            string clonedTitle = driver.FindElement(lblTitle1).Text;
+            string clonePrimaryEmail = driver.FindElement(linkPrimaryEmail1).Text;
+            string clonedIndustryGroup = driver.FindElement(lblIndustryGroup1).Text;
+            string clonedOffice = driver.FindElement(lblOffice1).Text;
+            string clonedstatus = driver.FindElement(lblStatus1).Text;
+            string clonedEventContact = driver.FindElement(txtEventContact1).GetAttribute("data-value");
+            string clonedPrimaryPhnNum = driver.FindElement(lblPrimaryPhnNum1).Text;
+
+            string clonedEvent = driver.FindElement(txtEvent1).GetAttribute("data-value");
+            string clonedLob = driver.FindElement(lblLOB1).Text;
+
+            if(CustomFunctions.IsElementPresent(driver, h2NewExpenseRequest) == true)
+            {
+                if(requestor == clonedRequestor && title == clonedTitle && primaryEmail == clonePrimaryEmail && industryGroup == clonedIndustryGroup && office == clonedOffice && status == clonedstatus && eventContact == clonedEventContact && primaryPhnNum == clonedPrimaryPhnNum)
+                {
+                    if(eventName == clonedEvent && lob == clonedLob)
+                    {
+                        result = true;
+                    }
+                }
+            }
+
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCloneCancel, 120);
+            driver.FindElement(btnCloneCancel).Click();
+            Thread.Sleep(3000);
+
+            return result;
+        }
+        public void CreateCloneExpenseRequestLV()
+        {
+            Thread.Sleep(3000);
+            driver.FindElement(btnClone).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCloneSave, 10);
+            driver.FindElement(btnCloneSave).Click();
+            Thread.Sleep(5000);
+        }
+        public void DeleteClonedRequestLV()
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCloneDeleteL, 10);
+            driver.FindElement(btnCloneDeleteL).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnOK, 10);
+            driver.FindElement(txtNotes).SendKeys("Delete Cloned Request Test");
+            driver.FindElement(btnOK).Click();
+            Thread.Sleep(10000);
+            WebDriverWaits.WaitUntilEleVisible(driver, lblStatus, 10);
+            Thread.Sleep(3000);
         }
 
         public void CreateCloneExpenseRequest()
