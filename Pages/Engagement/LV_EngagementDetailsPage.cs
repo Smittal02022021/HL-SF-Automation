@@ -90,7 +90,7 @@ namespace SF_Automation.Pages.Companies
                             //Get the eng contact name from each row
                             string engContactName = driver.FindElement(By.XPath($"(//table[@aria-label='Engagement Contacts']/tbody/tr)[{row}]/th/lightning-primitive-cell-factory/span/div/lightning-primitive-custom-cell/formula-output-formula-html/lightning-formatted-rich-text/span/a[2]")).Text;
 
-                            if(engContactName==exlEngContact)
+                            if(engContactName == exlEngContact)
                             {
                                 result = true;
                                 driver.FindElement(btnCloseEngagementContacts).Click();
@@ -215,12 +215,12 @@ namespace SF_Automation.Pages.Companies
             Thread.Sleep(5000);
             try
             {
-                if (driver.FindElement(By.XPath("((//slot[@name='customdatatypes'])[3]/..//table//tbody//tr)[1]/td[4]//a")).Displayed)
+                if(driver.FindElement(By.XPath("((//slot[@name='customdatatypes'])[3]/..//table//tbody//tr)[1]/td[4]//a")).Displayed)
                 {
                     result = true;
                 }
             }
-            catch (Exception)
+            catch(Exception)
             {
                 result = false;
             }
@@ -237,7 +237,7 @@ namespace SF_Automation.Pages.Companies
             }
             catch(Exception)
             {
-                
+
             }
         }
 
@@ -393,7 +393,7 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(By.XPath("//span[text()='Engagement Summary (CF)']/..")).Click();
             Thread.Sleep(10000);
 
-            if (CustomFunctions.IsElementPresent(driver, By.XPath("//button[@title='Summary Report']")) == true)
+            if(CustomFunctions.IsElementPresent(driver, By.XPath("//button[@title='Summary Report']")) == true)
             {
                 result = true;
             }
@@ -405,7 +405,7 @@ namespace SF_Automation.Pages.Companies
         {
             bool result = false;
 
-            if (CustomFunctions.IsElementPresent(driver, By.XPath("//div[@title='Close Date']")) == true)
+            if(CustomFunctions.IsElementPresent(driver, By.XPath("//div[@title='Close Date']")) == true)
             {
                 result = true;
             }
@@ -416,7 +416,7 @@ namespace SF_Automation.Pages.Companies
         public string GetCloseDateValue()
         {
             string closeDate = string.Empty;
-            if (CustomFunctions.IsElementPresent(driver, By.XPath("(//div[@title='Close Date']/following::div)[1]")) == true)
+            if(CustomFunctions.IsElementPresent(driver, By.XPath("(//div[@title='Close Date']/following::div)[1]")) == true)
             {
                 closeDate = driver.FindElement(By.XPath("(//div[@title='Close Date']/following::div)[1]")).Text;
             }
@@ -430,13 +430,13 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(By.XPath("//span[text()='Engagement Timeline']/..")).Click();
             Thread.Sleep(5000);
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,2000)");
             Thread.Sleep(5000);
 
             //Get the Close Date under Engagement Timelines section
             string closeDateUnderEngagementTimelines = driver.FindElement(By.XPath("(//span[text()='Close Date'])[4]/following::div/lightning-formatted-text")).Text;
-            if (engCloseDate == closeDateUnderEngagementTimelines)
+            if(engCloseDate == closeDateUnderEngagementTimelines)
             {
                 result = true;
             }
@@ -446,7 +446,7 @@ namespace SF_Automation.Pages.Companies
         public string GetClosedWeeksFromDateEngagedValue()
         {
             string closedWeek = string.Empty;
-            if (CustomFunctions.IsElementPresent(driver, By.XPath("(//span[text()='Closed - Weeks From Date Engaged']/following::lightning-formatted-number)[1]")) == true)
+            if(CustomFunctions.IsElementPresent(driver, By.XPath("(//span[text()='Closed - Weeks From Date Engaged']/following::lightning-formatted-number)[1]")) == true)
             {
                 closedWeek = driver.FindElement(By.XPath("(//span[text()='Closed - Weeks From Date Engaged']/following::lightning-formatted-number)[1]")).Text;
             }
@@ -462,12 +462,12 @@ namespace SF_Automation.Pages.Companies
 
             //Applying the conversion formula
             TimeSpan diff = closedDate - dateEng;
-            int weeks = (int)(diff.TotalDays / 7);
+            int weeks = (int) (diff.TotalDays / 7);
 
             //Converting closed weeks string into integer
             int number = Convert.ToInt32(Convert.ToDouble(closedWeeks));
 
-            if (weeks.Equals(number))
+            if(weeks.Equals(number))
             {
                 result = true;
             }
@@ -477,7 +477,7 @@ namespace SF_Automation.Pages.Companies
         public string GetDateEngagedValue()
         {
             string dateEngaged = string.Empty;
-            if (CustomFunctions.IsElementPresent(driver, By.XPath("(//span[text()='Date Engaged']/following::lightning-formatted-text[@class='slds-border_bottom slds-form-element__static'])[3]")) == true)
+            if(CustomFunctions.IsElementPresent(driver, By.XPath("(//span[text()='Date Engaged']/following::lightning-formatted-text[@class='slds-border_bottom slds-form-element__static'])[3]")) == true)
             {
                 dateEngaged = driver.FindElement(By.XPath("(//span[text()='Date Engaged']/following::lightning-formatted-text[@class='slds-border_bottom slds-form-element__static'])[3]")).Text;
             }
@@ -493,7 +493,7 @@ namespace SF_Automation.Pages.Companies
             Thread.Sleep(5000);
 
             //Verify if count is 0
-            if (driver.FindElement(By.XPath("(//span[@title='Counterparties Closed With']/../span)[2]")).Text == "(1)")
+            if(driver.FindElement(By.XPath("(//span[@title='Counterparties Closed With']/../span)[2]")).Text == "(1)")
             {
                 result = true;
             }
@@ -624,7 +624,7 @@ namespace SF_Automation.Pages.Companies
             bool result = false;
 
             Thread.Sleep(5000);
-            if (CustomFunctions.IsElementPresent(driver, warningMsgModal3) == true)
+            if(CustomFunctions.IsElementPresent(driver, warningMsgModal3) == true)
             {
                 result = true;
             }
@@ -636,7 +636,7 @@ namespace SF_Automation.Pages.Companies
             bool result = false;
 
             Thread.Sleep(5000);
-            if (CustomFunctions.IsElementPresent(driver, warningMsgModal2) == true)
+            if(CustomFunctions.IsElementPresent(driver, warningMsgModal2) == true)
             {
                 result = true;
             }
@@ -650,7 +650,7 @@ namespace SF_Automation.Pages.Companies
             try
             {
                 Thread.Sleep(5000);
-                if (CustomFunctions.IsElementPresent(driver, warningMsgModal1) == true)
+                if(CustomFunctions.IsElementPresent(driver, warningMsgModal1) == true)
                 {
                     result = true;
                 }
@@ -665,7 +665,7 @@ namespace SF_Automation.Pages.Companies
         public bool VerifyWarningMsg(string message)
         {
             bool result = false;
-            if (driver.FindElement(warningMsgModal).Text == message)
+            if(driver.FindElement(warningMsgModal).Text == message)
             {
                 result = true;
             }
@@ -679,7 +679,7 @@ namespace SF_Automation.Pages.Companies
         public bool VerifyWarningMsgUponMissingCompaniesClosedWith(string message)
         {
             bool result = false;
-            if (driver.FindElement(warningMsgModal3).Text == message)
+            if(driver.FindElement(warningMsgModal3).Text == message)
             {
                 result = true;
             }
@@ -693,7 +693,7 @@ namespace SF_Automation.Pages.Companies
         public bool VerifBuyerWarningMsg(string message)
         {
             bool result = false;
-            if (driver.FindElement(warningMsgModal1).Text == message)
+            if(driver.FindElement(warningMsgModal1).Text == message)
             {
                 result = true;
             }
@@ -707,7 +707,7 @@ namespace SF_Automation.Pages.Companies
         public bool VerifyNeitherSubjectNorBuyerWarningMsg(string message)
         {
             bool result = false;
-            if (driver.FindElement(warningMsgModal2).Text == message)
+            if(driver.FindElement(warningMsgModal2).Text == message)
             {
                 result = true;
             }
@@ -797,10 +797,10 @@ namespace SF_Automation.Pages.Companies
             Thread.Sleep(3000);
             try
             {
-                IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+                IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
                 jse.ExecuteScript("arguments[0].click();", driver.FindElement(By.XPath($"//lightning-primitive-cell-factory[@data-label='Company']//a[@title='{compName}']")));
             }
-            catch (Exception)
+            catch(Exception)
             {
 
             }
@@ -819,7 +819,7 @@ namespace SF_Automation.Pages.Companies
                 driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
                 Thread.Sleep(2000);
             }
-            catch (Exception)
+            catch(Exception)
             {
                 //Close the tab
                 driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
@@ -834,10 +834,10 @@ namespace SF_Automation.Pages.Companies
             Thread.Sleep(3000);
             try
             {
-                IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+                IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
                 jse.ExecuteScript("arguments[0].click();", driver.FindElement(By.XPath($"//lightning-primitive-cell-factory[@data-label='Company']//a[@title='{compName}']")));
             }
-            catch (Exception)
+            catch(Exception)
             {
 
             }
@@ -856,7 +856,7 @@ namespace SF_Automation.Pages.Companies
                 driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
                 Thread.Sleep(2000);
             }
-            catch (Exception)
+            catch(Exception)
             {
                 //Close the tab
                 driver.FindElement(By.XPath($"//button[contains(@title, 'Close {compName}')]")).Click();
@@ -964,7 +964,7 @@ namespace SF_Automation.Pages.Companies
         {
             bool result = false;
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(3000);
 
@@ -992,17 +992,17 @@ namespace SF_Automation.Pages.Companies
 
                 // Convert it to M/d/yyyy (removes leading zeros)
                 string newFormat = parsedDate.ToString("M/d/yyyy").Replace('-', '/');
-                if (potentialRoundTripValue == roundTrip && roundTripEngagementValue == engName && roundTripCommentValue == comment && roundTripModifiedDateValue.Contains(newFormat))
+                if(potentialRoundTripValue == roundTrip && roundTripEngagementValue == engName && roundTripCommentValue == comment && roundTripModifiedDateValue.Contains(newFormat))
                 {
                     result = true;
                 }
             }
-            catch (Exception)
+            catch(Exception)
             {
 
             }
 
-            if (potentialRoundTripValue == roundTrip && roundTripEngagementValue == engName && roundTripCommentValue == comment && roundTripModifiedDateValue.Contains(currentDate))
+            if(potentialRoundTripValue == roundTrip && roundTripEngagementValue == engName && roundTripCommentValue == comment && roundTripModifiedDateValue.Contains(currentDate))
             {
                 result = true;
             }
