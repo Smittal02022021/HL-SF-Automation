@@ -236,21 +236,21 @@ namespace SF_Automation.Pages
             CustomFunctions.SelectValueWithoutSelect(driver, listStaff2, valStaff1);
             Thread.Sleep(2000);
 
-            if (row1 == 3 && recordType == "CF")
+            if(row1 == 3 && recordType == "CF")
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, checkIntern1, 120);
                 driver.FindElement(checkIntern1).Click();
                 driver.FindElement(btnSave).Click();
                 Thread.Sleep(4000);
             }
-            else if (row1 == 3 && recordType == "FVA")
+            else if(row1 == 3 && recordType == "FVA")
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, checkIntern, 120);
                 driver.FindElement(checkIntern).Click();
                 driver.FindElement(btnSave).Click();
                 Thread.Sleep(4000);
             }
-            else if (row1 == 3 && recordType == "FR")
+            else if(row1 == 3 && recordType == "FR")
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, checkIntern, 120);
                 driver.FindElement(checkIntern).Click();
@@ -278,7 +278,7 @@ namespace SF_Automation.Pages
 
             int rowCount = ReadExcelData.GetRowCount(excelPath, "RateSheetManagement");
             string valStaff = "";
-            for (int row = 2; row <= rowCount; row++)
+            for(int row = 2; row <= rowCount; row++)
             {
                 valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 2);
                 WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
@@ -289,7 +289,7 @@ namespace SF_Automation.Pages
                 CustomFunctions.SelectValueWithoutSelect(driver, staff, valStaff);
                 Thread.Sleep(2000);
 
-                switch (row)
+                switch(row)
                 {
                     case 2:
                         WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 240);
@@ -371,17 +371,17 @@ namespace SF_Automation.Pages
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
 
-            for (int col = 1; col <= 2; col++)
+            for(int col = 1; col <= 2; col++)
             {
                 string valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "DealTeamMembers", row, col);
                 WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
                 driver.FindElement(txtStaff).SendKeys(valStaff);
                 Thread.Sleep(5000);
-                if (col == 1)
+                if(col == 1)
                 {
                     CustomFunctions.SelectValueWithoutSelect(driver, listStaff, valStaff);
                 }
-                else if (col == 2)
+                else if(col == 2)
                 {
                     CustomFunctions.SelectValueWithoutSelect(driver, listGCAMember, valStaff);
                 }
@@ -451,7 +451,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(3000);
 
             WebDriverWaits.WaitUntilEleVisible(driver, additionalCompany, 50);
-            if (driver.FindElement(additionalCompany).Displayed)
+            if(driver.FindElement(additionalCompany).Displayed)
                 return "True";
             else
                 return "False";
@@ -507,7 +507,7 @@ namespace SF_Automation.Pages
             driver.FindElement(btnSubClose).Click();
 
             WebDriverWaits.WaitUntilEleVisible(driver, additionalSubject, 50);
-            if (driver.FindElement(additionalSubject).Displayed)
+            if(driver.FindElement(additionalSubject).Displayed)
                 return "True";
             else
                 return "False";
@@ -597,7 +597,7 @@ namespace SF_Automation.Pages
                 string valSubject = driver.FindElement(txtComSubjectName).Text;
                 return valSubject;
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "No new client exists";
             }
@@ -612,7 +612,7 @@ namespace SF_Automation.Pages
                 string valSubject = driver.FindElement(txtComSubjectNameL).Text;
                 return valSubject;
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "No new client exists";
             }
@@ -663,7 +663,7 @@ namespace SF_Automation.Pages
                 string valType = driver.FindElement(txtSubjectType).Text;
                 return valType;
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "No new type exists";
             }
@@ -679,7 +679,7 @@ namespace SF_Automation.Pages
                 string valType = driver.FindElement(valSubjectTypeL).Text;
                 return valType;
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "No new type exists";
             }
@@ -695,7 +695,7 @@ namespace SF_Automation.Pages
                 string valType = driver.FindElement(txtSubjectRecType).Text;
                 return valType;
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "No new Rec type exists";
             }
@@ -710,7 +710,7 @@ namespace SF_Automation.Pages
                 string valType = driver.FindElement(txtSubjectRecTypeL).GetAttribute("title");
                 return valType;
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "No new Rec type exists";
             }
@@ -784,13 +784,13 @@ namespace SF_Automation.Pages
             string[] expectedValue = { "All", "Client", "Contra", "Key Creditor", "PE Firm", "Subject", "Other" };
             bool isSame = true;
 
-            if (expectedValue.Length != actualValue.Length)
+            if(expectedValue.Length != actualValue.Length)
             {
                 return !isSame;
             }
-            for (int rec = 0; rec < expectedValue.Length; rec++)
+            for(int rec = 0; rec < expectedValue.Length; rec++)
             {
-                if (!expectedValue[rec].Equals(actualValue[rec]))
+                if(!expectedValue[rec].Equals(actualValue[rec]))
                 {
                     isSame = false;
                     break;
@@ -824,13 +824,13 @@ namespace SF_Automation.Pages
             string[] expectedValue = { "Client/Subject  ", "Primary?  ", "Type  ", "Role", "Client Holdings (MM) - USD   ", "Client Holdings %  ", "Debt Holdings (MM) - USD   ", "Debt Holdings % Total Debt  ", "Key Creditor Importance  ", "Key Creditor Weighting %  ", "Revenue Allocation %  " };
             bool isSame = true;
 
-            if (expectedValue.Length != actualValue.Length)
+            if(expectedValue.Length != actualValue.Length)
             {
                 return !isSame;
             }
-            for (int rec = 0; rec < expectedValue.Length; rec++)
+            for(int rec = 0; rec < expectedValue.Length; rec++)
             {
-                if (!expectedValue[rec].Equals(actualValue[rec]))
+                if(!expectedValue[rec].Equals(actualValue[rec]))
                 {
                     isSame = false;
                     break;
@@ -841,7 +841,7 @@ namespace SF_Automation.Pages
 
         public bool ValidateTableColumnsForEachType(string name)
         {
-            if (name.Equals("Client"))
+            if(name.Equals("Client"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, colTableColumns, 100);
                 IReadOnlyCollection<IWebElement> valColumns = driver.FindElements(colTableColumns);
@@ -849,13 +849,13 @@ namespace SF_Automation.Pages
                 string[] expectedValue = { "Client/Subject  ", "Primary?  ", "Type  ", "Role", "Client Holdings (MM) - USD   ", "Client Holdings %  ", "Debt Holdings (MM) - USD   ", "Debt Holdings % Total Debt  ", "Key Creditor Importance  ", "Key Creditor Weighting %  ", "Revenue Allocation %  " };
                 bool isSame = true;
 
-                if (expectedValue.Length != actualValue.Length)
+                if(expectedValue.Length != actualValue.Length)
                 {
                     return !isSame;
                 }
-                for (int rec = 0; rec < expectedValue.Length; rec++)
+                for(int rec = 0; rec < expectedValue.Length; rec++)
                 {
-                    if (!expectedValue[rec].Equals(actualValue[rec]))
+                    if(!expectedValue[rec].Equals(actualValue[rec]))
                     {
                         isSame = false;
                         break;
@@ -863,7 +863,7 @@ namespace SF_Automation.Pages
                 }
                 return isSame;
             }
-            else if (name.Equals("Key Creditor"))
+            else if(name.Equals("Key Creditor"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, colTableColumns, 100);
                 IReadOnlyCollection<IWebElement> valColumns = driver.FindElements(colTableColumns);
@@ -880,13 +880,13 @@ namespace SF_Automation.Pages
                 string[] expectedValue = { "Client/Subject  ", "Type  ", "Role", "Debt Holdings (MM) - USD   ", "Debt Holdings % Total Debt  ", "Key Creditor Importance  ", "Key Creditor Weighting %  ", "Revenue Allocation %  ", "Notes" };
                 bool isSame = true;
 
-                if (expectedValue.Length != actualValue.Length)
+                if(expectedValue.Length != actualValue.Length)
                 {
                     return !isSame;
                 }
-                for (int rec = 0; rec < expectedValue.Length; rec++)
+                for(int rec = 0; rec < expectedValue.Length; rec++)
                 {
-                    if (!expectedValue[rec].Equals(actualValue[rec]))
+                    if(!expectedValue[rec].Equals(actualValue[rec]))
                     {
                         isSame = false;
                         break;
@@ -894,7 +894,7 @@ namespace SF_Automation.Pages
                 }
                 return isSame;
             }
-            else if (name.Equals("Subject"))
+            else if(name.Equals("Subject"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, colTableColumns, 100);
                 IReadOnlyCollection<IWebElement> valColumns = driver.FindElements(colTableColumns);
@@ -908,13 +908,13 @@ namespace SF_Automation.Pages
                 string[] expectedValue = { "Client/Subject  ", "Primary?  ", "Type  ", "Role", "Revenue Allocation %  " };
                 bool isSame = true;
 
-                if (expectedValue.Length != actualValue.Length)
+                if(expectedValue.Length != actualValue.Length)
                 {
                     return !isSame;
                 }
-                for (int rec = 0; rec < expectedValue.Length; rec++)
+                for(int rec = 0; rec < expectedValue.Length; rec++)
                 {
-                    if (!expectedValue[rec].Equals(actualValue[rec]))
+                    if(!expectedValue[rec].Equals(actualValue[rec]))
                     {
                         isSame = false;
                         break;
@@ -934,13 +934,13 @@ namespace SF_Automation.Pages
                 string[] expectedValue = { "Client/Subject  ", "Type  ", "Role", "Revenue Allocation %  " };
                 bool isSame = true;
 
-                if (expectedValue.Length != actualValue.Length)
+                if(expectedValue.Length != actualValue.Length)
                 {
                     return !isSame;
                 }
-                for (int rec = 0; rec < expectedValue.Length; rec++)
+                for(int rec = 0; rec < expectedValue.Length; rec++)
                 {
-                    if (!expectedValue[rec].Equals(actualValue[rec]))
+                    if(!expectedValue[rec].Equals(actualValue[rec]))
                     {
                         isSame = false;
                         break;
@@ -980,7 +980,7 @@ namespace SF_Automation.Pages
                 string message = driver.FindElement(txtAlertMessage).Displayed.ToString();
                 return message;
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "No validate message is displayed";
             }
@@ -1000,7 +1000,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, txtType, 130);
             Thread.Sleep(6000);
             string type = driver.FindElement(txtType).Text;
-            if (type.Equals("Client"))
+            if(type.Equals("Client"))
             {
                 return "Record is deleted successfully";
             }
@@ -1024,7 +1024,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, txtType, 130);
             Thread.Sleep(6000);
             string type = driver.FindElement(txtType).Text;
-            if (type.Equals("Key Creditor"))
+            if(type.Equals("Key Creditor"))
             {
                 return "Record is deleted successfully";
             }
@@ -1051,7 +1051,7 @@ namespace SF_Automation.Pages
             //Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtType, 150);
             string type = driver.FindElement(txtType).Text;
-            if (type.Equals("Client"))
+            if(type.Equals("Client"))
             {
                 return "Records are deleted successfully";
             }
@@ -1111,7 +1111,7 @@ namespace SF_Automation.Pages
         // To validate save functionality of Engagement - Additional client
         public string ValidateSaveFunctionalityOfEngAdditionalClient(string name, string type)
         {
-            if (type.Equals("Creditor Advisors"))
+            if(type.Equals("Creditor Advisors"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtClientSubjectEng, 80);
                 driver.FindElement(txtClientSubjectEng).SendKeys(name);
@@ -1137,7 +1137,7 @@ namespace SF_Automation.Pages
         public string GetTypeOfAdditionalClient(string name)
         {
 
-            if (name.Equals("Client") || name.Equals("Subject"))
+            if(name.Equals("Client") || name.Equals("Subject"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, valClientType, 100);
                 string value = driver.FindElement(valClientType).Text;
@@ -1176,7 +1176,7 @@ namespace SF_Automation.Pages
                 string value = driver.FindElement(valCompKeyCreditor).Text;
                 return value;
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "No new client exists";
             }
@@ -1190,7 +1190,7 @@ namespace SF_Automation.Pages
                 string value = driver.FindElement(valEngCompKeyCreditor).Text;
                 return value;
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "No new client exists";
             }
@@ -1204,7 +1204,7 @@ namespace SF_Automation.Pages
                 string value = driver.FindElement(valTypeKeyCreditor).Text;
                 return value;
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "Key Creditor";
             }
@@ -1219,7 +1219,7 @@ namespace SF_Automation.Pages
                 string value = driver.FindElement(valEngTypeKeyCreditor).Text;
                 return value;
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "Key Creditor";
             }
@@ -1230,7 +1230,7 @@ namespace SF_Automation.Pages
         {
             Thread.Sleep(2000);
             string value = driver.FindElement(By.XPath("//div/div[1]/div/lightning-formatted-text[text()='" + name + "']")).Displayed.ToString();
-            if (value.Equals("True"))
+            if(value.Equals("True"))
             {
                 string type = driver.FindElement(By.XPath("//div/div[1]/div/lightning-formatted-text[text()='" + name + "']/ancestor::tr/td[4]/div/lightning-formatted-text")).Text;
                 return type;
@@ -1284,13 +1284,13 @@ namespace SF_Automation.Pages
         public string Get2ndTypeOfAdditionalClient(string type, string name)
         {
 
-            if (name.Equals("Client") || name.Equals("Subject"))
+            if(name.Equals("Client") || name.Equals("Subject"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, val2ndType, 100);
                 string value = driver.FindElement(val2ndType).Text;
                 return value;
             }
-            else if (type.Equals("Creditor Advisors") && name.Equals("Key Creditor"))
+            else if(type.Equals("Creditor Advisors") && name.Equals("Key Creditor"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, val2ndTypeKey, 100);
                 string value = driver.FindElement(val2ndTypeKey).Text;
@@ -1331,7 +1331,7 @@ namespace SF_Automation.Pages
                 string name = driver.FindElement(btnCancelRecords).Text;
                 return name;
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "Cancel button is not displayed";
             }
@@ -1340,7 +1340,7 @@ namespace SF_Automation.Pages
         //Validate Cancel Functionalities
         public string ValidateCancelFunctionalityOfMassEdit(string value, string type, string valClient)
         {
-            if (type.Contains("Client"))
+            if(type.Contains("Client"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtClientHoldingsMM, 140);
                 driver.FindElement(txtClientHoldingsMM).Clear();
@@ -1352,7 +1352,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(valClientHoldingsPer).Text;
                 return client;
             }
-            else if (type.Contains("Key Creditor"))
+            else if(type.Contains("Key Creditor"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtKeyCreditorWeighting, 140);
                 driver.FindElement(txtKeyCreditorWeighting).Clear();
@@ -1383,7 +1383,7 @@ namespace SF_Automation.Pages
             //    string client = driver.FindElement(valRevAllocationContra).Text;
             //    return client;
             //}
-            else if (type.Contains("Subject"))
+            else if(type.Contains("Subject"))
             {
                 Thread.Sleep(7000);
                 driver.FindElement(By.XPath("//lightning-formatted-text[contains(text(),'" + valClient + "')]/ancestor::tr/td[6]//input")).Clear();
@@ -1408,7 +1408,7 @@ namespace SF_Automation.Pages
         //Validate Cancel Functionalities
         public string ValidateCancelFunctionalityOfMassEditOfEngagement(string value, string type)
         {
-            if (type.Contains("Client"))
+            if(type.Contains("Client"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtClientHoldingsMMEng, 140);
                 driver.FindElement(txtClientHoldingsMMEng).Clear();
@@ -1420,7 +1420,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(valClientHoldingsPerEng).Text;
                 return client;
             }
-            else if (type.Contains("Key Creditor"))
+            else if(type.Contains("Key Creditor"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtKeyCreditorWeightingEng, 140);
                 driver.FindElement(txtKeyCreditorWeightingEng).Clear();
@@ -1431,7 +1431,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(valKeyCreditorWeighting).Text;
                 return client;
             }
-            else if (type.Contains("Other"))
+            else if(type.Contains("Other"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationOtherEng, 140);
                 driver.FindElement(txtRevAllocationOtherEng).Clear();
@@ -1441,7 +1441,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(valRevAllocationContraEng).Text;
                 return client;
             }
-            else if (type.Contains("PE Firm"))
+            else if(type.Contains("PE Firm"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationPEFirmEng, 140);
                 driver.FindElement(txtRevAllocationPEFirmEng).Clear();
@@ -1451,7 +1451,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(valRevAllocationContraEng).Text;
                 return client;
             }
-            else if (type.Contains("Subject"))
+            else if(type.Contains("Subject"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationSubEng, 140);
                 driver.FindElement(txtRevAllocationSubEng).Clear();
@@ -1461,7 +1461,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(valRevAllocationSubEng).Text;
                 return client;
             }
-            else if (type.Contains("Counterparty"))
+            else if(type.Contains("Counterparty"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationCounterpartyEng, 140);
                 driver.FindElement(txtRevAllocationCounterpartyEng).Clear();
@@ -1471,7 +1471,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(valRevAllocationContraEng).Text;
                 return client;
             }
-            else if (type.Contains("Equity Holder"))
+            else if(type.Contains("Equity Holder"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationEquityEng, 140);
                 driver.FindElement(txtRevAllocationEquityEng).Clear();
@@ -1496,7 +1496,7 @@ namespace SF_Automation.Pages
         //Validate Save Functionalities
         public string ValidateSaveFunctionalityOfMassEdit(string value, string type)
         {
-            if (type.Contains("Client"))
+            if(type.Contains("Client"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtClientHoldingsMM2nd, 300);
                 driver.FindElement(txtClientHoldingsMM2nd).Clear();
@@ -1510,7 +1510,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(msgSuccessSave).Text;
                 return client;
             }
-            else if (type.Contains("Key Creditor"))
+            else if(type.Contains("Key Creditor"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtDebtHoldingsMM2nd, 140);
                 driver.FindElement(txtDebtHoldingsMM2nd).Clear();
@@ -1521,7 +1521,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(msgSuccessSave).Text;
                 return client;
             }
-            else if (type.Contains("Other"))
+            else if(type.Contains("Other"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationOther2nd, 140);
                 driver.FindElement(txtRevAllocationOther2nd).Clear();
@@ -1532,7 +1532,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(msgSuccessSave).Text;
                 return client;
             }
-            else if (type.Contains("PE Firm"))
+            else if(type.Contains("PE Firm"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationPEFirm2nd, 140);
                 driver.FindElement(txtRevAllocationPEFirm2nd).Clear();
@@ -1544,7 +1544,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(msgSuccessSave).Text;
                 return client;
             }
-            else if (type.Contains("Subject"))
+            else if(type.Contains("Subject"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationSub2nd, 140);
                 driver.FindElement(txtRevAllocationSub2nd).Clear();
@@ -1571,7 +1571,7 @@ namespace SF_Automation.Pages
         }
         public string ValidateCancelFunctionalityOfMassEditOfEngagementL(string value, string type, string valClient)
         {
-            if (type.Contains("Client"))
+            if(type.Contains("Client"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtClientHoldingsMMEng, 140);
                 driver.FindElement(txtClientHoldingsMMEng).Clear();
@@ -1583,7 +1583,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(valClientHoldingsPerEng).Text;
                 return client;
             }
-            else if (type.Contains("Key Creditor"))
+            else if(type.Contains("Key Creditor"))
             {
                 driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + valClient + "']/ancestor::tr[1]/td[8]//input")).Clear();
                 driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + valClient + "']/ancestor::tr[1]/td[8]//input")).SendKeys(value);
@@ -1594,7 +1594,7 @@ namespace SF_Automation.Pages
                 return client;
             }
 
-            else if (type.Contains("Subject"))
+            else if(type.Contains("Subject"))
             {
                 driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + valClient + "']/ancestor::tr[1]/td[6]//input")).Clear();
                 driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + valClient + "']/ancestor::tr[1]/td[6]//input")).SendKeys(value);
@@ -1618,7 +1618,7 @@ namespace SF_Automation.Pages
         public string ValidateSaveFunctionalityOfMassEdit(string value, string type, string valClient)
 
         {
-            if (type.Contains("Client"))
+            if(type.Contains("Client"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtClientHoldingsMM, 300);
                 driver.FindElement(txtClientHoldingsMM).Clear();
@@ -1632,7 +1632,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(msgSuccessSave).Text;
                 return client;
             }
-            else if (type.Contains("Key Creditor"))
+            else if(type.Contains("Key Creditor"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtKeyCreditorWeighting, 140);
                 driver.FindElement(txtKeyCreditorWeighting).Clear();
@@ -1643,7 +1643,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(msgSuccessSave).Text;
                 return client;
             }
-            else if (type.Contains("Subject"))
+            else if(type.Contains("Subject"))
             {
                 Thread.Sleep(5000);
                 driver.FindElement(By.XPath("//lightning-formatted-text[contains(text(),'" + valClient + "')]/ancestor::tr/td[6]//input")).Clear();
@@ -1672,7 +1672,7 @@ namespace SF_Automation.Pages
         //Validate Save Functionalities
         public string ValidateSaveFunctionalityOfMassEditOfEngagement(string value, string type)
         {
-            if (type.Contains("Client") && value.Contains("Creditor Advisors"))
+            if(type.Contains("Client") && value.Contains("Creditor Advisors"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtClientHoldingsMMEng, 300);
                 driver.FindElement(txtClientHoldingsMMEng).Clear();
@@ -1685,7 +1685,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(msgSuccessSave).Text;
                 return client;
             }
-            else if (type.Contains("Client") && value.Contains("Debtor Advisors"))
+            else if(type.Contains("Client") && value.Contains("Debtor Advisors"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtClientHoldingsMM2ndEng, 300);
                 driver.FindElement(txtClientHoldingsMM2ndEng).Clear();
@@ -1698,7 +1698,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(msgSuccessSave).Text;
                 return client;
             }
-            else if (type.Contains("Key Creditor") && value.Contains("Creditor Advisors"))
+            else if(type.Contains("Key Creditor") && value.Contains("Creditor Advisors"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtDebtHoldingsMM2ndEngCred, 140);
                 driver.FindElement(txtDebtHoldingsMM2ndEngCred).Clear();
@@ -1709,7 +1709,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(msgSuccessSave).Text;
                 return client;
             }
-            else if (type.Contains("Key Creditor") && value.Contains("Debtor Advisors"))
+            else if(type.Contains("Key Creditor") && value.Contains("Debtor Advisors"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtDebtHoldingsMM2ndEng, 140);
                 driver.FindElement(txtDebtHoldingsMM2ndEng).Clear();
@@ -1720,7 +1720,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(msgSuccessSave).Text;
                 return client;
             }
-            else if (type.Contains("Other"))
+            else if(type.Contains("Other"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationOther2ndEng, 140);
                 driver.FindElement(txtRevAllocationOther2ndEng).Clear();
@@ -1730,7 +1730,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(msgSuccessSave).Text;
                 return client;
             }
-            else if (type.Contains("PE Firm"))
+            else if(type.Contains("PE Firm"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationPEFirm2ndEng, 140);
                 driver.FindElement(txtRevAllocationPEFirm2ndEng).Clear();
@@ -1743,7 +1743,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(msgSuccessSave).Text;
                 return client;
             }
-            else if (type.Contains("Subject"))
+            else if(type.Contains("Subject"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationSub2ndEng, 140);
                 driver.FindElement(txtRevAllocationSub2ndEng).Clear();
@@ -1754,7 +1754,7 @@ namespace SF_Automation.Pages
                 return client;
             }
 
-            else if (type.Contains("Counterparty"))
+            else if(type.Contains("Counterparty"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationCounter2ndEng, 140);
                 driver.FindElement(txtRevAllocationCounter2ndEng).Clear();
@@ -1765,7 +1765,7 @@ namespace SF_Automation.Pages
                 return client;
             }
 
-            else if (type.Contains("Equity Holder"))
+            else if(type.Contains("Equity Holder"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtRevAllocationEquity2ndEng, 140);
                 driver.FindElement(txtRevAllocationEquity2ndEng).Clear();
@@ -1790,7 +1790,7 @@ namespace SF_Automation.Pages
         //Validate Save Functionalities
         public string ValidateSaveFunctionalityOfMassEditOfEngagementL(string value, string type, string valClient)
         {
-            if (type.Contains("Client") && value.Contains("Creditor Advisors"))
+            if(type.Contains("Client") && value.Contains("Creditor Advisors"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtClientHoldingsMMEng, 300);
                 driver.FindElement(txtClientHoldingsMMEng).Clear();
@@ -1803,7 +1803,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(msgSuccessSave).Text;
                 return client;
             }
-            else if (type.Contains("Client") && value.Contains("Debtor Advisors"))
+            else if(type.Contains("Client") && value.Contains("Debtor Advisors"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtClientHoldingsMM2ndEng, 300);
                 driver.FindElement(txtClientHoldingsMM2ndEng).Clear();
@@ -1816,7 +1816,7 @@ namespace SF_Automation.Pages
                 string client = driver.FindElement(msgSuccessSave).Text;
                 return client;
             }
-            else if (type.Contains("Key Creditor") && value.Contains("Creditor Advisors"))
+            else if(type.Contains("Key Creditor") && value.Contains("Creditor Advisors"))
             {
                 Thread.Sleep(3000);
                 driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + valClient + "']/ancestor::tr[1]/td[8]//input")).Clear();
@@ -1828,7 +1828,7 @@ namespace SF_Automation.Pages
                 return client;
 
             }
-            else if (type.Contains("Key Creditor") && value.Contains("Debtor Advisors"))
+            else if(type.Contains("Key Creditor") && value.Contains("Debtor Advisors"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtDebtHoldingsMM2ndEng, 140);
                 driver.FindElement(txtDebtHoldingsMM2ndEng).Clear();
@@ -1840,7 +1840,7 @@ namespace SF_Automation.Pages
                 return client;
             }
 
-            else if (type.Contains("Subject"))
+            else if(type.Contains("Subject"))
             {
                 driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + valClient + "']/ancestor::tr[1]/td[6]//input")).Clear();
                 driver.FindElement(By.XPath("//lightning-formatted-text[text()='" + valClient + "']/ancestor::tr[1]/td[6]//input")).SendKeys("10");
@@ -1869,19 +1869,19 @@ namespace SF_Automation.Pages
         public string ValidateUpdatedClientHoldingsPer(string type)
         {
             Thread.Sleep(3000);
-            if (type.Contains("Client"))
+            if(type.Contains("Client"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, valClientHoldingsPerUpd, 170);
                 string client = driver.FindElement(valClientHoldingsPerUpd).Text;
                 return client;
             }
-            else if (type.Contains("Key Creditor"))
+            else if(type.Contains("Key Creditor"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, valKeyCreditorWeighting, 150);
                 string client = driver.FindElement(valKeyCreditorWeighting).Text;
                 return client;
             }
-            else if (type.Contains("Subject"))
+            else if(type.Contains("Subject"))
             {
                 Thread.Sleep(2000);
                 WebDriverWaits.WaitUntilEleVisible(driver, valRevAllocationSub, 180);
@@ -1907,13 +1907,13 @@ namespace SF_Automation.Pages
             string[] expectedValue = { "--None--", "High", "Medium", "Low" };
             bool isSame = true;
 
-            if (expectedValue.Length != actualValue.Length)
+            if(expectedValue.Length != actualValue.Length)
             {
                 return !isSame;
             }
-            for (int rec = 0; rec < expectedValue.Length; rec++)
+            for(int rec = 0; rec < expectedValue.Length; rec++)
             {
-                if (!expectedValue[rec].Equals(actualValue[rec]))
+                if(!expectedValue[rec].Equals(actualValue[rec]))
                 {
                     isSame = false;
                     break;
@@ -1931,13 +1931,13 @@ namespace SF_Automation.Pages
             string[] expectedValue = { "--None--", "High", "Medium", "Low" };
             bool isSame = true;
 
-            if (expectedValue.Length != actualValue.Length)
+            if(expectedValue.Length != actualValue.Length)
             {
                 return !isSame;
             }
-            for (int rec = 0; rec < expectedValue.Length; rec++)
+            for(int rec = 0; rec < expectedValue.Length; rec++)
             {
-                if (!expectedValue[rec].Equals(actualValue[rec]))
+                if(!expectedValue[rec].Equals(actualValue[rec]))
                 {
                     isSame = false;
                     break;
@@ -1961,13 +1961,13 @@ namespace SF_Automation.Pages
             //string[] expectedValue = { "--None--", "Adverse", "Buyer Contact", "Buyer Financial Advisor", "Buyer Legal Counsel", "Equity Holder", "Financial Advisor", "Financial Advisor to Creditor", "Financial Advisor to Debtor", "Legal Advisor to Creditor", "Legal Advisor to Debtor", "Legal Counsel", "Lender", "Majority Owner", "Management Contact", "Minority Owner", "Other", "Post-Transaction", "Pre-Transaction", "Primary Contact", "Seller Legal Counsel", "Seller Majority Owner", "Seller Management Contact" };
             bool isSame = true;
 
-            if (expectedValue.Length != actualValue.Length)
+            if(expectedValue.Length != actualValue.Length)
             {
                 return !isSame;
             }
-            for (int rec = 0; rec < expectedValue.Length; rec++)
+            for(int rec = 0; rec < expectedValue.Length; rec++)
             {
-                if (!expectedValue[rec].Equals(actualValue[rec]))
+                if(!expectedValue[rec].Equals(actualValue[rec]))
                 {
                     isSame = false;
                     break;
@@ -1991,13 +1991,13 @@ namespace SF_Automation.Pages
             string[] expectedValue = { "--None--", "Adverse", "Buyer Contact", "Buyer Financial Advisor", "Buyer Legal Counsel", "Equity Holder", "Financial Advisor", "Financial Advisor to Creditor", "Financial Advisor to Debtor", "Legal Advisor to Creditor", "Legal Advisor to Debtor", "Legal Counsel", "Lender", "Majority Owner", "Management Contact", "Minority Owner", "Other", "Post-Transaction", "Pre-Transaction", "Primary Contact", "Seller Legal Counsel", "Seller Majority Owner", "Seller Management Contact" };
             bool isSame = true;
 
-            if (expectedValue.Length != actualValue.Length)
+            if(expectedValue.Length != actualValue.Length)
             {
                 return !isSame;
             }
-            for (int rec = 0; rec < expectedValue.Length; rec++)
+            for(int rec = 0; rec < expectedValue.Length; rec++)
             {
-                if (!expectedValue[rec].Equals(actualValue[rec]))
+                if(!expectedValue[rec].Equals(actualValue[rec]))
                 {
                     isSame = false;
                     break;
@@ -2373,69 +2373,61 @@ namespace SF_Automation.Pages
 
             int rowCount = ReadExcelData.GetRowCount(excelPath, "RateSheetManagement");
             string valStaff = "";
-            for (int row = 2; row <= rowCount; row++)
+            for(int row = 2; row <= rowCount; row++)
             {
                 valStaff = ReadExcelData.ReadDataMultipleRows(excelPath, "RateSheetManagement", row, 2);
-                try
-                {
-                    WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 120);
-                    driver.FindElement(txtStaff).SendKeys(valStaff);
-                    Thread.Sleep(5000);
-                    By staff = By.XPath($"(/html/body/ul/li)[{row - 1}]/..");
-                    CustomFunctions.SelectValueWithoutSelect(driver, staff, valStaff);
-                    Thread.Sleep(3000);
-                }
-                catch(Exception e)
-                {
-                    //Console.WriteLine(e.Message);
-                }
+                WebDriverWaits.WaitUntilEleVisible(driver, txtStaff, 20);
+                driver.FindElement(txtStaff).SendKeys(valStaff);
+                Thread.Sleep(5000);
 
-                //By staff = By.XPath($"(/html/body/ul/li)[{row - 1}]/a");
-                //CustomFunctions.SelectValueWithoutSelect(driver, staff, valStaff);
-                //Thread.Sleep(2000);
+                By staff = By.XPath($"(/html/body/ul/li)[{row - 1}]/a");
+                CustomFunctions.SelectValueWithoutSelect(driver, staff, valStaff);
+                Thread.Sleep(2000);
 
-                switch (row)
+                switch(row)
                 {
                     case 2:
-                        WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 60);
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkInitiator, 20);
                         driver.FindElement(checkInitiator).Click();
-                        WebDriverWaits.WaitUntilEleVisible(driver, checkPrincipal, 60);
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkPrincipal, 20);
                         driver.FindElement(checkPrincipal).Click();
                         break;
                     case 3:
-                        WebDriverWaits.WaitUntilEleVisible(driver, checkManager, 60);
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkManager, 20);
                         driver.FindElement(checkManager).Click();
                         break;
                     case 4:
-                        WebDriverWaits.WaitUntilEleVisible(driver, checkSpecialty, 60);
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkSpecialty, 20);
                         driver.FindElement(checkSpecialty).Click();
                         break;
                     case 5:
-                        WebDriverWaits.WaitUntilEleVisible(driver, checkMarketing, 60);
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkMarketing, 20);
                         driver.FindElement(checkMarketing).Click();
                         break;
                     case 6:
-                        WebDriverWaits.WaitUntilEleVisible(driver, checkSeller, 60);
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkSeller, 20);
                         driver.FindElement(checkSeller).Click();
                         break;
                     case 7:
-                        WebDriverWaits.WaitUntilEleVisible(driver, checkAssociate, 60);
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkAssociate, 20);
                         driver.FindElement(checkAssociate).Click();
                         break;
                     case 8:
-                        WebDriverWaits.WaitUntilEleVisible(driver, checkAnalyst, 60);
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkAnalyst, 20);
                         driver.FindElement(checkAnalyst).Click();
                         break;
                     case 9:
-                        WebDriverWaits.WaitUntilEleVisible(driver, checkIntern, 60);
+                        WebDriverWaits.WaitUntilEleVisible(driver, checkIntern, 20);
                         driver.FindElement(checkIntern).Click();
                         break;
                 }
                 driver.FindElement(btnSave).Click();
-                WebDriverWaits.WaitForPageToLoad(driver, 60);
-                Thread.Sleep(5000);
+                WebDriverWaits.WaitForPageToLoad(driver, 20);
+                Thread.Sleep(10000);
             }
-
+            WebDriverWaits.WaitUntilEleVisible(driver, btnReturnToOppor);
+            driver.FindElement(btnReturnToOppor).Click();
+            Thread.Sleep(5000);
             driver.SwitchTo().DefaultContent();
         }
     }

@@ -104,7 +104,7 @@ namespace SF_Automation.TestCases.Opportunities
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
 
                     addOpportunityContact.CickAddCFOpportunityContact();
-                    addOpportunityContact.CreateContactL2(fileTMTT0035971);
+                    addOpportunityContact.CreateContactL2(fileTMTT0035971, valRecordType);
                     extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details
@@ -115,7 +115,7 @@ namespace SF_Automation.TestCases.Opportunities
                     opportunityDetails.ClickReturnToOpportunityLV();
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
 
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "CF Financial User:" + valUser + " logged out ");
 
                     extentReports.CreateLog("Admin is Performing Required Actions ");
@@ -163,7 +163,7 @@ namespace SF_Automation.TestCases.Opportunities
                     string valStagePriority = ReadExcelData.ReadData(excelPath, "AddOpportunity", 31);
                     string dateStageChange = opportunityDetails.UpdateStagePriorityLV(valStagePriority);
 
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "CF Financial User:" + valUser + " logged out ");
 
                     //Get DateEngaged on Opportunity Detail Page
@@ -247,7 +247,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(dateStageChange, valEngDateEngaged);
                     extentReports.CreateStepLogs("Pass", "Start Date: " + valEngDateEngaged+ " on Engagement Page is same as Stage Change Date: "+ dateStageChange + " on Opportunity Page when Verballey Engaged");
 
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info","CF Financial User:"+ valUser + " logged out ");
                     usersLogin.UserLogOut();
                     driver.Quit();

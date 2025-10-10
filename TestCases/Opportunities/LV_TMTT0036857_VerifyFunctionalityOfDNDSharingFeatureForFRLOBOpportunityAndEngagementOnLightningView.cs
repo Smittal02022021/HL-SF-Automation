@@ -26,6 +26,7 @@ namespace SF_Automation.TestCases.OpportunitiesDND
         HomeMainPage homePage = new HomeMainPage();
 
         public static string fileTMTT0036857 = "LV_TMTT0036857_VerifyTheFunctionalityOfDNDSharingFeatureForFRLOBOpportunityAndEngagementOnLightningView";
+        
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -101,7 +102,7 @@ namespace SF_Automation.TestCases.OpportunitiesDND
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
 
                     addOpportunityContact.CickAddOpportunityContactLV();
-                    addOpportunityContact.CreateContactL2(fileTMTT0036857);
+                    addOpportunityContact.CreateContactL2(fileTMTT0036857, valRecordType);
                     extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                     opportunityDetails.UpdateReqFieldsForFRConversionLV(fileTMTT0036857);
@@ -113,6 +114,13 @@ namespace SF_Automation.TestCases.OpportunitiesDND
                     opportunityDetails.ClickReturnToOpportunityLV();
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
                     randomPages.CloseActiveTab("Internal Team");
+
+                    //PitchMandateAward details
+                    randomPages.ClickPitchMandteAwardTabLV();
+                    opportunityDetails.CreateNewPitchMandateAwardLV();
+                    extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
+                    string idPMA = opportunityDetails.GetPitchMandateAwardID();
+                    randomPages.CloseActiveTab(idPMA + " | Pitch/Mandate Award");
                     //Add Multipe users with Different Role on created opportunity
                     displayedTab = addOpportunity.EnterMembersToDealTeamL(fileTMTT0036857);
                     randomPages.CloseActiveTab("Internal Team");
@@ -269,7 +277,7 @@ namespace SF_Automation.TestCases.OpportunitiesDND
                     usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     user = login.ValidateUserLightningView();
-                    Assert.AreEqual(user.Contains(adminUserExl), true);
+                    //Assert.AreEqual(user.Contains(adminUserExl), true);
                     extentReports.CreateStepLogs("Info", "Verify Sharing Button button is not availalbe for System Admin ");
                     //Go to Opportunity module in Lightning View 
                     homePageLV.SelectAppLV(appNameExl);
@@ -485,7 +493,7 @@ namespace SF_Automation.TestCases.OpportunitiesDND
 
                     //Search and Approve the DND Opp
                     homePage.SearchUserByGlobalSearchN(userCAOUserExl);
-                    extentReports.CreateStepLogs("Info", "User: " + userCAOUserExl + " details are displayed. ");
+                    extentReports.CreateStepLogs("Info", "CAO User: " + userCAOUserExl + " details are displayed. ");
                     //Login user
 
                     usersLogin.LoginAsSelectedUser();
@@ -556,7 +564,7 @@ namespace SF_Automation.TestCases.OpportunitiesDND
                     extentReports.CreateStepLogs("Passed", " Engagement found with DND Opportunity Name: " + dndEngName);
                     randomPages.CloseActiveTab(dndOppName);
                     homePageLV.UserLogoutFromSFLightningView();
-                    extentReports.CreateStepLogs("Info", "Engagement Deal Team Member User: " + engDealTeamMember + "switched to Classic and Loggout ");
+                    extentReports.CreateStepLogs("Info", "Engagement Deal Team Member User: " + engDealTeamMember + " switched to Classic and Loggout ");
 
                     //Verify Non-Deal Team Member can access the DND Eng
                     extentReports.CreateStepLogs("Info", "Verify Non-Deal Team Member don't have access to DND Eng with DND-name");

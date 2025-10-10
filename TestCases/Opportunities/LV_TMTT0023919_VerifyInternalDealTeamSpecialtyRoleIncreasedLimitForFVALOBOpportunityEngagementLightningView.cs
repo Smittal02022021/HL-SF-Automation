@@ -8,8 +8,6 @@ using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using System.Collections.Generic;
-using System.Data;
 
 namespace SF_Automation.TestCases.OpportunitiesInternalTeam
 {
@@ -109,7 +107,7 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
                         string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
                         string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
                         addOpportunityContact.CickAddFVAOpportunityContact();
-                        addOpportunityContact.CreateContactL2(fileTMTI0055011);
+                        addOpportunityContact.CreateContactL2(fileTMTI0055011, valRecordType);
                         extentReports.CreateLog(valContactType + " Opportunity contact is saved ");
 
                         //Update required Opportunity fields for conversion and Internal team details
@@ -266,10 +264,10 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
                         txtLineErrorMessage = opportunityDetails.GetLineErrorMessageLV();
                         Assert.IsTrue(txtLineErrorMessage.Contains(maxMemberLimit));
                         extentReports.CreateLog("Line Message: " + txtLineErrorMessage + " is Displayed on header of Engagement Internal Team Member page ");
-
-                        login.SwitchToClassicView();
-                        usersLogin.UserLogOut();
-                        extentReports.CreateLog("User: " + caoUser + " logged out ");
+                        randomPages.CloseActiveTab("Internal Team");
+                        randomPages.CloseActiveTab(engagementName);
+                        homePageLV.LogoutFromSFLightningAsApprover();                        
+                        extentReports.CreateLog("CAO User: " + caoUser + " logged out ");
                     }
                     usersLogin.UserLogOut();
                     driver.Quit();

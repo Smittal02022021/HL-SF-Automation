@@ -23,7 +23,7 @@ namespace SF_Automation.TestCases.OpportunitiesOracleERP
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            InitializeZoom70();
+            Initialize();
             ExtentReportHelper();
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
@@ -109,7 +109,7 @@ namespace SF_Automation.TestCases.OpportunitiesOracleERP
 
                 randomPages.CloseActiveTab(oppName);
                 extentReports.CreateStepLogs("Info", "Opportunity is closed");
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " logged out");
                 usersLogin.UserLogOut();
                 driver.Quit();
@@ -118,7 +118,7 @@ namespace SF_Automation.TestCases.OpportunitiesOracleERP
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

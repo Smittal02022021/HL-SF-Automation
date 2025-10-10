@@ -11,14 +11,14 @@ namespace SF_Automation.Pages.Opportunity
         By btnAddOppContact = By.CssSelector("input[name='new_external_team']");
         By btnSave = By.CssSelector("input[name='save']");
         By txtContact = By.XPath("//span[@class='lookupInput']/input[@name='CF00Ni000000D7Ns3']");
-        By comboRole = By.XPath("(//span[text()='Role']/following::div//a)[1]");
+        By comboRole = By.CssSelector("select[name*='D7OOx']");
         By comboPartyL = By.XPath("//div[8]/div/ul/li/a");
         By comboType = By.CssSelector("select[name*='D7OAq']");
         By checkPrimaryContact = By.CssSelector("input[name*='D7Nro']");
         By comboParty = By.CssSelector("select[name*='M0eMp']");
         By checkAckBillingContact = By.CssSelector("input[name*='M0jSN']");
         By checkBillingContact = By.CssSelector("input[name*='Gz3dL']");
-        By btnPartyL = By.XPath("(//span[text()='Party']/following::div//a)[1]");
+        By btnPartyL = By.XPath("//span[text()='Party']/../..//a");//dl[4]/div[1]//div/a");
 
         By chkAckBillingContactL = By.XPath("//span[text()='Acknowledge Billing Contact']/following::input[1]");
         By chkPrimaryContactL = By.XPath("//span[text()='Primary Contact']/following::input[1]");
@@ -43,7 +43,7 @@ namespace SF_Automation.Pages.Opportunity
 
         By valContactNum = By.XPath("//flexipage-component2[2]/slot/flexipage-tabset2/div/lightning-tabset/div/slot/slot/flexipage-tab2[2]/slot/flexipage-component2[2]/slot/lst-dynamic-related-list/article/laf-progressive-container/slot/lst-dynamic-related-list-with-user-prefs/lst-related-list-view-manager/lst-common-list-internal/lst-list-view-manager-header/div/div[1]/div[1]/div/div/h2/a/span[2]");
 
-        By dropdownContactType = By.XPath("//div[4]//dl[3]/div[1]/div/div/div/div/div[1]/div/div/a");
+        By dropdownContactType = By.XPath("//span[text()='Type']/../..//a");
         By btnAddCFContactL = By.XPath("//button[contains(@name,'Add_CF_Opportunity_Contact')]");
         By btnAddFRContactL = By.XPath("//button[contains(@name,'Add_FR_Opportunity_Contact')]");//can be modified with above 
         By btnAddFVAContactL = By.XPath("//button[contains(@name,'Add_FVA_Opportunity_Contact')]");
@@ -64,7 +64,7 @@ namespace SF_Automation.Pages.Opportunity
                 WebDriverWaits.WaitUntilEleVisible(driver, listContactOption, 20);
                 driver.FindElement(listContactOption).Click();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 By iconContactSearchItem = By.XPath("//div[contains(@class,'searchButton')]");
                 WebDriverWaits.WaitUntilEleVisible(driver, iconContactSearchItem, 5);
@@ -96,7 +96,7 @@ namespace SF_Automation.Pages.Opportunity
         }
         public void ClickAddOpportunityContactLV(string recordType)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             WebDriverWaits.WaitUntilEleVisible(driver, _btnAddContactL(recordType), 10);
             driver.FindElement(_btnAddContactL(recordType)).Click();
@@ -120,7 +120,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(comboRole).SendKeys(ReadExcelData.ReadData(excelPath, "AddContact", 2));
             driver.FindElement(comboType).SendKeys(valType);
             driver.FindElement(checkPrimaryContact).Click();
-            if (valRecType.Equals("CF"))
+            if(valRecType.Equals("CF"))
             {
                 driver.FindElement(comboParty).SendKeys(ReadExcelData.ReadData(excelPath, "AddContact", 3));
             }
@@ -143,15 +143,15 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(comboType).SendKeys(valType);
 
             string Type = ReadExcelData.ReadDataMultipleRows(excelPath, "AddContact", rowNumber, 4);
-            if (Type.Equals("Client"))
+            if(Type.Equals("Client"))
             {
                 driver.FindElement(checkPrimaryContact).Click();
             }
-            if (valRecType.Equals("CF"))
+            if(valRecType.Equals("CF"))
             {
                 driver.FindElement(comboParty).SendKeys(ReadExcelData.ReadData(excelPath, "AddContact", 3));
             }
-            if (Type.Equals("External"))
+            if(Type.Equals("External"))
             {
                 driver.FindElement(checkPrimaryContact).Click();
                 driver.FindElement(checkAckBillingContact).Click();
@@ -181,7 +181,7 @@ namespace SF_Automation.Pages.Opportunity
                 driver.FindElement(listContactOption).Click();
 
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 By iconContactSearchItem = By.XPath("//div[contains(@class,'searchButton')]");
                 WebDriverWaits.WaitUntilEleVisible(driver, iconContactSearchItem, 5);
@@ -198,7 +198,7 @@ namespace SF_Automation.Pages.Opportunity
                 string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);//in prm
                 driver.FindElement(By.XPath("(//span[text()='Party']/following::div//a[text()='" + party + "'])[1]")).Click();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 Console.WriteLine("Party not found: " + ex.Message);
             }
@@ -235,7 +235,7 @@ namespace SF_Automation.Pages.Opportunity
                 driver.FindElement(listContactOption).Click();
 
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 By iconContactSearchItem = By.XPath("//div[contains(@class,'searchButton')]");
                 WebDriverWaits.WaitUntilEleVisible(driver, iconContactSearchItem, 5);
@@ -244,7 +244,7 @@ namespace SF_Automation.Pages.Opportunity
                 WebDriverWaits.WaitUntilEleVisible(driver, txtContact, 20);
                 driver.FindElement(txtContact).Click();
             }
-            if (recordType == "CF")
+            if(recordType == "CF")
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, btnPartyL, 20);
                 driver.FindElement(btnPartyL).Click();
@@ -316,7 +316,7 @@ namespace SF_Automation.Pages.Opportunity
                 WebDriverWaits.WaitUntilEleVisible(driver, listContactOption, 20);
                 driver.FindElement(listContactOption).Click();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 By iconContactSearchItem = By.XPath("//div[contains(@class,'searchButton')]");
                 WebDriverWaits.WaitUntilEleVisible(driver, iconContactSearchItem, 5);
@@ -328,7 +328,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, dropdownContactType, 20);
             driver.FindElement(dropdownContactType).Click();
             Thread.Sleep(3000);
-            driver.FindElement(By.XPath($"//div[8]/div/ul/li/a[text()='{typeContact}']")).Click();//prm
+            driver.FindElement(By.XPath($"//ul/li/a[text()='{typeContact}']")).Click();//prm
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnPartyL, 20);
             driver.FindElement(btnPartyL).Click();
@@ -356,7 +356,7 @@ namespace SF_Automation.Pages.Opportunity
                 string name = driver.FindElement(valAddedContact).Text;
                 return name;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 return "No contact is added";
             }
@@ -412,5 +412,3 @@ namespace SF_Automation.Pages.Opportunity
 
     }
 }
-
-

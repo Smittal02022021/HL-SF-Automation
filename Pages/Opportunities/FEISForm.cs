@@ -5,6 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
+using AventStack.ExtentReports.Reporter.Configuration;
+using System.Linq.Expressions;
+using Microsoft.AspNetCore.Builder;
+using System.Security.Policy;
 
 namespace SF_Automation.Pages.Opportunity
 {
@@ -241,7 +245,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, checkToggleTabs, 80);
             driver.FindElement(checkToggleTabs).Click();
             bool tabsPresent = driver.FindElement(tabList).Displayed;
-            if (tabsPresent == true)
+            if(tabsPresent == true)
             {
                 string lblTabslist = driver.FindElement(tabList).Text.Replace("\r\n", ", ").ToString();
                 Console.WriteLine(lblTabslist);
@@ -347,7 +351,7 @@ namespace SF_Automation.Pages.Opportunity
 
         public string ValidateInformativeMessageOnOwnershipTab()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,-900)");
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabOwnershipL, 150);
@@ -428,7 +432,7 @@ namespace SF_Automation.Pages.Opportunity
                 string name = driver.FindElement(tblTargetCompL).Text;
                 return name;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 return "Record has been deleted";
             }
@@ -478,13 +482,13 @@ namespace SF_Automation.Pages.Opportunity
             string[] expectedValue = { "Yes/No", "Estimated Transaction Size (MM)", "Fairness Committee or Trustee", "Fairness Fairness or Terms", "Fairness Opinion Publicly Disclosed", "Fairness Relative Fairness", "Fairness Unusual Opinion", "Form of Consideration", "Legal Structure", "Opinion Parties Affiliated", "Opinion Special Committee", "Transaction Type" };
             bool isSame = true;
             driver.FindElement(btnCloseL).Click();
-            if (expectedValue.Length != actualValue.Length)
+            if(expectedValue.Length != actualValue.Length)
             {
                 return !isSame;
             }
-            for (int rec = 0; rec < expectedValue.Length; rec++)
+            for(int rec = 0; rec < expectedValue.Length; rec++)
             {
-                if (!expectedValue[rec].Equals(actualValue[rec]))
+                if(!expectedValue[rec].Equals(actualValue[rec]))
                 {
                     isSame = false;
                     break;
@@ -499,7 +503,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, tabTransInfoL, 150);
             driver.FindElement(tabTransInfoL).Click();
             Thread.Sleep(5000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,350)");
             WebDriverWaits.WaitUntilEleVisible(driver, btnTransType, 150);
             driver.FindElement(btnTransType).Click();
@@ -526,7 +530,7 @@ namespace SF_Automation.Pages.Opportunity
         //Validate ther *Form of Consideration
         public string ValidateOtherFormofConsideration()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,400)");
             Thread.Sleep(4000);
             driver.FindElement(valFormL).Click();
@@ -542,7 +546,7 @@ namespace SF_Automation.Pages.Opportunity
         //Validate ther *Form of Consideration
         public string ValidateAdditionalOpinionPartiesAffiliated()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,750)");
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnOpinionParties, 160);
@@ -557,7 +561,7 @@ namespace SF_Automation.Pages.Opportunity
 
         public void SaveAllMandatoryFieldsOfTransactionInfoTab()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             Thread.Sleep(5000);
 
             driver.FindElement(btnTransType).Click();
@@ -721,7 +725,7 @@ namespace SF_Automation.Pages.Opportunity
                 string value = driver.FindElement(valAddedOwnership).Text;
                 return value;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 return "Added PE Firm record has been deleted";
             }
@@ -741,7 +745,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, tabOwnershipL, 150);
             driver.FindElement(tabOwnershipL).Click();
             Thread.Sleep(4000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,750)");
             WebDriverWaits.WaitUntilEleVisible(driver, tblTargetCompL, 180);
             string name = driver.FindElement(tblTargetCompL).Displayed.ToString();
@@ -750,7 +754,7 @@ namespace SF_Automation.Pages.Opportunity
         //Check all questions on Form Of Opinion tab and validate tab on clicking Save button
         public string ValidateRelatioshipValidationPostSavingCheckboxesOnFormOfOpinion()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,-750)");
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, tabForm, 160);
@@ -801,13 +805,13 @@ namespace SF_Automation.Pages.Opportunity
             string[] expectedValues = { "Yes/No\r\nComplete this field.", "Yes/No\r\nComplete this field.", "Yes/No\r\nComplete this field.", "Yes/No\r\nComplete this field." };
             bool isTrue = true;
 
-            if (expectedValues.Length != actualNamesAndDesc.Length)
+            if(expectedValues.Length != actualNamesAndDesc.Length)
             {
                 return !isTrue;
             }
-            for (int recType = 0; recType < expectedValues.Length; recType++)
+            for(int recType = 0; recType < expectedValues.Length; recType++)
             {
-                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                if(!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
                 {
                     isTrue = false;
                     break;
@@ -825,7 +829,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(btn1stQues).Click();
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//flexipage-component2[3]/slot/flexipage-field-section2/div/div//div[2]/lightning-base-combobox-item[3]/span[2]/span")).Click();
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,400)");
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btn2ndQues, 150);
@@ -850,13 +854,13 @@ namespace SF_Automation.Pages.Opportunity
             string[] expectedValues = { "*If Yes, please explain", "*If Yes, please explain", "*If Yes, please explain", "*If Yes, please explain" };
             bool isTrue = true;
 
-            if (expectedValues.Length != actualNamesAndDesc.Length)
+            if(expectedValues.Length != actualNamesAndDesc.Length)
             {
                 return !isTrue;
             }
-            for (int recType = 0; recType < expectedValues.Length; recType++)
+            for(int recType = 0; recType < expectedValues.Length; recType++)
             {
-                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                if(!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
                 {
                     isTrue = false;
                     break;
@@ -868,7 +872,7 @@ namespace SF_Automation.Pages.Opportunity
         //Select all questions
         public bool SaveAllQuestionsAsNoAndValidateDisplayedExpTextBox()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,-1000)");
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, btn1stQues, 150);
@@ -900,13 +904,13 @@ namespace SF_Automation.Pages.Opportunity
             bool isTrue = true;
             try
             {
-                if (expectedValues.Length != actualNamesAndDesc.Length)
+                if(expectedValues.Length != actualNamesAndDesc.Length)
                 {
                     return !isTrue;
                 }
-                for (int recType = 0; recType < expectedValues.Length; recType++)
+                for(int recType = 0; recType < expectedValues.Length; recType++)
                 {
-                    if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                    if(!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
                     {
                         isTrue = false;
                         break;
@@ -914,7 +918,7 @@ namespace SF_Automation.Pages.Opportunity
                 }
                 return isTrue;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 return !isTrue;
             }
@@ -932,13 +936,13 @@ namespace SF_Automation.Pages.Opportunity
             string[] expectedValues = { "Complete this field.", "Complete this field.", "Complete this field.", "Complete this field." };
             bool isTrue = true;
 
-            if (expectedValues.Length != actualNamesAndDesc.Length)
+            if(expectedValues.Length != actualNamesAndDesc.Length)
             {
                 return !isTrue;
             }
-            for (int recType = 0; recType < expectedValues.Length; recType++)
+            for(int recType = 0; recType < expectedValues.Length; recType++)
             {
-                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                if(!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
                 {
                     isTrue = false;
                     break;
@@ -970,13 +974,13 @@ namespace SF_Automation.Pages.Opportunity
             string[] expectedValues = { "Fairness Opinion Publicly Disclosed\r\nComplete this field.", "Fairness Relative Fairness\r\nComplete this field.", "Fairness Fairness or Terms\r\nComplete this field.", "Fairness Committee or Trustee\r\nComplete this field.", "Fairness Unusual Opinion\r\nComplete this field." };
             bool isTrue = true;
 
-            if (expectedValues.Length != actualNamesAndDesc.Length)
+            if(expectedValues.Length != actualNamesAndDesc.Length)
             {
                 return !isTrue;
             }
-            for (int recType = 0; recType < expectedValues.Length; recType++)
+            for(int recType = 0; recType < expectedValues.Length; recType++)
             {
-                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                if(!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
                 {
                     isTrue = false;
                     break;
@@ -988,7 +992,7 @@ namespace SF_Automation.Pages.Opportunity
         //Validate that no validation on Legal Review Tab after saving values
         public bool VerifyNoFairnessValidationIsDisplayedUponSelectingValue()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,-1500)");
             Thread.Sleep(4000);
             driver.FindElement(btnFairness1).Click();
@@ -1026,13 +1030,13 @@ namespace SF_Automation.Pages.Opportunity
             string[] expectedValues = { "Complete this field.", "Complete this field.", "Complete this field.", "Complete this field." };
             bool isTrue = true;
 
-            if (expectedValues.Length != actualNamesAndDesc.Length)
+            if(expectedValues.Length != actualNamesAndDesc.Length)
             {
                 return !isTrue;
             }
-            for (int recType = 0; recType < expectedValues.Length; recType++)
+            for(int recType = 0; recType < expectedValues.Length; recType++)
             {
-                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                if(!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
                 {
                     isTrue = false;
                     break;
@@ -1068,7 +1072,7 @@ namespace SF_Automation.Pages.Opportunity
         //Validate that no validation on Other Opinion Information Tab after saving values
         public string VerifyNoValidationIsDisplayedUponSelectingValueOnOtherOpinionInfoTab()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             Thread.Sleep(5000);
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//flexipage-component2[1]/slot//iframe")));
             Thread.Sleep(5000);
@@ -1096,7 +1100,7 @@ namespace SF_Automation.Pages.Opportunity
                 string message = driver.FindElement(msgOtherOpinion).Text;
                 return message;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 return "No validation is displayed";
             }
@@ -1106,7 +1110,7 @@ namespace SF_Automation.Pages.Opportunity
         public bool VerifyAllPendingValidations()
         {
 
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,-800)");
             Thread.Sleep(5000);
             //WebDriverWaits.WaitUntilEleVisible(driver, btnFormCheck, 170);
@@ -1119,13 +1123,13 @@ namespace SF_Automation.Pages.Opportunity
             string[] expectedValues = { "Estimated Transaction Size (MM)", "Form of Consideration", "Legal Structure", "Opinion Parties Affiliated", "Transaction Type" };
             bool isTrue = true;
 
-            if (expectedValues.Length != actualNamesAndDesc.Length)
+            if(expectedValues.Length != actualNamesAndDesc.Length)
             {
                 return !isTrue;
             }
-            for (int recType = 0; recType < expectedValues.Length; recType++)
+            for(int recType = 0; recType < expectedValues.Length; recType++)
             {
-                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                if(!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
                 {
                     isTrue = false;
                     break;
@@ -1139,7 +1143,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveL, 150);
             driver.FindElement(btnSaveL).Click();
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
 
             WebDriverWaits.WaitUntilEleVisible(driver, lnkTxnType, 150);
             driver.FindElement(lnkTxnType).Click();
@@ -1173,13 +1177,13 @@ namespace SF_Automation.Pages.Opportunity
             string[] expectedValues = { "Transaction Type", "Legal Structure", "Estimated Transaction Size (MM)", "Form of Consideration" };
             bool isTrue = true;
 
-            if (expectedValues.Length != actualNamesAndDesc.Length)
+            if(expectedValues.Length != actualNamesAndDesc.Length)
             {
                 return !isTrue;
             }
-            for (int recType = 0; recType < expectedValues.Length; recType++)
+            for(int recType = 0; recType < expectedValues.Length; recType++)
             {
-                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                if(!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
                 {
                     isTrue = false;
                     break;
@@ -1191,7 +1195,7 @@ namespace SF_Automation.Pages.Opportunity
         //Validate Submit FEIS Form button
         public string ValidateSubmitFEISFormButton()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,-800)");
             Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkFormCheck, 170);
@@ -1238,7 +1242,7 @@ namespace SF_Automation.Pages.Opportunity
                 string button = driver.FindElement(btnSubmitFEIS).Displayed.ToString();
                 return button;
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "Button is not displayed";
             }
@@ -1276,7 +1280,7 @@ namespace SF_Automation.Pages.Opportunity
                 driver.FindElement(btnCancelL).Click();
                 return "Review tab is not accessible";
             }
-            catch (Exception)
+            catch(Exception)
             {
                 string value = driver.FindElement(lblReviewed).Text;
                 return value;
@@ -1298,7 +1302,7 @@ namespace SF_Automation.Pages.Opportunity
                 driver.FindElement(btnCancelL).Click();
                 return "Review tab is not accessible";
             }
-            catch (Exception)
+            catch(Exception)
             {
                 string value = driver.FindElement(lblReviewed).Text;
                 return value;

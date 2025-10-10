@@ -236,10 +236,11 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     extentReports.CreateStepLogs("Passed", counterpartyCompanyNameExl + " Company is added and displayed into Counterparties List ");
 
                     //TMTI0070802-Verification of Search filter available on View Counterparty screen
+                    //TMTI0105434	Verify the functionality of search filter available on View Counterparty page
                     addCounterparty.SearchCounterparty(selectedCompany);
                     Assert.IsTrue(addCounterparty.IsCompanyInCounterpartyList(selectedCompany), "Verify added Company: " + selectedCompany + " is under Counterparties List while searching from Search Box ");
                     extentReports.CreateLog(selectedCompany + " Company is added and displayed into Counterparties List while searching from Search Box ");
-                    addCounterparty.ClearSearchbox();
+                    addCounterparty.ClearSearchbox(); 
 
                     //TMTI0063924 Verify the functionality of View all button on Counterparties Editor Page
                     //GetCount of Added Counterparties 
@@ -262,8 +263,8 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     addCounterparty.ButtonConfirmDeleteCounterparty();//need to change locator on delte popup 
                     popupMessage = addCounterparty.GetLVMessagePopup();
                     Assert.AreEqual(popupMessage, "Records deleted successfully", "Verify the Success Message if Counterparty is Deleted ");
-                    extentReports.CreateStepLogs("Passed", popupMessage + " : Message Displayed and counterparties is deleted from list ");              
-
+                    extentReports.CreateStepLogs("Passed", popupMessage + " : Message Displayed and counterparties is deleted from list ");
+                    randomPages.CloseActiveTab(nameOpportunityExl);
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateStepLogs("Info", valUser + " logged out ");
                 }

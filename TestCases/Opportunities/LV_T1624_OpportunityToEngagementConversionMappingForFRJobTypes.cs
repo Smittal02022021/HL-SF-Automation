@@ -25,7 +25,8 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
         EngagementHomePage engagementHome = new EngagementHomePage();
         RandomPages randomPages = new RandomPages();
 
-        public static string fileTC1624 = "LV_T1624_OpportunityToEngagementConversionMappingForFRJobTypes";
+        private static string fileTC1624 = "LV_T1624_OpportunityToEngagementConversionMappingForFRJobTypes";
+        private string locationBenefit;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -108,11 +109,12 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
                     string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
                     addOpportunityContact.CickAddFROpportunityContact();
-                    addOpportunityContact.CreateContactL2(fileTC1624);
+                    addOpportunityContact.CreateContactL2(fileTC1624, valRecordType);
                     extentReports.CreateStepLogs("Info", valContactType + " Opportunity contact is saved ");
-
+                    //TMTI0118698 Verify that the user is able to update the "Location where Benefit was Provided" field value and successfully request an engagement.
                     //Update required Opportunity fields for conversion and Internal team details
                     opportunityDetails.UpdateReqFieldsForFRConversionLV(fileTC1624);
+                    extentReports.CreateStepLogs("Info", "Location where Benefit was Provided value filled ");
                     opportunityDetails.UpdateTotalDebtConfirmedLV();
                     extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
                     opportunityDetails.UpdateInternalTeamDetailsLV(fileTC1624);
@@ -120,6 +122,13 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     opportunityDetails.ClickReturnToOpportunityL();
                     randomPages.CloseActiveTab("Internal Team");
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
+
+                    //PitchMandateAward details
+                    randomPages.ClickPitchMandteAwardTabLV();
+                    opportunityDetails.CreateNewPitchMandateAwardLV();
+                    extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
+                    string idPMA = opportunityDetails.GetPitchMandateAwardID();
+                    randomPages.CloseActiveTab(idPMA + " | Pitch/Mandate Award");
 
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateStepLogs("Info", userExl + " Standard User logged out ");
@@ -130,6 +139,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     //update CC 
                     opportunityDetails.UpdateOutcomeDetails(fileTC1624);
                     extentReports.CreateStepLogs("Info", " Required Outcome Details are provided ");
+                    
                     //Login again as Standard User
                     homePage.SearchUserByGlobalSearchN(userExl);
                     extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
@@ -149,6 +159,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
 
                     //Search for created opportunity
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
+
                     //Requesting for engagement and validate the success message
                     opportunityDetails.ClickRequestToEngL();
                     //Submit Request To Engagement Conversion 
@@ -206,8 +217,6 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
                     engagementHome.SearchEngagementInLightningView(engagementName);
 
-
-
                     //Validate the value of Stage in Engagement details page
                     string engStage = engagementDetails.GetStageL();
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "Engagement", 1), engStage);
@@ -246,8 +255,45 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     string engContactName = engagementDetails.GetEngExternalContactLV();
                     Assert.AreEqual(ReadExcelData.ReadData(excelPath, "AddContact", 1), engContactName);
                     extentReports.CreateStepLogs("Pass", "Opportunity Contact: " + engContactName + " is mapped on Engagement detail page after conversion ");
+                    homePageLV.UserLogoutFromSFLightningView();
+                    extentReports.CreateStepLogs("Pass", "CF User: "+userExl + " logged out ");
+                    //---------------------------------------------------------//
+                    //Login Via System Admin to verify Last Integration the ERP Status
+                    //Login as System Admin user 
+                    string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUser", 2, 1);
+                    homePage.SearchUserByGlobalSearchN(adminUserExl);
+                    extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
+                    //Login user
+                    usersLogin.LoginAsSelectedUser();
 
-                    homePageLV.UserLogoutFromSFLightningView();                    
+                    login.SwitchToLightningExperience();
+                    extentReports.CreateStepLogs("Passed", "System Admin Loggin to Lightning View ");
+                    //Go to Opportunity module in Lightning View 
+                    homePageLV.SelectAppLV(appNameExl);
+                    Assert.AreEqual(appNameExl, homePageLV.GetAppName());
+                    extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
+                    moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
+                    homePageLV.SelectModule(moduleNameExl);
+                    extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
+                    //Search for created opportunity
+                    engagementHome.GlobalSearchEngagementInLightningView(engagementName);
+                    extentReports.CreateStepLogs("Passed", "Engagement: " + opportunityName + " found and selected ");
+
+                    //TMTI0071647 Verify the status is updated in the Oracle ERP Information section
+                    //TMTI0084221 Verify the status is updated in Oracle ERP Information section
+                    //Validate the ERP Last Integration Status on Engagement details page
+                    //Full View
+                    //randomPages.DetailPageFullViewLV();
+                    randomPages.ClickTabOracleERPLV();
+                    extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
+
+                    string ERPStatus = randomPages.GetERPLastIntegrationStatusLV();
+                    Assert.AreEqual("Success", ERPStatus, "Verify the Engagement ERP Last Integration Status as Success ");
+                    extentReports.CreateStepLogs("Passed", "Engagement ERP Last Integration Status in ERP section: " + ERPStatus + " is displayed ");
+                    randomPages.CloseActiveTab(engagementName);
+                    homePageLV.LogoutFromSFLightningAsApprover();
+                    extentReports.CreateStepLogs("Info", "System Administrator: " + adminUserExl + " Logged out ");
+
                 }
                 login.SwitchToClassicView();
                 usersLogin.UserLogOut();

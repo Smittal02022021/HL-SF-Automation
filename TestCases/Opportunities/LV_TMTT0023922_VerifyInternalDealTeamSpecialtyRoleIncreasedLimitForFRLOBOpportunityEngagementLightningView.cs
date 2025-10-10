@@ -22,6 +22,7 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         LVHomePage homePageLV = new LVHomePage();
         HomeMainPage homePage = new HomeMainPage();
+        RandomPages randomPages = new RandomPages();
 
         public static string fileTMTI0055018 = "LV_TMTI0055018_VerifyInternalDealTeamSpecialtyRoleIncreasedLimitForFRLOBOpportunityEngagement";
 
@@ -100,12 +101,20 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
                         string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
                         string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
                         addOpportunityContact.CickAddFROpportunityContact();
-                        addOpportunityContact.CreateContactL2(fileTMTI0055018);
+                        addOpportunityContact.CreateContactL2(fileTMTI0055018, valRecordType);
                         extentReports.CreateLog(valContactType + " Opportunity contact is saved ");
 
                         //Update required Opportunity fields for conversion and Internal team details
                         opportunityDetails.UpdateReqFieldsForFRConversionLV(fileTMTI0055018);
                         opportunityDetails.UpdateTotalDebtConfirmedLV();
+
+                        //PitchMandateAward details
+                        randomPages.ClickPitchMandteAwardTabLV();
+                        opportunityDetails.CreateNewPitchMandateAwardLV();
+                        extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
+                        string idPMA = opportunityDetails.GetPitchMandateAwardID();
+                        randomPages.CloseActiveTab(idPMA + " | Pitch/Mandate Award");
+
                         extentReports.CreateLog("Opportunity Required Fields for Converting into Engagement are Filled ");
                         opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTI0055018);
                         extentReports.CreateLog("Opportunity Internal Team Details are provided ");
@@ -225,9 +234,10 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
                         txtLineErrorMessage = opportunityDetails.GetLineErrorMessageLV();
                         Assert.IsTrue(txtLineErrorMessage.Contains(maxMemberLimit));
                         extentReports.CreateLog("Line Message: " + txtLineErrorMessage + " is Displayed on header of Engagement Internal Team Member page ");
-
-                        homePageLV.UserLogoutFromSFLightningView();
-                        extentReports.CreateLog("User: " + userCAO + " logged out ");
+                        randomPages.CloseActiveTab("Internal Team");
+                        randomPages.CloseActiveTab(engagementName);
+                        homePageLV.LogoutFromSFLightningAsApprover();
+                        extentReports.CreateLog("CAO User: " + userCAO + " logged out ");
                     }
                     usersLogin.UserLogOut();
                     driver.Quit();
