@@ -334,14 +334,14 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     //TMT0082753	Verify that the Compliance fields updated by the Compliance user get mapped to the engagement's Compliance tab.
                     engagementDetails.ClickTabComplianceLegalLV();
 
-                    //Get complianceReview and verifyfied by                        
+                    //Get complianceReview and verified by                        
                     Assert.AreEqual(valReceivedByComplianceDate, engagementDetails.GetReceivedByComplianceDate());
                     extentReports.CreateStepLogs("Passed", "Received By Compliance Date: '" + valReceivedByComplianceDate + "' is mapped on Engagement page after conversion from Opportunity");
 
                     Assert.AreEqual(valVerifiedByComplianceDate, engagementDetails.GetVerifiedByComplianceDate());
                     extentReports.CreateStepLogs("Passed", "Verified By Compliance Date: '" + valVerifiedByComplianceDate + "' is mapped on Engagement page after conversion from Opportunity");
 
-                    //opportunityDetails.UpdateComplianceReceivedVerfifiedDateLV();                        
+                    //opportunityDetails.UpdateComplianceReceivedVerifiedDateLV();                        
                     randomPages.CloseActiveTab(opportunityName);
                     homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", userCompliance + " Compliance User logged out ");

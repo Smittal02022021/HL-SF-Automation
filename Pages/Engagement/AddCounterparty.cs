@@ -286,7 +286,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             try
             {
-                IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+                IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
                 jse.ExecuteScript("arguments[0].click();", driver.FindElement(comboTypeCounterparty));
 
                 //driver.FindElement(comboTypeCounterparty).Click();
@@ -298,7 +298,7 @@ namespace SF_Automation.Pages.Engagement
             {
 
             }
-            
+
             driver.FindElement(buttonSaveL).Click();
             Thread.Sleep(5000);
         }
@@ -1346,7 +1346,7 @@ namespace SF_Automation.Pages.Engagement
                 actions.MoveToElement(elementEquity);
                 actions.Perform();
                 Thread.Sleep(3000);
-                IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+                IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
                 jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnEquity));
                 //driver.FindElement(btnEquity).Click();
                 Thread.Sleep(3000);
