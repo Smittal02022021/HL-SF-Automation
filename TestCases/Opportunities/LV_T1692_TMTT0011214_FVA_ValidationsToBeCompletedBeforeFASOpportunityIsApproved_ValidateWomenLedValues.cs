@@ -31,6 +31,8 @@ namespace SF_Automation.TestCases.Opportunities
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
+        //TMTI0118691	Verify that the "Location where Benefit was Provided" field is required when user request an engagement.
+
         [Test]
         public void VerifyValidationsToBeCompletedBeforeOpportunityIsApprovedForFVALV()
         {
@@ -98,7 +100,8 @@ namespace SF_Automation.TestCases.Opportunities
                     string opportunityNumber = opportunityDetails.GetOpportunityNumberL();
                     Assert.IsNotNull(opportunityDetails.GetOpportunityNumberL());
                     extentReports.CreateStepLogs("Pass", "Opportunity with number : " + opportunityNumber + " is created ");
-
+                    //TMTI0118691	Verify that the "Location where Benefit was Provided" field is required when user request an engagement.
+                    // Error list updated
                     //Requesting for engagement and validate Error Messages //valRecordType, fileTC1624
                     opportunityDetails.ClickRequestToEngL();
                     string txtActualRequiredFieldsValidation = opportunityDetails.GetActualRequiredFieldsValidationForConversionLV();
@@ -106,7 +109,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(txtExpectedRequiredFieldsValidation, txtActualRequiredFieldsValidation, "Verify the Required fields validation for Requesting to Engagement");
                     extentReports.CreateStepLogs("Pass", "Required fields validations are displayed for Requesting to Engagement::" + txtExpectedRequiredFieldsValidation);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 usersLogin.UserLogOut();
                 driver.Quit();
                 extentReports.CreateStepLogs("Pass", "Browser Closed");
@@ -114,7 +117,7 @@ namespace SF_Automation.TestCases.Opportunities
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

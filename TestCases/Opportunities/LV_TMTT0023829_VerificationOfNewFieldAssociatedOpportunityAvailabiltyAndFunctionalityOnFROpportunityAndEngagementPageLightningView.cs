@@ -24,6 +24,7 @@ namespace SF_Automation.TestCases.Opportunities
         AdditionalClientSubjectsPage clientSubjectsPage = new AdditionalClientSubjectsPage();
         LVHomePage homePageLV = new LVHomePage();
         HomeMainPage homePage = new HomeMainPage();
+        RandomPages randomPages = new RandomPages();
 
         public static string fileTMTI0054683 = "LV_TMTI0054683_VerificationOfNewFieldAssociatedOpportunityAvailabiltyAndFunctionalityOnFROpportunityAndEngagementPage";
 
@@ -118,14 +119,20 @@ namespace SF_Automation.TestCases.Opportunities
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
                     string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
                     addOpportunityContact.CickAddFROpportunityContact();
-                    addOpportunityContact.CreateContactL2(fileTMTI0054683);
+                    addOpportunityContact.CreateContactL2(fileTMTI0054683, valRecordType);
                     extentReports.CreateLog(valContactType + " Opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details
                     opportunityDetails.UpdateReqFieldsForFRConversionLV(fileTMTI0054683);
                     opportunityDetails.UpdateTotalDebtConfirmedLV();
                     extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
-                    
+                    //PitchMandateAward details
+                    randomPages.ClickPitchMandteAwardTabLV();
+                    opportunityDetails.CreateNewPitchMandateAwardLV();
+                    extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
+                    string idPMA = opportunityDetails.GetPitchMandateAwardID();
+                    randomPages.CloseActiveTab(idPMA + " | Pitch/Mandate Award");
+
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateLog(stdUser + " Standard User Logged Out ");
                      
@@ -350,7 +357,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                     homePageLV.UserLogoutFromSFLightningView();
                     driver.Quit();
-                    extentReports.CreateStepLogs("Info", "Browser Closed");
+                    extentReports.CreateStepLogs("Info", "Browser Successfully Closed");
                 }
             }
             catch (Exception e)
@@ -358,8 +365,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateExceptionLog(e.Message);
                 login.SwitchToClassicView();
                 usersLogin.UserLogOut();
-                driver.Quit();
-                extentReports.CreateLog("Browser Closed ");
+                driver.Quit();               
 
             }
         }

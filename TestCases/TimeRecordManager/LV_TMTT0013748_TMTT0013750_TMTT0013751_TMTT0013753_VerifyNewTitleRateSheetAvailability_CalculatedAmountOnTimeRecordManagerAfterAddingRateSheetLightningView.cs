@@ -1,13 +1,14 @@
 ﻿using NUnit.Framework;
+using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Engagement;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.Pages.Opportunity;
 using SF_Automation.Pages.TimeRecordManager;
-using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.IO;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
@@ -45,7 +46,10 @@ namespace SF_Automation.TestCases.TimeRecordManager
         public void VerifyNewTitleRateSheetCalculatedAmountOnTimeRecordManagerAfterAddingRateSheetLV(){
             try
             {
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTT0013748;
+                //Get path of Test data file
+                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData", fileTMTT0013748 + ".xlsx");
+                excelPath = Path.GetFullPath(excelPath);
+
                 extentReports.CreateStepLogs("Info", "Creating New Opportunity and Converting to Engagement LOB:FVA On Lightning View");
 
                 //Validating Title of Login Page
@@ -121,7 +125,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
                 extentReports.CreateStepLogs("Info", "Creating Opportunity for LOB: " + valRecordType + " and Job Type: " + valJobType);
 
-                string opportunityName = addOpportunity.AddOpportunitiesLightningV3(valRecordType, valJobType, fileTMTT0013748);
+                string opportunityName = addOpportunity.AddOpportunitiesLightningV2(valJobType, fileTMTT0013748);
                 extentReports.CreateStepLogs("Info", "Opportunity : " + opportunityName + " is created ");
 
                 //Call function to enter Internal Team details and validate Opportunity detail page
@@ -139,14 +143,14 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);
                 string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
                 addOpportunityContact.CickAddOpportunityContactLV();
-                addOpportunityContact.CreateContactL2(fileTMTT0013748);
+                addOpportunityContact.CreateContactL2(fileTMTT0013748, valRecordType);
                 extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                 //Update required Opportunity fields for conversion and Internal team details
                 opportunityDetails.UpdateReqFieldsForFVAConversionLV(fileTMTT0013748);
                 extentReports.CreateStepLogs("Info", "Opportunity Required Fields for Converting into Engagement are Filled ");
 
-                usersLogin.ClickLogoutFromLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "CF Financial User Logged out ");
 
                 //Select HL Banker app
@@ -161,11 +165,15 @@ namespace SF_Automation.TestCases.TimeRecordManager
 
                 //Search for created opportunity
                 opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
+                extentReports.CreateStepLogs("Info", "Admin user searched for created opportunity.");
 
                 //Update Internal Team details
-                opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTT0013748);
-                extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are updated ");
+                clientSubjectsPage.EnterMembersToDealTeamLV(fileTMTT0013748);
+                extentReports.CreateStepLogs("Info", "Added all members to Internal Team Details.");
 
+                //opportunityDetails.UpdateInternalTeamDetailsLV(fileTMTT0013748);
+                //extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are updated ");
+                
                 opportunityDetails.ClickReturnToOpportunityLV();
                 extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
 
@@ -231,7 +239,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 Assert.AreEqual(opportunityName, engName);
                 extentReports.CreateStepLogs("Passed", "Converted Name of Engagement : " + engName + " is Same as Opportunity Name : " + opportunityName);
 
-                homePageLV.UserLogoutFromSFLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "CAO User: " + UserCFExl + " Loggout ");
 
                 //Select HL Banker app
@@ -448,7 +456,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateStepLogs("Info", "User: " + userSupervisorExl + " logged out");
 
                 //TC - End
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
 
                 driver.Quit();

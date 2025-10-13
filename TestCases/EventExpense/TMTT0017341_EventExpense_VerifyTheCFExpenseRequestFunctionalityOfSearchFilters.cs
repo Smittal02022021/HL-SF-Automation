@@ -6,6 +6,7 @@ using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.IO;
 using System.Threading;
 
 namespace SF_Automation.TestCases.EventExpense
@@ -37,8 +38,10 @@ namespace SF_Automation.TestCases.EventExpense
         {
             try
             {
-                //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTC17341;
+                ///Get path of Test data file
+                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData", fileTC17341 + ".xlsx");
+                excelPath = Path.GetFullPath(excelPath);
+
                 Console.WriteLine(excelPath);
 
                 //Validating Title of Login Page
@@ -181,7 +184,7 @@ namespace SF_Automation.TestCases.EventExpense
                 }
 
                 //TC - End
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
             catch (Exception e)

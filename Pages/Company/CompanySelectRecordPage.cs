@@ -18,17 +18,17 @@ namespace SF_Automation.Pages.Company
         By btnCancel = By.CssSelector("input[title='Cancel']");
         By txtRecordTypeL = By.XPath("//div[@class='changeRecordTypeCenter']//label//span[2]");
         By txtRecordTypeDscL = By.XPath("//div[@class='changeRecordTypeCenter']//label//div");
-        By btnRecordTypePageL =By.XPath("//div[@class='forceChangeRecordTypeFooter']//button/span[text()='Next']");
-        
+        By btnRecordTypePageL = By.XPath("//div[@class='forceChangeRecordTypeFooter']//button/span[text()='Next']");
+
         private By _radioRecordType(string name)
         {
             return By.XPath($"//div[@class='changeRecordTypeCenter']//label//span[2][text()='{name}']/../span");
-        }      
-                
+        }
+
         private By _btnRecordTypePage(string name)
         {
             return By.XPath($"//div[@class='forceChangeRecordTypeFooter']//button/span[text()='{name}']");
-        }        
+        }
 
         public void ClickButtonCompanyChangeRecordTypePageLV(string btnName)
         {
@@ -41,15 +41,18 @@ namespace SF_Automation.Pages.Company
         {
             return driver.FindElement(_btnRecordTypePage(btnName)).Displayed;
         }
+
         public void SelectCompanyRecordTypeAndClickNextLV(string type)
         {
+            WebDriverWaits.WaitUntilEleVisible(driver, _radioRecordType(type), 20);
             driver.FindElement(_radioRecordType(type)).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, btnRecordTypePageL, 20);
             driver.FindElement(btnRecordTypePageL).Click();
         }
-      
+
         public bool AreCompanyRecordTypesDescriptionDisplayedLV(string file)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
@@ -58,14 +61,14 @@ namespace SF_Automation.Pages.Company
             IList<IWebElement> dscRecordTypes = driver.FindElements(txtRecordTypeDscL);
             bool recordTypeDscFound = false;
             int rowOpp = ReadExcelData.GetRowCount(excelPath, "CompanyRecordTypes");
-            foreach (IWebElement txtFieldError in dscRecordTypes)
+            foreach(IWebElement txtFieldError in dscRecordTypes)
             {
                 recordTypeDscFound = false;
                 string actualRecordType = txtFieldError.Text.Trim();
-                for (int row = 2; row <= rowOpp; row++)
+                for(int row = 2; row <= rowOpp; row++)
                 {
                     string valRecordTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyRecordTypes", row, 2);
-                    if (actualRecordType == valRecordTypeExl)
+                    if(actualRecordType == valRecordTypeExl)
                     {
                         recordTypeDscFound = true;
                         break;
@@ -77,7 +80,7 @@ namespace SF_Automation.Pages.Company
 
         public bool AreCompanyRecordTypesDisplayedLV(string file)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
@@ -86,14 +89,14 @@ namespace SF_Automation.Pages.Company
             IList<IWebElement> listRecordTypes = driver.FindElements(txtRecordTypeL);
             bool recordTypeFound = false;
             int rowOpp = ReadExcelData.GetRowCount(excelPath, "CompanyRecordTypes");
-            foreach (IWebElement txtFieldError in listRecordTypes)
+            foreach(IWebElement txtFieldError in listRecordTypes)
             {
                 recordTypeFound = false;
                 string actualRecordType = txtFieldError.Text.Trim();
-                for (int row = 2; row <= rowOpp; row++)
+                for(int row = 2; row <= rowOpp; row++)
                 {
                     string valRecordTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyRecordTypes", row, 1);
-                    if (actualRecordType == valRecordTypeExl)
+                    if(actualRecordType == valRecordTypeExl)
                     {
                         recordTypeFound = true;
                         break;
@@ -110,7 +113,7 @@ namespace SF_Automation.Pages.Company
             return headingCompanyRecordTypePage;
         }
 
-        public void SelectCompanyRecordType(string file,string recordType)
+        public void SelectCompanyRecordType(string file, string recordType)
         {
 
             ReadJSONData.Generate("Admin_Data.json");
@@ -131,13 +134,13 @@ namespace SF_Automation.Pages.Company
             SelectElement select = new SelectElement(recordDropdown);
             int CompanyRecordList = ReadExcelData.GetRowCount(excelPath, "CompanyRecordTypes");
 
-            for (int row = 2; row <= CompanyRecordList; row++)
+            for(int row = 2; row <= CompanyRecordList; row++)
             {
                 IList<IWebElement> options = select.Options;
                 IWebElement companyRecordTypeOption = options[row - 2];
                 string companyRecordTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyRecordTypes", row, 1);
 
-                IWebElement tableCompanyRecordType = driver.FindElement(By.CssSelector("table[class='infoTable recordTypeInfo']>tbody>tr:nth-of-type("+row+")>th"));
+                IWebElement tableCompanyRecordType = driver.FindElement(By.CssSelector("table[class='infoTable recordTypeInfo']>tbody>tr:nth-of-type(" + row + ")>th"));
                 Assert.AreEqual(companyRecordTypeOption.Text, companyRecordTypeExl);
                 Assert.AreEqual(tableCompanyRecordType.Text, companyRecordTypeExl);
 
@@ -149,11 +152,12 @@ namespace SF_Automation.Pages.Company
         }
 
         //Verify continue and cancel button on company record page
-            public void VerifyContinueCancelBtnDisplay() {
-            bool res=driver.FindElement(btnContinue).Displayed;
+        public void VerifyContinueCancelBtnDisplay()
+        {
+            bool res = driver.FindElement(btnContinue).Displayed;
             Assert.IsTrue(res);
             bool res1 = driver.FindElement(btnCancel).Displayed;
             Assert.IsTrue(res1);
         }
-        }
     }
+}

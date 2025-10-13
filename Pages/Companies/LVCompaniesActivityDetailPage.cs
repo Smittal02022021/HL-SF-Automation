@@ -14,15 +14,15 @@ using System.Threading.Tasks;
 using static NUnit.Framework.Internal.OSPlatform;
 
 namespace SF_Automation.Pages.Companies
-{   
-    class LVCompaniesActivityDetailPage: BaseClass
+{
+    class LVCompaniesActivityDetailPage : BaseClass
     {
         By chartActivities = By.XPath("//div[contains(@class,'chart-widget-container')]");
         By btnAddActivity = By.XPath("//header//button[text()='Add Activity']");
         By btnSaveActivity = By.XPath("//button[text()='Save']");
         By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
         By btnLVPopupClose = By.XPath("//button[contains(@class,'toastClose')]");
-        By tableActivities = By.XPath("//div[contains(@class,'table_header')]//table");
+        By tableActivities = By.XPath("(//div[contains(@class,'table_header')]//table)[3]");
         By txtDefaultHLAttandee = By.XPath("//c-s-l_-lwc-multi-lookup[contains(@class,'lookupForHLAttendee')]//lightning-pill//span[contains(@class,'pill__label')]");
         By txtDefaultCompanyDiscussed = By.XPath("//c-s-l_-lwc-multi-lookup[contains(@class,'lookupForAccount')]//lightning-pill//span[contains(@class,'pill__label')]");
         By btnCreateNewTask = By.XPath("//button[text()='Create New Task']");
@@ -37,7 +37,7 @@ namespace SF_Automation.Pages.Companies
         By duelListBox = By.XPath("(//div[contains(@class,'dueling-list')]//ul)[1]");
         By txtSubject = By.XPath("//input[@name = 'Subject']");
         By txtFollowupDate = By.XPath("//input[contains(@name,'Followup_Start_Date')]");
-        By headerFollowup= By.XPath("//h2//span[@title='Schedule Followup']");
+        By headerFollowup = By.XPath("//h2//span[@title='Schedule Followup']");
         By chkPrivate = By.XPath("//span[text()='Private']//parent::label");
 
         //By btnDialogDone = By.XPath("//div[@role='dialog']//div[contains(@class,'modal-footer')]//button");
@@ -72,14 +72,15 @@ namespace SF_Automation.Pages.Companies
         {
             return By.XPath($"//table//tbody//a[text()='{item}']");
         }
-        
+
         public bool IsActivitiesChartDisplayed()
         {
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, chartActivities, 20);
-                return driver.FindElement(chartActivities).Displayed;                
-            }catch { return false; }            
+                return driver.FindElement(chartActivities).Displayed;
+            }
+            catch { return false; }
         }
         public string DefaultDateSelection(string btnName)
         {
@@ -95,7 +96,7 @@ namespace SF_Automation.Pages.Companies
         public string GetLVMessagePopup()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 20);
-            string toastMsg= driver.FindElement(msgLVPopup).Text;
+            string toastMsg = driver.FindElement(msgLVPopup).Text;
             driver.FindElement(btnLVPopupClose).Click();
             return toastMsg;
         }
@@ -106,7 +107,7 @@ namespace SF_Automation.Pages.Companies
             CustomFunctions.MoveToElement(driver, driver.FindElement(_btnActivityListPage(btnName)));
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, _btnActivityListPage(btnName), 20);
-            driver.FindElement(_btnActivityListPage(btnName)).Click();            
+            driver.FindElement(_btnActivityListPage(btnName)).Click();
         }
         public bool IsActivityListDisplayedLV()
         {
@@ -114,12 +115,13 @@ namespace SF_Automation.Pages.Companies
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, tableActivities, 20);
                 return driver.FindElement(tableActivities).Displayed;
-            }catch { return false; }
+            }
+            catch { return false; }
         }
         public string GetDefaultPrimaryHlAttandeeHLAttandee()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtDefaultHLAttandee, 20);
-            CustomFunctions.MoveToElement(driver, driver.FindElement(txtDefaultHLAttandee));            
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtDefaultHLAttandee));
             return driver.FindElement(txtDefaultHLAttandee).Text;
         }
         public string GetDefaultCompaniesDiscussed()
@@ -147,14 +149,14 @@ namespace SF_Automation.Pages.Companies
             int excelCount = ReadExcelData.GetRowCount(excelPath, "ActivityDetailButton");
             string[] expectedValue = new string[excelCount];
             int expectedOptionsCount = excelCount - 1;
-            if (expectedOptionsCount != actualValue.Length)
+            if(expectedOptionsCount != actualValue.Length)
             {
                 return !isSame;
-            }            
-            for (int rec = 0; rec < expectedOptionsCount; rec++)
+            }
+            for(int rec = 0; rec < expectedOptionsCount; rec++)
             {
                 expectedValue[rec] = ReadExcelData.ReadDataMultipleRows(excelPath, "ActivityDetailButton", row, 1);
-                if (!expectedValue[rec].Equals(actualValue[rec]))
+                if(!expectedValue[rec].Equals(actualValue[rec]))
                 {
                     isSame = false;
                     break;
@@ -171,14 +173,15 @@ namespace SF_Automation.Pages.Companies
                 CustomFunctions.MoveToElement(driver, driver.FindElement(btnActivitydetailFileUpload));
                 return driver.FindElement(btnActivitydetailFileUpload).Displayed;
             }
-            catch { return false; }            
+            catch { return false; }
         }
         public bool VerifyActivityDetailPageStatus()
         {
             try
             {
                 return driver.FindElement(txtSubject).Enabled;
-            }catch { return false; }   
+            }
+            catch { return false; }
         }
         public void UpdateActivity(string updateSubject)
         {
@@ -239,10 +242,10 @@ namespace SF_Automation.Pages.Companies
         By chckPrimarySelection = By.XPath("//lightning-input[@data-class='primaryCheck']");
         public string GetPrimaryHlAttandeeHLAttandee()
         {
-            string contactName="";
+            string contactName = "";
             int recordCount = driver.FindElements(chckPrimarySelection).Count;
             CustomFunctions.MoveToElement(driver, driver.FindElement(chckPrimarySelection));
-            for (int recordIndex = 1; recordIndex <= recordCount; recordIndex++)
+            for(int recordIndex = 1; recordIndex <= recordCount; recordIndex++)
             {
                 if(driver.FindElement(By.XPath($"(//lightning-input[@data-class='primaryCheck'])[{recordIndex}]//label//span[@part='indicator']")).Text.IsNullOrEmpty())
                 {
@@ -259,14 +262,14 @@ namespace SF_Automation.Pages.Companies
         }
         public void ClickDicsussionItemName(string item)
         {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
             CustomFunctions.MoveToElement(driver, driver.FindElement(headerFollowup));
             Thread.Sleep(2000);
             CustomFunctions.MoveToElement(driver, driver.FindElement(_linkDiscussedItem(item)));
-            
+
             jse.ExecuteScript("arguments[0].click();", driver.FindElement(_linkDiscussedItem(item)));
             //driver.FindElement(_linkDiscussedItem(item)).Click();
-            Thread.Sleep(5000);                          
+            Thread.Sleep(5000);
         }
 
         public void ClickPrivateCheckbox()

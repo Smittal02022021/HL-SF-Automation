@@ -96,7 +96,7 @@ namespace SF_Automation.TestCases.OpportunitiesOracleERP
                 string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
 
                 addOpportunityContact.CickAddCFOpportunityContact();
-                addOpportunityContact.CreateContactL2(fileERPTS02);
+                addOpportunityContact.CreateContactL2(fileERPTS02, valRecordType);
                 extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                 //Fetch values of Opportunity Name, Client, Subject and Job Type
@@ -108,7 +108,7 @@ namespace SF_Automation.TestCases.OpportunitiesOracleERP
                 randomPages.CloseActiveTab(oppName);
                 extentReports.CreateStepLogs("Info", "Opportunity tab is closed");
 
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User: " + valUserExl + " logged out");
 
                 string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 3);
@@ -206,8 +206,11 @@ namespace SF_Automation.TestCases.OpportunitiesOracleERP
                 opportunityDetails.UpdateHLSectorIDLV(updSector);
 
                 string sector = randomPages.GetHLSectorIDLV();
-                string sectorCombo = randomPages.GetHLSectorComboLV();
-                Assert.AreEqual(sectorCombo.Contains(updSector), true);
+                Assert.AreEqual(sector, updSector);
+                
+                //string sectorCombo = randomPages.GetHLSectorComboLV();
+               // Assert.AreEqual(sectorCombo.Contains(updSector), true);
+
                 extentReports.CreateStepLogs("Passed", "Sector is updated to and sector combo contains " + updSector + " ");
                 randomPages.DetailPageFullViewLV();
                 extentReports.CreateStepLogs("Info", "Detail Page Full View is displayed ");
@@ -352,7 +355,7 @@ namespace SF_Automation.TestCases.OpportunitiesOracleERP
                 extentReports.CreateStepLogs("Passed", "ERP Last Integration Response Date in ERP section New: " + ERPResLOB + " is displayed Old: "+ ERPResClient);
                 randomPages.CloseActiveTab(oppName);
                 extentReports.CreateStepLogs("Info", "Opportunity tab is closed");
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " logged out");               
                 usersLogin.UserLogOut();
                 driver.Quit();

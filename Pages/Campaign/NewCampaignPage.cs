@@ -10,7 +10,7 @@ namespace SF_Automation.Pages
 {
     class NewCampaignPage : BaseClass
     {
-        By valCampRecordType = By.XPath("((//span[text()='Campaign Record Type'])[2]/following::dd//span)[2]");
+        By valCampRecordType = By.XPath("((//span[text()='Campaign Record Type'])[2]/following::div//span)[2]");
         By txtCampaignName = By.XPath("((//span[text()='Campaign Name']/..)[2]/following::input)[1]");
 
         By selectLOB = By.XPath("((//div[text()='Lines of Business']/following::div)[1]//ul)[1]/li");
@@ -79,7 +79,7 @@ namespace SF_Automation.Pages
             }
 
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            js.ExecuteScript("window.scrollTo(0,500)");
+            js.ExecuteScript("window.scrollTo(0,800)");
             Thread.Sleep(2000);
 
             //Get HL Sub Group options Count
@@ -108,7 +108,7 @@ namespace SF_Automation.Pages
             try
             {
                 Thread.Sleep(5000);
-                driver.FindElement(By.XPath($"((//span[text()='{name}'])[2]/../span)[1]")).Click();
+                driver.FindElement(By.XPath($"(//div[@class='changeRecordTypeCenter']//label//span[2][text()='{name}']/../span)[1]")).Click();
                 Thread.Sleep(3000);
 
                 driver.FindElement(btnNext).Click();

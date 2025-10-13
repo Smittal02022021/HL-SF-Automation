@@ -7,6 +7,7 @@ using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.IO;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace SF_Automation.TestCases.Contact
@@ -40,10 +41,8 @@ namespace SF_Automation.TestCases.Contact
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTC1048;
-                Console.WriteLine(excelPath);
-
-                string adminUser = ReadExcelData.ReadData(excelPath, "Users", 1);
+                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData", fileTC1048 + ".xlsx");
+                excelPath = Path.GetFullPath(excelPath);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -143,7 +142,7 @@ namespace SF_Automation.TestCases.Contact
                     contactEdit.ClickSaveBtn();
 
                     string errMsg2 = contactEdit.TxtErrorMessageIndustryGroup();
-                    Assert.AreEqual("Industry Group must be selected when LOB is CF", errMsg2);
+                    Assert.AreEqual("Industry Group must be selected when LOB is CF and Product Specialty is not Capital Solutions.", errMsg2);
                     extentReports.CreateStepLogs("Passed", "Error message: " + errMsg2 + " is displaying when industry group must be selected when LOB is CF ");
 
                     contactEdit.ClickCancelBtn();

@@ -6,6 +6,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading;
 
 namespace SF_Automation.Pages.Activities
@@ -50,11 +51,61 @@ namespace SF_Automation.Pages.Activities
         By txtCompanyName = By.XPath("//label[text()='Company Name']/following::div//input[@name='Name']");
         By txtCompanyCountry = By.XPath("//input[@name='country']/../..");
 
+        By errorCompanyCountry = By.XPath("((//lightning-icon[@icon-name='utility:error'])[1]/following::h2)[1]");
+
         public void ClickAddActivityBtn()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnAddActivity);
             driver.FindElement(btnAddActivity).Click();
             Thread.Sleep(5000);
+        }
+
+        public void ClickAddNewCompanyBtn()
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,500)");
+            Thread.Sleep(3000);
+
+            //Click Create New Company button
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCreateNewCompany, 60);
+            driver.FindElement(btnCreateNewCompany).Click();
+            Thread.Sleep(5000);
+        }
+        
+        public string GetCountryErrorMessage(string file)
+        {
+            ReadJSONData.Generate("Admin_Data.json");
+            string dir = ReadJSONData.data.filePaths.testData;
+            string excelPath = dir + file;
+
+            string companyType = ReadExcelData.ReadData(excelPath, "Company", 1);
+            string companyName = ReadExcelData.ReadData(excelPath, "Company", 2);
+            string companyCountry = ReadExcelData.ReadData(excelPath, "Company", 3);
+
+            //Enter Company Type
+            WebDriverWaits.WaitUntilEleVisible(driver, dropdownCompanyType, 60);
+            driver.FindElement(dropdownCompanyType).Click();
+            Thread.Sleep(1000);
+            driver.FindElement(dropdownCompanyType).SendKeys(companyType);
+            driver.FindElement(dropdownCompanyType).SendKeys(Keys.Enter);
+            Thread.Sleep(3000);
+
+            //Entr Company Name
+            WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyName, 60);
+            driver.FindElement(txtCompanyName).SendKeys(companyName);
+            Thread.Sleep(2000);
+
+            //Click Save on company page
+            driver.FindElement(By.XPath("(//button[text()='Save'])[2]")).Click();
+            Thread.Sleep(2000);
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollTo(0,0)");
+            Thread.Sleep(2000);
+
+            WebDriverWaits.WaitUntilEleVisible(driver, errorCompanyCountry, 20);
+            string countryErrorMsg = driver.FindElement(errorCompanyCountry).Text;
+            return countryErrorMsg;
         }
 
         public void ClickSaveActivityBtn()
@@ -112,7 +163,21 @@ namespace SF_Automation.Pages.Activities
             //Enter Activity details
             Thread.Sleep(3000);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
-            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            Thread.Sleep(2000);
+
+            int typeCount = driver.FindElements(By.XPath("//label[@part='input-radio']")).Count;
+
+            for(int i = 1; i <= typeCount; i++)
+            {
+                string activityType = driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]/span")).Text;
+                if(activityType == type)
+                {
+                    driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]")).Click();
+                    Thread.Sleep(2000);
+
+                    break;
+                }
+            }
             driver.FindElement(txtSubject).SendKeys(subject);
 
             DateTime currentDate = DateTime.Today;
@@ -172,7 +237,21 @@ namespace SF_Automation.Pages.Activities
             //Enter Activity details
             Thread.Sleep(3000);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
-            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            Thread.Sleep(2000);
+
+            int typeCount = driver.FindElements(By.XPath("//label[@part='input-radio']")).Count;
+
+            for(int i = 1; i <= typeCount; i++)
+            {
+                string activityType = driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]/span")).Text;
+                if(activityType == type)
+                {
+                    driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]")).Click();
+                    Thread.Sleep(2000);
+
+                    break;
+                }
+            }
             driver.FindElement(txtSubject).SendKeys(subject);
 
             DateTime currentDate = DateTime.Today;
@@ -225,7 +304,21 @@ namespace SF_Automation.Pages.Activities
             //Enter Activity details
             Thread.Sleep(3000);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
-            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            Thread.Sleep(2000);
+
+            int typeCount = driver.FindElements(By.XPath("//label[@part='input-radio']")).Count;
+
+            for(int i = 1; i <= typeCount; i++)
+            {
+                string activityType = driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]/span")).Text;
+                if(activityType == type)
+                {
+                    driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]")).Click();
+                    Thread.Sleep(2000);
+
+                    break;
+                }
+            }
             driver.FindElement(txtSubject).SendKeys(subject);
 
             DateTime currentDate = DateTime.Today;
@@ -285,7 +378,21 @@ namespace SF_Automation.Pages.Activities
             //Enter Activity details
             Thread.Sleep(3000);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
-            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            Thread.Sleep(2000);
+
+            int typeCount = driver.FindElements(By.XPath("//label[@part='input-radio']")).Count;
+
+            for(int i = 1; i <= typeCount; i++)
+            {
+                string activityType = driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]/span")).Text;
+                if(activityType == type)
+                {
+                    driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]")).Click();
+                    Thread.Sleep(2000);
+
+                    break;
+                }
+            }
             driver.FindElement(txtSubject).SendKeys(subject);
 
             DateTime currentDate = DateTime.Today;
@@ -293,9 +400,12 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(txtDate).Clear();
             driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM dd, yyyy"));
 
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtExternalAttendee));
+            Thread.Sleep(2000);
+
             driver.FindElement(drpdownIndustryGroup).Click();
             Thread.Sleep(2000);
-            driver.FindElement(By.XPath($"//span[@title='{industryGroup}']/../..")).Click();
+            driver.FindElement(By.XPath($"(//span[@title='{industryGroup}'])[24]/../..")).Click();
             Thread.Sleep(2000);
 
             driver.FindElement(drpdownProductType).Click();
@@ -315,7 +425,7 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(2000);
 
             driver.FindElement(txtOpportunitiesDiscussed).SendKeys(oppDiscussed);
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             driver.FindElement(By.XPath($"(//div[@data-name='{oppDiscussed}'])[1]")).Click();
             Thread.Sleep(2000);
 
@@ -350,7 +460,21 @@ namespace SF_Automation.Pages.Activities
             //Enter Activity details
             Thread.Sleep(3000);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
-            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            Thread.Sleep(2000);
+
+            int typeCount = driver.FindElements(By.XPath("//label[@part='input-radio']")).Count;
+
+            for(int i = 1; i <= typeCount; i++)
+            {
+                string activityType = driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]/span")).Text;
+                if(activityType == type)
+                {
+                    driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]")).Click();
+                    Thread.Sleep(2000);
+
+                    break;
+                }
+            }
             driver.FindElement(txtSubject).SendKeys(subject);
 
             DateTime currentDate = DateTime.Today;
@@ -358,17 +482,9 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(txtDate).Clear();
             driver.FindElement(txtDate).SendKeys(setDate.ToString("MMM dd, yyyy"));
 
-            driver.FindElement(drpdownIndustryGroup).Click();
-            Thread.Sleep(2000);
-            driver.FindElement(By.XPath($"//span[@title='{industryGroup}']/../..")).Click();
-            Thread.Sleep(2000);
-
-            driver.FindElement(drpdownProductType).Click();
-            Thread.Sleep(1000);
-            driver.FindElement(By.XPath($"//span[@title='{productType}']")).Click();
-            Thread.Sleep(1000);
             driver.FindElement(txtareaDescription).SendKeys(description);
             driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(meetingNotes);
+            Thread.Sleep(2000);
 
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,2500)");
@@ -423,7 +539,21 @@ namespace SF_Automation.Pages.Activities
             //Enter Activity details
             Thread.Sleep(3000);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
-            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            Thread.Sleep(2000);
+
+            int typeCount = driver.FindElements(By.XPath("//label[@part='input-radio']")).Count;
+
+            for(int i = 1; i <= typeCount; i++)
+            {
+                string activityType = driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]/span")).Text;
+                if(activityType == type)
+                {
+                    driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]")).Click();
+                    Thread.Sleep(2000);
+
+                    break;
+                }
+            }
             driver.FindElement(txtSubject).SendKeys(subject);
 
             DateTime currentDate = DateTime.Today;
@@ -529,7 +659,21 @@ namespace SF_Automation.Pages.Activities
 
             //Enter Activity details
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
-            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            Thread.Sleep(2000);
+
+            int typeCount = driver.FindElements(By.XPath("//label[@part='input-radio']")).Count;
+
+            for(int i = 1; i <= typeCount; i++)
+            {
+                string activityType = driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]/span")).Text;
+                if(activityType==type)
+                {
+                    driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]")).Click();
+                    Thread.Sleep(2000);
+
+                    break;
+                }
+            }
             driver.FindElement(txtSubject).SendKeys(subject);
 
             DateTime currentDate = DateTime.Today;
@@ -588,7 +732,21 @@ namespace SF_Automation.Pages.Activities
 
             //Enter Activity details
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
-            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            Thread.Sleep(2000);
+
+            int typeCount = driver.FindElements(By.XPath("//label[@part='input-radio']")).Count;
+
+            for(int i = 1; i <= typeCount; i++)
+            {
+                string activityType = driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]/span")).Text;
+                if(activityType == type)
+                {
+                    driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]")).Click();
+                    Thread.Sleep(2000);
+
+                    break;
+                }
+            }
             driver.FindElement(txtSubject).SendKeys(subject);
 
             DateTime currentDate = DateTime.Today;
@@ -655,7 +813,21 @@ namespace SF_Automation.Pages.Activities
 
             //Enter Activity details
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
-            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            Thread.Sleep(2000);
+
+            int typeCount = driver.FindElements(By.XPath("//label[@part='input-radio']")).Count;
+
+            for(int i = 1; i <= typeCount; i++)
+            {
+                string activityType = driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]/span")).Text;
+                if(activityType == type)
+                {
+                    driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]")).Click();
+                    Thread.Sleep(2000);
+
+                    break;
+                }
+            }
             driver.FindElement(txtSubject).SendKeys(subject);
 
             DateTime currentDate = DateTime.Today;
@@ -681,16 +853,16 @@ namespace SF_Automation.Pages.Activities
             driver.FindElement(txtareaHLInternalMeetingNotes).SendKeys(meetingNotes);
 
             //Add new External Attendee
-            CustomFunctions.MoveToElement(driver, driver.FindElement(txtExternalAttendee));
+            CustomFunctions.MoveToElement(driver, driver.FindElement(txtCompanyDiscussed));
             driver.FindElement(txtExternalAttendee).SendKeys(additionalExtAttendee);
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             driver.FindElement(By.XPath($"//div[@data-name='{additionalExtAttendee}']")).Click();
             Thread.Sleep(2000);
 
             //Update HL Attendee
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtHLAttendee));
             driver.FindElement(txtHLAttendee).SendKeys(additionalHLAttendee);
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             driver.FindElement(By.XPath($"//div[@data-name='{additionalHLAttendee}']")).Click();
             Thread.Sleep(2000);
 
@@ -729,7 +901,21 @@ namespace SF_Automation.Pages.Activities
 
             //Enter Activity details
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
-            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            Thread.Sleep(2000);
+
+            int typeCount = driver.FindElements(By.XPath("//label[@part='input-radio']")).Count;
+
+            for(int i = 1; i <= typeCount; i++)
+            {
+                string activityType = driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]/span")).Text;
+                if(activityType == type)
+                {
+                    driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]")).Click();
+                    Thread.Sleep(2000);
+
+                    break;
+                }
+            }
             driver.FindElement(txtSubject).SendKeys(subject);
 
             DateTime currentDate = DateTime.Today;
@@ -803,7 +989,21 @@ namespace SF_Automation.Pages.Activities
 
             //Enter Activity details
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
-            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            Thread.Sleep(2000);
+
+            int typeCount = driver.FindElements(By.XPath("//label[@part='input-radio']")).Count;
+
+            for(int i = 1; i <= typeCount; i++)
+            {
+                string activityType = driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]/span")).Text;
+                if(activityType == type)
+                {
+                    driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]")).Click();
+                    Thread.Sleep(2000);
+
+                    break;
+                }
+            }
             driver.FindElement(txtSubject).SendKeys(subject);
 
             DateTime currentDate = DateTime.Today;
@@ -886,7 +1086,21 @@ namespace SF_Automation.Pages.Activities
 
             //Enter Activity details
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
-            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            Thread.Sleep(2000);
+
+            int typeCount = driver.FindElements(By.XPath("//label[@part='input-radio']")).Count;
+
+            for(int i = 1; i <= typeCount; i++)
+            {
+                string activityType = driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]/span")).Text;
+                if(activityType == type)
+                {
+                    driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]")).Click();
+                    Thread.Sleep(2000);
+
+                    break;
+                }
+            }
             driver.FindElement(txtSubject).SendKeys(subject);
 
             DateTime currentDate = DateTime.Today;
@@ -947,7 +1161,21 @@ namespace SF_Automation.Pages.Activities
 
             //Enter Activity details
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
-            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            Thread.Sleep(2000);
+
+            int typeCount = driver.FindElements(By.XPath("//label[@part='input-radio']")).Count;
+
+            for(int i = 1; i <= typeCount; i++)
+            {
+                string activityType = driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]/span")).Text;
+                if(activityType == type)
+                {
+                    driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]")).Click();
+                    Thread.Sleep(2000);
+
+                    break;
+                }
+            }
             driver.FindElement(txtSubject).SendKeys(subject);
 
             DateTime currentDate = DateTime.Today;
@@ -1030,7 +1258,21 @@ namespace SF_Automation.Pages.Activities
 
             //Enter Activity details
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
-            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            Thread.Sleep(2000);
+
+            int typeCount = driver.FindElements(By.XPath("//label[@part='input-radio']")).Count;
+
+            for(int i = 1; i <= typeCount; i++)
+            {
+                string activityType = driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]/span")).Text;
+                if(activityType == type)
+                {
+                    driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]")).Click();
+                    Thread.Sleep(2000);
+
+                    break;
+                }
+            }
             driver.FindElement(txtSubject).SendKeys(subject);
 
             DateTime currentDate = DateTime.Today;
@@ -1087,8 +1329,8 @@ namespace SF_Automation.Pages.Activities
             Thread.Sleep(5000);
 
             string msg1 = driver.FindElement(By.XPath("(//span[text()='Subject'])[2]/..")).Text;
-            string msg2 = driver.FindElement(By.XPath("(//div[@data-error-message])[2]")).Text;
-            string msg3 = driver.FindElement(By.XPath("(//div[@data-error-message])[4]")).Text;
+            string msg2 = driver.FindElement(By.XPath("(//div[@data-error-message])[3]")).Text;
+            string msg3 = driver.FindElement(By.XPath("(//div[@data-error-message])[6]")).Text;
 
             if(msg1.Contains(subExcel) && msg2.Contains("Complete this field with format") && msg3.Contains("Complete this field with format"))
             {
@@ -1150,7 +1392,21 @@ namespace SF_Automation.Pages.Activities
 
             //Enter Activity details
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtSubject));
-            driver.FindElement(By.XPath($"//input[@value='{type}']/../label")).Click();
+            Thread.Sleep(2000);
+
+            int typeCount = driver.FindElements(By.XPath("//label[@part='input-radio']")).Count;
+
+            for(int i = 1; i <= typeCount; i++)
+            {
+                string activityType = driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]/span")).Text;
+                if(activityType == type)
+                {
+                    driver.FindElement(By.XPath($"(//label[@part='input-radio'])[{i}]")).Click();
+                    Thread.Sleep(2000);
+
+                    break;
+                }
+            }
             driver.FindElement(txtSubject).SendKeys(subject);
 
             DateTime currentDate = DateTime.Today;

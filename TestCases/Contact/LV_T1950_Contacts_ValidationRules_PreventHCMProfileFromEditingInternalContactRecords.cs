@@ -7,6 +7,7 @@ using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.IO;
 
 namespace SF_Automation.TestCases.Contact
 {
@@ -41,8 +42,8 @@ namespace SF_Automation.TestCases.Contact
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTC1950;
-                Console.WriteLine(excelPath);
+                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData", fileTC1950 + ".xlsx");
+                excelPath = Path.GetFullPath(excelPath);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -110,7 +111,7 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateStepLogs("Info", "CF Financial user Logged Out from SF Lightning View. ");
 
                 //TC - End
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
 
                 driver.Quit();

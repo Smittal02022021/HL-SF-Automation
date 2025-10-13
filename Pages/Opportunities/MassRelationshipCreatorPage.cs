@@ -52,7 +52,7 @@ namespace SF_Automation.Pages.Opportunity
             int count = driver.FindElements(valContactNames).Count;
             Console.WriteLine("Count: " + count);
             string[] names = new string[count];
-            for (int row = 1; row <= count; row++)
+            for(int row = 1; row <= count; row++)
             {
                 string Names = driver.FindElement(By.CssSelector("#tBodyContact > tr:nth-child(" + row + ")>td:nth-child(1)")).Text;
                 names[row - 1] = Names;
@@ -63,7 +63,7 @@ namespace SF_Automation.Pages.Opportunity
         public void UpdateRating()
         {
             var count = driver.FindElements(valContactNames).Count;
-            for (int row = 1; row <= count; row++)
+            for(int row = 1; row <= count; row++)
             {
                 driver.FindElement(By.CssSelector("tr:nth-child(" + row + ")>td:nth-child(4) > select")).SendKeys("Low");
             }
@@ -72,7 +72,7 @@ namespace SF_Automation.Pages.Opportunity
         {
 
             Thread.Sleep(4000);
-                        driver.FindElement(radioExternalTeam).Click();
+            driver.FindElement(radioExternalTeam).Click();
         }
         public void ClickClientTeam()
         {
@@ -113,21 +113,21 @@ namespace SF_Automation.Pages.Opportunity
             string resultList = null;
             bool result;
 
-            for (int i = 0; i < count; i++)
+            for(int i = 0; i < count; i++)
             {
                 actualValues[i] = rows[i].Text.ToString();
             }
             //Copying values to duplicate array      
             actualValues.CopyTo(copyValues, 0);
-            if (order == "Descending")
+            if(order == "Descending")
             {
                 //Sorting of array in descending order   
                 copyValues = copyValues.OrderByDescending(d => d).ToArray();
-                Console.WriteLine("Desc:" + copyValues[2].ToString());
+                Console.WriteLine("Desc:" + copyValues[1].ToString());
                 result = copyValues.SequenceEqual(actualValues);
                 resultList = result.ToString();
             }
-            else if (order == "Ascending")
+            else if(order == "Ascending")
             {
                 //Sorting of array in ascending order 
                 copyValues = copyValues.OrderBy(d => d).ToArray();
@@ -144,5 +144,3 @@ namespace SF_Automation.Pages.Opportunity
         }
     }
 }
-
-

@@ -22,7 +22,6 @@ namespace SF_Automation.Pages.Company
         By linkEditCompanyFinancial = By.CssSelector("div[id*='ke_body'] > table > tbody > tr:nth-child(2) > td > a:nth-child(1)");
         By errPage = By.CssSelector("span[id='theErrorPage:theError']");
 
-        
         public string GetNewCompanyFinancialHeading()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, valNewCompanyFinancialTitle, 60);
@@ -50,17 +49,17 @@ namespace SF_Automation.Pages.Company
             return preFilledSelectedCompany;
         }
 
-        public string CreateNewCompanyFinancial(string file,int rows)
+        public string CreateNewCompanyFinancial(string file, int rows)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
             // Enter year
             WebDriverWaits.WaitUntilEleVisible(driver, comboYear, 40);
-            driver.FindElement(comboYear).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyFinancial",rows,  1));
+            driver.FindElement(comboYear).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "CompanyFinancial", rows, 1));
 
             string getDate = DateTime.Today.AddDays(0).ToString("M/d/yyyy");
-            getDate = getDate.Replace('-','/');
+            getDate = getDate.Replace('-', '/');
             WebDriverWaits.WaitUntilEleVisible(driver, txtAsOfDate);
             driver.FindElement(txtAsOfDate).SendKeys(getDate);
 
@@ -72,7 +71,7 @@ namespace SF_Automation.Pages.Company
 
         public string EditCompanyFinancialFirstRecord(string file, string CompanyType)
         {
-            if (CustomFunctions.IsElementPresent(driver, errPage))
+            if(CustomFunctions.IsElementPresent(driver, errPage))
             {
                 companyHome.SearchCompany(file, CompanyType);
             }

@@ -23,6 +23,7 @@ namespace SF_Automation.TestCases.Engagements
         EngagementHomePage engagementHome = new EngagementHomePage();
         LVHomePage homePageLV = new LVHomePage();
         RandomPages randomPages = new RandomPages();
+         HomeMainPage homePage = new HomeMainPage();
 
         public static string fileERPTS05 = "LV_TS05_ValidateERPSection";
 
@@ -55,11 +56,13 @@ namespace SF_Automation.TestCases.Engagements
                 extentReports.CreateStepLogs("Info", "Creating Opportunity for LOB : " + valRecordType + " and Job Type: " + valJobType + " ");
                 //Login as Standard User profile and validate the user
                 string valUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-                usersLogin.SearchUserAndLogin(valUserExl);
+                homePage.SearchUserByGlobalSearchN(valUserExl);
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 string stdUser = login.ValidateUserLightningView();
                 Assert.AreEqual(stdUser.Contains(valUserExl), true);
                 extentReports.CreateStepLogs("Passed", "User: " + valUserExl + " logged in on Lightning View");
+
 
                 //homePageLV.ClickAppLauncher();
                 string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
@@ -97,7 +100,7 @@ namespace SF_Automation.TestCases.Engagements
                 string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
 
                 addOpportunityContact.CickAddFROpportunityContact();
-                addOpportunityContact.CreateContactL2(fileERPTS05);
+                addOpportunityContact.CreateContactL2(fileERPTS05, valRecordType);
                 extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                 //Fetch values of Opportunity Name, Client, Subject and Job Type
@@ -115,7 +118,11 @@ namespace SF_Automation.TestCases.Engagements
                 extentReports.CreateStepLogs("Info", "Opportunity Internal Team Details are provided ");
                 opportunityDetails.ClickReturnToOpportunityL();
                 extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
-
+                
+                //PitchMandateAward details
+                randomPages.ClickPitchMandteAwardTabLV();
+                opportunityDetails.CreateNewPitchMandateAwardLV();
+                extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
                 randomPages.CloseActiveTab(oppName);
                 extentReports.CreateStepLogs("Info", "Opportunity tab is closed");
                 homePageLV.UserLogoutFromSFLightningView();
@@ -123,20 +130,49 @@ namespace SF_Automation.TestCases.Engagements
 
                 extentReports.CreateLog("Admin is Performing Required Actions ");
                 string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 3);
-                usersLogin.SearchUserAndLogin(adminUserExl);                
-                login.SwitchToClassicView();
-                opportunityHome.SearchOpportunity(opportunityName);
-                opportunityDetails.UpdateOutcomeDetails(fileERPTS05);
-                extentReports.CreateStepLogs("Info", " Required Outcome Details are provided ");
-                usersLogin.UserLogOut();
+                //usersLogin.SearchUserAndLogin(adminUserExl);                
+                //login.SwitchToClassicView();
+                //opportunityHome.SearchOpportunity(opportunityName);
+                //opportunityDetails.UpdateOutcomeDetails(fileERPTS05);
+                //extentReports.CreateStepLogs("Info", " Required Outcome Details are provided ");
+                //usersLogin.UserLogOut();
+
+
+                //------Only System Admin can see the ERP Section on Opportunity Detail page//
+                //string adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", row, 3);
+                homePage.SearchUserByGlobalSearchN(adminUserExl);
+                extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
+                login.SwitchToLightningExperience();
+                string userName = login.ValidateUserLightningView();
+                Assert.AreEqual(userName.Contains(adminUserExl), true);
+                extentReports.CreateStepLogs("Passed", "User: " + adminUserExl + " logged in on Lightning View");
+
+                homePageLV.SelectAppLV(appNameExl);
+                appName = homePageLV.GetAppName();
+                Assert.AreEqual(appNameExl, appName);
+                extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
+                homePageLV.SelectModule(moduleNameExl);
+                extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
+                opportunityHome.SearchOpportunitiesInLightningView(oppName);
+                extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
+                //randomPages.DetailPageFullViewLV();
+                opportunityDetails.UpdateOutcomeNBCApproveDetailsLV(valJobType);
+                opportunityDetails.ClickTabInfoLV();
+                opportunityDetails.UpdateTotalDebtConfirmedLV();
+                extentReports.CreateStepLogs("Info", "Conflict Check and NBC Details Provided ");
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "System Administrator User: " + adminUserExl + " logged out ");
 
                 //Login again as Standard User
-                usersLogin.SearchUserAndLogin(valUserExl);
+                homePage.SearchUserByGlobalSearchN(valUserExl);
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 stdUser = login.ValidateUserLightningView();
                 Assert.AreEqual(stdUser.Contains(valUserExl), true);
-                extentReports.CreateLog("User: " + valUserExl + " logged in on Lightning View");
+                extentReports.CreateStepLogs("Passed", "User: " + valUserExl + " logged in on Lightning View");
+
                 //homePageLV.ClickAppLauncher();
                 homePageLV.SelectAppLV(appNameExl);
                 appName = homePageLV.GetAppName();
@@ -154,11 +190,15 @@ namespace SF_Automation.TestCases.Engagements
 
                 //Login as CAO user to approve the Opportunity
                 string userCAOExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);
-                usersLogin.SearchUserAndLogin(userCAOExl);
+                homePage.SearchUserByGlobalSearchN(userCAOExl);
+                extentReports.CreateStepLogs("Info", "CAO User: " + userCAOExl + " details are displayed. ");
+                //Login user
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
-                string UserCAO = login.ValidateUserLightningView();
-                Assert.AreEqual(UserCAO.Contains(userCAOExl), true);
-                extentReports.CreateStepLogs("Info", "CAO User:" + userCAOExl + " logged in on Lightning View");
+                string userCAO = login.ValidateUserLightningView();
+                Assert.AreEqual(userCAO.Contains(userCAOExl), true);
+                extentReports.CreateStepLogs("Passed", "User: " + userCAOExl + " logged in on Lightning View");
+
                 homePageLV.SelectAppLV(appNameExl);
                 appName = homePageLV.GetAppName();
                 Assert.AreEqual(appNameExl, appName);
@@ -184,10 +224,12 @@ namespace SF_Automation.TestCases.Engagements
 
                 ////////////////////////System Administrator performing ERP related Activities/////////////////
                 usersLogin.SearchUserAndLogin(adminUserExl);
+                usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
-                string userName = login.ValidateUserLightningView();
-                Assert.AreEqual(userName.Contains(adminUserExl), true);
-                extentReports.CreateLog("System Administrator User: " + adminUserExl + " logged in on Lightning View for ERP related Activities");
+                string user = login.ValidateUserLightningView();
+                Assert.AreEqual(user.Contains(adminUserExl), true);
+                extentReports.CreateStepLogs("Passed", "User: " + adminUserExl + " logged in on Lightning View");
+
                 homePageLV.SelectAppLV(appNameExl);
                 appName = homePageLV.GetAppName();
                 Assert.AreEqual(appNameExl, appName);
@@ -198,8 +240,8 @@ namespace SF_Automation.TestCases.Engagements
                 engagementHome.GlobalSearchEngagementInLightningView(engagementName);
                 extentReports.CreateStepLogs("Passed", "Engagement: " + engagementName + " found and selected ");
                 //Full View
-                //randomPages.DetailPageFullViewLV();
-                randomPages.ClickTabOracleERPLV();
+                randomPages.DetailPageFullViewLV();
+                //randomPages.ClickTabOracleERPLV();
                 extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
                 //Get ERP Submitted to Sync and get ERP Update DFF checkbox and ERP Last Integration Response Date
                 string ERPSubmittedDate = randomPages.GetERPSubmittedToSyncLV();
@@ -281,8 +323,8 @@ namespace SF_Automation.TestCases.Engagements
                 Assert.AreEqual(sectorCombo.Contains(updSector), true);
                 extentReports.CreateStepLogs("Passed", "Engagement Sector is updated to and sector combo contains " + updSector + " ");
                 //Full View
-                //randomPages.DetailPageFullViewLV();
-                randomPages.ClickTabOracleERPLV();
+                randomPages.DetailPageFullViewLV();
+                //randomPages.ClickTabOracleERPLV();
                 extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
 
                 string statusDFFSectorChk = randomPages.GetERPUpdateDFFCheckboxStatusLV();
@@ -313,8 +355,8 @@ namespace SF_Automation.TestCases.Engagements
                 Assert.AreEqual(updType, updJobType);
                 extentReports.CreateStepLogs("Passed", "Engagement Job Type is updated to " + updJobType + " ");
                 //Full View
-                //randomPages.DetailPageFullViewLV();
-                randomPages.ClickTabOracleERPLV();
+                randomPages.DetailPageFullViewLV();
+                //randomPages.ClickTabOracleERPLV();
                 extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
 
                 string valDFFJobType = randomPages.GetERPUpdateDFFCheckboxStatusLV();
@@ -360,8 +402,8 @@ namespace SF_Automation.TestCases.Engagements
                 engagementHome.GlobalSearchEngagementInLightningView(engagementName);
                 extentReports.CreateStepLogs("Passed", "Engagement: " + engagementName + " found and selected ");
                 //Full View
-                //randomPages.DetailPageFullViewLV();
-                randomPages.ClickTabOracleERPLV();
+                randomPages.DetailPageFullViewLV();
+                //randomPages.ClickTabOracleERPLV();
                 extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
 
                 string productLine = randomPages.GetERPProductTypeLV();
@@ -380,8 +422,8 @@ namespace SF_Automation.TestCases.Engagements
                 Assert.AreEqual(updOwnership, clientOwnership);
                 extentReports.CreateStepLogs("Passed", "Client Ownership is updated to " + clientOwnership + " ");
                 //Full View
-                //randomPages.DetailPageFullViewLV();
-                randomPages.ClickTabOracleERPLV();
+                randomPages.DetailPageFullViewLV();
+                //randomPages.ClickTabOracleERPLV();
                 extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
 
                 string valDFFClient = randomPages.GetERPUpdateDFFCheckboxStatusLV();
@@ -408,8 +450,8 @@ namespace SF_Automation.TestCases.Engagements
                 Assert.AreEqual(newRecordTypeExl, newRecordType);
                 extentReports.CreateStepLogs("Passed", "LOB is updated to " + newRecordType + " ");
                 //Full View
-                //randomPages.DetailPageFullViewLV();
-                randomPages.ClickTabOracleERPLV();
+                randomPages.DetailPageFullViewLV();
+                //randomPages.ClickTabOracleERPLV();
                 extentReports.CreateStepLogs("Info", "Oracle ERP tab is selected");
                 string valDFFLOB = randomPages.GetERPUpdateDFFCheckboxStatusLV();
                 //Assert.AreEqual("Checkbox is checked", valDFFLOB);//not checked
@@ -428,7 +470,7 @@ namespace SF_Automation.TestCases.Engagements
                 extentReports.CreateStepLogs("Passed", "ERP Last Integration Response Date in ERP section New : " + ERPResLOB + " is displayed Old: "+ ERPResClient);
                 randomPages.CloseActiveTab(oppName);
                 extentReports.CreateStepLogs("Info", "Opportunity tab is closed");
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " logged out");
                 usersLogin.UserLogOut();
                 driver.Quit();

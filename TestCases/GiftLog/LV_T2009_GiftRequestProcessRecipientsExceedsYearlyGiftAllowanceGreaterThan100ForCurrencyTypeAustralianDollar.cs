@@ -9,7 +9,7 @@ using SF_Automation.TestData;
 
 namespace SF_Automation.TestCases.GiftLog
 {
-    class LV_T2009_GiftRequestProcessRecipientsExceedsYearlyGiftAllowanceGreaterThan100ForCurrencyTypeAustralianDollar:BaseClass
+    class LV_T2009_GiftRequestProcessRecipientsExceedsYearlyGiftAllowanceGreaterThan100ForCurrencyTypeAustralianDollar : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -34,14 +34,14 @@ namespace SF_Automation.TestCases.GiftLog
         private string giftRequestTitleExl;
         private string warningMessageExl;
 
-       [OneTimeSetUp]
+        [OneTimeSetUp]
         public void OneTimeSetUp()
         {
             Initialize();
             ExtentReportHelper();
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
-        }      
+        }
 
         [Test]
         public void VerifyRecipientsExceedsYearlyGiftAllowanceGreaterThan100ForCurrencyTypeAustralianDollarLV()
@@ -136,7 +136,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Page Title: " + giftRequestTitle + " is diplayed upon click of revise request button ");
 
                 //Set Desire date to Next Calendar year
-                newDesireDate = giftRequest.EnterDesiredDateLV(364);
+                newDesireDate = giftRequest.EnterDesiredDateLV(363);//365
                 extentReports.CreateLog("Next Calendar Year date is set to: " + newDesireDate);
 
                 //Click on submit gift request
@@ -144,7 +144,7 @@ namespace SF_Automation.TestCases.GiftLog
 
                 //Verify the warning message
                 warningMessage = giftRequest.GetWarningMessageOnAmountLimitExceedLV();
-                warningMessageExl= ReadExcelData.ReadData(excelPath, "GiftLog", 14);
+                warningMessageExl = ReadExcelData.ReadData(excelPath, "GiftLog", 14);
                 Assert.AreEqual(warningMessageExl, warningMessage);
                 extentReports.CreateLog("Warning Message: " + warningMessage + " is displayed upon submitting a gift request with gift amount exceeding $100 ");
 
@@ -156,7 +156,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog(congratulationMsg + " message is displayed upon successful submission of gift request. ");
 
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");

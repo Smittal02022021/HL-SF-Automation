@@ -1,15 +1,16 @@
-﻿using SF_Automation.Pages.Common;
-using SF_Automation.Pages.HomePage;
+﻿using NUnit.Framework;
 using SF_Automation.Pages;
-using SF_Automation.UtilityFunctions;
-using System;
-using NUnit.Framework;
-using SF_Automation.TestData;
 using SF_Automation.Pages.Activities;
+using SF_Automation.Pages.Common;
+using SF_Automation.Pages.Companies;
 using SF_Automation.Pages.Contact;
 using SF_Automation.Pages.Engagement;
+using SF_Automation.Pages.HomePage;
 using SF_Automation.Pages.Opportunity;
-using SF_Automation.Pages.Companies;
+using SF_Automation.TestData;
+using SF_Automation.UtilityFunctions;
+using System;
+using System.IO;
 
 namespace SF_Automation.TestCases.LV_Activities
 {
@@ -50,7 +51,9 @@ namespace SF_Automation.TestCases.LV_Activities
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTC0032668;
+                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData", fileTMTC0032668 + ".xlsx");
+                excelPath = Path.GetFullPath(excelPath);
+
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 string userCAOExl = ReadExcelData.ReadData(excelPath, "Users", 2);
                 string extContactName = ReadExcelData.ReadData(excelPath, "Contact", 1);
@@ -95,7 +98,7 @@ namespace SF_Automation.TestCases.LV_Activities
 
                 //Validating Title of New Opportunity Page
                 string pageTitle = opportunityHome.ClickNewButtonAndSelectOppRecordTypeLV(valRecordType);
-                Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity pape for selected LOB ");
+                Assert.IsTrue(pageTitle.Contains("New Opportunity"), "Verify user is on New opportunity page for selected LOB ");
                 extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
 
                 //Create New Opportunity
@@ -113,10 +116,9 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Passed", "Opportunity with number : " + opportunityNumber + " is created ");
 
                 //Create External Primary Contact
-                string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
-                string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
                 addOpportunityContact.CickAddCFOpportunityContact();
                 addOpportunityContact.CreateContactL2(fileTMTC0032668);
+                string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
                 extentReports.CreateStepLogs("Info", valContactType + " Opportunity contact is saved ");
 
                 //Update required Opportunity fields for conversion and Internal team details
@@ -131,7 +133,7 @@ namespace SF_Automation.TestCases.LV_Activities
 
                 //update CC and NBC checkboxes in LV
                 opportunityDetails.UpdateOutcomeNBCApproveDetailsLV(valJobType);
-                extentReports.CreateStepLogs("Info", "CC and NBC checkboxes updated. ");
+                extentReports.CreateStepLogs("Info", "CC and NBC checkboxes updated by Admin user. ");
 
                 //Requesting for engagement and validate the success message
                 opportunityDetails.ClickRequestToEngL();
@@ -150,9 +152,9 @@ namespace SF_Automation.TestCases.LV_Activities
 
                 //Login as CAO user
                 lvHomePage.UserLogin();
-                
+
                 //Switch to lightning view
-                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                if (driver.Title.Contains("Salesforce - Unlimited Edition"))
                 {
                     homePage.SwitchToLightningView();
                     extentReports.CreateStepLogs("Passed", "CAO User: " + userCAOExl + " is able to login into lightning view. ");
@@ -167,7 +169,7 @@ namespace SF_Automation.TestCases.LV_Activities
 
                 //Search for created opportunity
                 extentReports.CreateStepLogs("Info", " CAO User Search for Created Opportunity");
-                opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
+                lvHomePage.SearchOpportunityFromMainSearch(opportunityName);
 
                 //Approve the Opportunity 
                 string status = opportunityDetails.ClickApproveButtonLV2();
@@ -247,7 +249,7 @@ namespace SF_Automation.TestCases.LV_Activities
                 extentReports.CreateStepLogs("Passed", "Main Activity with call type: " + type + " deleted successfully. ");
 
                 //TC - End
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
 
                 driver.Quit();
@@ -255,8 +257,6 @@ namespace SF_Automation.TestCases.LV_Activities
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                login.SwitchToClassicView();
-                usersLogin.UserLogOut();
             }
         }
     }

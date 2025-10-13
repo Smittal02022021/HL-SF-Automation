@@ -7,7 +7,7 @@ using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
 
-namespace SF_Automation.TestCases.Opportunities
+namespace SF_Automation.TestCases.OpportunitiesCounterparty
 {
     class LV_TMTT0042958_VerifyCapitalMarketViewsOnOpportunityCounterpartyPage : BaseClass
     {
@@ -82,6 +82,7 @@ namespace SF_Automation.TestCases.Opportunities
                     OppNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "OpportunityWithJobType", OppRowCount, 1);
                     OppJobTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "OpportunityWithJobType", OppRowCount, 2);
                     opportunityHome.SearchOpportunitiesInLightningView(OppNameExl);
+                    extentReports.CreateStepLogs("Passed", "Opportunity: "+OppNameExl + " found and selected");
 
                     string jobTypeOppDetailPage = opportunityDetails.GetOpportunityJobTypeL();
                     Assert.AreEqual(jobTypeOppDetailPage, OppJobTypeExl);
@@ -166,7 +167,7 @@ namespace SF_Automation.TestCases.Opportunities
                 homePageLV.UserLogoutFromSFLightningView();
                 extentReports.CreateStepLogs("Info", valUser + " logged out ");
                 driver.Quit();
-                extentReports.CreateStepLogs("Info", "Browser Closed");
+                extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
             catch(Exception e)
             {

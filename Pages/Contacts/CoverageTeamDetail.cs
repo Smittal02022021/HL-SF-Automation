@@ -35,7 +35,7 @@ namespace SF_Automation.Pages.Contact
         By inputCoverageTeamCommentsL = By.XPath("//label[text()='Comment']/..//textarea");
         By btnSaveCommentsL = By.XPath("//div[contains(@class,'comment')]//button[@name='save']");
         By txtCoverageTeamCommentsL = By.XPath("//dt[text()='Comment:']/..//lightning-base-formatted-text");
-        By iconShowMoreActionsL = By.XPath("//article[@aria-label='Coverage Team Comments']//article//button[contains(@class,'slds-button_icon-border')]");
+        By iconShowMoreActionsL = By.XPath("//article[@aria-label='Coverage Team Comments']//article//button[contains(@class,'slds-button_icon-border')]");////article[@aria-label='Coverage Team Comments']//article//ul//a
         By iconShowMoreActionCSectorL = By.XPath("//article[@aria-label='Coverage Sectors']//button[contains(@class,'slds-button_icon-border')]");
         By iconShowMoreActionCContactsL = By.XPath("//article[@aria-label='Coverage Contacts']//button[contains(@class,'slds-button_icon-border')]");
         By iconShowMoreActionsCContactL = By.XPath("//article[@aria-label='Coverage Contacts']//div//article//button[contains(@class,'slds-button_icon-border')]");
@@ -47,7 +47,7 @@ namespace SF_Automation.Pages.Contact
         By btnConfirmDeleteL = By.XPath("//button[@title='Delete']");
         By panelCoverageSectorsL = By.XPath("//ul[@role='tablist']//li[contains(@title,'Coverage Sectors')]//a");
         By panelCoverageContactsL = By.XPath("//ul[@role='tablist']//li[contains(@title,'Coverage Contacts')]//a");
-        By btnNewCoverageContactsL = By.XPath("//article[@aria-label='Coverage Contacts']//button[contains(@class,'slds-button_icon-border')]/..//a//span[text()='Add Coverage Contact']"); 
+        By btnNewCoverageContactsL = By.XPath("//article[@aria-label='Coverage Contacts']//button[contains(@class,'slds-button_icon-border')]/..//a//span[text()='Add Coverage Contact']");
         By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
         By btnNewCoverageSectionL = By.XPath("//article[@aria-label='Coverage Sectors']//button[contains(@class,'slds-button_icon-border')]/..//a//span[text()='New']");
         By inputCoverageSectorDepL = By.XPath("//label[text()='Coverage Sector Dependency']/..//input");
@@ -58,11 +58,11 @@ namespace SF_Automation.Pages.Contact
         By chkboxIsMainL = By.XPath("//input[@name='IsMain__c']"); //span[text()='Is Main']/../../div//input");
         By toastMsgPopup = By.XPath("//span[contains(@class,'toastMessage')]");
         By txtSectorDepCmpNameL = By.XPath("//records-entity-label[text()='Coverage Sector']/../../..//lightning-formatted-text");
-        By txtCoverageContactIDL= By.XPath("//records-entity-label[text()='Coverage Contact']/../../..//lightning-formatted-text");
+        By txtCoverageContactIDL = By.XPath("//records-entity-label[text()='Coverage Contact']/../../..//lightning-formatted-text");
         By iconMoreIconsectorsL = By.XPath("//article[@aria-label='Coverage Sectors']//div//article//li//a[@title='Show one more action']");
         By lnkCoverageSectorCompanyNameL = By.XPath("//article[@aria-label='Coverage Sectors']//article//h3//a");
         By lnkEditL = By.XPath("//div[contains(@class,'uiMenuList--default visible positioned')]//div[@title='Edit']/..");
-        By lnkDeleteL= By.XPath("//div[contains(@class,'uiMenuList--default visible positioned')]//div[@title='Delete']/..");
+        By lnkDeleteL = By.XPath("//div[contains(@class,'uiMenuList--default visible positioned')]//div[@title='Delete']/..");
         By iconClearSecDepL = By.XPath("//label[text()='Coverage Sector Dependency']/..//button[@title='Clear Selection']");
         By tabFincncialL = By.XPath("//ul//li//a[@data-label='Financials']");
         By comboYearL = By.XPath("//label[text()='Year']/..//button");
@@ -81,7 +81,7 @@ namespace SF_Automation.Pages.Contact
         }
         public void DeleteCoverageSector(string coverageID)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,800)");
             By elmIconMoreAction = By.XPath($"//article[@aria-label='Coverage Sectors']//article[@aria-label='{coverageID}']//slot[@name='rowLevelActions']//lightning-button-menu");
             Thread.Sleep(2000);
@@ -96,7 +96,7 @@ namespace SF_Automation.Pages.Contact
         }
         public string UpdateCoverageSectorDependenciesLV(string coverageID, string secDependency)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,400)");
             By elmIconMoreAction = By.XPath($"//article[@aria-label='Coverage Sectors']//article[@aria-label='{coverageID}']//slot[@name='rowLevelActions']//lightning-button-menu");
             Thread.Sleep(2000);
@@ -136,7 +136,7 @@ namespace SF_Automation.Pages.Contact
         }
         public string AddNewCoverageSectorLV(string secDependency)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, chkIsMainL, 5); 
+            WebDriverWaits.WaitUntilEleVisible(driver, chkIsMainL, 5);
             driver.FindElement(chkboxIsMainL).Click();
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, inputCoverageSectorDepL, 5);
@@ -149,11 +149,11 @@ namespace SF_Automation.Pages.Contact
             WebDriverWaits.WaitUntilEleVisible(driver, toastMsgPopup, 5);
             string toasMsg = driver.FindElement(toastMsgPopup).Text;
             Thread.Sleep(2000);
-             return toasMsg;
+            return toasMsg;
         }
         public string AddNewCoverageContactsLV(string contact, string contactFocus, string coverageID)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             WebDriverWaits.WaitUntilEleVisible(driver, inputCoverageContactsL, 5);
             driver.FindElement(inputCoverageContactsL).SendKeys(contact);
             By elmContact = By.XPath($"//label[text()='Coverage Contact']/..//lightning-base-combobox-formatted-text[@title='{contact}']");
@@ -182,7 +182,7 @@ namespace SF_Automation.Pages.Contact
                 //driver.FindElement(inputCoverageTeamMemberL).SendKeys(coverageID);
                 WebDriverWaits.WaitUntilEleVisible(driver, elmTeam, 5);
             }
-            
+
             driver.FindElement(elmTeam).Click();
 
             driver.FindElement(btnSaveDetailsL).Click();
@@ -217,7 +217,7 @@ namespace SF_Automation.Pages.Contact
         }
         public bool IsDeleteButtonDisplayedLV()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(3000);
             try
@@ -229,7 +229,7 @@ namespace SF_Automation.Pages.Contact
         }
         public void DeleteCoverageTeamLV()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnDeleteCoverageTeamL, 5);
@@ -241,7 +241,8 @@ namespace SF_Automation.Pages.Contact
         }
         public void DeleteCoverageCommentsLV()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            js.ExecuteScript("window.scrollTo(0,400)");
             WebDriverWaits.WaitUntilEleVisible(driver, iconShowMoreActionsL, 10);
             js.ExecuteScript("arguments[0].click();", driver.FindElement(iconShowMoreActionsL));
             WebDriverWaits.WaitUntilEleVisible(driver, lnkDeleteL, 10);
@@ -251,7 +252,7 @@ namespace SF_Automation.Pages.Contact
         }
         public void DeleteCoverageContactLV()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             WebDriverWaits.WaitUntilEleVisible(driver, iconShowMoreActionsCContactL, 10);
             js.ExecuteScript("arguments[0].click();", driver.FindElement(iconShowMoreActionsCContactL));
             WebDriverWaits.WaitUntilEleVisible(driver, lnkDeleteL, 10);
@@ -262,7 +263,7 @@ namespace SF_Automation.Pages.Contact
 
         public string UpdateCoverageContactLV(string focus)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             WebDriverWaits.WaitUntilEleVisible(driver, iconShowMoreActionsCContactL, 10);
             js.ExecuteScript("arguments[0].click();", driver.FindElement(iconShowMoreActionsCContactL));
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditL, 5);
@@ -283,7 +284,7 @@ namespace SF_Automation.Pages.Contact
 
         public void UpdateCoverageCommentsLV(string coverageComments)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             WebDriverWaits.WaitUntilEleVisible(driver, iconShowMoreActionsL, 10);
             js.ExecuteScript("arguments[0].click();", driver.FindElement(iconShowMoreActionsL));
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditL, 10);

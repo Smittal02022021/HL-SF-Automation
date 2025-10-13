@@ -6,6 +6,7 @@ using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.IO;
 using System.Threading;
 
 namespace SF_Automation.TestCases.Contact
@@ -41,8 +42,8 @@ namespace SF_Automation.TestCases.Contact
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTC1103;
-                Console.WriteLine(excelPath);
+                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData", fileTC1103 + ".xlsx");
+                excelPath = Path.GetFullPath(excelPath);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -153,7 +154,7 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateStepLogs("Info", "Created contact deleted successfully.");
 
                 //TC - End
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
 
                 driver.Quit();

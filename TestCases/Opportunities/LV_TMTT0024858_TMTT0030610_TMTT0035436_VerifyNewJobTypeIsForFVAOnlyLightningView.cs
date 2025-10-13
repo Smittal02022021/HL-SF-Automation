@@ -78,7 +78,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.IsFalse(opportunityDetails.IsJobTypePresentInDropdownOppDetailPageLV(valJobType), " Verify " + valJobType + " is present not Present on Opportunity Detail Page for LOB: " + valRecordType + "under Job Type Dropdown ");
                     extentReports.CreateLog(" Job Type: " + valJobType + " is not Found for LOB: " + valRecordType);
                 }
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User: " + valUser + " logged out");
                 usersLogin.UserLogOut();
                 driver.Quit();
@@ -87,7 +87,7 @@ namespace SF_Automation.TestCases.Opportunities
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
         }

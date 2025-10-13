@@ -138,7 +138,7 @@ namespace SF_Automation.TestCases.GiftLog
                     extentReports.CreateStepLogs("Info", "Congratulations message: " + congratulationMsg + " in displayed upon successful submission of 2nd gift request. ");
 
                     driver.SwitchTo().DefaultContent();
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
 
                     //Search Compliance user by global search
@@ -212,7 +212,7 @@ namespace SF_Automation.TestCases.GiftLog
                         extentReports.CreateStepLogs("Passed", txtStatus3 + " is displaying in gift status for 2nd gift. ");
 
                         driver.SwitchTo().DefaultContent();
-                        usersLogin.ClickLogoutFromLightningView();
+                        homePageLV.LogoutFromSFLightningAsApprover();
                         extentReports.CreateStepLogs("Info", "Compliance User: " + userComplianceExl + " logged out");
                     }
                     else
@@ -249,12 +249,12 @@ namespace SF_Automation.TestCases.GiftLog
                         extentReports.CreateStepLogs("Passed", txtStatus7 + " is displaying in gift status for 2nd gift. ");
 
                         driver.SwitchTo().DefaultContent();
-                        usersLogin.ClickLogoutFromLightningView();
+                        homePageLV.LogoutFromSFLightningAsApprover();
                         extentReports.CreateStepLogs("Info", "Compliance User: " + userComplianceExl + " logged out");
                     }
                 }
                 driver.Quit();
-                extentReports.CreateStepLogs("Info", "Browser Closed");
+                extentReports.CreateStepLogs("Passed", "Browser Closed Successfully!");
             }
             catch (Exception e)
             {

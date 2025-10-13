@@ -1,11 +1,12 @@
 ﻿using NUnit.Framework;
+using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.Pages.TimeRecordManager;
-using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.IO;
 
 namespace SF_Automation.TestCases.TimeRecordManager
 {
@@ -47,7 +48,8 @@ namespace SF_Automation.TestCases.TimeRecordManager
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTT0039653;
+                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData", fileTMTT0039653 + ".xlsx");
+                excelPath = Path.GetFullPath(excelPath);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -67,19 +69,19 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 Assert.AreEqual(driver.Url.Contains("lightning"), true);
                 extentReports.CreateStepLogs("PAssed", "Admin User is able to login into SF");
 
-                //Select HL Banker app
-                try
-                {
-                    lvHomePage.SelectAppLV("HL Banker");
-                }
-                catch(Exception)
-                {
-                    lvHomePage.SelectAppLV1("HL Banker");
-                }
-
                 int rowSearchValue = ReadExcelData.GetRowCount(excelPath, "SupervisorUser");
                 for (int row = 2; row <= rowSearchValue; row++)
                 {
+                    //Select HL Banker app
+                    try
+                    {
+                        lvHomePage.SelectAppLV("HL Banker");
+                    }
+                    catch(Exception)
+                    {
+                        lvHomePage.SelectAppLV1("HL Banker");
+                    }
+
                     //Login as User and validate the user
                     userExl = ReadExcelData.ReadDataMultipleRows(excelPath, "SupervisorUser", row, 1);
                     groupName = ReadExcelData.ReadDataMultipleRows(excelPath, "SupervisorUser", row, 2);
@@ -216,7 +218,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 }
 
                 //TC - End
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
 
                 driver.Quit();

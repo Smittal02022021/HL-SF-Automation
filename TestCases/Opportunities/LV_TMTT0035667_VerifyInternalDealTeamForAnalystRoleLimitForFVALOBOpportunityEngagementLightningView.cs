@@ -100,7 +100,7 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
                     string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
                     addOpportunityContact.CickAddOpportunityContactLV();
-                    addOpportunityContact.CreateContactL2(fileTMTT0035667);
+                    addOpportunityContact.CreateContactL2(fileTMTT0035667, valRecordType);
                     extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details
@@ -260,7 +260,7 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
                     /////////////////////////////////////////////////   
                     randomPages.CloseActiveTab("Internal Team");
                     randomPages.CloseActiveTab(engName);
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "System Administrator: " + adminUserExl + " Logged out ");
                 }
                 login.SwitchToClassicView();

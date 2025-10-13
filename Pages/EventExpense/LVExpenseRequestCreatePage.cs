@@ -59,17 +59,17 @@ namespace SF_Automation.Pages.EventExpense
         By btnSaveLWC = By.XPath("//footer//button[text()='Save']");
         By btnSaveEditLWC = By.XPath("//button[@name='SaveEdit']");
         By btnNameLWC = By.XPath("//div[contains(@class,'footer')]//button");
-        By msgLOBLWC = By.XPath("//label[text()='LOB']/abbr/../../div[2][contains(@class,'help')]");
-        By msgEventTypeLWC = By.XPath("//label[text()='Event Type']/abbr/../../div[2][contains(@class,'help')]");
+        By msgLOBLWC = By.XPath("//label[text()='LOB']/abbr/../../div[2]/div[contains(@class,'help')]");
+        By msgEventTypeLWC = By.XPath("//label[text()='Event Type']/abbr/../../div[2]/div[contains(@class,'help')]");
         By msgRequestorLWC = By.XPath("//label[text()='Requestor']/abbr/../../div[2][contains(@class,'help')]");
-        By msgProductTypeLWC = By.XPath("//label[text()='Product Type']/abbr/../../div[2][contains(@class,'help')]");
+        By msgProductTypeLWC = By.XPath("//label[text()='Product Type']/abbr/../../div[2]/div[contains(@class,'help')]");
         By msgEventNameLWC = By.XPath("//label[text()='Event Name']/abbr/../../../div[2][contains(@class,'help')]");
         By msgCityLWC = By.XPath("//label[text()='City']/abbr/../../../div[2][contains(@class,'help')]");
         By msgETCostLWC = By.XPath("//label[text()='Expected Travel Cost']/abbr/../../../div[2][contains(@class,'help')]");
         By msgEFBCostLWC = By.XPath("//label[text()='Expected F&B Cost']/abbr/../../../div[2][contains(@class,'help')]");
         By msgOtherCostLWC = By.XPath("//label[text()='Other Cost']/abbr/../../../div[2][contains(@class,'help')]");
         By msgDescOtherCostLWC = By.XPath("//label[text()='Description of Other Cost']/abbr/../../../div[2][contains(@class,'help')]");
-        By msgEventFormatLWC = By.XPath("//label[text()='Event Format']/abbr/../../../div//div[2][contains(@class,'help')]");
+        By msgEventFormatLWC = By.XPath("//label[text()='Event Format']/abbr/../../../div//div[2]/div[contains(@class,'help')]");
         By comboLOBLWC = By.XPath("//label[text()='LOB']/abbr/../..//button");
         By comboEventTypeLWC = By.XPath("//label[text()='Event Type']/abbr/../..//button");
         By comboProductTypeLWC = By.XPath("//label[text()='Product Type']/abbr/../..//button");
@@ -153,6 +153,26 @@ namespace SF_Automation.Pages.EventExpense
             WebDriverWaits.WaitUntilEleVisible(driver, msgLOBLWC, 10);
             string message = driver.FindElement(msgLOBLWC).Text.Replace("\r\n", " ");
             return message;
+        }
+
+        public bool IsLOBPresentLV(string valueLOB)
+        {
+            WebDriverWaits.WaitUntilEleVisible(driver, comboLOBLWC, 5);
+            driver.FindElement(comboLOBLWC).Click();
+
+            try
+            {
+                By elmComboLOB = By.XPath($"//label[text()='LOB']//lightning-base-combobox-item//span[@title='{valueLOB}']");
+                WebDriverWaits.WaitUntilEleVisible(driver, elmComboLOB, 5);
+                bool isFound = driver.FindElement(elmComboLOB).Displayed;
+                driver.FindElement(comboLOBLWC).Click();
+                return isFound;
+            }
+            catch
+            {
+                //driver.FindElement(comboLOBLWC).Click(); 
+                return false;
+            }
         }
 
         //To validate LOB validation

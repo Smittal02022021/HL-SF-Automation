@@ -25,7 +25,7 @@ namespace SF_Automation.Pages.Company
         By btnSave = By.CssSelector("td[class='pbButtonb '] > input[value='Save']");
         By btnSaveIgnoreAlert = By.CssSelector("td[class='pbButton '] > input[value='Save(Ignore Alert)']");
         By btnCancelAlert = By.CssSelector("td[class='pbButton '] > input[value='Cancel']");
-        By errmsgCmpanyName= By.CssSelector("div[class='errorMsg']");
+        By errmsgCmpanyName = By.CssSelector("div[class='errorMsg']");
         By errmsgCompanyNameL = By.XPath("//div[@class='fieldLevelErrors']//li//a");//div[@class='message errorM3']//td//div");
 
         By newCompanyPageFrameL = By.XPath("//iframe[@title='accessibility title']");
@@ -38,7 +38,7 @@ namespace SF_Automation.Pages.Company
         By iframeCompanyForm = By.XPath("//iframe[contains(@name,'vfFrame')]");
         By txtNewCompanyName = By.XPath("//input[@name='Name']"); //By.CssSelector("input[name*='AccountName']");
         By btnSaveL = By.XPath("//button[@name='SaveEdit']");//By.XPath("//div[@class='pbBottomButtons']//input[@value='Save']");
-        By txtCompanyNameL = By.XPath("//span[text()='Company Name']/../../..//dd//lightning-formatted-text");
+        By txtCompanyNameL = By.XPath("//span[text()='Company Name']/../..//lightning-formatted-text"); //span[text()='Company Name']/../../..//dd//lightning-formatted-text");
         By popDuplicateL = By.XPath("//span[contains(@class,'toastMessage')]");
         private By _btnRadioRecordType(string type)
         {
@@ -73,7 +73,7 @@ namespace SF_Automation.Pages.Company
             // Select country 
             WebDriverWaits.WaitUntilEleVisible(driver, comboCompanyCountry, 2);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtCompanyPostalCode));
-            driver.FindElement(comboCompanyCountry).Click();            
+            driver.FindElement(comboCompanyCountry).Click();
             By elmCountry = By.XPath($"//input[@name='country']/../../../..//lightning-base-combobox-item//span[@title='{country}']");
 
             try
@@ -117,7 +117,7 @@ namespace SF_Automation.Pages.Company
             //Enter street 
             WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyStreet, 40);
             driver.FindElement(txtCompanyStreet).SendKeys(ReadExcelData.ReadData(excelPath, "Company", 4));
-            
+
             // Select country 
             WebDriverWaits.WaitUntilEleVisible(driver, comboCompanyCountry, 2);
             CustomFunctions.MoveToElement(driver, driver.FindElement(txtCompanyPostalCode));
@@ -155,14 +155,15 @@ namespace SF_Automation.Pages.Company
                 WebDriverWaits.WaitUntilEleVisible(driver, btnSaveIgnoreAlert, 10);
                 driver.FindElement(btnCancelAlert).Click();
                 driver.SwitchTo().DefaultContent();
-                alertFound= true;
+                alertFound = true;
             }
             catch
             {
-                
+
             }
             return alertFound;
         }
+
         By comboOficeCodeL = By.XPath("//label[text()='Office Code']/..//button");
         public void CreateNewCompanyLV(string file, int companyRow)
         {
@@ -171,7 +172,7 @@ namespace SF_Automation.Pages.Company
             string excelPath = dir + file;
             // Enter company name
             WebDriverWaits.WaitUntilEleVisible(driver, txtCompanyName, 20);
-            string companyNameExl= ReadExcelData.ReadDataMultipleRows(excelPath, "Company", companyRow, 2);
+            string companyNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Company", companyRow, 2);
             driver.FindElement(txtCompanyName).SendKeys(companyNameExl);
             try
             {
@@ -182,13 +183,13 @@ namespace SF_Automation.Pages.Company
 
                 try
                 {
-                    WebDriverWaits.WaitUntilEleVisible(driver, elmOfcCode, 2);                    
+                    WebDriverWaits.WaitUntilEleVisible(driver, elmOfcCode, 2);
                 }
                 catch
                 {
                     driver.FindElement(comboOficeCodeL).Click();
                     WebDriverWaits.WaitUntilEleVisible(driver, elmOfcCode, 2);
-                }                
+                }
                 CustomFunctions.MoveToElement(driver, driver.FindElement(elmOfcCode));
                 driver.FindElement(elmOfcCode).Click();
             }
@@ -205,7 +206,7 @@ namespace SF_Automation.Pages.Company
 
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, elmCountry, 2);                
+                WebDriverWaits.WaitUntilEleVisible(driver, elmCountry, 2);
             }
             catch
             {
@@ -244,13 +245,13 @@ namespace SF_Automation.Pages.Company
             driver.FindElement(txtCompanyPostalCode).SendKeys(ReadExcelData.ReadData(excelPath, "Company", 14));
 
             //Click save button
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveCompanyL,5);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveCompanyL, 5);
             driver.FindElement(btnSaveCompanyL).Click();
             By popDupRecordL = By.XPath("//h2[text()='Similar Records Exist']");
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, popDupRecordL,5);
-                WebDriverWaits.WaitUntilEleVisible(driver, btnSaveCompanyL,5);
+                WebDriverWaits.WaitUntilEleVisible(driver, popDupRecordL, 5);
+                WebDriverWaits.WaitUntilEleVisible(driver, btnSaveCompanyL, 5);
                 driver.FindElement(btnSaveCompanyL).Click();
             }
             catch { }
@@ -259,16 +260,17 @@ namespace SF_Automation.Pages.Company
                 this.ClickSaveIgnoreAlertButtonLV();
                 driver.SwitchTo().DefaultContent();
             }
-            catch {
+            catch
+            {
                 driver.SwitchTo().DefaultContent();
             }
 
             try
             {
-                
+
                 By closePopDuplicateL = By.XPath("//span[contains(@class,'toastMessage')]/../../../../..//button");
                 WebDriverWaits.WaitUntilEleVisible(driver, popDuplicateL, 2);
-                if (driver.FindElement(popDuplicateL).Text.Contains("duplicates exist"))
+                if(driver.FindElement(popDuplicateL).Text.Contains("duplicates exist"))
                 {
                     driver.FindElement(closePopDuplicateL).Click();
                 }
@@ -342,7 +344,7 @@ namespace SF_Automation.Pages.Company
 
         public void ClickSaveIgnoreAlertButtonLV()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveIgnoreAlert,10);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnSaveIgnoreAlert, 10);
             driver.FindElement(btnSaveIgnoreAlert).Click();
         }
 

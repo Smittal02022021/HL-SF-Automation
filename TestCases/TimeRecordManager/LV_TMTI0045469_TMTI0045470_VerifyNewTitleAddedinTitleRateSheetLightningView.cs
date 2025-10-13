@@ -1,13 +1,14 @@
-﻿using NUnit.Framework;
+﻿using AventStack.ExtentReports.Gherkin.Model;
+using Microsoft.Office.Interop.Excel;
+using NUnit.Framework;
+using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.HomePage;
 using SF_Automation.Pages.TimeRecordManager;
-using SF_Automation.Pages;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
-using AventStack.ExtentReports.Gherkin.Model;
-using Microsoft.Office.Interop.Excel;
+using System.IO;
 using System.Web.UI.DataVisualization.Charting;
 
 namespace SF_Automation.TestCases.TimeRecordManager
@@ -39,7 +40,10 @@ namespace SF_Automation.TestCases.TimeRecordManager
         {
             try
             {
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTI0045469;
+                //Get path of Test data file
+                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData", fileTMTI0045469 + ".xlsx");
+                excelPath = Path.GetFullPath(excelPath);
+
                 extentReports.CreateStepLogs("Info", "Creating New Opportunity and Converting to Engagement LOB:FVA On Lightning View");
 
                 //Validating Title of Login Page
@@ -136,7 +140,7 @@ namespace SF_Automation.TestCases.TimeRecordManager
                 extentReports.CreateStepLogs("Info", "User: " + userSupervisorExl + " logged out");
 
                 //TC - End
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "Admin User Logged Out from SF Lightning View. ");
 
                 driver.Quit();

@@ -6,6 +6,7 @@ using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.IO;
 
 namespace SF_Automation.TestCases.Contact
 {
@@ -37,8 +38,8 @@ namespace SF_Automation.TestCases.Contact
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTMTC0019251;
-                Console.WriteLine(excelPath);
+                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData", fileTMTC0019251 + ".xlsx");
+                excelPath = Path.GetFullPath(excelPath);
 
                 string user = ReadExcelData.ReadData(excelPath, "Users", 1);
                 string adminUser = ReadExcelData.ReadData(excelPath, "Users", 2);
@@ -113,11 +114,11 @@ namespace SF_Automation.TestCases.Contact
 
                 //TC - TMT0034276, TMT0034268 - Verify that as a CF Finacial user, external contact have Company Name,  title, phone and Email in top bar. 
                 Assert.IsTrue(lvContactDetails.VerifyDetailsDisplayedAtTheTopBarForExternalContact());
-                extentReports.CreateStepLogs("Passed", "External contact have Company Name,  title, phone and Email in top bar. ");
+                extentReports.CreateStepLogs("Passed", "External contact have Company Name, title, phone and Email in top bar. ");
 
                 //TC - TMT0034269 - Verify that as a CF Finacial user, the external contact has Info, Relationships, coverage, activity, campaign history, and History tabs. 
                 Assert.IsTrue(lvContactDetails.VerifyTabsDisplayedInRightSideForExternalContact(fileTMTC0019251));
-                extentReports.CreateStepLogs("Passed", "External contact have Info, Relationships, coverage, activity, campaign history, and History tabs. ");
+                extentReports.CreateStepLogs("Passed", "External contact have Info, Relationships, Coverage, Activity, Campaign history and History tabs. ");
 
                 //TC - TMT0034271 - As CF Finacial user, verify that the Flag Contact and Company details coming in the Quick Updates. 
                 Assert.IsTrue(lvContactDetails.VerifyFlagContactAndCompanyDetailSectionsAreDisplayedInRightSideForExternalContact(fileTMTC0019251));
@@ -126,7 +127,7 @@ namespace SF_Automation.TestCases.Contact
                 lvContactDetails.CloseTab("Test External");
 
                 //Logout from SF Lightning View
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
 
                 //Select HL Banker app
@@ -147,7 +148,7 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateStepLogs("Passed", "The Error Message : Industry Group must be selected when LOB is CF is displayed at the Industry Group field level when LOB is selected as CF.");
 
                 //TC - End
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
             catch (Exception e)

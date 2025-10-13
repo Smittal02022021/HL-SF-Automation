@@ -7,6 +7,7 @@ using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.IO;
 
 namespace SF_Automation.TestCases.Contact
 {
@@ -44,8 +45,8 @@ namespace SF_Automation.TestCases.Contact
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTC1137_TC1138;
-                Console.WriteLine(excelPath);
+                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData", fileTC1137_TC1138 + ".xlsx");
+                excelPath = Path.GetFullPath(excelPath);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
@@ -125,18 +126,17 @@ namespace SF_Automation.TestCases.Contact
                 extentReports.CreateLog("Affiliation company is not available after deletion ");
 
                 //Logout from SF Lightning View
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
 
                 driver.Quit();
-        }
+            }
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-}
-            
+        }
     }
 }

@@ -64,21 +64,31 @@ namespace SF_Automation.Pages
         By comboIndustryType = By.CssSelector("select[name*='industryGroupSearch']");
         By tabEngagement = By.CssSelector("a[title*='Engagements Tab']");
         By txtSearchBox = By.XPath("//input[@placeholder='Search this list...']");
-        By eleItem = By.XPath("//table/tbody//td[4]/span/span");
+        By eleItem = By.XPath("//table/tbody//td[5]/span//span");
         By iconClearSearch = By.XPath("//button[@data-element-id='searchClear']");
         By inputAdminGlobalSearchL = By.XPath("//input[contains(@placeholder,'and more...')]");
         By inputGlobalSearchL = By.XPath("//button[@aria-label='Search']");
         By btnEngNumL = By.XPath("//button[@aria-label='Search']");
+        By inputEngNumL = By.XPath("//button[contains(@aria-label,'Search')]");
         By txtEngNumLCAO = By.XPath("//input[@placeholder='Search...']");
         By imgEngL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Engagement']");
         By txtEngL = By.XPath("//input[@placeholder='Search...']");
+        By columnJobTypeL = By.XPath("//div[contains(@aria-label,'Engagements')]//table//tbody/tr[1]//td[4]/span/span");
+        By searchOppBox = By.XPath("//lightning-input[@class='slds-form-element']");
         private By _lnkSearchedEngL(string name)
         {
             return By.XPath($"//div[@aria-label='Engagements||List View']//table//tbody//th[1]//a[@title='{name}']");
         }
+
         public string GlobalSearchEngagementInLightningView(string engName)
         {
             Thread.Sleep(6000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconClearSearch, 5);
+                driver.FindElement(iconClearSearch).Click();
+            }
+            catch { }
             WebDriverWaits.WaitUntilEleVisible(driver, inputGlobalSearchL, 10);
             driver.FindElement(inputGlobalSearchL).Click();
             Thread.Sleep(4000);
@@ -93,7 +103,7 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL, 10);
                 driver.FindElement(inputAdminGlobalSearchL).SendKeys(engName);
             }
-            
+
             try
             {
                 driver.FindElement(txtEngL).SendKeys(Keys.Enter);
@@ -104,7 +114,7 @@ namespace SF_Automation.Pages
                 return "Record found";
             }
             catch { return "No record found"; }
-            
+
         }
         public void ClickEngagementTabAdvanceSearch()
         {
@@ -146,7 +156,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(matchedResult).Click();
                 return "Record found";
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "No record found";
             }
@@ -172,7 +182,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(matchedResult).Click();
                 return "Record found";
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "No record found";
             }
@@ -207,7 +217,7 @@ namespace SF_Automation.Pages
                 return "Record found";
             }
 
-            catch (Exception)
+            catch(Exception)
             {
                 driver.Navigate().Refresh();
                 WebDriverWaits.WaitUntilEleVisible(driver, lnkEngagements, 110);
@@ -241,7 +251,7 @@ namespace SF_Automation.Pages
                 return "Record found";
             }
 
-            catch (Exception)
+            catch(Exception)
             {
                 driver.Navigate().Refresh();
                 WebDriverWaits.WaitUntilEleVisible(driver, lnkEngagements, 110);
@@ -272,7 +282,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(matchedResult).Click();
                 Thread.Sleep(10000);
             }
-            catch (Exception)
+            catch(Exception)
             {
 
             }
@@ -289,7 +299,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(5000);
             try
             {
-                if (jobType.Equals("Sellside") || jobType.Equals("Buyside") || jobType.Equals("Debt Capital Markets") || jobType.Equals("Equity Capital Markets") || jobType.Equals("FA - Portfolio-Valuation") || jobType.Equals("FA - Portfolio-Advis/Consulting") || jobType.Equals("Creditor Advisors") || jobType.Equals("Debtor Advisors") || jobType.Equals("Discretionary Advisory") || jobType.Equals("General Financial Advisory") || jobType.Equals("DRC - Exp Wit-Litigation") || jobType.Equals("TAS - Due Diligence-Buyside"))
+                if(jobType.Equals("Sellside") || jobType.Equals("Buyside") || jobType.Equals("Debt Capital Markets") || jobType.Equals("Equity Capital Markets") || jobType.Equals("FA - Portfolio-Valuation") || jobType.Equals("FA - Portfolio-Advis/Consulting") || jobType.Equals("Creditor Advisors") || jobType.Equals("Debtor Advisors") || jobType.Equals("Discretionary Advisory") || jobType.Equals("General Financial Advisory") || jobType.Equals("DRC - Exp Wit-Litigation") || jobType.Equals("TAS - Due Diligence-Buyside"))
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, btnEngNum, 150);
                     driver.FindElement(btnEngNum).Click();
@@ -305,7 +315,7 @@ namespace SF_Automation.Pages
                     driver.FindElement(lnkEngLightning).Click();
                 }
             }
-            catch (Exception)
+            catch(Exception)
             {
                 driver.FindElement(txtEngNumLightningL).Clear();
                 driver.FindElement(txtEngNumLightningL).SendKeys(name);
@@ -354,7 +364,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(matchedResult).Click();
                 return "Record found";
             }
-            catch (Exception)
+            catch(Exception)
             {
                 driver.Navigate().Refresh();
                 WebDriverWaits.WaitUntilEleVisible(driver, lnkEngagements, 150);
@@ -382,7 +392,7 @@ namespace SF_Automation.Pages
         public void SearchMyEngagementInLightning(string value, string user)
         {
             Thread.Sleep(6000);
-            if (user.Equals("James Craven"))
+            if(user.Equals("James Craven"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEngsearchL, 20);
                 driver.FindElement(btnEngsearchL).Click();
@@ -415,7 +425,7 @@ namespace SF_Automation.Pages
                 Console.WriteLine("Search Results :" + result);
                 return "Record found";
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "No record found";
             }
@@ -433,7 +443,7 @@ namespace SF_Automation.Pages
                 string result = driver.FindElement(matchedOpportunity).Displayed.ToString();
                 return "Record found";
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return "No record found";
             }
@@ -447,7 +457,7 @@ namespace SF_Automation.Pages
             {
                 return driver.FindElement(eleItem).Displayed;
             }
-            catch (Exception) { return false; }
+            catch(Exception) { return false; }
         }
         public string GetSearchedEngJobType()
         {
@@ -535,13 +545,13 @@ namespace SF_Automation.Pages
             Console.WriteLine(actualNamesAndDesc[11]);
 
 
-            if (expectedValues.Length != actualNamesAndDesc.Length)
+            if(expectedValues.Length != actualNamesAndDesc.Length)
             {
                 return !isTrue;
             }
-            for (int recType = 0; recType < expectedValues.Length; recType++)
+            for(int recType = 0; recType < expectedValues.Length; recType++)
             {
-                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                if(!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
                 {
                     isTrue = false;
                     break;
@@ -652,6 +662,12 @@ namespace SF_Automation.Pages
         public string SearchEngagementInLightningView(string value)
         {
             Thread.Sleep(6000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, iconClearSearch, 5);
+                driver.FindElement(iconClearSearch).Click();
+            }
+            catch { }
             WebDriverWaits.WaitUntilEleVisible(driver, btnEngNumL, 20);
             driver.FindElement(btnEngNumL).Click();
             Thread.Sleep(4000);
@@ -676,7 +692,7 @@ namespace SF_Automation.Pages
             }
             catch { return "No record found"; }
         }
-        public string UpdateEngAndSearchLV(string oppName)
+        public string UpdateEngAndSearchLV(string engName)
         {
             try
             {
@@ -688,7 +704,7 @@ namespace SF_Automation.Pages
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEngNumL, 20);
                 driver.FindElement(txtEngNumLCAO).Clear();
-                driver.FindElement(txtEngNumLCAO).SendKeys(oppName);
+                driver.FindElement(txtEngNumLCAO).SendKeys(engName);
                 Thread.Sleep(6000);
             }
             catch
@@ -696,7 +712,7 @@ namespace SF_Automation.Pages
                 WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL, 5);
                 driver.FindElement(inputAdminGlobalSearchL).Click();
                 driver.FindElement(inputAdminGlobalSearchL).Clear();
-                driver.FindElement(inputAdminGlobalSearchL).SendKeys(oppName);
+                driver.FindElement(inputAdminGlobalSearchL).SendKeys(engName);
                 Thread.Sleep(6000);
             }
             try
@@ -708,7 +724,49 @@ namespace SF_Automation.Pages
             }
             catch { return "No record found"; }
         }
+        public bool IsEngagementWithJobTypeFoundLV(string engName, string jobType)
+        {
+            Thread.Sleep(6000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, inputEngNumL, 5);
+                driver.FindElement(inputEngNumL).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, iconClearSearch, 5);
+                driver.FindElement(iconClearSearch).Click();
+            }
+            catch { }
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, txtEngNumLCAO, 5);
+                //driver.FindElement(inputEngNumL).Click();
+                //driver.FindElement(inputEngNumL).Clear();
+                driver.FindElement(txtEngNumLCAO).SendKeys(engName);
+                driver.FindElement(txtEngNumLCAO).SendKeys(Keys.Enter);
+            }
+            catch
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, inputAdminGlobalSearchL, 5);
+                driver.FindElement(inputAdminGlobalSearchL).Click();
+                driver.FindElement(inputAdminGlobalSearchL).Clear();
+                driver.FindElement(inputAdminGlobalSearchL).SendKeys(engName);
+                driver.FindElement(txtEngNumLCAO).SendKeys(Keys.Enter);
+            }
+            Thread.Sleep(6000);
+            try
+            {
+                WebDriverWaits.WaitUntilEleVisible(driver, columnJobTypeL, 10);
+                string txtJobType = driver.FindElement(columnJobTypeL).Text;
+                if(txtJobType == jobType)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch { return false; }
+        }
     }
 }
-
-

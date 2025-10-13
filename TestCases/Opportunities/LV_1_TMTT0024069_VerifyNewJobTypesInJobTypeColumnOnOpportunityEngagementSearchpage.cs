@@ -19,7 +19,7 @@ namespace SF_Automation.TestCases.Opportunities
         HomeMainPage homePage = new HomeMainPage();
         public static string fileTMTI0055401 = "TMTI0055401_VerifyNewJobTypesInJobTypeColumnOnOpportunityEngagementSearchpage";
         string moduleNameExl;
-        //commiting from Git to check on local and VM 
+         
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -28,6 +28,8 @@ namespace SF_Automation.TestCases.Opportunities
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);
         }
+        //TMTI0055401 Verify the availability of new Job Types in Job Type column on Opportunity Search page
+        //TMTI0055390 Verify the availability of new Job Types in Job Type column on Engagement Search page
         [Test]
         public void SearchCFOpportunityWithNewJobTypeLV()
         {
@@ -48,8 +50,8 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
 
                 int rowOpp = ReadExcelData.GetRowCount(excelPath, "JobType");
-                for (int row = 2; row <= rowOpp; row++)                {
-
+                for (int row = 2; row <= rowOpp; row++)                
+                {
                     string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "JobType", row, 1);
                     //Login as Standard User profile and validate the user
                     string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "StandardUsers", row, 1);
@@ -76,7 +78,6 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(valJobType, opportunityHome.GetSearchedOppJobType(), "Verify searched Opportunity have the newly added Job Type ");
                     extentReports.CreateStepLogs("Passed", "Opportunity: " +valOppName+" is found with Job Type: " + valJobType + " on Opportunity Home Page ");
 
-
                     //TMTI0055390 Verify the availability of new Job Types in Job Type column on Engagement Search page
                     // Existing Engagement with desired Job Type// search the eng once before execution 
                     moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
@@ -89,7 +90,7 @@ namespace SF_Automation.TestCases.Opportunities
                 }
                 homePageLV.UserLogoutFromSFLightningView();
                 driver.Quit();
-                extentReports.CreateStepLogs("Info", "Browser Closed");
+                extentReports.CreateStepLogs("Info", "Browser Closed SuccessFully");
             }
             catch (Exception e)
             {

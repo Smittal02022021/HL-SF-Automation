@@ -1,8 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace SF_Automation.Pages.Contact
@@ -27,6 +29,7 @@ namespace SF_Automation.Pages.Contact
         By inputCompanySearchBox = By.XPath("//input[@placeholder='Search Companies...']");
         By btnGo = By.XPath("//input[@id='j_id0:j_id1:j_id2:formId:btnGo']");
         By selFirstOption = By.CssSelector("td[id*='tblResults:0:j_id49'] > a");
+        By dropdownProductSpecialty = By.XPath("//button[@aria-label='Product Specialty']");
 
         //New Contact Page - Select Contact Type
         By radioExternalContact = By.XPath("//span[text()='External Contact']/../input");
@@ -196,53 +199,6 @@ namespace SF_Automation.Pages.Contact
             string excelPath = dir + file;
             Thread.Sleep(5000);
 
-            /*
-            try
-            {
-                driver.SwitchTo().Frame(0);
-            }
-            catch(Exception)
-            {
-
-            }
-            */
-
-            //Click lookup 
-            //WebDriverWaits.WaitUntilEleVisible(driver, linkCompanyNameLookupIcon, 120);
-            //CustomFunctions.ActionClicks(driver, linkCompanyNameLookupIcon, 20);
-
-            // Switch to second window
-            //CustomFunctions.SwitchToWindow(driver, 1);
-
-            // Enter value in Company search box
-            WebDriverWaits.WaitUntilEleVisible(driver, inputCompanySearchBox);
-            driver.FindElement(inputCompanySearchBox).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 1));
-            Thread.Sleep(3000);
-
-            try
-            {
-                //Select the company
-                driver.FindElement(By.XPath("(//lightning-base-combobox-item)[2]/span[2]")).Click();
-            }
-            catch(Exception)
-            {
-
-            }
-
-            /*
-            //Click on Go button
-            WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
-            driver.FindElement(btnGo).Click();
-
-            // Select first option
-            WebDriverWaits.WaitUntilEleVisible(driver, selFirstOption);
-            CustomFunctions.ActionClicks(driver, selFirstOption);
-
-            // Switch back to default window
-            CustomFunctions.SwitchToWindow(driver, 0);
-            driver.SwitchTo().Frame(0);
-            */
-
             //Enter first name
             WebDriverWaits.WaitUntilEleVisible(driver, inputFirstName, 40);
             driver.FindElement(inputFirstName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 2));
@@ -258,6 +214,23 @@ namespace SF_Automation.Pages.Contact
             //Enter phone
             WebDriverWaits.WaitUntilEleVisible(driver, inputPhone, 40);
             driver.FindElement(inputPhone).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 5));
+
+            // Enter value in Company search box
+            WebDriverWaits.WaitUntilEleVisible(driver, inputCompanySearchBox);
+            CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//button[@aria-label='Industry Group']")));
+
+            driver.FindElement(inputCompanySearchBox).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 1));
+            Thread.Sleep(3000);
+
+            try
+            {
+                //Select the company
+                driver.FindElement(By.XPath("(//lightning-base-combobox-item)[2]/span[2]")).Click();
+            }
+            catch(Exception)
+            {
+
+            }
 
             // Click save button
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave1);
@@ -366,6 +339,53 @@ namespace SF_Automation.Pages.Contact
         {
             string msg = driver.FindElement(By.XPath("(//span[text()='Last Name'])[1]/..")).Text;
             return msg;
+        }
+
+        public bool VerifyProductSpecialtyPicklistValueInNewContactPage(string picklistValue1, string picklistValue2)
+        {
+            bool finalResult = false;
+            bool result1 = false;
+            bool result2 = false;
+
+            CustomFunctions.MoveToElement(driver, driver.FindElement(By.XPath("//label[text()='Staff Type']")));
+
+            driver.FindElement(dropdownProductSpecialty).Click();
+            IList<IWebElement> staffIndustryValues = driver.FindElements(By.XPath("//button[@aria-label='Product Specialty']//following::lightning-base-combobox-item//span[2]/span"));
+            foreach(IWebElement value in staffIndustryValues)
+            {
+                if(value.Text == picklistValue1)
+                {
+                    result1 = true;
+                    break;
+                }
+                else
+                {
+                    result1 = false;
+                }
+            }
+
+            foreach(IWebElement value in staffIndustryValues)
+            {
+                if(value.Text == picklistValue2)
+                {
+                    result2 = true;
+                    break;
+                }
+                else
+                {
+                    result2 = false;
+                }
+            }
+
+            if(result1 && result2 == true)
+            {
+                finalResult = true;
+            }
+            else
+            {
+                finalResult = false;
+            }
+            return finalResult;
         }
     }
 }

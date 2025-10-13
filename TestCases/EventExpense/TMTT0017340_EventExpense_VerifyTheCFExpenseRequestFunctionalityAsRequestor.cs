@@ -8,6 +8,7 @@ using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using System.IO;
 using System.Threading;
 
 namespace SF_Automation.TestCases.EventExpense
@@ -40,7 +41,9 @@ namespace SF_Automation.TestCases.EventExpense
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + fileTC17340;
+                string excelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestData", fileTC17340 + ".xlsx");
+                excelPath = Path.GetFullPath(excelPath);
+
                 Console.WriteLine(excelPath);
 
                 //Validating Title of Login Page
@@ -60,6 +63,25 @@ namespace SF_Automation.TestCases.EventExpense
                 //Validate user logged in
                 Assert.AreEqual(driver.Url.Contains("lightning"), true);
                 extentReports.CreateLog("User is able to login into SF");
+
+                Console.WriteLine("Checking file: " + excelPath);
+                Console.WriteLine("File exists? " + File.Exists(excelPath));
+                FileInfo fileInfo = new FileInfo(excelPath);
+                Console.WriteLine("Is ReadOnly: " + fileInfo.IsReadOnly);
+
+                try
+                {
+                    using (FileStream fs = new FileStream(excelPath, FileMode.Open, FileAccess.Read, FileShare.None))
+                    {
+                        Console.WriteLine("File is NOT locked. Proceeding...");
+                    }
+                }
+                catch (IOException ex)
+                {
+                    Console.WriteLine("File is locked or in use by another process.");
+                    Console.WriteLine(ex.Message);
+                    throw; // Optional: fail fast
+                }
 
                 int userCount = ReadExcelData.GetRowCount(excelPath, "Users");
                 for (int row = 2; row <= userCount; row++)
@@ -205,7 +227,7 @@ namespace SF_Automation.TestCases.EventExpense
                 }
 
                 //TC - End
-                lvHomePage.UserLogoutFromSFLightningView();
+                lvHomePage.LogoutFromSFLightningAsApprover();
                 driver.Quit();
             }
             catch (Exception e)

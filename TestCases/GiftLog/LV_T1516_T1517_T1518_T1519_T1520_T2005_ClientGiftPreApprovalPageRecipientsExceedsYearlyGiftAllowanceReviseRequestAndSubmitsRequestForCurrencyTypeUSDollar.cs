@@ -183,7 +183,7 @@ namespace SF_Automation.TestCases.GiftLog
 
                     // Enter required details in client gift pre- approval page
                     valGiftNameEntered=giftRequest.EnterDetailsGiftRequestLV(fileT1516);
-                    extentReports.CreateStepLogs("Info", "details entered ");
+                    extentReports.CreateStepLogs("Info", valGiftNameEntered+": details entered ");
 
                     //Select currency drop down
                     string giftCurrency = ReadExcelData.ReadDataMultipleRows(excelPath, "GiftLog_Currency", row, 1);
@@ -259,7 +259,7 @@ namespace SF_Automation.TestCases.GiftLog
                     randomPages.CloseActiveTab("SL_GiftPreApproval");
                 }
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 driver.Quit();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
                 extentReports.CreateStepLogs("Info", "Browser Closed");
@@ -273,8 +273,14 @@ namespace SF_Automation.TestCases.GiftLog
                 string excelPath = ReadJSONData.data.filePaths.testData + fileT1516;
                 conHome.ClickContact();
                 //conHome.SearchContact(fileT1516);
-                //To Delete created contact
-                contactDetails.DeleteCreatedContact(fileT1516, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
+                //To Delete created contact                
+                try
+                {
+                    contactDetails.DeleteCreatedContact(fileT1516, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
+                }
+                catch
+                {//no record found
+                }
                 conHome.ClickContact();
                 conHome.ClickAddContact();
 

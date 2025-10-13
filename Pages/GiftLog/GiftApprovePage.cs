@@ -5,7 +5,9 @@ using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading;
+using static SF_Automation.TestData.ReadJSONData;
 
 namespace SF_Automation.Pages.GiftLog
 {
@@ -71,7 +73,20 @@ namespace SF_Automation.Pages.GiftLog
         {
             Thread.Sleep(3000);
 
-            string getMonth = DateTime.Today.ToString("MMM");
+            string getMonth;
+            string dateStr = DateTime.Today.ToString("dd/MMM/yyyy");
+
+            DateTime date = DateTime.ParseExact(dateStr, "dd/MMM/yyyy", CultureInfo.InvariantCulture);
+            string todayDayDate = date.ToString("dd");
+
+            if (todayDayDate == "01")// || todayDayDate == "02" || todayDayDate == "03" || todayDayDate == "04" || todayDayDate == "05")
+            {
+                getMonth = DateTime.Today.AddMonths(-1).ToString("MMM");
+            }
+            else
+            {
+                getMonth = DateTime.Today.ToString("MMM");
+            }
             WebDriverWaits.WaitUntilEleVisible(driver, comboMonth);
             driver.FindElement(comboMonth).SendKeys(getMonth);
 
@@ -174,7 +189,20 @@ namespace SF_Automation.Pages.GiftLog
         }
         public void SearchByRecipientLastNameAndStatusForNextYearLV(string recipientLastName, string status)
         {
-            string getMonth = DateTime.Today.ToString("MMM");
+            string getMonth;
+            string dateStr = DateTime.Today.ToString("dd/MMM/yyyy");
+
+            DateTime date = DateTime.ParseExact(dateStr, "dd/MMM/yyyy", CultureInfo.InvariantCulture);
+            string todayDayDate = date.ToString("dd");
+
+            if (todayDayDate == "01" || todayDayDate == "02" || todayDayDate == "03" || todayDayDate == "04" || todayDayDate == "05")
+            {
+                getMonth = DateTime.Today.AddMonths(-1).ToString("MMM");
+            }
+            else
+            {
+                getMonth = DateTime.Today.ToString("MMM");
+            }
             WebDriverWaits.WaitUntilEleVisible(driver, comboMonth);
             driver.FindElement(comboMonth).SendKeys(getMonth);
 
@@ -637,7 +665,21 @@ namespace SF_Automation.Pages.GiftLog
 
         public void SearchByRecipientLastNameAndStatusLV(string recipientLastName, string status)
         {
-            string getMonth = DateTime.Today.ToString("MMM");
+            string getMonth;
+            string dateStr= DateTime.Today.ToString("dd/MMM/yyyy");
+
+            DateTime date = DateTime.ParseExact(dateStr, "dd/MMM/yyyy", CultureInfo.InvariantCulture);
+            string todayDayDate = date.ToString("dd");
+
+            if(todayDayDate=="01")// todayDayDate == "02" || todayDayDate == "03" || todayDayDate == "04" || todayDayDate == "05")
+            {
+                getMonth = DateTime.Today.AddMonths(-1).ToString("MMM");
+            }
+            else
+            {
+                getMonth = DateTime.Today.ToString("MMM");
+            }
+                
             WebDriverWaits.WaitUntilEleVisible(driver, comboMonth);
             driver.FindElement(comboMonth).SendKeys(getMonth);
 
@@ -834,8 +876,21 @@ namespace SF_Automation.Pages.GiftLog
             }
         }
         public void SearchByRecipientLastNameLV(string recipientLastName)
-        {   
-            string getMonth = DateTime.Today.ToString("MMM");
+        {
+            string getMonth;
+            string dateStr = DateTime.Today.ToString("dd/MMM/yyyy");
+
+            DateTime date = DateTime.ParseExact(dateStr, "dd/MMM/yyyy", CultureInfo.InvariantCulture);
+            string todayDayDate = date.ToString("dd");
+
+            if (todayDayDate == "01" ) //|| todayDayDate == "02" || todayDayDate == "03" || todayDayDate == "04" || todayDayDate == "05")
+            {
+                getMonth = DateTime.Today.AddMonths(-1).ToString("MMM");
+            }
+            else
+            {
+                getMonth = DateTime.Today.ToString("MMM");
+            }
             WebDriverWaits.WaitUntilEleVisible(driver, comboMonth);
             driver.FindElement(comboMonth).SendKeys(getMonth);
 
@@ -848,7 +903,7 @@ namespace SF_Automation.Pages.GiftLog
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
         }
         public void SetApprovalDenialCommentsLV()
         {
@@ -897,8 +952,21 @@ namespace SF_Automation.Pages.GiftLog
             return CustomFunctions.IsElementPresent(driver, btnApproveSelected);
         }
         public void SearchByRecipientLastNameForNextYearLV(string recipientLastName)
-        {           
-            string getMonth = DateTime.Today.ToString("MMM");
+        {
+            string getMonth;
+            string dateStr = DateTime.Today.ToString("dd/MMM/yyyy");
+
+            DateTime date = DateTime.ParseExact(dateStr, "dd/MMM/yyyy", CultureInfo.InvariantCulture);
+            string todayDayDate = date.ToString("dd");
+
+            if (todayDayDate == "01" || todayDayDate == "02" || todayDayDate == "03" || todayDayDate == "04" || todayDayDate == "05")
+            {
+                getMonth = DateTime.Today.AddMonths(-1).ToString("MMM");
+            }
+            else
+            {
+                getMonth = DateTime.Today.ToString("MMM");
+            }
             WebDriverWaits.WaitUntilEleVisible(driver, comboMonth);
             driver.FindElement(comboMonth).SendKeys(getMonth);
 
@@ -914,7 +982,7 @@ namespace SF_Automation.Pages.GiftLog
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
 
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
         }
         public void ClickApproveSelectedButtonLV()
         {
@@ -1293,7 +1361,7 @@ namespace SF_Automation.Pages.GiftLog
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
 
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
         }
 
         public void SearchByRecipientLastNameForNextYear(string file)
@@ -1302,8 +1370,21 @@ namespace SF_Automation.Pages.GiftLog
             string dir = ReadJSONData.data.filePaths.testData;
 
             string excelPath = dir + file;
+            string getMonth;
+            string dateStr = DateTime.Today.ToString("dd/MMM/yyyy");
 
-            string getMonth = DateTime.Today.ToString("MMM");
+            DateTime date = DateTime.ParseExact(dateStr, "dd/MMM/yyyy", CultureInfo.InvariantCulture);
+            string todayDayDate = date.ToString("dd");
+
+            if (todayDayDate == "01" || todayDayDate == "02" || todayDayDate == "03" || todayDayDate == "04" || todayDayDate == "05")
+            {
+                getMonth = DateTime.Today.AddMonths(-1).ToString("MMM");
+            }
+            else
+            {
+                getMonth = DateTime.Today.ToString("MMM");
+            }
+            
             WebDriverWaits.WaitUntilEleVisible(driver, comboMonth);
             driver.FindElement(comboMonth).SendKeys(getMonth);
 
@@ -1319,7 +1400,7 @@ namespace SF_Automation.Pages.GiftLog
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
 
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
         }
 
         public string GetGiftDescriptionFromTable()
@@ -1742,7 +1823,7 @@ namespace SF_Automation.Pages.GiftLog
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
         }
 
         public void SearchByMonthYearAndStatusOnly(string status)
@@ -1762,7 +1843,7 @@ namespace SF_Automation.Pages.GiftLog
 
             WebDriverWaits.WaitUntilEleVisible(driver,btnGo);
             driver.FindElement(btnGo).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
         }
 
         public void SearchByStatusForNextYear(string file, string status)
@@ -1791,7 +1872,7 @@ namespace SF_Automation.Pages.GiftLog
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
         }
 
         public string ErrorMsgApprovalComment()

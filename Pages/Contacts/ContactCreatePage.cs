@@ -8,21 +8,21 @@ namespace SF_Automation.Pages.Contact
 {
     class ContactCreatePage : BaseClass
     {
-        By btnSave = By.CssSelector("div.pbHeader input[value='Save']");
+        By btnSave = By.CssSelector("td input[value=' Save ']");// div.pbHeader input[value='Save']");
         By btnSaveIgnoreAlert = By.CssSelector("td[class='pbButton '] > input[value='Save (Ignore Alert)']");
         By btnSaveAndNewIgnoreAlert = By.CssSelector("td[class='pbButton '] > input[value='Save and New (Ignore Alert)']");
         By btnCancel = By.CssSelector("td[class='pbButton '] > input[value='Cancel']");
         By lblDuplicateContactWarningMessage = By.CssSelector("span[id='contactNewPage:NewContactForm:j_id0:noof']");
         By popUpLookup = By.CssSelector("a[title='Company Name Lookup (New Window)'] > img");
-        By txtSearchBox = By.XPath("//*[contains(@id,'txtSearch')]");
+        By txtSearchBox = By.XPath("//*[contains(@id,'lksrch')]");
         By lblSearchBox = By.CssSelector("label[for*='formId:txtSearch']");
-        By btnGo = By.CssSelector("input[id*='btnGo']");
-        By selFirstOption = By.CssSelector("td[id*='tblResults:0:j_id49'] > a");//("tr[class='dataRow even first'] > td:first-child a");
-        By firstName = By.CssSelector("input[id *='FirstName']");
-        By lastName = By.CssSelector("input[id*='LastName']");
+        By btnGo = By.CssSelector("input[name='go']");
+        By selFirstOption = By.XPath("//table//tbody//tr[@class='dataRow even last first']//a");// By.CssSelector("td[id*='tblResults:0:j_id49'] > a");//("tr[class='dataRow even first'] > td:first-child a");
+        By firstName = By.CssSelector("input[id *='name_first']");
+        By lastName = By.CssSelector("input[id*='name_last']");
         By comboSalutation = By.CssSelector("select[id*='Salutation']");
-        By txtEmail = By.CssSelector("input[id*='pgBlockSectionAcctInfo:Email']");
-        By txtPhone = By.CssSelector("input[id*='pgBlockSectionAcctInfo:Phone']");
+        By txtEmail = By.CssSelector("input[id*='con15']");//input[id*='pgBlockSectionAcctInfo:Email']");
+        By txtPhone = By.CssSelector("input[id*='con10']");// input[id*='pgBlockSectionAcctInfo:Phone']");
         By contactDetailsHeading = By.CssSelector("h2.mainTitle");
         By btnContinue = By.CssSelector("input[title='Continue']");
         By tabNewCompany = By.CssSelector("td[id*='tabTwo_lbl']");
@@ -39,13 +39,13 @@ namespace SF_Automation.Pages.Contact
         By selSelectRecordType = By.CssSelector("select[id='p3']");
         By txtGender = By.CssSelector("div[id='00Ni000000D7z8Uj_id0_j_id1_ileinner']");
 
-        
+
         // To identify required tags/mandatory fields in Contact Create page
         public IWebElement ContactInformationRequiredTag(string fieldName)
         {
-            return driver.FindElement(By.XPath($"//input[contains(@id, '{fieldName}')]/../div"));
+            return driver.FindElement(By.XPath($"//input[contains(@id, '{fieldName}')]/..//div"));
         }
-         
+
         //To Click save button
         public void ClickSaveButton()
         {
@@ -69,7 +69,7 @@ namespace SF_Automation.Pages.Contact
         public bool ValidateIfSaveAndCancelButtonExists()
         {
             bool result = false;
-            if (driver.FindElement(btnSaveIgnoreAlert).Displayed && driver.FindElement(btnSaveAndNewIgnoreAlert).Displayed && driver.FindElement(btnCancel).Displayed)
+            if(driver.FindElement(btnSaveIgnoreAlert).Displayed && driver.FindElement(btnSaveAndNewIgnoreAlert).Displayed && driver.FindElement(btnCancel).Displayed)
             {
                 result = true;
             }
@@ -82,7 +82,7 @@ namespace SF_Automation.Pages.Contact
 
             WebDriverWaits.WaitUntilEleVisible(driver, lblDuplicateContactWarningMessage);
             string message = driver.FindElement(lblDuplicateContactWarningMessage).Text;
-            if (message.Contains("Click Cancel if duplicate exists. Click Save (Ignore Alert) to create new contact record."))
+            if(message.Contains("Click Cancel if duplicate exists. Click Save (Ignore Alert) to create new contact record."))
             {
                 result = true;
             }
@@ -94,11 +94,13 @@ namespace SF_Automation.Pages.Contact
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
-            Thread.Sleep(5000);
+
             //Click lookup 
             CustomFunctions.ActionClicks(driver, popUpLookup, 20);
             // Switch to second window
+            Thread.Sleep(5000);
             CustomFunctions.SwitchToWindow(driver, 1);
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//frame[@title='Search']")));
 
             string excelPath = dir + file;
             // Enter value in search box
@@ -108,10 +110,13 @@ namespace SF_Automation.Pages.Contact
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
             // Select first option
+            driver.SwitchTo().DefaultContent();
+            driver.SwitchTo().Frame(driver.FindElement(By.XPath("//frame[@title='Results']")));
             WebDriverWaits.WaitUntilEleVisible(driver, selFirstOption);
             CustomFunctions.ActionClicks(driver, selFirstOption);
-            // Switch back to default window
+            // Switch back to default window            
             CustomFunctions.SwitchToWindow(driver, 0);
+            driver.SwitchTo().DefaultContent();
             //Enter first name
             WebDriverWaits.WaitUntilEleVisible(driver, firstName, 40);
             driver.FindElement(firstName).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 2));
@@ -127,12 +132,12 @@ namespace SF_Automation.Pages.Contact
 
             // Click save button
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave);
-            driver.FindElement(btnSave).Click();           
+            driver.FindElement(btnSave).Click();
 
         }
 
         //To Create Contact 
-        public void CreateContact(string file,int row)
+        public void CreateContact(string file, int row)
         {
 
             ReadJSONData.Generate("Admin_Data.json");
@@ -145,7 +150,7 @@ namespace SF_Automation.Pages.Contact
             string excelPath = dir + file;
             // Enter value in search box
             WebDriverWaits.WaitUntilEleVisible(driver, txtSearchBox);
-            driver.FindElement(txtSearchBox).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact",row, 1));
+            driver.FindElement(txtSearchBox).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 1));
             //Click on Go button
             WebDriverWaits.WaitUntilEleVisible(driver, btnGo);
             driver.FindElement(btnGo).Click();
@@ -162,10 +167,10 @@ namespace SF_Automation.Pages.Contact
             driver.FindElement(lastName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 3));
             //Enter email
             WebDriverWaits.WaitUntilEleVisible(driver, txtEmail, 40);
-            driver.FindElement(txtEmail).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact",row, 5));
+            driver.FindElement(txtEmail).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 5));
             //Enter phone
             WebDriverWaits.WaitUntilEleVisible(driver, txtPhone, 40);
-            driver.FindElement(txtPhone).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact",row, 6));
+            driver.FindElement(txtPhone).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 6));
 
             // Click save button
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave);
@@ -276,13 +281,13 @@ namespace SF_Automation.Pages.Contact
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveNewCompany);
             driver.FindElement(btnSaveNewCompany).Click();
             CustomFunctions.SwitchToWindow(driver, 0);
-            
+
             WebDriverWaits.WaitUntilEleVisible(driver, firstName, 40);
             driver.FindElement(firstName).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 2));
 
             WebDriverWaits.WaitUntilEleVisible(driver, lastName, 40);
             driver.FindElement(lastName).SendKeys(ReadExcelData.ReadData(excelPath, "Contact", 3));
-            
+
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave);
             driver.FindElement(btnSave).Click();
         }
@@ -297,7 +302,7 @@ namespace SF_Automation.Pages.Contact
 
             WebDriverWaits.WaitUntilEleVisible(driver, btnNewContact);
             driver.FindElement(btnNewContact).Click();
-            
+
             //Enter first name
             WebDriverWaits.WaitUntilEleVisible(driver, firstName, 40);
             driver.FindElement(firstName).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 2));
@@ -315,14 +320,14 @@ namespace SF_Automation.Pages.Contact
 
             WebDriverWaits.WaitUntilEleVisible(driver, txtPostalCode, 40);
             driver.FindElement(txtPostalCode).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 9));
-                      
+
             // Click save button
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave);
             driver.FindElement(btnSave).Click();
         }
 
         //To Create Contact 
-        public void CreateContactFromCompany(string file, string FirstName,string LastName, string email, int row)
+        public void CreateContactFromCompany(string file, string FirstName, string LastName, string email, int row)
         {
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
@@ -375,7 +380,7 @@ namespace SF_Automation.Pages.Contact
             // Switch to second window
             CustomFunctions.SwitchToWindow(driver, 1);
 
-          
+
             // Enter value in search box
             WebDriverWaits.WaitUntilEleVisible(driver, txtSearchBox);
             driver.FindElement(txtSearchBox).SendKeys(ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 1));
@@ -402,9 +407,9 @@ namespace SF_Automation.Pages.Contact
 
             //Enter Salutation
             WebDriverWaits.WaitUntilEleVisible(driver, selSalutation, 40);
-         
+
             CustomFunctions.SelectByText(driver, driver.FindElement(selSalutation), ReadExcelData.ReadDataMultipleRows(excelPath, "Contact", row, 8));
-           
+
             // Click save button
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave);
             driver.FindElement(btnSave).Click();
@@ -414,7 +419,7 @@ namespace SF_Automation.Pages.Contact
 
         {
             string GenderText = driver.FindElement(txtGender).Text;
-          return GenderText;
+            return GenderText;
         }
     }
 }

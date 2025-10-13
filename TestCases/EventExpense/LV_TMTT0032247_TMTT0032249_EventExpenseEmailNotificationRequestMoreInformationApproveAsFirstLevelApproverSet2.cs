@@ -100,7 +100,7 @@ namespace SF_Automation.TestCases.EventExpense
                     extentReports.CreateStepLogs("Passed", "Requestor value is validated as " + requestor);
 
                     ////Validate status of expense request created
-                    string ExpReqStatus = expRequestDetailPage.GetExpenseRequestStatusLWC(1);
+                    string ExpReqStatus = expRequestDetailPage.GetExpenseRequestStatusLWC(0);//1
                     Assert.AreEqual("Saved", ExpReqStatus);
                     extentReports.CreateStepLogs("Passed", "Expense request status is validated as " + ExpReqStatus);
 
@@ -145,7 +145,7 @@ namespace SF_Automation.TestCases.EventExpense
 
                     //Click submit for approval button
                     expRequestDetailPage.ClickEventExpenseRequestButtonLWC("Submit for Approval (LWC)");
-                    string requestStatus = expRequestDetailPage.GetExpenseRequestStatusLWC(1);
+                    string requestStatus = expRequestDetailPage.GetExpenseRequestStatusLWC(0);//1
                     Assert.AreEqual("Waiting for Approval", requestStatus);
                     extentReports.CreateStepLogs("Passed", "Event Expense Request:: " + expensePreAppNumber + "  is submitted for approval and status is " + requestStatus);
 
@@ -365,4 +365,3 @@ namespace SF_Automation.TestCases.EventExpense
         }
     }
 }
-

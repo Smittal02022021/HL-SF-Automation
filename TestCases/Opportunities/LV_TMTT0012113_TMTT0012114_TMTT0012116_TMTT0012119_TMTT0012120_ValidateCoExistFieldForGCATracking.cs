@@ -118,7 +118,7 @@ namespace SF_Automation.TestCases.Opportunities
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
 
                     addOpportunityContact.ClickAddOpportunityContactLV(valRecordType);
-                    addOpportunityContact.CreateContactL2(fileGCATracking);
+                    addOpportunityContact.CreateContactL2(fileGCATracking, valRecordType);
                     extentReports.CreateStepLogs("Info", "Contact " + valContact + " is added as " + valContactType + " for opportunity with LOB: " + valRecordType);
                                         
                     //Update required Opportunity fields for conversion and Internal team details
@@ -135,9 +135,17 @@ namespace SF_Automation.TestCases.Opportunities
                     {
                         opportunityDetails.UpdateReqFieldsForFRConversionLV(fileGCATracking);
                         opportunityDetails.UpdateTotalDebtConfirmedLV();
+
+                        //PitchMandateAward details
+                        randomPages.ClickPitchMandteAwardTabLV();
+                        opportunityDetails.CreateNewPitchMandateAwardLV();
+                        extentReports.CreateStepLogs("Info", "New Pitch/Mandate Award detail provided ");
+                        string idPMA = opportunityDetails.GetPitchMandateAwardID();
+                        randomPages.CloseActiveTab(idPMA + " | Pitch/Mandate Award");
                     }
+
                     extentReports.CreateStepLogs("Info", "Opportunity of LOB: "+ valRecordType + " All Required Fields for Converting into Engagement are Filled ");
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "Standard User:" + userExl + " logged out");
 
                     //Login as System Admin user to Fill Required fields for conversion 
@@ -178,7 +186,7 @@ namespace SF_Automation.TestCases.Opportunities
                     extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");                    
                     randomPages.CloseActiveTab("Internal Team");
 
-                    randomPages.DetailPageFullViewLV();
+                    //randomPages.DetailPageFullViewLV();
                     //Validate CoExist checkbox exist and checked or not on Opportunity Details page for for System Administrator
                     string checkboxValidationResult = opportunityDetails.ValidateIfCoExistFieldIsPresentAndCheckedOrNotLV();
                     Assert.AreEqual("Co-Exist checkbox is displayed and not-checked", checkboxValidationResult);
@@ -188,7 +196,7 @@ namespace SF_Automation.TestCases.Opportunities
                     string editValue = opportunityDetails.VerifyIfCoExistFieldIsEditableOrNotLV();
                     Assert.AreEqual("Co-Exist field is editable", editValue);
                     extentReports.CreateStepLogs("Passed", editValue + " for System Administrator on Opportunity detail page. ");
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "System Administrator: " + adminUserExl + " logged out");
                     
                     //Login as Standard User To Request for Eng
@@ -211,7 +219,7 @@ namespace SF_Automation.TestCases.Opportunities
                     string msgSuccess = opportunityDetails.GetRequestToEngMsgL();
                     Assert.AreEqual(msgSuccess, "Opportunity has been submitted for Approval.");
                     extentReports.CreateStepLogs("Passed", "Success message: " + msgSuccess + " is displayed ");
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "Standard User loggout after request for Engagement");
 
                     //Login as CAO user to approve the Opportunity
@@ -232,7 +240,7 @@ namespace SF_Automation.TestCases.Opportunities
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
-                    randomPages.DetailPageFullViewLV();
+                    //randomPages.DetailPageFullViewLV();
 
                     //Validate CoExist checkbox exist and checked or not on Opportunity Details page for for CAO
                     checkboxValidationResult = opportunityDetails.ValidateIfCoExistFieldIsPresentAndCheckedOrNotLV();
@@ -259,7 +267,7 @@ namespace SF_Automation.TestCases.Opportunities
                     Assert.AreEqual(opportunityName, engagementName);
                     extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
-                    randomPages.DetailPageFullViewLV();//
+                    //randomPages.DetailPageFullViewLV();//
                     //Validate CoExist checkbox exist and checked or not on Engagement Details page for CAO
                     string checkboxValidationResult1 = engagementDetails.ValidateIfCoExistFieldIsPresentAndCheckedOrNotLV();
                     Assert.AreEqual("Co-Exist checkbox is displayed and not-checked", checkboxValidationResult);
@@ -269,7 +277,7 @@ namespace SF_Automation.TestCases.Opportunities
                     string editEngValue = engagementDetails.VerifyIfCoExistFieldIsEditableOrNotLV();
                     Assert.AreEqual("Co-Exist field is editable", editValue);
                     extentReports.CreateStepLogs("Passed", editEngValue + " for CAO User on Engagement detail page. ");
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", userCAOExl+ " CAO User loggout after converting Opportunity into Engagement");
 
                     //Validate if Admin User is able to edit the CoExist field
@@ -287,7 +295,7 @@ namespace SF_Automation.TestCases.Opportunities
                     homePageLV.SelectModule(moduleNameExl);
                     extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
-                    randomPages.DetailPageFullViewLV();
+                    //randomPages.DetailPageFullViewLV();
                     //Validate CoExist checkbox exist and checked or not on existing Opportunity Details page
                     checkboxValidationResult = opportunityDetails.ValidateIfCoExistFieldIsPresentAndCheckedOrNotLV();
                     Assert.AreEqual("Co-Exist checkbox is displayed and not-checked", checkboxValidationResult);
@@ -302,15 +310,15 @@ namespace SF_Automation.TestCases.Opportunities
 
                     //Search for created opportunity
                     engagementHome.SearchEngagementInLightningView(engagementName);
-                    extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
-                    randomPages.DetailPageFullViewLV();
+                    extentReports.CreateStepLogs("Passed", "Engagemen: " + engagementName + " found and selected ");
+                    //randomPages.DetailPageFullViewLV();
                     //Validate CoExist checkbox exist and checked or not on existing Opportunity Details page
                     checkboxValidationResult = engagementDetails.ValidateIfCoExistFieldIsPresentAndCheckedOrNotLV();
                     Assert.AreEqual("Co-Exist checkbox is displayed and not-checked", checkboxValidationResult);
                     extentReports.CreateStepLogs("Passed", checkboxValidationResult + " for System Administrator on Engagement detail page");
                     randomPages.CloseActiveTab(engagementName);
 
-                    usersLogin.ClickLogoutFromLightningView();
+                    homePageLV.LogoutFromSFLightningAsApprover();
                     extentReports.CreateStepLogs("Info", "System Administrator Logged out after final validation on Opportunity and Engagement detail page for LOB: "+ valRecordType);
                 }
                 driver.Quit();
@@ -319,7 +327,7 @@ namespace SF_Automation.TestCases.Opportunities
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

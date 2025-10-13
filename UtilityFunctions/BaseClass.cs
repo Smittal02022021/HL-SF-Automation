@@ -22,7 +22,7 @@ namespace SF_Automation.UtilityFunctions
             //options.AddArguments("user-data-dir=" + path);
             //options.AddArguments("profile-directory=Default");
             options.AddArguments("--force-device-scale-factor=70/100");// set the zoom level % 
-            driver = new ChromeDriver(options);            
+            driver = new ChromeDriver(options);
             driver.Navigate().GoToUrl("https://test.salesforce.com/");
             driver.Manage().Window.Maximize();
             builder = new Actions(driver);
@@ -57,7 +57,7 @@ namespace SF_Automation.UtilityFunctions
 
         public static ExtentReports ExtentReportHelper()
         {
-            if (extent == null)
+            if(extent == null)
             {
                 // Get current date and time
                 string timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
@@ -72,7 +72,7 @@ namespace SF_Automation.UtilityFunctions
                 var htmlReporter = new ExtentHtmlReporter(reportPath);
 
                 //var htmlReporter = new ExtentHtmlReporter(@"C:\Users\SMittal0207\source\repos\SF_Automation\Reports\ExtentReport.html");
-                htmlReporter.Config.DocumentTitle="Test Execution Report";
+                htmlReporter.Config.DocumentTitle = "Test Execution Report";
                 extent.AttachReporter(htmlReporter);
                 extent.AddSystemInfo("Application Under Test", "Salesforce Application");
                 extent.AddSystemInfo("Environment", "Test");
@@ -86,7 +86,7 @@ namespace SF_Automation.UtilityFunctions
             //string path = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\User Data\";
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("--force-device-scale-factor=80/100");
-            
+            options.AddArgument("--disable-notifications"); // Disables notifications
             driver = new ChromeDriver(options);
             driver.Navigate().GoToUrl("https://outlook.office.com/");
             driver.Manage().Window.Maximize();
@@ -98,6 +98,7 @@ namespace SF_Automation.UtilityFunctions
         {
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("--force-device-scale-factor=70/100");
+            options.AddArgument("--disable-notifications"); // Disables notifications
             driver = new ChromeDriver(options);       //options
             driver.Navigate().GoToUrl("https://test.salesforce.com/");
             driver.Manage().Window.Maximize();
@@ -112,7 +113,7 @@ namespace SF_Automation.UtilityFunctions
             {
                 extent.Flush();
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 throw e;
             }

@@ -135,7 +135,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Congratulations message: " + congratulationMsg + " in displayed upon successful submission of gift request ");
 
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out ");
 
                 // Search Complaince user by global search
@@ -224,7 +224,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Created By field is displayed with correct value under Gift Request detail section on approve gifts page. ");
 
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + userCompliance + " logged out");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");

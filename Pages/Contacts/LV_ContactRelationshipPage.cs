@@ -114,7 +114,7 @@ namespace SF_Automation.Pages.Contact
         {
             bool result = false;
             Thread.Sleep(3000);
-            string text = driver.FindElement(By.XPath("((//span[text()='HL Contact'])[2]/following::dd//a)[1]//slot//slot")).Text;
+            string text = driver.FindElement(By.XPath("((//span[text()='HL Contact'])[2]/following::div//a)[1]//slot//slot/span")).Text;
             if(text == contact)
             {
                 result = true;

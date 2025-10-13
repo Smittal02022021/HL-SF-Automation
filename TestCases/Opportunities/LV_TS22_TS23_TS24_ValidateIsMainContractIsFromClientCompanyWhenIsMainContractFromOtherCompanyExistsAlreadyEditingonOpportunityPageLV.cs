@@ -98,12 +98,12 @@ namespace SF_Automation.TestCases.OpportunitiesOracleERP
                 string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
 
                 addOpportunityContact.CickAddCFOpportunityContact();
-                addOpportunityContact.CreateContactL2(fileContract);
+                addOpportunityContact.CreateContactL2(fileContract, valRecordType);
                 extentReports.CreateStepLogs("Info", valContact + " is added as " + valContactType + " opportunity contact is saved ");
 
                 randomPages.CloseActiveTab(opportunityName);
                 extentReports.CreateStepLogs("Info", "Opportunity tab is closed");
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", valUserExl + " Logged out");
 
                 //Performing actions with System Admin
@@ -187,7 +187,7 @@ namespace SF_Automation.TestCases.OpportunitiesOracleERP
                 randomPages.CloseActiveTab(opportunityName);
                 extentReports.CreateStepLogs("Info", contractName1Exl + " detail page is closed");
 
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info","CAO User: "+ caoUserExl + " Logged out");
                 usersLogin.UserLogOut();
                 driver.Quit();

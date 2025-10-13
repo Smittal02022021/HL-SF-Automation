@@ -366,7 +366,7 @@ namespace SF_Automation.Pages.Opportunity
         By tabReview = By.XPath("//lightning-tab-bar/ul/li[@title='Review']");
         By lnkEditGrade = By.XPath("//span[text()='Grade']/following::div[1]/button/span[1]");
         By btnGrade = By.XPath("//label[text()='Grade']/ancestor::div/div/lightning-base-combobox/div/div/div[1]/button");
-        By valGrade = By.XPath("//span[text()='Grade']/ancestor::div[2]//dd//lightning-formatted-text");
+        By valGrade = By.XPath("//span[text()='Grade']/ancestor::div[2]lightning-formatted-text");
 
         By valOppNum = By.XPath("/html/body/p[8]/span");
         By btnSendEmail = By.XPath("//div[1]/table/tbody/tr/td[2]/input[1]");
@@ -567,7 +567,7 @@ namespace SF_Automation.Pages.Opportunity
         //Click Opportunity Overview tab
         public string ClickOpportunityOverview()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,-250)");
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, OppOverviewTab, 80);
@@ -592,7 +592,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, btnSaveAddFin, 80);
             driver.FindElement(btnSaveAddFin).Click();
             Thread.Sleep(4000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,250)");
             string valYear = driver.FindElement(txtYear).Text;
             return valYear;
@@ -763,7 +763,7 @@ namespace SF_Automation.Pages.Opportunity
         //Validate Transaction Type Fee
         public bool VerifyTxnTypeFee()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,400)");
             Thread.Sleep(4000);
             driver.FindElement(btnTxnFeeType).Click();
@@ -774,13 +774,13 @@ namespace SF_Automation.Pages.Opportunity
             string[] expectedValue = { "--None--", "Flat Fee", "Incentive Structure", "Other Fee Structure" };
             bool isSame = true;
 
-            if (expectedValue.Length != actualValue.Length)
+            if(expectedValue.Length != actualValue.Length)
             {
                 return !isSame;
             }
-            for (int rec = 0; rec < expectedValue.Length; rec++)
+            for(int rec = 0; rec < expectedValue.Length; rec++)
             {
-                if (!expectedValue[rec].Equals(actualValue[rec]))
+                if(!expectedValue[rec].Equals(actualValue[rec]))
                 {
                     isSame = false;
                     break;
@@ -820,7 +820,7 @@ namespace SF_Automation.Pages.Opportunity
         //Validate Incentive Fee section
         public string ValidateIncentiveFeeSection()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,450)");
             Thread.Sleep(3000);
             driver.FindElement(By.XPath("//span[text()='Incentive Fee structure']"));
@@ -940,7 +940,7 @@ namespace SF_Automation.Pages.Opportunity
         public string ValidateFinalRatchetAmt()
         {
             string label = driver.FindElement(lblFinalRatchetAmt).Text;
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,-950)");
             return label;
         }
@@ -1010,7 +1010,7 @@ namespace SF_Automation.Pages.Opportunity
                 string valTab = driver.FindElement(HLInternalTab).Text;
                 return valTab;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
 
                 Thread.Sleep(6000);
@@ -1025,7 +1025,7 @@ namespace SF_Automation.Pages.Opportunity
         public void ClickReviewSubmission()
         {
             Thread.Sleep(4000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,450)");
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditReviewSub, 100);
             driver.FindElement(lnkEditReviewSub).Click();
@@ -1048,7 +1048,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditReviewSub, 100);
             driver.FindElement(lnkEditReviewSub).Click();
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,50)");
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSave, 150);
@@ -1061,7 +1061,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditReviewSub2nd, 100);
             driver.FindElement(lnkEditReviewSub2nd).Click();
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,200)");
             Thread.Sleep(6000);
             driver.FindElement(btnSubmit).Click();
@@ -1077,7 +1077,7 @@ namespace SF_Automation.Pages.Opportunity
         public void UpdateReviewSubmissionAndUpdateReferralFee()
         {
             Thread.Sleep(3000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,350)");
             driver.FindElement(btnSubmit).Click();
             Console.WriteLine("Submit clicked once");
@@ -1121,7 +1121,7 @@ namespace SF_Automation.Pages.Opportunity
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,300)");
             string lockup = ReadExcelData.ReadData(excelPath, "NBCForm", 2);
             driver.FindElement(btnYes1).Click();
@@ -1153,7 +1153,7 @@ namespace SF_Automation.Pages.Opportunity
         public string ClickSubmitButton()
         {
             Thread.Sleep(5000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,-2500)");
             Thread.Sleep(4000);
             driver.FindElement(btnSubmitForReview).Click();
@@ -1168,7 +1168,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             driver.SwitchTo().Frame(driver.FindElement(By.XPath("//iframe[@class='cke_wysiwyg_frame cke_reset']")));
             Thread.Sleep(3000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,300)");
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, valOppNum, 112);
@@ -1498,7 +1498,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtTxnOverview).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 3));
             driver.FindElement(txtTotalDebt).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 9));
             //driver.FindElement(txtEstValuation).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 11));
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,80)");
             Thread.Sleep(4000);
             driver.FindElement(txtValuationExp).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 12));
@@ -1544,7 +1544,7 @@ namespace SF_Automation.Pages.Opportunity
             string name = ReadExcelData.ReadData(excelPath, "NBCForm", 7);
             driver.FindElement(By.XPath("//label[text()='Capital Markets Consulted']/following::div[7]/lightning-base-combobox-item/span[2]/span[text()='" + name + "']")).Click();
             driver.FindElement(txtExistingFin).SendKeys(ReadExcelData.ReadData(excelPath, "NBCForm", 3));
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,250)");
             Thread.Sleep(4000);
             driver.FindElement(btnFinSubject).Click();
@@ -1575,7 +1575,7 @@ namespace SF_Automation.Pages.Opportunity
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,250)");
             string fee = ReadExcelData.ReadData(excelPath, "NBCForm", 9);
             driver.FindElement(txtRetainer).SendKeys(fee);
@@ -1583,7 +1583,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtProgressFee).SendKeys(fee);
             driver.FindElement(txtProgressFeeCred).SendKeys(fee);
             js.ExecuteScript("window.scrollTo(0,350)");
-            if (feeType.Equals("Flat Fee"))
+            if(feeType.Equals("Flat Fee"))
             {
                 Console.WriteLine("No Min Fee is requird");
             }
@@ -1608,7 +1608,7 @@ namespace SF_Automation.Pages.Opportunity
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,250)");
             string fee = ReadExcelData.ReadData(excelPath, "NBCForm", 64);
             string feeCred = ReadExcelData.ReadData(excelPath, "NBCForm", 65);
@@ -1635,7 +1635,7 @@ namespace SF_Automation.Pages.Opportunity
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             string text = ReadExcelData.ReadData(excelPath, "NBCForm", 3);
             string fee = ReadExcelData.ReadData(excelPath, "NBCForm", 10);
             string lockup = ReadExcelData.ReadData(excelPath, "NBCForm", 2);
@@ -1670,7 +1670,7 @@ namespace SF_Automation.Pages.Opportunity
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             string lockup = ReadExcelData.ReadData(excelPath, "NBCForm", 2);
             driver.FindElement(btnFairnessOpinion).Click();
             driver.FindElement(By.XPath("//label[text()='Fairness Opinion Provided']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
@@ -1693,7 +1693,7 @@ namespace SF_Automation.Pages.Opportunity
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             string lockup = ReadExcelData.ReadData(excelPath, "NBCForm", 2);
             driver.FindElement(btnA).Click();
             driver.FindElement(By.XPath("//label[text()='A']/ancestor::lightning-combobox/div/div/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
@@ -2059,7 +2059,7 @@ namespace SF_Automation.Pages.Opportunity
         //Fetch the label of Referral Type
         public string GetLabelReferralType()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,250)");
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblRefType, 130);
@@ -2072,7 +2072,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lblRefSource, 100);
             string text = driver.FindElement(lblRefSource).Text;
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,-500)");
             return text;
         }
@@ -2114,7 +2114,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, secCCInfo, 100);
             string text = driver.FindElement(secCCInfo).Text;
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,300)");
             Thread.Sleep(3000);
             return text;
@@ -2141,7 +2141,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lbl1stYesNo, 100);
             string text = driver.FindElement(lbl1stYesNo).Text;
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,300)");
             Thread.Sleep(3000);
             return text;
@@ -2160,7 +2160,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lbl2ndYesNo, 100);
             string text = driver.FindElement(lbl2ndYesNo).Text;
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,450)");
             Thread.Sleep(3000);
             return text;
@@ -2179,7 +2179,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lbl3rdYesNo, 100);
             string text = driver.FindElement(lbl3rdYesNo).Text;
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,750)");
             Thread.Sleep(4000);
             return text;
@@ -2198,7 +2198,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lbl4thYesNo, 100);
             string text = driver.FindElement(lbl4thYesNo).Text;
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,500)");
             Thread.Sleep(3000);
             return text;
@@ -2217,7 +2217,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lbl5thYesNo, 100);
             string text = driver.FindElement(lbl5thYesNo).Text;
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,-1000)");
             Thread.Sleep(3000);
             return text;
@@ -2268,7 +2268,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lblC, 100);
             string text = driver.FindElement(lblC).Text;
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,450)");
             Thread.Sleep(3000);
             return text;
@@ -2302,7 +2302,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lblGroupHead, 100);
             string text = driver.FindElement(lblGroupHead).Text;
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,-850)");
             Thread.Sleep(3000);
             return text;
@@ -2505,7 +2505,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lblReviewSub, 100);
             string text = driver.FindElement(lblReviewSub).Text;
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,400)");
             Thread.Sleep(4000);
             return text;
@@ -2546,7 +2546,7 @@ namespace SF_Automation.Pages.Opportunity
         //Upload a file and validate the same
         public string UploadFileAndValidate(string path)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,350)");
             CustomFunctions.FileUpload(driver, path);
             Thread.Sleep(4000);
@@ -2656,7 +2656,7 @@ namespace SF_Automation.Pages.Opportunity
         //Validate The consideration to be received by the Unaffiliated Stockholders in the Transaction is fair to them from a financial point of view.
         public string ValidateUnaffiliatedStockHoldersText()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,300)");
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblUnaffiliatedStockHolders, 100);
@@ -2675,7 +2675,7 @@ namespace SF_Automation.Pages.Opportunity
         //Validate The consideration to be received by the Company in the Transaction is fair to the Company from a financial point of view.
         public string ValidateCompanyInTransactionText()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,450)");
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblCompInTrans, 100);
@@ -2694,7 +2694,7 @@ namespace SF_Automation.Pages.Opportunity
         //Validate The consideration to be paid by the Company in the Transaction is fair from a financial point of view.
         public string ValidateCompanyInTransaction2ndText()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,300)");
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblCompInTrans2, 100);
@@ -2713,7 +2713,7 @@ namespace SF_Automation.Pages.Opportunity
         //Validate The Exchange Ratio provided for in the Transaction is fair to the Company from a financial point of view.
         public string ValidateExchangeRatioComp()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,300)");
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblExchangeRatio, 100);
@@ -2740,7 +2740,7 @@ namespace SF_Automation.Pages.Opportunity
         //Validate Check if applicable of Exchange Ratio to to the Unaffiliated Stockholders
         public string ValidateCheckIfOfExchangeRatioUnaffiliated()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,450)");
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblCheck5, 100);
@@ -2767,7 +2767,7 @@ namespace SF_Automation.Pages.Opportunity
         //Validate Other specify, below
         public string ValidateOtherSpecify()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,400)");
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblOthersSpecify, 100);
@@ -2794,7 +2794,7 @@ namespace SF_Automation.Pages.Opportunity
         //Validate Is this a Related Party Transaction?
         public string ValidateRelatedPartyTransaction()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,300)");
             Thread.Sleep(3000);
             WebDriverWaits.WaitUntilEleVisible(driver, lblRelatedParty, 100);
@@ -2838,7 +2838,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, checkToggleTabs, 80);
             driver.FindElement(checkToggleTabs).Click();
             bool tabsPresent = driver.FindElement(tabList).Displayed;
-            if (tabsPresent == true)
+            if(tabsPresent == true)
             {
                 string lblTabslist = driver.FindElement(tabList).Text.Replace("\r\n", ", ").ToString();
                 Console.WriteLine(lblTabslist);
@@ -2869,7 +2869,7 @@ namespace SF_Automation.Pages.Opportunity
                 WebDriverWaits.WaitUntilEleVisible(driver, btnSubmitForReview, 200);
                 string value = driver.FindElement(btnSubmitForReview).Displayed.ToString();
                 Console.WriteLine(value);
-                if (value.Equals("True"))
+                if(value.Equals("True"))
                 {
                     return "Submit for Review button is displayed";
                 }
@@ -2878,7 +2878,7 @@ namespace SF_Automation.Pages.Opportunity
                     return "Submit for Review button is not displayed";
                 }
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 return "Submit for Review button is not displayed";
             }
@@ -2995,7 +2995,7 @@ namespace SF_Automation.Pages.Opportunity
                 string txtReview = driver.FindElement(lblReview).Text;
                 return txtReview;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 return "No Review section";
             }
@@ -3008,7 +3008,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, txtTotalDebt, 60);
             string value = driver.FindElement(txtTotalDebt).Enabled.ToString();
 
-            if (value.Equals("True"))
+            if(value.Equals("True"))
             {
                 return "Form is editable";
             }
@@ -3024,7 +3024,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, txtTranOverview, 60);
             string value = driver.FindElement(txtTranOverview).Enabled.ToString();
 
-            if (value.Equals("True"))
+            if(value.Equals("True"))
             {
                 return "Form is editable";
             }
@@ -3040,7 +3040,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, txtHLCompPG, 60);
             string value = driver.FindElement(txtHLCompPG).Enabled.ToString();
 
-            if (value.Equals("True"))
+            if(value.Equals("True"))
             {
                 return "Form is editable";
             }
@@ -3082,7 +3082,7 @@ namespace SF_Automation.Pages.Opportunity
                 string value = driver.FindElement(comboGrade).Enabled.ToString();
                 return value;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 return "No Grade field";
             }
@@ -3097,7 +3097,7 @@ namespace SF_Automation.Pages.Opportunity
                 string value = driver.FindElement(txtNotes).Enabled.ToString();
                 return value;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 return "No Notes field";
             }
@@ -3112,7 +3112,7 @@ namespace SF_Automation.Pages.Opportunity
                 string value = driver.FindElement(txtDateSubmitted).Enabled.ToString();
                 return value;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 return "No Date Submitted field";
             }
@@ -3127,7 +3127,7 @@ namespace SF_Automation.Pages.Opportunity
                 string value = driver.FindElement(txtReason).Enabled.ToString();
                 return value;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 return "No Reason field";
             }
@@ -3142,7 +3142,7 @@ namespace SF_Automation.Pages.Opportunity
                 string value = driver.FindElement(txtFeeDiff).Enabled.ToString();
                 return value;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 return "No Fee Differences field";
             }
@@ -3157,7 +3157,7 @@ namespace SF_Automation.Pages.Opportunity
                 string value = driver.FindElement(btnSave).Enabled.ToString();
                 return value;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 return "No Save button";
             }
@@ -3187,7 +3187,7 @@ namespace SF_Automation.Pages.Opportunity
                 string value = driver.FindElement(btnEUOverride).Enabled.ToString();
                 return value;
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 return "No EU Override button";
             }
@@ -3235,7 +3235,7 @@ namespace SF_Automation.Pages.Opportunity
         //Update Retainer in Fees tab
         public string UpdateRetainerAndValidate()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,250)");
             WebDriverWaits.WaitUntilEleVisible(driver, lnkEditRetainer);
             driver.FindElement(lnkEditRetainer).Click();
@@ -3252,7 +3252,7 @@ namespace SF_Automation.Pages.Opportunity
         //Get Estimated Total Fee (MM)
         public string GetEstimatedTotalFee()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,650)");
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, valEstValuation, 150);
@@ -3263,7 +3263,7 @@ namespace SF_Automation.Pages.Opportunity
         //Get Estimated Total Fee (MM)
         public string GetEstimatedTotalFeeForIncentive()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,650)");
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, valEstTotalFee, 150);
@@ -3274,7 +3274,7 @@ namespace SF_Automation.Pages.Opportunity
         //Get Estimated Total Fee (MM)
         public string GetEstimatedTotalFeeForIncentiveWithRatchets()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,650)");
             Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, valEstTotalFee, 150);
@@ -3320,7 +3320,7 @@ namespace SF_Automation.Pages.Opportunity
         public string GetCC1stValidation()
         {
             Thread.Sleep(4000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,250)");
             WebDriverWaits.WaitUntilEleVisible(driver, msgCC1, 160);
             string message = driver.FindElement(msgCC1).Text;
@@ -3330,7 +3330,7 @@ namespace SF_Automation.Pages.Opportunity
         //Get CC Valiidation 2
         public string GetCC2ndValidation()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,250)");
             WebDriverWaits.WaitUntilEleVisible(driver, msgCC2);
             string message = driver.FindElement(msgCC2).Text;
@@ -3340,7 +3340,7 @@ namespace SF_Automation.Pages.Opportunity
         //Get CC Valiidation 3
         public string GetCC3rdValidation()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,250)");
             WebDriverWaits.WaitUntilEleVisible(driver, msgCC3);
             string message = driver.FindElement(msgCC3).Text;
@@ -3350,7 +3350,7 @@ namespace SF_Automation.Pages.Opportunity
         //Get CC Valiidation 4
         public string GetCC4thValidation()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,250)");
             WebDriverWaits.WaitUntilEleVisible(driver, msgCC4);
             string message = driver.FindElement(msgCC4).Text;
@@ -3379,7 +3379,7 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//div[2]/div/div/ul[2]/li[3]/a/span[1]")).Click();
             Thread.Sleep(4000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,150)");
             driver.FindElement(btnSubmit).Click();
             js.ExecuteScript("window.scrollTo(0,450)");
@@ -3396,7 +3396,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txtProgressFeeMM).Clear();
             driver.FindElement(txtProgressFee).Clear();
             js.ExecuteScript("window.scrollTo(0,1100)");
-            if (feeType.Equals("Flat Fee"))
+            if(feeType.Equals("Flat Fee"))
             {
                 Console.WriteLine("Min Fee is not required here");
             }
@@ -3419,7 +3419,7 @@ namespace SF_Automation.Pages.Opportunity
         //Get CC Valiidation 5
         public string GetCC5thValidation()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,250)");
             WebDriverWaits.WaitUntilEleVisible(driver, msgCC5);
             string message = driver.FindElement(msgCC5).Text;
@@ -3433,7 +3433,7 @@ namespace SF_Automation.Pages.Opportunity
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
             Thread.Sleep(6000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,270)");
             Thread.Sleep(6000);
             driver.FindElement(lnkEditRetainer).Click();
@@ -3464,7 +3464,7 @@ namespace SF_Automation.Pages.Opportunity
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
             Thread.Sleep(6000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,270)");
             Thread.Sleep(7000);
             driver.FindElement(lnkEditProgressFeeCred).Click();
@@ -3500,7 +3500,7 @@ namespace SF_Automation.Pages.Opportunity
             ReadJSONData.Generate("Admin_Data.json");
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,300)");
             Thread.Sleep(7000);
             string fee = ReadExcelData.ReadData(excelPath, "NBCForm", 64);
@@ -3584,7 +3584,7 @@ namespace SF_Automation.Pages.Opportunity
         public string UpdateReviewSubmissionAndBaseFee()
         {
             Thread.Sleep(4000);
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             //js.ExecuteScript("window.scrollTo(0,100)");            
             driver.FindElement(btnSubmit).Click();
             js.ExecuteScript("window.scrollTo(0,300)");
@@ -3734,7 +3734,7 @@ namespace SF_Automation.Pages.Opportunity
         //Update Estimated Transaction Value (MM)
         public string UpdateEstimatedTransactionValue(string value)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,-50)");
             Thread.Sleep(4000);
             driver.FindElement(lnkUpd1stRatchet).Click();
@@ -3751,7 +3751,7 @@ namespace SF_Automation.Pages.Opportunity
         //Update Estimated Transaction Value (MM)
         public string UpdateMinFeeValue()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,150)");
             Thread.Sleep(4000);
             driver.FindElement(lnkEditCurrency).Click();
@@ -3782,7 +3782,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txt1stRatchetPer).Clear();
             driver.FindElement(txt1stRatchetToAmount).Clear();
             driver.FindElement(txt1stRatchetFromAmount).Clear();
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,150)");
             Thread.Sleep(3000);
             driver.FindElement(txt2ndRatchetPer).SendKeys(fromAmt);
@@ -3809,7 +3809,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txt2ndRatchetPer).Clear();
             driver.FindElement(txt2ndRatchetToAmount).Clear();
             driver.FindElement(txt2ndRatchetFromAmount).Clear();
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,150)");
             Thread.Sleep(3000);
             driver.FindElement(txt3rdRatchetPer).SendKeys(fromAmt);
@@ -3836,7 +3836,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txt3rdRatchetPer).Clear();
             driver.FindElement(txt3rdRatchetToAmount).Clear();
             driver.FindElement(txt3rdRatchetFromAmount).Clear();
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,150)");
             Thread.Sleep(3000);
             driver.FindElement(txt4thRatchetPer).SendKeys(fromAmt);
@@ -3863,7 +3863,7 @@ namespace SF_Automation.Pages.Opportunity
             driver.FindElement(txt4thRatchetPer).Clear();
             driver.FindElement(txt4thRatchetToAmount).Clear();
             driver.FindElement(txt4thRatchetFromAmount).Clear();
-            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
             js.ExecuteScript("window.scrollTo(0,150)");
             Thread.Sleep(3000);
             driver.FindElement(txtFinalRatchetPer).SendKeys(fromAmt);
@@ -3920,7 +3920,7 @@ namespace SF_Automation.Pages.Opportunity
             try
             {
                 string message = driver.FindElement(msgOtherFee).Text.ToString();
-                if (message.Equals("Complete this field."))
+                if(message.Equals("Complete this field."))
                 {
                     return "Validation appears";
                 }
@@ -3929,7 +3929,7 @@ namespace SF_Automation.Pages.Opportunity
                     return "Validation did not appear";
                 }
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 return "Validation did not appear";
             }

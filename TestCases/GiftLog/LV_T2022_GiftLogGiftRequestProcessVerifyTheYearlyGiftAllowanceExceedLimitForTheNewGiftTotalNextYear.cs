@@ -126,7 +126,7 @@ namespace SF_Automation.TestCases.GiftLog
                 Assert.AreEqual(congratulationMsgExl, congratulationMsg);
                 extentReports.CreateLog("Congratulations message: " + congratulationMsg + " in displayed upon successful submission of gift request ");
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
 
                 string userCompliance = ReadExcelData.ReadData(excelPath, "Users", 2);
@@ -162,7 +162,7 @@ namespace SF_Automation.TestCases.GiftLog
                 giftApprove.ClickApproveSelectedButtonLV();
                 extentReports.CreateLog("Approve selected button is clicked successfully ");
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "Compliance User: " + userCompliance + " logged out");
 
                 homePage.SearchUserByGlobalSearchN(valUser);
@@ -190,7 +190,7 @@ namespace SF_Automation.TestCases.GiftLog
 
                 // Enter required details in client gift pre- approval page
                 valGiftNameEntered = giftRequest.EnterDetailsGiftRequestLV(fileT2022);
-                desireDate = giftRequest.EnterDesiredDateLV(350);
+                desireDate = giftRequest.EnterDesiredDateLV(360);
                 extentReports.CreateLog("Desire Date: " + desireDate + " entered as next year date. ");
 
                 // Adding recipient from add recipient section to selected recipient section
@@ -214,7 +214,7 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateLog("Warning Message: " + warningMessage + " is displayed upon submitting a gift request with gift amount exceeding $100 ");
 
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + valUser + " logged out");
                 driver.Quit();
                 extentReports.CreateStepLogs("Info", "Browser Closed");

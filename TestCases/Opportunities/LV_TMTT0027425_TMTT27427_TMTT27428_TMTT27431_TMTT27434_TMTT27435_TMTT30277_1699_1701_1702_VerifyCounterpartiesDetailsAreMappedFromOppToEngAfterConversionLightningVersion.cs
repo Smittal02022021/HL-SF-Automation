@@ -104,7 +104,7 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     string party = ReadExcelData.ReadData(excelPath, "AddContact", 3);
                     string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
                     addOpportunityContact.CickAddCFOpportunityContact();
-                    addOpportunityContact.CreateContactL2(TMTI0063910);
+                    addOpportunityContact.CreateContactL2(TMTI0063910, valRecordType);
                     extentReports.CreateStepLogs("Passed", valContactType + " is added as " + valContactType+"opportunity contact is saved ");
 
                     //Update required Opportunity fields for conversion and Internal team details
@@ -187,17 +187,31 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     extentReports.CreateStepLogs("Passed", counterpartyCompanyNameExl + " Company is added and displayed into Counterparties List ");
 
                     //TMTI0063910 Verify that the user is able to edit and save the multiple entries with Comments                    
-                    string commentsExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", row, 3);
+                    string commentsExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", row, 6);
                     addCounterparty.EditCoutnerpartyDetailsLV(commentsExl);
                     addCounterparty.SaveCounterpartyChanges();
                     popupMessage = addCounterparty.GetLVMessagePopup();
                     Assert.AreEqual(popupMessage, "Records Updated Successfully!");
                     extentReports.CreateStepLogs("Passed", "Added Counterparty details are updated ");
+                    //CustomFunctions.PageReload(driver);
                     //randomPages.CloseActiveTab("OCC");
+
+                    extentReports.CreateStepLogs("Passed", "****Comments are not dislayed on CP Detail page*****");
+
+                    /*
+                    // Comments are not dislayed on CP Detail page
+                    //Verify Comments added from mass edit screen on CP Detail page                  
                     addCounterparty.ClickCounterpartyCompanyLink(counterpartyCompanyNameExl);
                     //CustomFunctions.PageReload(driver);
                     CustomFunctions.SwitchToWindow(driver, 1);
                     extentReports.CreateStepLogs("Info", "User Switched to new tab ");
+                    //TMTI0063918 Verify that the counterparty's comments are visible on the counterparty's details page and mapped correctly after conversion into the engagement 
+                    addCounterparty.AreMassCommentsDisplayedOnCounterpartyDetailPageLV(commentsExl);
+                    Assert.IsTrue(addCounterparty.AreMassCommentsDisplayedOnCounterpartyDetailPageLV(commentsExl), "Verify comments added through Mass Edit from Counterparty list page are saved and available on related counterparty detail page");
+                    extentReports.CreateStepLogs("Passed", "Comments added through Mass Edit from Counterparty list page are saved and available on related counterparty detail page");
+
+                    */
+
 
                     //TMTI0063912 Verify the functionality of adding new Counterparty Contact in Opportunity Counter party Detail Page
                     //Adding Contact with email id in added Counterparty
@@ -206,22 +220,47 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
 
                     //addCounterparty.ClickCounterpartyCompanyLink(counterpartyCompanyNameExl);//updated
                     //CustomFunctions.SwitchToWindow(driver, 1);
-                    //extentReports.CreateStepLogs("Info", "User Switched to new tab ");                    
+                    //extentReports.CreateStepLogs("Info", "User Switched to new tab ");
 
-                    // Add CP Comments on detail page
+                    //Add CP Comments on detail page
                     //Add & Get Counterparty Comments
-                    //addCounterparty.ClickOppCPCommentsLV();// remove text from comopany
-                    //string commentTypeCPExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", 3, 2);
-                    //string commentTextCPExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", 2, 3);
-                    //addCounterparty.AddNewOpportunityCounterpartyCommentLV(commentTypeCPExl, commentTextCPExl, counterpartyCompanyNameExl);
-                    //popupMessage = randomPages.GetLVMessagePopup();
-                    //Assert.IsTrue(popupMessage.Contains("Opportunity Counterparty Comment"), "Verify the Opportunity Counterparty Comments is displayed in Popup message ");
-                    //extentReports.CreateStepLogs("Passed", "Comments added for counterparty with Type:  " + commentTypeCPExl);
-                    //string commentTypeCP = addCounterparty.GetCommentTypeLV();
-                    //Assert.AreEqual(commentTypeCP, commentTypeCPExl, "Verify Comments added with Type:  " + commentTypeCPExl);
-                    //randomPages.CloseActiveTab("OCC");
+                    //addCounterparty.ClickAddOppCPCommentsLV();// remove text from comopany
 
-                    //Verify the ways of add contact and Adding Contacts
+
+
+                    extentReports.CreateStepLogs("Info", "********Opportunity CP add Comments button removed from footer as well on CP Detail page************");
+                    /********CP add Comments button removed from footer as well on CP Detail page************                     
+                    //TMTI0063918 Verify that the counterparty's comments are visible on the counterparty's details page and mapped correctly after conversion into the engagement 
+                    
+                    //Adding Opportunity Counterparty Comments from updated View(Footer section on detail page) 
+
+                    
+                    
+                    addCounterparty.ClickAddOppCPCommentsLV();
+                    string commentTypeCPExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", 3, 2);
+                    string commentTextCPExl = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", 2, 3);
+                    addCounterparty.AddNewOpportunityCounterpartyCommentLV(commentTypeCPExl, commentTextCPExl, counterpartyCompanyNameExl);
+                    popupMessage = randomPages.GetLVMessagePopup();
+                    Assert.IsTrue(popupMessage.Contains("Opportunity Counterparty Comment"), "Verify the Opportunity Counterparty Comments is displayed in Popup message ");
+                    extentReports.CreateStepLogs("Passed", "Comments added for counterparty with Type:  " + commentTypeCPExl);
+                    string commentTypeCP = addCounterparty.GetCommentTypeLV();
+                    Assert.AreEqual(commentTypeCP, commentTypeCPExl, "Verify Comments added with Type:  " + commentTypeCPExl);
+                    randomPages.CloseActiveTab("OCC");
+                    */
+
+                    ///////**********************
+                    ///
+
+                    //**************************************//
+                    //Checking the ISU0012080: Not able to convert opportunity into engagement with counterparty
+
+                    //contact is not being deisplayed on CP detail page
+                    //Verify the ways of add contact and Adding Contacts 
+
+                    /********************
+                    addCounterparty.ClickCounterpartyCompanyLink(counterpartyCompanyNameExl);
+                    CustomFunctions.SwitchToWindow(driver, 1);
+                    extentReports.CreateStepLogs("Info", "User Switched to new tab ");
                     addCounterparty.ButtonClick("New Opportunity Counterparty Contact");
                     string counterpartyContactNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyContact", 2, 1);
                     string companyNameResult = addCounterparty.GetContactSearchedLV("Company", "8K Miles");
@@ -237,7 +276,12 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     addCounterparty.ButtonClick("Back");
                     CustomFunctions.CloseWindow(driver, 1);
                     CustomFunctions.SwitchToWindow(driver, 0);
-                    CustomFunctions.PageReload(driver);
+                    */////////////////////
+
+
+                    //CustomFunctions.PageReload(driver);
+
+                    //****UI Changes not QuickLink to view added contact
                     //addCounterparty.ClickCounterparyQuickLink("Contacts");
                     //Assert.IsTrue(addCounterparty.IsContactDisplayedInQuickLinkList(valCPContact));
                     // extentReports.CreateStepLogs("Passed", "Contact: " + valCPContact + " is available under Counterparty Contact(s) Quicklink");
@@ -259,7 +303,13 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     // Assert.IsTrue(addCounterparty.IsAddedCounterpartyCompanyDisplayedOnEmailTemplate(counterpartyCompanyNameExl), "Verify Company Counterparty name is present on Email Template ");
                     // extentReports.CreateStepLogs("Passed", "Company Counterparty name:" + counterpartyCompanyNameExl + " is present on Email Template ");
 
+
                     //TMTI0070811	Verification of Export Data feature available on View Counterparty screen
+                    //
+                    //CustomFunctions.CloseWindow(driver, 1);
+                    //CustomFunctions.SwitchToWindow(driver, 0);
+                    //
+
                     addCounterparty.ClickOpportunityCounterpartyExportDataButton();
                     string locationExportedFile = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", row, 4);
                     string exportedFileName = ReadExcelData.ReadDataMultipleRows(excelPath, "NewOpportunityCounterparty", row, 5);
@@ -380,6 +430,7 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     //string cpContactName = creatorPage.ValidateContactName();
                    // Assert.AreEqual(valCPContact, cpContactName);
                     //extentReports.CreateStepLogs("Passed", "Client Contact: " + cpContactName + " is displayed ");
+
                     string cpRating = creatorPage.ValidateRatings();
                     Assert.AreEqual("Low", cpRating);
                     extentReports.CreateStepLogs("Passed", "CP Contact's ratings " + cpRating + " is displayed ");
@@ -391,13 +442,13 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     //Login as CAO user to approve the Opportunity
                     string userCAO = ReadExcelData.ReadDataMultipleRows(excelPath, "CAOUsers", row, 1);
                     homePage.SearchUserByGlobalSearchN(userCAO);
-                    extentReports.CreateStepLogs("Info", "User: " + userCAO + " details are displayed. ");
+                    extentReports.CreateStepLogs("Info", "CAO User: " + userCAO + " details are displayed. ");
                     //Login user
                     usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(userCAO), true);
-                    extentReports.CreateStepLogs("Passed", "User: " + userCAO + " logged in on Lightning View");
+                    extentReports.CreateStepLogs("Passed", "CAO User: " + userCAO + " logged in on Lightning View");
 
                     //Go to Opportunity module in Lightning View 
                     homePageLV.SelectAppLV(appNameExl);
@@ -405,7 +456,7 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     Assert.AreEqual(appNameExl, appName);
                     extentReports.CreateLog(appName + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
-                    extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
+                    extentReports.CreateStepLogs("Passed", "CAO User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
@@ -436,8 +487,13 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     Assert.IsTrue(addCounterparty.IsCompanyInCounterpartyList(counterpartyCompanyNameExl), "Verify added Company: " + counterpartyCompanyNameExl + " is under Counterparties List");
                     extentReports.CreateStepLogs("Passed", "Opportunity Counterparties Company: " + counterpartyCompanyNameExl + " is Mapped on Engagement under Counterparties List after conversion ");
 
+
+                    extentReports.CreateStepLogs("Info", "********CP add Comments button removed from footer as well on CP Detail page************");
+
+                    /* PanelRight removed from UI 
                     //TMTI0063918 Verify that the counterparty's comments are visible on the counterparty's details page and mapped correctly after conversion into the engagement
                     //TMTI0063922 Verify the Opportunity Counterparties comments and contacts are being mapped to Engagement Counterparties upon conversion
+
                     addCounterparty.ClickCounterpartyCompanyLink(counterpartyCompanyNameExl);
                     CustomFunctions.SwitchToWindow(driver, 1);
                     extentReports.CreateLog("User Clicked on Company name from Counterparties List and switched to New Tab ");
@@ -445,12 +501,17 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
                     Assert.IsTrue(addCounterparty.IsCommentDisplayedInQuickLinkList(commentsExl));
                     extentReports.CreateStepLogs("Passed", "Opportunity Counterparties Comments are mapped on Engagement page after conversion ");
                     addCounterparty.CloseEngCounterpartiesCommentsTab();
+                    */
+
+                    /*//Checking the ISU0012080 PanelRight removed from UI 
                     engagementDetails.ClickPanelRightEngagementPageLV("Contacts");
                     Assert.IsTrue(addCounterparty.IsContactDisplayedInQuickLinkList(valCPContact));
                     extentReports.CreateStepLogs("Passed", "Opportunity Counterparties Contact: " + valCPContact + " is mapped on Engagement page after conversion ");
                     CustomFunctions.CloseWindow(driver, 1);
                     CustomFunctions.SwitchToWindow(driver, 0);
                     extentReports.CreateStepLogs("Info", "Counterparty Company Page is closed user switched previous Tab ");
+                    
+                    */
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateStepLogs("Info", valUser + " logged out ");
                     driver.Quit();
@@ -460,7 +521,7 @@ namespace SF_Automation.TestCases.OpportunitiesCounterparty
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
-                homePageLV.UserLogoutFromSFLightningView();
+                login.SwitchToClassicView();
                 usersLogin.UserLogOut();
                 driver.Quit();
             }

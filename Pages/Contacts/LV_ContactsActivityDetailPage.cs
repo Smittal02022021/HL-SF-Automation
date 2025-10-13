@@ -253,8 +253,8 @@ namespace SF_Automation.Pages.Contact
             js.ExecuteScript("window.scrollTo(0,3000)");
             Thread.Sleep(2000);
 
-            driver.FindElement(By.XPath($"(//a[text()='{engName}'])[3]")).Click();
-            Thread.Sleep(5000);
+            driver.FindElement(By.XPath($"(//a[text()='{engName}'])[2]")).Click();
+            Thread.Sleep(10000);
 
             if(driver.FindElement(By.XPath("//h1//lightning-formatted-text")).Text == engName)
             {

@@ -119,9 +119,9 @@ namespace SF_Automation.TestCases.GiftLog
                 Assert.AreEqual(congratulationMsgExl, congratulationMsg);
                 extentReports.CreateStepLogs("Passed", "Congratulations message: " + congratulationMsg + " in displayed upon successful submission of gift request ");
 
-                //Approve page               
-                moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
+                //Approve page
                 randomPages.ReloadPage();
+                moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "Compliance User is on " + moduleNameExl + " Page ");
 
@@ -346,9 +346,10 @@ namespace SF_Automation.TestCases.GiftLog
                 extentReports.CreateStepLogs("Info", "Click on Deny Selected Button successfully ");
 
                 driver.SwitchTo().DefaultContent();
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "Compliance User: " + valUser + " logged out");
-
+                driver.Quit();
+                extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
             }
             catch (Exception e)
             {
@@ -359,7 +360,13 @@ namespace SF_Automation.TestCases.GiftLog
                 string excelPath = ReadJSONData.data.filePaths.testData + fileT2014;
                 conHome.ClickContact();
                 //To Delete created contact
-                contactDetails.DeleteCreatedContact(fileT2014, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
+                try
+                {
+                    contactDetails.DeleteCreatedContact(fileT2014, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
+                }
+                catch{
+                    //no record found
+                }
                 conHome.ClickContact();
                 conHome.ClickAddContact();
 
@@ -373,31 +380,8 @@ namespace SF_Automation.TestCases.GiftLog
 
                 usersLogin.UserLogOut();
                 driver.Quit();
-                extentReports.CreateStepLogs("Info", "Browser Closed");
+                
             }
-
-        }
-        [TearDown]
-        public void TearDown()
-        {
-            string excelPath = ReadJSONData.data.filePaths.testData + fileT2014;
-            conHome.ClickContact();
-            //To Delete created contact
-            contactDetails.DeleteCreatedContact(fileT2014, ReadExcelData.ReadDataMultipleRows(excelPath, "ContactTypes", 2, 1));
-            conHome.ClickContact();
-            conHome.ClickAddContact();
-
-            // Calling select record type and click continue function
-            contactType = ReadExcelData.ReadData(excelPath, "Contact", 7);
-            conSelectRecord.SelectContactRecordType(fileT2014, contactType);
-            extentReports.CreateStepLogs("Info", " TearDown user navigate to create contact page upon click of continue button ");
-
-            createContact.CreateContact(fileT2014);
-            extentReports.CreateStepLogs("Info", "External Contact created again ");
-
-            usersLogin.UserLogOut();
-            driver.Quit();
-            extentReports.CreateStepLogs("Info", "Browser Closed");
-        }
+        }        
     }
 }

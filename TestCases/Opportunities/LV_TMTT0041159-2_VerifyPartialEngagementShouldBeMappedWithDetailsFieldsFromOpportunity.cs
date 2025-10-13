@@ -7,8 +7,9 @@ using SF_Automation.UtilityFunctions;
 using System;
 using NUnit.Framework;
 using SF_Automation.TestData;
+using Microsoft.Office.Interop.Excel;
 
-namespace SF_Automation.TestCases.OpportunitiesConversion
+namespace SF_Automation.TestCases.OpportunitiesCounterparty
 {
     class LV_TMTT0041159_2_VerifyPartialEngagementShouldBeMappedWithDetailsFieldsFromOpportunity:BaseClass
     {
@@ -109,7 +110,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 Assert.AreEqual(expectedListValidationErrors, actualListValidationErrors, "Verify that validation appears when user try to change the stage as Verbally Engaged");
                 extentReports.CreateStepLogs("Passed", "Validations appeared when user try to change the stage to Verbally Engaged");
                 randomPages.CloseActiveTab(opportunityName);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "CF Financial User: " + userExl + " Logged out ");
 
                 ////////////// TMTI0101380 Test Case Start////////////////////
@@ -143,7 +144,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 opportunityDetails.ClickReturnToOpportunityLV();
                 extentReports.CreateStepLogs("Info", "Return to Opportunity Detail page ");
                 randomPages.CloseActiveTab("Internal Team");
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Info", "System Administrator: " + appNameExl + " Logged out after filling Page level Required fields ");
 
                 //Login as CF Financial User logged in to fill fields level required fields 
@@ -214,8 +215,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 ///
                 extentReports.CreateStepLogs("Info", "*****Opportunities Counterparty detail page chagned no way to add/check Opportunity Counterparty Contact,Comments******* ");
                 //Add & Get Counterparty Contact
-                /*
-                
+                                
                 addCounterparty.ClickCounterpartyCompanyLink(counterpartyCompanyNameExl);
                 CustomFunctions.SwitchToWindow(driver, 1);
                 extentReports.CreateStepLogs("Info", "User Switched to new tab ");
@@ -231,13 +231,18 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 extentReports.CreateStepLogs("Info", "New Opportunity Contact:" + contactNameCPExl + " is added ");
                 addCounterparty.ClickBackButtonAndValidateViewCounterpartiesPageLV();
                 CustomFunctions.PageReload(driver);
+
+                /*
                 string contactOppCP = addCounterparty.GetOppCounterpartyContactLV();
                 Assert.IsTrue(contactNameCPExl.Contains(contactOppCP));
                 extentReports.CreateStepLogs("Passed", "Contact: " + valCPContact + " is available on Opportunity Counterparty Contact(s) Right Panel");
                 randomPages.CloseActiveTab("Tab");
+                */
 
+                extentReports.CreateStepLogs("Info", "********Opportunity CP add Comments button removed from footer as well on CP Detail page************");
+                /*
                 //Add & Get Counterparty Comments
-                addCounterparty.ClickOppCPCommentsLV();// remove text from comopany
+                addCounterparty.ClickAddOppCPCommentsLV();// remove text from comopany
                 string commentTypeCPExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyComments", 3, 1);
                 string commentTextCPExl = ReadExcelData.ReadDataMultipleRows(excelPath, "CounterpartyComments", 3, 2);
                 addCounterparty.AddNewOpportunityCounterpartyCommentLV(commentTypeCPExl, commentTextCPExl, counterpartyCompanyNameExl);
@@ -247,33 +252,65 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 string commentTypeCP = addCounterparty.GetCommentTypeLV();
                 Assert.AreEqual(commentTypeCP, commentTypeCPExl, "Verify Comments added with Type:  " + commentTypeCPExl);
                 randomPages.CloseActiveTab("OCC");
+
+                */
                 CustomFunctions.CloseWindow(driver, 1);
                 CustomFunctions.SwitchToWindow(driver, 0);
                 CustomFunctions.PageReload(driver);
                 randomPages.CloseActiveTab("Counterparty Editor");
-                */
-                randomPages.CloseActiveTab(opportunityName);
-                usersLogin.ClickLogoutFromLightningView();
-                extentReports.CreateStepLogs("Passed", "CF Fin User: " + userExl + " logged out");
                 
+                randomPages.CloseActiveTab(opportunityName);
+                homePageLV.LogoutFromSFLightningAsApprover();
+                extentReports.CreateStepLogs("Passed", "CF Fin User: " + userExl + " logged out");
+
 
                 //Login as System Admin user to add FS Opportunity 
-                adminUserExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 4, 1);
-                extentReports.CreateStepLogs("Info", "System Admin User: " + adminUserExl + " Adding FS Opportunity ");
+                //string userFSExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 6, 1);
+
+                //homePage.SearchUserByGlobalSearchN(userFSExl);
+                //extentReports.CreateStepLogs("Info", " FS User: " + userFSExl + " details are displayed. ");
+                //usersLogin.LoginAsSelectedUser();
+                //login.SwitchToLightningExperience();
+                //extentReports.CreateStepLogs("Passed", "FS User Switched to Lightning View ");
+                ////Go to Opportunity module in Lightning View 
+                //homePageLV.SelectAppLV(appNameExl);
+                //Assert.AreEqual(appNameExl, homePageLV.GetAppName());
+                //extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
+                //homePageLV.SelectModule(moduleNameExl);
+                //extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
+                //opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
+                //extentReports.CreateStepLogs("Info", "Opportunity found and selected");
+
+                //opportunityDetails.ClickTabFSOppLV();
+                //extentReports.CreateStepLogs("Info", "User is on FS Opportunity tab");
+                //string idFSOpp = opportunityDetails.CreateNewFSOppLV(counterpartyCompanyNameExl);
+                //popupMessage = randomPages.GetLVMessagePopup();
+                //Assert.IsTrue(popupMessage.Contains("FS Opp"), "Verify the Added FS Opportunity is displayed in Popup message ");
+                //extentReports.CreateStepLogs("Passed", " FS Opportunity " + idFSOpp + " added for Opportunity with Sponsored Company: " + counterpartyCompanyNameExl);
+                //randomPages.CloseActiveTab(idFSOpp);
+                //randomPages.CloseActiveTab(opportunityName);
+                //homePageLV.LogoutFromSFLightningAsApprover();
+                //extentReports.CreateStepLogs("Passed", "FS User: " + userFSExl + " logged out");
+
+                extentReports.CreateStepLogs("Info", "System Admin : " + adminUserExl + " Updating the Required details ");
 
                 homePage.SearchUserByGlobalSearchN(adminUserExl);
                 extentReports.CreateStepLogs("Info", "User: " + adminUserExl + " details are displayed. ");
                 usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
-                extentReports.CreateStepLogs("Passed", "System Admin Switched to Lightning View ");
+                userAdmin = login.ValidateUserLightningView();
+                Assert.AreEqual(userAdmin.Contains(adminUserExl), true);
+                extentReports.CreateStepLogs("Passed", "System Admin User: " + adminUserExl + " User logged in ");
+
                 //Go to Opportunity module in Lightning View 
                 homePageLV.SelectAppLV(appNameExl);
                 Assert.AreEqual(appNameExl, homePageLV.GetAppName());
                 extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
+                //Search for created opportunity
                 opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
-                extentReports.CreateStepLogs("Info", "Opportunity found and selected");
+                extentReports.CreateStepLogs("Passed", "Opportunity: " + opportunityName + " found and selected ");
 
                 opportunityDetails.ClickTabFSOppLV();
                 extentReports.CreateStepLogs("Info", "User is on FS Opportunity tab");
@@ -281,7 +318,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 popupMessage = randomPages.GetLVMessagePopup();
                 Assert.IsTrue(popupMessage.Contains("FS Opp"), "Verify the Added FS Opportunity is displayed in Popup message ");
                 extentReports.CreateStepLogs("Passed", " FS Opportunity " + idFSOpp + " added for Opportunity with Sponsored Company: " + counterpartyCompanyNameExl);
-                randomPages.CloseActiveTab(idFSOpp);                               
+                randomPages.CloseActiveTab(idFSOpp);
 
                 opportunityDetails.EditOpportunityStageLV(stageExl);
                 string updatedStage = opportunityDetails.GetStageLV();
@@ -296,7 +333,19 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 Assert.IsTrue(opportunityDetails.IsVerballyEngagedEngCreatedLV(opportunityName), "Verify changing stage to Verbally Engaged creates a Partial Engagement");
                 extentReports.CreateStepLogs("Passed", "Changing stage to Verbally Engaged creates a Partial Engagement");
                 randomPages.CloseActiveTab(opportunityName);
+                homePageLV.LogoutFromSFLightningAsApprover();
+                extentReports.CreateStepLogs("Passed", "System Admin User: " + adminUserExl + " logged out");
 
+                string userFSExl = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 6, 1);
+                homePage.SearchUserByGlobalSearchN(userFSExl);
+                extentReports.CreateStepLogs("Info", " FS User: " + userFSExl + " details are displayed. ");
+                usersLogin.LoginAsSelectedUser();
+                login.SwitchToLightningExperience();
+                extentReports.CreateStepLogs("Passed", "FS User Switched to Lightning View ");
+                //Go to Opportunity module in Lightning View 
+                homePageLV.SelectAppLV(appNameExl);
+                Assert.AreEqual(appNameExl, homePageLV.GetAppName());
+                extentReports.CreateStepLogs("Passed", appNameExl + " App is selected from App Launcher ");                
 
                 //TMTI0101384 Verify that Partial Engagement should be mapped with all the details filled from Opportunity
                 //Validate relevant objects on VE Eng 
@@ -305,6 +354,8 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");                
                 engagementHome.GlobalSearchEngagementInLightningView(opportunityName);
                 extentReports.CreateStepLogs("Info", "Engagement found and selected");
+
+                //TMTI0101390: Verify that CF user can fill all the related list in Partial engagement like - Counterparty, FS Eng, Eng Contact, comments etc.
                 // Click FS Eng
                 engagementDetails.ClickTabFSEngagementLV();
                 string idFSEng=engagementDetails.GetFSEngagementIDLV();
@@ -312,12 +363,12 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 Assert.AreEqual(counterpartyCompanyNameExl, engSponsorCmpny);
                 extentReports.CreateStepLogs("Passed", "FS Engagement with ID: " + idFSEng + " and Sponsor Company: "+ counterpartyCompanyNameExl+" is mapped on Engagement page same as added on Oporunity page  ");
                 randomPages.CloseActiveTab(opportunityName);
-                usersLogin.ClickLogoutFromLightningView();
-                extentReports.CreateStepLogs("Passed", "System Admin User: " + adminUserExl + " logged out");
+                homePageLV.LogoutFromSFLightningAsApprover();
+                extentReports.CreateStepLogs("Passed", "FS User: " + userFSExl + " logged out");
 
                 //Login as CF Financial User logged in to fill fields level required fields 
                 homePage.SearchUserByGlobalSearchN(userExl);
-                extentReports.CreateStepLogs("Info", "User: " + userExl + " details are displayed. ");
+                extentReports.CreateStepLogs("Info", "CF User: " + userExl + " details are displayed. ");
                 usersLogin.LoginAsSelectedUser();
                 login.SwitchToLightningExperience();
                 stdUser = login.ValidateUserLightningView();
@@ -327,7 +378,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 homePageLV.SelectAppLV(appNameExl);
                 appName = homePageLV.GetAppName();
                 Assert.AreEqual(appNameExl, appName);
-                extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
+                extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher "); 
                 homePageLV.SelectModule(moduleNameExl);
                 extentReports.CreateStepLogs("Info", "CF Fin User is on " + moduleNameExl + " Page ");
                 engagementHome.GlobalSearchEngagementInLightningView(opportunityName);
@@ -341,11 +392,12 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 //*****Opportunities Counterparty detail page chagned no way to add/check Opportunity Counterparty Contact,Comments*******
                 extentReports.CreateStepLogs("Info", "*****Opportunities Counterparty detail page chagned no way to check Engagement Counterparty Contact,Comments******* ");
                 
-                /*
+                
                 //Validate Eng comments
                 engagementDetails.ClickEngInfoCommentsTabLV();
                 string commentsEng= engagementDetails.GetEngCommentPresentLV(commentOppType);
                 Assert.AreEqual(commentTextOppExl, commentsEng, "Verify Comments added on Opportunity page is available on VE Engagement Comments page");
+                
                 // Validate Counterparties
                 engagementDetails.ClickViewCounterpartiesButton();
                 Assert.IsTrue(addCounterparty.IsCompanyInCounterpartyList(counterpartyCompanyNameExl), "Verify added Company: " + counterpartyCompanyNameExl + " is under Counterparties List from Opportunity Page is available on VE Engagement Counterparty ");
@@ -356,20 +408,25 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 extentReports.CreateStepLogs("Info", "User Switched to Counterparty detail tab ");
                 // Get Counterparty Contact
                 string contactEngCP = addCounterparty.GetEngCounterpartyContactLV();
-                Assert.AreEqual(contactEngCP, contactOppCP);
+                Assert.IsTrue(contactNameCPExl.Contains(contactEngCP));//, contactNameCPExl); // contactOppCP);
                 extentReports.CreateStepLogs("Passed", "Counter Contact: " + valCPContact + " sdded on Opportunity page is available on VE Engagement Counterparty Contact(s) Right Panel");
+
+                extentReports.CreateStepLogs("Info", "********Opportunity CP add Comments button removed from footer as well on CP Detail page************");
+                /*
                 // Validate Counterparties Comments
                 addCounterparty.ClickViewAllEngCPCommentsLV();
                 Assert.IsTrue(addCounterparty.IsEngCPCommentPresentLV(commentTypeCP), "Verify Comments Type added on Opportunity page is availale on VE Engagement Counterparty Comment(s) Right Panel");
                 extentReports.CreateStepLogs("Passed", "Counterparty Comments Type: " + commentTypeCP + "  added on Opportunity page is availale on VE Engagement Counterparty Comment(s) Right Panel");
                 randomPages.CloseActiveTab("Engagement Counterpart Comments");
                 randomPages.CloseActiveTab("EC");
+                */
+
                 CustomFunctions.CloseWindow(driver, 1);
                 CustomFunctions.SwitchToWindow(driver, 0);
                 randomPages.CloseActiveTab("Counterparty Editor");
-                */
+                
                 randomPages.CloseActiveTab(opportunityName);
-                usersLogin.ClickLogoutFromLightningView();
+                homePageLV.LogoutFromSFLightningAsApprover();
                 extentReports.CreateStepLogs("Passed", "CF Fin User: " + userExl + " logged out");
                 usersLogin.UserLogOut();
                 driver.Quit();
