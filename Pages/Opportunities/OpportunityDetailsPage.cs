@@ -816,6 +816,10 @@ namespace SF_Automation.Pages
         By txtLegalHoldNotesL = By.XPath("//span[text()='Legal Hold Notes']/../../..//lightning-formatted-text");
         By txtDateOnHoldL = By.XPath("//span[text()='Date on Hold']/../../..//lightning-formatted-text");
         By txtPutOnHoldL = By.XPath("//span[text()='Put on Hold by']/../../..//lightning-formatted-text");
+        By labelTASProjectStageL = By.XPath("//span[text()='TAS Project Stage']");
+        By valTASProjectStageL = By.XPath("//span[text()='TAS Project Stage']/../../..//lightning-formatted-text");
+        By comboTASProjectStageL = By.XPath("//button[contains(@aria-label,'TAS Project Stage')]");
+        By comboTASProjectStageOptions = By.XPath("//div[@aria-label='TAS Project Stage']//lightning-base-combobox-item//span/span");
 
         By _elmRecordType(string text)
         {
@@ -10942,11 +10946,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, tabFees, 5);
             driver.FindElement(tabFees).Click();
             Thread.Sleep(5000);
-        }
-        By labelTASProjectStageL = By.XPath("//span[text()='TAS Project Stage']");
-        By valTASProjectStageL = By.XPath("//span[text()='TAS Project Stage']/../../..//lightning-formatted-text");
-        By comboTASProjectStageL = By.XPath("//button[contains(@aria-label,'TAS Project Stage')]");
-        By comboTASProjectStageOptions = By.XPath("//div[@aria-label='TAS Project Stage']//lightning-base-combobox-item//span/span");
+        }       
 
         public bool IsTASProjectStageFieldDisplayedLV()
         {
