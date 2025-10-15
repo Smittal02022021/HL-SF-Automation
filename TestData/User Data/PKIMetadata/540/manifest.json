@@ -1,9 +1,0 @@
-{
-  "manifest_version": 2,
-  "name": "pkiMetadata",
-<<<<<<<< HEAD:TestData/User Data/PKIMetadata/540/manifest.json
-  "version": "540"
-========
-  "version": "505"
->>>>>>>> Branch-Sonika:TestData/PKIMetadata/505/manifest.json
-}

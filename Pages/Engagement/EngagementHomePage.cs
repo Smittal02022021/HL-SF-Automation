@@ -30,7 +30,8 @@ namespace SF_Automation.Pages
         By btnEngNum = By.XPath("//button[contains(@aria-label,'Search')]");
         By btnEngNumNotBlank = By.XPath("//header/div[2]/div[2]/div/div/button");
         By txtEngNumLightning = By.XPath("//input[contains(@placeholder,'Search Engagements and more...')]");
-        By txtEngNumLightningL = By.XPath("//input[contains(@placeholder,'Search...')]");
+        //By txtEngNumLightningL = By.XPath("//input[contains(@placeholder,'Search...')]");
+        By txtEngNumLightningL = By.XPath("//div[1]/div/div[1]/lightning-input//div[1]//input");
         By lnkEngLightning = By.XPath("//span/img[@title='Engagement']");
         By valEngName = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Name']//lightning-formatted-text");
         By btnOppNumL = By.XPath("//button[@aria-label='Search']");
@@ -41,16 +42,17 @@ namespace SF_Automation.Pages
         By selectEng = By.CssSelector("table[class*='slds-table'] tbody tr th a");
         By txtEngagementName = By.CssSelector("input[name*='nameSearch']");
         By btnNavigationMenu = By.XPath("//button[@title='Show Navigation Menu']");
-        By tagEngagements = By.XPath("//ul/li/div/a//span[text()='Engagements']");
+        By tagEngagements = By.XPath("//a[@data-label='Engagements']");
         By lnkRecentlyViewed = By.XPath("//h1/span[2]");
-        By tblEngagements = By.XPath("//section/div[1]/div/div[2]/div[1]//table[@aria-label='Recently Viewed']");
+        By tblEngagements = By.XPath("//section//table[@aria-label='Recently Viewed']");
         By btnRecentlyViewed = By.XPath("//button[@title='Select a List View: Engagements']");
         By valRecentlyViewed = By.XPath("//div[2]/div/div/div[1]/div/div/div/div/div[1]/div/ul/li/a/span");
-        By txtSearchEng = By.XPath("//input[@name='Engagement__c-search-input']");
+        By txtSearchEng = By.XPath("//input[@name='Engagement-search-input']");
         By btnRefresh = By.XPath("//button[@name='refreshButton']");
+        By btnSearchL = By.XPath("//button[@aria-label='Search']");
         By valSearchedEng = By.XPath("//tr/th/span//lst-output-lookup/force-lookup/div");
-        By valSearchedEng1 = By.XPath("//tr/th/span/a");
-        By valSearchedEngName = By.XPath("//table/tbody/tr[1]/th/span/a");
+        By valSearchedEng1 = By.XPath("//tr/th//div/a");
+        By valSearchedEngName = By.XPath("//table/tbody/tr[1]/th/span//a");
         By tabEngL = By.XPath("//table/tbody/tr/th/span//a");
         By tabEngagementL = By.XPath("//a/span[text()='Engagements']");
         By btnCloseTab = By.XPath("//ul[2]/li[2]/div[2]/button");
@@ -156,7 +158,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(matchedResult).Click();
                 return "Record found";
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return "No record found";
             }
@@ -182,7 +184,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(matchedResult).Click();
                 return "Record found";
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return "No record found";
             }
@@ -217,7 +219,7 @@ namespace SF_Automation.Pages
                 return "Record found";
             }
 
-            catch(Exception)
+            catch (Exception)
             {
                 driver.Navigate().Refresh();
                 WebDriverWaits.WaitUntilEleVisible(driver, lnkEngagements, 110);
@@ -251,7 +253,7 @@ namespace SF_Automation.Pages
                 return "Record found";
             }
 
-            catch(Exception)
+            catch (Exception)
             {
                 driver.Navigate().Refresh();
                 WebDriverWaits.WaitUntilEleVisible(driver, lnkEngagements, 110);
@@ -282,7 +284,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(matchedResult).Click();
                 Thread.Sleep(10000);
             }
-            catch(Exception)
+            catch (Exception)
             {
 
             }
@@ -299,12 +301,11 @@ namespace SF_Automation.Pages
             Thread.Sleep(5000);
             try
             {
-                if(jobType.Equals("Sellside") || jobType.Equals("Buyside") || jobType.Equals("Debt Capital Markets") || jobType.Equals("Equity Capital Markets") || jobType.Equals("FA - Portfolio-Valuation") || jobType.Equals("FA - Portfolio-Advis/Consulting") || jobType.Equals("Creditor Advisors") || jobType.Equals("Debtor Advisors") || jobType.Equals("Discretionary Advisory") || jobType.Equals("General Financial Advisory") || jobType.Equals("DRC - Exp Wit-Litigation") || jobType.Equals("TAS - Due Diligence-Buyside"))
+                if (jobType.Equals("Sellside") || jobType.Equals("Buyside") || jobType.Equals("Debt Capital Markets") || jobType.Equals("Equity Capital Markets") || jobType.Equals("FA - Portfolio-Valuation") || jobType.Equals("FA - Portfolio-Advis/Consulting") || jobType.Equals("Creditor Advisors") || jobType.Equals("Debtor Advisors") || jobType.Equals("Discretionary Advisory") || jobType.Equals("General Financial Advisory") || jobType.Equals("DRC - Exp Wit-Litigation") || jobType.Equals("TAS - Due Diligence-Buyside"))
                 {
-                    WebDriverWaits.WaitUntilEleVisible(driver, btnEngNum, 150);
+                    Thread.Sleep(5000);
                     driver.FindElement(btnEngNum).Click();
-                    Thread.Sleep(6000);
-                    WebDriverWaits.WaitUntilEleVisible(driver, txtEngNumLightning, 150);
+                    Thread.Sleep(7000);
                     driver.FindElement(txtEngNumLightning).Clear();
                     driver.FindElement(txtEngNumLightning).SendKeys(name);
                     Thread.Sleep(5000);
@@ -314,20 +315,39 @@ namespace SF_Automation.Pages
                     WebDriverWaits.WaitUntilEleVisible(driver, lnkEngLightning, 310);
                     driver.FindElement(lnkEngLightning).Click();
                 }
+                else
+                {
+                    driver.Navigate().Refresh();
+                    Thread.Sleep(6000);
+                    driver.FindElement(btnEngNum).Click();
+                    Thread.Sleep(5000);
+                    driver.FindElement(txtEngNumLightningL).Clear();
+                    driver.FindElement(txtEngNumLightningL).SendKeys(name);
+                    Thread.Sleep(5000);
+                    driver.FindElement(txtEngNumLightningL).Clear();
+                    driver.FindElement(txtEngNumLightningL).SendKeys(name);
+                    Thread.Sleep(7000);
+                    // WebDriverWaits.WaitUntilEleVisible(driver, lnkEngLightning, 380);
+                    driver.FindElement(lnkEngLightning).Click();
+                }
             }
-            catch(Exception)
+            catch (Exception)
             {
-                driver.FindElement(txtEngNumLightningL).Clear();
-                driver.FindElement(txtEngNumLightningL).SendKeys(name);
+                driver.Navigate().Refresh();
+                Thread.Sleep(6000);
+                driver.FindElement(btnEngNum).Click();
                 Thread.Sleep(5000);
                 driver.FindElement(txtEngNumLightningL).Clear();
                 driver.FindElement(txtEngNumLightningL).SendKeys(name);
                 Thread.Sleep(5000);
-                WebDriverWaits.WaitUntilEleVisible(driver, lnkEngLightning, 380);
+                driver.FindElement(txtEngNumLightningL).Clear();
+                driver.FindElement(txtEngNumLightningL).SendKeys(name);
+                Thread.Sleep(7000);
+                // WebDriverWaits.WaitUntilEleVisible(driver, lnkEngLightning, 380);
                 driver.FindElement(lnkEngLightning).Click();
             }
-            Thread.Sleep(6000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valEngName, 350);
+            Thread.Sleep(10000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, valEngName, 350);
             string engName = driver.FindElement(valEngName).Text;
             return engName;
         }
@@ -364,7 +384,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(matchedResult).Click();
                 return "Record found";
             }
-            catch(Exception)
+            catch (Exception)
             {
                 driver.Navigate().Refresh();
                 WebDriverWaits.WaitUntilEleVisible(driver, lnkEngagements, 150);
@@ -392,7 +412,7 @@ namespace SF_Automation.Pages
         public void SearchMyEngagementInLightning(string value, string user)
         {
             Thread.Sleep(6000);
-            if(user.Equals("James Craven"))
+            if (user.Equals("James Craven"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEngsearchL, 20);
                 driver.FindElement(btnEngsearchL).Click();
@@ -425,7 +445,7 @@ namespace SF_Automation.Pages
                 Console.WriteLine("Search Results :" + result);
                 return "Record found";
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return "No record found";
             }
@@ -443,7 +463,7 @@ namespace SF_Automation.Pages
                 string result = driver.FindElement(matchedOpportunity).Displayed.ToString();
                 return "Record found";
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return "No record found";
             }
@@ -457,7 +477,7 @@ namespace SF_Automation.Pages
             {
                 return driver.FindElement(eleItem).Displayed;
             }
-            catch(Exception) { return false; }
+            catch (Exception) { return false; }
         }
         public string GetSearchedEngJobType()
         {
@@ -474,7 +494,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitUntilEleVisible(driver, btnNavigationMenu, 350);
             driver.FindElement(btnNavigationMenu).Click();
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, tagEngagements, 350);
+            WebDriverWaits.WaitUntilEleVisible(driver, tagEngagements, 370);
             string value = driver.FindElement(tagEngagements).Text;
             return value;
         }
@@ -495,7 +515,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnNavigationMenu, 350);
             driver.FindElement(btnNavigationMenu).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, tagEngagements, 370);
             driver.FindElement(tagEngagements).Click();
         }
@@ -545,13 +565,13 @@ namespace SF_Automation.Pages
             Console.WriteLine(actualNamesAndDesc[11]);
 
 
-            if(expectedValues.Length != actualNamesAndDesc.Length)
+            if (expectedValues.Length != actualNamesAndDesc.Length)
             {
                 return !isTrue;
             }
-            for(int recType = 0; recType < expectedValues.Length; recType++)
+            for (int recType = 0; recType < expectedValues.Length; recType++)
             {
-                if(!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
                 {
                     isTrue = false;
                     break;
@@ -577,7 +597,7 @@ namespace SF_Automation.Pages
             driver.FindElement(txtSearchEng).SendKeys(name);
             Thread.Sleep(5000);
             driver.FindElement(btnRefresh).Click();
-            Thread.Sleep(8000);
+            Thread.Sleep(6000);
             WebDriverWaits.WaitUntilEleVisible(driver, valSearchedEngName, 190);
             string opp = driver.FindElement(valSearchedEngName).Text;
             return opp;
@@ -603,6 +623,8 @@ namespace SF_Automation.Pages
         //Validate if Search functionality is working as expected
         public string ValidateSearchFunctionalityOfEngagementsByJobType(string name)
         {
+            driver.FindElement(btnNavigationMenu).Click();
+            driver.FindElement(tagEngagements).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtSearchEng, 150);
             driver.FindElement(txtSearchEng).Clear();
             driver.FindElement(txtSearchEng).SendKeys(name);
@@ -756,7 +778,7 @@ namespace SF_Automation.Pages
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, columnJobTypeL, 10);
                 string txtJobType = driver.FindElement(columnJobTypeL).Text;
-                if(txtJobType == jobType)
+                if (txtJobType == jobType)
                 {
                     return true;
                 }

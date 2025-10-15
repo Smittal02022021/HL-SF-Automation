@@ -9,10 +9,12 @@ using System.Linq;
 using System.Security.Permissions;
 using System.Threading;
 
+
 namespace SF_Automation.Pages.Engagement
 {
     class AddCounterparty : BaseClass
     {
+
         By btnAddCounterparties = By.CssSelector(".pbButton >table>tbody>tr>td> input[value='Add Counterparties']");
         By btnDel = By.Id("sf_filter_remove_btn_1");
         By btnAddRow = By.Id("sf_filter_add_btn_and");
@@ -30,7 +32,7 @@ namespace SF_Automation.Pages.Engagement
         By valFirstName = By.XPath("//th[text()='First Name']/ancestor::tr/td");
         By valLastName = By.XPath("//th[text()='Last Name']/ancestor::tr/td");
         By valCounterparty1stName = By.XPath("//dt[text()='First Name:']/ancestor::dl/dd[1]//span");
-        By valCounterparty2ndName = By.XPath("//dt[text()='Last Name:']/ancestor::dl/dd[1]//span");
+        By valCounterparty2ndName = By.XPath("//dt[text()='Last Name:']/ancestor::dl/dd[2]//span");
 
         By valContactFirstName = By.XPath("//section/div/div/p[1]");
         By valContactLastName = By.XPath("//section/div/div/p[2]");
@@ -120,7 +122,7 @@ namespace SF_Automation.Pages.Engagement
         By btnDeleteCounterparty = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[2]/button");
         By btnAddCounterpartiesL = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[3]/button");
         By lnkExistingCompanies = By.XPath("//span[text()='Get Companies from existing Company List']");
-
+        
         By btnEmailCounterparty = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[7]/button");
         By btnViewAllCounterparty = By.XPath("//lightning-layout-item[3]/slot/div/lightning-button-group/div/slot/lightning-button[8]/button");
         By titleCounterparty = By.XPath("//h1[@class='slds-page-header__title listViewTitle slds-truncate']");
@@ -198,7 +200,7 @@ namespace SF_Automation.Pages.Engagement
         By btnApply = By.XPath("//button[text()='Apply']");
         By btn1stTier = By.XPath("//tr[1]/td[4]/lightning-primitive-cell-factory/span/button");
         By colDeclined = By.XPath("//c-s-l-custom-datatable-type/div[2]/div/div/table/tbody/tr[1]/td[5]");
-        By btn1stDeclined = By.XPath("//tr[1]/td[5]/lightning-primitive-cell-factory/span/button");
+        By btn1stDeclined = By.XPath("//tr[1]/td[5]//button");
         By txtDeclined = By.XPath("//input[@name='dt-inline-edit-dateLocal']");
         By lblDeclined = By.XPath("//a/span[text()='Declined / Passed']");
         By chkSelectItems = By.XPath("//form/lightning-input/lightning-primitive-input-checkbox/div/span/label/span[1]");
@@ -222,6 +224,7 @@ namespace SF_Automation.Pages.Engagement
         By val1stMarkUpRec = By.XPath("//tr[1]/td[9]/lightning-primitive-cell-factory/span/div/lightning-formatted-date-time");
         By val2ndMarkUpRec = By.XPath("//tr[2]/td[9]/lightning-primitive-cell-factory/span/div/lightning-formatted-date-time");
 
+
         By valTier1 = By.XPath("//tr[1]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[1]/button/span");
         By chk1stRow = By.XPath("//tr[2]/td[1]/div/div[1]/lightning-input/div/span/label/span[1]");
         By valTier2 = By.XPath("//tr[2]/td[2]/lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/lightning-layout/slot/lightning-layout-item[2]/slot/div/lightning-input-field/lightning-picklist/lightning-combobox/div[1]/lightning-base-combobox/div/div[1]/button/span");
@@ -238,6 +241,10 @@ namespace SF_Automation.Pages.Engagement
         By comboTypeCounterparty = By.XPath("(//lightning-base-combobox//button[contains(@aria-label,'Type')])[2]");
         By buttonSaveL = By.XPath("//button[@name='SaveEdit']");
         By msgLVPopup = By.CssSelector("span.toastMessage.forceActionsText");
+        private By _comboTypeCounterpartyOptionEle(string value)
+        {
+            return By.XPath($"//span[@title='{value}']");
+        }
 
         //To Click Counterparties button
         public string ClickAddCounterpartiesbutton()
@@ -260,17 +267,14 @@ namespace SF_Automation.Pages.Engagement
         public bool VerifyAddCounterpartiesPageIsDisplayed()
         {
             bool result = false;
-            if(driver.FindElement(btnAddCounterpartyL).Displayed)
+            if (driver.FindElement(btnAddCounterpartyL).Displayed)
             {
                 result = true;
             }
             return result;
         }
 
-        private By _comboTypeCounterpartyOptionEle(string value)
-        {
-            return By.XPath($"//span[@title='{value}']");
-        }
+        
 
         public void AddNewCounterparty(string companyName, string value)
         {
@@ -286,7 +290,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             try
             {
-                IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
+                IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
                 jse.ExecuteScript("arguments[0].click();", driver.FindElement(comboTypeCounterparty));
 
                 //driver.FindElement(comboTypeCounterparty).Click();
@@ -294,7 +298,7 @@ namespace SF_Automation.Pages.Engagement
                 driver.FindElement(_comboTypeCounterpartyOptionEle(value)).Click();
                 Thread.Sleep(2000);
             }
-            catch(Exception)
+            catch (Exception)
             {
 
             }
@@ -356,7 +360,7 @@ namespace SF_Automation.Pages.Engagement
                 driver.FindElement(lnkDetails).Click();
                 return message;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 driver.FindElement(lnkDetails).Click();
                 return "Record is already displayed";
@@ -392,7 +396,7 @@ namespace SF_Automation.Pages.Engagement
                 string message = driver.FindElement(msgSuccess).Text;
                 return message;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return "Record is not addded";
             }
@@ -411,7 +415,7 @@ namespace SF_Automation.Pages.Engagement
                 string message = driver.FindElement(msgSuccess).Text.Replace("\r\n", " ");
                 return message;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return "Message is not displayed";
             }
@@ -434,7 +438,7 @@ namespace SF_Automation.Pages.Engagement
                 driver.FindElement(btnTableBack).Click();
                 return message;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return "Record is not addded";
             }
@@ -611,13 +615,13 @@ namespace SF_Automation.Pages.Engagement
         //Get 1st Name
         public string Get1stName()
         {
-            Thread.Sleep(10000);
-            var element = driver.FindElement(lnkContacts);
-            Actions action = new Actions(driver);
-            action.MoveToElement(element);
-            action.Perform();
+            //Thread.Sleep(10000);
+            //var element = driver.FindElement(lnkContacts);
+            //Actions action = new Actions(driver);
+            //action.MoveToElement(element);
+            //action.Perform();
             //driver.FindElement(btnPrintableView).Click();
-            //Thread.Sleep(5000);
+            Thread.Sleep(5000);
             // driver.SwitchTo().Window(driver.WindowHandles.Last());            
             WebDriverWaits.WaitUntilEleVisible(driver, valFirstName, 180);
             string name = driver.FindElement(valFirstName).Text;
@@ -725,7 +729,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, tblCounterparty, 180);
             string value = driver.FindElement(tblCounterparty).Displayed.ToString();
             Console.WriteLine(value);
-            if(value.Equals("True"))
+            if (value.Equals("True"))
             {
                 return "Counterparty records are displayed";
             }
@@ -792,13 +796,13 @@ namespace SF_Automation.Pages.Engagement
             string[] expectedValue = { "None", "Sent CA", "Sent Teaser" };
             bool isSame = true;
 
-            if(expectedValue.Length != actualValue.Length)
+            if (expectedValue.Length != actualValue.Length)
             {
                 return !isSame;
             }
-            for(int rec = 0; rec < expectedValue.Length; rec++)
+            for (int rec = 0; rec < expectedValue.Length; rec++)
             {
-                if(!expectedValue[rec].Equals(actualValue[rec]))
+                if (!expectedValue[rec].Equals(actualValue[rec]))
                 {
                     isSame = false;
                     break;
@@ -828,13 +832,13 @@ namespace SF_Automation.Pages.Engagement
             string[] expectedValue = { "Counterparty Email", "Counterparty Email Clone" };
             bool isSame = true;
 
-            if(expectedValue.Length != actualValue.Length)
+            if (expectedValue.Length != actualValue.Length)
             {
                 return !isSame;
             }
-            for(int rec = 0; rec < expectedValue.Length; rec++)
+            for (int rec = 0; rec < expectedValue.Length; rec++)
             {
-                if(!expectedValue[rec].Equals(actualValue[rec]))
+                if (!expectedValue[rec].Equals(actualValue[rec]))
                 {
                     isSame = false;
                     break;
@@ -1014,17 +1018,6 @@ namespace SF_Automation.Pages.Engagement
             return name;
 
         }
-
-
-
-
-
-
-
-
-
-
-
         //Update the value of Type and Tier and click click
         public string UpdateTypeTierAndClickCancel()
         {
@@ -1295,7 +1288,7 @@ namespace SF_Automation.Pages.Engagement
                 return name;
 
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return "2nd company does not exist";
             }
@@ -1338,56 +1331,49 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             driver.FindElement(txtMinBid).Clear();
             driver.FindElement(txtMinBid).SendKeys(value);
-
-            try
-            {
-                //Equity %
-                var elementEquity = driver.FindElement(By.XPath("//td[@data-label='Equity %']"));
-                actions.MoveToElement(elementEquity);
-                actions.Perform();
-                Thread.Sleep(3000);
-                IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
-                jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnEquity));
-                //driver.FindElement(btnEquity).Click();
-                Thread.Sleep(3000);
-                driver.FindElement(txtEquity).Clear();
-                driver.FindElement(txtEquity).SendKeys(value);
-                driver.FindElement(lblMinBid).Click();
-                //Debt %
-                var elementDebt = driver.FindElement(By.XPath("//td[@data-label='Debt %']"));
-                actions.MoveToElement(elementDebt);
-                actions.Perform();
-                Thread.Sleep(4000);
-                driver.FindElement(btnDebt).Click();
-                Thread.Sleep(4000);
-                driver.FindElement(txtEquity).Clear();
-                driver.FindElement(txtEquity).SendKeys(value);
-                driver.FindElement(lblMinBid).Click();
-                //Bid Date
-                var elementDate = driver.FindElement(By.XPath("//td[@data-label='Bid Date']"));
-                actions.MoveToElement(elementDate);
-                actions.Perform();
-                Thread.Sleep(4000);
-                driver.FindElement(btnDate).Click();
-                Thread.Sleep(4000);
-                driver.FindElement(txtBidDate).Clear();
-                driver.FindElement(txtBidDate).SendKeys(DateTime.Today.ToString("MMM dd, yyyy"));
-                driver.FindElement(lblMinBid).Click();
-                //Bid Comments
-                var elementComments = driver.FindElement(By.XPath("//td[@data-label='Comments']"));
-                actions.MoveToElement(elementComments);
-                actions.Perform();
-                Thread.Sleep(4000);
-                driver.FindElement(btnComments).Click();
-                Thread.Sleep(4000);
-                driver.FindElement(txtComments).Clear();
-                driver.FindElement(txtComments).SendKeys("Testing");
-                driver.FindElement(lblMinBid).Click();
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine("Element not found: " + e.Message);
-            }
+            //Equity %
+            var elementEquity = driver.FindElement(By.XPath("//td[@data-label='Equity %']"));
+            actions.MoveToElement(elementEquity);
+            actions.Perform();
+            Thread.Sleep(5000);
+            driver.FindElement(btnEquity).Click();
+            driver.FindElement(btnEquity).Click();
+            Thread.Sleep(7000);
+            driver.FindElement(txtEquity).Clear();
+            driver.FindElement(txtEquity).SendKeys(value);
+            driver.FindElement(lblMinBid).Click();
+            //Debt %
+            var elementDebt = driver.FindElement(By.XPath("//td[@data-label='Debt %']"));
+            actions.MoveToElement(elementDebt);
+            actions.Perform();
+            Thread.Sleep(4000);
+            driver.FindElement(btnDebt).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(txtEquity).Clear();
+            driver.FindElement(txtEquity).SendKeys(value);
+            driver.FindElement(txtEquity).SendKeys(value);
+            driver.FindElement(lblMinBid).Click();
+            //Bid Date
+            var elementDate = driver.FindElement(By.XPath("//td[@data-label='Bid Date']"));
+            actions.MoveToElement(elementDate);
+            actions.Perform();
+            Thread.Sleep(4000);
+            driver.FindElement(btnDate).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(txtBidDate).Clear();
+            driver.FindElement(txtBidDate).SendKeys("01-Aug-2023");
+            driver.FindElement(lblMinBid).Click();
+            //Bid Comments
+            var elementComments = driver.FindElement(By.XPath("//td[@data-label='Comments']"));
+            actions.MoveToElement(elementComments);
+            actions.Perform();
+            Thread.Sleep(4000);
+            driver.FindElement(btnComments).Click();
+            driver.FindElement(btnComments).Click();
+            //driver.FindElement(btnComments).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(txtComments).SendKeys("Testing");
+            driver.FindElement(lblMinBid).Click();
 
             //Save button
             driver.FindElement(btnSaveBid).Click();
@@ -1432,8 +1418,8 @@ namespace SF_Automation.Pages.Engagement
         //Check Mass checkbox
         public void ClickMassCheckbox()
         {
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, chkMassCheckbox, 250);
+            Thread.Sleep(8000);
+            WebDriverWaits.WaitUntilEleVisible(driver, chkMassCheckbox, 280);
             driver.FindElement(chkMassCheckbox).Click();
         }
 
@@ -1455,11 +1441,13 @@ namespace SF_Automation.Pages.Engagement
             actions.MoveToElement(elementDeclined);
             actions.Perform();
             driver.FindElement(btn1stDeclined).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
             driver.FindElement(txtDeclined).Clear();
             driver.FindElement(txtDeclined).SendKeys(date);
+            Thread.Sleep(5000);
             driver.FindElement(chkSelectItems).Click();
-            driver.FindElement(lblDeclined).Click();
+            //driver.FindElement(lblDeclined).Click();
+
             driver.FindElement(btnApply).Click();
 
             //Update Initial Contact
@@ -1470,8 +1458,10 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             driver.FindElement(txtDeclined).Clear();
             driver.FindElement(txtDeclined).SendKeys(date);
+            Thread.Sleep(5000);
             driver.FindElement(chkSelectItems).Click();
-            driver.FindElement(lblDeclined).Click();
+
+            // driver.FindElement(lblDeclined).Click();
             driver.FindElement(btnApply).Click();
 
             //Update Sent Teaser
@@ -1481,9 +1471,10 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnSent).Click();
             Thread.Sleep(4000);
             driver.FindElement(txtDeclined).Clear();
+            Thread.Sleep(5000);
             driver.FindElement(txtDeclined).SendKeys(date);
             driver.FindElement(chkSelectItems).Click();
-            driver.FindElement(lblDeclined).Click();
+            //driver.FindElement(lblDeclined).Click();
             driver.FindElement(btnApply).Click();
 
             //Update Markup Sent
@@ -1494,12 +1485,13 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             driver.FindElement(txtDeclined).Clear();
             driver.FindElement(txtDeclined).SendKeys(date);
+            Thread.Sleep(5000);
             driver.FindElement(chkSelectItems).Click();
-            driver.FindElement(lblDeclined).Click();
+            //driver.FindElement(lblDeclined).Click();
             driver.FindElement(btnApply).Click();
 
             //Update Markup Received
-            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollBy(300,0)");
             var elementReceived = driver.FindElement(colReceived);
             actions.MoveToElement(elementReceived);
@@ -1509,8 +1501,9 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(4000);
             driver.FindElement(txtDeclined).Clear();
             driver.FindElement(txtDeclined).SendKeys(date);
+            Thread.Sleep(5000);
             driver.FindElement(chkSelectItems).Click();
-            driver.FindElement(lblDeclined).Click();
+            //driver.FindElement(lblDeclined).Click();
             driver.FindElement(btnApply).Click();
             Thread.Sleep(5000);
 
@@ -1601,7 +1594,6 @@ namespace SF_Automation.Pages.Engagement
         {
             Thread.Sleep(5000);
             Actions actions = new Actions(driver);
-
             //Update Declined
             driver.FindElement(chk2ndCounterparty).Click();
             var elementDeclined = driver.FindElement(colDeclined);
@@ -1610,7 +1602,9 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btn1stDeclined).Click();
             Thread.Sleep(4000);
             driver.FindElement(txtDeclined).Clear();
+            Thread.Sleep(6000);
             driver.FindElement(txtDeclined).SendKeys(date);
+            Thread.Sleep(8000);
             driver.FindElement(lblDeclined).Click();
 
             //Update Initial Contact
@@ -1620,12 +1614,13 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btn1stInitial).Click();
             Thread.Sleep(4000);
             driver.FindElement(txtDeclined).Clear();
+            Thread.Sleep(4000);
             driver.FindElement(txtDeclined).SendKeys(date);
+            Thread.Sleep(6000);
             driver.FindElement(lblDeclined).Click();
-
-
             driver.FindElement(btnSaveCounterparty).Click();
-            Thread.Sleep(5000);
+
+            Thread.Sleep(7000);
             driver.Navigate().Refresh();
             WebDriverWaits.WaitUntilEleVisible(driver, val1stDeclined, 90);
             string value = driver.FindElement(val1stDeclined).Text;

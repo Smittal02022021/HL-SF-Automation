@@ -39,7 +39,7 @@ namespace SF_Automation.UtilityFunctions
         By txtMsgbody = By.XPath("//div[@aria-label='Message body']/div/div/div");
         By lnkCountinue = By.XPath("//input[@id='hiddenformSubmitBtn']");
 
-        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\Users\VKumar0427\source\repos\SF_Automation\TestData\";
 
         By txtMessageBody = By.XPath("//div[@class='PlainText']");
 

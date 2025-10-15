@@ -69,7 +69,7 @@ namespace SF_Automation.Pages.Engagement
         By msgCancel = By.CssSelector("div[id*='_id5']");
         By btnYes = By.CssSelector("input[value=' Yes ']");
         By linkDel = By.CssSelector("a[name*='id176']");
-        By msgSuccess1 = By.CssSelector("div[id*='id8']");       
+        By msgSuccess1 = By.CssSelector("div[id*='id8']");
 
         By btnEditL = By.XPath("//input[@value='Edit']");
         By txtNameL = By.XPath("//label[text()='Name']/ancestor::tr/td//input");
@@ -300,6 +300,7 @@ namespace SF_Automation.Pages.Engagement
             WebDriverWaits.WaitUntilEleVisible(driver, btnEditPositionL, 80);
             driver.FindElement(btnEditPositionL).Click();
             driver.SwitchTo().DefaultContent();
+            Thread.Sleep(4000);
             driver.SwitchTo().Frame(1);
             Thread.Sleep(5000);
             driver.FindElement(comboStatus).SendKeys("Completed, Generate Accrual");
@@ -1265,7 +1266,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnSaveAllocationL).Click();
             driver.SwitchTo().DefaultContent();
             driver.SwitchTo().Frame(2);
-            Thread.Sleep(6000);
+            Thread.Sleep(10000);
             string value = driver.FindElement(addedAllocationL).Displayed.ToString();
             return value;
         }

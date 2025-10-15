@@ -19,7 +19,7 @@ namespace SF_Automation.Pages
         By userIcon = By.CssSelector("div[class*='profileTrigger'] > span[class='uiImage']");
         By linkSalesforceClassic = By.XPath("//a[normalize-space()='Switch to Salesforce Classic']");
         By linkSwitchtoLightningExperience = By.CssSelector(".switch-to-lightning");
-        By valUser = By.XPath("//section/header/div[1]/div/span");
+        By valUser = By.XPath("//span[contains(text(),'Logged in')]");
         By btnVerifyIdentity = By.XPath("//input[@title='Verify']");
 
         Outlook outlook = new Outlook();
@@ -30,12 +30,12 @@ namespace SF_Automation.Pages
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, linkSwitchtoLightningExperience, 20);
                 IWebElement linkSwitchtoLightning = driver.FindElement(linkSwitchtoLightningExperience);
-                if(linkSwitchtoLightning.Displayed)
+                if (linkSwitchtoLightning.Displayed)
                 {
                     linkSwitchtoLightning.Click();
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
             }
         }
@@ -91,7 +91,7 @@ namespace SF_Automation.Pages
         public void SwitchToClassicView()
         {
             string url = driver.Url;
-            if(url.Contains(".com/lightning") || url.Contains(".lightning"))
+            if (url.Contains(".com/lightning") || url.Contains(".lightning"))
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, imgProfile, 20);
                 driver.FindElement(imgProfile).Click();
@@ -112,7 +112,7 @@ namespace SF_Automation.Pages
             string url = driver.Url;
             try
             {
-                if(url.Contains("lightning.force.com/lightning/n/DNBoptimizer__Data_Stewardship1"))
+                if (url.Contains("lightning.force.com/lightning/n/DNBoptimizer__Data_Stewardship1"))
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, imgProfile, 150);
                     driver.FindElement(imgProfile).Click();
@@ -125,16 +125,16 @@ namespace SF_Automation.Pages
                     Console.WriteLine("No switch required ");
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 Console.WriteLine("No switch required ");
             }
         }
         public string ValidateUser()
         {
-            Thread.Sleep(4000);
+            Thread.Sleep(18000);
             //driver.SwitchTo().Window(driver.WindowHandles.Last());
-            WebDriverWaits.WaitUntilEleVisible(driver, loggedUser, 140);
+            //WebDriverWaits.WaitUntilEleVisible(driver,loggedUser,190);
             IWebElement loggedUserName = driver.FindElement(loggedUser);
             return loggedUserName.Text;
         }
@@ -150,7 +150,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, loggedUserLightningView, 360);
             IWebElement loggedUserName = driver.FindElement(loggedUserLightningView);
-            if(loggedUserName.Text.Contains(ReadExcelData.ReadDataMultipleRows(excelPath, "Users", userRow, 1)))
+            if (loggedUserName.Text.Contains(ReadExcelData.ReadDataMultipleRows(excelPath, "Users", userRow, 1)))
             {
                 result = true;
             }
@@ -162,7 +162,7 @@ namespace SF_Automation.Pages
             WebDriverWaits.WaitForPageToLoad(driver, 15);
             Thread.Sleep(10000);
             string url = driver.Url;
-            if(url.Contains("lightning.force.com/lightning/n/DNBoptimizer__Data_Stewardship1"))
+            if (url.Contains("lightning.force.com/lightning/n/DNBoptimizer__Data_Stewardship1"))
             {
                 //Thread.Sleep(15000);
                 WebDriverWaits.WaitUntilEleVisible(driver, userIcon, 40);
@@ -198,15 +198,29 @@ namespace SF_Automation.Pages
 
         public string ValidateUserLightning()
         {
+
             Thread.Sleep(7000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
             WebDriverWaits.WaitUntilEleVisible(driver, valUser, 350);
             IWebElement loggedUserName = driver.FindElement(valUser);
-            return loggedUserName.Text.Substring(13, 12);
+            return loggedUserName.Text;
+            //return loggedUserName.Text.Substring(13, 12);
+        }
+
+        public string ValidateUserLightningExcep()
+        {
+
+            Thread.Sleep(7000);
+            WebDriverWaits.WaitUntilEleVisible(driver, valUser, 380);
+            IWebElement loggedUserName = driver.FindElement(valUser);
+            return loggedUserName.Text;
+            //return loggedUserName.Text.Substring(13, 12);
         }
 
         public string ValidateFRUserLightning()
         {
             Thread.Sleep(7000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
             WebDriverWaits.WaitUntilEleVisible(driver, valUser, 350);
             IWebElement loggedUserName = driver.FindElement(valUser);
             return loggedUserName.Text.Substring(13, 13);

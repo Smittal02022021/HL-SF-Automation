@@ -1,9 +1,0 @@
-{
-  "manifest_version": 2,
-  "name": "chromeCommerceHeuristics",
-<<<<<<<< HEAD:TestData/User Data/CommerceHeuristics/2023.3.30.1305/manifest.json
-  "version": "2023.3.30.1305"
-========
-  "version": "2023.3.6.1320"
->>>>>>>> Branch-Vijay:TestData/User Data/CommerceHeuristics/2023.3.6.1320/manifest.json
-}

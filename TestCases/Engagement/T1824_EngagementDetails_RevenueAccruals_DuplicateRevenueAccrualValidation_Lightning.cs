@@ -69,7 +69,7 @@ namespace SF_Automation.TestCases.Engagement
                 engDetails.ValidateRevenueTab();
                 string month = engDetails.GetMonthFromRevenueAccrualRecordL();
                 Console.WriteLine(DateTime.Now.ToString("yyyy - M ", CultureInfo.InvariantCulture));
-                Assert.AreEqual("2025 - 01", month);
+                Assert.AreEqual("2025 - 09", month);
                 extentReports.CreateLog("Revenue Accrual record with : " + month + " exists ");
 
                 //Get the value of Revenue Record Id

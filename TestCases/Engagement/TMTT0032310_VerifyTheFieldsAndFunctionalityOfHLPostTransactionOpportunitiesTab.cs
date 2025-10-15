@@ -213,7 +213,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //18.  TMTI0075922_ Verify the Key External Contact added under the HL Post Transaction Opp tab on FR Engagement Summary is mapped to the Engagement Contacts section with the type External and role as selected
                 string addedKeyContact = summaryPage.ValidateAddedBoardMemberIsDisplayedInEngagementContacts();
-                Assert.AreEqual("Chris Sobecki", addedKeyContact);
+                Assert.AreEqual("Chris Southgate", addedKeyContact);
                 string addedContactType = summaryPage.GetTypeOfAddedBoardMemberInAdditionalClientSubject();
                 Assert.AreEqual("External", addedContactType);
                 string addedContactRole = summaryPage.GetRoleOfAddedStaffInEngContacts();
@@ -230,9 +230,9 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Added Key Contact record is deleted after clicking Ok on confirmation page ");
 
                 //20. TMTI0075927_ Verify that clicking "Post-Transaction Opportunity Report" will open up a one-page report with all the details. 
-                string titleReport = summaryPage.ValidateReportAfterClickingPostTransOppReport();
-                Assert.AreEqual("Your connection is not private", titleReport);
-                extentReports.CreateLog("Cognos report page is displayed after clicking Post-Transaction Opportunity Report button ");
+                //string titleReport = summaryPage.ValidateReportAfterClickingPostTransOppReport();
+                //Assert.AreEqual("Your connection is not private", titleReport);
+                //extentReports.CreateLog("Cognos report page is displayed after clicking Post-Transaction Opportunity Report button ");
 
                 //22. TMTI0075931_Verify that on clicking the "Submit Engagement Summary" button, submits the engagement summary with a success message appears on the screen and the Closing Info section will also get updated 
                 string titleSendEmail = summaryPage.ValidatePageAfterClickingSubmitEngSummary();

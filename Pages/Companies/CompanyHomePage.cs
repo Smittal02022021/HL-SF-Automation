@@ -33,7 +33,7 @@ namespace SF_Automation.Pages
         By txtNewCompanyName = By.CssSelector("input[name*='AccountName']");
         By btnSave = By.CssSelector("input[value='Save']");
 
-        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\Users\VKumar0427\source\repos\SF_Automation\TestData\";
         By inputSearchL = By.XPath("//input[contains(@placeholder,'Search...')]");
         By inputGlobalSearchL = By.XPath("//button[@aria-label='Search']");
         By inputGlobalSearchL2 = By.XPath("//button[contains(@aria-label,'Search: ')]");

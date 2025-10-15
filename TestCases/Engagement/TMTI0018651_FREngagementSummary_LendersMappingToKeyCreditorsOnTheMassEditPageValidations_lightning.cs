@@ -112,7 +112,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //Validate the title of page upon clicking Mass Edit Records button
                 engagementDetails.ClickEngagementTabL();
-                opportunityDetails.ValidateClientSubjectAndReferralTabL();                                 
+                opportunityDetails.ValidateClientSubjectAndReferralTabFVAL();                                 
                 string titeMassEditPage = opportunityDetails.ClickMassEditRecordsButtonLightning();
                 Assert.AreEqual("Additional Clients/Subjects", titeMassEditPage);
                 extentReports.CreateLog("Page with title : " + titeMassEditPage + " is displayed upon clicking Mass Edit Records button ");

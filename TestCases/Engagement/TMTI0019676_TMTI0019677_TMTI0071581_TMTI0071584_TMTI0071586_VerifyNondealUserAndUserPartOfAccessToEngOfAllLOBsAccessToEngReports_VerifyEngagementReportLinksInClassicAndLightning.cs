@@ -12,7 +12,7 @@ namespace SF_Automation.TestCases.Engagement
     class TMTI0019676_TMTI0019677_TMTI0071581_TMTI0071584_TMTI0071586_VerifyNondealUserAndUserPartOfAccessToEngOfAllLOBsAccessToEngReports_VerifyEngagementReportLinksInClassicAndLightning : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
-        LoginPage login = new LoginPage();    
+        LoginPage login = new LoginPage();
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
@@ -34,19 +34,19 @@ namespace SF_Automation.TestCases.Engagement
             try
             {
                 //Get path of Test data file
-                string excelPath = ReadJSONData.data.filePaths.testData + TMTI0019676;                
+                string excelPath = ReadJSONData.data.filePaths.testData + TMTI0019676;
                 Console.WriteLine(excelPath);
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");   
+                extentReports.CreateLog(driver.Title + " is displayed ");
 
                 //Calling Login function                
                 login.LoginApplication();
 
                 //Validate user logged in                   
-                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
+                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 //Login as CF Financial User and validate the user
                 string valUser1 = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 4, 1);
@@ -113,7 +113,7 @@ namespace SF_Automation.TestCases.Engagement
 
                     //Login as Financial User and validate the user                
                     usersLogin.SearchUserAndLogin(valUser);
-                  
+
                     if (valUser.Equals("Thomas Bailey") || valUser.Equals("Mark Martin") || valUser.Equals("James Craven"))
                     {
 
@@ -149,7 +149,7 @@ namespace SF_Automation.TestCases.Engagement
                         }
                     }
 
-                    else if(valUser.Equals("Drew Koecher") || valUser.Equals("Jennifer Muller") || valUser.Equals("Danielle Morello"))
+                    else if (valUser.Equals("Drew Koecher") || valUser.Equals("Jennifer Muller") || valUser.Equals("Danielle Morello"))
                     {
                         string stdUser = login.ValidateUser();
                         Assert.AreEqual(stdUser.Contains(valUser), true);
@@ -213,14 +213,14 @@ namespace SF_Automation.TestCases.Engagement
                                 extentReports.CreateLog("All required reports are displayed for deal team member - " + valUser + " for FR engagement ");
                             }
                             usersLogin.UserLogOut();
-                            Console.WriteLine("User " + valUser + "log out successfully");                           
-                        }                        
+                            Console.WriteLine("User " + valUser + " log out successfully");
+                        }
                     }
-                    
+
                 }
-                usersLogin.UserLogOut();                
+                //usersLogin.UserLogOut();
                 driver.Quit();
-                
+
 
             }
             catch (Exception e)
@@ -230,9 +230,9 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }        
+        }
     }
 }
 
-    
+
 
