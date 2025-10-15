@@ -895,6 +895,40 @@
     <Compile Include="TestCases\Opportunities\LV_TS02_ValidateERPSectionPostUpdatingDFFFieldsOfOpportunityLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS03_ValidateERPSubmittedAndERPLastIntegrationResponsePostManualSyncOpportunityLightningView.cs" />
     <Compile Include="TestCases\Opportunities\LV_TS22_TS23_TS24_ValidateIsMainContractIsFromClientCompanyWhenIsMainContractFromOtherCompanyExistsAlreadyEditingonOpportunityPageLV.cs" />
+    <Compile Include="TestCases\Opportunities\T1832andT1835_OpportunityCounterpartiesPage_AddCounterpartiesAndAddFromExistingOpportunity_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\T1967AndT1968_OpportunityComment_ValidationRules_OnlyComplianceUserCanCreateCommentsOfTypeCompliance_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TC2209AndT2210_PortfolioValuation_ValidateRevenueFieldsUpdateWithStatusInProgress_CompletedAndPositionCancelled_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TC2362_TMTC0003198_VerifyModificationOfLOBValueForGivenOpportunity_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TMTC0032938_VerifyTheFunctionalityOfCreatingParentProjectAndAssociatingTheEngagementToParentProject.cs" />
+    <Compile Include="TestCases\Opportunities\TMTC0032940_VerifyTheFunctionalityOfCreatingBillingRequest.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0005815_TMTT0005817NBCAndCNBCAccessExistingFunctionality_RestrictedAccess_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0007935_T1649_Opportunity_AdditionalClientAndSubject_NewOpportunity_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0007939_Opportunity_AdditionalClientAndSubject_NewOpportunity_ClientSubjectFunctionalities_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0008023_Opportunity_AdditionalClientAndSubject_MassEditFunctionalities_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0008026_TMTT0008027_TMTT0008032_TMTT0008300_MassEdit_EditFunctionality_PickListAndValues_ValidationRulesAndMassEditPostConversionToEng_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0008034_MassEdit_FieldMappings_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0008327_TMTT0008330_TMTT0008640_TMTT0008644_TMTT0008646_TMTT0008649_ClientSubjectAndMassEditFunctionalities_PickLists_ValidationRules_FieldMappings_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0013765_TMTT0014798_TMTT0033330_VerifyTheAvailableFieldsOnNBCLightningFormAndAddFinancialLayout_ReviewSectionChanges.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0013767_TMTT0013772_TMTT0014070_TMTT0014796_NBCFormLightening_HeadersAndReqFields_SubmitforReview_EmailTemplate_DateSubmitted.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0013837_VerifyTheAvailableFieldsOnCNBCLightningForm.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0013844_CNBCForm_RequiredFields_SubmitForReview.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0013974_VerifyThePopUpLoadsToSelectTheFormType_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0014637_EstimatedValuationFieldIsIndependentInputFieldOnOpportunityAndNBC_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0014789_VerificationOfRetainerShouldNoLongerReadInMillions_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0016556AndTMTT0014794_NBCFormLightening_VerifyTheFeeCalcualtionsBasedOnTransactionalTypeAsFlatFee_AddProgressAndRetainerCreditableCalculationsToFlatFee.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0016558AndTMTT0014786_NBCFormLightening_VerifyTheFeeCalcualtionsBasedOnTransactionalTypeAsIncentiveStructure_MinFeeCalculationOnTotalEstimatedFee.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0016577_NBCFormLightening_VerifyTheApplicationBehaviourOnSelectingTransactionFeeTyprAsOtherFee.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0036872_VerifyTheFunctionalityOfFormForFVALightning.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0036872_VerifyTheFunctionalityOfFormForFVALightning_Part2.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0038098_T2189andT2170_T2212_T2214_T2215_VerifyTheFunctionalityOfPortfolioValuationOnOpportunityDetailPage.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0038100_VerifyTheFunctionalityOfPortfolioValuationOnEngagementDetailPage.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0046328_VerifyTheFunctionalityOfTheRemovalOfTheMinimumFeeFromECMJobTypeForFlatFee.cs" />
+    <Compile Include="TestCases\Opportunities\TMTT0046328_VerifyTheFunctionalityOfTheRemovalOfTheMinimumFeeFromECMJobTypeForFlatFee_Part2.cs" />
+    <Compile Include="TestCases\Opportunities\TS25_ValidateAllContractsCreatedInOpportunityAreDisplayedInEngagementUponConversion_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\TS26_ValidateIsMainContractIsFromClientCompanyWhenIsMainContractFromOtherCompanyExistsAlready_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\ValidateAllJobType_Lightning.cs" />
+    <Compile Include="TestCases\Opportunities\VerifyTheFunctionalityOfConvertingOpportunityIntoEngagement_Info_FeesAndFin_ClientSubAndRef_Revenue_Compliance_RightPanel_TopPanel.cs" />
+    <Compile Include="TestCases\Opportunities\VerifyTheFunctionalityOfInfo_Fees_ClientSubjectReferral_Compliance_InternalTeam_RightPanel_TopPanel_OppInSFLightning.cs" />
     <Compile Include="TestCases\Tableau\TableauPOC.cs" />
     <Compile Include="TestCases\Tableau\TestSikuli.cs" />
     <Compile Include="TestCases\TimeRecordManager\LV_1_TMTT0039383_VerifyTheFunctionalityOfTimeRecordManagerForFRStandardUserFromFRTimeTrackingGroupsOntheSFLightningView.cs" />
@@ -940,15 +974,10 @@
     <None Include="packages\Sikuli4Net.1.0.6\Sikuli4Net.1.0.6.nupkg" />
     <None Include="TestData\CloneOperation1.xlsx" />
     <None Include="TestData\CNBC_EndToEnd.xlsx" />
-    <None Include="TestData\CrashpadMetrics-active.pma" />
     <None Include="TestData\ERPPostCoversionToEngagement.xlsx" />
     <None Include="TestData\ERPPostCoversionToEngagement1.xlsx" />
     <None Include="TestData\ERPPostCreationOfOpportunity.xlsx" />
     <None Include="TestData\ERPPostCreationOfOpportunity1.xlsx" />
-    <None Include="TestData\First Run" />
-    <None Include="TestData\Last Browser" />
-    <None Include="TestData\Last Version" />
-    <None Include="TestData\Local State" />
     <None Include="TestData\LV_1_CF_TMTT0049771_VerifyMergersAcquisitionsMAChangesInOpportunityCreationToEngagementConversionWithTheApprovalProcess.xlsx" />
     <None Include="TestData\LV_2_CF_TMTT0049771_VerifyTheCAOAndNonCAOCFGroupAndCAOMAAndOrCAOCSPermissionSetsHasModifiedInternalTeamAccessOnEngagementWithERPMAAndOrCS.xlsx" />
     <None Include="TestData\LV_3_TMTT0047923_TMTT0047926_TMTT0047929_VerifyJobTypesGetsDispalyedOnAddingJobTypeFiltersWhileCreatingReports.xlsx" />
@@ -1090,9 +1119,7 @@
     <None Include="TestData\LV_TS05_ValidateERPSection.xlsx" />
     <None Include="TestData\LV_VerifyTheActivityListForUseronLightningView.xlsx" />
     <None Include="TestData\LV_VerifyTheFunctionalitySpecialProjectFunctionalityOnTimeRecordManagerForFVAStandardUserOnSFLightningView.xlsx" />
-    <None Include="TestData\Module Info Cache" />
     <None Include="TestData\Outlook.xlsx" />
-    <None Include="TestData\persisted_first_party_sets.json" />
     <None Include="TestData\SFToOracleIntegration.xlsx" />
     <None Include="TestData\T1047_Contact_CreateNewContactRecordTypeExternalContact.xlsx" />
     <None Include="TestData\T1048_Contact_CreateNewContactRecordTypeHoulihanEmployee.xlsx" />
@@ -1357,6 +1384,7 @@
     <None Include="TestData\TMTT0038098_VerifyTheFunctionalityOfPortfolioValuationOnOpportunityDetailPage.xlsx" />
     <None Include="TestData\TMTT0042712_VerificationOfBuyersListFeatureOnOpportunityScreen.xlsx" />
     <None Include="TestData\TMTT0042714_VerificationOfBuyersListFeatureOnEngagementScreen.xlsx" />
+    <None Include="TestData\TMTT0046328_VerifyTheFunctionalityOfTheRemovalOfTheMinimumFee1.xlsx" />
     <None Include="TestData\TMTT0046706_VerifyFunctionalityOfAddNewCompanyFromAddNewActivityPage.xlsx" />
     <None Include="TestData\TMTT0046849_VerificationOfEngagementBasicInformation.xls" />
     <None Include="TestData\TMTT0046855_VerificationOfELEngagementDynamicsSectionAndSubsections.xlsx" />
@@ -1393,8 +1421,8 @@
     <None Include="TestData\TS32_OpportunityDetails.xlsx" />
     <None Include="TestData\TS32_VerifyIcoContractDetailOnOpportunity.xlsx" />
     <None Include="TestData\TS33_mainContractVerification.xlsx" />
-    <None Include="TestData\Variations" />
     <None Include="TestData\VerifyEngagementReportLinks.xls" />
+    <None Include="TestData\VerifyTheFunctionalityOfTheRemovalOfTheMinimumFeeFromECMJobTypeForFlatFee_Part2.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Core\Compression\Snappy\lib\win\snappy32.dll" />
@@ -1403,17 +1431,8 @@
     <Content Include="JSikuliModule.jar" />
     <Content Include="mongocrypt.dll" />
     <Content Include="packages\Sikuli4Net.1.0.6\lib\Sikuli4Net.dll" />
-    <Content Include="TestData\BankerDropdown.PNG" />
-    <Content Include="TestData\BankerName.PNG" />
-    <Content Include="TestData\BankerTextbox.PNG" />
-    <Content Include="TestData\chromedriver.exe" />
-    <Content Include="TestData\chrome_shutdown_ms.txt" />
-    <Content Include="TestData\CoverageOfficer.PNG" />
     <Content Include="TestData\FileToUpload.jpg.png" />
     <Content Include="TestData\FileToUpload.txt" />
-    <Content Include="TestData\Screenshot_Login.PNG" />
-    <Content Include="TestData\Screenshot_Password.PNG" />
-    <Content Include="TestData\Screenshot_Username.PNG" />
     <Content Include="TestData\UploadFile.txt" />
   </ItemGroup>
   <ItemGroup>
