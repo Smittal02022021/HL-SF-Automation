@@ -79,7 +79,7 @@ namespace SF_Automation.Pages
         By searchOppBox = By.XPath("//lightning-input[@class='slds-form-element']");
         private By _lnkSearchedEngL(string name)
         {
-            return By.XPath($"//div[@aria-label='Engagements||List View']//table//tbody//th[1]//a[@title='{name}']");
+            return By.XPath($"//h2//a[text()='Engagements']/../../../../..//table//tbody//th[1]//a[@title='{name}']"); //div[@aria-label='Engagements||List View']//table//tbody//th[1]//a[@title='{name}']");
         }
 
         public string GlobalSearchEngagementInLightningView(string engName)
