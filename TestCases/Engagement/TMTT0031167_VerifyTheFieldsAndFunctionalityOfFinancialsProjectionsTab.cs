@@ -135,7 +135,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //TMTI0072833-  Verify that if the user removed the selected currency from "Currency Financials reported in", on clicking the Save button, the application gives an error for the same. 
                 string messageCurrency = summaryPage.ValidateCurrencyFinancialsValidation();
-                Assert.AreEqual("Complete this field.", messageCurrency);
+                Assert.AreEqual("Currency\r\nComplete this field.", messageCurrency);
                 extentReports.CreateLog("Message : " + messageCurrency + " is displayed when no Currency is selected ");
                                               
 

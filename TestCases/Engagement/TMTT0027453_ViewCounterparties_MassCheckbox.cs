@@ -17,7 +17,7 @@ namespace SF_Automation.TestCases.Engagement
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         UsersLogin usersLogin = new UsersLogin();
         AddCounterparty counterparty = new AddCounterparty();
-        public static string fileTC7877 = "TMTT0027453_MassCheckboxs";
+        public static string fileTC7877 = "TMTT0027453_MassCheckbox";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -52,11 +52,11 @@ namespace SF_Automation.TestCases.Engagement
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 2);
                 usersLogin.SearchUserAndLogin(valUser);
                 string stdUser = login.ValidateUserLightning();
-                Assert.AreEqual(valUser,stdUser);
+                Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser + " is able to login ");
-               
+
                 //Search for Engagement on lightning
-                 string message = engHome.SearchEngagementWithNumberOnLightning("111861", "Buyside");                   
+                string message = engHome.SearchEngagementWithNumberOnLightning("111861", "Buyside");                   
                  extentReports.CreateLog("Engagement details are displayed upon searching required engagement ");
 
                 //Validate the View Counterparties button

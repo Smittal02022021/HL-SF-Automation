@@ -27,7 +27,7 @@ namespace SF_Automation.Pages.Common
         By titleNewExpense = By.XPath("//h2[text() = 'New Expense Request']");
         By btnClone = By.CssSelector("input[value='Clone']");
         By linkDBCompanyRecords = By.XPath("//a[text() = 'D&B Company Records']");
-        By btnAllList = By.Id("AllTab_Tab");
+        By btnAllList = By.XPath("//button[@title='Select a List View: Job Types']");
         By linkRowSelection = By.CssSelector("div[id*='FaE_Name'] > a");
         By linkDBContactRecords = By.XPath("//a[text() = 'D&B Contact Records']");
         By linkRowSelectionDB = By.CssSelector("div[id*='xdu_Name'] > a");
@@ -40,8 +40,10 @@ namespace SF_Automation.Pages.Common
         By valProductLine = By.CssSelector("table > tbody > tr:nth-child(21) > td:nth-child(2)");
         By valProductTypeCode = By.CssSelector("table > tbody > tr:nth-child(22) > td:nth-child(2)");
         By valJobTypeNames = By.CssSelector("div[id*='_Name']>a>span");
-        By valJobTypes = By.CssSelector("div[class*='-row']>table>tbody>tr>td:nth-child(3)");
-        By valProdLines = By.CssSelector("div[class*='-row']>table>tbody>tr>td:nth-child(4)");
+        By valJobTypes = By.XPath("//tbody/tr/th[1]//a//span");
+        By valJobTypesAll = By.XPath("//tbody/tr/th[1]//a//span");
+        By valProdLines = By.XPath("//tbody/tr/td[9]//span//span");
+        By valProdLinesAll = By.XPath("//tbody/tr/td[9]//span//span");
         By valBlank = By.CssSelector("div[id*='wN2_00Ni000000G8Xmo']");
 
         By txtPageCountString = By.XPath("//div[@class='paginator']//td[2]//span//i");
@@ -67,7 +69,7 @@ namespace SF_Automation.Pages.Common
         By filterList = By.XPath("//div[contains(@class,'combo-list pc-list')]//div//div");
         By btnCloseReport = By.XPath("//table[@id='closeBtn']//button");
         By btnConfirmClose = By.XPath("//div[contains(@class,'window-footer')]//button[text() = 'Close']");
-
+        By txtPageHeader = By.XPath("//h1//lightning-formatted-text");
         By comboIndustryTypeOpp = By.CssSelector("select[id*='pipelineManagerForm:industryGroupOptionsOpps']");
         By comboIndustryTypeOptionsOpp = By.CssSelector("select[id*='pipelineManagerForm:industryGroupOptionsOpps'] option");
         By comboIndustryTypeEng = By.CssSelector("select[id*='pipelineManagerForm:industryGroupOptionsEng']");
@@ -124,15 +126,45 @@ namespace SF_Automation.Pages.Common
         By tabMoreFullViewL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='Full View']");
         By tabMorePitchesMandateAwardsL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='Pitches/Mandate Awards']");
         By iconHeaderMoreTabsL = By.XPath("(//lightning-tab-bar/ul/li/lightning-button-menu/button[@title='More Tabs'])[1]");
-
+        By txtDNDStatusL = By.XPath("//span[text()='DND Status']/../..//lightning-formatted-text");
         By toastMsgPopup = By.XPath("//span[contains(@class,'toastMessage')]");
-
         By lnkRefereshTabL = By.XPath("//ul//li[@title='Refresh Tab']/a");
         By tabOracleERPL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Oracle ERP']");
         By tabMoreOracleERPL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu//a/span[text()='Oracle ERP']");
-        By btnNewL = By.XPath("//button[@name='New']");
-        By txtDNDStatusL = By.XPath("//span[text()='DND Status']/../..//lightning-formatted-text");
-        By txtPageHeader = By.XPath("//h1//lightning-formatted-text");
+
+        By btnNewReportL = By.XPath("//div[@role='banner']//ul//a[@title='New Report']");
+        By frameCreateReportPage = By.XPath("//iframe[@title='Report Builder']");
+        By inputSearchReportTypeL = By.XPath("//input[@placeholder='Search Report Types...']");
+        By btnStartReportL = By.XPath("//button[text()='Start Report']");
+        By subTabFilterL = By.XPath("//ul[@role='tablist']//li//h2[text()='Filters']//ancestor::a");
+        By inputAddFilterL = By.XPath("//input[@placeholder='Add filter...']");
+        By inputSearchFilterItemL = By.XPath("//h2[text()='Filter By']/../..//label[text()='Search for item']/..//input");
+        By btnCancelFilterBySection = By.XPath("//button[text()='Cancel']");
+        By resultTable = By.XPath("//table//td//p");
+        By chkWaiveRFOFieldL = By.XPath("//h3//span[@title='Estimated Fees']/../../..//Input[contains(@name,'Waive_RFO')]");
+        By editWaiveRFOFieldL = By.XPath("//input[@name='Waive_RFO__c']/../span");
+        By checkboxWaiveRFOFieldL = By.XPath("//input[@name='Waive_RFO__c']");
+        By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
+        By iconInlineEditWaiveRFOL = By.XPath("//button[@title='Edit Waive RFO']");
+        By btnCancelL = By.XPath("//button[@name='CancelEdit']");
+        By btnInterruptionOKL = By.XPath("//h1[text()='Sorry to interrupt']/../..//button[@title='OK']");
+        By txtAssignToLV = By.XPath("//div[@title='Assigned To:']/..//span");
+        By txtActualApproverLV = By.XPath("//div[@title='Actual Approver:']/..//span");
+        By txtActualApprovedLV = By.XPath("//div[@title='Actual Approver:']/..//a");
+        By txtStatusLV = By.XPath("//div[@title='Status:']/..//span");
+        By txtCommentsLV = By.XPath("//div[@title='Comments:']/..//span");
+        private By _optionReportsL(string reportName)
+        {
+            return By.XPath($"//table//td//p[text()='{reportName}']/..");
+        }
+        private By _optionFilterL(string filterName)
+        {
+            return By.XPath($"//div[@role='listbox']//li//span[@title='{filterName}']");
+        }
+        private By _optionFilterValueL(string filterValue)
+        {
+            return By.XPath($"//div[@role='option']//div[@class='option-label'][text()='{filterValue}']");
+        }
         private By _optionListView(string name)
         {
             return By.XPath($"//lightning-popup/section//span[text()='{name}']"); //div[contains(@class,'scroller')]//ul[contains(@aria-label,'List Views')]//li//a//span[text()='{name}']");
@@ -185,7 +217,6 @@ namespace SF_Automation.Pages.Common
             return By.XPath($"//div[contains(@class,'listViewContainer')]//table//tbody//th//a[@title='{name}']");
         }
 
-
         public void RefreshActiveTab(string name)
         {
             driver.SwitchTo().DefaultContent();
@@ -201,7 +232,7 @@ namespace SF_Automation.Pages.Common
 
         public void ClickPitchMandteAwardTabLV()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(1000);
             try
@@ -210,7 +241,7 @@ namespace SF_Automation.Pages.Common
                 WebDriverWaits.WaitUntilEleVisible(driver, tabPitchMandateAwardL, 10);
                 driver.FindElement(tabPitchMandateAwardL).Click();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, iconHeaderMoreTabsL, 10);
                 driver.FindElement(iconHeaderMoreTabsL).Click();
@@ -228,7 +259,7 @@ namespace SF_Automation.Pages.Common
                 WebDriverWaits.WaitUntilEleVisible(driver, txtReportsPageHeader, 20);
                 return driver.FindElement(txtReportsPageHeader).Text;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return e.Message;
             }
@@ -252,7 +283,7 @@ namespace SF_Automation.Pages.Common
                 WebDriverWaits.WaitUntilEleVisible(driver, txtReportHeader, 20);
                 return driver.FindElement(txtReportHeader).Text;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return e.Message;
             }
@@ -271,10 +302,10 @@ namespace SF_Automation.Pages.Common
                 driver.FindElement(optionsFilterFields).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, filterList, 5);
                 IReadOnlyCollection<IWebElement> listOption = driver.FindElements(filterList);
-                foreach(IWebElement element in listOption)
+                foreach (IWebElement element in listOption)
                 {
                     CustomFunctions.MoveToElement(driver, element);
-                    if(element.Text == value)
+                    if (element.Text == value)
                     {
                         element.Click();
                         break;
@@ -282,7 +313,7 @@ namespace SF_Automation.Pages.Common
                 }
                 return driver.FindElement(searchField).GetAttribute("value");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return e.Message;
             }
@@ -296,9 +327,9 @@ namespace SF_Automation.Pages.Common
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(listOptions);
             var actualValue = valTypes.Select(x => x.Text).ToArray();
             string expectedValue = valJobType;
-            for(int rec = 0; rec < actualValue.Length; rec++)
+            for (int rec = 0; rec < actualValue.Length; rec++)
             {
-                if(expectedValue.Equals(actualValue[rec]))
+                if (expectedValue.Equals(actualValue[rec]))
                 {
                     found = true;
                     break;
@@ -320,7 +351,7 @@ namespace SF_Automation.Pages.Common
                 WebDriverWaits.WaitUntilEleVisible(driver, txtReportsPageHeader, 20);
                 return driver.FindElement(txtReportsPageHeader).Text;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return ex.Message;
             }
@@ -338,7 +369,7 @@ namespace SF_Automation.Pages.Common
             {
                 driver.FindElement(btnGo).Click();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 //do nothing
             }
@@ -356,7 +387,7 @@ namespace SF_Automation.Pages.Common
 
         check: try
             {
-                if(pageTitle == "Job Types")
+                if (pageTitle == "Job Types")
                 {
                     elmJobType = driver.FindElement(_txtJobTypeObjPage(valJobType));
                 }
@@ -366,17 +397,17 @@ namespace SF_Automation.Pages.Common
                 }
 
                 CustomFunctions.MoveToElement(driver, elmJobType);
-                if(elmJobType.Displayed)
+                if (elmJobType.Displayed)
                 {
                     isJobTypefound = true;
                     //break;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 try
                 {
-                    if(driver.FindElement(linkNext).Enabled)
+                    if (driver.FindElement(linkNext).Enabled)
                     {
                         driver.FindElement(linkNext).Click();
                         WebDriverWaits.WaitTillElementVisible(driver, loader);
@@ -384,7 +415,7 @@ namespace SF_Automation.Pages.Common
                         goto check;
                     }
                 }
-                catch(Exception ee)
+                catch (Exception ee)
                 {
                     isJobTypefound = false;
                 }
@@ -400,7 +431,7 @@ namespace SF_Automation.Pages.Common
             {
                 return driver.FindElement(_objJobTypeCode(valJobCode)).Displayed;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return false;
             }
@@ -427,7 +458,7 @@ namespace SF_Automation.Pages.Common
             {
                 string value = driver.FindElement(btnClone).Displayed.ToString();
                 Console.WriteLine(value);
-                if(value.Equals("True"))
+                if (value.Equals("True"))
                 {
                     return "Clone button is displayed";
                 }
@@ -436,7 +467,7 @@ namespace SF_Automation.Pages.Common
                     return "Clone button is not displayed";
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return "Clone button is not displayed";
             }
@@ -514,19 +545,18 @@ namespace SF_Automation.Pages.Common
         }
 
         //To get Job Types 
-        public void GetJobTypes()
+        public void GetJobTypes(string name)
         {
-            driver.Navigate().Refresh();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnAllList, 90);
-            driver.FindElement(btnAllList).Click();
-            driver.FindElement(linkJobTypes).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnGo, 100);
-            driver.FindElement(btnGo).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(6000);
+            By lblDebtAdvisory = By.XPath("//span[text()='" + name + "']");
+            CustomFunctions.MoveToElement(driver, driver.FindElement(lblDebtAdvisory));
+            Thread.Sleep(6000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            Thread.Sleep(6000);
             IReadOnlyCollection<IWebElement> type = driver.FindElements(valJobTypes);
             //Console.WriteLine("NUMBER OF ROWS IN THIS TABLE = " + type.Count);
             int row_num = 1;
-            foreach(IWebElement element in type)
+            foreach (IWebElement element in type)
             {
                 Console.WriteLine(element.Text);
                 row_num++;
@@ -538,13 +568,13 @@ namespace SF_Automation.Pages.Common
         {
             Thread.Sleep(3000);
             IReadOnlyCollection<IWebElement> type = driver.FindElements(valProdLines);
-            Console.WriteLine("NUMBER OF ROWS IN THIS TABLE = " + type.Count);
+            Console.WriteLine("NUMBER OF ROWS IN TABLE = " + type.Count);
 
             int row_num = 1;
 
-            foreach(IWebElement element in type)
+            foreach (IWebElement element in type)
             {
-                Console.WriteLine("row# " + row_num + element.Text);
+                Console.WriteLine(element.Text);
                 row_num++;
             }
         }
@@ -587,18 +617,18 @@ namespace SF_Automation.Pages.Common
             bool isSame = true;
 
             List<string> difference = actualValue.Except(expectedValue).ToList();
-            foreach(var value in difference)
+            foreach (var value in difference)
             {
                 Console.WriteLine(value);
             }
 
-            if(expectedValue.Length != actualValue.Length)
+            if (expectedValue.Length != actualValue.Length)
             {
                 return !isSame;
             }
-            for(int rec = 0; rec < expectedValue.Length; rec++)
+            for (int rec = 0; rec < expectedValue.Length; rec++)
             {
-                if(!expectedValue[rec].Equals(actualValue[rec]))
+                if (!expectedValue[rec].Equals(actualValue[rec]))
                 {
                     isSame = false;
                     break;
@@ -612,33 +642,36 @@ namespace SF_Automation.Pages.Common
         //To Validate Job Types 
         public bool ValidateProductLines()
         {
-            driver.Navigate().Refresh();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnAllList, 90);
-            driver.FindElement(btnAllList).Click();
-            driver.FindElement(linkJobTypes).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnGo, 100);
-            driver.FindElement(btnGo).Click();
-            Thread.Sleep(3000);
-            IReadOnlyCollection<IWebElement> prodLines = driver.FindElements(valProdLines);
-            var actualValue = prodLines.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Advisory", "Transaction Opinions", "Buyside", "Capital Markets", "Other", "Portfolio Valuation & Advisory", "Other", "Advisory", "Financial Restructuring - Creditor / Debtor", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "Capital Markets", "Capital Markets", "Financial Restructuring - Creditor / Debtor", "Advisory", "Financial Restructuring - Other", "Financial Restructuring - Other", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Financial Restructuring - Other", "Capital Markets", "CVAS - Corporate Valuation Advisory Services", "Dispute", "Other", "Portfolio Valuation & Advisory", "Transaction Opinions", "Other", "Advisory", "Transaction Opinions", "Other", "Dispute", "Fund Opinions", "Fund Opinions", "Fund Opinions", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Transaction Opinions", " ", "Capital Markets", "Other", "Transaction Opinions", "Advisory", "Advisory", "Advisory", "Other", "Other", "Capital Markets", "Capital Markets", "Financial Restructuring - Other", "Dispute", "Sellside", "Advisory", "Capital Markets", "Financial Restructuring - Other", " ", "Advisory", "Private Funds Advisory", "Private Funds Advisory", "Private Funds Advisory", "Private Funds Advisory", "Advisory", "Financial Restructuring - Other", "Other", "Sellside", "Transaction Opinions", " ", "Advisory", "Advisory", "Buyside", "Sellside", "Advisory", "Strategic Consulting", "Advisory", "Capital Markets", "Tech+IP Advisory", "Tech+IP Advisory", "Advisory", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "Advisory", "Tech+IP Advisory", "Advisory", "Tech+IP Advisory", "Advisory", "Tech+IP Advisory", "Advisory" };
 
+            Thread.Sleep(3000);
+            IReadOnlyCollection<IWebElement> prodLines = driver.FindElements(valProdLinesAll);
+            Console.WriteLine("NUMBER OF ROWS IN THIS TABLE = " + prodLines.Count);
+            var actualValue = prodLines.Select(x => x.Text).ToArray();
+            ///string[] expectedValue = { "Transaction Opinions", "Buyside", "Capital Markets", "Other", "Portfolio Valuation & Advisory", "Other", "Advisory", "Financial Restructuring - Creditor / Debtor", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "Capital Solutions", "Capital Markets", "Capital Solutions", "Financial Restructuring - Creditor / Debtor", "Capital Solutions", "Advisory", "Financial Restructuring - Other", "Financial Restructuring - Other", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Financial Restructuring - Other", "Capital Markets", "Capital Solutions", "CVAS - Corporate Valuation Advisory Services", "Other", "Portfolio Valuation & Advisory", "Transaction Opinions", "Other", "Advisory", "Transaction Opinions", "Other",  "Fund Opinions", "Fund Opinions", "Fund Opinions", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Transaction Opinions", " ", "Capital Solutions", "Capital Markets", "Other", "Transaction Opinions", "Advisory", "Sellside", "Capital Solutions", "Capital Solutions", "Capital Solutions", "Advisory", "Other", "Other", "Capital Solutions", "Capital Solutions", "Financial Restructuring - Other", "Dispute", "Capital Solutions", "Sellside", "Advisory", "Capital Markets", "Financial Restructuring - Other", " ", "Advisory", "Capital Solutions", "Capital Solutions", "Private Funds Advisory", "Private Funds Advisory", "Private Funds Advisory", "Private Funds Advisory", "Private Funds Advisory", "Capital Solutions", "Advisory", "Financial Restructuring - Other", "Other", "Sellside", "Transaction Opinions", "", "Advisory", "Advisory", "Buyside", "Sellside", "Advisory", "Strategic Consulting", "Advisory", "Capital Markets", "Tech+IP Advisory", "Tech+IP Advisory", "Advisory", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "Advisory", "Tech+IP Advisory", "Advisory", "Tech+IP Advisory", "Advisory", "Tech+IP Advisory", "Advisory" };
+
+            string[] expectedValue = { "Advisory", "Transaction Opinions", "Buyside", "Credit Solutions & Markets Advisory", "Other", "Portfolio Valuation & Advisory", "Other", "Advisory", "Financial Restructuring - Creditor / Debtor", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "CVAS - Corporate Valuation Advisory Services", "Credit Solutions & Markets Advisory", "Credit Solutions & Markets Advisory", "Credit Solutions & Markets Advisory", "Financial Restructuring - Creditor / Debtor", "Equity Capital Solutions", "Advisory", "Credit Solutions & Markets Advisory", "Financial Restructuring - Other", "Financial Restructuring - Other", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Dispute", "Financial Restructuring - Other", "Capital Solutions", "Capital Solutions", "CVAS - Corporate Valuation Advisory Services", "Other", "Portfolio Valuation & Advisory", "Transaction Opinions", "Other", "Advisory", "Transaction Opinions", "Other", "Fund Opinions", "Fund Opinions", "Fund Opinions", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Portfolio Valuation & Advisory", "Transaction Opinions", "", "Credit Solutions & Markets Advisory", "Credit Solutions & Markets Advisory", "Other", "Transaction Opinions", "Advisory", "Sellside", "GP Advisory", "GP Advisory", "Equity Capital Solutions", "Advisory", "Other", "Other", "Credit Solutions & Markets Advisory", "Credit Solutions & Markets Advisory", "Financial Restructuring - Other", "Dispute", "Equity Capital Solutions", "Sellside", "Advisory", "Equity Capital Solutions", "Financial Restructuring - Other", "", "Advisory", "Primary Capital Advisory", "Equity Capital Advisory", "GP Advisory", "GP Advisory", "Primary Capital Advisory", "Equity Capital Solutions", "Credit Solutions & Markets Advisory", "Advisory", "Financial Restructuring - Other", "Other", "Sellside", "Transaction Opinions", "", "Advisory", "Advisory", "Buyside", "Sellside", "Advisory", "Strategic Consulting", "Advisory", "Credit Solutions & Markets Advisory", "Tech+IP Advisory", "Tech+IP Advisory", "Advisory", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "TAS - Due Diligence Services", "Advisory", "Tech+IP Advisory", "Advisory", "Tech+IP Advisory", "Advisory", "Tech+IP Advisory", "Advisory" };
+
+            Console.WriteLine("1st:" + actualValue[1]);
+            Console.WriteLine("1st:" + actualValue[2]);
+            Console.WriteLine("1st:" + actualValue[3]);
+            Console.WriteLine("1st:" + actualValue[4]);
+            Console.WriteLine("1st:" + actualValue[5]);
             bool isSame = true;
+            int row_num = 1;
 
             List<string> difference = actualValue.Except(expectedValue).ToList();
-            //int row_num = 1;
-            foreach(var value in difference)
+            foreach (var value in difference)
             {
-                Console.WriteLine(value);
+                Console.WriteLine("value:" + value);
             }
 
-            if(expectedValue.Length != actualValue.Length)
+            if (expectedValue.Length != actualValue.Length)
             {
                 return !isSame;
             }
-            for(int rec = 0; rec < expectedValue.Length; rec++)
+            for (int rec = 0; rec < expectedValue.Length; rec++)
             {
-                if(!expectedValue[rec].Equals(actualValue[rec]))
+                if (!expectedValue[rec].Equals(actualValue[rec]))
                 {
                     isSame = false;
                     break;
@@ -652,9 +685,9 @@ namespace SF_Automation.Pages.Common
             driver.FindElement(comboIndustryTypeOpp).Click();
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIndustryTypeOptionsOpp);
             var actualValue = valTypes.Select(x => x.Text).ToArray();
-            for(int row = 0; row <= actualValue.Length; row++)
+            for (int row = 0; row <= actualValue.Length; row++)
             {
-                if(actualValue[row].Contains(valIndustryGroup))
+                if (actualValue[row].Contains(valIndustryGroup))
                 {
                     isFound = true;
                     break;
@@ -670,9 +703,9 @@ namespace SF_Automation.Pages.Common
             driver.FindElement(comboIndustryTypeEng).Click();
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIndustryTypeOptionsEng);
             var actualValue = valTypes.Select(x => x.Text).ToArray();
-            for(int row = 0; row <= actualValue.Length; row++)
+            for (int row = 0; row <= actualValue.Length; row++)
             {
-                if(actualValue[row].Contains(valIndustryGroup))
+                if (actualValue[row].Contains(valIndustryGroup))
                 {
                     isFound = true;
                     break;
@@ -690,9 +723,9 @@ namespace SF_Automation.Pages.Common
             Thread.Sleep(15000);
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(_elmIGType(industryType));
             var actualValue = valTypes.Select(x => x.Text).ToArray();
-            for(int row = 0; row <= actualValue.Length; row++)
+            for (int row = 0; row <= actualValue.Length; row++)
             {
-                if(actualValue[row].Contains(industryType))
+                if (actualValue[row].Contains(industryType))
                 {
                     isFound = true;
                     break;
@@ -709,9 +742,9 @@ namespace SF_Automation.Pages.Common
             Thread.Sleep(15000);
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(_elmIGType(industryType));
             var actualValue = valTypes.Select(x => x.Text).ToArray();
-            for(int row = 0; row <= actualValue.Length; row++)
+            for (int row = 0; row <= actualValue.Length; row++)
             {
-                if(actualValue[row].Contains(industryType))
+                if (actualValue[row].Contains(industryType))
                 {
                     isFound = true;
                     break;
@@ -734,21 +767,21 @@ namespace SF_Automation.Pages.Common
             {
                 driver.FindElement(btnGo).Click();
             }
-            catch(Exception ex) { }
+            catch (Exception ex) { }
             Thread.Sleep(5000);
         check: try
             {
                 elmIGType = driver.FindElement(typeIG);
                 CustomFunctions.MoveToElement(driver, elmIGType);
-                if(elmIGType.Displayed)
+                if (elmIGType.Displayed)
                 {
                     isIndustryGroupfound = true;
                     //break;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                if(driver.FindElement(linkNext).Enabled)
+                if (driver.FindElement(linkNext).Enabled)
                 {
                     driver.FindElement(linkNext).Click();
                     WebDriverWaits.WaitTillElementVisible(driver, loader);
@@ -764,9 +797,9 @@ namespace SF_Automation.Pages.Common
             driver.FindElement(comboJobType).Click();
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboJobTypeOptions);
             var actualValue = valTypes.Select(x => x.Text).ToArray();
-            for(int row = 0; row <= actualValue.Length; row++)
+            for (int row = 0; row <= actualValue.Length; row++)
             {
-                if(actualValue[row].Contains(jobType))
+                if (actualValue[row].Contains(jobType))
                 {
                     isFound = true;
                     break;
@@ -817,7 +850,7 @@ namespace SF_Automation.Pages.Common
                 driver.FindElement(tabActivity).Click();
                 Thread.Sleep(5000);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 driver.FindElement(btnMoreTabs).Click();
                 Thread.Sleep(2000);
@@ -877,11 +910,11 @@ namespace SF_Automation.Pages.Common
             }
             catch { Thread.Sleep(4000); }
             Thread.Sleep(4000);
-        }
-
+        }   
+        
         public string SelectJobTypesLV(string name)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             Thread.Sleep(5000);
             try
             {
@@ -893,13 +926,13 @@ namespace SF_Automation.Pages.Common
                 int x = 0;
             ReTry: try
                 {
-                    x = x + 500;
+
                     WebDriverWaits.WaitUntilEleVisible(driver, _eleJobType(name), 10);
                     CustomFunctions.MoveToElement(driver, driver.FindElement(_eleJobType(name)));
                 }
                 catch
                 {
-                    js.ExecuteScript($"window.scrollTo({x},0)");
+                    js.ExecuteScript("window.scrollTo(0,500)");
                     Thread.Sleep(2000);
                     goto ReTry;
                 }
@@ -912,7 +945,7 @@ namespace SF_Automation.Pages.Common
         }
         public string SelectLegalEntityLV(string name)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             Thread.Sleep(5000);
             try
             {
@@ -941,8 +974,7 @@ namespace SF_Automation.Pages.Common
             WebDriverWaits.WaitUntilEleVisible(driver, txtPageHeader, 20);
             string pageheader = driver.FindElement(txtPageHeader).Text;
             return pageheader;
-        }
-
+        }       
 
         public string GetJobTypeProductLineLV()
         {
@@ -1022,7 +1054,7 @@ namespace SF_Automation.Pages.Common
             WebDriverWaits.WaitUntilEleVisible(driver, checkERPUpdateDFFL, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(checkERPUpdateDFFL));
             bool Enabled = driver.FindElement(checkERPUpdateDFFL).Selected;
-            if(Enabled)
+            if (Enabled)
             {
                 return "Checkbox is checked";
             }
@@ -1236,7 +1268,7 @@ namespace SF_Automation.Pages.Common
         }
         public void DetailPageFullViewLV()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(1000);
             try
@@ -1245,7 +1277,7 @@ namespace SF_Automation.Pages.Common
                 WebDriverWaits.WaitUntilEleVisible(driver, tabFullViewL, 10);
                 driver.FindElement(tabFullViewL).Click();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, iconHeaderMoreTabsL, 10);
                 driver.FindElement(iconHeaderMoreTabsL).Click();
@@ -1257,7 +1289,7 @@ namespace SF_Automation.Pages.Common
 
         public bool GetVerballyEngCheckboxStatusLV()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             //Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, chkVerballyEngL, 20);
@@ -1275,7 +1307,7 @@ namespace SF_Automation.Pages.Common
 
         public void ClickTabOracleERPLV()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,0)");
             Thread.Sleep(1000);
             try
@@ -1285,7 +1317,7 @@ namespace SF_Automation.Pages.Common
                     WebDriverWaits.WaitUntilEleVisible(driver, tabOracleERPL, 5);
                     driver.FindElement(tabOracleERPL).Click();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, iconHeaderMoreTabsL, 5);
                     driver.FindElement(iconHeaderMoreTabsL).Click();
@@ -1311,82 +1343,36 @@ namespace SF_Automation.Pages.Common
         }
 
         public bool ValidateJobTypesLV()
-
         {
-
             Thread.Sleep(6000);
-
             IReadOnlyCollection<IWebElement> jobTypes = driver.FindElements(valJobTypesL);
-
             var actualValue = jobTypes.Select(x => x.GetAttribute("title")).ToArray();
-
             string[] expectedValue = { "Activism Advisory", "Board Advisory Services (BAS)", "Buyside", "Buyside & Financing Advisory", "Collateral Valuation", "Compensation/Formula Analysis", "Consulting", "Corporate Alliances", "Creditor Advisors", "CVAS - Complex Securities", "CVAS - Forensic Services", "CVAS - FV Opinion", "CVAS - Goodwill or Asset Impairment", "CVAS - IP Valuation", "CVAS - Modeling", "CVAS - Pre-Acq Val'n Cons", "CVAS - Purchase Price Allocation", "CVAS - SFAS 123R/409A Stock, Option Valuation", "CVAS - Sovereign Advisory", "CVAS - Tangible Asset Valuation", "CVAS - Tax Valuation", "CVAS - Transfer Pricing", "Debt Advisory", "Debt Capital Markets", "Debtor Advisors", "Discretionary Advisory", "DM&A Buyside", "DM&A Sellside", "DRC - Ad Valorem Services", "DRC - Appointed Arbitrator/Mediator", "DRC - Contract Compliance", "DRC - Exp Cons-Arbitrat'n", "DRC - Exp Cons-Bankruptcy", "DRC - Exp Cons-Litigation", "DRC - Exp Cons-Mediation", "DRC - Exp Cons-Pre-Complt", "DRC - Exp Wit-Arbitration", "DRC - Exp Wit-Bankruptcy", "DRC - Exp Wit-Litigation", "DRC - Exp Wit-Mediation", "DRC - Exp Wit-Pre-Complnt", "DRC - Post Transaction Dispute", "Equity Advisors", "Equity Capital Markets", "ESOP Advisory - CVAS", "ESOP Advisory - DRC", "ESOP Advisory - Other", "ESOP Advisory - PV", "ESOP Advisory - TO", "ESOP Capital Partnership", "ESOP Corporate Finance", "ESOP Fairness", "ESOP Update", "Estate & Gift Tax", "FA - Fund Opinions-Fairness", "FA - Fund Opinions-Non-Fairness", "FA - Fund Opinions-Valuation", "FA - Portfolio - SPAC", "FA - Portfolio LIBOR Advisory", "FA - Portfolio-Advis/Consulting", "FA - Portfolio-Auto Loans", "FA - Portfolio-Auto Struct Prd", "FA - Portfolio-Auto Struct Prd/Consulting", "FA - Portfolio-BDC/Direct Lending", "FA - Portfolio-Deriv/Risk Mgmt", "FA - Portfolio-Diligence/Assets", "FA - Portfolio-Funds Transfer", "FA - Portfolio-GP interest", "FA - Portfolio-Outsourcing", "FA - Portfolio-Real Estate", "FA - Portfolio-Valuation", "Fairness", "FAS - Administrative", "Financing", "FMV Non-Transaction Based Opinion", "FMV Transaction Based Opinion", "General Financial Advisory", "Going Private", "Illiquid Financial Assets", "Income Deposit Securities", "InSource", "Lender Education", "Liability Management", "Liability Mgmt", "Litigation", "Merger", "Negotiated Fairness", "Partners", "PBAS", "Portfolio Acquisition", "Post Merger Integration", "Private Funds: Direct", "Private Funds: GP Advisory", "Private Funds: GP Stake Sale", "Private Funds: Primary Advisory", "Private Funds: Secondary Advisory", "Real Estate Brokerage", "Regulator/Other", "Securities Design", "Sellside", "Solvency", "Sovereign Restructuring", "Special Committee Advisory", "Special Situations", "Special Situations Buyside", "Special Situations Sellside", "Strategic Alternatives Study", "Strategic Consulting", "Strategy", "Syndicated Finance", "T+IP - Damages", "T+IP - Expert Report", "Take Over Defense", "TAS - Accounting and Financial Reporting Advisory", "TAS - Due Diligence-Buyside", "TAS - Due Diligence-Buyside Add-On", "TAS - Due Diligence-Sellside", "TAS - DVC Business Analytics", "TAS - DVC Decision Modeling", "TAS - ESG Due Diligence & Analytics", "TAS - Lender Services", "TAS - Tax", "TAS - Tech & Cyber", "Tech+IP - Buyside", "Tech+IP - Patent Acquisition Support", "Tech+IP - Patent Sales", "Tech+IP - Strategic Advisory", "Tech+IP - Tech+IP Sales", "Tech+IP - Valuation", "Valuation Advisory" };
-
             Console.WriteLine("Clicked Job types");
-
             bool isSame = true;
-
             List<string> difference = actualValue.Except(expectedValue).ToList();
-
-            foreach(var value in difference)
-
+            foreach (var value in difference)
             {
-
                 Console.WriteLine(value);
-
             }
-
-            if(expectedValue.Length != actualValue.Length)
-
+            if (expectedValue.Length != actualValue.Length)
             {
-
                 return !isSame;
-
             }
-
-            for(int rec = 0; rec < expectedValue.Length; rec++)
-
+            for (int rec = 0; rec < expectedValue.Length; rec++)
             {
-
-                if(!expectedValue[rec].Equals(actualValue[rec]))
-
+                if (!expectedValue[rec].Equals(actualValue[rec]))
                 {
-
                     isSame = false;
-
                     break;
-
                 }
-
             }
-
             return isSame;
 
-        }
-        By btnNewReportL = By.XPath("//div[@role='banner']//ul//a[@title='New Report']");
-        By frameCreateReportPage = By.XPath("//iframe[@title='Report Builder']");
-        By inputSearchReportTypeL = By.XPath("//input[@placeholder='Search Report Types...']");
-        By btnStartReportL = By.XPath("//button[text()='Start Report']");
-        By subTabFilterL = By.XPath("//ul[@role='tablist']//li//h2[text()='Filters']//ancestor::a");
-        By inputAddFilterL = By.XPath("//input[@placeholder='Add filter...']");
-        By inputSearchFilterItemL = By.XPath("//h2[text()='Filter By']/../..//label[text()='Search for item']/..//input");
-        By btnCancelFilterBySection = By.XPath("//button[text()='Cancel']");
-        By resultTable = By.XPath("//table//td//p");
-        private By _optionReportsL(string reportName)
-        {
-            return By.XPath($"//table//td//p[text()='{reportName}']/..");
-        }
-        private By _optionFilterL(string filterName)
-        {
-            return By.XPath($"//div[@role='listbox']//li//span[@title='{filterName}']");
-        }
-        private By _optionFilterValueL(string filterValue)
-        {
-            return By.XPath($"//div[@role='option']//div[@class='option-label'][text()='{filterValue}']");
-        }
+        }       
         public void CreateNewReportLV(string reportName)
         {
-            IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             WebDriverWaits.WaitUntilEleVisible(driver, btnNewReportL, 20);
             driver.FindElement(btnNewReportL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, frameCreateReportPage, 20);
@@ -1400,11 +1386,11 @@ namespace SF_Automation.Pages.Common
             jse.ExecuteScript("arguments[0].scrollIntoView(true);", optionReport);
             WebDriverWaits.WaitUntilEleVisible(driver, resultTable, 20);
             IReadOnlyCollection<IWebElement> tableRow = driver.FindElements(resultTable);
-            foreach(IWebElement element in tableRow)
+            foreach (IWebElement element in tableRow)
             {
                 //jse.ExecuteScript("arguments[0].scrollIntoView(true);", element);
                 string value = element.Text;
-                if(value == reportName)
+                if (value == reportName)
                 {
                     element.Click();
                     break;
@@ -1449,11 +1435,7 @@ namespace SF_Automation.Pages.Common
             WebDriverWaits.WaitUntilEleVisible(driver, btnCancelFilterBySection, 20);
             driver.FindElement(btnCancelFilterBySection).Click();
         }
-        By chkWaiveRFOFieldL = By.XPath("//h3//span[@title='Estimated Fees']/../../..//Input[contains(@name,'Waive_RFO')]");
-        By editWaiveRFOFieldL = By.XPath("//input[@name='Waive_RFO__c']/../span");
-        By checkboxWaiveRFOFieldL = By.XPath("//input[@name='Waive_RFO__c']");
-        By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
-        By iconInlineEditWaiveRFOL = By.XPath("//button[@title='Edit Waive RFO']");
+        
         //By iconInlineEditWaiveRFOL = By.XPath("//button[@title='Edit Waive RFO']");
         public bool IsWaiveRFOFieldDisplayedLV()
         {
@@ -1496,7 +1478,7 @@ namespace SF_Automation.Pages.Common
                 WebDriverWaits.WaitUntilEleVisible(driver, chkWaiveRFOFieldL, 10);
                 return driver.FindElement(chkWaiveRFOFieldL).Displayed;
             }
-            catch(NoSuchElementException)
+            catch (NoSuchElementException)
             {
                 return false;
             }
@@ -1522,13 +1504,13 @@ namespace SF_Automation.Pages.Common
 
             catch { return false; }
         }
-        By btnCancelL = By.XPath("//button[@name='CancelEdit']");
+        
         public void CancelEditFormLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnCancelL, 20);
             driver.FindElement(btnCancelL).Click();
         }
-        By btnInterruptionOKL = By.XPath("//h1[text()='Sorry to interrupt']/../..//button[@title='OK']");
+        
         public string ClickInterruptionOKButtonLV()
         {
             try
@@ -1537,20 +1519,16 @@ namespace SF_Automation.Pages.Common
                 driver.FindElement(btnInterruptionOKL).Click();
                 return "Interruption popup displayed and OK button clicked";
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return "No interruption popup displayed";
             }
         }
-        By txtAssignToLV = By.XPath("//div[@title='Assigned To:']/..//span");
-        By txtActualApproverLV = By.XPath("//div[@title='Actual Approver:']/..//span");
-        By txtActualApprovedLV = By.XPath("//div[@title='Actual Approver:']/..//a");
-        By txtStatusLV = By.XPath("//div[@title='Status:']/..//span");
-        By txtCommentsLV = By.XPath("//div[@title='Comments:']/..//span");
+        
 
         public string GetHistoryAssignToNameLV()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,1800)");
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtAssignToLV, 5);
@@ -1560,7 +1538,7 @@ namespace SF_Automation.Pages.Common
 
         public string GetHistoryActualApproverLV()
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,1800)");
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, txtActualApproverLV, 5);
@@ -1571,7 +1549,7 @@ namespace SF_Automation.Pages.Common
         {
             //WebDriverWaits.WaitUntilEleVisible(driver, txtActualApprovedLV, 5);
             //CustomFunctions.MoveToElement(driver, driver.FindElement(txtActualApprovedLV));
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,1800)");
             Thread.Sleep(5000);
             IWebElement elm = driver.FindElements(txtActualApprovedLV).First();
@@ -1580,7 +1558,7 @@ namespace SF_Automation.Pages.Common
         public string GetHistoryStatusLV()
         {
             //WebDriverWaits.WaitUntilEleVisible(driver, txtStatusLV, 5);
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,1800)");
             Thread.Sleep(5000);
             //CustomFunctions.MoveToElement(driver, driver.FindElement(txtStatusLV));
@@ -1591,7 +1569,7 @@ namespace SF_Automation.Pages.Common
         {
             //WebDriverWaits.WaitUntilEleVisible(driver, txtCommentsLV, 5);
             //CustomFunctions.MoveToElement(driver, driver.FindElement(txtCommentsLV));
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,1800)");
             Thread.Sleep(5000);
             IWebElement elm = driver.FindElements(txtCommentsLV).First();

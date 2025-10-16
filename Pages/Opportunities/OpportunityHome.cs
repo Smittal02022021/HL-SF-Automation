@@ -40,15 +40,16 @@ namespace SF_Automation.Pages
         By imgOppL = By.XPath("//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Opportunity']");
         By btnNavigationMenu = By.XPath("//button[@title='Show Navigation Menu']");
         By tagOpportunities = By.XPath("//div/ul/li[6]/div/a/span[2]/span");
-        By tagParentProject = By.XPath("//div/ul/li/div/a/span[2]/span[text()='Parent Projects']");
-        By tagOpportunitiesCAO = By.XPath("//div/ul/li[4]/div/a/span[2]/span");
+        By tagParentProject = By.XPath("//div/ul/li/div/a/span[2]/span[text()='Project Billings']");
+        By tagOpportunitiesCAO = By.XPath("//div/ul/li[5]/div/a/span[2]/span");
         By lnkRecentlyViewed = By.XPath("//h1/span[2]");
         By btnRecentlyViewed = By.XPath("//div/div/div[2]/div/button");
         By valRecentlyViewed = By.XPath("//div[2]/div/div/div[1]/div/div/div/div/div[1]/div/ul/li/a/span");
         By tblOpportunities = By.XPath("//div/table/tbody");
-        By txtSearchOpp = By.XPath("//input[@name='Opportunity__c-search-input']");
+        By txtSearchOpp = By.XPath("//input[@name='Opportunity-search-input']");
         By btnRefresh = By.XPath("//button[@title='Refresh']");
-        By valSearchedOpp = By.XPath("//table/tbody/tr/td[2]/span//span");
+        By valSearchedOpp = By.XPath("//table/tbody/tr/td[3]//lst-formatted-text/span");
+        By valSearchedOppName = By.XPath("//table/tbody/tr/th//a");
         By valLOBs = By.XPath("//fieldset/div/label/span[2]");
         By searchOppBox = By.XPath("//lightning-input[@class='slds-form-element']");
         By selectOpp = By.CssSelector("table[class*='slds-table'] tbody tr th a");
@@ -111,9 +112,9 @@ namespace SF_Automation.Pages
             driver.FindElement(comboJobType).Click();
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboJobTypes);
             var actualValue = valTypes.Select(x => x.Text).ToArray();
-            for(int row = 0; row <= actualValue.Length; row++)
+            for (int row = 0; row <= actualValue.Length; row++)
             {
-                if(actualValue[row].Contains(jobType))
+                if (actualValue[row].Contains(jobType))
                 {
                     isFound = true;
                     break;
@@ -167,7 +168,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(matchedResult).Click();
                 return "Record found";
             }
-            catch(Exception)
+            catch (Exception)
             {
                 driver.Navigate().Refresh();
                 WebDriverWaits.WaitUntilEleVisible(driver, lnkOpportunities, 150);
@@ -215,7 +216,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(matchedResult).Click();
                 return "Record found";
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return "No record found";
             }
@@ -234,7 +235,7 @@ namespace SF_Automation.Pages
                 Console.WriteLine("Search Results :" + result);
                 return "Record found";
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return "No record found";
             }
@@ -246,13 +247,13 @@ namespace SF_Automation.Pages
             string[] expectedValue = { "CF", "FR", "FVA", "SC" };
             bool isSame = true;
 
-            if(expectedValue.Length != actualValue.Length)
+            if (expectedValue.Length != actualValue.Length)
             {
                 return !isSame;
             }
-            for(int rec = 0; rec < expectedValue.Length; rec++)
+            for (int rec = 0; rec < expectedValue.Length; rec++)
             {
-                if(!expectedValue[rec].Equals(actualValue[rec]))
+                if (!expectedValue[rec].Equals(actualValue[rec]))
                 {
                     isSame = false;
                     break;
@@ -268,13 +269,13 @@ namespace SF_Automation.Pages
             string[] expectedValues = { "Corporate Finance", "Financial Restructuring", "Financial and Valuation Advisory", "Strategic Consulting" };
             bool isTrue = true;
 
-            if(expectedValues.Length != actualNamesAndDesc.Length)
+            if (expectedValues.Length != actualNamesAndDesc.Length)
             {
                 return !isTrue;
             }
-            for(int recType = 0; recType < expectedValues.Length; recType++)
+            for (int recType = 0; recType < expectedValues.Length; recType++)
             {
-                if(!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
                 {
                     isTrue = false;
                     break;
@@ -290,13 +291,13 @@ namespace SF_Automation.Pages
             string[] expectedValue = { "CF", "FR", "FVA", "SC" };
             bool isSame = true;
 
-            if(expectedValue.Length != actualValue.Length)
+            if (expectedValue.Length != actualValue.Length)
             {
                 return !isSame;
             }
-            for(int rec = 0; rec < expectedValue.Length; rec++)
+            for (int rec = 0; rec < expectedValue.Length; rec++)
             {
-                if(!expectedValue[rec].Equals(actualValue[rec]))
+                if (!expectedValue[rec].Equals(actualValue[rec]))
                 {
                     isSame = false;
                     break;
@@ -313,13 +314,13 @@ namespace SF_Automation.Pages
             string[] expectedValues = { "Record Type Name Description", "CF Corporate Finance", "FR Financial Restructuring", "FVA Financial and Valuation Advisory", "SC Strategic Consulting" };
             bool isTrue = true;
 
-            if(expectedValues.Length != actualNamesAndDesc.Length)
+            if (expectedValues.Length != actualNamesAndDesc.Length)
             {
                 return !isTrue;
             }
-            for(int recType = 0; recType < expectedValues.Length; recType++)
+            for (int recType = 0; recType < expectedValues.Length; recType++)
             {
-                if(!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
                 {
                     isTrue = false;
                     break;
@@ -369,7 +370,7 @@ namespace SF_Automation.Pages
                 driver.FindElement(matchedResult).Click();
                 return "Record found";
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return "No record found";
             }
@@ -383,8 +384,8 @@ namespace SF_Automation.Pages
             Console.WriteLine("about to click navigation");
             driver.FindElement(btnNavigationMenu).Click();
             Console.WriteLine("Clicked navigation");
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, tagOpportunities, 350);
+            Thread.Sleep(12000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, tagOpportunities, 350);
             string value = driver.FindElement(tagOpportunities).Text;
             return value;
         }
@@ -470,13 +471,13 @@ namespace SF_Automation.Pages
             Console.WriteLine(actualNamesAndDesc[5]);
             Console.WriteLine(actualNamesAndDesc[6]);
 
-            if(expectedValues.Length != actualNamesAndDesc.Length)
+            if (expectedValues.Length != actualNamesAndDesc.Length)
             {
                 return !isTrue;
             }
-            for(int recType = 0; recType < expectedValues.Length; recType++)
+            for (int recType = 0; recType < expectedValues.Length; recType++)
             {
-                if(!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
+                if (!expectedValues[recType].Equals(actualNamesAndDesc[recType]))
                 {
                     isTrue = false;
                     break;
@@ -511,23 +512,47 @@ namespace SF_Automation.Pages
         //Validate if Search functionality is working as expected
         public string ValidateSearchFunctionalityOfOpportunities(string name)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, txtSearchOpp, 150);
+            Thread.Sleep(7000);
+            driver.FindElement(txtSearchOpp).SendKeys(name);
+            Thread.Sleep(5000);
+            driver.FindElement(btnRefresh).Click();
+            Thread.Sleep(8000);
+            string opp = driver.FindElement(valSearchedOpp).Text;
+            try
+            {
+                //WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
+                //driver.FindElement(valRec1st).Click();
+                //driver.FindElement(btnCloseOpp).Click();
+
+                return opp;
+            }
+            catch (Exception)
+            {
+                return opp;
+            }
+        }
+
+        //Validate if Search functionality is working as expected
+        public string SearchOpportunityUsingSearchBox(string name)
+        {
+            Thread.Sleep(4000);
+            driver.FindElement(txtSearchOpp).Clear();
             driver.FindElement(txtSearchOpp).SendKeys(name);
             Thread.Sleep(5000);
             driver.FindElement(btnRefresh).Click();
             Thread.Sleep(5000);
-            string opp = driver.FindElement(valSearchedOpp).GetAttribute("title");
+            driver.FindElement(valSearchedOppName).Click();
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
-                driver.FindElement(valRec1st).Click();
-                driver.FindElement(btnCloseOpp).Click();
+                //WebDriverWaits.WaitUntilEleVisible(driver, valRec1st, 240);
+                //driver.FindElement(valRec1st).Click();
+                //driver.FindElement(btnCloseOpp).Click();
 
-                return opp;
+                return "Opportunity found";
             }
-            catch(Exception)
+            catch (Exception)
             {
-                return opp;
+                return "Opportunity not found";
             }
         }
 
@@ -567,7 +592,7 @@ namespace SF_Automation.Pages
         //Click on New button and validate Choose LOB screen
         public bool ValidateChooseLOBPostClickingNewButton()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnNew, 350);
+            Thread.Sleep(5000);
             driver.FindElement(btnNew).Click();
             Thread.Sleep(4000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(valLOBs);
@@ -579,13 +604,13 @@ namespace SF_Automation.Pages
 
             bool isSame = true;
 
-            if(expectedValue.Length != actualValue.Length)
+            if (expectedValue.Length != actualValue.Length)
             {
                 return !isSame;
             }
-            for(int rec = 0; rec < expectedValue.Length; rec++)
+            for (int rec = 0; rec < expectedValue.Length; rec++)
             {
-                if(!expectedValue[rec].Equals(actualValue[rec]))
+                if (!expectedValue[rec].Equals(actualValue[rec]))
                 {
                     isSame = false;
                     break;
@@ -618,7 +643,7 @@ namespace SF_Automation.Pages
             try
             {
                 Thread.Sleep(5000);
-                if(user.Equals("James Craven") || user.Equals("Mark Fisher") || user.Equals("Brian Miller"))
+                if (user.Equals("James Craven") || user.Equals("Mark Fisher") || user.Equals("Brian Miller"))
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 220);
                     driver.FindElement(btnOppNumL).Click();
@@ -629,7 +654,7 @@ namespace SF_Automation.Pages
                     driver.FindElement(imgOppL).Click();
                     Thread.Sleep(6000);
                 }
-                else if(user.Equals("Derek Janisch"))
+                else if (user.Equals("Derek Janisch"))
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, btnOppNumL, 250);
                     driver.FindElement(btnOppNumL).Click();
@@ -656,7 +681,7 @@ namespace SF_Automation.Pages
                 //driver.FindElement(imgOppL).Click();
                 //Thread.Sleep(8000);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, txtOppAndMore, 100);
                 driver.FindElement(txtOppAndMore).SendKeys(value);
@@ -673,9 +698,9 @@ namespace SF_Automation.Pages
             driver.FindElement(comboIndustryType).Click();
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboIndustryTypeOptions);
             var actualValue = valTypes.Select(x => x.Text).ToArray();
-            for(int row = 0; row <= actualValue.Length; row++)
+            for (int row = 0; row <= actualValue.Length; row++)
             {
-                if(actualValue[row].Contains(industryType))
+                if (actualValue[row].Contains(industryType))
                 {
                     isFound = true;
                     break;
@@ -696,7 +721,7 @@ namespace SF_Automation.Pages
                 string result = driver.FindElement(matchedOpportunity).Displayed.ToString();
                 return "Record found";
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return "No record found";
             }
@@ -714,7 +739,7 @@ namespace SF_Automation.Pages
                 string result = driver.FindElement(matchedOpportunity).Displayed.ToString();
                 return "Record found";
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return "No record found";
             }
@@ -728,7 +753,7 @@ namespace SF_Automation.Pages
             {
                 return driver.FindElement(eleItem).Displayed;
             }
-            catch(Exception) { return false; }
+            catch (Exception) { return false; }
         }
         public string GetSearchedOppJobType()
         {
@@ -746,7 +771,7 @@ namespace SF_Automation.Pages
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, resultTable, 20);
                 bool resultDisplayed = driver.FindElement(expectedResult).Displayed;
-                if(resultDisplayed)
+                if (resultDisplayed)
                 {
                     driver.FindElement(expectedResult).Click();
                     return "Record found";
@@ -756,7 +781,7 @@ namespace SF_Automation.Pages
                     return "No record found";
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return "No record found";
             }
@@ -824,7 +849,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(6000);
             try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 10);
+                WebDriverWaits.WaitUntilEleVisible(driver, imgOppL, 20);
                 driver.FindElement(imgOppL).Click();
                 Thread.Sleep(8000);
                 return "Record found";
@@ -909,7 +934,7 @@ namespace SF_Automation.Pages
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, columnJobTypeL, 10);
                 string txtJobType = driver.FindElement(columnJobTypeL).Text;
-                if(txtJobType == jobType)
+                if (txtJobType == jobType)
                 {
                     return true;
                 }

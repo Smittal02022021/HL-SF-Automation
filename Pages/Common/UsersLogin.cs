@@ -35,7 +35,7 @@ namespace SF_Automation.Pages.Common
         By imgProfile = By.CssSelector("div[class*='profileTrigger ']>span[class='uiImage']");
         By lnkSwitchToClassic = By.XPath("//a[text()='Switch to Salesforce Classic']");
         By imgUser = By.XPath("//span/div/span[@class='uiImage']");
-        By lnkLogout = By.XPath("//div[2]/div[1]/div[1]/div/div[2]/div/a[2]");
+        By lnkLogout = By.XPath("//div[2]/div/a[2]");
         By lnkLogoutL = By.XPath("//div/div[1]/a[text()='Log Out']");
         By lnkSwitchTo = By.XPath("//tr/td[3]/div/div[3]/div/a[1]");
         By linkLogoutLV = By.XPath("//header//div[@data-message-id='loginAsSystemMessage']//a[contains(text(),'Log out')]");
@@ -58,7 +58,7 @@ namespace SF_Automation.Pages.Common
             string url = driver.Url;
             try
             {
-                if(url.Contains("lightning"))
+                if (url.Contains("lightning"))
                 {
                     WebDriverWaits.WaitUntilEleVisible(driver, imgProfile, 150);
                     driver.FindElement(imgProfile).Click();
@@ -70,7 +70,7 @@ namespace SF_Automation.Pages.Common
                     Console.WriteLine("No switch required ");
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 Console.WriteLine("No switch required ");
             }
@@ -97,10 +97,10 @@ namespace SF_Automation.Pages.Common
         //To logout from a user
         public void UserLogOut()
         {
-            Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, loggedUser, 140);
+            Thread.Sleep(17000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, loggedUser, 140);
             driver.FindElement(loggedUser).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, linkLogOut, 60);
+            WebDriverWaits.WaitUntilEleVisible(driver, linkLogOut, 160);
             driver.FindElement(linkLogOut).Click();
         }
         //To login with another user
@@ -134,8 +134,8 @@ namespace SF_Automation.Pages.Common
 
         public void SearchUserAndLogin(string name)
         {
-            Thread.Sleep(6000);
-            WebDriverWaits.WaitUntilEleVisible(driver, txtSearch, 180);
+            Thread.Sleep(16000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, txtSearch, 180);
             driver.FindElement(txtSearch).SendKeys(name);
             Thread.Sleep(7000);
             WebDriverWaits.WaitUntilEleVisible(driver, lnkUser, 20);
@@ -156,7 +156,7 @@ namespace SF_Automation.Pages.Common
             WebDriverWaits.WaitUntilEleVisible(driver, optionUserDetail);
             driver.FindElement(optionUserDetail).Click();
             Thread.Sleep(4000);
-            IJavaScriptExecutor jse = (IJavaScriptExecutor) driver;
+            IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             jse.ExecuteScript("arguments[0].click();", driver.FindElement(btnLogin));
 
             //WebDriverWaits.WaitUntilEleVisible(driver, btnLogin);
@@ -180,11 +180,11 @@ namespace SF_Automation.Pages.Common
         //Log out of Lightning
         public void DiffLightningLogout()
         {
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, imgUser, 20);
+            Thread.Sleep(7000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, imgUser, 70);
             driver.FindElement(imgUser).Click();
-            Thread.Sleep(3000);
-            WebDriverWaits.WaitUntilEleVisible(driver, lnkLogoutL, 10);
+            Thread.Sleep(7000);
+            //WebDriverWaits.WaitUntilEleVisible(driver, lnkLogoutL, 10);
             driver.FindElement(lnkLogoutL).Click();
         }
 

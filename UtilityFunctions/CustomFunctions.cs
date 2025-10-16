@@ -1,14 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+
 
 namespace SF_Automation.UtilityFunctions
 {
@@ -194,7 +198,7 @@ namespace SF_Automation.UtilityFunctions
                 }
             }
         }
-      
+
         //Select value from drop down based on entered name without li tag
         public static void SelectValueWithXpath(string Name)
         {
@@ -371,16 +375,46 @@ namespace SF_Automation.UtilityFunctions
                 return false;
             }
         }
-            //To Upload File in LV
-            public static void FileUpload(IWebDriver driver, string filePath)
-            {
-                By btnUploadFile = By.XPath("//input[@type='file']");
-                By btnDone = By.XPath("//span[contains(text(),'Done')]");
-                driver.FindElement(btnUploadFile).SendKeys(filePath);
-                WebDriverWaits.WaitUntilClickable(driver, btnDone, 10);
-                Thread.Sleep(11000);
-                driver.FindElement(btnDone).Click();
-            }
+        //To Upload File in LV
+        public static void FileUpload(IWebDriver driver, string filePath)
+        {
+            By btnUploadFile = By.XPath("//input[@type='file']");
+            driver.FindElement(btnUploadFile).SendKeys(filePath);
+            By btnDone = By.XPath("//span[contains(text(),'Done')]");
+            WebDriverWaits.WaitUntilClickable(driver, btnDone, 10);
+            Thread.Sleep(11000);
+            driver.FindElement(btnDone).Click();
         }
+        //public bool VerifyPdfTextForEstimatedFee()
+        //{
+        //    Thread.Sleep(6000);
+        //    bool status = false;      
+        //    string outputFile = @"C:\report.pdf";
+        //    driver.SwitchTo().Frame(0);
+        //    Thread.Sleep(6000);
+        //    driver.FindElement(By.XPath("//button[@title='Save (Ctrl+S)']")).Click();
+        //    Thread.Sleep(4000);
+        //    AutoItX.WinWaitActive("Save As", "", 10);
+        //    AutoItX.Send(outputFile);
+        //    AutoItX.Send("{ENTER}");
+        //    Thread.Sleep(5000);
+        //    using (PdfReader reader = new PdfReader(outputFile))
+        //    {
+        //        for (int i = 1; i <= reader.NumberOfPages; i++)
+        //        {
+        //            string pageText = PdfTextExtractor.GetTextFromPage(reader, i);
+        //            if (pageText.Contains("Estimated Fee (MM):"))
+        //            {
+        //                status = true;
+        //                break;
+        //            }
+        //        }
+        //        return status;
+        //    }            
+
+        //}
+
+
     }
 
+}

@@ -17,7 +17,7 @@ namespace SF_Automation.UtilityFunctions
             mail.CC.Add("sonika.goyal@Technossus.com");
             mail.Subject = "Test Execution Report";
             mail.Body = "Please find the attached reports.";
-            mail.Attachments.Add(new Attachment(@"C:\Users\SMittal0207\source\repos\SF_Automation\Reports\index.html"));
+            mail.Attachments.Add(new Attachment(@"C:\Users\VKumar0427\source\repos\SF_Automation\Reports\index.html"));
             client.Port = 443;
             client.UseDefaultCredentials = false;
             client.Credentials = new System.Net.NetworkCredential("sfstandard1.user", "testing@123");
@@ -48,7 +48,7 @@ namespace SF_Automation.UtilityFunctions
                 //mail.CC.Add("SGoyal0427@HL.com");
                 mail.Subject = Subject;
                 mail.Body = "Please find the attached reports.";
-                mail.Attachments.Add(new Attachment(@"C:\Users\SMittal0207\source\repos\SF_Automation\Reports\index.html"));
+                mail.Attachments.Add(new Attachment(@"C:\Users\VKumar0427\source\repos\SF_Automation\Reports\index.html"));
                 client.Port = 25;
                 client.EnableSsl = true;
                 client.UseDefaultCredentials = false;

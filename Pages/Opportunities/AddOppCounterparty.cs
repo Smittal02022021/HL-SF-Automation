@@ -10,7 +10,6 @@ using System.Text;
 using System.Threading;
 using System.Xml.Linq;
 using OpenQA.Selenium.Interactions;
-using MongoDB.Driver;
 
 namespace SF_Automation.Pages.Opportunity
 {
@@ -212,10 +211,10 @@ namespace SF_Automation.Pages.Opportunity
         {
             System.Collections.Generic.IList<IWebElement> filtersSection = driver.FindElements(fitersSectionsCounterparties);
             bool isFilternameAvaialable = false;
-            for(int count = 0; count < filtersSection.Count; count++)
+            for (int count = 0; count < filtersSection.Count; count++)
             {
                 string section = filtersSection[count].Text;
-                if(expectedSection.Equals(section))
+                if (expectedSection.Equals(section))
                 {
                     isFilternameAvaialable = true;
                     break;
@@ -228,13 +227,13 @@ namespace SF_Automation.Pages.Opportunity
             System.Collections.Generic.IList<IWebElement> filtersSection = driver.FindElements(fitersSectionsCounterparties);
             IWebElement subFilterOption = driver.FindElement(_subFilterEle(subFilter));
             bool isSubFilternameAvaialable = false;
-            for(int count = 0; count < filtersSection.Count; count++)
+            for (int count = 0; count < filtersSection.Count; count++)
             {
                 filtersSection[count].Click();
                 string section = filtersSection[count].Text;
-                if(filterSection.Equals(section))
+                if (filterSection.Equals(section))
                 {
-                    if(subFilterOption.Displayed)
+                    if (subFilterOption.Displayed)
                         isSubFilternameAvaialable = true;
                     break;
                 }
@@ -250,13 +249,13 @@ namespace SF_Automation.Pages.Opportunity
         {
             IList<IWebElement> filtersSection = driver.FindElements(fitersSectionsCounterparties);
             IWebElement subFilterOption = driver.FindElement(_subFilterEle(subFilter));
-            for(int count = 0; count < filtersSection.Count; count++)
+            for (int count = 0; count < filtersSection.Count; count++)
             {
                 filtersSection[count].Click();
                 string section = filtersSection[count].Text;
-                if(filterSection.Equals(section))
+                if (filterSection.Equals(section))
                 {
-                    if(subFilterOption.Displayed)
+                    if (subFilterOption.Displayed)
                         subFilterOption.Click();
                     subFilterOption.SendKeys(value);
                     Thread.Sleep(2000);
@@ -272,9 +271,9 @@ namespace SF_Automation.Pages.Opportunity
             Thread.Sleep(2000);
             IList<IWebElement> hyperlinkes = driver.FindElements(hyperlinkedCompanies);
             bool hyperlinkFound = true;
-            for(int index = 0; index < hyperlinkes.Count; index++)
+            for (int index = 0; index < hyperlinkes.Count; index++)
             {
-                if(!(hyperlinkes[index].Displayed))
+                if (!(hyperlinkes[index].Displayed))
                 {
                     hyperlinkFound = false;
                     break;
@@ -418,7 +417,7 @@ namespace SF_Automation.Pages.Opportunity
             int countColumn = ReadExcelData.GetRowCount(excelPath, "CPShortenedView");
             string[] expectedValue = new string[countColumn - 1];
             int index;
-            for(int row = 2; row <= countColumn; row++)
+            for (int row = 2; row <= countColumn; row++)
             {
                 index = row - 2;
                 expectedValue[index] = ReadExcelData.ReadDataMultipleRows(excelPath, "CPShortenedView", row, 1);
@@ -464,7 +463,7 @@ namespace SF_Automation.Pages.Opportunity
             int countColumn = ReadExcelData.GetRowCount(excelPath, "CPExtendedView");
             string[] expectedValue = new string[countColumn - 1];
             int index;
-            for(int row = 2; row <= countColumn; row++)
+            for (int row = 2; row <= countColumn; row++)
             {
                 index = row - 2;
                 expectedValue[index] = ReadExcelData.ReadDataMultipleRows(excelPath, "CPExtendedView", row, 1);
@@ -491,16 +490,16 @@ namespace SF_Automation.Pages.Opportunity
             bool isFound = false;
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboViewOptions);
             var actualValue = valTypes.Select(x => x.Text).ToArray();
-            for(int row = 0; row < actualValue.Length; row++)
+            for (int row = 0; row < actualValue.Length; row++)
             {
                 isFound = false;
                 string actualView = actualValue[row];
                 int countView = ReadExcelData.GetRowCount(excelPath, "CPView");
-                for(int viewRow = 2; viewRow <= countView; viewRow++)
+                for (int viewRow = 2; viewRow <= countView; viewRow++)
                 {
                     string valView = ReadExcelData.ReadDataMultipleRows(excelPath, "CPView", viewRow, 1);
 
-                    if(actualView == valView)
+                    if (actualView == valView)
                     {
                         isFound = true;
                         break;
@@ -548,7 +547,7 @@ namespace SF_Automation.Pages.Opportunity
                 driver.FindElement(btnBack).Click();
                 return message;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 driver.FindElement(btnSearch).Click();
                 Thread.Sleep(4000);
@@ -582,7 +581,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, rowCPContact, 80);
             string value = driver.FindElement(rowCPContact).Displayed.ToString();
             Console.WriteLine(value);
-            if(value.Equals("True"))
+            if (value.Equals("True"))
             {
                 return "CounterParty Contact added";
             }
@@ -614,7 +613,7 @@ namespace SF_Automation.Pages.Opportunity
                 string pageTitle = driver.FindElement(titlePage).Text;
                 return pageTitle;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 driver.FindElement(btnCancelBack).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 80);
@@ -659,7 +658,7 @@ namespace SF_Automation.Pages.Opportunity
                 string pageTitle = driver.FindElement(titlePageL).Text;
                 return pageTitle;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 driver.FindElement(btnCancelBack).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, btnEdit, 80);
@@ -907,6 +906,7 @@ namespace SF_Automation.Pages.Opportunity
         }
 
 
+
         //Add Counterparty 
         public void AddCounterpartyInOpportunityL(string name, string type)
         {
@@ -992,7 +992,7 @@ namespace SF_Automation.Pages.Opportunity
         public int VerifyTabCountOnClickCompanyLink()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, linkCompany, 30);
-            IJavaScriptExecutor executor = (IJavaScriptExecutor) driver;
+            IJavaScriptExecutor executor = (IJavaScriptExecutor)driver;
             executor.ExecuteScript("arguments[0].click();", driver.FindElement(linkCompany));
             Thread.Sleep(5000);
             return driver.WindowHandles.Count;
@@ -1057,7 +1057,7 @@ namespace SF_Automation.Pages.Opportunity
                 WebDriverWaits.WaitUntilEleVisible(driver, listViewCounterparties, 10);
                 return driver.FindElement(listViewCounterparties).Displayed;
             }
-            catch(Exception ex) { return false; }
+            catch (Exception ex) { return false; }
         }
         public bool IsCounterpartiesListDisplayed()
         {
@@ -1067,7 +1067,7 @@ namespace SF_Automation.Pages.Opportunity
                 WebDriverWaits.WaitUntilEleVisible(driver, listViewCounterparties, 10);
                 return driver.FindElement(listViewCounterparties).Displayed;
             }
-            catch(Exception ex) { return false; }
+            catch (Exception ex) { return false; }
         }
 
         public bool IsCompanyInCounterpartyList(string companyName)
@@ -1077,7 +1077,7 @@ namespace SF_Automation.Pages.Opportunity
                 WebDriverWaits.WaitUntilEleVisible(driver, _counterpartyCompanyEle(companyName), 10);
                 return driver.FindElement(_counterpartyCompanyEle(companyName)).Displayed;
             }
-            catch(Exception ex) { return false; }
+            catch (Exception ex) { return false; }
         }
         public void ClickCheckboxCounterpartyCompany(string companyName)
         {
@@ -1093,7 +1093,7 @@ namespace SF_Automation.Pages.Opportunity
                 driver.FindElement(buttonConfirmDelete).Click();
                 WebDriverWaits.WaitUntilEleVisible(driver, msgLVPopup, 10);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //do nothing
             }
@@ -1160,13 +1160,13 @@ namespace SF_Automation.Pages.Opportunity
             string expectedJobType = jobType;
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(comboViewOptions);
             var actualValue = valTypes.Select(x => x.Text).ToArray();
-            for(int row = 0; row < actualValue.Length; row++)
+            for (int row = 0; row < actualValue.Length; row++)
             {
-                if(jobType == "Debt Financing" || jobType == "Equity Placements")
+                if (jobType == "Debt Financing" || jobType == "Equity Placements")
                 {
                     expectedJobType = "CS Stages";// "Capital Markets"; CM
                 }
-                if(actualValue[row].Contains(expectedJobType))
+                if (actualValue[row].Contains(expectedJobType))
                 {
                     isFound = true;
                     break;
@@ -1194,13 +1194,13 @@ namespace SF_Automation.Pages.Opportunity
         {
             IList<IWebElement> filtersSection = driver.FindElements(fitersSectionsCounterparties);
             IWebElement subFilterOption = driver.FindElement(_subFilterEle(subFilter));
-            for(int count = 0; count < filtersSection.Count; count++)
+            for (int count = 0; count < filtersSection.Count; count++)
             {
                 filtersSection[count].Click();
                 string section = filtersSection[count].Text;
-                if(filterSection.Equals(section))
+                if (filterSection.Equals(section))
                 {
-                    if(subFilterOption.Displayed)
+                    if (subFilterOption.Displayed)
                         subFilterOption.Click();
                     break;
                 }
@@ -1211,13 +1211,13 @@ namespace SF_Automation.Pages.Opportunity
 
             IList<IWebElement> filtersSection = driver.FindElements(fitersSectionsCounterparties);
             IWebElement subFilterOption = driver.FindElement(_subFilterEle(subFilter));
-            for(int count = 0; count < filtersSection.Count; count++)
+            for (int count = 0; count < filtersSection.Count; count++)
             {
                 filtersSection[count].Click();
                 string section = filtersSection[count].Text;
-                if(filterSection.Equals(section))
+                if (filterSection.Equals(section))
                 {
-                    if(subFilterOption.Displayed)
+                    if (subFilterOption.Displayed)
                         subFilterOption.Click();
                     break;
                 }
@@ -1226,10 +1226,10 @@ namespace SF_Automation.Pages.Opportunity
         public bool IsButtonDisplayedViewAllCompanyListLV(string filterSection, string buttonName)
         {
             IList<IWebElement> filtersSection = driver.FindElements(fitersSectionsCounterparties);
-            for(int count = 0; count < filtersSection.Count; count++)
+            for (int count = 0; count < filtersSection.Count; count++)
             {
                 string section = filtersSection[count].Text;
-                if(filterSection.Equals(section))
+                if (filterSection.Equals(section))
                 {
                     filtersSection[count].Click();
                     break;
@@ -1329,9 +1329,9 @@ namespace SF_Automation.Pages.Opportunity
             bool isFound = false;
             IReadOnlyCollection<IWebElement> valContacts = driver.FindElements(txtCounterpartyContacts);
             var actualValue = valContacts.Select(x => x.Text).ToArray();
-            for(int row = 0; row < actualValue.Length; row++)
+            for (int row = 0; row < actualValue.Length; row++)
             {
-                if(contactName.Contains(actualValue[row]))
+                if (contactName.Contains(actualValue[row]))
                 {
                     isFound = true;
                     break;
@@ -1347,9 +1347,9 @@ namespace SF_Automation.Pages.Opportunity
             bool isFound = false;
             IReadOnlyCollection<IWebElement> valComments = driver.FindElements(txtCounterpartyComments);
             var actualValue = valComments.Select(x => x.Text).ToArray();
-            for(int row = 0; row < actualValue.Length; row++)
+            for (int row = 0; row < actualValue.Length; row++)
             {
-                if(comments.Contains(actualValue[row]))
+                if (comments.Contains(actualValue[row]))
                 {
                     isFound = true;
                     break;
@@ -1544,7 +1544,7 @@ namespace SF_Automation.Pages.Opportunity
         }
         public void ClickCounterpartyCompanyLink(string companyName)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor) Driver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             Thread.Sleep(5000);
             WebDriverWaits.WaitUntilEleVisible(driver, _counterpartyCompanyEle(companyName), 30);
             IWebElement linkCounterparty = driver.FindElement(_counterpartyCompanyEle(companyName));
@@ -1568,9 +1568,9 @@ namespace SF_Automation.Pages.Opportunity
         public string GetContactSearchedLV(string searchType, string value)
         {
             IList<IWebElement> raioButtons = driver.FindElements(radioButton);
-            foreach(IWebElement button in raioButtons)
+            foreach (IWebElement button in raioButtons)
             {
-                if((button.Text).Contains(searchType))
+                if ((button.Text).Contains(searchType))
                 {
                     button.Click();
                     break;
@@ -1591,9 +1591,9 @@ namespace SF_Automation.Pages.Opportunity
         public string GetContactSearched(string searchType, string value)
         {
             IList<IWebElement> raioButtons = driver.FindElements(radioButton);
-            foreach(IWebElement button in raioButtons)
+            foreach (IWebElement button in raioButtons)
             {
-                if((button.Text).Contains(searchType))
+                if ((button.Text).Contains(searchType))
                 {
                     button.Click();
                     break;
@@ -1615,7 +1615,7 @@ namespace SF_Automation.Pages.Opportunity
                 WebDriverWaits.WaitUntilEleVisible(driver, _counterpartyCompanyContactEle(companyName), 30);
                 return driver.FindElement(_counterpartyCompanyContactEle(companyName)).Displayed;
             }
-            catch(Exception ex) { return false; }
+            catch (Exception ex) { return false; }
         }
         public bool IsContactAddedCounterpartyList(string companyName)
         {
@@ -1624,7 +1624,7 @@ namespace SF_Automation.Pages.Opportunity
                 WebDriverWaits.WaitUntilEleVisible(driver, _counterpartyCompanyContactEle(companyName), 30);
                 return driver.FindElement(_counterpartyCompanyContactEle(companyName)).Displayed;
             }
-            catch(Exception ex) { return false; }
+            catch (Exception ex) { return false; }
         }
 
         //Validate View Counterparties button
@@ -1764,7 +1764,7 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, rowCounterpartiesL, 150);
             string value = driver.FindElement(rowCounterpartiesL).Displayed.ToString();
             Console.WriteLine(value);
-            if(value.Equals("True"))
+            if (value.Equals("True"))
             {
                 return "Added Counterparties are displayed";
             }
@@ -1787,13 +1787,13 @@ namespace SF_Automation.Pages.Opportunity
             string[] expectedValue = { "All", "Buyside Stages" };
             bool isSame = true;
 
-            if(expectedValue.Length != actualValue.Length)
+            if (expectedValue.Length != actualValue.Length)
             {
                 return !isSame;
             }
-            for(int rec = 0; rec < expectedValue.Length; rec++)
+            for (int rec = 0; rec < expectedValue.Length; rec++)
             {
-                if(!expectedValue[rec].Equals(actualValue[rec]))
+                if (!expectedValue[rec].Equals(actualValue[rec]))
                 {
                     isSame = false;
                     break;
@@ -1931,10 +1931,10 @@ namespace SF_Automation.Pages.Opportunity
             WebDriverWaits.WaitUntilEleVisible(driver, tableEngCPCommentsL, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(tableEngCPCommentsL));
             IList<IWebElement> commentTypes = driver.FindElements(tableEngCPCommentsL);
-            foreach(IWebElement commentType in commentTypes)
+            foreach (IWebElement commentType in commentTypes)
             {
                 commentTypeFound = false;
-                if(typePEComments == commentType.GetAttribute("title"))
+                if (typePEComments == commentType.GetAttribute("title"))
                 {
                     commentTypeFound = true;
                     break;
@@ -2085,7 +2085,7 @@ namespace SF_Automation.Pages.Opportunity
             try
             {
 
-                if(driver.FindElement(chkboxCompetitiveL).Selected)
+                if (driver.FindElement(chkboxCompetitiveL).Selected)
                 {
                     return "Checked";
                 }

@@ -27,9 +27,7 @@ namespace SF_Automation.Pages.Common
         By linkCurrentMonthRev = By.XPath("//table//tbody//tr[1]/th//a");// (//td[@data-label='Is Current'])[1]//ancestor::tr//th//a");
 
         By linkViewAllRevAccu = By.XPath("//article[@aria-label='Revenue Accruals']//a[contains(@class,'footer')]");
-
         By listRevAccu = By.XPath("(//table[@aria-label='Revenue Accruals'])[2]//tbody//tr");
-
         By valRVAccuNum = By.XPath("//records-record-layout-item[@field-label='Revenue Accrual #']//lightning-formatted-text");
 
         public void SelectCurrentMonthRevenuePageLV()

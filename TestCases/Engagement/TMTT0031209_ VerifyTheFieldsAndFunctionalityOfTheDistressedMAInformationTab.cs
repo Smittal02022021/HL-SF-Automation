@@ -79,7 +79,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //TMTI0073001_Verify that an error message appears for the required field on clicking the "Save" button of Add Distressed M&A Information on leaving fields blank. 
                 string messageAssetSold = summaryPage.ValidateMandatoryMessageForAssetSoldField();
-                Assert.AreEqual("Complete this field.", messageAssetSold);
+                Assert.AreEqual("Asset Sold\r\nComplete this field.", messageAssetSold);
                 extentReports.CreateLog("Message : " + messageAssetSold + " is displayed when no value is entered into Asset Sold field ");
 
                 //TMTI0073003_Verify that clicking the "Cancel" button will take the user back to the list view of the Distressed M&A Information tab

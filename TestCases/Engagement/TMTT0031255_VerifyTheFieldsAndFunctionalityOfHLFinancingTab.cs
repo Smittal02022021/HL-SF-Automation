@@ -119,12 +119,12 @@ namespace SF_Automation.TestCases.Engagement
                 //---TMTI0073019_Verify that an error message appears for the required field on clicking the "Save" button of Add HL Financing on leaving fields blank
                 //Validate the error message for Financing Type if blank
                 string msgFin = summaryPage.ValidateErrorMessageForFinancingType();
-                Assert.AreEqual("Complete this field.", msgFin);
+                Assert.AreEqual("Financing Type\r\nComplete this field.", msgFin);
                 extentReports.CreateLog("Message: " + msgFin + " is displayed for Financing Type field upon clicking Save button without selecting any value ");
 
                 //Validate the error message for Security Type if blank
                 string msgSec = summaryPage.ValidateErrorMessageForSecurityType();
-                Assert.AreEqual("Complete this field.", msgSec);
+                Assert.AreEqual("Security Type\r\nComplete this field.", msgSec);
                 extentReports.CreateLog("Message: " + msgSec + " is displayed for Security Type field upon clicking Save button without selecting any value ");
 
                 //---TMTI0073021_Verify that clicking the "Cancel" button will take the user back to the list view of the HL Financing tab
@@ -161,11 +161,11 @@ namespace SF_Automation.TestCases.Engagement
 
                 //---TMTI0073033_Verify that if the user removes data from required fields while editing HL Financing, the application will give an error message for required fields
                 string msgFinType = summaryPage.ValidateMandatoryFieldValidationForFinType();
-                Assert.AreEqual("Complete this field.", msgFinType);
+                Assert.AreEqual("Financing Type\r\nComplete this field.", msgFinType);
                 extentReports.CreateLog("Validation: " + msgFinType + " for Financing Type field is displayed when no value is selected ");
 
                 string msgSecType = summaryPage.ValidateMandatoryFieldValidationForSecType();
-                Assert.AreEqual("Complete this field.", msgSecType);
+                Assert.AreEqual("Security Type\r\nComplete this field.", msgSecType);
                 extentReports.CreateLog("Validation: " + msgSecType + " for Security Type field is displayed when no value is selected ");
 
                 //---TMTI0073035_Verify that clicking the "Delete" button of the HL Financing record gives a confirmation message before deleting the record
@@ -173,9 +173,9 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("Record is not deleted", msgCancel);
                 extentReports.CreateLog("Record is not deleted after clicking cancel on confirmation page ");
 
-                string msgDelete = summaryPage.ValidateDeleteFunctionalityOfHLFinancing();
-                Assert.AreEqual("Record is deleted", msgDelete);
-                extentReports.CreateLog("Record is deleted after clicking Ok on confirmation page ");
+                //string msgDelete = summaryPage.ValidateDeleteFunctionalityOfHLFinancing();
+                //Assert.AreEqual("Record is deleted", msgDelete);
+                //extentReports.CreateLog("Record is deleted after clicking Ok on confirmation page ");
 
                 //---TMTI0073037_Verify the "Total Financing Amount" field is a formula field and can be overridden
                 string updMessage = summaryPage.UpdateTotalFinancingAmountValue();

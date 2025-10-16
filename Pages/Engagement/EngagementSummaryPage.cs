@@ -63,7 +63,7 @@ namespace SF_Automation.Pages.Engagement
         By lblPostTransKeyContacts = By.XPath("//span[text()='Post-Transaction Key External Contact']/ancestor::div[1]/div[1]/table/thead/tr/th/span");
 
 
-        By valOtherL = By.XPath("//table/tbody/tr/td[1]/div");
+        By valOtherL = By.XPath("//table/tbody/tr[1]/td[1]/div");
         By btnAddEquityHolderL = By.XPath("//button[text()='Add Equity Holder']");
         By msgDupClientL = By.XPath("//div[contains(text(),'Company Name')]");
         By msgMandatoryKeyCredL = By.XPath("//label[text()='Client/Subject']/ancestor::lightning-grouped-combobox/div[2]");
@@ -108,8 +108,8 @@ namespace SF_Automation.Pages.Engagement
 
         By lblClientSubL = By.XPath("//label[text()='Client/Subject']");
         By lblPercentOwnershipL = By.XPath("//label[text()='Percent Ownership']");
-        By msgFinType = By.XPath("//label[text()='Financing Type']/ancestor::div[1]/div[text()='Complete this field.']");
-        By msgSecType = By.XPath("//label[text()='Security Type']/ancestor::div[1]/div[text()='Complete this field.']");
+        By msgFinType = By.XPath("//label[text()='Financing Type']/ancestor::div[1]//div[text()='Complete this field.']");
+        By msgSecType = By.XPath("//label[text()='Security Type']/ancestor::div[1]//div[text()='Complete this field.']");
         By lblContacts = By.XPath("//label[text()='Contact (External)']");
         By lblMaturityDate = By.XPath("//lightning-datepicker/div/label");
         By lblSecurityTypeL = By.XPath("//label[text()='Security Type']");
@@ -175,7 +175,7 @@ namespace SF_Automation.Pages.Engagement
         By txtBreakUPFeeL = By.XPath("//input[@name='Break_Up_Fee__c']");
         By rowAddDistressedL = By.XPath("//table[@class='slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols']/tbody/tr");
         By rowAddHLFinL = By.XPath("//c-engagement-fr-summary-hl-financing/div[1]/div/div/div/table/tbody/tr");
-        By btnEditDistressed = By.XPath("//button[@title='Edit']");
+        By btnEditDistressed = By.XPath("//tr[1]//button[@title='Edit']");
         By btnEditDebtL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[1]/td[12]/span/div/lightning-button-icon/button");
         By btnEdit2ndDebtL = By.XPath("//c-engagement-fr-summary-pre-tran-info/div[1]/div[3]/div/div/table/tbody/tr[2]/td[12]/span/div/lightning-button-icon/button");
         By btnEditDebtLPost = By.XPath("//c-engagement-fr-summary-post-tran-info/div[1]/div[3]/div/div/table/tbody/tr[1]/td[12]/span/div/lightning-button-icon/button");
@@ -237,6 +237,14 @@ namespace SF_Automation.Pages.Engagement
         By rowKeyContactL = By.XPath("//lightning-record-edit-form-edit/form/slot/slot/div/div[4]/div/div/table/tbody/tr");
         By rowKeyExtL = By.XPath("//lightning-record-edit-form/lightning-record-edit-form-edit/form/slot/slot/div/div[4]/div/div/table/tbody/tr");
         By valAddedRoleL = By.XPath("//table/tbody/tr/td[1]/div");
+        By lnkDelEquity = By.XPath("//td[contains(@id,'preTransactionEquityHolders')]//a[text()='Del']");
+        By lnkDelBoard = By.XPath("//td[contains(@id,'preTransactionBoardMembers')]//a[text()='Del']");
+        By lnkDelDebt = By.XPath("//td[contains(@id,'preTransactionDebtStructures')]//a[text()='Del']");
+
+        By lnkDelEquityPost = By.XPath("//td[contains(@id,'postTransactionEquityHolders')]//a[text()='Del']");
+        By lnkDelBoardPost = By.XPath("//td[contains(@id,'postTransactionBoardMembers')]//a[text()='Del']");
+        By lnkDelDebtPost = By.XPath("//td[contains(@id,'postTransaction')]//a[text()='Del']");
+
 
         By valPostTxnStatus = By.XPath("//label[text()='Post Transaction Status']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
         By valClientDesc = By.XPath("//label[text()='Client Description']/ancestor::div[@class='slds-col slds-size_1-of-2']/lightning-output-field/div/lightning-formatted-text");
@@ -476,8 +484,9 @@ namespace SF_Automation.Pages.Engagement
         By lnkKeyCred = By.XPath("//div[3]/div/div/table/tbody/tr/td/div/a");
         By tabEngDetailsL = By.XPath("//ul[@class='tabBarItems slds-tabs--default__nav']/li[2]/a/span[2]");
         By tabClosingInfo = By.XPath("//a[text()='Closing Info']");
+        By tabInfo = By.XPath("//a[text()='Info']");
         By valSendBTPEmail = By.XPath("//span[text()='Sent BTP Email (User)']/ancestor::div[2]/div[2]/span/slot/lightning-formatted-text");
-        By tabClientSubL = By.XPath("//a[text()='Client/Subject & Referral']");
+        By tabClientSubL = By.XPath("//a[text()='KYC/Client/Subject/Referral']");
         By rowAddedEquityInAdd = By.XPath("//lst-formatted-text/span[@title='Equity Holder']/ancestor::td/ancestor::tr/th[1]//a");
         By valAddedEquityType = By.XPath("//lst-formatted-text/span[@title='Equity Holder']");
         By valAddedEquityRole = By.XPath("//lst-formatted-text/span[@title='Equity Holder']/ancestor::td/ancestor::tr/td[7]//span");
@@ -869,6 +878,35 @@ namespace SF_Automation.Pages.Engagement
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabPreTrans, 90);
             driver.FindElement(tabPreTrans).Click();
+        }
+
+        public void DeleteAllAddedData()
+        {
+            driver.FindElement(lnkDelEquity).Click();
+            IAlert alert = driver.SwitchTo().Alert();
+            alert.Accept();
+            Thread.Sleep(4000);
+            driver.FindElement(lnkDelBoard).Click();
+            alert.Accept();
+            Thread.Sleep(4000);
+            driver.FindElement(lnkDelDebt).Click();
+            alert.Accept();
+            Thread.Sleep(4000);
+
+        }
+        public void DeleteAllAddedDataInPostTrans()
+        {
+            driver.FindElement(lnkDelEquityPost).Click();
+            IAlert alert = driver.SwitchTo().Alert();
+            alert.Accept();
+            Thread.Sleep(4000);
+            driver.FindElement(lnkDelBoardPost).Click();
+            alert.Accept();
+            Thread.Sleep(4000);
+            driver.FindElement(lnkDelDebtPost).Click();
+            alert.Accept();
+            Thread.Sleep(4000);
+
         }
 
         //To validate Pre-Transaction Equity Holders section        
@@ -3328,14 +3366,14 @@ namespace SF_Automation.Pages.Engagement
         //Validate validation for Other field
         public string ValidateErrorMessageOfOtherFieldWhileEdit()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDistressed, 120);
+            Thread.Sleep(5000);
             driver.FindElement(btnEditDistressed).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, txtOtherL, 180);
             driver.FindElement(txtOtherL).SendKeys("Testing");
             driver.FindElement(btnSaveAddHL).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(5000);
             string message = driver.FindElement(msgOtherL).Text;
-            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 120);
+            WebDriverWaits.WaitUntilEleVisible(driver, btnCancel, 130);
             driver.FindElement(btnCancel).Click();
             return message;
         }
@@ -3366,21 +3404,21 @@ namespace SF_Automation.Pages.Engagement
         //Validate mandatory field validation for Financing Type
         public string ValidateMandatoryFieldValidationForFinType()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, btnEditDistressed, 120);
+            Thread.Sleep(5000);
             driver.FindElement(btnEditDistressed).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, btnFinTypeL, 120);
+            Thread.Sleep(4000);
             driver.FindElement(btnFinTypeL).Click();
             Thread.Sleep(4000);
-            var element = driver.FindElement((By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[1]/span[2]/span")));
+            var element = driver.FindElement((By.XPath("//button[@name='Financing_Type__c']/ancestor::div[2]//lightning-base-combobox-item[1]/span[2]/span")));
             Actions action = new Actions(driver);
             action.MoveToElement(element);
             action.Perform();
-            driver.FindElement((By.XPath("//div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[1]/span[2]/span"))).Click();
+            driver.FindElement((By.XPath("//button[@name='Financing_Type__c']/ancestor::div[2]//lightning-base-combobox-item[1]/span[2]/span"))).Click();
             driver.FindElement(btnSecTypeL).Click();
-            driver.FindElement(By.XPath("//div[3]/lightning-input-field/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[2]/lightning-base-combobox-item[1]/span[2]/span")).Click();
+            driver.FindElement(By.XPath("//button[@name='Security_Type__c']/ancestor::div[2]//lightning-base-combobox-item[1]/span[2]/span")).Click();
 
             driver.FindElement(btnSaveAddHL).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(6000);
             string value = driver.FindElement(msgFinType).Text;
             return value;
         }
@@ -3633,13 +3671,19 @@ namespace SF_Automation.Pages.Engagement
         //Validate message on clicking Send BTP Email
         public string ValidateMessageAfterClickingSendBTPEmail()
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, btnSendBTPEmail, 190);
             driver.FindElement(btnSendBTPEmail).Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(4000);
             driver.FindElement(tabEngDetailsL).Click();
             Thread.Sleep(3000);
+            driver.FindElement(tabInfo).Click();
+            Thread.Sleep(4000);
             driver.FindElement(tabClosingInfo).Click();
+            Thread.Sleep(3000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,500)");
+            Thread.Sleep(4000);
             string value = driver.FindElement(valSendBTPEmail).Text;
 
             return value;
@@ -4114,7 +4158,7 @@ namespace SF_Automation.Pages.Engagement
         {
             Thread.Sleep(5000);
             driver.FindElement(btnSaveKeyCredL).Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(7000);
             bool row = driver.FindElement(rowAddDebtStrcutureL2nd).Displayed;
             return row;
         }
