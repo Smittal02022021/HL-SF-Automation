@@ -108,7 +108,7 @@ namespace SF_Automation.Pages
             driver.FindElement(txtPassWord).SendKeys(ReadJSONData.data.authentication.password);
             driver.FindElement(btnLogin).Click();
 
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             string url = driver.Url;
             try
             {

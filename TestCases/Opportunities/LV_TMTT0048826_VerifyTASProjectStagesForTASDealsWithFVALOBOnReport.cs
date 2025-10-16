@@ -7,7 +7,7 @@ using SF_Automation.UtilityFunctions;
 using System;
 using SF_Automation.Pages.Reports;
 
-namespace SalesForce_Project.TestCases.Opportunities
+namespace SF_Automation.TestCases.Opportunities
 {
     class LV_TMTT0048826_VerifyTASProjectStagesForTASDealsWithFVALOBOnReport:BaseClass
     {
