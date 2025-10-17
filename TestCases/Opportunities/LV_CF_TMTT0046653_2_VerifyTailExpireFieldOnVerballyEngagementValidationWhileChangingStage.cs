@@ -200,9 +200,6 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                         appName = homePageLV.GetAppName();
                         Assert.AreEqual(appNameExl, appName);
                         extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
-                        homePageLV.SelectModule(moduleNameExl);
-                        extentReports.CreateStepLogs("Passed", "User is on " + moduleNameExl + " Page ");
-                        
                         moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 3, 1);
                         homePageLV.SelectModule(moduleNameExl);
                         extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
