@@ -1,3 +1,13 @@
-2025/10/15-17:24:37.460 621c Reusing MANIFEST C:\Users\VKumar0427\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/MANIFEST-000001
-2025/10/15-17:24:37.498 621c Recovering log #3
-2025/10/15-17:24:37.525 621c Reusing old log C:\Users\VKumar0427\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/000003.log 
+2025/10/17-11:27:40.711 7fb4 Reusing MANIFEST C:\Users\VKumar0427\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/MANIFEST-000001
+2025/10/17-11:27:40.723 7fb4 Recovering log #1104
+2025/10/17-11:27:40.724 7fb4 Level-0 table #1108: started
+2025/10/17-11:27:40.761 7fb4 Level-0 table #1108: 15907 bytes OK
+2025/10/17-11:27:40.763 7fb4 Recovering log #1107
+2025/10/17-11:27:40.780 7fb4 Reusing old log C:\Users\VKumar0427\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/001107.log 
+2025/10/17-11:27:40.783 7fb4 Delete type=0 #1104
+2025/10/17-11:30:43.714 3e8c Level-0 table #1110: started
+2025/10/17-11:30:43.719 3e8c Level-0 table #1110: 15839 bytes OK
+2025/10/17-11:30:43.722 3e8c Delete type=0 #1107
+2025/10/17-11:31:15.440 7fb4 Level-0 table #1112: started
+2025/10/17-11:31:15.447 7fb4 Level-0 table #1112: 15095 bytes OK
+2025/10/17-11:31:15.449 7fb4 Delete type=0 #1109

@@ -1,3 +1,21 @@
-2025/10/15-17:27:11.851 ea28 Reusing MANIFEST C:\Users\VKumar0427\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/MANIFEST-000001
-2025/10/15-17:27:11.904 ea28 Recovering log #3
-2025/10/15-17:27:11.943 ea28 Reusing old log C:\Users\VKumar0427\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/000003.log 
+2025/10/17-11:31:41.357 6ba8 Reusing MANIFEST C:\Users\VKumar0427\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/MANIFEST-000001
+2025/10/17-11:31:41.375 6ba8 Recovering log #1111
+2025/10/17-11:31:41.384 6ba8 Reusing old log C:\Users\VKumar0427\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/001111.log 
+2025/10/17-11:36:50.668 46c0 Level-0 table #1115: started
+2025/10/17-11:36:50.680 46c0 Level-0 table #1115: 10312 bytes OK
+2025/10/17-11:36:50.681 46c0 Delete type=0 #1111
+2025/10/17-11:36:50.682 46c0 Compacting 4@0 + 1@1 files
+2025/10/17-11:36:50.687 46c0 Generated table #1116@0: 471 keys, 19808 bytes
+2025/10/17-11:36:50.687 46c0 Compacted 4@0 + 1@1 files => 19808 bytes
+2025/10/17-11:36:50.688 46c0 compacted to: files[ 0 1 1 0 0 0 0 ]
+2025/10/17-11:36:50.689 46c0 Delete type=2 #1106
+2025/10/17-11:36:50.689 46c0 Delete type=2 #1108
+2025/10/17-11:36:50.689 46c0 Delete type=2 #1110
+2025/10/17-11:36:50.689 46c0 Delete type=2 #1112
+2025/10/17-11:36:50.689 46c0 Delete type=2 #1115
+2025/10/17-11:37:06.011 6ba8 Level-0 table #1118: started
+2025/10/17-11:37:06.018 6ba8 Level-0 table #1118: 13525 bytes OK
+2025/10/17-11:37:06.020 6ba8 Delete type=0 #1114
+2025/10/17-11:39:46.192 46c0 Level-0 table #1120: started
+2025/10/17-11:39:46.201 46c0 Level-0 table #1120: 15858 bytes OK
+2025/10/17-11:39:46.204 46c0 Delete type=0 #1117
