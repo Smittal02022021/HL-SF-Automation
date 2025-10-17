@@ -363,5 +363,12 @@ MigrationBackup/
 FodyWeavers.xsd
 
 Defects_Screenshots/
-TestData/
+TestData/Default/
+TestData/GrShaderCache/
+TestData/ShaderCache/
+TestData/BrowserMetrices/
+TestData/ShaderCache/
+TestData/hyphen-data/
+TestData/User*
+TestData/User Data/
 Reports/
