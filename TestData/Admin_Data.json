@@ -1,10 +1,10 @@
 ﻿{
   "authentication": {
-    "username": "vkumar0427@hl.com.test",
-    "password": "Angeles!2021",
-    "loggeduser": "Vijay Kumar"
+    "username": "Yashaswini.Ramanna@hl.com.test",
+    "password": "SFval0109",
+    "loggeduser": "Yashaswini Ramanna"
   },
   "filePaths": {
-    "testData": "C:\\Users\\VKumar0427\\source\\repos\\SF_Automation\\TestData\\"
+    "testData": "C:\\Users\\YRamann\\source\\repos\\SF_Automation\\TestData\\"
   }
 }

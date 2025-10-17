@@ -23,7 +23,7 @@ namespace SF_Automation.Pages
         By comboDisclosureStatus = By.CssSelector("select[name*='HaP']");
         By btnSave = By.CssSelector("input[value=' Save ']");
 
-        string dir = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\Users\YRamann\source\repos\SF_Automation\TestData\";
 
         public string AddOpportunities(string file)
         {
