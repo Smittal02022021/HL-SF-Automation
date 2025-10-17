@@ -1,17 +1,11 @@
-﻿using AventStack.ExtentReports;
-using NUnit.Framework;
-using NUnit.Framework.Interfaces;
+﻿
 using OpenQA.Selenium;
-using RazorEngine.Compilation.ImpromptuInterface.Optimization;
 using SF_Automation.Pages.Common;
-using SF_Automation.TestCases.Contact;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Net.PeerToPeer;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -833,6 +827,11 @@ namespace SF_Automation.Pages
         {
             return By.XPath($"//h2//span[text()='Opportunity Activity']//ancestor::article//lightning-primitive-cell-factory[@data-label='Subject']//lightning-base-formatted-text[text()='{activitySubject}']");
         }
+        private By _ElmWomenLed(string option)
+        {
+            return By.XPath($"//label[text()='Women Led']/following::lightning-base-combobox-item//span[text()='{option}']");
+        }
+
         public string GetValueLocationBenefitLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, tabAdministationL, 5);
@@ -5526,7 +5525,7 @@ namespace SF_Automation.Pages
             driver.FindElement(btnWomenLedL).Click();
             Thread.Sleep(4000);
 
-            driver.FindElement(By.XPath("//label[text()='Women Led']/ancestor::div/div/lightning-base-combobox/div[1]/div[1]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valWomen + "']")).Click();
+            driver.FindElement(_ElmWomenLed(valWomen)).Click();
 
             ////Select Conf Agreement
             //string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);
@@ -5744,10 +5743,8 @@ namespace SF_Automation.Pages
             driver.FindElement(btnWomenLedL).Click();
             //driver.FindElement(btnWomenLedL).Click();
             Thread.Sleep(5000);
-            driver.FindElement(By.XPath("//label[text()='Women Led']/ancestor::div/div/lightning-base-combobox//span[2]/span[text()='" + valWomen + "']")).Click();
-
+            driver.FindElement(_ElmWomenLed(valWomen)).Click();
             driver.FindElement(txtTotalAntiRevL).SendKeys("100001");
-
             driver.FindElement(btnSaveDetailsL).Click();
         }
 
@@ -6969,8 +6966,7 @@ namespace SF_Automation.Pages
             driver.FindElement(btnWomenLedL).Click();
             Thread.Sleep(4000);
 
-            driver.FindElement(By.XPath("//lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valWomen + "']")).Click();
-
+            driver.FindElement(_ElmWomenLed(valWomen)).Click();
             //Select Fairness
             Thread.Sleep(4000);
             driver.FindElement(btnFairnessL).Click();
@@ -7462,8 +7458,7 @@ namespace SF_Automation.Pages
             driver.FindElement(txtEstCloseDateL).SendKeys("07/01/2023");
             driver.FindElement(btnWomenLedL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//lightning-base-combobox/div/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + valWomen + "']")).Click();
-
+            driver.FindElement(_ElmWomenLed(valWomen)).Click();
             ////Select Conf Agreement
             //string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);
             //Thread.Sleep(4000);
@@ -7988,8 +7983,7 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(labelESGLV));//Available for James Craven
             driver.FindElement(btnWomenLedL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Women Led']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
-
+            driver.FindElement(_ElmWomenLed(valWomen)).Click();
             //Select Conf Agreement
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblConflictsRunL));
             string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);
@@ -8108,8 +8102,7 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(labelESGLV));//Available for James Craven
             driver.FindElement(btnWomenLedL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Women Led']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
-
+            driver.FindElement(_ElmWomenLed(valWomen)).Click();
             //Select Conf Agreement
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblConflictsRunL));
             string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);
@@ -8232,8 +8225,7 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(labelESGLV));//Available for James Craven
             driver.FindElement(btnWomenLedL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Women Led']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
-
+            driver.FindElement(_ElmWomenLed(valWomen)).Click();
             //Select Conf Agreement
             CustomFunctions.MoveToElement(driver, driver.FindElement(comboIndemLngL));//lblConflictsRunL
             string valConf = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", rowCount, 23);
@@ -9128,8 +9120,7 @@ namespace SF_Automation.Pages
             //WomenLed
             driver.FindElement(btnWomenLedL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Women Led']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
-
+            driver.FindElement(_ElmWomenLed(valWomen)).Click();
             //EU Securities 
             CustomFunctions.MoveToElement(driver, driver.FindElement(comboConfAggL));
             driver.FindElement(cmboEUSecuritiesL).Click();
@@ -9301,8 +9292,7 @@ namespace SF_Automation.Pages
             //WomenLed
             driver.FindElement(btnWomenLedL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Women Led']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
-
+            driver.FindElement(_ElmWomenLed(valWomen)).Click();
             //EU Securities 
             CustomFunctions.MoveToElement(driver, driver.FindElement(comboConfAggL));
             driver.FindElement(cmboEUSecuritiesL).Click();
@@ -9696,8 +9686,7 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(labelESGLV));//Available for James Craven
             driver.FindElement(btnWomenLedL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Women Led']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
-
+            driver.FindElement(_ElmWomenLed(valWomen)).Click();
             ////Select Conf Agreement
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblCAComments));
             string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);
@@ -9793,8 +9782,7 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(labelESGLV));//Available for James Craven
             driver.FindElement(btnWomenLedL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Women Led']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
-
+            driver.FindElement(_ElmWomenLed(valWomen)).Click();
             ////Select Conf Agreement
             CustomFunctions.MoveToElement(driver, driver.FindElement(lblCAComments));
             string valConf = ReadExcelData.ReadData(excelPath, "AddOpportunity", 23);
@@ -10483,8 +10471,7 @@ namespace SF_Automation.Pages
             CustomFunctions.MoveToElement(driver, driver.FindElement(labelESGLV));//Available for James Craven
             driver.FindElement(btnWomenLedL).Click();
             Thread.Sleep(2000);
-            driver.FindElement(By.XPath("//label[text()='Women Led']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
-            Thread.Sleep(1000);
+            driver.FindElement(_ElmWomenLed(valWomen)).Click(); Thread.Sleep(1000);
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(10000);
         }
@@ -11351,8 +11338,7 @@ namespace SF_Automation.Pages
             //WomenLed
             driver.FindElement(btnWomenLedL).Click();
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Women Led']/following::lightning-base-combobox-item//span[text()='" + valWomen + "']")).Click();
-
+            driver.FindElement(_ElmWomenLed(valWomen)).Click();
             //EU Securities 
             CustomFunctions.MoveToElement(driver, driver.FindElement(comboConfAggL));
             driver.FindElement(cmboEUSecuritiesL).Click();

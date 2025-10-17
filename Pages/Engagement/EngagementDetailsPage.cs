@@ -152,7 +152,7 @@ namespace SF_Automation.Pages.Engagement
         By tabDetails = By.XPath("//a[text()='Details']");
         By lnkStageL = By.XPath("//button[@title='Edit Stage']");
         By btnStageL = By.XPath("//flexipage-field[5]//div[2]/slot//button/span");
-        By valStageL = By.XPath("//flexipage-tab2[1]//flexipage-tab2[1]//flexipage-column2[2]/div/slot/flexipage-field[5]//lightning-combobox//lightning-base-combobox-item/span[2]/span[text()='Bill/File']");
+        By valStageL = By.XPath("//span[text()='Stage']/../../..//lightning-formatted-text");//flexipage-tab2[1]//flexipage-tab2[1]//flexipage-column2[2]/div/slot/flexipage-field[5]//lightning-combobox//lightning-base-combobox-item/span[2]/span[text()='Bill/File']");//Vj
         By tabOpportunityL = By.XPath("//div[2]/div/div/ul[2]/li[2]/a");
         By valImportedValPeriod = By.XPath("//tr[1]/td[2]/a");
         By valSavedStageL = By.XPath("//flexipage-tabset2//flexipage-column2[2]//flexipage-field[5]//div/span/ancestor::div[2]//slot[1]/lightning-formatted-text");
@@ -844,12 +844,12 @@ namespace SF_Automation.Pages.Engagement
         By inputSSExpL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Shared Services Expense']/..//input");
         By inputExpCapL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Expense Cap']/..//input");
         By inputLegalCapL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Legal Cap']/..//input");
-        By btnIndLngL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Indemnification Language']/..//button");
+        By btnIndLngL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Indemnification Language']/../..//button");
         By inputRetainerL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Retainer']/..//input");
         By inputProgMnthFL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Progress/Monthly Fee']/..//input");
         By inputContgFeeL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Contingent Fee']/..//input");
         By inputTailExpL = By.XPath("//label[text()='Tail Expires']/parent::div//input");
-        By btnConfAggL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Confidentiality Agreement']/..//button");
+        By btnConfAggL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Confidentiality Agreement']/../..//button");
         By inputFairnessOppL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Fairness Opinion Component']/..//button[@role='combobox']");
         By inputDateEngdL = By.XPath("//c-engagement-verbally-engaged-approval//lightning-input-field//label[text()='Date Engaged']/..//input");
         By btnEngInfoSaveL = By.XPath("//footer//button[@type='submit']");
@@ -942,7 +942,7 @@ namespace SF_Automation.Pages.Engagement
         By txtLatestNewValueL = By.XPath("(//article//dd//lightning-formatted-text)[2]");
         By txtTotalExtimatedFeeL = By.XPath("//table//tbody//td[@data-label='Total Estimated Fee']");
         By lblEstTxnSize = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Est_Transaction_Size_MM__c']//span[text()='Est. Transaction Size / Market Cap (MM)']");
-        By ComboStagePriorityL = By.XPath("//label[text()='Stage']/parent::div//button");
+        By ComboStagePriorityL = By.XPath("//label[text()='Stage']/../..//button");
         By inputPAFeesL = By.XPath("//span[text()='Period Accrued Fees']/../../input");
         By lnkViewAllL = By.XPath("//article[@aria-label='Approval History']//span[text()='View All']");
         By titleApproveL = By.XPath("//h1[@title='Approval History']");
