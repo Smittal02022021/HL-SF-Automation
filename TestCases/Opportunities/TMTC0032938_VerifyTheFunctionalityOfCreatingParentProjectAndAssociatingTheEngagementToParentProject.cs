@@ -98,6 +98,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Engagement gets associated with Parent Project: " + addedProjectEng + " ");
 
                 //6.	TMT0073614_Verify that on associating engagement to parent project, engagement will populate on the parent project
+                opportunityHome.ValidateParentProjectUnderHLBanker();
                 string associatedEng = project.ValidateAssociatedEngToParentProject();
                 Assert.AreEqual("Project Palm Tree - Tax", associatedEng);
                 extentReports.CreateLog("Associated Engagement : " + associatedEng + " is populated on the Parent Project ");

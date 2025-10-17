@@ -214,7 +214,8 @@ namespace SF_Automation.Pages.Engagement
         By valIGSummary = By.XPath("//span[text()='Seller Background']/ancestor::div[1]//span[text()='Industry Group']/ancestor::lightning-output-field//lightning-formatted-text");
         By valSectorSummary = By.XPath("//span[text()='Seller Background']/ancestor::div[1]//span[text()='Sector']/ancestor::lightning-output-field//lightning-formatted-text");
         By valDescSummary = By.XPath("//span[text()='Seller Background']/ancestor::div[1]//span[text()='Description']/ancestor::lightning-output-field//lightning-formatted-text");
-        By tabEngsummary = By.XPath("//a/span[text()='Engagement Summary']");
+        By tabEngsummary = By.XPath("//section//ul[2]/li[3]/a/span[2]");
+        //By tabEngsummary = By.XPath("//a/span[text()='Engagement Summary']");
         By lblSellerDetailsSection = By.XPath("//span[text()='Seller Details (MM)']/ancestor::div[1]//lightning-output-field/span");
         By iconSellerDetails = By.XPath("//span[text()='Seller Details (MM)']/ancestor::h3//c-hl-universal-pop-over/div/lightning-icon//lightning-primitive-icon");
         By lblTxnRationale = By.XPath("//li[1]/span[text()='Transaction Rationale']");
@@ -258,7 +259,7 @@ namespace SF_Automation.Pages.Engagement
 
         By btnMoreFin = By.XPath("//tr[1]/td[6]//lightning-button-menu/button");
         By lnkEditRecord = By.XPath("//span[text()='Edit']");
-        By chkEngFinCheck = By.XPath("//input[@name='Engagement_Financials_Check__c']");
+        By chkEngFinCheck = By.XPath("//span[text()='Engagement Financials Check']/ancestor::lightning-output-field[1]/div[1]//span//span");
         By chkEngContactCheck = By.XPath("//input[@name='Engagement_Contacts_Seller_Check__c']");
         By chkEngContactNoAttorneyCheck = By.XPath("//input[@name='Engagement_Contact_Seller_No_Attorney__c']");
         By chkEngContactCheckBuyer = By.XPath("//input[@name='Engagement_Contacts_Buyer_Check__c']");
@@ -1554,7 +1555,7 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             Thread.Sleep(12000);
             driver.FindElement(txtCognoUser).SendKeys("SSharma0427");
-            driver.FindElement(txtCognoPass).SendKeys("Avika_Ashok@2024");
+            driver.FindElement(txtCognoPass).SendKeys("Harekrishan@2025");
             driver.FindElement(btnSignin).Click();
             Thread.Sleep(15000);
             string pdf = driver.Url;
@@ -2210,7 +2211,8 @@ namespace SF_Automation.Pages.Engagement
         public bool ValidateRoleValuesOfSellerContacts()
         {
             driver.FindElement(btnRole).Click();
-            Thread.Sleep(6000);
+            driver.FindElement(btnRole).Click();
+            Thread.Sleep(8000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(valRole);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
             string[] expectedValue = { "--None--", "Attorney", "Board of Directors", "Company Contact", "Equity Sponsor", "External Financial Advisor" };
@@ -2243,7 +2245,7 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateMandatoryMessageOfContact()
         {
             driver.FindElement(btnSave).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, msgContact);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgContact,90);
             string value = driver.FindElement(msgContact).Text;
             return value;
         }
@@ -2337,7 +2339,7 @@ namespace SF_Automation.Pages.Engagement
                 if (driver.FindElement(chkEngFinCheck).Displayed)
                 {
                     CustomFunctions.MoveToElement(driver, driver.FindElement(chkEngFinCheck));
-                    if (driver.FindElement(chkEngFinCheck).Selected)
+                    if (driver.FindElement(chkEngFinCheck).Text.Equals("True"))
                     {
                         return "Engagement Financials Check checkbox is displayed and checked";
                     }

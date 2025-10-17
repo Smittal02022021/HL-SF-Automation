@@ -32,7 +32,8 @@ namespace SalesForce_Project.Pages
         By valParentProjectEng = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Parent_Project__c']//records-hoverable-link//span//span/slot");
         By lnkParentProjectEng = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Parent_Project__c']//records-hoverable-link");
         By tabParentProject = By.XPath("//div[2]/div/div/ul[2]/li[2]/a/span[1]");
-        By valAssociatedEng = By.XPath("//table[@aria-label='Engagements']//tbody/tr[1]/th//lst-output-lookup//a//slot//slot/span");
+        By recParentProjcet = By.XPath("//tbody/tr[1]/th//a");
+        By valAssociatedEng = By.XPath("//span[text()='Engagement Name']/ancestor::table//tr[1]/th//lst-output-lookup//a//slot//slot/span");
         By valProjectClient = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.Client__c']//lightning-formatted-text");
         By valProjectLOB = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.Line_of_Business__c']//lightning-formatted-text");
         By valProjectCurrency = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Parent_Project__c.CurrencyIsoCode']//lightning-formatted-text");
@@ -220,7 +221,7 @@ namespace SalesForce_Project.Pages
             driver.FindElement(txtBillToContact).Click();
             driver.FindElement(txtBillToContact).SendKeys("Tec");
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//label[text()='Bill To Contact']/ancestor::lightning-grouped-combobox//ul/li[1]/lightning-base-combobox-item")).Click();
+            driver.FindElement(By.XPath("//label[text()='Bill To Contact']/ancestor::lightning-grouped-combobox//ul/li[2]/lightning-base-combobox-item")).Click();
 
             driver.FindElement(btnInvoice).Click();
             Thread.Sleep(4000);
@@ -243,13 +244,13 @@ namespace SalesForce_Project.Pages
             Thread.Sleep(7000);
             try
             {
-                driver.FindElement(By.XPath("//flexipage-field[12]//div[1]//lightning-base-combobox/div//div[2]/ul/li")).Click();
+                driver.FindElement(By.XPath("//div[1]//lightning-base-combobox/div//div[2]/ul/li/lightning-base-combobox-item")).Click();
                 //driver.FindElement(By.XPath("//flexipage-field[12]/slot//div[1]/div/lightning-base-combobox//div[2]/ul/li")).Click();
 
             }
             catch
             {
-                driver.FindElement(By.XPath("//flexipage-field[13]//div[1]//lightning-base-combobox/div//div[2]/ul/li")).Click();
+                driver.FindElement(By.XPath("//flexipage-field[13]//div[1]//lightning-base-combobox/div//div[2]/ul/li[1]")).Click();
 
             }
             Thread.Sleep(7000);
@@ -277,9 +278,9 @@ namespace SalesForce_Project.Pages
         public string ValidateAssociatedEngToParentProject()
         {
 
-            driver.FindElement(tabParentProject).Click();
+            driver.FindElement(recParentProjcet).Click();
             //Sdriver.Navigate().Refresh();
-            Thread.Sleep(7000);
+            Thread.Sleep(8000);
             //WebDriverWaits.WaitUntilEleVisible(driver, valAssociatedEng);
             string eng = driver.FindElement(valAssociatedEng).Text;
             return eng;

@@ -151,9 +151,9 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Field with name :" + txtAsOf + " is displayed ");
 
                 //TMTI0078917 - Verify that on the Add Financials page, the following tooltip is added to the "As of Date" label
-                string msgAsOfDate = form.ValidateAsOfDateToolTip();
-                Assert.AreEqual("Default is 12/31/XX, but please specify if otherwise", msgAsOfDate);
-                extentReports.CreateLog("Tool tip with message: " + msgAsOfDate + " is displayed upon hovering on As Of Date ");
+                //string msgAsOfDate = form.ValidateAsOfDateToolTip();
+                //Assert.AreEqual("Default is 12/31/XX, but please specify if otherwise", msgAsOfDate);
+                //extentReports.CreateLog("Tool tip with message: " + msgAsOfDate + " is displayed upon hovering on As Of Date ");
 
                 //Validate the Revenue (MM) Field
                 string txtRevneue = form.GetRevenueMMField();

@@ -89,7 +89,7 @@ namespace SF_Automation.TestCases.Opportunities
                 string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
                 string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);             
                 opportunityDetails.ClickAddFVAOppContact();
-                addContact.CreateContactL(fileTC2362);
+                addContact.CreateContactL2(fileTC2362);
                 opportunityDetails.UpdateReqFieldsForFVAConversionL(fileTC2362);
                 extentReports.CreateLog("All required details are saved ");
 
