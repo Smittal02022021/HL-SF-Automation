@@ -12,8 +12,8 @@ namespace SF_Automation.Pages.CoverageTeam
     {
         By btnNewL = By.XPath("//a[@title='New']");
         By headerNewFormL = By.XPath("//h2[contains(text(),'New Coverage Team')]");
-        By btnTypeL = By.XPath("//label[text()='Type']/..//button");
-        By optionsTypeL = By.XPath("//label[text()='Type']/..//button/../../..//lightning-base-combobox-item//span/span");
+        By btnTypeL = By.XPath("//label[text()='Type']/../..//button");
+        By optionsTypeL = By.XPath("//label[text()='Type']/../..//button/../../..//lightning-base-combobox-item//span/span");
         By headerSectionL = By.XPath("//h3//span[@title='Section']");
         By btnCancelL = By.XPath("//button[@name='CancelEdit']");
         By listBoxExpectedProductsL = By.XPath("//div[text()='Expected Products']/..//ul//div[@role='option']/span/span");
@@ -57,8 +57,7 @@ namespace SF_Automation.Pages.CoverageTeam
             IJavaScriptExecutor jse = (IJavaScriptExecutor)driver;
             WebDriverWaits.WaitUntilEleVisible(driver, headerSectionL, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(headerSectionL));
-            driver.FindElement(btnTypeL).Click();
-            By optionsTypeL = By.XPath("//label[text()='Type']/..//button/../../..//lightning-base-combobox-item//span/span");
+            driver.FindElement(btnTypeL).Click();            
             IReadOnlyCollection<IWebElement> valTypes = driver.FindElements(optionsTypeL);
             foreach (IWebElement valType in valTypes)
             {
