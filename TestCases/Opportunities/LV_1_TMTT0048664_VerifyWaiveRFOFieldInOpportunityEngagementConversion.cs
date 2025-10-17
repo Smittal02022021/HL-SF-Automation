@@ -42,7 +42,6 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
         //TMTI0119903 Verify that System Admin can edit the "Waive RFO" field in "Fees and Financials" tab-> "Estimated Fees" section in in newly converted opportunity to  Engagement
         //TMTI0119905 Verify that Financial user cannot edit the "Waive RFO" field in "Fees and Financials" tab-> "Estimated Fees" section in newly converted opportunity to  Engagement.
         
-
         [Test]
         public void VerifyWaiveRFOFieldInCFOpportunity_Engagement()
         {

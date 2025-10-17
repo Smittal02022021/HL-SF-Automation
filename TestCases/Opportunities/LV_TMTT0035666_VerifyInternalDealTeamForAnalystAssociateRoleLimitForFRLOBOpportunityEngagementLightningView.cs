@@ -128,27 +128,29 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
                     //TMTI0085042 Verify the Internal deal team "Analyst and Associate Roles" role increased limit for FR LOB Opportunity
                     int countOppDealTeamMember = opportunityDetails.AddOppMultipleDealTeamMembersLV(valRecordType, memberRole, fileTMTT0035666);//updated multiselect user function,SwitchTO
                     Assert.AreEqual(exectedMaxLimit, countOppDealTeamMember.ToString());
-                    extentReports.CreateStepLogs("Pass", countOppDealTeamMember + " Internal Team Members with Role:" + memberRole + " are added to Opportunity ");
+                    extentReports.CreateStepLogs("Passed", countOppDealTeamMember + " Internal Team Members with Role:" + memberRole + " are added to Opportunity ");
 
                     string msgActualLimit = opportunityDetails.ValidateDealTeamMemberOverLimitLV();//extra +1
                     string expectedLimitMessage = ReadExcelData.ReadData(excelPath, "OverLimitMessage", 1);
                     Assert.AreNotEqual(expectedLimitMessage, msgActualLimit);
-                    extentReports.CreateLog("Popup with Message: " + msgActualLimit + " is Displayed ");
+                    extentReports.CreateStepLogs("Passed", "Popup with Message: " + msgActualLimit + " is Displayed ");
 
                     //Get the line error message from internal staff page.
                     string txtLineErrorMessage = opportunityDetails.GetLineErrorMessageLV();
                     string maxMemberLimit = ReadExcelData.ReadData(excelPath, "OverLimitMessage", 2);
                     Assert.IsFalse(txtLineErrorMessage.Contains(maxMemberLimit));
-                    extentReports.CreateLog("Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");
-                    extentReports.CreateLog("User returned to Opportunity Detail page ");
+                    extentReports.CreateStepLogs("Passed", "Line Message: " + txtLineErrorMessage + " is Displayed on header of Opportunity Internal Team Member page ");
+                    extentReports.CreateStepLogs("Info", "User returned to Opportunity Detail page ");
                     
                     homePageLV.UserLogoutFromSFLightningView();
                     extentReports.CreateLog(valUser + " Standard User logged out ");
-                    extentReports.CreateLog("Admin is Performing Required Actions ");
+                    extentReports.CreateStepLogs("Info", "Admin is Performing Required Actions ");
                     opportunityHome.SearchOpportunity(opportunityName);
 
                     //update CC and NBC checkboxes 
                     opportunityDetails.UpdateOutcomeDetails(fileTMTT0035666);
+                    extentReports.CreateStepLogs("Info", "Admin Entered CC Outcome Details");
+
 
                     //Login again as Standard User
                     homePage.SearchUserByGlobalSearchN(valUser);
@@ -158,14 +160,14 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
                     login.SwitchToLightningExperience();
                     stdUser = login.ValidateUserLightningView();
                     Assert.AreEqual(stdUser.Contains(valUser), true);
-                    extentReports.CreateLog("User: " + valUser + " logged in on Lightning View");
+                    extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
 
                     homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
-                    extentReports.CreateLog(appName + " App is selected from App Launcher ");
+                    extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
-                    extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
+                    extentReports.CreateStepLogs("Info", "CF Financial User is on " + moduleNameExl + " Page ");
 
                     //Search for created opportunity
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
@@ -176,9 +178,9 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
                     //Submit Request To Engagement Conversion 
                     string msgSuccess = opportunityDetails.GetRequestToEngMsgL();
                     Assert.AreEqual(msgSuccess, "Opportunity has been submitted for Approval.");
-                    extentReports.CreateLog("Success message: " + msgSuccess + " is displayed ");
+                    extentReports.CreateStepLogs("Passed", "Success message: " + msgSuccess + " is displayed ");
                     homePageLV.UserLogoutFromSFLightningView();
-                    extentReports.CreateLog(valUser + " Standard User logged out ");
+                    extentReports.CreateStepLogs("Info", valUser + " Standard User logged out ");
 
                     //Login as CAO user to approve the Opportunity
                     string userCAO = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2);
@@ -189,41 +191,41 @@ namespace SF_Automation.TestCases.OpportunitiesInternalTeam
                     login.SwitchToLightningExperience();
                     string user = login.ValidateUserLightningView();
                     Assert.AreEqual(user.Contains(userCAO), true);
-                    extentReports.CreateLog("User: " + userCAO + " logged in on Lightning View");
+                    extentReports.CreateStepLogs("Passed", "User: " + userCAO + " logged in on Lightning View");
 
                     //Go to Opportunity module in Lightning View 
                     homePageLV.SelectAppLV(appNameExl);
                     appName = homePageLV.GetAppName();
                     Assert.AreEqual(appNameExl, appName);
-                    extentReports.CreateLog(appName + " App is selected from App Launcher ");
+                    extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
                     homePageLV.SelectModule(moduleNameExl);
-                    extentReports.CreateLog("User is on " + moduleNameExl + " Page ");
+                    extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Page ");
                     //Search for created opportunity
                     opportunityHome.SearchOpportunitiesInLightningView(opportunityName);
 
                     //Approve the Opportunity 
                     string status = opportunityDetails.ClickApproveButtonLV2();
                     Assert.AreEqual(status, "Approved");
-                    extentReports.CreateLog("Opportunity " + status + " ");
+                    extentReports.CreateStepLogs("Passed", "Opportunity " + status + " ");
                     opportunityDetails.CloseApprovalHistoryTabL();
 
                     //Calling function to convert to Engagement
                     opportunityDetails.ClickConvertToEngagementL();
-                    extentReports.CreateLog("Opportunity Converted into Engagement ");
+                    extentReports.CreateStepLogs("Info", "Opportunity Converted into Engagement ");
                     //Validate the Engagement name in Engagement details page
                     string engagementNumber = engagementDetails.GetEngagementNumberL();
                     string engagementName = engagementDetails.GetEngagementNameL();
                     //Need to get Name of Opp and Eng
                     Assert.AreEqual(opportunityName, engagementName);
-                    extentReports.CreateLog("Name of Engagement : " + engagementName + " is Same as Opportunity name ");
+                    extentReports.CreateStepLogs("Passed", "Name of Engagement : " + engagementName + " is Same as Opportunity name ");
 
                     //////////////////Need to above below function on eng page 
                     int countEngDealTeamMember = engagementDetails.GetInernalTeamMembersCountLV();
                     Assert.AreEqual(exectedMaxLimit, (countEngDealTeamMember - 1).ToString());
                     extentReports.CreateStepLogs("Pass", "Opportunity Deal Team Member : " + (countEngDealTeamMember - 1) + " are Present on Converted Engagement ");
                     homePageLV.UserLogoutFromSFLightningView();
-                    extentReports.CreateLog("CAO User: " + userCAO + " logged out ");
-                    extentReports.CreateStepLogs("Info", "Browser Closed Successfully");
+                    extentReports.CreateStepLogs("Info", "CAO User: " + userCAO + " logged out ");
+                    extentReports.CreateStepLogs("Info", "Browser Closed Successfully!");
                 }
             }
             catch (Exception e)
