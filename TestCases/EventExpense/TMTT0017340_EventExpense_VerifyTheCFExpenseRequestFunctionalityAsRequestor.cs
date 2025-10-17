@@ -196,7 +196,7 @@ namespace SF_Automation.TestCases.EventExpense
 
                         //TC - TMTI0038482 - Verify the functionality of "Clone" button on expense request detail page as requestor.
                         Assert.IsTrue(lvExpRequestDetail.VerifyCloneButtonFunctionality());
-                        extentReports.CreateLog("New expense form is openning with pre-filled details from the cloned request. ");
+                        extentReports.CreateLog("New expense form is opening with pre-filled details from the cloned request. ");
 
                         lvExpRequestDetail.CreateCloneExpenseRequest();
                         Actions action = new Actions(driver);
@@ -211,7 +211,7 @@ namespace SF_Automation.TestCases.EventExpense
                         Assert.IsTrue(lvExpRequestDetail.VerifyDeleteExpenseRequestFunctionalityAsRequestor());
                         
                         string eventStatus2 = lvExpRequestDetail.GetDeletedStatusInfo();
-                        extentReports.CreateLog("Expense request is deleted succssfully with status: " + eventStatus2 + " ");
+                        extentReports.CreateLog("Expense request is deleted successfully with status: " + eventStatus2 + " ");
 
                         //TC - TMTI0038484 - Verify expense detail page on deleting the request as requester.
                         string approverResponse = lvExpRequestDetail.GetApproverResponseFromApprovalHistorySectionForApprover();
