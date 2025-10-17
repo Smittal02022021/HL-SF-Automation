@@ -1,21 +1,66 @@
-2025/10/17-11:31:41.357 6ba8 Reusing MANIFEST C:\Users\VKumar0427\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/MANIFEST-000001
-2025/10/17-11:31:41.375 6ba8 Recovering log #1111
-2025/10/17-11:31:41.384 6ba8 Reusing old log C:\Users\VKumar0427\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/001111.log 
-2025/10/17-11:36:50.668 46c0 Level-0 table #1115: started
-2025/10/17-11:36:50.680 46c0 Level-0 table #1115: 10312 bytes OK
-2025/10/17-11:36:50.681 46c0 Delete type=0 #1111
-2025/10/17-11:36:50.682 46c0 Compacting 4@0 + 1@1 files
-2025/10/17-11:36:50.687 46c0 Generated table #1116@0: 471 keys, 19808 bytes
-2025/10/17-11:36:50.687 46c0 Compacted 4@0 + 1@1 files => 19808 bytes
-2025/10/17-11:36:50.688 46c0 compacted to: files[ 0 1 1 0 0 0 0 ]
-2025/10/17-11:36:50.689 46c0 Delete type=2 #1106
-2025/10/17-11:36:50.689 46c0 Delete type=2 #1108
-2025/10/17-11:36:50.689 46c0 Delete type=2 #1110
-2025/10/17-11:36:50.689 46c0 Delete type=2 #1112
-2025/10/17-11:36:50.689 46c0 Delete type=2 #1115
-2025/10/17-11:37:06.011 6ba8 Level-0 table #1118: started
-2025/10/17-11:37:06.018 6ba8 Level-0 table #1118: 13525 bytes OK
-2025/10/17-11:37:06.020 6ba8 Delete type=0 #1114
-2025/10/17-11:39:46.192 46c0 Level-0 table #1120: started
-2025/10/17-11:39:46.201 46c0 Level-0 table #1120: 15858 bytes OK
-2025/10/17-11:39:46.204 46c0 Delete type=0 #1117
+2025/10/17-12:43:48.873 53d0 Reusing MANIFEST C:\Users\VKumar0427\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/MANIFEST-000001
+2025/10/17-12:43:48.889 53d0 Recovering log #1137
+2025/10/17-12:43:48.923 53d0 Level-0 table #1140: started
+2025/10/17-12:43:48.934 53d0 Level-0 table #1140: 13162 bytes OK
+2025/10/17-12:43:48.935 53d0 Recovering log #1139
+2025/10/17-12:43:48.943 53d0 Reusing old log C:\Users\VKumar0427\source\repos\SF_Automation\TestData\User Data\Default\Local Storage\leveldb/001139.log 
+2025/10/17-12:43:48.947 53d0 Delete type=0 #1137
+2025/10/17-12:48:10.977 53d0 Level-0 table #1142: started
+2025/10/17-12:48:10.989 53d0 Level-0 table #1142: 9563 bytes OK
+2025/10/17-12:48:10.990 53d0 Delete type=0 #1139
+2025/10/17-12:51:36.127 53d0 Level-0 table #1144: started
+2025/10/17-12:51:36.138 53d0 Level-0 table #1144: 13647 bytes OK
+2025/10/17-12:51:36.140 53d0 Delete type=0 #1141
+2025/10/17-12:51:36.141 53d0 Compacting 4@0 + 1@1 files
+2025/10/17-12:51:36.146 53d0 Generated table #1145@0: 484 keys, 26636 bytes
+2025/10/17-12:51:36.146 53d0 Compacted 4@0 + 1@1 files => 26636 bytes
+2025/10/17-12:51:36.146 53d0 compacted to: files[ 0 1 1 0 0 0 0 ]
+2025/10/17-12:51:36.147 53d0 Delete type=2 #1136
+2025/10/17-12:51:36.147 53d0 Delete type=2 #1138
+2025/10/17-12:51:36.147 53d0 Delete type=2 #1140
+2025/10/17-12:51:36.147 53d0 Delete type=2 #1142
+2025/10/17-12:51:36.147 53d0 Delete type=2 #1144
+2025/10/17-12:52:48.104 53d0 Level-0 table #1147: started
+2025/10/17-12:52:48.116 53d0 Level-0 table #1147: 14128 bytes OK
+2025/10/17-12:52:48.118 53d0 Delete type=0 #1143
+2025/10/17-12:53:09.629 53d0 Level-0 table #1149: started
+2025/10/17-12:53:09.641 53d0 Level-0 table #1149: 7714 bytes OK
+2025/10/17-12:53:09.643 53d0 Delete type=0 #1146
+2025/10/17-12:56:06.040 2930 Level-0 table #1151: started
+2025/10/17-12:56:06.046 2930 Level-0 table #1151: 18309 bytes OK
+2025/10/17-12:56:06.047 2930 Delete type=0 #1148
+2025/10/17-12:58:24.554 2930 Level-0 table #1153: started
+2025/10/17-12:58:24.561 2930 Level-0 table #1153: 15812 bytes OK
+2025/10/17-12:58:24.563 2930 Delete type=0 #1150
+2025/10/17-12:58:24.564 2930 Compacting 4@0 + 1@1 files
+2025/10/17-12:58:24.573 2930 Generated table #1154@0: 489 keys, 25504 bytes
+2025/10/17-12:58:24.573 2930 Compacted 4@0 + 1@1 files => 25504 bytes
+2025/10/17-12:58:24.574 2930 compacted to: files[ 0 1 1 0 0 0 0 ]
+2025/10/17-12:58:24.576 2930 Delete type=2 #1145
+2025/10/17-12:58:24.576 2930 Delete type=2 #1147
+2025/10/17-12:58:24.577 2930 Delete type=2 #1149
+2025/10/17-12:58:24.577 2930 Delete type=2 #1151
+2025/10/17-12:58:24.577 2930 Delete type=2 #1153
+2025/10/17-13:00:14.786 53d0 Level-0 table #1156: started
+2025/10/17-13:00:14.794 53d0 Level-0 table #1156: 16126 bytes OK
+2025/10/17-13:00:14.797 53d0 Delete type=0 #1152
+2025/10/17-13:00:57.935 53d0 Level-0 table #1158: started
+2025/10/17-13:00:57.940 53d0 Level-0 table #1158: 8463 bytes OK
+2025/10/17-13:00:57.941 53d0 Delete type=0 #1155
+2025/10/17-13:02:57.937 53d0 Level-0 table #1160: started
+2025/10/17-13:02:57.945 53d0 Level-0 table #1160: 9421 bytes OK
+2025/10/17-13:02:57.949 53d0 Delete type=0 #1157
+2025/10/17-13:03:57.937 53d0 Level-0 table #1162: started
+2025/10/17-13:03:57.949 53d0 Level-0 table #1162: 18685 bytes OK
+2025/10/17-13:03:57.950 53d0 Delete type=0 #1159
+2025/10/17-13:03:57.951 53d0 Compacting 4@0 + 1@1 files
+2025/10/17-13:03:57.959 53d0 Generated table #1163@0: 492 keys, 37193 bytes
+2025/10/17-13:03:57.959 53d0 Compacted 4@0 + 1@1 files => 37193 bytes
+2025/10/17-13:03:57.960 53d0 compacted to: files[ 0 1 1 0 0 0 0 ]
+2025/10/17-13:03:57.961 53d0 Delete type=2 #1154
+2025/10/17-13:03:57.961 53d0 Delete type=2 #1156
+2025/10/17-13:03:57.961 53d0 Delete type=2 #1158
+2025/10/17-13:03:57.962 53d0 Delete type=2 #1160
+2025/10/17-13:03:57.962 53d0 Delete type=2 #1162
+2025/10/17-13:04:42.500 2930 Level-0 table #1165: started
+2025/10/17-13:04:42.513 2930 Level-0 table #1165: 12796 bytes OK
