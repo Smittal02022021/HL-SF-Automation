@@ -47,7 +47,7 @@ namespace SF_Automation.TestCases.EventExpense
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
-                extentReports.CreateLog(driver.Title + " is displayed. ");
+                extentReports.CreateStepLogs("Passed", driver.Title + " is displayed. ");
 
                 //Calling Login function                
                 login.LoginApplication();
@@ -61,7 +61,7 @@ namespace SF_Automation.TestCases.EventExpense
 
                 //Validate user logged in
                 Assert.AreEqual(driver.Url.Contains("lightning"), true);
-                extentReports.CreateLog("User is able to login into SF");
+                extentReports.CreateStepLogs("Passed", "User is able to login into SF");
 
                 int row = 2;
 
@@ -96,12 +96,12 @@ namespace SF_Automation.TestCases.EventExpense
 
                 //Verify searched user
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, user + " | Salesforce"), true);
-                extentReports.CreateLog("User " + user + " details are displayed ");
+                extentReports.CreateStepLogs("Passed", "User " + user + " details are displayed ");
 
                 //Login as CF Financial user
                 lvHomePage.UserLogin();
                 Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(user));
-                extentReports.CreateLog("CF Financial User: " + user + " is able to login into lightning view. ");
+                extentReports.CreateStepLogs("Passed", "CF Financial User: " + user + " is able to login into lightning view. ");
 
                 //Click on the Menu button
                 lvHomePage.ClickHomePageMenu();
@@ -116,7 +116,7 @@ namespace SF_Automation.TestCases.EventExpense
                     //Go to Expense Request Page
                     lvHomePage.SearchItemExpenseRequestLWC("Expense Request(LWC)");
                     Assert.IsTrue(lvExpenseRequest.VerifyIfExpenseRequestPageIsOpenedSuccessfully());
-                    extentReports.CreateLog("Expense Request page opened successfully. ");
+                    extentReports.CreateStepLogs("Passed", "Expense Request page opened successfully. ");
 
                     //Create a new Expense Request.
                     lvCreateExpRequest.CreateNewExpenseRequestLWC(lobName, fileTC17339, row);
@@ -125,15 +125,15 @@ namespace SF_Automation.TestCases.EventExpense
                     string expReqpreApprovalNo = lvExpRequestDetail.GetExpensePreapprovalNumber();
                     string eventStatus = lvExpRequestDetail.GetEventStatusInfo();
 
-                    extentReports.CreateLog("Expense Request of LOB: " + lobName + " is created successfully with Status as: " + eventStatus + " and Expense Preapproval Number: " + expReqpreApprovalNo + " ");
+                    extentReports.CreateStepLogs("Passed", "Expense Request of LOB: " + lobName + " is created successfully with Status as: " + eventStatus + " and Expense Preapproval Number: " + expReqpreApprovalNo + " ");
 
                     //TC - TMTI0038456 - Verify that email notification has been sent to appropriate Approver on Submission of the Expense Request for approval
                     Assert.IsTrue(lvExpRequestDetail.SubmitExpenseRequestForApproval());
-                    extentReports.CreateLog("Expense Request submitted for approval successfully. ");
+                    extentReports.CreateStepLogs("Passed", "Expense Request submitted for approval successfully. ");
 
                     //Logout from SF Lightning View
                     lvHomePage.LogoutFromSFLightningAsApprover();
-                    extentReports.CreateLog("User Logged Out from SF Lightning View. ");
+                    extentReports.CreateStepLogs("Info", "User Logged Out from SF Lightning View. ");
 
                     driver.Quit();
                     
@@ -144,31 +144,22 @@ namespace SF_Automation.TestCases.EventExpense
                     outlook.LoginOutlook(fileOutlook);
                     string outlookLabel = outlook.GetLabelOfOutlook();
                     Assert.AreEqual("Outlook", outlookLabel);
-                    extentReports.CreateLog("User is logged in to outlook ");
+                    extentReports.CreateStepLogs("Passed", "User is logged in to outlook ");
 
                     outlook.SelectExpenseApprovalEmail();
-                    extentReports.CreateLog("An Email notification with subject line : Sandbox: Marketing Expense submission confirmation ");
+                    extentReports.CreateStepLogs("Passed", "An Email notification with subject line : Sandbox: Marketing Expense submission confirmation ");
                     
                     login.LoginAsExpenseRequestApprover(fileTC17339);
-
-                    //Switch to lightning view
-                    /*
-                    if (driver.Title.Contains("Salesforce - Unlimited Edition"))
-                    {
-                        homePage.SwitchToLightningView();
-                    }
-                    */
-
-                    extentReports.CreateLog("Approver: " + user1 + " is able to login into lightning view. ");
+                    extentReports.CreateStepLogs("Info", "Approver: " + user1 + " is able to login into lightning view. ");
 
                     // Validate status of the event request on my request page in the request list
                     string eventStatus1 = lvExpRequestDetail.GetEventStatusInfoForApprover();
                     Assert.AreEqual("Waiting for Approval", eventStatus1);
-                    extentReports.CreateLog("Expense request status is verified as " + eventStatus1 + " ");
+                    extentReports.CreateStepLogs("Passed", "Expense request status is verified as " + eventStatus1 + " ");
 
                     //TC - TMTI0038457 - Verify that the approver of the expense request can see buttons like  "Approve, Reject, Required more Information"
                     Assert.IsTrue(lvExpRequestDetail.VerifyNecessaryButtonsAreDisplayedWhenApproverLandsOnExpenseDetailPage());
-                    extentReports.CreateLog("Approver of the expense request can see buttons like: Delete, Approve, Reject, Edit and Required more Information. ");
+                    extentReports.CreateStepLogs("Passed", "Approver of the expense request can see buttons like: Delete, Approve, Reject, Edit and Required more Information. ");
 
                     if (action == "Edit")
                     {
@@ -176,7 +167,7 @@ namespace SF_Automation.TestCases.EventExpense
                         lvExpRequestDetail.EditExpenseRequestAsApprover(approverNotes);
                         string updatedNotes = lvExpRequestDetail.GetApproverNotesDetailsUnderAdditionalInfo();
                         Assert.AreEqual(approverNotes, updatedNotes);
-                        extentReports.CreateLog("Approver is able to edit expense request successfully. ");
+                        extentReports.CreateStepLogs("Passed", "Approver is able to edit expense request successfully. ");
                     }
                     else if (action == "Delete")
                     {
@@ -184,11 +175,11 @@ namespace SF_Automation.TestCases.EventExpense
                         Assert.IsTrue(lvExpRequestDetail.VerifyDeleteExpenseRequestFunctionalityAsApprover());
                         string eventStatus3 = lvExpRequestDetail.GetEventStatusInfoForApprover();
                         Assert.AreEqual(eventStatus3, "Deleted");
-                        extentReports.CreateLog("Expense request with Expense Preapproval Number: " + expReqpreApprovalNo + " is deleted succssfully with status: " + eventStatus3 + " ");
+                        extentReports.CreateStepLogs("Passed", "Expense request with Expense Preapproval Number: " + expReqpreApprovalNo + " is deleted succssfully with status: " + eventStatus3 + " ");
 
                         //TC - TMTI0038454 - Verify that approver is not able to "Edit" the deleted request.
                         Assert.IsTrue(lvExpRequestDetail.VerifyApproverIsNotAbleToEditExpenseRequest(approverErrMsg));
-                        extentReports.CreateLog("Approver is not able to edit the deleted request and getting the expected error message: " + approverErrMsg + " ");
+                        extentReports.CreateStepLogs("Passed", "Approver is not able to edit the deleted request and getting the expected error message: " + approverErrMsg + " ");
                     }
                     else if (action == "Reject")
                     {
@@ -197,7 +188,7 @@ namespace SF_Automation.TestCases.EventExpense
                         
                         string eventRejectStatus = lvExpRequestDetail.GetEventStatusInfoForApprover();
                         Assert.AreEqual(eventRejectStatus, "Rejected");
-                        extentReports.CreateLog("Event Request is rejected. Status is updated to: " + eventRejectStatus + " and notes are updated as expected under Additional Information section. ");
+                        extentReports.CreateStepLogs("Passed", "Event Request is rejected. Status is updated to: " + eventRejectStatus + " and notes are updated as expected under Additional Information section. ");
                     }
                     else if (action == "Request More Information")
                     {
@@ -206,7 +197,7 @@ namespace SF_Automation.TestCases.EventExpense
                         
                         string eventMoreInfoStatus = lvExpRequestDetail.GetEventStatusInfoForApprover();
                         Assert.AreEqual(eventMoreInfoStatus, "More Information Requested");
-                        extentReports.CreateLog("Approver has requested for more information for the Event Request. Status is updated to: " + eventMoreInfoStatus + " and notes are updated as expected under Additional Information section. ");
+                        extentReports.CreateStepLogs("Passed", "Approver has requested for more information for the Event Request. Status is updated to: " + eventMoreInfoStatus + " and notes are updated as expected under Additional Information section. ");
                     }
                     else if (action == "Approve")
                     {
@@ -215,12 +206,8 @@ namespace SF_Automation.TestCases.EventExpense
                         
                         string eventApproveStatus = lvExpRequestDetail.GetEventStatusInfoForApprover();
                         Assert.AreEqual(eventApproveStatus, "Approved");
-                        extentReports.CreateLog("Event Request is approved. Status is updated to: " + eventApproveStatus + " ");
+                        extentReports.CreateStepLogs("Passed", "Event Request is approved. Status is updated to: " + eventApproveStatus + " ");
                     }
-
-                    //Logout from SF Lightning View
-                    lvHomePage.LogoutFromSFLightningAsApprover();
-                    extentReports.CreateLog("User Logged Out from SF Lightning View. ");
 
                     driver.Quit();
 
@@ -238,7 +225,7 @@ namespace SF_Automation.TestCases.EventExpense
 
                     //Validate user logged in
                     Assert.AreEqual(driver.Url.Contains("lightning"), true);
-                    extentReports.CreateLog("User is able to login into SF");
+                    extentReports.CreateStepLogs("Passed", "User is able to login into SF");
 
                     //Select HL Banker app
                     try
@@ -255,12 +242,12 @@ namespace SF_Automation.TestCases.EventExpense
 
                     //Verify searched user
                     Assert.AreEqual(WebDriverWaits.TitleContains(driver, user + " | Salesforce"), true);
-                    extentReports.CreateLog("User " + user + " details are displayed ");
+                    extentReports.CreateStepLogs("Passed", "User " + user + " details are displayed ");
 
                     //Login as CF Financial user
                     lvHomePage.UserLogin();
                     Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(user));
-                    extentReports.CreateLog("CF Financial User: " + user + " is able to login into lightning view. ");
+                    extentReports.CreateStepLogs("Passed", "CF Financial User: " + user + " is able to login into lightning view. ");
 
                     //Click on the Menu button
                     lvHomePage.ClickHomePageMenu();
