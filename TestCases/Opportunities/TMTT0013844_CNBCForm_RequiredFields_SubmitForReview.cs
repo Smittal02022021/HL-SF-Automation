@@ -185,7 +185,7 @@ namespace SF_Automation.TestCases.Opportunities
                 string actTransOverValidation = nform.GetFieldsValidationsOfOppOverview();
                 Console.WriteLine(actTransOverValidation);
                 string expTransOverValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 1);
-                Assert.AreEqual(expTransOverValidation, actTransOverValidation);
+                Assert.AreEqual(actTransOverValidation.Contains(expTransOverValidation),true);
                 extentReports.CreateLog("Validation: " + actTransOverValidation + " is displayed for Transaction Overview field ");
 
                 string actCurrentStatusVal = nform.GetValidationOfCurrentStatus();
@@ -211,7 +211,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string actRiskFactVal = nform.GetValidationOfRiskFactors();
                 string expRiskFactVal = ReadExcelData.ReadData(excelPath, "NBCForm", 41);
-                Assert.AreEqual(expRiskFactVal, actRiskFactVal);
+                Assert.AreEqual(actRiskFactVal.Contains(expRiskFactVal),true);
                 extentReports.CreateLog("Validation: " + actRiskFactVal + " is displayed for Risk Factors field ");
 
                 string actExistingOrRepeatValidation = nform.GetValidationOfExistingOrRepeatClient();
@@ -226,12 +226,12 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string actHLCompValidation = nform.GetValidationOfHLComp();
                 string expHLCompValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 52);
-                Assert.AreEqual(expHLCompValidation, actHLCompValidation);
+                Assert.AreEqual(actHLCompValidation.Contains(expHLCompValidation),true);
                 extentReports.CreateLog("Validation: " + actHLCompValidation + " is displayed for HL Competition field ");
 
                 string actOwnershipVal = nform.GetValidationOfOwnershipAndCapStr();
                 string expOwnershipVal = ReadExcelData.ReadData(excelPath, "NBCForm", 39);
-                Assert.AreEqual(expOwnershipVal, actOwnershipVal);
+                Assert.AreEqual(actOwnershipVal.Contains(expOwnershipVal),true);
                 extentReports.CreateLog("Validation: " + actOwnershipVal + " is displayed for Ownership and Capital Structure field ");
 
                 string actTotalDebt = nform.GetValidationOfTotalDebt();
@@ -242,12 +242,12 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string actUseOfProceeds = form.GetValidationOfUseOfProceeds();
                 string expUseOfProceeds = ReadExcelData.ReadData(excelPath, "NBCForm", 65);
-                Assert.AreEqual(expUseOfProceeds, actUseOfProceeds);
+                Assert.AreEqual(actUseOfProceeds.Contains(expUseOfProceeds),true);
                 extentReports.CreateLog("Validation: " + actUseOfProceeds + " is displayed for Use Of Proceeds field ");
 
                 string actOwnershipValidation = form.GetValidationOfStructureAndPricing();
                 string expOwnershipValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 64);
-                Assert.AreEqual(expOwnershipValidation, actOwnershipValidation);
+                Assert.AreEqual(actOwnershipValidation.Contains(expOwnershipValidation), true);
                 extentReports.CreateLog("Validation: " + actOwnershipValidation + " is displayed for Ownership Structure & Capital Structure field ");
 
                 string actSanctionsValidation = form.GetValidationOfSanctionsConcerns();

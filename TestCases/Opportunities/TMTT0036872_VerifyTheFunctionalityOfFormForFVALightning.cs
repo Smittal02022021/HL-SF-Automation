@@ -85,7 +85,7 @@ namespace SF_Automation.TestCases.Opportunities
                 opportunityDetails.UpdateReqFieldsForFVAConversionL(fileTC1644);
                 extentReports.CreateLog("All required details are saved ");
                 opportunityDetails.ClickAddFVAOppContact();
-                addContact.CreateContactL(fileTC1644);
+                addContact.CreateContactL2(fileTC1644);
 
                 //Logout
                 usersLogin.LightningLogout();

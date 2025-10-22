@@ -193,7 +193,7 @@ namespace SF_Automation.Pages.Engagement
         By valContract1L = By.XPath("//span[text()='Additional Contract']");
         By valContract2 = By.CssSelector("div[id*='ecq_body'] > table > tbody > tr:nth-child(3) > th > a");
         By valContract2L = By.XPath("//span[text()='Test Contract']");
-        By lnk2ndContractL = By.XPath("//table[@aria-label='Contract']/tbody/tr[1]/th//records-hoverable-link");
+        By lnk2ndContractL = By.XPath("//tbody/tr[1]/th//records-hoverable-link");
         By checkIsMainL = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Contract__c.Is_Main_Contract__c']//label/span[1]");
         By tabOppNameL = By.XPath("//section[1]/div/div/div/div/div/ul[2]/li[2]/a");
         By lnkOppL = By.XPath("//flexipage-component2[1]//slot/records-record-layout-row[6]//records-hoverable-link");

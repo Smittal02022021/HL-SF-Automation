@@ -155,7 +155,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Get the validation of Other Fee Structure
                 string msgOtherFee = form.GetValidationOfOtherFeeField();
-                Assert.AreEqual("Complete this field.", msgOtherFee);
+                Assert.AreEqual("Other Fee Structure\r\nComplete this field.", msgOtherFee);
                 extentReports.CreateLog("Validation : " + msgOtherFee + " is displayed when Other Fee Structure field is left blank and saved ");
 
                 //Validate if validation is still displayed upon saving saving Other Fee Structure value

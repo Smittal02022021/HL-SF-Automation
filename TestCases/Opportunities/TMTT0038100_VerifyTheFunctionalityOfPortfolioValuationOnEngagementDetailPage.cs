@@ -91,7 +91,7 @@ namespace SF_Automation.TestCases.Opportunities
                 opportunityDetails.UpdateReqFieldsForFVAConversionLForPV(fileTC1644);
                 extentReports.CreateLog("All required details are saved ");
                 opportunityDetails.ClickAddFVAOppContact();
-                addContact.CreateContactL(fileTC1644);
+                addContact.CreateContactL2(fileTC1644);
 
                 period.ClickOppValuationAndValidateFields();
                 string name = CustomFunctions.RandomValue();

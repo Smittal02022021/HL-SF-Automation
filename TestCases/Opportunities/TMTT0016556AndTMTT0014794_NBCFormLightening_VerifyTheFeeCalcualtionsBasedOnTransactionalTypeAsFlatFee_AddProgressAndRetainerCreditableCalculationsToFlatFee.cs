@@ -157,7 +157,8 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Navigate to previous window and validate Retainer and Monthly Fee
                 // form.NavigateToPreviousWindow();
-                opportunityDetails.ClickOppTab();
+                opportunityHome.SearchMyOpportunitiesInLightning(opportunityNumber, valUser);
+                //opportunityDetails.ClickOppTab();
                 string latestRetainer = opportunityDetails.GetRetainerL();
                 Assert.AreEqual(retainer, latestRetainer);
                 extentReports.CreateLog("Retainer value in Opportunity details: " + latestRetainer + " matches with earlier value of Retainer ");

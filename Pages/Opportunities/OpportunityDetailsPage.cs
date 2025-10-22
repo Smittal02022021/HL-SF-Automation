@@ -134,6 +134,7 @@ namespace SF_Automation.Pages
         By btnClone = By.CssSelector("input[title='Clone']");
 
         By tabOppL = By.XPath("//section[2]//ul[2]/li[2]/a/span[2]");
+        By tabOppNBC = By.XPath("//a[text()='Opportunity Overview']");
         //By chkUpMgr = By.CssSelector("input[name*='4:j_id47']");
         By chkUpAssociate1 = By.CssSelector("input[name*=':4:j_id44']");
         By chkUpAnalyst1 = By.CssSelector("input[name*=':5:j_id44']");
@@ -388,7 +389,7 @@ namespace SF_Automation.Pages
         By txtRefContactCFL = By.XPath("//label[text()='Referral Contact']/ancestor::lightning-grouped-combobox//lightning-base-combobox//input");
         By txtRefContactFVAL = By.XPath("//flexipage-component2[11]/slot//flexipage-column2[2]/div/slot/flexipage-field/slot//div[1]/div/input");
         By comboRefContactL = By.XPath("//ul/li[2]/lightning-base-combobox-item/span[2]/span[1]/lightning-base-combobox-formatted-text/strong");
-        By comboRefContactCFL = By.XPath("//ul/li[1]/lightning-base-combobox-item/span[2]/span[1]//lightning-base-combobox-formatted-text/strong");
+        By comboRefContactCFL = By.XPath("//ul/li[2]/lightning-base-combobox-item/span[2]/span[1]//lightning-base-combobox-formatted-text/strong");
 
 
         By comboTombstoneL = By.XPath("//button[contains(@aria-label,'Tombstone Permission')]");
@@ -482,7 +483,7 @@ namespace SF_Automation.Pages
         By valAddedComment = By.XPath("//records-record-layout-item[@field-label='Comment']//slot[1]/lightning-formatted-text");
         By valCreator = By.XPath("//dt[text()='Created By:']/ancestor::dl/dd[2]//span");
         By msgComplianceL = By.XPath("//div[contains(text(),'Only')]");
-        By tabOpportunityL = By.XPath("//div[2]/div/div/ul[2]/li[2]/a/span[2]");
+       By tabOpportunityL = By.XPath("//span[contains(text(),'Related')]/ancestor::div[2]/div[2]//records-hoverable-link");
         By valRelatedOppL = By.XPath("//span[text()='Related Opportunity']/ancestor::div[2]/div[2]//a//slot//span//span");
         By valAddedCommentType = By.XPath("//dt[text()='Comment Type:']/ancestor::dl/dd[2]/lst-template-list-field/lst-formatted-text");
         By lnkEngagementL = By.XPath("//records-entity-label[text()='Engagement Comment']/ancestor::div[7]/div[2]//span[text()='Engagement']/ancestor::div[2]//a//span//slot//slot/span");
@@ -1409,10 +1410,14 @@ namespace SF_Automation.Pages
         public string GetEstTransactionSizeL()
         {
             //Thread.Sleep(8000);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,-350)");
+            Thread.Sleep(4000);
+            driver.FindElement(tabOppNBC).Click();
+            Thread.Sleep(4000);
             driver.FindElement(tabOpportunityL).Click();
             Thread.Sleep(5000);
-            driver.FindElement(tabOppL).Click();
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
             driver.FindElement(tabFees).Click();
             Thread.Sleep(5000);
             string value = driver.FindElement(valEstTxnSizeOppL).Text;
@@ -2662,10 +2667,13 @@ namespace SF_Automation.Pages
         }
         public void ClickOppTab()
         {
-
-            driver.FindElement(By.XPath("//div[2]/div/div/ul[2]/li[2]/a/span[2]")).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, tabOppL, 90);
-            driver.FindElement(tabOppL).Click();
+            driver.FindElement(tabOppNBC).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(tabOpportunityL).Click();
+            Thread.Sleep(5000);
+            //driver.FindElement(By.XPath("//div[2]/div/div/ul[2]/li[2]/a/span[2]")).Click();
+            //WebDriverWaits.WaitUntilEleVisible(driver, tabOppL, 90);
+            //driver.FindElement(tabOppL).Click();
 
         }
 
@@ -4354,7 +4362,7 @@ namespace SF_Automation.Pages
             driver.FindElement(txtContractNameL).SendKeys(name);
             driver.FindElement(txtBillingContactL).SendKeys(contact);
             Thread.Sleep(5000);
-            driver.FindElement(By.XPath("//lightning-base-combobox//div[2]/ul/li[1]/lightning-base-combobox-item/span[1]")).Click();
+            driver.FindElement(By.XPath("//lightning-base-combobox//div[2]/ul/li[2]/lightning-base-combobox-item/span[1]")).Click();
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(8000);
             string title = driver.FindElement(valAddedContractL).Text;
@@ -4514,7 +4522,7 @@ namespace SF_Automation.Pages
             driver.FindElement(checkSelectedIsMainL).Click();
             driver.FindElement(txtBillingContactL).SendKeys(contact);
             Thread.Sleep(5000);
-            driver.FindElement(By.XPath("//lightning-base-combobox//div[2]/ul/li[1]/lightning-base-combobox-item/span[1]")).Click();
+            driver.FindElement(By.XPath("//lightning-base-combobox//div[2]/ul/li[2]/lightning-base-combobox-item/span[1]")).Click();
             Thread.Sleep(4000);
             driver.FindElement(btnSaveDetailsL).Click();
             Thread.Sleep(5000);
