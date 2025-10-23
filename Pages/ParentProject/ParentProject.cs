@@ -277,7 +277,7 @@ namespace SalesForce_Project.Pages
         //Associate Parent project to an Engagement
         public string ValidateAssociatedEngToParentProject()
         {
-
+            Thread.Sleep(5000);
             driver.FindElement(recParentProjcet).Click();
             //Sdriver.Navigate().Refresh();
             Thread.Sleep(8000);
@@ -302,6 +302,10 @@ namespace SalesForce_Project.Pages
 
         public string GetContractTotalFee()
         {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+            js.ExecuteScript("window.scrollTo(0,200)");
+            Thread.Sleep(4000);
+
             driver.FindElement(lnkContract).Click();
             //driver.Navigate().Refresh();
             Thread.Sleep(12000);

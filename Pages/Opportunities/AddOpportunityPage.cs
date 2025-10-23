@@ -77,6 +77,7 @@ namespace SF_Automation.Pages
         By txtOppDescL2 = By.XPath("//label[text()='Opportunity Description']");
 
         By btnConfAgreeL = By.XPath("//label[text()='Confidentiality Agreement']/../..//button");//button[@aria-label='Confidentiality Agreement, --None--']");
+        By btnMNPI = By.XPath("//label[text()='What MNPI did HL receive?']/ancestor::div[1]/div/lightning-base-combobox//button");
         By txtObjective = By.XPath("//label[text()='Objective']/ancestor::lightning-textarea/div[1]/textarea");
         By txtOppDesc = By.XPath("//label[text()='Opportunity Description']/ancestor::lightning-textarea/div[1]/textarea");
         By btnClose = By.XPath("//records-record-edit-error-header/lightning-button-icon/button/lightning-primitive-icon");
@@ -728,6 +729,13 @@ namespace SF_Automation.Pages
             driver.FindElement(btnConfAgreeL).SendKeys(valConf);
             Thread.Sleep(6000);
             driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='" + valConf + "']")).Click();
+
+            //MNPI
+            Thread.Sleep(4000);
+
+            driver.FindElement(btnMNPI).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//button[@aria-label='What MNPI did HL receive?']/ancestor::div[2]/div[2]/lightning-base-combobox-item[3]//span[2]/span")).Click();
 
             //Click Save button                           
             driver.FindElement(btnSaveL).Click();

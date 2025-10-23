@@ -1146,6 +1146,8 @@ namespace SF_Automation.Pages.Opportunity
             js.ExecuteScript("window.scrollTo(0,300)");
             string lockup = ReadExcelData.ReadData(excelPath, "NBCForm", 2);
             driver.FindElement(btnYes1).Click();
+            Thread.Sleep(3000);
+
             driver.FindElement(By.XPath("//flexipage-field[@data-field-id='RecordConflicts_2a_Not_Listed_cField3']//button/ancestor::div[2]/div[2]//lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(3000);
             js.ExecuteScript("window.scrollTo(0,600)");
