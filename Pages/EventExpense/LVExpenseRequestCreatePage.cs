@@ -433,19 +433,19 @@ namespace SF_Automation.Pages.EventExpense
 
         public void SaveExpenseRequestRequiredFieldstoSubmitLWC(string valLOB, string eventType, string nameRequestor, string nameEventContact, string nameProducType, string nameEvent, string nameCity, string eventFormat, string numOfGuest, string ETCost, string EFBCost, string OtherCost, string DescOtherCost, string nameOpp, string teamMember)
         {
-            //select LOB
-            WebDriverWaits.WaitUntilEleVisible(driver, comboLOBLWC, 5);
-            driver.FindElement(comboLOBLWC).Click();
-            By elmComboLOB = By.XPath($"//label[text()='LOB']/abbr/../..//lightning-base-combobox-item//span[@title='{valLOB}']");
-            WebDriverWaits.WaitUntilEleVisible(driver, elmComboLOB, 5);
-            driver.FindElement(elmComboLOB).Click();
+            //Select LOB
+            WebDriverWaits.WaitUntilEleVisible(driver, dropdownLOB, 120);
+            driver.FindElement(dropdownLOB).SendKeys(valLOB);
+            Thread.Sleep(4000);
+            driver.FindElement(dropdownLOB).SendKeys(Keys.Enter);
+            Thread.Sleep(8000);
 
             //select Event Type
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, comboEventTypeLWC, 5);
                 driver.FindElement(comboEventTypeLWC).Click();
-                By elmEventType = By.XPath($"//label[text()='Event Type']/abbr/../..//lightning-base-combobox-item//span[@title='{eventType}']");
+                By elmEventType = By.XPath($"//label[text()='Event Type']/abbr/../../..//lightning-base-combobox-item//span[@title='{eventType}']");
                 WebDriverWaits.WaitUntilEleVisible(driver, elmEventType, 5);
                 CustomFunctions.MoveToElement(driver, driver.FindElement(elmEventType));
                 driver.FindElement(elmEventType).Click();
@@ -454,7 +454,7 @@ namespace SF_Automation.Pages.EventExpense
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, comboEventTypeLWC, 5);
                 driver.FindElement(comboEventTypeLWC).Click();
-                By elmEventType = By.XPath($"//label[text()='Event Type']/abbr/../..//lightning-base-combobox-item//span[@title='{eventType}']");
+                By elmEventType = By.XPath($"//label[text()='Event Type']/abbr/../../..//lightning-base-combobox-item//span[@title='{eventType}']");
                 WebDriverWaits.WaitUntilEleVisible(driver, elmEventType, 5);
                 CustomFunctions.MoveToElement(driver, driver.FindElement(elmEventType));
                 driver.FindElement(elmEventType).Click();
@@ -481,7 +481,7 @@ namespace SF_Automation.Pages.EventExpense
 
             //Product Type
             driver.FindElement(comboProductTypeLWC).Click();
-            By elmProductType = By.XPath($"//label[text()='Product Type']/abbr/../..//lightning-base-combobox-item//span[@title='{nameProducType}']");
+            By elmProductType = By.XPath($"//label[text()='Product Type']/abbr/../../..//lightning-base-combobox-item//span[@title='{nameProducType}']");
             WebDriverWaits.WaitUntilEleVisible(driver, elmProductType, 5);
             CustomFunctions.MoveToElement(driver, driver.FindElement(elmProductType));
             driver.FindElement(elmProductType).Click();
@@ -501,7 +501,7 @@ namespace SF_Automation.Pages.EventExpense
             WebDriverWaits.WaitUntilEleVisible(driver, comboEventFormatLWC, 5);
             CustomFunctions.MoveToElement(driver, driver.FindElement(comboEventFormatLWC));
             driver.FindElement(comboEventFormatLWC).Click();
-            By eleEventFormat = By.XPath($"//label[text()='Event Format']/abbr/../..//lightning-base-combobox-item//span[@title='{eventFormat}']");
+            By eleEventFormat = By.XPath($"//label[text()='Event Format']/abbr/../../..//lightning-base-combobox-item//span[@title='{eventFormat}']");
             WebDriverWaits.WaitUntilEleVisible(driver, eleEventFormat, 5);
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleEventFormat));
             driver.FindElement(eleEventFormat).Click();
@@ -509,7 +509,7 @@ namespace SF_Automation.Pages.EventExpense
             //No. Of Guests
             CustomFunctions.MoveToElement(driver, driver.FindElement(inputHLOppLWC));
             driver.FindElement(btnNumberofQuestsLWC).Click();
-            By elmOptionGuests = By.XPath($"//label[text()='Number of guests']/..//lightning-base-combobox-item//span[@title='{numOfGuest}']");
+            By elmOptionGuests = By.XPath($"//label[text()='Number of guests']/../../div[1]//lightning-base-combobox/div/div/div//button/following::div[2]//lightning-base-combobox-item//span[@title='{numOfGuest}']");
             WebDriverWaits.WaitUntilEleVisible(driver, elmOptionGuests, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(elmOptionGuests));
             driver.FindElement(elmOptionGuests).Click();

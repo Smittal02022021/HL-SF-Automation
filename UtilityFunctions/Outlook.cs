@@ -95,7 +95,7 @@ namespace SF_Automation.UtilityFunctions
 
                 driver.FindElement(txtPassword).SendKeys(password);
                 driver.FindElement(btnSignIn).Click();
-                Thread.Sleep(25000);
+                Thread.Sleep(60000);
                 if(CustomFunctions.IsElementPresent(driver, btnYest))
                 {
                     driver.FindElement(btnYest).Click();
