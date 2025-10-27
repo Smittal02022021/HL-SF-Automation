@@ -165,14 +165,12 @@ namespace SF_Automation.Pages
         {
             Thread.Sleep(6000); try
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, inputGlobalSearchL, 5);
+                WebDriverWaits.WaitUntilEleVisible(driver, inputGlobalSearchL, 50);
                 driver.FindElement(inputGlobalSearchL).Click();
             }
             catch
             {
-                WebDriverWaits.WaitUntilEleVisible(driver, inputGlobalSearchL2, 5);
-                driver.FindElement(inputGlobalSearchL2).Click();
-                WebDriverWaits.WaitUntilEleVisible(driver, iconClearSearch, 5);
+                WebDriverWaits.WaitUntilEleVisible(driver, iconClearSearch, 50);
                 driver.FindElement(iconClearSearch).Click();
             }
 

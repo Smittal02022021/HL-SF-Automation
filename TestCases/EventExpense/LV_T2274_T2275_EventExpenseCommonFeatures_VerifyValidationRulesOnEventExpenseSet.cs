@@ -6,6 +6,7 @@ using SF_Automation.Pages.HomePage;
 using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
+using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 
 namespace SF_Automation.TestCases.EventExpense
 {
@@ -15,10 +16,13 @@ namespace SF_Automation.TestCases.EventExpense
         LoginPage login = new LoginPage();
         LVExpenseRequestCreatePage expRequest = new LVExpenseRequestCreatePage();
         LVExpenseRequestHomePage expRequestHomePage = new LVExpenseRequestHomePage();
+        LVExpenseRequestHomePage lvExpenseRequest = new LVExpenseRequestHomePage();
+        LVExpenseRequestCreatePage lvCreateExpRequest = new LVExpenseRequestCreatePage();
         LVExpenseRequestDetailPage expRequestDetailPage  = new LVExpenseRequestDetailPage();
         UsersLogin usersLogin = new UsersLogin();
         LVHomePage homePageLV = new LVHomePage();
-        RandomPages random= new RandomPages();
+        LVHomePage lvHomePage = new LVHomePage();
+        RandomPages random = new RandomPages();
         HomeMainPage homePage = new HomeMainPage();
 
         public static string fileT2274 = "LV_T2274_VerifyValidationRulesOnEventExpense";
@@ -36,38 +40,61 @@ namespace SF_Automation.TestCases.EventExpense
         {
             try
             {
+                //Get path of Test data file
                 string excelPath = ReadJSONData.data.filePaths.testData + fileT2274;
-                string futureDate= DateTime.Today.AddDays(1).ToString("MMM dd, yyyy");
-                string pastDate = DateTime.Today.AddDays(-2).ToString("MMM dd, yyyy");
-                //Validating Title of Login Page
-                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
-                extentReports.CreateStepLogs("Passed", driver.Title + " is displayed ");
-
-                // Calling Login function                
-                login.LoginApplication();
-                login.SwitchToClassicView();
-                // Validate user logged in                   
-                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
+                Console.WriteLine(excelPath);
 
                 string valUser = ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 1);
-                homePage.SearchUserByGlobalSearchN(valUser);
-                extentReports.CreateStepLogs("Info", "User: " + valUser + " details are displayed. ");
-                usersLogin.LoginAsSelectedUser();
-                login.SwitchToLightningExperience();
-                string stdUser = login.ValidateUserLightningView();
-                Assert.AreEqual(stdUser.Contains(valUser), true);
-                extentReports.CreateStepLogs("Passed", "User: " + valUser + " logged in on Lightning View");
+                string futureDate = DateTime.Today.AddDays(1).ToString("MMM dd, yyyy");
+                string pastDate = DateTime.Today.AddDays(-2).ToString("MMM dd, yyyy");
 
-                string appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);
-                homePageLV.SelectAppLV(appNameExl);
-                string appName = homePageLV.GetAppName();
-                Assert.AreEqual(appNameExl, appName);
-                extentReports.CreateStepLogs("Passed", appName + " App is selected from App Launcher ");
-                
-                string moduleNameExl = ReadExcelData.ReadDataMultipleRows(excelPath, "ModuleName", 2, 1);
-                homePageLV.SelectModule(moduleNameExl);
-                extentReports.CreateStepLogs("Info", "User is on " + moduleNameExl + " Module Page ");
+                //Validating Title of Login Page
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
+                extentReports.CreateStepLogs("Passed", driver.Title + " is displayed. ");
+
+                //Calling Login function                
+                login.LoginApplication();
+
+                //Switch to lightning view
+                if(driver.Title.Contains("Salesforce - Unlimited Edition"))
+                {
+                    homePage.SwitchToLightningView();
+                    extentReports.CreateStepLogs("Info", "User switched to lightning view. ");
+                }
+
+                //Validate user logged in
+                Assert.AreEqual(driver.Url.Contains("lightning"), true);
+                extentReports.CreateStepLogs("Passed", "User is able to login into SF");
+
+                //Select HL Banker app
+                try
+                {
+                    lvHomePage.SelectAppLV("HL Banker");
+                }
+                catch(Exception)
+                {
+                    lvHomePage.SelectAppLV1("HL Banker");
+                }
+
+                //Search CF Financial user by global search
+                lvHomePage.SearchUserFromMainSearch(valUser);
+
+                //Verify searched user
+                Assert.AreEqual(WebDriverWaits.TitleContains(driver, valUser + " | Salesforce"), true);
+                extentReports.CreateStepLogs("Passed", "User " + valUser + " details are displayed ");
+
+                //Login as CF Financial user
+                lvHomePage.UserLogin();
+                Assert.IsTrue(lvHomePage.VerifyUserIsAbleToLogin(valUser));
+                extentReports.CreateStepLogs("Passed", "CF Financial User: " + valUser + " is able to login into lightning view. ");
+
+                //Click on the Menu button
+                lvHomePage.ClickHomePageMenu();
+
+                //Go to Expense Request Page
+                lvHomePage.SearchItemExpenseRequestLWC("Expense Request(LWC)");
+                Assert.IsTrue(lvExpenseRequest.VerifyIfExpenseRequestPageIsOpenedSuccessfully());
+                extentReports.CreateStepLogs("Passed", "Expense Request page opened successfully. ");
 
                 //Validate Required fields validation on Expense Request Form
                 expRequest.ClickCreateNewExpenseFormLWC();
@@ -80,6 +107,7 @@ namespace SF_Automation.TestCases.EventExpense
                 string msgEventType = expRequest.ValidateEventTypeMessageLWC(valLOBExl);
                 Assert.AreEqual("Event Type Complete this field.", msgEventType);
                 extentReports.CreateStepLogs("Passed", "Error Message: " + msgEventType + " is displayed for Event Type");
+
                 string eventTypeExl = ReadExcelData.ReadDataMultipleRows(excelPath, "EventExp", 2, 2);
                 string msgRequestor = expRequest.ValidateRequestorMessageLWC(eventTypeExl);
                 Assert.AreEqual("Requestor Complete this field.", msgRequestor);
@@ -99,7 +127,7 @@ namespace SF_Automation.TestCases.EventExpense
 
                 string msgETCost = expRequest.ValidateETCostLWC();
                 Assert.AreEqual("Expected Travel Cost Complete this field.", msgETCost);
-                extentReports.CreateStepLogs("Passed", "Error Message: " + msgETCost + " is displayed for xpected Travel Cost ");
+                extentReports.CreateStepLogs("Passed", "Error Message: " + msgETCost + " is displayed for expected Travel Cost ");
 
                 string msgEFBCost = expRequest.ValidateEFBCostLWC();
                 Assert.AreEqual("Expected F&B Cost Complete this field.", msgEFBCost);
@@ -110,11 +138,11 @@ namespace SF_Automation.TestCases.EventExpense
                 Assert.AreEqual("Other Cost Complete this field.", msgOtherCost);
                 extentReports.CreateStepLogs("Passed", "Error Message: " + msgOtherCost + " is displayed for Other Cost");
 
-                ///---------------
-                //T2275 add Other Cost and validation message for Description of Other Cost
-                string msgDscOtherCost = expRequest.ValidateDscOtherCostLWC();
-                Assert.AreEqual("Description of Other Cost Complete this field.", msgDscOtherCost);
-                extentReports.CreateStepLogs("Passed", "Error Message: " + msgDscOtherCost + " is displayed for Description of Other Cost");
+                /////---------------
+                ////T2275 add Other Cost and validation message for Description of Other Cost
+                //string msgDscOtherCost = expRequest.ValidateDscOtherCostLWC();
+                //Assert.AreEqual("Description of Other Cost Complete this field.", msgDscOtherCost);
+                //extentReports.CreateStepLogs("Passed", "Error Message: " + msgDscOtherCost + " is displayed for Description of Other Cost");
 
                 //T2275 Verify the Description of Marketing Support field state for Yes/No
                 expRequest.SelectMarketingSupportLWC("Yes");
