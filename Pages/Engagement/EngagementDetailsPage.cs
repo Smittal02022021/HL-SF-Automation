@@ -502,7 +502,7 @@ namespace SF_Automation.Pages.Engagement
         By lnkCounterparty = By.XPath("//span[text()='EC - Entain plc']/ancestor::records-hoverable-link");
         By valCompanyCounterparty = By.XPath("//span[text()='Company']/ancestor::div[2]/div[2]//a//slot//span//span");
         By valTypeCounterparty = By.XPath("//span[text()='Type']/ancestor::div[2]//div[2]//lightning-formatted-text");
-        By lnkCompany = By.XPath("//table[@aria-label='Counterparties Closed With']//tbody/tr//td[2]//a");
+        By lnkCompany = By.XPath("//span[@title='Counterparty Name']/ancestor::table//tr//td[2]//a");
         By valIGCompany = By.XPath("//span[text()='Account Information']/ancestor::div[1]//span[text()='Industry Group']/ancestor::div[2]//div[2]//lightning-formatted-text");
         By valOwnershipCompany = By.XPath("//span[text()='Account Information']/ancestor::div[1]//span[text()='Ownership']/ancestor::div[2]//div[2]//lightning-formatted-text");
         By valSectorCompany = By.XPath("//span[text()='Account Information']/ancestor::div[1]//span[text()='Sector']/ancestor::div[2]//div[2]//lightning-formatted-text");
@@ -860,7 +860,7 @@ namespace SF_Automation.Pages.Engagement
         By btnInlineEditCoExistEngL2 = By.XPath("(//button[@title='Edit Co-exist'])[2]");
         By txtFSEngIDL = By.XPath("//table[@aria-label='FS Engagements']//tr[1]//th//lightning-primitive-cell-factory[@data-label='FS Engagement ID']//a//slot//slot");
         By txtFSEngNameL = By.XPath("//h1//records-entity-label[text()='FS Engagement']/../../..//slot[@name='primaryField']//lightning-formatted-text");
-        By tabContactsL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Contacts'])[2]");
+        By tabContactsL = By.XPath("(//lightning-tab-bar/ul/li/a[text()='Contacts'])");
         By txtContactNameL = By.XPath("//article[@aria-label='Engagement Contacts']//table//tbody/tr//th[@data-label='Name']//a[2]");
         By tabEngContactsL = By.XPath("//lightning-tab-bar/ul/li/a[text()='Contacts']");
         By textEngCommentsL = By.XPath("//article[@aria-label='Comments']//lightning-base-formatted-text"); //h2[text()='Tabs']/..//table//lightning-base-formatted-text");
@@ -3546,7 +3546,7 @@ namespace SF_Automation.Pages.Engagement
         //To update Engagement contact details
         public string UpdateEngContactL(string Name, string LOB, string Last)
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, tabContactsL, 70);
+            Thread.Sleep(4000);
             driver.FindElement(tabContactsL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, lnkContactL, 90);
             driver.FindElement(lnkContactL).Click();

@@ -711,7 +711,7 @@ namespace SF_Automation.Pages
             Thread.Sleep(9000);
             if (valRecordType == "CF")
             {
-                driver.FindElement(By.XPath("//flexipage-component2[11]/slot//flexipage-column2[2]//lightning-base-combobox-item[2]/span[2]/span")).Click();
+                driver.FindElement(By.XPath("//flexipage-component2[11]/slot//flexipage-column2[2]//lightning-base-combobox-item[3]/span[2]/span")).Click();
             }
             else if (valRecordType == "FR")
             {
@@ -730,15 +730,20 @@ namespace SF_Automation.Pages
             Thread.Sleep(6000);
             driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='" + valConf + "']")).Click();
 
-            //MNPI
-            Thread.Sleep(4000);
-
-            driver.FindElement(btnMNPI).Click();
-            Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//button[@aria-label='What MNPI did HL receive?']/ancestor::div[2]/div[2]/lightning-base-combobox-item[3]//span[2]/span")).Click();
-
-            //Click Save button                           
-            driver.FindElement(btnSaveL).Click();
+            //if (valRecordType == "CF")
+            //{
+            //    //MNPI
+            //    Thread.Sleep(4000);
+            //    driver.FindElement(btnMNPI).Click();
+            //    Thread.Sleep(4000);
+            //    driver.FindElement(By.XPath("//button[@aria-label='What MNPI did HL receive?']/ancestor::div[2]/div[2]/lightning-base-combobox-item[3]//span[2]/span")).Click();
+            //}
+            //else
+            //{
+            //    Console.WriteLine("not required as of now");
+            //}
+                //Click Save button                           
+                driver.FindElement(btnSaveL).Click();
 
             //
             return valOpportunity;

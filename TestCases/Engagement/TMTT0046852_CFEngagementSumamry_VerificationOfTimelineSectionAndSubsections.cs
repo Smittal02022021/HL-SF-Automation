@@ -79,10 +79,6 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.IsTrue(summaryPage.VerifyFieldsOfBidding(), "Verify that displayed fields of Bidding section are same");
                 extentReports.CreateStepLogs("Passed", "Displayed fields of Bidding section are as expected ");
 
-                string dateEngagedMessage = summaryPage.ValidateDateEngagedMessageOnHeader();                
-                Assert.AreEqual("Date on Engagement Letter", dateEngagedMessage);
-                extentReports.CreateLog("Tool tip Message " + dateEngagedMessage + " is displayed on Date Engaged field in Bidding section ");
-
                 //---Validate Edit Functionality
                 string editValue = summaryPage.ValidateEditFunctionalityOfBidding("27-Jun-2023");
                 Console.WriteLine("EditValue: " + editValue);

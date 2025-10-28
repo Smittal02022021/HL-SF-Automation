@@ -3071,7 +3071,7 @@ namespace SF_Automation.Pages.Engagement
         }
         public string ValidateDateEngagedMessageOnHeader()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, msgDateEngaged);
+            Thread.Sleep(4000);
             string value = driver.FindElement(msgDateEngaged).Text;
             return value;
         }

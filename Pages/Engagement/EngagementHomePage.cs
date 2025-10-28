@@ -32,7 +32,7 @@ namespace SF_Automation.Pages
         By txtEngNumLightning = By.XPath("//input[contains(@placeholder,'Search Engagements and more...')]");
         //By txtEngNumLightningL = By.XPath("//input[contains(@placeholder,'Search...')]");
         By txtEngNumLightningL = By.XPath("//div[1]/div/div[1]/lightning-input//div[1]//input");
-        By lnkEngLightning = By.XPath("//span/img[@title='Engagement']");
+        By lnkEngLightning = By.XPath("//img[@title='Engagement']");
         By valEngName = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Name']//lightning-formatted-text");
         By btnOppNumL = By.XPath("//button[@aria-label='Search']");
         By txtOppNumLCAO = By.XPath("//input[@placeholder='Search Engagements and more...']");

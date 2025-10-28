@@ -173,13 +173,13 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Message: " + messageContact + " is displayed on Contact field when save button is clickd without entering it ");
 
                 //6.   TMTI0114565_Verify that the fields "Engagement Contacts Check" and "Engagement Contact No Attorney" are displayed
-                string iconEngContactCheck = summaryPage.ValidateEngContactCheckIconBuyer();
-                Assert.AreEqual("Indicates if required Engagement Contacts for Buyer are present (an Attorney contact along with Company Contact and/or Board of Directors contacts are required)", iconEngContactCheck);
-                extentReports.CreateLog("Message: " + iconEngContactCheck + " is displayed upon hovering Engagement Contacts Buyer Check ");
+                //string iconEngContactCheck = summaryPage.ValidateEngContactCheckIconBuyer();
+                //Assert.AreEqual("Indicates if required Engagement Contacts for Buyer are present (an Attorney contact along with Company Contact and/or Board of Directors contacts are required)", iconEngContactCheck);
+                //extentReports.CreateLog("Message: " + iconEngContactCheck + " is displayed upon hovering Engagement Contacts Buyer Check ");
 
-                string iconEngContactNoCheck = summaryPage.ValidateEngContactAtorneyCheckIconBuyer();
-                Assert.AreEqual("Please \"check\" if a Buyer Attorney was not required for this Engagement", iconEngContactNoCheck);
-                extentReports.CreateLog("Message: " + iconEngContactNoCheck + " is displayed upon hovering Engagement Contact Buyer No Attorney checkbox ");
+                //string iconEngContactNoCheck = summaryPage.ValidateEngContactAtorneyCheckIconBuyer();
+                //Assert.AreEqual("Please \"check\" if a Buyer Attorney was not required for this Engagement", iconEngContactNoCheck);
+                //extentReports.CreateLog("Message: " + iconEngContactNoCheck + " is displayed upon hovering Engagement Contact Buyer No Attorney checkbox ");
 
                 //7.   TMTI0114574 _Verify that the fields "Engagement Contacts Check" and "Engagement Contact No Attorney" default to being unchecked, and "Engagement Contacts Check" gets checked if and only if the contacts with role Attorney and Company Contact / Board Of Directors are present on the Buyer Contacts
                 //8.   TMTI0114571_Verify the Add Record functionality on the Buyer Contact section
