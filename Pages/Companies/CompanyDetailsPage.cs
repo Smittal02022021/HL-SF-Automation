@@ -231,7 +231,7 @@ namespace SF_Automation.Pages.Companies
         By btnInlineChngTypeL = By.XPath("//button[@title='Change Record Type']");
         By btnNextChangeRecordTypeL = By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button[2]");
         By headrAnnFinL = By.XPath("//*[text()='Annual Financials']");
-        By comboSectorL = By.XPath("//label[text()='Sector']/parent::div//button");
+        By comboSectorL = By.XPath("//label[text()='Sector']/../..//div//button");
         By inputClientNumberL = By.XPath("//label[text()='Client Number']/..//input");
         By inputParentCompanyL = By.XPath("//label[text()='Parent Company']/..//input");
         By frameReportL = By.XPath("//iframe[@title='Report Viewer']");
@@ -239,8 +239,8 @@ namespace SF_Automation.Pages.Companies
         By tabOppL = By.XPath("//h2/..//ul//li[@title='Opportunities']//a");
         By headerBML = By.XPath("//article[@aria-label='Board Members']");
         By btnNewBML = By.XPath("//article[@aria-label='Board Members']//button[@name='New']");
-        By txtAffCompanyNameL = By.XPath("//label[text()='Company']/..//input");
-        By valAffStatusL = By.XPath("//label[text()='Status']/..//button");
+        By txtAffCompanyNameL = By.XPath("//label[text()='Company']/../..//input");
+        By valAffStatusL = By.XPath("//label[text()='Status']/../..//button");
         By headerNewAffL = By.XPath("//h2[text()='New Affiliation']");
         By txtReqFields = By.XPath("//div[@class='fieldLevelErrors']//li//a");
         By inputAffContactL = By.XPath("//input[@placeholder='Search Contacts...']");
@@ -2197,7 +2197,7 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(btnEditTopPanelL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, headerEditBoxL, 10);
         }
-        By comboIGL = By.XPath("//label[text()='Industry Group']/parent::div//button");
+        By comboIGL = By.XPath("//label[text()='Industry Group']/../..//div//button");
         By txtValidationSectorL = By.XPath("//div[@class='fieldLevelErrors']//ul/li/a[text()='Sector']");
         By txtValidationNameL = By.XPath("//div[@class='fieldLevelErrors']//ul/li/a[text()='Name']");
         public bool IsContactNameValidationDisplayedLV()

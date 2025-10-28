@@ -140,7 +140,7 @@ namespace SF_Automation.TestCases.Opportunities
                     usersLogin.LoginAsSelectedUser();
                     login.SwitchToLightningExperience();
                     stdUser = login.ValidateUserLightningView();
-                    Assert.AreEqual(stdUser.Contains(valUser), true);
+                    Assert.AreEqual(true,stdUser.Contains(valUser));
                     extentReports.CreateStepLogs("Info", "CF Financial User:" + valUser + " logged in ");
 
                     appNameExl = ReadExcelData.ReadData(excelPath, "AppName", 1);

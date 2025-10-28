@@ -26,11 +26,11 @@ namespace SF_Automation.Pages.Company
 
         By txtReqFields = By.XPath("//div[@class='fieldLevelErrors']//li//a");
         By btnCancelL = By.XPath("//button[@name='CancelEdit']");
-        By inputOfficeL = By.XPath("//label[text()='Officer']/..//input");
+        By inputOfficeL = By.XPath("//label[text()='Officer']/../..//input");
         By inputContactNameL = By.XPath("//input[@title='Search Contacts']/..//li//a//div[@title='{name}']");
-        By comboCovegareTierL = By.XPath("//label[text()='Tier']/..//button");
-        By comboCoverageLevelL = By.XPath("//label[text()='Coverage Level']/..//button");
-        By comboCovegareTypeL = By.XPath("//label[text()='Type']/..//button");
+        By comboCovegareTierL = By.XPath("//label[text()='Tier']/../..//button");
+        By comboCoverageLevelL = By.XPath("//label[text()='Coverage Level']/../..//button");
+        By comboCovegareTypeL = By.XPath("//label[text()='Type']/../..//button");
         By toastMsgPopup = By.XPath("//span[contains(@class,'toastMessage')]");
 
 
@@ -80,7 +80,7 @@ namespace SF_Automation.Pages.Company
             driver.FindElement(elmOfficer).Click();
 
             driver.FindElement(comboCovegareTierL).Click();
-            By elmCovTier = By.XPath($"//label[text()='Tier']/..//lightning-base-combobox-item//span[@title='{tier}']");
+            By elmCovTier = By.XPath($"//label[text()='Tier']/../..//lightning-base-combobox-item//span[@title='{tier}']");
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, elmCovTier, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(elmCovTier));

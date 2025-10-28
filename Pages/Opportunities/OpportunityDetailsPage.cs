@@ -411,7 +411,7 @@ namespace SF_Automation.Pages
         By chkAnalystL = By.XPath("//table/tbody/tr[3]/td[7]/input");
         By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
         By btnSaveTeamL = By.XPath("//div[1]/table/tbody/tr/td[2]/span/input[1]");
-        By btnPartyL = By.XPath("//div[4]//dl[4]/div[1]/div/div/div/div/div[1]/div/div/a");
+        By btnPartyL = By.XPath("//span[text()='Party']/../..//a"); //div[4]//dl[4]/div[1]/div/div/div/div/div[1]/div/div/a");
         By tabEngTeamL = By.XPath("//section/div[1]/div/div[1]/div[2]/div/div/ul[2]/li[2]/a/span[2]");
         By btnAddCFOppContactL = By.XPath("//button[@name='Opportunity__c.Add_CF_Opportunity_Contact']");
 
@@ -774,11 +774,11 @@ namespace SF_Automation.Pages
         By ComboStagePriorityL = By.XPath("//label[text()='Stage/Priority']/../..//button");
 
         By inputSponsorCompanyL = By.XPath("//input[@placeholder='Search Companies...']");
-        By optionSponsorCompanyL = By.XPath("(//div[@role='listbox']//li)[1]");
+        By optionSponsorCompanyL = By.XPath("(//div[@role='listbox']//li)[2]");//Vj
         By txtFSOppNameL = By.XPath("//h1//records-entity-label[text()='FS Opp']/../../..//slot[@name='primaryField']//lightning-formatted-text");
         By txtFSOppIDL = By.XPath("//table[@aria-label='FS Opps']//tr[1]//th//lightning-primitive-cell-factory[@data-label='FS Opp ID']//a//slot//slot");
-        By comboSubGrpL = By.XPath("//label[text()='Sub Group']/..//button");
-        By optionSubGrpL = By.XPath("//label[text()='Sub Group']/..//lightning-base-combobox-item//span[text()='Capital Alliance']");
+        By comboSubGrpL = By.XPath("//label[text()='Sub Group']/../..//button");
+        By optionSubGrpL = By.XPath("//label[text()='Sub Group']/../..//lightning-base-combobox-item//span[text()='Capital Alliance']");
         By btnPortfolioVCAOL = By.XPath("//span[text()='Portfolio Valuation']");
         By btnPorttfolioV = By.XPath("//button[text()='Portfolio Valuation']");
         By btnMassEditRecordsL = By.XPath("//button[text()='Mass Edit Records']");
@@ -10440,7 +10440,7 @@ namespace SF_Automation.Pages
             //driver.FindElement(comboOutcomeL).Click();
             jse.ExecuteScript("arguments[0].click();", driver.FindElement(comboOutcomeL));
             Thread.Sleep(1000);
-            By eleOptOutcome = By.XPath("//label[text()='Outcome']/..//lightning-base-combobox-item//span[@title='Cleared']");
+            By eleOptOutcome = By.XPath("//label[text()='Outcome']/../..//lightning-base-combobox-item//span[@title='Cleared']");
             driver.FindElement(eleOptOutcome).Click();
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(10000);
@@ -10627,7 +10627,7 @@ namespace SF_Automation.Pages
         {
             WebDriverWaits.WaitUntilEleVisible(driver, comboCommentTypeL, 20);
             driver.FindElement(comboCommentTypeL).Click();
-            By eleType = By.XPath($"//label[text()='Comment Type']/..//lightning-base-combobox-item//span[@title='{commentType}']");
+            By eleType = By.XPath($"//label[text()='Comment Type']/../..//lightning-base-combobox-item//span[@title='{commentType}']");
             WebDriverWaits.WaitUntilEleVisible(driver, eleType, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleType));
             driver.FindElement(eleType).Click();
@@ -10880,7 +10880,7 @@ namespace SF_Automation.Pages
             jse.ExecuteScript("arguments[0].click();", driver.FindElement(lnkViewAllCommentsL));
             //driver.FindElement(lnkViewAllCommentsL).Click();
         }
-        By rowsCommentsL = By.XPath("//table[@aria-label='Comments']//tbody/tr");
+        By rowsCommentsL = By.XPath("//h1[text()='Comments']//ancestor::article//tbody/tr");
 
         public int GetCommentsCountLV()
         {
@@ -10889,7 +10889,7 @@ namespace SF_Automation.Pages
         }
         public bool IsUserCommentFoundLV(string type, string user, string commentText)
         {
-            By elmComment = By.XPath($"//table[@aria-label='Comments']//tbody/tr//td//span[@title='{type}']//ancestor::tr//td[@data-label='Created By']//span//span[text()='{user}']//ancestor::tr//lightning-base-formatted-text[text()='{commentText}']");
+            By elmComment = By.XPath($"//h1[text()='Comments']//ancestor::article//table//td//span[@title='{type}']//ancestor::tr//td[@data-label='Created By']//span//span[text()='{user}']//ancestor::tr//lightning-base-formatted-text[text()='{commentText}']");
             //By elmComment= By.xpath("//table[@aria-label='Comments']//tbody/tr//td//span[@title='{type}']//ancestor::tr//td[@data-label='Created By']//span//span[text()='{user}']//ancestor::tr//td[@data-label='{createdDate']}");
             try
             {
@@ -10900,19 +10900,19 @@ namespace SF_Automation.Pages
         }
         public string GetOppCommentsTextLV(string type)
         {
-            By txtOppCommentsL = By.XPath($"//table[@aria-label='Comments']//td//span[@title='{type}']//ancestor::tr//td//lightning-base-formatted-text");
+            By txtOppCommentsL = By.XPath($"//h1[text()='Comments']//ancestor::article//table//td//span[@title='{type}']//ancestor::tr//td//lightning-base-formatted-text");
             WebDriverWaits.WaitUntilEleVisible(driver, txtOppCommentsL, 20);
             return driver.FindElement(txtOppCommentsL).Text;
         }
         public string GetOppCommentsCeatedByLV(string type)
         {
-            By txtOppCommentsL = By.XPath($"//table[@aria-label='Comments']//td//span[@title='{type}']//ancestor::tr//td[@data-label='Created By']//span//span");
+            By txtOppCommentsL = By.XPath($"//h1[text()='Comments']//ancestor::article//table//td//span[@title='{type}']//ancestor::tr//td[@data-label='Created By']//span//span");
             WebDriverWaits.WaitUntilEleVisible(driver, txtOppCommentsL, 20);
             return driver.FindElement(txtOppCommentsL).Text;
         }
         public string GetOppCommentsCeatedDateLV(string type)
         {
-            By txtOppCommentsL = By.XPath($"//table[@aria-label='Comments']//td//span[@title='{type}']//ancestor::tr//td[@data-label='Created Date']//span//span");
+            By txtOppCommentsL = By.XPath($"//h1[text()='Comments']//ancestor::article//table//td//span[@title='{type}']//ancestor::tr//td[@data-label='Created Date']//span//span");
             WebDriverWaits.WaitUntilEleVisible(driver, txtOppCommentsL, 20);
             return driver.FindElement(txtOppCommentsL).Text;
         }

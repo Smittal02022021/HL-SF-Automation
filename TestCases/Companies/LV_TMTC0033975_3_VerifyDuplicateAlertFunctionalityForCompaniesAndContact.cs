@@ -11,6 +11,7 @@ using System;
 
 namespace SF_Automation.TestCases.Companies
 {
+    //Duplicate validation changed, logic need to be change 
     class LV_TMTC0033975_3_VerifyDuplicateAlertFunctionalityForCompaniesAndContact : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();

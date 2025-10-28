@@ -12,6 +12,7 @@ namespace SF_Automation.TestCases.Opportunities
 {
     class LV_CF_TMTC0036135_ValidationOfCommentsAndMappingOnVerballyEngagedEngagementFromOpportunity : BaseClass
     {
+        //Opp comments are not mapped from Opp to VE Engagement
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
         OpportunityHomePage opportunityHome = new OpportunityHomePage();
@@ -351,6 +352,9 @@ namespace SF_Automation.TestCases.Opportunities
                 //Search for created opportunity
                 opportunityHome.GlobalSearchOpportunityInLightningView(opportunityName);
                 extentReports.CreateStepLogs("Info", "Opportunity: " + opportunityName + " found and selected");
+                
+                extentReports.CreateStepLogs("Info", "***Issue Opportunit comments are not mapped on VE Engagement");
+
                 opportunityDetails.ClickVerballyEngagedEngagementNumberLV(opportunityName);
                 engagementDetails.ClickViewAllCommentsLV();
                 for (int typeRow = 2; typeRow < typeRowCount; typeRow++)

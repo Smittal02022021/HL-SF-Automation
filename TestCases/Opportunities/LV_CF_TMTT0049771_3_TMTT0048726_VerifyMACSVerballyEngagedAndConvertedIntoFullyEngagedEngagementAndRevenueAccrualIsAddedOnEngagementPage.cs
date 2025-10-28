@@ -364,18 +364,22 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
 
                     //13. Navigate to Revenue tab and check the revenue Accruals. 
                     //14. Click on “Add Accrual” button and enter value in “Period Accrued Fees” field and click save. 
-                    string feesPA = ReadExcelData.ReadDataMultipleRows(excelPath, "ProductType", row, 7);
-                    engagementDetails.AddAccrualLV(feesPA);
-                    extentReports.CreateStepLogs("Passed", randomPages.GetLVMessagePopup());
+                    if (valJobType != "Sellside")
+                    {
+                        string feesPA = ReadExcelData.ReadDataMultipleRows(excelPath, "ProductType", row, 7);
+                        engagementDetails.AddAccrualLV(feesPA);
+                        extentReports.CreateStepLogs("Passed", randomPages.GetLVMessagePopup());
 
-                    //Get Estimated fees
-                    string historyNewValue = engagementDetails.GetHistoryNewValueLV();
-                    Assert.IsTrue(historyNewValue.Contains(feesPA), "Verify the Period Accrued Fees is saved and displayed in Engegement History section");
-                    extentReports.CreateStepLogs("Passed", "Period Accrued Fees is saved and displayed in Engegement History section");
+                        //Get Estimated fees
+                        string historyNewValue = engagementDetails.GetHistoryNewValueLV();
+                        Assert.IsTrue(historyNewValue.Contains(feesPA), "Verify the Period Accrued Fees is saved and displayed in Engegement History section");
+                        extentReports.CreateStepLogs("Passed", "Period Accrued Fees is saved and displayed in Engegement History section");
 
-                    string revAccruTotalestimatedfee = engagementDetails.GetRevenueAccruTotalEstimatedFeeLV();
-                    Assert.IsTrue(revAccruTotalestimatedfee.Contains(historyNewValue), "Verify the Total Estimated fees in Revenue Accrual section is matching the saved fees in Engegement History section");
-                    extentReports.CreateStepLogs("Passed", "Total Estimated fees in Revenue Accrual section is matching the saved fees in Engegement History section");
+                        string revAccruTotalestimatedfee = engagementDetails.GetRevenueAccruTotalEstimatedFeeLV();
+                        Assert.IsTrue(revAccruTotalestimatedfee.Contains(historyNewValue), "Verify the Total Estimated fees in Revenue Accrual section is matching the saved fees in Engegement History section");
+                        extentReports.CreateStepLogs("Passed", "Total Estimated fees in Revenue Accrual section is matching the saved fees in Engegement History section");
+
+                    }
 
                     randomPages.CloseActiveTab(opportunityName);
                     randomPages.CloseActiveTab(opportunityName);

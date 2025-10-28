@@ -151,6 +151,9 @@ namespace SF_Automation.Pages
         By btnClearClientL = By.XPath("//label[text()='Client']/following::div[1]/div/lightning-base-combobox//input/../../..//button");
         By btnCancelL = By.XPath("//button[@name='CancelEdit']");
         By txtRecordTypeL = By.XPath("//span[text()='Record Type']/../../..//records-record-type//span");
+        By btnMNPI1 = By.XPath("//label[text()='What MNPI did HL receive?']/ancestor::div[1]/div/lightning-base-combobox//button");
+        By btnDNDReqL = By.XPath("//label[text()='Should this deal qualify for DND?']/ancestor::div[1]/div/lightning-base-combobox//button");
+        By inputDNDReasonL = By.XPath("//label[text()='Please explain the reason for DND']/ancestor::div[1]//textarea");
         public void ClickCancelAddOpportunityPageLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnCancelL, 10);
@@ -317,6 +320,13 @@ namespace SF_Automation.Pages
             driver.FindElement(comboHLMaterialL).Click();
             Thread.Sleep(1000);
             driver.FindElement(By.XPath("//label[text()='Does HL Have Material Non-Public Info?']/following::lightning-base-combobox-item//span[@title='No']")).Click();
+
+            Thread.Sleep(4000);
+            driver.FindElement(btnDNDReqL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Should this deal qualify for DND?']/ancestor::div[1]//lightning-base-combobox-item//span[text()='Yes']")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, inputDNDReasonL, 5);
+            driver.FindElement(inputDNDReasonL).SendKeys("Testing");
 
             //Click Save button                           
             driver.FindElement(btnSaveL).Click();
@@ -729,6 +739,12 @@ namespace SF_Automation.Pages
             Thread.Sleep(6000);
             driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='" + valConf + "']")).Click();
 
+            //MNPI
+            Thread.Sleep(4000);
+            driver.FindElement(btnDNDReqL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Should this deal qualify for DND?']/ancestor::div[1]//lightning-base-combobox-item//span[text()='Yes']")).Click();
+
             //Click Save button                           
             driver.FindElement(btnSaveL).Click();
 
@@ -891,6 +907,23 @@ namespace SF_Automation.Pages
             //Thread.Sleep(1000);
             //driver.FindElement(By.XPath($"//label[text()='Confidentiality Agreement']/following::lightning-base-combobox-item//span[@title='{valConf}']")).Click();
 
+            ////MNPI
+            //Thread.Sleep(4000);
+            //driver.FindElement(btnDNDReqL).Click();
+            //Thread.Sleep(4000);
+            //driver.FindElement(By.XPath("//label[text()='Should this deal qualify for DND?']/ancestor::div[1]//lightning-base-combobox-item//span[text()='Yes']")).Click();
+            //if (valRecordType == "CF" || valRecordType == "FVA")
+            //{
+                //MNPI
+                Thread.Sleep(4000);
+                driver.FindElement(btnDNDReqL).Click();
+                Thread.Sleep(4000);
+                driver.FindElement(By.XPath("//label[text()='Should this deal qualify for DND?']/ancestor::div[1]//lightning-base-combobox-item//span[text()='Yes']")).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, inputDNDReasonL, 5);
+                driver.FindElement(inputDNDReasonL).SendKeys("Testing");
+            //}
+            //Click Save button                           
+            driver.FindElement(btnSaveL).Click();
             //Click Save button                           
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(5000);
@@ -1877,6 +1910,17 @@ namespace SF_Automation.Pages
             Thread.Sleep(1000);
             driver.FindElement(By.XPath("//label[text()='Does HL Have Material Non-Public Info?']/following::lightning-base-combobox-item//span[@title='No']")).Click();
 
+            //if (valRecordType == "CF" || valRecordType == "FVA")
+            //{
+                //MNPI
+                Thread.Sleep(4000);
+                driver.FindElement(btnDNDReqL).Click();
+                Thread.Sleep(4000);
+                driver.FindElement(By.XPath("//label[text()='Should this deal qualify for DND?']/ancestor::div[1]//lightning-base-combobox-item//span[text()='Yes']")).Click();
+                WebDriverWaits.WaitUntilEleVisible(driver, inputDNDReasonL, 5);
+                driver.FindElement(inputDNDReasonL).SendKeys("Testing");
+            //}
+            
             //Click Save button                           
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(5000);

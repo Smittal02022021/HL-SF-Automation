@@ -362,8 +362,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                     Assert.AreEqual("Administrative Info", secWomenLed);
                     string lblWomenLed = engagementDetails.ValidateWomenLedFieldLV();
                     Assert.AreEqual("Women Led", lblWomenLed);
-                    extentReports.CreateLog(lblWomenLed + " field is displayed under section: " + secWomenLed + " ");
-                    extentReports.CreateLog(lblWomenLed + " field is displayed under section: " + secWomenLed + " ");
+                    extentReports.CreateLog(lblWomenLed + " field is displayed under section: " + secWomenLed + " ");                    
 
                     //Validate the value of Women Led in Engagement details page
                     string engWomenLed = engagementDetails.GetWomenLedLV();
