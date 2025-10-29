@@ -26,7 +26,7 @@ namespace SF_Automation.UtilityFunctions
         //By recentEmail = By.CssSelector("div[class='BVgxayg_IGpXi5g7S77GK'] > div:nth-child(2)");
         By recentEmail = By.CssSelector("div[class='EeHm8'] > div:nth-child(2)");
 
-        By linkFirstLevelReviewSubmission = By.XPath("//a//span[contains(text(),'Review submission:')]");
+        By linkFirstLevelReviewSubmission = By.XPath("//b[normalize-space()='Review submission:']/..");
         By linkSecondLevelReviewSubmission = By.XPath("//b[normalize-space()='Review submission:']");
         By expenseRequestNumber = By.XPath("//*[@id='x_topTable']/tbody/tr[3]/td/table/tbody/tr[2]/td/p[1]/font/i[2]/font");
         By expenseRequestNumberApprove1 = By.XPath("//*[@id='x_topTable']/tbody/tr[3]/td/table/tbody/tr[2]/td/p[2]/font/i[2]/span");
@@ -39,7 +39,7 @@ namespace SF_Automation.UtilityFunctions
         By txtMsgbody = By.XPath("//div[@aria-label='Message body']/div/div/div");
         By lnkCountinue = By.XPath("//input[@id='hiddenformSubmitBtn']");
 
-        string dir = @"C:\Users\VKumar0427\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\Users\SMittal0207\source\repos\SF_Automation\TestData\";
 
         By txtMessageBody = By.XPath("//div[@class='PlainText']");
 
@@ -87,7 +87,7 @@ namespace SF_Automation.UtilityFunctions
 
             string username = ReadExcelData.ReadData(excelPath, "UserCredential", 1);
             string password = ReadExcelData.ReadData(excelPath, "UserCredential", 2);
-            if(CustomFunctions.IsElementPresent(driver, picAnAccount))
+            if (CustomFunctions.IsElementPresent(driver, picAnAccount))
             {
                 driver.FindElement(picAnAccount).Click();
                 Thread.Sleep(5000);
@@ -95,15 +95,15 @@ namespace SF_Automation.UtilityFunctions
 
                 driver.FindElement(txtPassword).SendKeys(password);
                 driver.FindElement(btnSignIn).Click();
-                Thread.Sleep(25000);
-                if(CustomFunctions.IsElementPresent(driver, btnYest))
+                Thread.Sleep(60000);
+                if (CustomFunctions.IsElementPresent(driver, btnYest))
                 {
                     driver.FindElement(btnYest).Click();
 
                 }
             }
             else
-            if(CustomFunctions.IsElementPresent(driver, txtEmailOrPhone))
+            if (CustomFunctions.IsElementPresent(driver, txtEmailOrPhone))
             {
                 driver.FindElement(txtEmailOrPhone).SendKeys(username);
                 driver.FindElement(btnNextAndSignIn).Click();
@@ -113,7 +113,7 @@ namespace SF_Automation.UtilityFunctions
                 driver.FindElement(txtPassword).SendKeys(password);
                 driver.FindElement(btnSignIn).Click();
                 Thread.Sleep(25000);
-                if(CustomFunctions.IsElementPresent(driver, btnYest))
+                if (CustomFunctions.IsElementPresent(driver, btnYest))
                 {
                     driver.FindElement(btnYest).Click();
 
@@ -125,7 +125,7 @@ namespace SF_Automation.UtilityFunctions
             }
             try
             {
-                IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
+                IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
                 WebDriverWaits.WaitUntilEleVisible(driver, lnkCountinue, 5);
                 js.ExecuteScript("arguments[0].click();", driver.FindElement(lnkCountinue));
 
@@ -219,7 +219,7 @@ namespace SF_Automation.UtilityFunctions
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtMsgbody, 10);
             string txtEmail = driver.FindElement(txtMsgbody).Text;
-            if(txtEmail.Contains("https://hl--test.sandbox.my.salesforce.com"))
+            if (txtEmail.Contains("https://hl--test.sandbox.my.salesforce.com"))
             {
                 return "Case Link is Present";
             }
@@ -233,7 +233,7 @@ namespace SF_Automation.UtilityFunctions
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtMsgbody, 10);
             string txtEmail = driver.FindElement(txtMsgbody).Text;
-            if(txtEmail.Contains(submitterUser))
+            if (txtEmail.Contains(submitterUser))
             {
                 return "Submitter name is Present";
             }
@@ -247,7 +247,7 @@ namespace SF_Automation.UtilityFunctions
         {
             WebDriverWaits.WaitUntilEleVisible(driver, txtMsgbody, 10);
             string txtEmail = driver.FindElement(txtMsgbody).Text;
-            if(txtEmail.Contains("review new changes"))
+            if (txtEmail.Contains("review new changes"))
             {
                 return true;
             }
@@ -301,7 +301,7 @@ namespace SF_Automation.UtilityFunctions
                 string expRequestNumber = driver.FindElement(expenseRequestNumberApprove1).Text.TrimEnd();
                 return expRequestNumber;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, expenseRequestNumberApprove2, 20);
                 string expRequestNumber = driver.FindElement(expenseRequestNumberApprove2).Text.TrimEnd();
@@ -348,7 +348,7 @@ namespace SF_Automation.UtilityFunctions
                 CustomFunctions.SwitchToWindow(driver, 1);
                 Thread.Sleep(10000);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 driver.Navigate().Refresh();
                 Thread.Sleep(10000);
@@ -424,7 +424,7 @@ namespace SF_Automation.UtilityFunctions
 
             string title = driver.FindElement(By.XPath("((//div[@role='heading'])[2]//span)[1]")).GetAttribute("title");
 
-            if(title == "Sandbox: " + sub)
+            if (title == "Sandbox: " + sub)
             {
                 result = true;
             }
@@ -462,7 +462,7 @@ namespace SF_Automation.UtilityFunctions
 
             string title = driver.FindElement(By.XPath("((//div[@role='heading'])[2]//span)[1]")).GetAttribute("title");
 
-            if(title == "Sandbox: Case # " + caseNumber + ": " + caseName + " has been assigned to the " + reg + " Queue..")
+            if (title == "Sandbox: Case # " + caseNumber + ": " + caseName + " has been assigned to the " + reg + " Queue..")
             {
                 result = true;
             }
@@ -501,7 +501,7 @@ namespace SF_Automation.UtilityFunctions
 
             string title = driver.FindElement(By.XPath("((//div[@role='heading'])[2]//span)[1]")).GetAttribute("title");
 
-            if(title == "Sandbox: Buyers List Request Submitted: " + caseNumber)
+            if (title == "Sandbox: Buyers List Request Submitted: " + caseNumber)
             {
                 result = true;
             }

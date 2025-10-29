@@ -53,7 +53,7 @@ namespace SF_Automation.Pages.Contact
         By inputCoverageSectorDepL = By.XPath("//label[text()='Coverage Sector Dependency']/..//input");
         By inputCoverageContactsL = By.XPath("//label[text()='Coverage Contact']/..//input");
         By inputCoverageTeamMemberL = By.XPath("//label[text()='Coverage Team Member']/..//input");
-        By comboCoverageContactFocusL = By.XPath("//label[text()='Focus']/..//button");
+        By comboCoverageContactFocusL = By.XPath("//label[text()='Focus']/../..//button");
         By chkIsMainL = By.XPath("//input[@name='IsMain__c']/..");//span[text()='Is Main']/../../div");
         By chkboxIsMainL = By.XPath("//input[@name='IsMain__c']"); //span[text()='Is Main']/../../div//input");
         By toastMsgPopup = By.XPath("//span[contains(@class,'toastMessage')]");
@@ -161,7 +161,7 @@ namespace SF_Automation.Pages.Contact
             WebDriverWaits.WaitUntilEleVisible(driver, elmContact, 5);
             driver.FindElement(elmContact).Click();
             driver.FindElement(comboCoverageContactFocusL).Click();
-            By elmContactFocus = By.XPath($"//label[text()='Focus']/..//lightning-base-combobox-item//span[@title='{contactFocus}']");
+            By elmContactFocus = By.XPath($"//label[text()='Focus']/../..//lightning-base-combobox-item//span[@title='{contactFocus}']");
             Thread.Sleep(2000);
             WebDriverWaits.WaitUntilEleVisible(driver, elmContactFocus, 5);
             driver.FindElement(elmContactFocus).Click();
@@ -169,7 +169,6 @@ namespace SF_Automation.Pages.Contact
             js.ExecuteScript("window.scrollTo(0,500)");
             driver.FindElement(inputCoverageTeamMemberL).SendKeys(coverageID);
             By elmTeam = By.XPath($"//label[text()='Coverage Team Member']/..//ul//li//lightning-base-combobox-formatted-text[@title='{coverageID}']");
-            //By elmTeam = By.XPath("//label[text()='Coverage Team Member']/..//li[2]/lightning-base-combobox-item");
             Thread.Sleep(2000);
             try
             {

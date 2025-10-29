@@ -260,6 +260,7 @@ namespace SF_Automation.TestCases.Companies
                 extentReports.CreateExceptionLog(e.Message);
                 randomPages.CloseActiveTab(companyNameExl);
                 homePageLV.LogoutFromSFLightningAsApprover();
+                driver.Quit();
             }
         }
     }
