@@ -201,7 +201,7 @@ namespace SF_Automation.Pages.Engagement
         By subcolBid = By.XPath("//span[text()='Bid History']/ancestor::article[1]//table/thead/tr[2]/th/div");
         By subsecELEngDynamics = By.XPath("//span[text()='EL / Engagement Dynamics']/ancestor::Section[1]//h2/span");
         By lblFeesActualFields = By.XPath("//span[text()='Fees (Actual Amount)']/ancestor::article[1]/div[2]//lightning-output-field/span");
-            
+
         By lblSellerSection = By.XPath("//lightning-output-field/span[text()='Client']/ancestor::div[4]//lightning-output-field/span");
         By iconSeller = By.XPath("//h2/span[text()='Seller']/ancestor::h2/c-hl-universal-pop-over/div/lightning-icon//lightning-primitive-icon");
         By iconBuyer = By.XPath("//h2/span[text()='Buyer']/ancestor::h2/c-hl-universal-pop-over/div/lightning-icon//lightning-primitive-icon");
@@ -214,7 +214,8 @@ namespace SF_Automation.Pages.Engagement
         By valIGSummary = By.XPath("//span[text()='Seller Background']/ancestor::div[1]//span[text()='Industry Group']/ancestor::lightning-output-field//lightning-formatted-text");
         By valSectorSummary = By.XPath("//span[text()='Seller Background']/ancestor::div[1]//span[text()='Sector']/ancestor::lightning-output-field//lightning-formatted-text");
         By valDescSummary = By.XPath("//span[text()='Seller Background']/ancestor::div[1]//span[text()='Description']/ancestor::lightning-output-field//lightning-formatted-text");
-        By tabEngsummary = By.XPath("//a/span[text()='Engagement Summary']");
+        By tabEngsummary = By.XPath("//section//ul[2]/li[3]/a/span[2]");
+        //By tabEngsummary = By.XPath("//a/span[text()='Engagement Summary']");
         By lblSellerDetailsSection = By.XPath("//span[text()='Seller Details (MM)']/ancestor::div[1]//lightning-output-field/span");
         By iconSellerDetails = By.XPath("//span[text()='Seller Details (MM)']/ancestor::h3//c-hl-universal-pop-over/div/lightning-icon//lightning-primitive-icon");
         By lblTxnRationale = By.XPath("//li[1]/span[text()='Transaction Rationale']");
@@ -258,7 +259,7 @@ namespace SF_Automation.Pages.Engagement
 
         By btnMoreFin = By.XPath("//tr[1]/td[6]//lightning-button-menu/button");
         By lnkEditRecord = By.XPath("//span[text()='Edit']");
-        By chkEngFinCheck = By.XPath("//input[@name='Engagement_Financials_Check__c']");
+        By chkEngFinCheck = By.XPath("//span[text()='Engagement Financials Check']/ancestor::lightning-output-field[1]/div[1]//span//span");
         By chkEngContactCheck = By.XPath("//input[@name='Engagement_Contacts_Seller_Check__c']");
         By chkEngContactNoAttorneyCheck = By.XPath("//input[@name='Engagement_Contact_Seller_No_Attorney__c']");
         By chkEngContactCheckBuyer = By.XPath("//input[@name='Engagement_Contacts_Buyer_Check__c']");
@@ -347,7 +348,7 @@ namespace SF_Automation.Pages.Engagement
             actions.MoveToElement(driver.FindElement(lblFeesActualAmount)).Perform();
 
             bool result = false;
-            if(driver.FindElement(lblFeesActualAmount).Displayed && driver.FindElement(lblTransactionFeeCalcActualAmount).Displayed && driver.FindElement(lblIncentiveStructureActualAmount).Displayed && driver.FindElement(lblTransactionActualAmount).Displayed && driver.FindElement(lblTotalsActualAmount).Displayed)
+            if (driver.FindElement(lblFeesActualAmount).Displayed && driver.FindElement(lblTransactionFeeCalcActualAmount).Displayed && driver.FindElement(lblIncentiveStructureActualAmount).Displayed && driver.FindElement(lblTransactionActualAmount).Displayed && driver.FindElement(lblTotalsActualAmount).Displayed)
             {
                 result = true;
             }
@@ -496,7 +497,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnCancel).Click();
 
             string value = driver.FindElement(valRetainerFees).Text;
-            return value;            
+            return value;
         }
 
         public string ValidateSaveFunctionlaityOfFeeSection(string file, string fees)
@@ -518,7 +519,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(txtCompletionOfCIM).SendKeys(ReadExcelData.ReadData(excelPath, "Fees(Actual Amount)", 2));
             driver.FindElement(txtFirstRoundBid).Clear();
             driver.FindElement(txtFirstRoundBid).SendKeys(ReadExcelData.ReadData(excelPath, "Fees(Actual Amount)", 3));
-            driver.FindElement(txtSecondRoundBid).Clear();           
+            driver.FindElement(txtSecondRoundBid).Clear();
             driver.FindElement(txtSecondRoundBid).SendKeys(ReadExcelData.ReadData(excelPath, "Fees(Actual Amount)", 4));
             driver.FindElement(txtLOI).Clear();
             driver.FindElement(txtLOI).SendKeys(ReadExcelData.ReadData(excelPath, "Fees(Actual Amount)", 5));
@@ -528,7 +529,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnSave).Click();
             Thread.Sleep(6000);
             string value = driver.FindElement(valRetainerFees).Text;
-            return value.Substring(0,9);
+            return value.Substring(0, 9);
         }
 
         public bool VerifyCalculationForFeeSectionWhenCrediableAreUnchecked()
@@ -635,7 +636,7 @@ namespace SF_Automation.Pages.Engagement
             string totalPaymentOnClosing = driver.FindElement(lblPaymentOnClosing).Text;
             double actualTotalPaymentOnClosing = Convert.ToDouble(totalPaymentOnClosing.Split(' ')[1].Trim());
 
-            if (actualTotalFee == 0 && actualTotalCredits == cal &&  actualTotalPaymentOnClosing == -actualTotalCredits)
+            if (actualTotalFee == 0 && actualTotalCredits == cal && actualTotalPaymentOnClosing == -actualTotalCredits)
             {
                 result = true;
             }
@@ -686,7 +687,7 @@ namespace SF_Automation.Pages.Engagement
             string totalPaymentOnClosingAfterEditing = driver.FindElement(lblPaymentOnClosing).Text;
             double actualTotalPaymentOnClosingAfterEditing = Convert.ToDouble(totalPaymentOnClosingAfterEditing.Split(' ')[1].Trim());
 
-            if (actualTotalFeeBeforeEditing==actualTotalFeeAfterEditing && actualTotalCreditsBeforeEditing==actualTotalCreditsAfterEditing && actualTotalPaymentOnClosingAfterEditing == actualTotalPaymentOnClosingBeforeEditing)
+            if (actualTotalFeeBeforeEditing == actualTotalFeeAfterEditing && actualTotalCreditsBeforeEditing == actualTotalCreditsAfterEditing && actualTotalPaymentOnClosingAfterEditing == actualTotalPaymentOnClosingBeforeEditing)
             {
                 result = true;
             }
@@ -725,7 +726,7 @@ namespace SF_Automation.Pages.Engagement
             string transFee = driver.FindElement(valTransactionFee).Text;
             double actualTransFee = Convert.ToDouble(transFee.Split(' ')[1].Trim());
 
-            if(transFeeType == "Minimum Fee")
+            if (transFeeType == "Minimum Fee")
             {
                 double actualTotalFee = actualTotalFeeBeforeEditing + actualTransFee;
 
@@ -738,12 +739,12 @@ namespace SF_Automation.Pages.Engagement
                 string totalPaymentOnClosingAfterEditing = driver.FindElement(lblPaymentOnClosing).Text;
                 double actualTotalPaymentOnClosingAfterEditing = Convert.ToDouble(totalPaymentOnClosingAfterEditing.Split(' ')[1].Trim());
 
-                if (actualTotalFeeAfterEditing==actualTotalFee && actualTotalCreditsBeforeEditing == actualTotalCreditsAfterEditing && actualTotalPaymentOnClosingAfterEditing == actualTotalPaymentOnClosingBeforeEditing + actualTotalFeeAfterEditing)
+                if (actualTotalFeeAfterEditing == actualTotalFee && actualTotalCreditsBeforeEditing == actualTotalCreditsAfterEditing && actualTotalPaymentOnClosingAfterEditing == actualTotalPaymentOnClosingBeforeEditing + actualTotalFeeAfterEditing)
                 {
                     result = true;
                 }
             }
-            else if(transFeeType == "Flat Fee")
+            else if (transFeeType == "Flat Fee")
             {
                 double actualTotalFee = actualTransFee;
 
@@ -828,7 +829,7 @@ namespace SF_Automation.Pages.Engagement
 
             if (firstRacToAmountValue <= actualtransactionFeeCalc)
             {
-                double firstRatchetCalc= (firstRacToAmountValue - firstRacFromAmountValue) * firstPercentValue / 100;
+                double firstRatchetCalc = (firstRacToAmountValue - firstRacFromAmountValue) * firstPercentValue / 100;
                 double actualTotalFee = actualTotalFeeBeforeEditing + firstRatchetCalc;
 
                 if (actualTotalFeeAfterEditing == actualTotalFee && actualTotalCreditsBeforeEditing == actualTotalCreditsAfterEditing && actualTotalPaymentOnClosingAfterEditing == actualTotalPaymentOnClosingBeforeEditing + firstRatchetCalc)
@@ -1126,7 +1127,7 @@ namespace SF_Automation.Pages.Engagement
 
             driver.FindElement(txtFirstRatchetPercent).Clear();
             driver.FindElement(txtFirstRatchetPercent).SendKeys(ReadExcelData.ReadData(excelPath, "IncentiveStructure", 1));
-            
+
             driver.FindElement(btnSave).Click();
             Thread.Sleep(10000);
 
@@ -1264,7 +1265,7 @@ namespace SF_Automation.Pages.Engagement
             string headerError = driver.FindElement(lblHeaderErrorMsg).Text;
             string firstRatchetToErrMsg = driver.FindElement(lblFirstRatchetToAmtErrMsg).Text;
 
-            if(firstRacFromAmountValue > firstRacToAmountValue)
+            if (firstRacFromAmountValue > firstRacToAmountValue)
             {
                 if (headerError == ReadExcelData.ReadData(excelPath, "ErrorMessages", 1) && firstRatchetToErrMsg == ReadExcelData.ReadData(excelPath, "ErrorMessages", 4))
                 {
@@ -1464,7 +1465,7 @@ namespace SF_Automation.Pages.Engagement
             string value = driver.FindElement(valExtDisclosureStatus).Text;
             return value;
         }
-        
+
         public string ValidateSubjectOnHeader()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, lblSubject);
@@ -1554,7 +1555,7 @@ namespace SF_Automation.Pages.Engagement
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             Thread.Sleep(12000);
             driver.FindElement(txtCognoUser).SendKeys("SSharma0427");
-            driver.FindElement(txtCognoPass).SendKeys("Avika_Ashok@2024");
+            driver.FindElement(txtCognoPass).SendKeys("Harekrishan@2025");
             driver.FindElement(btnSignin).Click();
             Thread.Sleep(15000);
             string pdf = driver.Url;
@@ -1568,7 +1569,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(By.XPath("//td[8]//td[3]")).Click();
             Thread.Sleep(7000);
             driver.FindElement(By.XPath("//td[text()='View in HTML Format']")).Click();
-            Thread.Sleep(22000);            
+            Thread.Sleep(22000);
             string engSummary = driver.FindElement(By.XPath("//tr[3]/td//tr[1]/td/div/span")).Text;
             driver.SwitchTo().Window(driver.WindowHandles.First());
             Thread.Sleep(6000);
@@ -1627,7 +1628,7 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateOwnershipOfBuyer()
         {
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver,valOwnershipBuyside);
+            WebDriverWaits.WaitUntilEleVisible(driver, valOwnershipBuyside);
             string value = driver.FindElement(valOwnershipBuyside).Text;
             return value;
         }
@@ -1643,7 +1644,7 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateStrategySectionOfBuyer()
         {
             Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver,secBuyerStrategy);
+            WebDriverWaits.WaitUntilEleVisible(driver, secBuyerStrategy);
             string value = driver.FindElement(secBuyerStrategy).Text;
             return value;
         }
@@ -1697,7 +1698,7 @@ namespace SF_Automation.Pages.Engagement
         {
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(subsecELEngDynamics);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Fees (Actual Amount)", "Transaction (Actual Amount)" , "Transaction Fee Calc (Actual Amount)", "Incentive Structure (Actual Amount)", "Totals (Actual Amount)" };
+            string[] expectedValue = { "Fees (Actual Amount)", "Transaction (Actual Amount)", "Transaction Fee Calc (Actual Amount)", "Incentive Structure (Actual Amount)", "Totals (Actual Amount)" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1720,8 +1721,8 @@ namespace SF_Automation.Pages.Engagement
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblFeesActualFields);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
             string[] expectedValue = { "Retainer Fees", "Is Retainer Fee Creditable", "Completion Of CIM", "Is Completion of CIM Creditable", "First Round Bid", "Is First Round Bid Creditable", "Second Round Bid", "Is Second Round Bid Creditable", "LOI", "Is LOI Creditable", "Signed Agreement", "Is Signed Agreement Creditable", "Other Fee Type 01", "Other Fee 01", "Is Other Fee 01 Creditable", "Other Fee Type 02", "Other Fee 02", "Is Other Fee 02 Creditable" };
-           
-        
+
+
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1742,7 +1743,7 @@ namespace SF_Automation.Pages.Engagement
         {
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(colOutreachMetric);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "", "","", "Percent of Potential Counterparties Contacted", "Percent of Books Sent" };
+            string[] expectedValue = { "", "", "", "Percent of Potential Counterparties Contacted", "Percent of Books Sent" };
             bool isSame = true;
 
             if (expectedValue.Length != actualValue.Length)
@@ -1784,13 +1785,13 @@ namespace SF_Automation.Pages.Engagement
         {
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(subcolOutreachMetric);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Metric", "Domestic Strategics", "Intl. Strategics", "Total Strategics", "Financial", "Overall Total", "Domestic Strategics", "Intl Strategics", "Total Strategics", "Financial", "Yield", "Strategic", "Financial","Total" };
+            string[] expectedValue = { "Metric", "Domestic Strategics", "Intl. Strategics", "Total Strategics", "Financial", "Overall Total", "Domestic Strategics", "Intl Strategics", "Total Strategics", "Financial", "Yield", "Strategic", "Financial", "Total" };
             bool isSame = true;
 
             Console.WriteLine(expectedValue[1]);
             Console.WriteLine(expectedValue[2]);
             Console.WriteLine(expectedValue[3]);
-            
+
             if (expectedValue.Length != actualValue.Length)
             {
                 return !isSame;
@@ -1871,7 +1872,7 @@ namespace SF_Automation.Pages.Engagement
         }
         public string ValidateBuyerSection()
         {
-            
+
             Thread.Sleep(4000);
             WebDriverWaits.WaitUntilEleVisible(driver, secBuyer);
             string value = driver.FindElement(secBuyer).Text;
@@ -1947,12 +1948,12 @@ namespace SF_Automation.Pages.Engagement
         }
 
         public string ValidateSectorValueOfCompany()
-        {             
+        {
             string value = driver.FindElement(valSectorCompany).Text;
             return value;
         }
 
-        public string ValidateDescriptionValueOfCompany()           
+        public string ValidateDescriptionValueOfCompany()
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,450)");
@@ -1962,20 +1963,20 @@ namespace SF_Automation.Pages.Engagement
         }
 
         public string ValidateIGValueInSellerBackground()
-        {            
+        {
             Thread.Sleep(7000);
             string value = driver.FindElement(valIGSummary).Text;
             return value;
         }
 
         public string ValidateSectorValueInSellerBackground()
-        {            
+        {
             string value = driver.FindElement(valSectorSummary).Text;
             return value;
         }
 
         public string ValidateDescriptionValueInSellerBackground()
-        {           
+        {
             string value = driver.FindElement(valDescSummary).Text;
             return value;
         }
@@ -2025,7 +2026,7 @@ namespace SF_Automation.Pages.Engagement
         }
         public bool VerifyTxnRationaleValues()
         {
-            driver.FindElement(btnEditTxnRationale).Click();            
+            driver.FindElement(btnEditTxnRationale).Click();
             Thread.Sleep(6000);
             driver.FindElement(btnTxnRationale).Click();
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(valTxnRationale);
@@ -2064,9 +2065,9 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateSaveFunctionalityOfSellerDetailsSection(string value)
         {
             driver.FindElement(btnEditTxnRationale).Click();
-            Thread.Sleep(4000);            
+            Thread.Sleep(4000);
             driver.FindElement(btnTxnRationale).Click();
-            driver.FindElement(By.XPath("//button[@name='Transaction_Rationale__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span[text()='"+value+"']")).Click(); ;
+            driver.FindElement(By.XPath("//button[@name='Transaction_Rationale__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + value + "']")).Click(); ;
 
             Thread.Sleep(4000);
             driver.FindElement(btnSave).Click();
@@ -2103,7 +2104,7 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
         public bool VerifyAddRecordFields()
-        {            
+        {
             Thread.Sleep(6000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblAddRecordSection);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
@@ -2133,7 +2134,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(6000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(lblAddContactSection);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = {  "*Contact", "Type", "Role", "Description" };
+            string[] expectedValue = { "*Contact", "Type", "Role", "Description" };
             Console.WriteLine(expectedValue[1]);
             Console.WriteLine(expectedValue[2]);
 
@@ -2160,7 +2161,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(6000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(valType);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "--None--", "First", "Closing", "Final", "Second",  "Third" };
+            string[] expectedValue = { "--None--", "First", "Closing", "Final", "Second", "Third" };
             Console.WriteLine(expectedValue[1]);
             Console.WriteLine(expectedValue[2]);
 
@@ -2210,7 +2211,8 @@ namespace SF_Automation.Pages.Engagement
         public bool ValidateRoleValuesOfSellerContacts()
         {
             driver.FindElement(btnRole).Click();
-            Thread.Sleep(6000);
+            driver.FindElement(btnRole).Click();
+            Thread.Sleep(8000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(valRole);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
             string[] expectedValue = { "--None--", "Attorney", "Board of Directors", "Company Contact", "Equity Sponsor", "External Financial Advisor" };
@@ -2243,12 +2245,12 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateMandatoryMessageOfContact()
         {
             driver.FindElement(btnSave).Click();
-            WebDriverWaits.WaitUntilEleVisible(driver, msgContact);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgContact, 90);
             string value = driver.FindElement(msgContact).Text;
             return value;
         }
 
-        public string ValidateSaveFunctionalityOfAddRecord(string amount,  string type)
+        public string ValidateSaveFunctionalityOfAddRecord(string amount, string type)
         {
             Thread.Sleep(5000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
@@ -2286,7 +2288,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(6000);
             IReadOnlyCollection<IWebElement> valRecordTypes = driver.FindElements(valAddedRevs);
             var actualValue = valRecordTypes.Select(x => x.Text).ToArray();
-            string[] expectedValue = {  "GBP 10.00", "GBP 20.00" };
+            string[] expectedValue = { "GBP 10.00", "GBP 20.00" };
             Console.WriteLine(actualValue[0]);
             Console.WriteLine(actualValue[1]);
 
@@ -2312,7 +2314,7 @@ namespace SF_Automation.Pages.Engagement
         {
             driver.FindElement(btnAddFinancial).Click();
             Thread.Sleep(4000);
-            driver.FindElement(txtRelatedEng).Click();          
+            driver.FindElement(txtRelatedEng).Click();
             Thread.Sleep(4000);
             driver.FindElement(By.XPath("//input[@placeholder='Search Engagements...']/ancestor::div[4]/div[2]//li[2]/lightning-base-combobox-item/span[1]")).Click();
             driver.FindElement(txtRevMM).SendKeys("25");
@@ -2334,24 +2336,24 @@ namespace SF_Automation.Pages.Engagement
 
         public string ValidateEngFinCheckbox()
         {
-                if (driver.FindElement(chkEngFinCheck).Displayed)
+            if (driver.FindElement(chkEngFinCheck).Displayed)
+            {
+                CustomFunctions.MoveToElement(driver, driver.FindElement(chkEngFinCheck));
+                if (driver.FindElement(chkEngFinCheck).Text.Equals("True"))
                 {
-                    CustomFunctions.MoveToElement(driver, driver.FindElement(chkEngFinCheck));
-                    if (driver.FindElement(chkEngFinCheck).Selected)
-                    {
-                        return "Engagement Financials Check checkbox is displayed and checked";
-                    }
-                    else
-                    {
-                        return "Engagement Financials Check checkbox is displayed and not-checked";
-                    }
+                    return "Engagement Financials Check checkbox is displayed and checked";
                 }
                 else
                 {
-                    return "Engagement Financials check checkbox is not displayed";
+                    return "Engagement Financials Check checkbox is displayed and not-checked";
                 }
             }
-        
+            else
+            {
+                return "Engagement Financials check checkbox is not displayed";
+            }
+        }
+
         public string ValidateAddFinancialsInCFEngSummary()
         {
             driver.FindElement(tabEngsummary).Click();
@@ -2362,7 +2364,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnParties).Click();
             Thread.Sleep(4000);
             driver.FindElement(btnRefreshFin).Click();
-            Thread.Sleep(4000);            
+            Thread.Sleep(4000);
             string value = driver.FindElement(By.XPath("//span[text()='Seller Financials']/ancestor::div[1]//tr[1]/td[2]//lightning-formatted-number")).Text;
             return value;
         }
@@ -2426,7 +2428,7 @@ namespace SF_Automation.Pages.Engagement
             return value;
         }
         public string ValidateSellerFinIcon()
-        {          
+        {
             Thread.Sleep(6000);
             string value = driver.FindElement(iconSellerFin).GetAttribute("variant");
             return value;
@@ -2437,7 +2439,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnClose).Click();
             Thread.Sleep(6000);
             actions.MoveToElement(driver.FindElement(iconSellerFin)).Perform();
-            WebDriverWaits.WaitUntilEleVisible(driver, msgSellerFin,250);
+            WebDriverWaits.WaitUntilEleVisible(driver, msgSellerFin, 250);
             string value = driver.FindElement(msgSellerFin).Text;
             return value;
         }
@@ -2455,7 +2457,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(5000);
             driver.FindElement(By.XPath("//input[@placeholder='Search Contacts...']/ancestor::div[@role='list']//li[1]//span[2]/span[1]")).Click();
             driver.FindElement(btnRole).Click();
-            driver.FindElement(By.XPath("//button[@name='Role__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span[text()='"+role+"']")).Click();
+            driver.FindElement(By.XPath("//button[@name='Role__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + role + "']")).Click();
             driver.FindElement(btnSave).Click();
             Thread.Sleep(6000);
             string value = driver.FindElement(valAddedContact).Text;
@@ -2466,7 +2468,7 @@ namespace SF_Automation.Pages.Engagement
         {
             Thread.Sleep(7000);
             Console.WriteLine("clicked contact");
-            driver.FindElement(txtContact).Click();            
+            driver.FindElement(txtContact).Click();
             driver.FindElement(txtContact).SendKeys(name);
             Thread.Sleep(5000);
             Console.WriteLine("entered name");
@@ -2482,13 +2484,13 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateAddedContactInEng()
         {
             Thread.Sleep(6000);
-            driver.FindElement(tabSummary).Click();           
-            Thread.Sleep(10000);                   
+            driver.FindElement(tabSummary).Click();
+            Thread.Sleep(10000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("window.scrollTo(0,1000)");
             Thread.Sleep(6000);
             driver.FindElement(btnRefreshContact).Click();
-            Thread.Sleep(7000);          
+            Thread.Sleep(7000);
             string value = driver.FindElement(valAdded2ndContact).Text;
             return value;
         }
@@ -2509,7 +2511,7 @@ namespace SF_Automation.Pages.Engagement
 
         public string GetRoleOfContactAddedInEng(string name)
         {
-            string value = driver.FindElement(By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr/th//a[text()='"+name+"']/ancestor::tr[1]/td[3]//lightning-base-formatted-text")).Text;
+            string value = driver.FindElement(By.XPath("//span[text()='Seller Contacts']/ancestor::div[1]//tbody/tr/th//a[text()='" + name + "']/ancestor::tr[1]/td[3]//lightning-base-formatted-text")).Text;
             return value;
         }
 
@@ -2521,11 +2523,11 @@ namespace SF_Automation.Pages.Engagement
         }
 
 
-        public string ValidateCancelContactFunctionality(string name,string role)
+        public string ValidateCancelContactFunctionality(string name, string role)
         {
             driver.FindElement(btnShowMoreContact).Click();
             driver.FindElement(lnkEdit).Click();
-            Thread.Sleep(5000);           
+            Thread.Sleep(5000);
             driver.FindElement(btnRole).Click();
             driver.FindElement(By.XPath("//button[@name='Role__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + role + "']")).Click();
             driver.FindElement(btnCancel).Click();
@@ -2560,7 +2562,7 @@ namespace SF_Automation.Pages.Engagement
         }
 
         public string GetBidCounterparty()
-        {            
+        {
             Thread.Sleep(4000);
             string title = driver.FindElement(valBidCompany).Text;
             return title;
@@ -2803,7 +2805,7 @@ namespace SF_Automation.Pages.Engagement
         }
         public string ValidateEngContactSellerCheckboxAfterAttorneyByPass()
         {
-            Thread.Sleep(4000);           
+            Thread.Sleep(4000);
 
             if (driver.FindElement(chkEngContactCheck).Displayed)
             {
@@ -2828,25 +2830,25 @@ namespace SF_Automation.Pages.Engagement
         }
 
         public string ValidateEngContactBuyerCheckboxAfterAttorneyChecked()
-        {           
-                CustomFunctions.MoveToElement(driver, driver.FindElement(chkEngContactCheckBuyer));
-               
-                    driver.FindElement(btnEditBuyerCheckbox).Click();
-                    Thread.Sleep(5000);
-                    driver.FindElement(chkNoAttorneyBuyer).Click();
-                    driver.FindElement(btnSave).Click();
+        {
+            CustomFunctions.MoveToElement(driver, driver.FindElement(chkEngContactCheckBuyer));
 
-                driver.FindElement(btnRefreshBuyerContact).Click();
-                Thread.Sleep(8000);
-                if (driver.FindElement(chkEngContactCheckBuyer).Selected)
-                {
-                    
-                    return "Engagement Contacts Buyer Check checkbox is displayed and checked";
-                }
-                else
-                {
-                    return "Engagement Contacts Buyer Check checkbox is displayed and not checked";
-                }           
+            driver.FindElement(btnEditBuyerCheckbox).Click();
+            Thread.Sleep(5000);
+            driver.FindElement(chkNoAttorneyBuyer).Click();
+            driver.FindElement(btnSave).Click();
+
+            driver.FindElement(btnRefreshBuyerContact).Click();
+            Thread.Sleep(8000);
+            if (driver.FindElement(chkEngContactCheckBuyer).Selected)
+            {
+
+                return "Engagement Contacts Buyer Check checkbox is displayed and checked";
+            }
+            else
+            {
+                return "Engagement Contacts Buyer Check checkbox is displayed and not checked";
+            }
         }
 
         public string ValidateCapitalizationSection()
@@ -2865,7 +2867,7 @@ namespace SF_Automation.Pages.Engagement
             var actualValue = valSections.Select(x => x.Text).ToArray();
             string[] expectedValue = { "Source of Funds", "Use of Funds" };
             Console.WriteLine(expectedValue[1]);
-           
+
 
             bool isSame = true;
 
@@ -2884,11 +2886,11 @@ namespace SF_Automation.Pages.Engagement
             return isSame;
         }
         public bool VerifyFieldsOfSourceFunds()
-        {            
+        {
             Thread.Sleep(6000);
             IReadOnlyCollection<IWebElement> valSections = driver.FindElements(lblSourceOfFundsFields);
             var actualValue = valSections.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Revolving Credit Facility", "Source Revolving Credit Facility Percent", "Term Loan A", "Source Term Loan A Percent", "Term Loan B", "Source Term Loan B Percent", "Term Loan C", "Source Term Loan C Percent", "Delayed Draw Term Loan", "Source Delayed Draw Term Loan Percent", "Senior Subordinated Debt", "Source Senior Subordinated Debt Percent", "Junior Subordinated Debt", "Source Junior Subordinated Debt Percent", "Unitranche Debt", "Source Unitranche Debt Percent", "Preferred Equity", "Source Preferred Equity Percent", "Common Equity", "Source Common Equity Percent", "Seller Notes", "Source Seller Notes Percent", "Company Cash / AR", "Source Company Cash / AR Percent", "Total Sources"};
+            string[] expectedValue = { "Revolving Credit Facility", "Source Revolving Credit Facility Percent", "Term Loan A", "Source Term Loan A Percent", "Term Loan B", "Source Term Loan B Percent", "Term Loan C", "Source Term Loan C Percent", "Delayed Draw Term Loan", "Source Delayed Draw Term Loan Percent", "Senior Subordinated Debt", "Source Senior Subordinated Debt Percent", "Junior Subordinated Debt", "Source Junior Subordinated Debt Percent", "Unitranche Debt", "Source Unitranche Debt Percent", "Preferred Equity", "Source Preferred Equity Percent", "Common Equity", "Source Common Equity Percent", "Seller Notes", "Source Seller Notes Percent", "Company Cash / AR", "Source Company Cash / AR Percent", "Total Sources" };
             Console.WriteLine(expectedValue[1]);
 
 
@@ -2917,7 +2919,7 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(btnCancel).Click();
             Thread.Sleep(6000);
             string value = driver.FindElement(valCreditFacility).Text;
-            return value.Substring(0, 5); 
+            return value.Substring(0, 5);
         }
 
         public string ValidateEditFunctionalityOfSourceOfFunds(string number)
@@ -2930,11 +2932,11 @@ namespace SF_Automation.Pages.Engagement
             driver.FindElement(txtCreditFacility).Clear();
             driver.FindElement(txtCreditFacility).SendKeys(number);
             Thread.Sleep(5000);
-            driver.FindElement(btnSave).Click();            
+            driver.FindElement(btnSave).Click();
             js.ExecuteScript("window.scrollTo(0,-150)");
             Thread.Sleep(5000);
             string value = driver.FindElement(valCreditFacility).Text;
-            return value.Substring(0,6);
+            return value.Substring(0, 6);
         }
 
 
@@ -3023,7 +3025,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(6000);
             IReadOnlyCollection<IWebElement> valSections = driver.FindElements(subSecTimeline);
             var actualValue = valSections.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Bidding", "Signing","Closing" };
+            string[] expectedValue = { "Bidding", "Signing", "Closing" };
             Console.WriteLine(expectedValue[1]);
 
 
@@ -3049,7 +3051,7 @@ namespace SF_Automation.Pages.Engagement
             Thread.Sleep(6000);
             IReadOnlyCollection<IWebElement> valSections = driver.FindElements(lblBiddingFields);
             var actualValue = valSections.Select(x => x.Text).ToArray();
-            string[] expectedValue = { "Pitch Book Date", "Expected In Market Date", "Date Engaged", "First Bid Due Date" , "Second Bid Due Date", "Final Bid Due Date" };
+            string[] expectedValue = { "Pitch Book Date", "Expected In Market Date", "Date Engaged", "First Bid Due Date", "Second Bid Due Date", "Final Bid Due Date" };
 
             bool isSame = true;
 
@@ -3069,7 +3071,7 @@ namespace SF_Automation.Pages.Engagement
         }
         public string ValidateDateEngagedMessageOnHeader()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, msgDateEngaged);
+            Thread.Sleep(4000);
             string value = driver.FindElement(msgDateEngaged).Text;
             return value;
         }
@@ -3148,7 +3150,7 @@ namespace SF_Automation.Pages.Engagement
         }
 
         public string ValidateMandatoryField2OfBuyerStrategy()
-        {           
+        {
             string value = driver.FindElement(msgBuyerStrategy2).Text;
             return value;
         }
@@ -3182,7 +3184,7 @@ namespace SF_Automation.Pages.Engagement
 
 
         public bool VerifyValuesOfBuyerPlatformType()
-        {            
+        {
             Thread.Sleep(4000);
             driver.FindElement(btnBuyerPlatType).Click();
             IReadOnlyCollection<IWebElement> valSections = driver.FindElements(valBuyerPlatType);
@@ -3222,7 +3224,7 @@ namespace SF_Automation.Pages.Engagement
         public string ValidateCancelFunctionalityOfBuyerStrategySection(string process, string platform)
         {
             driver.FindElement(btnBuyerProcessType).Click();
-            driver.FindElement(By.XPath("//button[@name='Buyer_Process_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span[text()='"+process+"']")).Click(); ;
+            driver.FindElement(By.XPath("//button[@name='Buyer_Process_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + process + "']")).Click(); ;
             Thread.Sleep(4000);
             driver.FindElement(btnBuyerPlatType).Click();
             driver.FindElement(By.XPath("//button[@name='Buyer_Platform_Type__c']/ancestor::div[2]/div[2]/lightning-base-combobox-item/span[2]/span[text()='" + platform + "']")).Click(); ;

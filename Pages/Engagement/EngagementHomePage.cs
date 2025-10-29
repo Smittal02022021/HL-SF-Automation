@@ -32,7 +32,7 @@ namespace SF_Automation.Pages
         By txtEngNumLightning = By.XPath("//input[contains(@placeholder,'Search Engagements and more...')]");
         //By txtEngNumLightningL = By.XPath("//input[contains(@placeholder,'Search...')]");
         By txtEngNumLightningL = By.XPath("//div[1]/div/div[1]/lightning-input//div[1]//input");
-        By lnkEngLightning = By.XPath("//span/img[@title='Engagement']");
+        By lnkEngLightning = By.XPath("//img[@title='Engagement']");
         By valEngName = By.XPath("//div[@data-target-selection-name='sfdc:RecordField.Engagement__c.Name']//lightning-formatted-text");
         By btnOppNumL = By.XPath("//button[@aria-label='Search']");
         By txtOppNumLCAO = By.XPath("//input[@placeholder='Search Engagements and more...']");
@@ -44,7 +44,7 @@ namespace SF_Automation.Pages
         By btnNavigationMenu = By.XPath("//button[@title='Show Navigation Menu']");
         By tagEngagements = By.XPath("//a[@data-label='Engagements']");
         By lnkRecentlyViewed = By.XPath("//h1/span[2]");
-        By tblEngagements = By.XPath("//section//table[@aria-label='Recently Viewed']");
+        By tblEngagements = By.XPath("//span[text()='Engagement Name']/ancestor::table");
         By btnRecentlyViewed = By.XPath("//button[@title='Select a List View: Engagements']");
         By valRecentlyViewed = By.XPath("//div[2]/div/div/div[1]/div/div/div/div/div[1]/div/ul/li/a/span");
         By txtSearchEng = By.XPath("//input[@name='Engagement-search-input']");
@@ -56,7 +56,7 @@ namespace SF_Automation.Pages
         By tabEngL = By.XPath("//table/tbody/tr/th/span//a");
         By tabEngagementL = By.XPath("//a/span[text()='Engagements']");
         By btnCloseTab = By.XPath("//ul[2]/li[2]/div[2]/button");
-        By titleEngDetailsL = By.XPath("//flexipage-tab2[1]/slot//lightning-tab-bar/ul/li[1]/a");
+        By titleEngDetailsL = By.XPath("//a[text()='Summary']/ancestor::lightning-tabset//slot[1]//a[text()='Details']");
         ////button[contains(@title,'Close 21132025131338 | Opportunity')]
 
         By linkShowAdvanceSearch = By.CssSelector(".link-options");
@@ -649,8 +649,7 @@ namespace SF_Automation.Pages
         public string ClickEngNumAndValidateThePage()
         {
             //driver.FindElement(btnCloseTab).Click();
-            //Thread.Sleep(4000);
-            WebDriverWaits.WaitUntilEleVisible(driver, titleEngDetailsL, 170);
+            Thread.Sleep(7000);
             string title = driver.FindElement(titleEngDetailsL).Text;
             return title;
         }
