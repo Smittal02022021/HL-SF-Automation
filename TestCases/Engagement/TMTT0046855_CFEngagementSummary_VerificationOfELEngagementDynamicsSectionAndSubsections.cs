@@ -101,7 +101,6 @@ namespace SF_Automation.TestCases.Engagement
 
                 summaryPage.ValidateSaveFunctionlaityOfFeeSection(fileTMTT0046855, "0");
 
-                //3.   TMTI0114581_Verify the fields and values of "EL/Engagement Dynamics – Transaction (Actual Amount)" sub-section
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
