@@ -113,7 +113,7 @@ namespace SF_Automation.Pages.Opportunity
         By buttonAddCunterpartyToOpportunity = By.XPath("//button[@title='counterparty']");
         By listViewCounterparties = By.XPath("//label[contains(text(),'View')]");
         By searchCompany = By.XPath("//input[@placeholder='Search Companies...']");
-        By comboResultCompany = By.XPath("(//ul[@role='group']//li)[1]");
+        By comboResultCompany = By.XPath("(//ul[@role='group']//li)[2]");//1
         By comboTypeCounterparty = By.XPath("(//lightning-base-combobox//button[contains(@aria-label,'Type')])[1]");
         By buttonSaveL = By.XPath("//button[@name='SaveEdit']");
         By secAddCounterparty1 = By.XPath("//span[@title='Get Companies from existing Opportunity']");
@@ -1852,7 +1852,7 @@ namespace SF_Automation.Pages.Opportunity
         {
             WebDriverWaits.WaitUntilEleVisible(driver, comboCommentTypeL, 20);
             driver.FindElement(comboCommentTypeL).Click();
-            By eleType = By.XPath($"//label[text()='Comment Type']/..//lightning-base-combobox-item//span[@title='{commentType}']");
+            By eleType = By.XPath($"//label[text()='Comment Type']/../..//lightning-base-combobox-item//span[@title='{commentType}']");
             WebDriverWaits.WaitUntilEleVisible(driver, eleType, 20);
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleType));
             driver.FindElement(eleType).Click();
@@ -1924,7 +1924,7 @@ namespace SF_Automation.Pages.Opportunity
             }
             Thread.Sleep(2000);
         }
-        By tableEngCPCommentsL = By.XPath("//table[@aria-label='Engagement Counterparty Comments']//td[@data-label='Comment Type']//span");
+        By tableEngCPCommentsL = By.XPath("//h1[@title='Engagement Counterparty Comments']//ancestor::article//td[@data-label='Comment Type']//span");
         public bool IsEngCPCommentPresentLV(string typePEComments)
         {
             bool commentTypeFound = false;

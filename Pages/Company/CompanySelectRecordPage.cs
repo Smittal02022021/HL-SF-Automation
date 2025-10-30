@@ -22,7 +22,7 @@ namespace SF_Automation.Pages.Company
 
         private By _radioRecordType(string name)
         {
-            return By.XPath($"//div[@class='changeRecordTypeCenter']//label//span[2][text()='{name}']/../span");
+            return By.XPath($"//div[@class='changeRecordTypeCenter']//label//span[2][text()='{name}']/../span[1]");
         }
 
         private By _btnRecordTypePage(string name)

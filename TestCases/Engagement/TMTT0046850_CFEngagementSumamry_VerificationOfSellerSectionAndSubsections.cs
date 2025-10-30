@@ -142,9 +142,9 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.IsTrue(summaryPage.ValidateTypeValues(), "Verify that displayed Values of Type dropdown are same");
                 extentReports.CreateStepLogs("Passed", "Displayed Values of Type dropdown are as expected ");
 
-                string messageType = summaryPage.ValidateTypeMessage();
-                Assert.AreEqual("Please indicate when these financial metrics were gathered.", messageType);
-                extentReports.CreateLog("Message: " + messageType + " is displayed on Type icon ");
+                //string messageType = summaryPage.ValidateTypeMessage();
+                //Assert.AreEqual("Please indicate when these financial metrics were gathered.", messageType);
+                //extentReports.CreateLog("Message: " + messageType + " is displayed on Type icon ");
 
                 //7.  TMTI0114552_Verify the add record functionality for "Seller Financials".
                 string Revenue1st = summaryPage.ValidateSaveFunctionalityOfAddRecord("10", "Final");

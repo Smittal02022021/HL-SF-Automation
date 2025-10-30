@@ -50,13 +50,13 @@ namespace SF_Automation.Pages
         By txtOpportunityNameL = By.XPath("//input[@name= 'Name']");
         By txtClientL = By.XPath("//label[text()='Client']/following::div[1]/div/lightning-base-combobox//input");
         By txtSubjectL = By.XPath("//label[text()='Subject']/following::div[1]/div/lightning-base-combobox//input");
-        By btnJobTypeL = By.XPath("//label[text()='Job Type']/ancestor::div[1]/div[1]//button"); //button[@aria-label='Job Type, --None--']");
-        By btnIGL = By.XPath("//label[text()='Industry Group']/parent::div//button");//button[@aria-label='Industry Group, --None--']");
+        By btnJobTypeL = By.XPath("//label[text()='Job Type']/../..//button"); //button[@aria-label='Job Type, --None--']");
+        By btnIGL = By.XPath("//label[text()='Industry Group']/../..//button");//button[@aria-label='Industry Group, --None--']");
         By lblRefEngL = By.XPath("//label[text()='Referring Engagement']");
-        By comboSectorL = By.XPath("//label[text()='Sector']/parent::div//button");//button[@aria-label='Sector, --None--']");
-        By comboPrimaryOfficeL = By.XPath("//label[text()='Primary Office']/parent::div//button");//button[@aria-label='Primary Office, --None--']");
+        By comboSectorL = By.XPath("//label[text()='Sector']/../..//button");//button[@aria-label='Sector, --None--']");
+        By comboPrimaryOfficeL = By.XPath("//label[text()='Primary Office']/../..//button");//button[@aria-label='Primary Office, --None--']");
         By txtLegalEntitiesL = By.XPath("//input[@placeholder='Search Legal Entities...']");
-        By comboRefTypeL = By.XPath("//label[text()='Referral Type']/parent::div//button");
+        By comboRefTypeL = By.XPath("//label[text()='Referral Type']/../..//button");
         By comboAddClientL = By.XPath("//button[contains(@aria-label,'Additional Client')]");
         By comboAddSubjectL = By.XPath("//button[contains(@aria-label,'Additional Subject')]");
         By comboBenOwnerL = By.XPath("//button[contains(@aria-label,'Beneficial Owner & Control Person form?')]");
@@ -76,7 +76,8 @@ namespace SF_Automation.Pages
         By lblIndLangs = By.XPath("//label[text()='Indemnification Language']");
         By txtOppDescL2 = By.XPath("//label[text()='Opportunity Description']");
 
-        By btnConfAgreeL = By.XPath("//label[text()='Confidentiality Agreement']/parent::div//button");//button[@aria-label='Confidentiality Agreement, --None--']");
+        By btnConfAgreeL = By.XPath("//label[text()='Confidentiality Agreement']/../..//button");//button[@aria-label='Confidentiality Agreement, --None--']");
+        By btnMNPI = By.XPath("//label[text()='What MNPI did HL receive?']/ancestor::div[1]/div/lightning-base-combobox//button");
         By txtObjective = By.XPath("//label[text()='Objective']/ancestor::lightning-textarea/div[1]/textarea");
         By txtOppDesc = By.XPath("//label[text()='Opportunity Description']/ancestor::lightning-textarea/div[1]/textarea");
         By btnClose = By.XPath("//records-record-edit-error-header/lightning-button-icon/button/lightning-primitive-icon");
@@ -151,6 +152,9 @@ namespace SF_Automation.Pages
         By btnClearClientL = By.XPath("//label[text()='Client']/following::div[1]/div/lightning-base-combobox//input/../../..//button");
         By btnCancelL = By.XPath("//button[@name='CancelEdit']");
         By txtRecordTypeL = By.XPath("//span[text()='Record Type']/../../..//records-record-type//span");
+        By btnMNPI1 = By.XPath("//label[text()='What MNPI did HL receive?']/ancestor::div[1]/div/lightning-base-combobox//button");
+        By btnDNDReqL = By.XPath("//label[text()='Should this deal qualify for DND?']/ancestor::div[1]/div/lightning-base-combobox//button");
+        By inputDNDReasonL = By.XPath("//label[text()='Please explain the reason for DND']/ancestor::div[1]//textarea");
         public void ClickCancelAddOpportunityPageLV()
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnCancelL, 10);
@@ -317,6 +321,13 @@ namespace SF_Automation.Pages
             driver.FindElement(comboHLMaterialL).Click();
             Thread.Sleep(1000);
             driver.FindElement(By.XPath("//label[text()='Does HL Have Material Non-Public Info?']/following::lightning-base-combobox-item//span[@title='No']")).Click();
+
+            Thread.Sleep(4000);
+            driver.FindElement(btnDNDReqL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Should this deal qualify for DND?']/ancestor::div[1]//lightning-base-combobox-item//span[text()='Yes']")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, inputDNDReasonL, 5);
+            driver.FindElement(inputDNDReasonL).SendKeys("Testing");
 
             //Click Save button                           
             driver.FindElement(btnSaveL).Click();
@@ -729,6 +740,12 @@ namespace SF_Automation.Pages
             Thread.Sleep(6000);
             driver.FindElement(By.XPath("//lightning-base-combobox-item/span[2]/span[text()='" + valConf + "']")).Click();
 
+            //MNPI
+            Thread.Sleep(4000);
+            driver.FindElement(btnDNDReqL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Should this deal qualify for DND?']/ancestor::div[1]//lightning-base-combobox-item//span[text()='Yes']")).Click();
+
             //Click Save button                           
             driver.FindElement(btnSaveL).Click();
 
@@ -891,6 +908,23 @@ namespace SF_Automation.Pages
             //Thread.Sleep(1000);
             //driver.FindElement(By.XPath($"//label[text()='Confidentiality Agreement']/following::lightning-base-combobox-item//span[@title='{valConf}']")).Click();
 
+            ////MNPI
+            //Thread.Sleep(4000);
+            //driver.FindElement(btnDNDReqL).Click();
+            //Thread.Sleep(4000);
+            //driver.FindElement(By.XPath("//label[text()='Should this deal qualify for DND?']/ancestor::div[1]//lightning-base-combobox-item//span[text()='Yes']")).Click();
+            //if (valRecordType == "CF" || valRecordType == "FVA")
+            //{
+            //MNPI
+            Thread.Sleep(4000);
+            driver.FindElement(btnDNDReqL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Should this deal qualify for DND?']/ancestor::div[1]//lightning-base-combobox-item//span[text()='Yes']")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, inputDNDReasonL, 5);
+            driver.FindElement(inputDNDReasonL).SendKeys("Testing");
+            //}
+            //Click Save button                           
+            driver.FindElement(btnSaveL).Click();
             //Click Save button                           
             driver.FindElement(btnSaveL).Click();
             Thread.Sleep(5000);
@@ -1876,6 +1910,17 @@ namespace SF_Automation.Pages
             driver.FindElement(comboHLMaterialL).Click();
             Thread.Sleep(1000);
             driver.FindElement(By.XPath("//label[text()='Does HL Have Material Non-Public Info?']/following::lightning-base-combobox-item//span[@title='No']")).Click();
+
+            //if (valRecordType == "CF" || valRecordType == "FVA")
+            //{
+            //MNPI
+            Thread.Sleep(4000);
+            driver.FindElement(btnDNDReqL).Click();
+            Thread.Sleep(4000);
+            driver.FindElement(By.XPath("//label[text()='Should this deal qualify for DND?']/ancestor::div[1]//lightning-base-combobox-item//span[text()='Yes']")).Click();
+            WebDriverWaits.WaitUntilEleVisible(driver, inputDNDReasonL, 5);
+            driver.FindElement(inputDNDReasonL).SendKeys("Testing");
+            //}
 
             //Click Save button                           
             driver.FindElement(btnSaveL).Click();

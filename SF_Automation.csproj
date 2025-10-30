@@ -726,7 +726,6 @@
     <Compile Include="TestCases\Engagement\TMTI0049631_VerifyFunctionalityOfCSTTabAvailableOnCFLOBEngagement.cs" />
     <Compile Include="TestCases\Engagement\TMTI0049639_VerifyTheFunctionalityOfVenueSourcingOnMeetingManagementPresentationPage.cs" />
     <Compile Include="TestCases\Engagement\TMTT0014197_TMTT0014200_TMTT0014208_TMTT0014250_TMTT0014253_TMTT0014310_EngagementSummaryRatchetCalculationReconfiguration.cs" />
-    <Compile Include="TestCases\Engagement\TMTT0017891_ViewCounterparties_EditBidFunctionality.cs" />
     <Compile Include="TestCases\Engagement\TMTT0024518_VerifyTheFunctionalityOfFREngagementSummaryInSFLightning.cs" />
     <Compile Include="TestCases\Engagement\TMTT0027451_CommentsAndContactsMappingToEngUponConversionFromOpportunity.cs" />
     <Compile Include="TestCases\Engagement\TMTT0027451_CommentsAndContactsMappingToEngUponConversionFromOpportunityCounterparty.cs" />

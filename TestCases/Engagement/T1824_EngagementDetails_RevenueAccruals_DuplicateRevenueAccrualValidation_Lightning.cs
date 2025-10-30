@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Engagement;
@@ -56,7 +56,7 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("CAO User: " + stdUser + " is able to login ");
 
                 //Clicking on Engagement Tab and search for Engagement by entering Job type         
-                string message =engHome.SearchEngagementWithNumberOnLightning("106347", "Discretionary Advisory");
+                string message = engHome.SearchEngagementWithNumberOnLightning("106347", "Discretionary Advisory");
                 Assert.AreEqual("Project Aspire", message);
                 extentReports.CreateLog("Records matching with selected Job Type are displayed ");
 
@@ -73,15 +73,15 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Revenue Accrual record with : " + month + " exists ");
 
                 //Get the value of Revenue Record Id
-                 string ID = engDetails.GetRevenueRecordNumberL();
-                 //extentReports.CreateLog("Revenue record number : " + ID + " is displayed ");
-                 string extID = ID.Substring(76, 18);
-                 Console.WriteLine("Id:", extID);
+                string ID = engDetails.GetRevenueRecordNumberL();
+                //extentReports.CreateLog("Revenue record number : " + ID + " is displayed ");
+                string extID = ID.Substring(76, 18);
+                Console.WriteLine("Id:", extID);
 
                 //Click on Add Revenue Accrual button and try to create a new record     
-                string errorMsg= engDetails.AddRevenueAccrualL();
+                string errorMsg = engDetails.AddRevenueAccrualL();
                 Console.WriteLine(errorMsg);
-                Assert.AreEqual("duplicate value found: External_Id__c duplicates value on record with id: " +extID, errorMsg);
+                Assert.AreEqual("duplicate value found: External_Id__c duplicates value on record with id: " + extID, errorMsg);
                 extentReports.CreateLog(errorMsg + " is displayed ");
 
                 usersLogin.LightningLogout();
@@ -96,6 +96,6 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }       
+        }
     }
 }

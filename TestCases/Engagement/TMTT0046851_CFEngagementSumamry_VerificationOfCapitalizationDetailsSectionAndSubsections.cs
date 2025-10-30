@@ -1,4 +1,4 @@
-ï»¿using AventStack.ExtentReports.Gherkin.Model;
+using AventStack.ExtentReports.Gherkin.Model;
 using Microsoft.Office.Interop.Excel;
 using NUnit.Framework;
 using SF_Automation.Pages;
@@ -70,12 +70,12 @@ namespace SF_Automation.TestCases.Engagement
 
                 //1. TMTI0114561_Verify the availability of Capitalization Details subsections on the CF Engagement Summary
                 engagementDetails.ClickCFEngsummaryButtonL();
-                string secParties = summaryPage.ValidateCapitalizationSection();           
-                
+                string secParties = summaryPage.ValidateCapitalizationSection();
+
                 Assert.IsTrue(summaryPage.VerifySubSectionsOfCapitalization(), "Verify that displayed sub sections under Capitalization section are same");
                 extentReports.CreateStepLogs("Passed", "Displayed sub sections under Capitalization section are as expected ");
 
-                //2. TMTI0114560_Verify the fields and values added on the Capitalization Details â€“ Source of Funds subsection
+                //2. TMTI0114560_Verify the fields and values added on the Capitalization Details – Source of Funds subsection
                 Assert.IsTrue(summaryPage.VerifyFieldsOfSourceFunds(), "Verify that displayed fields of Source Of funds section are same");
                 extentReports.CreateStepLogs("Passed", "Displayed fields of source Of funds section are as expected ");
 
@@ -87,11 +87,11 @@ namespace SF_Automation.TestCases.Engagement
                 //---Validate Save Functionality
                 string editValue = summaryPage.ValidateEditFunctionalityOfSourceOfFunds("12");
                 Console.WriteLine("EditValue: " + editValue);
-                Assert.AreEqual(finalCurrency+" 12", editValue);
-                extentReports.CreateLog("Entered value for Revolving Credit Facility: "+editValue+ " is saved after clicking Save button with the same currency as of Engagement ");
+                Assert.AreEqual(finalCurrency + " 12", editValue);
+                extentReports.CreateLog("Entered value for Revolving Credit Facility: " + editValue + " is saved after clicking Save button with the same currency as of Engagement ");
                 summaryPage.ValidateEditFunctionalityOfSourceOfFunds("0");
 
-                //3.	TMTI0114559_ Verify the fields and values added on the Capitalization Details â€“ Use of Funds subsection
+                //3.	TMTI0114559_ Verify the fields and values added on the Capitalization Details – Use of Funds subsection
                 Assert.IsTrue(summaryPage.VerifyFieldsOfUseOfFunds(), "Verify that displayed fields of Use Of funds section are same");
                 extentReports.CreateStepLogs("Passed", "Displayed fields of Use Of funds section are as expected ");
 
@@ -110,7 +110,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
-                driver.Quit();            
+                driver.Quit();
             }
 
             catch (Exception e)
@@ -123,5 +123,3 @@ namespace SF_Automation.TestCases.Engagement
         }
     }
 }
-
-

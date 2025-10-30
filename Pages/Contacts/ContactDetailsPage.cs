@@ -177,7 +177,7 @@ namespace SF_Automation.Pages.Contact
         By btnSaveDetailsL = By.XPath("//button[@name='SaveEdit']");
         By toastMsgPopup = By.XPath("//span[contains(@class,'toastMessage')]");
         By lnkViewDetailL = By.XPath("//table[@aria-label='HL Relationships']//tbody//th[@data-label='View Details']//a");
-        By comboContactStatusL = By.XPath("//label[text()='Status']/..//button");
+        By comboContactStatusL = By.XPath("//label[text()='Status']/../..//button");
         By inputDepartureDateL = By.XPath("//label[text()='Departure Date']/..//input");
         By txtStatusL = By.XPath("//span[text()='Status']/../../..//lightning-formatted-text");
         By btnEditL = By.XPath("//button[@name='Edit']");
@@ -1530,7 +1530,7 @@ namespace SF_Automation.Pages.Contact
             driver.FindElement(btnEditL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, comboContactStatusL, 10);
             driver.FindElement(comboContactStatusL).Click();
-            By elmStatus = By.XPath($"//label[text()='Status']/..//lightning-base-combobox-item//span[@title='{status}']");
+            By elmStatus = By.XPath($"//label[text()='Status']/../..//lightning-base-combobox-item//span[@title='{status}']");
             WebDriverWaits.WaitUntilEleVisible(driver, elmStatus, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(elmStatus));
             driver.FindElement(elmStatus).Click();

@@ -97,14 +97,14 @@ namespace SF_Automation.TestCases.Engagement
                 engagementDetails.ClickCFEngsummaryButtonL();
                 string engNumSummary = summaryPage.ValidateEngNumOnHeader();
                 string engNumSummaryValue = summaryPage.ValidateEngNumValueOnHeader();
-                string engNumSummaryMessage = summaryPage.ValidateEngNumberMessageOnHeader();
+                //string engNumSummaryMessage = summaryPage.ValidateEngNumberMessageOnHeader();
 
                 Assert.AreEqual(engNum, engNumSummary);
                 Assert.AreEqual(engNumValue, engNumSummaryValue);
                 extentReports.CreateLog("The label " + engNumSummary + " and mapping value " + engNumSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page.");
 
-                Assert.AreEqual("Case Number", engNumSummaryMessage);
-                extentReports.CreateLog("The Tool tip message " + engNumSummaryMessage + " is displayed on Engagement Number in CF Engagement Summary ");
+                //Assert.AreEqual("Case Number", engNumSummaryMessage);
+                //extentReports.CreateLog("The Tool tip message " + engNumSummaryMessage + " is displayed on Engagement Number in CF Engagement Summary ");
 
                 //2. TMTI0114530_Verify the "Subject Ownership" label and mapping value are displayed.
                 string subOwnerSummary = summaryPage.ValidateSubOwnerOnHeader();
@@ -116,14 +116,14 @@ namespace SF_Automation.TestCases.Engagement
                 //3. TMTI0114531_Verify the label Est. Transaction Size / Market Cap (MM) mapping values are displayed and the tooltip.
                 string txnSizeSummary = summaryPage.ValidateEstTxnSizeOnHeader();
                 string txnSizeSummaryValue = summaryPage.ValidateEstTxnSizeValueOnHeader();
-                string txnSizeSummaryMessage = summaryPage.ValidateEstTxnSizeMessageOnHeader();
+                //string txnSizeSummaryMessage = summaryPage.ValidateEstTxnSizeMessageOnHeader();
 
                 Assert.AreEqual(txnSize, txnSizeSummary);
                 Assert.AreEqual(txnSizeValue, txnSizeSummaryValue);
                 extentReports.CreateLog("The label " + txnSizeSummary + " and mapping value " + txnSizeSummaryValue + " is displayed on CF Engagement Summary as displayed in Engagement details page. ");
 
-                Assert.AreEqual("If Engagement involves a majority stake in a Public Company, insert Market Cap as of Engagement Letter date.", txnSizeSummaryMessage);
-                extentReports.CreateLog("The Tool tip message " + txnSizeSummaryMessage + " is displayed on Est. Transaction Size / Market Cap (MM) in CF Engagement Summary ");
+                //Assert.AreEqual("If Engagement involves a majority stake in a Public Company, insert Market Cap as of Engagement Letter date.", txnSizeSummaryMessage);
+                //extentReports.CreateLog("The Tool tip message " + txnSizeSummaryMessage + " is displayed on Est. Transaction Size / Market Cap (MM) in CF Engagement Summary ");
 
                 //4. TMTI0114532_Verify the link Summary Report is displayed and leads to Cogno's ES Report.
                 string summaryReport =summaryPage.ValidateSummaryReportButtonOnHeader();

@@ -164,7 +164,7 @@ namespace SF_Automation.Pages.Company
             return alertFound;
         }
 
-        By comboOficeCodeL = By.XPath("//label[text()='Office Code']/..//button");
+        By comboOficeCodeL = By.XPath("//label[text()='Office Code']/../..//button");
         public void CreateNewCompanyLV(string file, int companyRow)
         {
             ReadJSONData.Generate("Admin_Data.json");
@@ -179,7 +179,7 @@ namespace SF_Automation.Pages.Company
                 // for Houlihan Lockey Office Code
                 WebDriverWaits.WaitUntilEleVisible(driver, comboOficeCodeL, 2);
                 driver.FindElement(comboOficeCodeL).Click();
-                By elmOfcCode = By.XPath("//label[text()='Office Code']/..//lightning-base-combobox-item//span[text()='AM']");
+                By elmOfcCode = By.XPath("//label[text()='Office Code']/../..//lightning-base-combobox-item//span[text()='AM']");
 
                 try
                 {

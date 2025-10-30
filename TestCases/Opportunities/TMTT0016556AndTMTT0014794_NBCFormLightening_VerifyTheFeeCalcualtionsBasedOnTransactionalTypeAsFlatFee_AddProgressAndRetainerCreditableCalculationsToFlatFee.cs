@@ -9,7 +9,7 @@ using System.Globalization;
 
 namespace SF_Automation.TestCases.Opportunities
 {
-    class TMTT0016556AndTMTT0014794_NBCFormLightening_VerifyTheFeeCalcualtionsBasedOnTransactionalTypeAsFlatFee_AddProgressAndRetainerCreditableCalculationsToFlatFee  : BaseClass
+    class TMTT0016556AndTMTT0014794_NBCFormLightening_VerifyTheFeeCalcualtionsBasedOnTransactionalTypeAsFlatFee_AddProgressAndRetainerCreditableCalculationsToFlatFee : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -127,7 +127,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Select the Review Submission button
                 form.ClickReviewSubmission();
-                
+
                 //Save all the mandatory fields details in all tabs.
                 form.ClickOpportunityOverview();
                 form.SaveAllReqFieldsInOppOverview(fileTC1232);
@@ -149,15 +149,16 @@ namespace SF_Automation.TestCases.Opportunities
                 //Get Retainer from NBC form
                 Assert.AreEqual(retainer, nbcRetainer);
                 extentReports.CreateLog("Retainer value in NBC form " + nbcRetainer + " matches with Retainer in Opportunity details page ");
-                               
+
                 Assert.AreEqual(progressFee, nbcProgressFee);
                 extentReports.CreateLog("Progress Fee in NBC form " + nbcProgressFee + " matches with Progress Fee in Opportunity details page ");
 
-                form.SaveAllReqFieldsInFees(fileTC1232,"Flat Fee");
+                form.SaveAllReqFieldsInFees(fileTC1232, "Flat Fee");
 
                 //Navigate to previous window and validate Retainer and Monthly Fee
                 // form.NavigateToPreviousWindow();
-                opportunityDetails.ClickOppTab();
+                opportunityHome.SearchMyOpportunitiesInLightning(opportunityNumber, valUser);
+                //opportunityDetails.ClickOppTab();
                 string latestRetainer = opportunityDetails.GetRetainerL();
                 Assert.AreEqual(retainer, latestRetainer);
                 extentReports.CreateLog("Retainer value in Opportunity details: " + latestRetainer + " matches with earlier value of Retainer ");
@@ -167,7 +168,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Progress Fee value in Opportunity details: " + latestProgressFee + " matches with earlier value of Progress Fee ");
 
                 //Clear out the Progress Fee and Progress Fee Creditable fields
-               // form.NavigateToNextWindow();
+                // form.NavigateToNextWindow();
                 string estFeeWithRetainer = form.UpdateReviewSubAndProgressFee(fileTC1232, "Flat Fee");
                 Console.WriteLine(estFeeWithRetainer);
 
@@ -177,19 +178,19 @@ namespace SF_Automation.TestCases.Opportunities
                 string feeCred = ReadExcelData.ReadData(excelPath, "NBCForm", 65);
                 double actualFeeCred = Convert.ToDouble(feeCred);
                 Console.WriteLine(((actualFee - ((actualFee * actualFeeCred) / 100))).ToString("0.00"));
-                Assert.AreEqual(((actualFee- ((actualFee*actualFeeCred)/100))).ToString("0.00"), estFeeWithRetainer);
+                Assert.AreEqual(((actualFee - ((actualFee * actualFeeCred) / 100))).ToString("0.00"), estFeeWithRetainer);
                 extentReports.CreateLog("Estimated Total Fee (MM) " + estFeeWithRetainer + " is getting calculated as expected when only Retainer and Retainer Fee Creditable is entered for Flat Fee ");
-                
+
                 //Clear out Retainer Fee fields, enter Progress Fee and validate Estimated Total Fee
-                string estFeeWithProgress =form.UpdateRetainerAndProgressFee(fileTC1232);
+                string estFeeWithProgress = form.UpdateRetainerAndProgressFee(fileTC1232);
                 Console.WriteLine(estFeeWithProgress);
-                Assert.AreEqual(((actualFee - ((actualFee * actualFeeCred)/100))).ToString("0.00"), estFeeWithProgress);
+                Assert.AreEqual(((actualFee - ((actualFee * actualFeeCred) / 100))).ToString("0.00"), estFeeWithProgress);
                 extentReports.CreateLog("Estimated Total Fee (MM) " + estFeeWithProgress + " is getting calculated as expected when only Progress and Progress Fee Creditable is entered for Flat Fee ");
-                
+
                 //Enter the values of Retainer Fee fieds and Progress Fee and validate Estimated Total Fee
                 string estFeeWithBoth = form.UpdateBothRetainerAndProgressFee(fileTC1232);
                 Console.WriteLine(estFeeWithBoth);
-                Assert.AreEqual((((actualFee - ((actualFee * actualFeeCred) / 100)))+((actualFee - ((actualFee * actualFeeCred) / 100)))).ToString("0.00"), estFeeWithBoth);
+                Assert.AreEqual((((actualFee - ((actualFee * actualFeeCred) / 100))) + ((actualFee - ((actualFee * actualFeeCred) / 100)))).ToString("0.00"), estFeeWithBoth);
                 extentReports.CreateLog("Estimated Total Fee (MM) " + estFeeWithBoth + " is getting calculated as expected when Retainer, Retainer Fee Creditable,Progress and Progress Fee Creditable is entered for Flat Fee ");
 
                 //Validate that Flat Fee (MM) field is blank
@@ -201,11 +202,11 @@ namespace SF_Automation.TestCases.Opportunities
                 string savedFlatFee = form.SaveFlatFee(fileTC1232);
                 string valueFee = ReadExcelData.ReadData(excelPath, "NBCForm", 64);
                 Assert.AreEqual(valueFee, savedFlatFee);
-                extentReports.CreateLog("Flat Fee with value: "+savedFlatFee + " is saved ");
+                extentReports.CreateLog("Flat Fee with value: " + savedFlatFee + " is saved ");
 
                 //Validate Estimated Total Fee after entering Flat Fee
                 string estFeeWithFlatFee = form.GetEstTotalFee();
-                Assert.AreEqual((((((actualFee - ((actualFee * actualFeeCred) / 100))) + ((actualFee - ((actualFee * actualFeeCred) / 100)) )))+ Convert.ToDouble(savedFlatFee)).ToString("0.00"), (estFeeWithFlatFee));
+                Assert.AreEqual((((((actualFee - ((actualFee * actualFeeCred) / 100))) + ((actualFee - ((actualFee * actualFeeCred) / 100))))) + Convert.ToDouble(savedFlatFee)).ToString("0.00"), (estFeeWithFlatFee));
                 extentReports.CreateLog("Estimated Total Fee " + estFeeWithBoth + " is getting calculated as expected when Retainer, Retainer Fee Creditable,Progress and Progress Fee Creditable is entered along with Flat Fee ");
 
                 //Commented as Min Fee is not applicable for Flat Fee
@@ -223,7 +224,7 @@ namespace SF_Automation.TestCases.Opportunities
                 //extentReports.CreateLog("Estimated Total Fee (MM) " + EstFeeWithGreaterMinFee + " is getting displayed as it is when Minimum Fee is less than Estimated Total Fee ");
 
                 //Update Creditable fields to 0%
-                string estFeeWithZeroCred = form.UpdateFeeCreditables("0");               
+                string estFeeWithZeroCred = form.UpdateFeeCreditables("0");
                 Assert.AreEqual((((((actualFee - ((actualFee * 0) / 100))) + ((actualFee - ((actualFee * 0) / 100))))) + Convert.ToDouble(savedFlatFee)).ToString("0.00"), (estFeeWithZeroCred));
                 extentReports.CreateLog("Estimated Total Fee " + estFeeWithZeroCred + " is getting calculated as expected when Retainer, Retainer Fee Creditable are saved as 0 ");
 
@@ -233,21 +234,19 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Estimated Total Fee " + estFeeWith100Cred + " is getting calculated as expected when Retainer, Retainer Fee Creditable are saved as 100 ");
 
                 form.SwitchFrame();
-                usersLogin.DiffLightningLogout();                           
+                usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();
-                driver.Quit();                        
-             
-        }
+                driver.Quit();
+
+            }
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();
-            }                
+            }
+        }
     }
 }
-}
-
-    
 

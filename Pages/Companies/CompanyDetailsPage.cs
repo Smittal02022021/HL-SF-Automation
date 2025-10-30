@@ -29,9 +29,6 @@ namespace SF_Automation.Pages.Companies
         By linkCampaignName = By.CssSelector("div[id*='nYp_CAMPAIGN_NAME']");
         By comboFlagReason = By.XPath("//label[text()='Flag Reason']/following::td/span/select");
         By txtFlagReasonComment = By.XPath("(//label[text()='Flag Reason Comment']/following::td/textarea)[1]");
-
-
-
         By companyDetailHeading = By.XPath("//h2[contains(text(),'Company Detail')]");
         By btnNewContact = By.CssSelector("td[class='pbButton'] > input[value='New Contact']");
         By btnAddCFOpportunity = By.XPath("//a[contains(text(),'Add CF Opportunity')]");
@@ -231,7 +228,7 @@ namespace SF_Automation.Pages.Companies
         By btnInlineChngTypeL = By.XPath("//button[@title='Change Record Type']");
         By btnNextChangeRecordTypeL = By.XPath("//div[contains(@class,'ChangeRecordTypeFooter')]//button[2]");
         By headrAnnFinL = By.XPath("//*[text()='Annual Financials']");
-        By comboSectorL = By.XPath("//label[text()='Sector']/parent::div//button");
+        By comboSectorL = By.XPath("//label[text()='Sector']/../..//div//button");
         By inputClientNumberL = By.XPath("//label[text()='Client Number']/..//input");
         By inputParentCompanyL = By.XPath("//label[text()='Parent Company']/..//input");
         By frameReportL = By.XPath("//iframe[@title='Report Viewer']");
@@ -239,17 +236,17 @@ namespace SF_Automation.Pages.Companies
         By tabOppL = By.XPath("//h2/..//ul//li[@title='Opportunities']//a");
         By headerBML = By.XPath("//article[@aria-label='Board Members']");
         By btnNewBML = By.XPath("//article[@aria-label='Board Members']//button[@name='New']");
-        By txtAffCompanyNameL = By.XPath("//label[text()='Company']/..//input");
-        By valAffStatusL = By.XPath("//label[text()='Status']/..//button");
+        By txtAffCompanyNameL = By.XPath("//label[text()='Company']/../..//input");
+        By valAffStatusL = By.XPath("//label[text()='Status']/../..//button");
         By headerNewAffL = By.XPath("//h2[text()='New Affiliation']");
         By txtReqFields = By.XPath("//div[@class='fieldLevelErrors']//li//a");
         By inputAffContactL = By.XPath("//input[@placeholder='Search Contacts...']");
         By btnAffTypeL = By.XPath("//button[@aria-label='Type']");
         By txtAffTypeL = By.XPath("//span[text()='Type']/../../..//lightning-formatted-text");
         By txtNumberRelationshipL = By.XPath("//records-entity-label[text()='Affiliation']/../../..//slot//lightning-formatted-text");
-        By recordBoardMemberL = By.XPath("//table[@aria-label='Board Members']//tbody//tr[1]//th//lightning-formatted-rich-text//a[2]");
-        By recordStatusTypeL = By.XPath("//table[@aria-label='Board Members']//tbody//tr[1]//td[@data-label='Affiliation: Status - Type']//lightning-formatted-rich-text//span");
-        By recordAffNotesL = By.XPath("//table[@aria-label='Board Members']//tbody//tr[1]//td[@data-label='Affiliation: Notes']//lightning-base-formatted-text");
+        By recordBoardMemberL = By.XPath("//h2//span[@title='Board Members']//ancestor::article//table//tbody//tr[1]//th//lightning-formatted-rich-text//a[2]");
+        By recordStatusTypeL = By.XPath("//h2//span[@title='Board Members']//ancestor::article//table//tbody//tr[1]//td[@data-label='Affiliation: Status - Type']//lightning-formatted-rich-text//span");
+        By recordAffNotesL = By.XPath("//h2//span[@title='Board Members']//ancestor::article//table//tbody//tr[1]//td[@data-label='Affiliation: Notes']//lightning-base-formatted-text");
         By inputAffNotesL = By.XPath("//label[text()='Notes']/..//textarea");
         By btnPrintableViewL = By.XPath("//button[text()='Printable View']");
         By linkPrintableViewL = By.XPath("//a/span[contains(text(),'Printable View')]");
@@ -312,15 +309,15 @@ namespace SF_Automation.Pages.Companies
         By lnkDeleteL = By.XPath("//div[contains(@class,'uiMenuList--default visible positioned')]//div[@title='Delete']/..");
         By txtHLFinNameL = By.XPath("//span[text()='HL Financial Name']/../../..//lightning-formatted-text");
         By btnNewCompanySectorsL = By.XPath("//article[@aria-label='Company Sectors']//button[text()='New']");
-        By btnNewAddLocationL = By.XPath("//article[@aria-label='Address']//button[text()='New']");
+        By btnNewAddLocationL = By.XPath("//article[@aria-label='Address']/..//button[text()='New']");
         By btnNewInvestmentPreferencesL = By.XPath("//article[@aria-label='Investment Preferences']//button[text()='New']");
         By inputsectorCategL = By.XPath("//label[text()='Sector Categorization']/..//input");
         By txtCompanySectorL = By.XPath("//span[text()='Company Sector']/../../..//lightning-formatted-text");
         By btnClearSectorCategL = By.XPath("//label[text()='Sector Categorization']/..//button[@title='Clear Selection']");
-        By comboAddressTypeL = By.XPath("//label[text()='Address Type']/..//button");
+        By comboAddressTypeL = By.XPath("//label[text()='Address Type']/../..//button");
         By iconHeaderMoreTabsL = By.XPath("//lightning-tab-bar/ul/li/lightning-button-menu/button[@title='More Tabs']");
         By btnNewFSFundsL = By.XPath("//article[@aria-label='FS Funds']//div//button[@name='New']");
-        By valCompanyNameL = By.XPath("//label[text()='Company']/..//input");
+        By valCompanyNameL = By.XPath("//label[text()='Company']/../..//input");
         By btnNewFinancialsL = By.XPath("//article[@aria-label='HL Company Financials']//div//button[@name='New']");
         By btnNewFinancialsSPL = By.XPath("//article[contains(@aria-label,'Current')]//div//button[@name='New']");
         By txtSPNameL = By.XPath("//span[text()='Investment List Number']/../../..//lightning-formatted-text");
@@ -330,14 +327,14 @@ namespace SF_Automation.Pages.Companies
         By txtFlagReasonL = By.XPath("//span[text()='Flag Reason']/../../..//lightning-formatted-text");
         By txtFlagReasonCommentL = By.XPath("//span[text()='Flag Reason Comment']/../../..//lightning-formatted-text");
         By btnEditL = By.XPath("//button[@name='Edit']");
-        By comboIndustryTypeL = By.XPath("//label[text()='Industry Group']/..//button");
-        By comboIndustryTypeOptionsL = By.XPath("//label[text()='Industry Group']/..//lightning-base-combobox-item//span[2]/span");
+        By comboIndustryTypeL = By.XPath("//label[text()='Industry Group']/../..//button");
+        By comboIndustryTypeOptionsL = By.XPath("//label[text()='Industry Group']/../..//lightning-base-combobox-item//span[2]/span");
         By btnCancelL = By.XPath("//button[@name='CancelEdit']");
         By iframeCompanyForm = By.XPath("//iframe[contains(@name,'vfFrame')]");
         By btnNewCoverageTeamL = By.XPath("//span[contains(text(),'Sponsor Coverage')]//ancestor::header//button");//span[contains(text(),'Sponsor Coverage')]//ancestor::h2/..//following-sibling::div//button[text()='New']");
         By btnDialogNextL = By.XPath("//div[@role='dialog']//button[text()='Next']");
-        By comboTypeL = By.XPath("//label[text()='Type']/..//button");
-        By comboTypeOptionsL = By.XPath("//label[text()='Type']/..//lightning-base-combobox-item//span[2]/span");
+        By comboTypeL = By.XPath("//label[text()='Type']/../..//button");
+        By comboTypeOptionsL = By.XPath("//label[text()='Type']/../..//lightning-base-combobox-item//span[2]/span");
 
         By btnEditInvestmentL = By.XPath("//records-entity-label[text()='Investment List']//ancestor::h1/../../..//button[@name='Edit']");
         By btnDeleteInvestmentL = By.XPath("//records-entity-label[text()='Investment List']//ancestor::h1/../../..//button[@name='Delete']");
@@ -360,17 +357,17 @@ namespace SF_Automation.Pages.Companies
         By txtIPOwnershipNumberL = By.XPath("//h1//records-entity-label[text()='Investment Preference Ownership']/../../..//lightning-formatted-text");
         By txtIPSectorL = By.XPath("//h1//records-entity-label[text()='Investment Preference Sector']/../../..//lightning-formatted-text");
         By txtsectorTypeL = By.XPath("//span[text()='Type']/../..//lightning-formatted-text");
-        By btnIvestorTypeL = By.XPath("//label[text()='Investor Type']/..//button");
-        By btnUseOfProceedsL = By.XPath("//label[text()='Use of Proceeds']/..//button");
-        By btnInvestmentTypeL = By.XPath("//label[text()='Investment Type']/..//button");
-        By btnOwnershipL = By.XPath("//label[text()='Ownership']/..//button");
-        By comboOwnershipOptionsL = By.XPath("//label[text()='Ownership']/..//lightning-base-combobox-item//span/span");
-        By comboIvestorTypeOptionsL = By.XPath("//label[text()='Investor Type']/..//lightning-base-combobox-item//span/span");
-        By comboUseOfProceedsOptionsL = By.XPath("//label[text()='Use of Proceeds']/..//lightning-base-combobox-item//span/span");
-        By comboInvestmentTypeOptionsL = By.XPath("//label[text()='Investment Type']/..//lightning-base-combobox-item//span/span");
-        By inputSectorL = By.XPath("//label[text()='Sector']/..//input");
-        By inputIPContactL = By.XPath("//label[text()='Contact']/..//input");
-        By inputIPContactRoleL = By.XPath("//label[text()='Role']/..//input");
+        By btnIvestorTypeL = By.XPath("//label[text()='Investor Type']/../..//button");
+        By btnUseOfProceedsL = By.XPath("//label[text()='Use of Proceeds']/../..//button");
+        By btnInvestmentTypeL = By.XPath("//label[text()='Investment Type']/../..//button");
+        By btnOwnershipL = By.XPath("//label[text()='Ownership']/../..//button");
+        By comboOwnershipOptionsL = By.XPath("//label[text()='Ownership']/../..//lightning-base-combobox-item//span/span");
+        By comboIvestorTypeOptionsL = By.XPath("//label[text()='Investor Type']/../..//lightning-base-combobox-item//span/span");
+        By comboUseOfProceedsOptionsL = By.XPath("//label[text()='Use of Proceeds']/../..//lightning-base-combobox-item//span/span");
+        By comboInvestmentTypeOptionsL = By.XPath("//label[text()='Investment Type']/../..//lightning-base-combobox-item//span/span");
+        By inputSectorL = By.XPath("//label[text()='Sector']/../..//input");
+        By inputIPContactL = By.XPath("//label[text()='Contact']/../..//input");
+        By inputIPContactRoleL = By.XPath("//label[text()='Role']/../..//input");
         By txtIPContactL = By.XPath("//h2//span[text()='Investment Preference Contacts']//ancestor::article//h3//lightning-formatted-rich-text/span");
         By txtIPSectorSidePanelL = By.XPath("//h2//span[text()='Investment Preference Sectors']//ancestor::article//h3//span//span//span");
         By txtIPInvestmentTypePanelL = By.XPath("//h2//span[text()='Investment Preference Investment Type']//ancestor::article//lst-formatted-text/span");
@@ -578,7 +575,7 @@ namespace SF_Automation.Pages.Companies
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnInvestmentTypeL, 10);
             driver.FindElement(btnInvestmentTypeL).Click();
-            By elmOption = By.XPath($"//label[text()='Investment Type']/..//lightning-base-combobox-item//span/span[@title='{type}']");
+            By elmOption = By.XPath($"//label[text()='Investment Type']/../..//lightning-base-combobox-item//span/span[@title='{type}']");
             WebDriverWaits.WaitUntilEleVisible(driver, elmOption, 10);
             driver.FindElement(elmOption).Click();
             driver.FindElement(btnSaveDetailsL).Click();
@@ -588,7 +585,7 @@ namespace SF_Automation.Pages.Companies
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnIvestorTypeL, 10);
             driver.FindElement(btnIvestorTypeL).Click();
-            By elmOption = By.XPath($"//label[text()='Investor Type']/..//lightning-base-combobox-item//span/span[@title='{type}']");
+            By elmOption = By.XPath($"//label[text()='Investor Type']/../..//lightning-base-combobox-item//span/span[@title='{type}']");
             WebDriverWaits.WaitUntilEleVisible(driver, elmOption, 10);
             driver.FindElement(elmOption).Click();
             driver.FindElement(btnSaveDetailsL).Click();
@@ -597,7 +594,7 @@ namespace SF_Automation.Pages.Companies
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnUseOfProceedsL, 10);
             driver.FindElement(btnUseOfProceedsL).Click();
-            By elmOption = By.XPath($"//label[text()='Use of Proceeds']/..//lightning-base-combobox-item//span/span[@title='{proceeds}']");
+            By elmOption = By.XPath($"//label[text()='Use of Proceeds']/../..//lightning-base-combobox-item//span/span[@title='{proceeds}']");
             WebDriverWaits.WaitUntilEleVisible(driver, elmOption, 10);
             driver.FindElement(elmOption).Click();
             driver.FindElement(btnSaveDetailsL).Click();
@@ -606,7 +603,7 @@ namespace SF_Automation.Pages.Companies
         {
             WebDriverWaits.WaitUntilEleVisible(driver, btnOwnershipL, 10);
             driver.FindElement(btnOwnershipL).Click();
-            By elmOption = By.XPath($"//label[text()='Ownership']/..//lightning-base-combobox-item//span/span[@title='{ownership}']");
+            By elmOption = By.XPath($"//label[text()='Ownership']/../..//lightning-base-combobox-item//span/span[@title='{ownership}']");
             WebDriverWaits.WaitUntilEleVisible(driver, elmOption, 10);
             driver.FindElement(elmOption).Click();
             driver.FindElement(btnSaveDetailsL).Click();
@@ -1218,7 +1215,7 @@ namespace SF_Automation.Pages.Companies
             return toasMsg;
         }
 
-        By addLocationRecordL = By.XPath("//table[@aria-label='Address']//tbody//tr[1]//slot//slot");
+        By addLocationRecordL = By.XPath("//span[text()='Address']//ancestor::article//table//tbody//tr[1]//slot//slot/span");
         By txtAddLocationL = By.XPath("//records-entity-label[text()='Address']/../../..//lightning-formatted-text");
         By btnEditAddLocationL = By.XPath("(//button[@name='Edit'])[2]");
         public string UpdateAddLocationLV(string addressType)
@@ -1228,7 +1225,7 @@ namespace SF_Automation.Pages.Companies
             WebDriverWaits.WaitUntilEleVisible(driver, comboAddressTypeL, 10);
             driver.FindElement(comboAddressTypeL).Click();
             Thread.Sleep(1000);
-            By eleAddType = By.XPath($"//label[text()='Address Type']/..//lightning-base-combobox-item//span[@title='{addressType}']");
+            By eleAddType = By.XPath($"//label[text()='Address Type']/../..//lightning-base-combobox-item//span[@title='{addressType}']");
             WebDriverWaits.WaitUntilEleVisible(driver, eleAddType, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleAddType));
             driver.FindElement(eleAddType).Click();
@@ -1250,7 +1247,7 @@ namespace SF_Automation.Pages.Companies
         public void SelectAddLocationRecordLV(string addLocationID)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            By elmAddLocationRecord = By.XPath($"//table[@aria-label='Address']//tbody//tr//slot//slot/span[text()='{addLocationID}']//ancestor::a");
+            By elmAddLocationRecord = By.XPath($"//span[text()='Address']//ancestor::article//table//tbody//tr//slot//slot/span[text()='{addLocationID}']//ancestor::a");
             WebDriverWaits.WaitUntilEleVisible(driver, elmAddLocationRecord, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(elmAddLocationRecord));
             js.ExecuteScript("arguments[0].click();", driver.FindElement(elmAddLocationRecord));
@@ -1259,7 +1256,7 @@ namespace SF_Automation.Pages.Companies
         public bool IsAddLocationRecordDisplayedLV(string addLocationID)
         {
             WebDriverWaits.WaitUntilEleVisible(driver, addLocationRecordL, 10);
-            By elmAddLocationRecord = By.XPath($"//table[@aria-label='Address']//tbody//tr//slot//slot/span[text()='{addLocationID}']//ancestor::a");
+            By elmAddLocationRecord = By.XPath($"//span[text()='Address']//ancestor::article//table//tbody//tr//slot//slot/span[text()='{addLocationID}']//ancestor::a");
 
             try
             {
@@ -1283,7 +1280,7 @@ namespace SF_Automation.Pages.Companies
 
             WebDriverWaits.WaitUntilEleVisible(driver, comboAddressTypeL, 10);
             driver.FindElement(comboAddressTypeL).Click();
-            By eleAddType = By.XPath($"//label[text()='Address Type']/..//lightning-base-combobox-item//span[@title='{addressType}']");
+            By eleAddType = By.XPath($"//label[text()='Address Type']/../..//lightning-base-combobox-item//span[@title='{addressType}']");
             WebDriverWaits.WaitUntilEleVisible(driver, eleAddType, 10);
             CustomFunctions.MoveToElement(driver, driver.FindElement(eleAddType));
             Thread.Sleep(2000);
@@ -1692,7 +1689,7 @@ namespace SF_Automation.Pages.Companies
         }
         public bool IsFSFundRecordDisplayedLV(string fundName)
         {
-            By fundRecord = By.XPath($"//table[@aria-label='FS Funds']//tbody//th[@data-label='FS Fund Name']//a//span[text()='{fundName}']");
+            By fundRecord = By.XPath($"//span[text()='FS Funds']//ancestor::article//table//tbody//th[@data-label='FS Fund Name']//a//span[text()='{fundName}']");
             try
             {
                 WebDriverWaits.WaitUntilEleVisible(driver, fundRecord, 5);
@@ -2197,7 +2194,7 @@ namespace SF_Automation.Pages.Companies
             driver.FindElement(btnEditTopPanelL).Click();
             WebDriverWaits.WaitUntilEleVisible(driver, headerEditBoxL, 10);
         }
-        By comboIGL = By.XPath("//label[text()='Industry Group']/parent::div//button");
+        By comboIGL = By.XPath("//label[text()='Industry Group']/../..//div//button");
         By txtValidationSectorL = By.XPath("//div[@class='fieldLevelErrors']//ul/li/a[text()='Sector']");
         By txtValidationNameL = By.XPath("//div[@class='fieldLevelErrors']//ul/li/a[text()='Name']");
         public bool IsContactNameValidationDisplayedLV()

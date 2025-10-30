@@ -18,7 +18,7 @@ namespace SF_Automation.Pages.Opportunity
         By comboParty = By.CssSelector("select[name*='M0eMp']");
         By checkAckBillingContact = By.CssSelector("input[name*='M0jSN']");
         By checkBillingContact = By.CssSelector("input[name*='Gz3dL']");
-        By btnPartyL = By.XPath("//span[text()='Role']/ancestor::div[2]//a");
+        By btnPartyL = By.XPath("//span[text()='Party']/ancestor::div[2]//a");
         By btnPartyCFL = By.XPath("//span[text()='Party']/ancestor::div[2]//a");
 
         By chkAckBillingContactL = By.XPath("//span[text()='Acknowledge Billing Contact']/following::input[1]");

@@ -7,7 +7,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SalesForce_Project.TestCases.JobTypes
+namespace SF_Automation.TestCases.JobTypes
 {
     class LV_TMTT0024858_TMTT0030610_TMTT0012824_TMTT0024069_TMTT0035436_TMTT0047923_TMTT0047926_TMTT0047929_VerifyNewJobTypeOnJobTypeObjPageLightningView: BaseClass
     {

@@ -7,7 +7,7 @@ using NUnit.Framework;
 using SF_Automation.TestData;
 using SalesForce_Project.Pages.JobTypes;
 
-namespace SalesForce_Project.TestCases.JobTypes
+namespace SF_Automation.TestCases.JobTypes
 {
     class LV_TMTT0048687_VerifyTheCaptialSolutionChangesImplementedOnJobTypeobject:BaseClass
     {

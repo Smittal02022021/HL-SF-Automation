@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Engagement;
@@ -65,10 +65,10 @@ namespace SF_Automation.TestCases.Engagement
 
                 //1.   TMTI0114576_ Verify the "Marketing Process Data" subsections of the CF Engagement Summary
                 engagementDetails.ClickCFEngsummaryButtonL();
-                string secMarketing = summaryPage.ValidateMarketingSection();                
+                string secMarketing = summaryPage.ValidateMarketingSection();
                 Assert.AreEqual("Marketing Process Data", secMarketing);
                 extentReports.CreateLog("Section with name: " + secMarketing + " is displayed after clicking Marketing Process Data section ");
-                              
+
                 Assert.IsTrue(summaryPage.VerifySectionsUnderMarketingSection(), "Verify that displayed fields under Marketing Process Data section are same");
                 extentReports.CreateStepLogs("Passed", "Displayed fields under Marketing Process Data section are as expected ");
 
@@ -102,7 +102,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 usersLogin.LightningLogout();
                 usersLogin.UserLogOut();
-                driver.Quit();            
+                driver.Quit();
             }
 
             catch (Exception e)
@@ -115,5 +115,3 @@ namespace SF_Automation.TestCases.Engagement
         }
     }
 }
-
-

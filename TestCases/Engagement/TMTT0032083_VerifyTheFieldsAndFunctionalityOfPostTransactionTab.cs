@@ -1,4 +1,4 @@
-﻿using AventStack.ExtentReports.Gherkin.Model;
+using AventStack.ExtentReports.Gherkin.Model;
 using Microsoft.Office.Interop.Excel;
 using NUnit.Framework;
 using SF_Automation.Pages;
@@ -200,7 +200,7 @@ namespace SF_Automation.TestCases.Engagement
                 //18.  TMTI0075227_ Verify that if the user selects already added Contact while adding Board Member, the application gives an error message
                 string errorMessage = summaryPage.ValidateErrorMessageUponAddingDuplicateContact();
                 Assert.AreEqual("Duplicate record detected.", errorMessage);
-                extentReports.CreateLog("Error message: " +errorMessage + " is displayed upon adding duplicate contact in Add Board Member ");
+                extentReports.CreateLog("Error message: " + errorMessage + " is displayed upon adding duplicate contact in Add Board Member ");
 
                 //19. TMTI0075229_Verify that clicking the "Delete" button of the Board Member record gives a confirmation message before deleting the record
                 string msgCancelBoard = summaryPage.ValidateCancelFunctionalityOfAddBoardMemberPostTrans();
@@ -265,7 +265,7 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual("True", valAddDebt);
                 extentReports.CreateLog("A row is created after saving details on Add Debt Structure page ");
 
-               //24. TMTI0075239_Verify that the "Post-Transaction Debt" record is created with all the entered data including "Key Creditors" by clicking the "Save and add Key Creditors" button on Add Debt Structure screen
+                //24. TMTI0075239_Verify that the "Post-Transaction Debt" record is created with all the entered data including "Key Creditors" by clicking the "Save and add Key Creditors" button on Add Debt Structure screen
                 bool rowKeyCred = summaryPage.ValidateSaveFunctionalityOfAddDebtStructureByAddingAllValues();
                 Assert.AreEqual(true, rowKeyCred);
                 extentReports.CreateLog("Key creditor row is displayed on Add Debt Structure page ");
@@ -282,7 +282,7 @@ namespace SF_Automation.TestCases.Engagement
                 //26.  Verify that the application gives an error message on the screen on adding duplicate Client/Subject as Key Creditors.
                 string msgDupClientSub = summaryPage.ValidateErrorMessageWhileAddingSameClientSubjectInKeyCredPost();
                 Assert.AreEqual("Company Name : 'Dina's Test Company' already exists as an Additional Client/Subject", msgDupClientSub);
-                extentReports.CreateLog("Error message " + msgDupClientSub+ " appears on the screen while adding duplicate Client/Subject as Key Creditors ");
+                extentReports.CreateLog("Error message " + msgDupClientSub + " appears on the screen while adding duplicate Client/Subject as Key Creditors ");
 
                 //29. Verify that clicking the "Edit" button of the Post-Transaction Debt record allows the user to update debt structure details including the Loan Amount of Key Creditors added
                 string updatedSecurity = summaryPage.ValidateEditFunctionalityOfAddedDebtStructurePost();
@@ -374,5 +374,3 @@ namespace SF_Automation.TestCases.Engagement
         }
     }
 }
-
-

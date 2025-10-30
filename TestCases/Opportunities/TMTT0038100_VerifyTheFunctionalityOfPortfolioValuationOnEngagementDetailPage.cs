@@ -7,7 +7,7 @@ using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Engagement;
 using SF_Automation.Pages.Opportunity;
 using SF_Automation.TestData;
-using SF_Automation.UtilityFunctions;     
+using SF_Automation.UtilityFunctions;
 using System;
 using System.Collections.Generic;
 
@@ -91,7 +91,7 @@ namespace SF_Automation.TestCases.Opportunities
                 opportunityDetails.UpdateReqFieldsForFVAConversionLForPV(fileTC1644);
                 extentReports.CreateLog("All required details are saved ");
                 opportunityDetails.ClickAddFVAOppContact();
-                addContact.CreateContactL(fileTC1644);
+                addContact.CreateContactL2(fileTC1644);
 
                 period.ClickOppValuationAndValidateFields();
                 string name = CustomFunctions.RandomValue();
@@ -111,7 +111,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 period.ClickNewPeriodPositionButtonWithoutFrameL();
                 string addedPeriod2nd = period.EnterAndSaveOppValuationPeriodPositionDetailsLWithDiffFrame("Techno Alpha");
-                                
+
                 //Logout
                 usersLogin.LightningLogout();
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
@@ -122,7 +122,7 @@ namespace SF_Automation.TestCases.Opportunities
                 opportunityDetails.UpdateOutcomeDetails(fileTC1644);
                 opportunityDetails.UpdateInternalTeamDetails(fileTC1644);
                 extentReports.CreateLog("Internal Team members details are saved ");
-               
+
 
                 //Login as Financial User and validate the user                
                 usersLogin.SearchUserAndLogin(valUser);
@@ -163,7 +163,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("User: " + stdUser2 + " logged in ");
 
                 engHome.SelectEngUnderHLBanker();
-                engHome.SearchEngagementWithNumberOnLightning(value, valJobType);               
+                engHome.SearchEngagementWithNumberOnLightning(value, valJobType);
 
                 //1.  TMTI0092391_Verify that the "Portfolio Valuation" button is available on the portfolio Engagement
                 string portfolioValuation = opportunityDetails.ClickPortfolioValuationEngL();
@@ -172,7 +172,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Portfolio Valuation Button is displayed for the Engagement with Job type: " + jobTypePV + " ");
 
                 //2.  TMTI0092393_Verify that clicking the "Portfolio Valuation" button opens up a new tab with the added list of valuations on the screen
-                engDetails.ClickPortfolioValuationL();                
+                engDetails.ClickPortfolioValuationL();
 
                 string backToEng = engDetails.ValidateReturnToEngButton();
                 Assert.AreEqual("Back To Engagement", backToEng);
@@ -189,9 +189,9 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //4.  TMTI0092397_Verify Portfolio Valuation and all the associated details that are imported from Opportunity on conversion
                 engDetails.ClickPortfolioValuationL();
-                string importedValPeriod = engDetails.ValidateImportedValPeriod();               
+                string importedValPeriod = engDetails.ValidateImportedValPeriod();
                 //Assert.AreEqual(addedValuation, importedValPeriod);
-                extentReports.CreateLog("Valuation Period: " +importedValPeriod+" added in Opportunity is imported to Engagement post conversion successfully ");
+                extentReports.CreateLog("Valuation Period: " + importedValPeriod + " added in Opportunity is imported to Engagement post conversion successfully ");
 
                 string importedValPosition = engDetails.ValidateImportedPeriodPosition(name2);
                 Assert.AreEqual(addedPeriod2nd, importedValPosition);
@@ -233,7 +233,7 @@ namespace SF_Automation.TestCases.Opportunities
                 //12.  TMTI0093027_Verify that if the "Automation Tool Usage" field is blank in the position that the user selected to Import, the application gives an error message on the screen. 
                 string messageTool = engValPeriod.ValidateAutomationToolMandatoryFieldMessage();
                 Assert.AreEqual("Please update Automation Tool usage information for selected position(s).", messageTool);
-                extentReports.CreateLog("Message: "+ messageTool + " is displayed when Automation Tool Usage field is blank in the position that the user selected to Import ");
+                extentReports.CreateLog("Message: " + messageTool + " is displayed when Automation Tool Usage field is blank in the position that the user selected to Import ");
 
                 //13.  TMTI0093029_Verify that the user can update "Automation Team Utilized" by clicking "Update Automation Tool Usage". 
                 Assert.IsTrue(engValPeriod.ValidateColumnsOnAutomationToolPage(), "Verified that displayed columns are same");
@@ -354,7 +354,7 @@ namespace SF_Automation.TestCases.Opportunities
                 string titleAllocation = engValPeriod.ValidateNewEngValPeriodAllocation();
                 Assert.AreEqual("New Eng Valuation Period Allocation", titleAllocation);
                 extentReports.CreateLog("Page with title: " + titleAllocation + " is displayed after clicking New Eng Valuation Period Allocation button ");
-                
+
                 string cancelAllocation = engValPeriod.ValidateCancelFunctionalityOfEngValPeriodAllocation();
                 Assert.AreEqual("Engagement Valuation Period Detail", cancelAllocation);
                 extentReports.CreateLog("Page with title: " + cancelAllocation + " is displayed after clicking cancel on New Eng Valuation Period Allocation page ");
@@ -391,11 +391,11 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string titleSendEmail = engValPeriod.ValidateSendEmailPageUponSavingTotalReportFee();
                 Assert.AreEqual("Send Email", titleSendEmail);
-                extentReports.CreateLog("Page : " +titleSendEmail + " is displayed upon saving Total Report Fee ");
+                extentReports.CreateLog("Page : " + titleSendEmail + " is displayed upon saving Total Report Fee ");
 
                 string pageSendEmail = engValPeriod.ValidateSendEmailFunctionality();
                 Assert.AreEqual("Engagement Valuation Period Detail", pageSendEmail);
-                extentReports.CreateLog("Page with title: " +pageSendEmail +" is displayed upon clicking Send Email button ");
+                extentReports.CreateLog("Page with title: " + pageSendEmail + " is displayed upon clicking Send Email button ");
 
                 engValPeriod.ValidateBillingRequestButtons();
                 string titleIndivSendEmail = engValPeriod.ValidateSendEmailPageUponSavingIndivReportFee();
@@ -409,12 +409,12 @@ namespace SF_Automation.TestCases.Opportunities
                 //33.	TMTI0099318_Verify that the CAO can "Delete" the "Eng Valuation Period Allocation
                 //Login as CAO user 
                 engValPeriod.SwitchFrame();
-                usersLogin.DiffLightningLogout();                
-                usersLogin.SearchUserAndLogin(valCAOUser);               
+                usersLogin.DiffLightningLogout();
+                usersLogin.SearchUserAndLogin(valCAOUser);
 
                 string caoUser1 = login.ValidateUserLightningCAO();
                 Console.WriteLine("caoUser1:" + caoUser1);
-                Console.WriteLine("valCAOUser:" + valCAOUser.Substring(0,10));
+                Console.WriteLine("valCAOUser:" + valCAOUser.Substring(0, 10));
                 Assert.AreEqual(caoUser1.Contains(valCAOUser.Substring(0, 10)), true);
                 extentReports.CreateLog("User: " + valCAOUser + " logged in ");
 
@@ -436,8 +436,8 @@ namespace SF_Automation.TestCases.Opportunities
                 string cancelPeriodPosition = engValPeriod.ValidateDeleteFunctionalityOfPeriodPositionAfterSelectingNo();
                 Assert.AreEqual("True", cancelPeriodPosition);
                 extentReports.CreateLog("Eng Valuation Period Position is not deleted after clicking cancel on delete confirmation pop up ");
-                engValPeriod.SwitchFrame();         
-                
+                engValPeriod.SwitchFrame();
+
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();
@@ -455,4 +455,3 @@ namespace SF_Automation.TestCases.Opportunities
 }
 
 
- 

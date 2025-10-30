@@ -60,9 +60,9 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                 extentReports.CreateStepLogs("Passed", "User " + login.ValidateUser() + " is able to login ");
                 int rowStage = ReadExcelData.GetRowCount(excelPath, "Stage");
                 int rowOpp = ReadExcelData.GetRowCount(excelPath, "AddOpportunity");
-                for (int row = 2; row <= rowOpp; row++) 
+                for (int row = 2; row < rowOpp; row++) 
                 {  
-                    for (int rowStg = 2; rowStg < rowStage; rowStg++)
+                    for (int rowStg = 2; rowStg <= rowStage; rowStg++)
                     {
                         string valStage = ReadExcelData.ReadDataMultipleRows(excelPath, "Stage", rowStg, 1);
                         string valJobType = ReadExcelData.ReadDataMultipleRows(excelPath, "AddOpportunity", row, 3);
@@ -246,6 +246,7 @@ namespace SF_Automation.TestCases.OpportunitiesConversion
                         stage = engagementDetails.GetStageLV();
                         Assert.AreEqual(valStage, stage, "Verify that Stage is updated to "+ valStage+" after filling All required fields");
                         extentReports.CreateStepLogs("Passed", "CF Engagement having Job type as " + valJobType + " Stage changed to " + stage+ " after filling required including Tail Expire ");
+                        randomPages.CloseActiveTab(engagementName);
                         randomPages.CloseActiveTab(engagementName);
                         homePageLV.LogoutFromSFLightningAsApprover();
                         extentReports.CreateStepLogs("Info", "CAO User: "+userCAOExl + " logged out ");

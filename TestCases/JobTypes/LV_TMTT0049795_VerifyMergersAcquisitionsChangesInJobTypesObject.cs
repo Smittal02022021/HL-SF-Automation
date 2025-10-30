@@ -7,7 +7,7 @@ using SF_Automation.TestData;
 using SF_Automation.UtilityFunctions;
 using System;
 
-namespace SalesForce_Project.TestCases.JobTypes
+namespace SF_Automation.TestCases.JobTypes
 {
     class LV_TMTT0049795_VerifyMergersAcquisitionsChangesInJobTypesObject:BaseClass
     {

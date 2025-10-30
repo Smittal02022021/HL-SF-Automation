@@ -22,7 +22,7 @@ namespace SF_Automation.TestCases.Opportunities
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            InitializeZoom70();
+            Initialize();
             ExtentReportHelper();
             ReadJSONData.Generate("Admin_Data.json");
             extentReports.CreateTest(TestContext.CurrentContext.Test.Name);

@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
 using SF_Automation.Pages.Engagement;
@@ -19,7 +19,7 @@ namespace SF_Automation.TestCases.Engagement
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
         AddOppCounterparty counterparty = new AddOppCounterparty();
-        AddCounterparty  engCounterparty = new AddCounterparty();
+        AddCounterparty engCounterparty = new AddCounterparty();
         EngagementDetailsPage engagementDetails = new EngagementDetailsPage();
         EngagementHomePage engagementHome = new EngagementHomePage();
         AddOpportunityContact addContact = new AddOpportunityContact();
@@ -51,8 +51,8 @@ namespace SF_Automation.TestCases.Engagement
                 login.LoginApplication();
 
                 //Validate user logged in                   
-                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
-                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
+                Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
+                extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
 
@@ -78,7 +78,7 @@ namespace SF_Automation.TestCases.Engagement
                 extentReports.CreateLog("Opportunity with number : " + value + " is created ");
 
                 //Call function to enter Internal Team details and validate Opportunity detail page
-                string displayedTab=  addOpportunity.EnterStaffDetailsL(TMTT0017889);
+                string displayedTab = addOpportunity.EnterStaffDetailsL(TMTT0017889);
                 Assert.AreEqual("Info", displayedTab);
                 extentReports.CreateLog("Tab with name: " + displayedTab + " is displayed upon saving internal deal team members details ");
 
@@ -104,14 +104,14 @@ namespace SF_Automation.TestCases.Engagement
                 //Add Opportunity Counterparties 
                 string valComp = ReadExcelData.ReadData(excelPath, "Counterparty", 1);
                 string valType = ReadExcelData.ReadData(excelPath, "Counterparty", 2);
-                counterparty.AddCounterpartyInOpportunityL(valComp, valType);                
+                counterparty.AddCounterpartyInOpportunityL(valComp, valType);
 
                 //Add Counterparties Contact
                 string selectedName = counterparty.AddCounterpartyContactInOpportunityL();
                 counterparty.ClickAdd2ndCounterpartiesAndValidatePage();
                 counterparty.AddCounterpartyInOpportunityL(valComp, valType);
                 string val1stName = engCounterparty.GetContact1stName();
-                string val2ndName = engCounterparty.GetContact2ndName();              
+                string val2ndName = engCounterparty.GetContact2ndName();
                 Assert.AreEqual(selectedName.Replace(" ", ""), val1stName + val2ndName);
                 extentReports.CreateLog("Selected Contact : " + selectedName + " is added and displayed under Opportunity Counterparty Contacts section ");
 
@@ -119,13 +119,13 @@ namespace SF_Automation.TestCases.Engagement
                 //counterparty.AddCounterpartyCommentL();
 
                 //Get added Counterparty Comment, Creator and Contact                
-                 //string addedComment = counterparty.GetAddedCommentL();
-                 //string addedCreator = counterparty.GetCreatorOfAddedCommentL();
+                //string addedComment = counterparty.GetAddedCommentL();
+                //string addedCreator = counterparty.GetCreatorOfAddedCommentL();
 
                 usersLogin.LightningLogout();
 
                 //Search for Opportunity
-                opportunityHome.SearchOpportunity(value);                
+                opportunityHome.SearchOpportunity(value);
 
                 //Update CC and NBC
                 opportunityDetails.UpdateNBCApproval();
@@ -153,7 +153,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //Search for created opportunity 
                 opportunityHome.SearchMyOpportunitiesInLightning(value, ReadExcelData.ReadDataMultipleRows(excelPath, "Users", 2, 2));
-               
+
                 //Approve the Opportunity 
                 string status = opportunityDetails.ClickApproveButtonLV2();
                 Assert.AreEqual("Approved", status);
@@ -168,8 +168,8 @@ namespace SF_Automation.TestCases.Engagement
                 engagementDetails.ClickViewCounterpartiesButton();
                 engCounterparty.ClickAddedCounterparty();
                 string val1stNameEng = engCounterparty.GetCounterparty1stName();
-                string val2ndNameEng = engCounterparty.GetCounterparty2ndName();                
-                Assert.AreEqual(val1stName ,val1stNameEng);
+                string val2ndNameEng = engCounterparty.GetCounterparty2ndName();
+                Assert.AreEqual(val1stName, val1stNameEng);
                 Assert.AreEqual(val2ndName, val2ndNameEng);
                 extentReports.CreateLog("Engagement Counterparty Contact name: " + val1stNameEng + " " + val2ndNameEng + " is mapped from the opportunity ");
 
@@ -190,9 +190,7 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }        
+        }
     }
 }
-
-    
 

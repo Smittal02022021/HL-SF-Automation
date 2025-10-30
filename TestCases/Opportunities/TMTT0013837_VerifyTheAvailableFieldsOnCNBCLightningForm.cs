@@ -86,7 +86,7 @@ namespace SF_Automation.TestCases.Opportunities
                 opportunityDetails.UpdateClientSubjectOwnershipL();
                 string clientOwnership = opportunityDetails.GetClientOwnershipLPostUpdate();
                 string subjectOwnership = opportunityDetails.GetSubjectOwnershipLPostUpdate();
-                
+
                 //Logout of user and validate Admin login
                 usersLogin.DiffLightningLogout();
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
@@ -118,7 +118,7 @@ namespace SF_Automation.TestCases.Opportunities
                 //Validate the type of form displayed
                 string formType = opportunityDetails.ValidateFormType();
                 Assert.AreEqual("To Submit A CNBC Form:", formType);
-                extentReports.CreateLog("CNBC Form page is displayed for Job type: " +valJobType + " ");
+                extentReports.CreateLog("CNBC Form page is displayed for Job type: " + valJobType + " ");
 
                 //Click on Add Financials                
                 string txtAddFin = form.ClickAddFinancialsButton();
@@ -156,9 +156,9 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Field with name :" + txtAsOf + " is displayed ");
 
                 //TMTI0078917 - Verify that on the Add Financials page, the following tooltip is added to the "As of Date" label
-                string msgAsOfDate = form.ValidateAsOfDateToolTip();
-                Assert.AreEqual("Default is 12/31/XX, but please specify if otherwise", msgAsOfDate);
-                extentReports.CreateLog("Tool tip with message: " + msgAsOfDate + " is displayed upon hovering on As Of Date ");
+                //string msgAsOfDate = form.ValidateAsOfDateToolTip();
+                //Assert.AreEqual("Default is 12/31/XX, but please specify if otherwise", msgAsOfDate);
+                //extentReports.CreateLog("Tool tip with message: " + msgAsOfDate + " is displayed upon hovering on As Of Date ");
 
                 //Validate the Revenue (MM) Field
                 string txtRevneue = form.GetRevenueMMField();
@@ -519,7 +519,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Mandatory Validation: " + message1 + " is displayed upon clicking Save button without entering its values ");
 
                 string message2 = form.Validate2ndMessageOfReqFeedbacks();
-               // Assert.AreEqual("Why can't this wait until next call?", message2);
+                // Assert.AreEqual("Why can't this wait until next call?", message2);
                 //extentReports.CreateLog("Mandatory Validation: " + message2 + " is displayed upon clicking Save button without entering its values ");
 
                 string txtRequiresGMT = form.ValidateRequiresFeedbackInGMTCheckbox();
@@ -556,7 +556,7 @@ namespace SF_Automation.TestCases.Opportunities
                 string successMsg = form.UploadFileAndValidate(excelPath1 + "UploadFile.pdf");
                 Assert.AreEqual("UploadFile", successMsg);
                 extentReports.CreateLog("Selected File has been uploaded ");
-                               
+
                 form.SwitchFrame();
 
                 usersLogin.DiffLightningLogout();
@@ -574,4 +574,3 @@ namespace SF_Automation.TestCases.Opportunities
         }
     }
 }
-

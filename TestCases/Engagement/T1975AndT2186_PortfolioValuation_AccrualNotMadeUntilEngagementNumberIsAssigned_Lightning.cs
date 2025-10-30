@@ -1,4 +1,4 @@
-﻿
+
 using NUnit.Framework;
 using SF_Automation.Pages;
 using SF_Automation.Pages.Common;
@@ -48,7 +48,7 @@ namespace SF_Automation.TestCases.Engagement
                 Assert.AreEqual(login.ValidateUser().Equals(ReadJSONData.data.authentication.loggedUser), true);
                 extentReports.CreateLog("User " + login.ValidateUser() + " is able to login ");
 
-               //Clicking on Engagement Tab and search for Engagement by entering Job type         
+                //Clicking on Engagement Tab and search for Engagement by entering Job type         
                 string message = engHome.SearchEngagementWithName(ReadExcelData.ReadData(excelPath, "Engagement", 2));
                 Assert.AreEqual("Record found", message);
                 extentReports.CreateLog("Records matching with selected Job Type are displayed ");
@@ -69,7 +69,7 @@ namespace SF_Automation.TestCases.Engagement
                 //Login as Standard User and validate the user
                 string valUser = ReadExcelData.ReadData(excelPath, "Users", 1);
                 usersLogin.SearchUserAndLogin(valUser);
-                string stdUser = login.ValidateUserLightning();                
+                string stdUser = login.ValidateUserLightning();
                 Assert.AreEqual(stdUser.Contains(valUser), true);
                 extentReports.CreateLog("Standard User: " + stdUser + " is able to login ");
 
@@ -90,7 +90,7 @@ namespace SF_Automation.TestCases.Engagement
 
                 //Enter Eng Valuation Period Position details and validate entered Valuation Period Position
                 valuationPeriods.ValidateMessageWhileClickingSaveButtonOnPeriodPosition();
-                string valPeriodPosition = valuationPeriods.EnterAndSaveEngValuationPeriodPositionDetailsL(ReadExcelData.ReadData(excelPath, "ValuationPeriod",4));
+                string valPeriodPosition = valuationPeriods.EnterAndSaveEngValuationPeriodPositionDetailsL(ReadExcelData.ReadData(excelPath, "ValuationPeriod", 4));
                 Assert.AreEqual(ReadExcelData.ReadData(excelPath, "ValuationPeriod", 4), valPeriodPosition);
                 extentReports.CreateLog("Engagement Valuation Period Position with name: " + valPeriodPosition + " is added successfully ");
 
@@ -118,7 +118,6 @@ namespace SF_Automation.TestCases.Engagement
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }       
+        }
     }
 }
-

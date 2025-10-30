@@ -167,7 +167,7 @@ namespace SF_Automation.TestCases.OpportunitiesDND
                     //Validate he DND On/Off buton 
                     bool isButtonDisplayed = opportunityDetails.IsButtonDNDOnOffDisplayedLV();
                     Assert.IsTrue(isButtonDisplayed);
-                    extentReports.CreateStepLogs("Pass", "DND On/Off button is displayed for user:  with number : " + userCAOExl);
+                    extentReports.CreateStepLogs("Pass", "DND On/Off button is displayed for user: " + userCAOExl);
                     opportunityDetails.ClickDNDOnOffButtonLV();
                     extentReports.CreateStepLogs("Info", "User: " + userCAOExl + " Clicked on DND On/Off Button ");
                     string txtMessage = randomPages.GetLVMessagePopup();

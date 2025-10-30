@@ -33,6 +33,7 @@ namespace SF_Automation.Pages.Reports
         By btnSavePageSetting = By.CssSelector("input[id='RPPSaveButton']");
         By btnNeverUpdate = By.CssSelector("div[id='stateCountryPicklistWarning_buttons'] > input[value='Never Update']");
         By btnStateCountryPicklistWarning = By.XPath("//input[@id='buttonNever']");
+        By btnDiscardL = By.XPath("//footer//button[text()='Discard']");
 
         string dir = @"C:\Users\VKumar0427\source\repos\SF_Automation\TestData\";
 
@@ -304,7 +305,7 @@ namespace SF_Automation.Pages.Reports
         }
         private By _optionFilterL(string filterName)
         {
-            return By.XPath($"//div[@role='listbox']//li//span[@title='{filterName}']");
+            return By.XPath($"//ul[@role='listbox']//li//span[@title='{filterName}']");
         }
 
         public void SearchReportLV(string name)
@@ -382,9 +383,11 @@ namespace SF_Automation.Pages.Reports
             WebDriverWaits.WaitUntilEleVisible(driver, bnCloseReportLV, 10);
             driver.FindElement(bnCloseReportLV).Click();
             Thread.Sleep(2000);
+            driver.FindElement(btnDiscardL).Click();
             driver.SwitchTo().DefaultContent();
         }
 
 
     }
 }
+;

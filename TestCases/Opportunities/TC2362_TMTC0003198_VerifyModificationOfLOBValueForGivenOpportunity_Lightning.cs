@@ -87,9 +87,9 @@ namespace SF_Automation.TestCases.Opportunities
                 //Create External Primary Contact      
                 //Update all required fields for Conversion to Engagement
                 string valContactType = ReadExcelData.ReadData(excelPath, "AddContact", 4);
-                string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);             
+                string valContact = ReadExcelData.ReadData(excelPath, "AddContact", 1);
                 opportunityDetails.ClickAddFVAOppContact();
-                addContact.CreateContactL(fileTC2362);
+                addContact.CreateContactL2(fileTC2362);
                 opportunityDetails.UpdateReqFieldsForFVAConversionL(fileTC2362);
                 extentReports.CreateLog("All required details are saved ");
 
@@ -101,7 +101,7 @@ namespace SF_Automation.TestCases.Opportunities
                 string lob = opportunityDetails.UpdateRecordTypeAndLOB();
                 Assert.AreEqual("CF", lob);
                 opportunityDetails.UpdateOutcomeDetails(fileTC2362);
-                extentReports.CreateLog("Conflict Check fields are updated ");              
+                extentReports.CreateLog("Conflict Check fields are updated ");
                 opportunityDetails.AddEstFeesWithAdmin(fileTC2362);
                 string jobType = opportunityDetails.GetJobType();
                 Assert.AreEqual("Negotiated Fairness", jobType);
@@ -109,12 +109,12 @@ namespace SF_Automation.TestCases.Opportunities
 
                 opportunityDetails.UpdateInternalTeamDetails(fileTC2362);
                 extentReports.CreateLog("Internal Team members details are saved ");
-                
+
                 //Update Record Type to CF, LOB to CF, Job Type to Negotiated Fairness and validate Job Type and LOB                
-                               
-                
+
+
                 //Update additional fields i.e Estimated Fees and Fairness Opinion Component
-               
+
 
                 //Login as Financial User and validate the user                
                 usersLogin.SearchUserAndLogin(valUser);
@@ -122,7 +122,7 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.AreEqual(stdUser1.Contains(valUser), true);
                 extentReports.CreateLog("User: " + stdUser1 + " logged in ");
 
-                
+
                 //Open the same opportunity               
                 opportunityHome.SearchMyOpportunitiesInLightning(opportunityNumber, valUser);
 
@@ -157,13 +157,13 @@ namespace SF_Automation.TestCases.Opportunities
                 string engName = engagementDetails.GetEngNumL();
                 Assert.AreEqual(opportunityNumber, engName);
                 extentReports.CreateLog("Name of Engagement : " + engName + " is similar to Opportunity name ");
-                               
+
                 //Get Record Type of Engagement 
                 string engJobType = engagementDetails.GetRecordTypeL();
                 Console.WriteLine("engJobType " + engJobType);
                 Assert.AreEqual("Fairness (CF)", engJobType);
-                extentReports.CreateLog("Record Type of Engagement is displayed as " +engJobType + " ");
-                
+                extentReports.CreateLog("Record Type of Engagement is displayed as " + engJobType + " ");
+
                 usersLogin.DiffLightningLogout();
                 usersLogin.UserLogOut();
                 driver.Quit();
