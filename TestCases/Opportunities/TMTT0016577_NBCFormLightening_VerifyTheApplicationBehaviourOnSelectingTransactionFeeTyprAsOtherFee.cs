@@ -111,7 +111,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("User: " + stdUser1 + " logged in ");
 
                 //Search for created opportunity
-                opportunityHome.SearchMyOpportunitiesInLightning(opportunityNumber,valUser);               
+                opportunityHome.SearchMyOpportunitiesInLightning(opportunityNumber, valUser);
 
                 //Click on NBC page and validate title of page
                 string title = opportunityDetails.ClickNBCFormLCNBC();
@@ -125,7 +125,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Select the Review Submission button
                 form.ClickReviewSubmission();
-                
+
                 //Save all the mandatory fields details in all tabs.
                 form.ClickOpportunityOverview();
                 form.SaveAllReqFieldsInOppOverview(fileTC1232);
@@ -147,40 +147,38 @@ namespace SF_Automation.TestCases.Opportunities
                 //Get Retainer from NBC form
                 Assert.AreEqual(retainer, nbcRetainer);
                 extentReports.CreateLog("Retainer value in NBC form " + nbcRetainer + " matches with Retainer in Opportunity details page ");
-                               
+
                 Assert.AreEqual(progressFee, nbcProgressFee);
                 extentReports.CreateLog("Progress Fee in NBC form " + nbcProgressFee + " matches with Progress Fee in Opportunity details page ");
 
-                form.SaveAllReqFieldsInFees(fileTC1232,"Transaction Type");
+                form.SaveAllReqFieldsInFees(fileTC1232, "Transaction Type");
 
                 //Get the validation of Other Fee Structure
                 string msgOtherFee = form.GetValidationOfOtherFeeField();
-                Assert.AreEqual("Complete this field.", msgOtherFee);
+                Assert.AreEqual("Other Fee Structure\r\nComplete this field.", msgOtherFee);
                 extentReports.CreateLog("Validation : " + msgOtherFee + " is displayed when Other Fee Structure field is left blank and saved ");
 
                 //Validate if validation is still displayed upon saving saving Other Fee Structure value
                 string msgOtherFeeUponSave = form.UpdateOtherFeeStructure();
                 Assert.AreEqual("Validation did not appear", msgOtherFeeUponSave);
                 extentReports.CreateLog("No validation message for Other Fee Structure is displayed when Other Fee Structure field is saved ");
-                
+
                 form.SwitchFrame();
                 usersLogin.DiffLightningLogout();
                 usersLogin.DiscardChanges();
 
                 usersLogin.UserLogOut();
-                driver.Quit();                        
-             
-        }
+                driver.Quit();
+
+            }
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();
-            }                
+            }
+        }
     }
 }
-}
-
-    
 

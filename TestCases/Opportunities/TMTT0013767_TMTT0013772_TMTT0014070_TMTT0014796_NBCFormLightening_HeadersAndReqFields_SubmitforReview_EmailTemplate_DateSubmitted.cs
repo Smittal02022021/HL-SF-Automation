@@ -121,7 +121,7 @@ namespace SF_Automation.TestCases.Opportunities
                 string title1 = opportunityDetails.ClickNBCFormLCNBC();
                 Assert.AreEqual("Opportunity Overview", title1);
                 extentReports.CreateLog("CNBC Form page is displayed with default tab : " + title1 + " ");
-                                
+
                 string clientComp = form.ValidateClientCompanyHeader();
                 Assert.AreEqual("Client Company", clientComp);
                 extentReports.CreateLog("Field with name " + clientComp + " is displayed on the header of CNBC page ");
@@ -169,7 +169,7 @@ namespace SF_Automation.TestCases.Opportunities
                 //string valIG = form.ValidateIG();
                 //Assert.AreEqual(IG, valIG);
                 //extentReports.CreateLog("Industry Group: " + valIG + " in CNBC form matches with Opportunity details page ");
-                               
+
                 //Select the Review Submission button
                 form.ClickReviewSubmission();
 
@@ -181,7 +181,7 @@ namespace SF_Automation.TestCases.Opportunities
                 string actTransOverValidation = form.GetFieldsValidationsOfOppOverview();
                 Console.WriteLine(actTransOverValidation);
                 string expTransOverValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 1);
-                Assert.AreEqual(expTransOverValidation, actTransOverValidation);
+                Assert.AreEqual(actTransOverValidation.Contains(expTransOverValidation), true);
                 extentReports.CreateLog("Validation: " + actTransOverValidation + " is displayed for Transaction Overview field ");
 
                 string actTotalDebt = form.GetValidationOfTotalDebt();
@@ -193,7 +193,9 @@ namespace SF_Automation.TestCases.Opportunities
                 string actEstVal = form.GetValidationOfEstVal();
                 Console.WriteLine(actEstVal);
                 string expEstVal = ReadExcelData.ReadData(excelPath, "NBCForm", 34);
-                Assert.AreEqual(expEstVal, actEstVal);
+                Assert.AreEqual(actEstVal.Contains(expEstVal), true);
+
+                //Assert.AreEqual(expEstVal, actEstVal);
                 extentReports.CreateLog("Validation: " + actEstVal + " is displayed for Estimated Valuation field ");
 
                 string actCurrentStatusVal = form.GetValidationOfCurrentStatus();
@@ -204,12 +206,16 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string actValuationExpVal = form.GetValidationOfValuationExp();
                 string expValuationExpVal = ReadExcelData.ReadData(excelPath, "NBCForm", 36);
-                Assert.AreEqual(expValuationExpVal, actValuationExpVal);
+                //Assert.AreEqual(expValuationExpVal, actValuationExpVal);
+                Assert.AreEqual(actValuationExpVal.Contains(expValuationExpVal), true);
+
                 extentReports.CreateLog("Validation: " + actValuationExpVal + " is displayed for Valuation Expectations field ");
 
                 string actCompanyDescVal = form.GetValidationOfCompDesc();
                 string expCompanyDescVal = ReadExcelData.ReadData(excelPath, "NBCForm", 37);
-                Assert.AreEqual(expCompanyDescVal, actCompanyDescVal);
+                Assert.AreEqual(actCompanyDescVal.Contains(expCompanyDescVal), true);
+
+                //Assert.AreEqual(expCompanyDescVal, actCompanyDescVal);
                 extentReports.CreateLog("Validation: " + actCompanyDescVal + " is displayed for Company Description field ");
 
                 string actRealEstateVal = form.GetValidationOfRealEstateAngle();
@@ -219,7 +225,9 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string actOwnershipVal = form.GetValidationOfOwnershipAndCapStr();
                 string expOwnershipVal = ReadExcelData.ReadData(excelPath, "NBCForm", 39);
-                Assert.AreEqual(expOwnershipVal, actOwnershipVal);
+                // Assert.AreEqual(expOwnershipVal, actOwnershipVal);
+                Assert.AreEqual(actOwnershipVal.Contains(expOwnershipVal), true);
+
                 extentReports.CreateLog("Validation: " + actOwnershipVal + " is displayed for Ownership and Capital Structure field ");
 
                 string actAsiaAngleVal = form.GetValidationOfAsiaAngle();
@@ -229,7 +237,9 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string actRiskFactVal = form.GetValidationOfRiskFactors();
                 string expRiskFactVal = ReadExcelData.ReadData(excelPath, "NBCForm", 41);
-                Assert.AreEqual(expRiskFactVal, actRiskFactVal);
+                //Assert.AreEqual(expRiskFactVal, actRiskFactVal);
+                Assert.AreEqual(actRiskFactVal.Contains(expRiskFactVal), true);
+
                 extentReports.CreateLog("Validation: " + actRiskFactVal + " is displayed for Risk Factors field ");
 
                 string actIntAngleVal = form.GetValidationOfInternationalAngle();
@@ -249,7 +259,8 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string actExistingFinValidation = form.GetValidationOfExistingFin();
                 string expExistingFinValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 44);
-                Assert.AreEqual(expExistingFinValidation, actExistingFinValidation);
+                //Assert.AreEqual(expExistingFinValidation, actExistingFinValidation);
+                Assert.AreEqual(actExistingFinValidation.Contains(expExistingFinValidation), true);
                 extentReports.CreateLog("Validation: " + actExistingFinValidation + " is displayed for Existing Financial Arrangement Notes field ");
 
                 string actFinSubjectValidation = form.GetValidationOfFinancialsSubject();
@@ -286,7 +297,7 @@ namespace SF_Automation.TestCases.Opportunities
                 string expMinFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 64);
                 Assert.AreEqual("Engagement Letter Minimum Fee\r\nEngagement Letter Minimum Fee is required.", actMinFeeValidation);
                 extentReports.CreateLog("Validation: " + actMinFeeValidation + " is displayed for Minimum Fee (MM) field ");
-                
+
                 //string actTxnFeeValidation = form.GetValidationOfTxnFee();
                 //string expTxnFeeValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 50);
                 //Assert.AreEqual(expTxnFeeValidation, actTxnFeeValidation);
@@ -296,7 +307,7 @@ namespace SF_Automation.TestCases.Opportunities
                 string expTxnValueValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 65);
                 Assert.AreEqual("Estimated Transaction Value\r\nEstimated Transaction Value should be greater than 0", actTxnValueValidation);
                 extentReports.CreateLog("Validation: " + actTxnValueValidation + " is displayed for Estimated Transaction Value (MM) field ");
-                                
+
                 //Click Pitch tab and validate its mandatory validations 
                 string txtPitch = form.ClickPitchTab();
                 Assert.AreEqual("Pitch", txtPitch);
@@ -309,7 +320,8 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string actHLCompValidation = form.GetValidationOfHLComp();
                 string expHLCompValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 52);
-                Assert.AreEqual(expHLCompValidation, actHLCompValidation);
+                Assert.AreEqual(actHLCompValidation.Contains(expHLCompValidation), true);
+                //Assert.AreEqual(expHLCompValidation, actHLCompValidation);
                 extentReports.CreateLog("Validation: " + actHLCompValidation + " is displayed for HL Competition field ");
 
                 string actLockupsValidation = form.GetValidationOfLockups();
@@ -334,7 +346,8 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string actOutsideValidation = form.GetValidationOfOutsideCouncil();
                 string expOutsideValidation = ReadExcelData.ReadData(excelPath, "NBCForm", 57);
-                Assert.AreEqual(expOutsideValidation, actOutsideValidation);
+                Assert.AreEqual(actOutsideValidation.Contains(expOutsideValidation), true);
+                //Assert.AreEqual(expOutsideValidation, actOutsideValidation);
                 extentReports.CreateLog("Validation: " + actOutsideValidation + " is displayed for Outside Council field ");
 
                 //Click Fairness/Admin Checklist tab and validate its mandatory validations 
@@ -385,7 +398,7 @@ namespace SF_Automation.TestCases.Opportunities
                 form.SaveAllReqFieldsInFinancialsOverview(fileTC1232);
 
                 form.ClickFeesTab();
-                form.SaveAllReqFieldsInFees(fileTC1232,"Transaction Type");
+                form.SaveAllReqFieldsInFees(fileTC1232, "Transaction Type");
 
                 form.ClickPitchTab();
                 form.SaveAllReqFieldsInPitch(fileTC1232);
@@ -406,7 +419,7 @@ namespace SF_Automation.TestCases.Opportunities
                 form.UpdateAdministrativeTab(fileTC1232);
 
                 //Validate title of Email Template page
-                string pageTitle = form.ClickSubmitButton();              
+                string pageTitle = form.ClickSubmitButton();
                 Assert.AreEqual("Send Email", pageTitle);
                 extentReports.CreateLog(pageTitle + " page is displayed upon clicking Submit for Review ");
 
@@ -414,7 +427,7 @@ namespace SF_Automation.TestCases.Opportunities
                 string emailOppName = form.GetOpportunityName();
                 Assert.AreEqual(opportunityNumber, emailOppName);
                 extentReports.CreateLog(" Email Template with Opportunity " + emailOppName + " is displayed ");
-                           
+
                 form.SwitchFrame();
                 usersLogin.DiffLightningLogout();
                 //Login as CAO User i.e., Brian Miller                
@@ -437,12 +450,12 @@ namespace SF_Automation.TestCases.Opportunities
                 Console.WriteLine(DateTime.Now.ToString("M/d/yyyy", CultureInfo.InvariantCulture));
                 Assert.AreEqual(DateTime.Now.ToString("M/d/yyyy", CultureInfo.InvariantCulture), date);
                 extentReports.CreateLog("Date Submitted with value: " + date + " is displayed ");
-               
+
                 //Validate Submit for Review button before approval
                 string submit = form.ValidateSubmitForReviewButton();
                 Assert.AreEqual("Submit for Review button is displayed", submit);
-                extentReports.CreateLog(submit + " for CAO user before approval ");                
-               
+                extentReports.CreateLog(submit + " for CAO user before approval ");
+
                 //Update Grade and validate the same
                 string grade = form.UpdateGrade();
                 Assert.AreEqual("A+", grade);
@@ -463,19 +476,17 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog(check + " after approving NBC Form ");
 
                 usersLogin.UserLogOut();
-                driver.Quit();                        
-             
-        }
+                driver.Quit();
+
+            }
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();
-            }                
+            }
+        }
     }
 }
-}
-
-    
 

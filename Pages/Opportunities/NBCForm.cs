@@ -1146,6 +1146,8 @@ namespace SF_Automation.Pages.Opportunity
             js.ExecuteScript("window.scrollTo(0,300)");
             string lockup = ReadExcelData.ReadData(excelPath, "NBCForm", 2);
             driver.FindElement(btnYes1).Click();
+            Thread.Sleep(3000);
+
             driver.FindElement(By.XPath("//flexipage-field[@data-field-id='RecordConflicts_2a_Not_Listed_cField3']//button/ancestor::div[2]/div[2]//lightning-base-combobox-item/span[2]/span[text()='" + lockup + "']")).Click();
             Thread.Sleep(3000);
             js.ExecuteScript("window.scrollTo(0,600)");
@@ -1210,8 +1212,7 @@ namespace SF_Automation.Pages.Opportunity
 
         public string GetDateSubmitted()
         {
-            Thread.Sleep(5000);
-            WebDriverWaits.WaitUntilEleVisible(driver, valDateSubmitted, 112);
+            Thread.Sleep(7000);
             string date = driver.FindElement(valDateSubmitted).Text;
             Console.WriteLine(date);
             return date;
@@ -2121,7 +2122,7 @@ namespace SF_Automation.Pages.Opportunity
         //Fetch the label of Section Is there a potential Fairness Opinion component to this assignment?
         public string GetLabelIsTherePotentialFairness()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, secIsPotential, 100);
+            Thread.Sleep(4000);
             string text = driver.FindElement(secIsPotential).Text;
             return text;
         }
@@ -2129,7 +2130,7 @@ namespace SF_Automation.Pages.Opportunity
         //Fetch the label of Fairness Opinion Provided
         public string GetLabelFairnessOpinionProvided()
         {
-            WebDriverWaits.WaitUntilEleVisible(driver, lblFairnessOpinion, 100);
+            Thread.Sleep(4000);
             string text = driver.FindElement(lblFairnessOpinion).Text;
             return text;
         }
@@ -3477,7 +3478,7 @@ namespace SF_Automation.Pages.Opportunity
             string dir = ReadJSONData.data.filePaths.testData;
             string excelPath = dir + file;
             Thread.Sleep(4000);
-            driver.FindElement(By.XPath("//div[2]/div/div/ul[2]/li[3]/a/span[1]")).Click();
+            driver.FindElement(By.XPath("//div[2]/div/div/ul[2]/li[2]/a/span[1]")).Click();
             Thread.Sleep(4000);
             IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
             js.ExecuteScript("window.scrollTo(0,150)");

@@ -54,8 +54,8 @@ namespace SF_Automation.Pages.Company
 
         By btnNewCapIQCompanyL = By.XPath("//ul//li//a[@title='New']");
         By txtHeaderL = By.XPath("//h2[text()='New CapIQ Company']");
-        By comboIndustryTypeL = By.XPath("//label[text()='HL Industry Group']/..//button");
-        By comboIndustryTypeOptionsL = By.XPath("//label[text()='HL Industry Group']/..//lightning-base-combobox-item//span[2]/span");
+        By comboIndustryTypeL = By.XPath("//label[text()='HL Industry Group']/../..//button");
+        By comboIndustryTypeOptionsL = By.XPath("//label[text()='HL Industry Group']/../..//lightning-base-combobox-item//span[2]/span");
 
         // To Search for CapIQ Company
         public string SearchCapIQCompany(string companyName)

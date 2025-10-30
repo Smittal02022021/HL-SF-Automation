@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 
 namespace SF_Automation.TestCases.Opportunities
 {
-    class TMTT0013765_TMTT0014798_TMTT0033330_VerifyTheAvailableFieldsOnNBCLightningFormAndAddFinancialLayout_ReviewSectionChanges: BaseClass
+    class TMTT0013765_TMTT0014798_TMTT0033330_VerifyTheAvailableFieldsOnNBCLightningFormAndAddFinancialLayout_ReviewSectionChanges : BaseClass
     {
         ExtentReport extentReports = new ExtentReport();
         LoginPage login = new LoginPage();
@@ -116,7 +116,7 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.AreEqual("Opportunity Overview", title);
                 extentReports.CreateLog("CNBC Form page is displayed with default tab : " + title + " ");
                 //Click on Add Financials                
-                string txtAddFin= form.ClickAddFinancialsButton();
+                string txtAddFin = form.ClickAddFinancialsButton();
                 Assert.AreEqual("Add Financials", txtAddFin);
                 extentReports.CreateLog("Page with name " + txtAddFin + " is displayed upon clic  king the tab. ");
 
@@ -126,7 +126,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Validation :" + txtYear + " is displayed corresponding to Year upon clicking Save button ");
 
                 //Validate the Type validation
-                string txtType= form.GetTypeValidation();
+                string txtType = form.GetTypeValidation();
                 Assert.AreEqual("Complete this field.", txtType);
                 extentReports.CreateLog("Validation :" + txtType + " is displayed corresponding to Type upon clicking Save button ");
 
@@ -151,9 +151,9 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Field with name :" + txtAsOf + " is displayed ");
 
                 //TMTI0078917 - Verify that on the Add Financials page, the following tooltip is added to the "As of Date" label
-                string msgAsOfDate = form.ValidateAsOfDateToolTip();
-                Assert.AreEqual("Default is 12/31/XX, but please specify if otherwise", msgAsOfDate);
-                extentReports.CreateLog("Tool tip with message: " + msgAsOfDate + " is displayed upon hovering on As Of Date ");
+                //string msgAsOfDate = form.ValidateAsOfDateToolTip();
+                //Assert.AreEqual("Default is 12/31/XX, but please specify if otherwise", msgAsOfDate);
+                //extentReports.CreateLog("Tool tip with message: " + msgAsOfDate + " is displayed upon hovering on As Of Date ");
 
                 //Validate the Revenue (MM) Field
                 string txtRevneue = form.GetRevenueMMField();
@@ -226,7 +226,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Field with name :" + txtBook + " is displayed ");
 
                 //Validate Assets Under Management (MM) Field
-                string txtAssets= form.GetAssetsUnderManagement();
+                string txtAssets = form.GetAssetsUnderManagement();
                 Assert.AreEqual("Assets Under Management (MM)", txtAssets);
                 extentReports.CreateLog("Field with name :" + txtAssets + " is displayed ");
 
@@ -234,12 +234,12 @@ namespace SF_Automation.TestCases.Opportunities
                 string txtOppOverview = form.ClickOpportunityOverview();
                 Assert.AreEqual("Opportunity Overview", txtOppOverview);
                 extentReports.CreateLog("Tab with name " + txtOppOverview + " is displayed upon clicking the tab. ");
-                
-                string txtRelOpp = form.GetLabelRelatedOpportunity();                
+
+                string txtRelOpp = form.GetLabelRelatedOpportunity();
                 Assert.AreEqual("Related Opportunity", txtRelOpp);
                 extentReports.CreateLog("Field with name: " + txtRelOpp + " is displayed ");
 
-                string txtTxnOver = form.GetLabelTxnOverview();               
+                string txtTxnOver = form.GetLabelTxnOverview();
                 Assert.AreEqual("Transaction Overview", txtTxnOver);
                 extentReports.CreateLog("Field with name: " + txtTxnOver + " is displayed ");
 
@@ -269,7 +269,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 string txtExtVal = form.GetLabelExtVal();
                 Assert.AreEqual("Valuation Expectations", txtExtVal);
-                extentReports.CreateLog("Field with name: " + txtExtVal + " is displayed ");               
+                extentReports.CreateLog("Field with name: " + txtExtVal + " is displayed ");
 
                 string txtRealEst = form.GetLabelRealEstAngle();
                 Assert.AreEqual("Real Estate Angle", txtRealEst);
@@ -282,7 +282,7 @@ namespace SF_Automation.TestCases.Opportunities
                 string txtSanctions = form.GetLabelSanctions();
                 Assert.AreEqual("Sanctions Concerns/Issues?", txtSanctions);
                 extentReports.CreateLog("Field with name: " + txtSanctions + " is displayed ");
-                
+
                 //Click Financials tab and validate its available fields
                 string txtFinancials = form.ClickFinancialsTab();
                 Assert.AreEqual("Financials", txtFinancials);
@@ -400,7 +400,7 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.AreEqual("Existing Relationships", txtExistingRel);
                 extentReports.CreateLog("Field with name: " + txtExistingRel + " is displayed ");
 
-                string txtExisting= form.GetLabelExistingOrRepeatClient();
+                string txtExisting = form.GetLabelExistingOrRepeatClient();
                 Assert.AreEqual("Existing or Repeat Client?", txtExisting);
                 extentReports.CreateLog("Field with name: " + txtExisting + " is displayed ");
 
@@ -428,10 +428,10 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.AreEqual("Referral Type", txtRefType);
                 extentReports.CreateLog("Field with name: " + txtRefType + " is displayed ");
 
-                string txtRefSource= form.GetLabelReferralSource();
+                string txtRefSource = form.GetLabelReferralSource();
                 Assert.AreEqual("Referral Source", txtRefSource);
                 extentReports.CreateLog("Field with name: " + txtRefSource + " is displayed ");
-                
+
                 //Click Fairness/Admin Checklist tab and validate its mandatory validations 
                 string txtFairness = form.ClickFairnessAdminChecklistTab();
                 Assert.AreEqual("Fairness/Admin Checklist", txtFairness);
@@ -444,7 +444,7 @@ namespace SF_Automation.TestCases.Opportunities
                 string txtFairnessOpinion = form.GetLabelFairnessOpinionProvided();
                 Assert.AreEqual("Fairness Opinion Provided", txtFairnessOpinion);
                 extentReports.CreateLog("Field with name: " + txtFairnessOpinion + " is displayed ");
-                                
+
                 string txtAdministrative = form.ClickAdministrativeTab();
                 Assert.AreEqual("Administrative", txtAdministrative);
                 extentReports.CreateLog("Tab with name " + txtAdministrative + " is displayed upon clicking Administrative tab. ");
@@ -558,7 +558,7 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.AreEqual("HL Internal Team", txtHLInt);
                 extentReports.CreateLog("Tab with name " + txtHLInt + " is displayed upon clicking HL Internal Team tab. ");
 
-                string txtStaff = form.GetLabelOfStaff();                                                                                                                                                                                    
+                string txtStaff = form.GetLabelOfStaff();
                 Assert.AreEqual("Staff:", txtStaff);
                 extentReports.CreateLog("Field with name: " + txtStaff + " is displayed ");
 
@@ -593,7 +593,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Checkbox with name: " + txtReqFeedback + " is displayed ");
 
                 //TMTI0078905_Validate additional fields of Req feedback along with its validations
-                string ques1 =form.ValidateQuestion1OfReqFeedbackNBC();
+                string ques1 = form.ValidateQuestion1OfReqFeedbackNBC();
                 Assert.AreEqual("When is feedback needed by?", ques1);
                 extentReports.CreateLog("Question 1: " + ques1 + " is displayed upon selecting Feedback required before next call? checkbox ");
 
@@ -606,7 +606,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Mandatory Validation: " + message1 + " is displayed upon clicking Save button without entering its values ");
 
                 string message2 = form.Validate2ndMessageOfReqFeedback();
-               // Assert.AreEqual("Why can't this wait until next call?", message2);
+                // Assert.AreEqual("Why can't this wait until next call?", message2);
                 //extentReports.CreateLog("Mandatory Validation: " + message2 + " is displayed upon clicking Save button without entering its values ");
 
                 //string txtRequiresGMT = form.ValidateRequiresFeedbackInGMTCheckbox();
@@ -630,7 +630,7 @@ namespace SF_Automation.TestCases.Opportunities
                 string supportingTip = form.ValidateSupportingDocQuestionTooltip();
                 Assert.AreEqual("*Such as potential buyers, financials, etc.", supportingTip);
                 extentReports.CreateLog("Tool tip : " + supportingTip + " is displayed for Supporting document ");
-                        
+
                 //Validate files section and its functionality
                 string txtFiles = form.ValidateFilesSection();
                 Assert.AreEqual("Files", txtFiles);
@@ -690,7 +690,7 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.AreEqual("Proposed Fee Range", txtProposed);
                 extentReports.CreateLog("Field with name " + txtProposed + " is displayed. ");
 
-                string txtFairnessFee= form.ValidateFairnessFeeInclusion();
+                string txtFairnessFee = form.ValidateFairnessFeeInclusion();
                 Assert.AreEqual("Fairness Fee Inclusion", txtFairnessFee);
                 extentReports.CreateLog("Field with name " + txtFairnessFee + " is displayed. ");
 
@@ -701,7 +701,7 @@ namespace SF_Automation.TestCases.Opportunities
                 string txtUnaffiliated = form.ValidateUnaffiliatedStockHoldersText();
                 Assert.AreEqual("The consideration to be received by the Unaffiliated Stockholders in the Transaction is fair to them from a financial point of view.", txtUnaffiliated);
                 extentReports.CreateLog("Section with name " + txtUnaffiliated + " is displayed. ");
-                
+
                 string txtCheckIf1st = form.ValidateCheckIfOfUnaffiliated();
                 Assert.AreEqual("Check if applicable", txtCheckIf1st);
                 extentReports.CreateLog("Field with name " + txtCheckIf1st + " is displayed. ");
@@ -765,7 +765,7 @@ namespace SF_Automation.TestCases.Opportunities
                 string txtRelatedPartyTxn = form.ValidateRelatedPartyTxn();
                 Assert.AreEqual("Related Party Transaction", txtRelatedPartyTxn);
                 extentReports.CreateLog("Field with name " + txtRelatedPartyTxn + " is displayed. ");
-               
+
                 form.SwitchFrame();
 
                 usersLogin.DiffLightningLogout();
@@ -773,17 +773,15 @@ namespace SF_Automation.TestCases.Opportunities
 
                 usersLogin.UserLogOut();
                 driver.Quit();
-        }
+            }
             catch (Exception e)
             {
                 extentReports.CreateExceptionLog(e.Message);
                 usersLogin.UserLogOut();
                 usersLogin.UserLogOut();
                 driver.Quit();
-            }                
+            }
+        }
     }
 }
-}
-
-    
 

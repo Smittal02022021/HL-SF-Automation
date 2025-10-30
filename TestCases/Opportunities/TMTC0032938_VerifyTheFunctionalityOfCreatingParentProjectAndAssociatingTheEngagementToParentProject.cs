@@ -19,7 +19,7 @@ namespace SF_Automation.TestCases.Opportunities
         ParentProject project = new ParentProject();
         UsersLogin usersLogin = new UsersLogin();
         OpportunityDetailsPage opportunityDetails = new OpportunityDetailsPage();
-        AddOppCounterparty counterparty = new AddOppCounterparty();       
+        AddOppCounterparty counterparty = new AddOppCounterparty();
         AddOpportunityContact addContact = new AddOpportunityContact();
         EngagementDetailsPage engDetails = new EngagementDetailsPage();
 
@@ -45,7 +45,7 @@ namespace SF_Automation.TestCases.Opportunities
 
                 //Validating Title of Login Page
                 Assert.AreEqual(WebDriverWaits.TitleContains(driver, "Login | Salesforce"), true);
-                extentReports.CreateLog(driver.Title + " is displayed ");   
+                extentReports.CreateLog(driver.Title + " is displayed ");
 
                 //Calling Login function                
                 login.LoginApplication();
@@ -79,13 +79,13 @@ namespace SF_Automation.TestCases.Opportunities
                 string addedProject = project.CreateNewParentProject(value);
                 Assert.AreEqual(value, addedProject);
                 extentReports.CreateLog("Parent Project with name: " + addedProject + " is displayed after saving all the mandatory fields ");
-               
+
                 //5.	TMT0073612_Verify the functionality of associating first engagement to the Parent Project.
                 engHome.SelectDirectEngUnderHLBanker();
                 engHome.SearchEngagementWithNumberOnLightning("Project Palm Tree - Tax", "TAS - Due Diligence-Buyside");
                 string addedProjectEng = project.AssociateParentProjectToEng(value);
                 Assert.AreEqual(value, addedProjectEng);
-                string engLOB =engDetails.GetLOBL();
+                string engLOB = engDetails.GetLOBL();
                 Console.WriteLine("LOB:" + engLOB);
                 string engClient = engDetails.GetEngClientCompanyL();
                 Console.WriteLine("LOB:" + engClient);
@@ -98,6 +98,7 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("Engagement gets associated with Parent Project: " + addedProjectEng + " ");
 
                 //6.	TMT0073614_Verify that on associating engagement to parent project, engagement will populate on the parent project
+                opportunityHome.ValidateParentProjectUnderHLBanker();
                 string associatedEng = project.ValidateAssociatedEngToParentProject();
                 Assert.AreEqual("Project Palm Tree - Tax", associatedEng);
                 extentReports.CreateLog("Associated Engagement : " + associatedEng + " is populated on the Parent Project ");
@@ -107,7 +108,7 @@ namespace SF_Automation.TestCases.Opportunities
                 string Client = project.GetClientCompanyL();
                 string Currency = project.GetCurrencyL();
                 string LegalEntity = project.GetLegalEntityL();
-                Assert.AreEqual(engLOB,LOB );
+                Assert.AreEqual(engLOB, LOB);
                 Assert.AreEqual(engClient, Client);
                 Assert.AreEqual(engLegalEntity, LegalEntity);
                 Assert.AreEqual(engCurrency, Currency);
@@ -123,10 +124,10 @@ namespace SF_Automation.TestCases.Opportunities
                 Console.WriteLine("contractNumber: " + contractNumber);
                 engHome.SearchEngagementWithNumberOnLightning("Project Palm Tree - Tax", "TAS - Due Diligence-Buyside");
                 string engContractNumber = engDetails.GetContractNumberL();
-                string oppContractNumber =opportunityDetails.GetContractNumberL();
+                string oppContractNumber = opportunityDetails.GetContractNumberL();
                 Assert.AreEqual(contractNumber, engContractNumber);
                 Assert.AreEqual(contractNumber, oppContractNumber);
-                extentReports.CreateLog("Parent Contract created in Parent Project with number: " + contractNumber+ " is associated to  its associated engagement and its related opportunity. ");
+                extentReports.CreateLog("Parent Contract created in Parent Project with number: " + contractNumber + " is associated to  its associated engagement and its related opportunity. ");
 
                 //10.   TMT0073622_Verify that the Engagement Contract is selected as Main Contract and not the Parent Project Contract. 
                 string isMain = engDetails.ValidateIsMainOfAddedContractL();
@@ -147,15 +148,15 @@ namespace SF_Automation.TestCases.Opportunities
                 extentReports.CreateLog("2nd Associated Engagement : " + associatedEng2nd + " is populated as well on the Parent Project ");
 
                 //12. TMT0073626_Verify that the "Total Fee" and "Funding Fee" fields of the parent contract, will be aggregate of Total Estimated Fee of all the associated engagements on the Parent project
-                string totalFee= project.GetContractTotalFee();
-                string fundingAmount= project.GetContractFundingAmount();
+                string totalFee = project.GetContractTotalFee();
+                string fundingAmount = project.GetContractFundingAmount();
                 Console.WriteLine("totalFee:" + totalFee);
                 Console.WriteLine("fundingAmount:" + fundingAmount);
-                string totalFeeOfEngs =  (Convert.ToDouble(engFee)  + Convert.ToDouble(engFee2nd)).ToString("0.00");
+                string totalFeeOfEngs = (Convert.ToDouble(engFee) + Convert.ToDouble(engFee2nd)).ToString("0.00");
                 Console.WriteLine("totalFeeOfEngs:" + totalFeeOfEngs);
-                Assert.AreEqual(totalFee.Replace(",",""),"USD "+ totalFeeOfEngs);
+                Assert.AreEqual(totalFee.Replace(",", ""), "USD " + totalFeeOfEngs);
                 Assert.AreEqual(fundingAmount.Replace(",", ""), totalFeeOfEngs);
-                extentReports.CreateLog("Total Fee: " + totalFee + " and Funding Fee: " + fundingAmount + " of the parent Contract is aggregate of Total Estimated Fee of both the associated engagements on the Parent project " );
+                extentReports.CreateLog("Total Fee: " + totalFee + " and Funding Fee: " + fundingAmount + " of the parent Contract is aggregate of Total Estimated Fee of both the associated engagements on the Parent project ");
 
                 //13.  TMT0073628_Verify that the "Related Tab" allows you to view all the details for each associated engagement
                 //opportunityHome.ValidateParentProjectUnderHLBanker();
@@ -163,7 +164,7 @@ namespace SF_Automation.TestCases.Opportunities
                 Assert.IsTrue(project.VerifyRelatedTabSections(), "Verified that displayed sub sections of Related tab are same");
                 extentReports.CreateLog("Displayed sub sections of Related tab are correct ");
 
-                string billing =project.ValidateBillingRequestSection();
+                string billing = project.ValidateBillingRequestSection();
                 Assert.AreEqual("Billing Requests", billing);
                 extentReports.CreateLog("Section with name : " + billing + " is displayed on Related tab ");
 
@@ -193,9 +194,7 @@ namespace SF_Automation.TestCases.Opportunities
                 usersLogin.UserLogOut();
                 driver.Quit();
             }
-        }        
+        }
     }
 }
-
-    
 
