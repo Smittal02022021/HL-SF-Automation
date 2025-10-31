@@ -37,7 +37,7 @@ namespace SF_Automation.Pages
         By linkSubjectName = By.XPath("//*[contains(@id,'DuhQp_body')]/table/tbody/tr[5]/th/a");
 
         //public static string fileTC1649 = "T1649_AdditionalClientSubjectRequired.xlsx";
-        //string excelPath = @"C:\Users\vkumar0427\source\repos\SF_Automation\TestData\" + fileTC1649;
+        //string excelPath = @"C:\Users\YRamann\source\repos\SF_Automation\TestData\" + fileTC1649;
 
         public void ClickContinue()
         {

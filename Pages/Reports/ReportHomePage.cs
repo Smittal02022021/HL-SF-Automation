@@ -35,7 +35,7 @@ namespace SF_Automation.Pages.Reports
         By btnStateCountryPicklistWarning = By.XPath("//input[@id='buttonNever']");
         By btnDiscardL = By.XPath("//footer//button[text()='Discard']");
 
-        string dir = @"C:\Users\VKumar0427\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\Users\YRamann\source\repos\SF_Automation\TestData\";
 
         //To Click on Company tab
         public void ClickReportsTab()
