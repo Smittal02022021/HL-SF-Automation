@@ -953,6 +953,7 @@
     <Compile Include="TestCases\TimeRecordManager\LV_TMTT0039653_VerifyTFRSupervisorUserChangesImplementedOnCVASTimeTrackingLightningView.cs" />
     <Compile Include="TestData\ReadExcelData.cs" />
     <Compile Include="TestData\ReadJSONData.cs" />
+    <Compile Include="Test_Folder\TestClass.cs" />
     <Compile Include="UtilityFunctions\BaseClass.cs" />
     <Compile Include="UtilityFunctions\Outlook.cs" />
     <Compile Include="UtilityFunctions\SendEmailNotification.cs" />

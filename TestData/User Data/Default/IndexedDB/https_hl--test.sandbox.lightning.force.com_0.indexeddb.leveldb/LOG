@@ -1,0 +1,6 @@
+2025/10/31-15:29:49.579 4f0 Reusing MANIFEST C:\Users\YRamann\AppData\Local\Google\Chrome\User Data\Default\IndexedDB\https_hl--test.sandbox.lightning.force.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/10/31-15:29:49.580 4f0 Recovering log #266
+2025/10/31-15:29:49.581 4f0 Reusing old log C:\Users\YRamann\AppData\Local\Google\Chrome\User Data\Default\IndexedDB\https_hl--test.sandbox.lightning.force.com_0.indexeddb.leveldb/000266.log 
+2025/10/31-15:40:44.667 7938 Level-0 table #271: started
+2025/10/31-15:40:44.699 7938 Level-0 table #271: 1823894 bytes OK
+2025/10/31-15:40:44.702 7938 Delete type=0 #266

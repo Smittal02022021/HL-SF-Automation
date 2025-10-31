@@ -67,7 +67,7 @@ namespace SF_Automation.Pages
         By imgContact = By.XPath("(//div[1]/records-highlights-icon/force-record-avatar/span/img[@title='Contact'])[1]");
         By valEmailL = By.XPath("//flexipage-field[@data-field-id='RecordEmailField']//a");
 
-        string dir = @"C:\Users\VKumar0427\source\repos\SF_Automation\TestData\";
+        string dir = @"C:\Users\YRamann\source\repos\SF_Automation\TestData\";
 
         public string SearchContactWithExternalContact(string file)
         {
